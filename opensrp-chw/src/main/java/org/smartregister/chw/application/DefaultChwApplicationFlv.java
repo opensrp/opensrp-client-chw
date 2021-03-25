@@ -34,6 +34,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasDeliveryKit() {
+        return false;
+    }
+
+    @Override
     public boolean hasPNC() {
         return true;
     }
@@ -204,7 +209,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean saveOnSubmission() {
-        return true;
+        return false;
     }
 
     @Override

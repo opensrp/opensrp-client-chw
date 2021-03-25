@@ -143,7 +143,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     protected void evaluateANCCard() throws Exception {
-        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes")) {
+        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes") && !editMode) {
             return;
         }
 

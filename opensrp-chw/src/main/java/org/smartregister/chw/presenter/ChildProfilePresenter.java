@@ -31,6 +31,7 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 
@@ -131,8 +132,8 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     @Override
-    public void refreshProfileTopSection(CommonPersonObjectClient client) {
-        super.refreshProfileTopSection(client);
+    public void refreshProfileTopSection(CommonPersonObjectClient client, CommonPersonObject familyPersonObject) {
+        super.refreshProfileTopSection(client, familyPersonObject);
 
         if (ChwApplication.getApplicationFlavor().showLastNameOnChildProfile()) {
             String relationalId = getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true).toLowerCase();

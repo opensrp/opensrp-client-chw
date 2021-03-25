@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import org.apache.commons.lang3.EnumUtils;
 import org.json.JSONArray;
@@ -25,21 +26,34 @@ import timber.log.Timber;
 
 public class PncRegisterActivity extends CorePncRegisterActivity {
 
+    private boolean closeOnCancel = false;
+
     public static void startPncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name, String last_menstrual_period) {
         Intent intent = new Intent(activity, PncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
-        phone_number = phoneNumber;
-        familyBaseEntityId = familyBaseID;
-        form_name = formName;
-        familyName = family_name;
-        unique_id = uniqueId;
-        lastMenstrualPeriod = last_menstrual_period;
+
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.PHONE_NUMBER, phoneNumber);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, familyBaseID);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.FORM_NAME, formName);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.FAMILY_NAME, family_name);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.UNIQUE_ID, uniqueId);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.LAST_LMP, last_menstrual_period);
+
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, "ec_pregnancy_outcome");
+        intent.putExtra("closeOnCancel", true);
         activity.startActivity(intent);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().getBoolean("closeOnCancel")) {
+            closeOnCancel = true;
+        }
+    }
+    
     @Override
     public void onRegistrationSaved(String encounterType, boolean isEdit, boolean hasChildren) {
         if (encounterType.equalsIgnoreCase(Constants.EVENT_TYPE.PREGNANCY_OUTCOME)) {
@@ -90,6 +104,8 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
+        } else if (resultCode == Activity.RESULT_CANCELED && closeOnCancel) {
+            this.finish();
         }
     }
 }

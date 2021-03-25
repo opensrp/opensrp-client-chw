@@ -77,7 +77,7 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
     }
 
     protected void evaluateDeliveryKit() throws BaseAncHomeVisitAction.ValidationException {
-        if (memberObject.getDeliveryKit() != null && memberObject.getDeliveryKit().equalsIgnoreCase("Yes")) {
+        if (memberObject.getDeliveryKit() != null && memberObject.getDeliveryKit().equalsIgnoreCase("Yes") && !editMode) {
             return;
         }
 

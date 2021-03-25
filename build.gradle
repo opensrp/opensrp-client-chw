@@ -57,6 +57,7 @@ allprojects {
         maven { url "https://dl.bintray.com/ona/rdt-capture" }
         maven { url "http://dl.bintray.com/ona/kujaku" }
         maven { url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases' }
+        maven { url "https://dl.bintray.com/ona/kujaku" }
     }
 }
 
