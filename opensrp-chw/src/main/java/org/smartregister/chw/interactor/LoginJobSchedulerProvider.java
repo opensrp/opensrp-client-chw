@@ -8,6 +8,7 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.job.BasePncCloseJob;
+import org.smartregister.chw.job.CloseFamilyJob;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.DocumentConfigurationServiceJob;
@@ -70,6 +71,7 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
         VaccineRecurringServiceJob.scheduleJobImmediately(VaccineRecurringServiceJob.TAG);
         SyncLocationsByLevelAndTagsServiceJob.scheduleJobImmediately(SyncLocationsByLevelAndTagsServiceJob.TAG);
+        CloseFamilyJob.scheduleJobImmediately(CloseFamilyJob.TAG);
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
             DocumentConfigurationServiceJob.scheduleJobImmediately(DocumentConfigurationServiceJob.TAG);

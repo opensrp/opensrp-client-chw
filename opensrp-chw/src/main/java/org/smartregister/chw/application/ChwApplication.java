@@ -45,6 +45,7 @@ import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
+import org.smartregister.chw.dao.EventDao;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
@@ -62,6 +63,7 @@ import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyMetadata;
 import org.smartregister.family.util.AppExecutors;
@@ -87,7 +89,7 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-public class ChwApplication extends CoreChwApplication {
+public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener {
 
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
@@ -222,6 +224,7 @@ public class ChwApplication extends CoreChwApplication {
         );
 
         SyncStatusBroadcastReceiver.init(this);
+        SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
 
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
 
@@ -345,6 +348,21 @@ public class ChwApplication extends CoreChwApplication {
     @Override
     public boolean getChildFlavorUtil() {
         return flavor.getChildFlavorUtil();
+    }
+
+    @Override
+    public void onSyncStart() {
+        Timber.v("Syncing from main");
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        Timber.v(fetchStatus.displayValue());
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        new AppExecutors().diskIO().execute(EventDao::closeReopenedClients);
     }
 
     public interface Flavor {

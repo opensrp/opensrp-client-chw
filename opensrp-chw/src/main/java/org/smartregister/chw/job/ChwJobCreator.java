@@ -64,6 +64,8 @@ public class ChwJobCreator implements JobCreator {
                 return new StockUsageReportJob();
             case DocumentConfigurationServiceJob.TAG:
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
+            case CloseFamilyJob.TAG:
+                return new CloseFamilyJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/
