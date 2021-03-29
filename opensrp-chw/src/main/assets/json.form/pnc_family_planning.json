@@ -101,6 +101,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_family_planning_relevance.yml"
+            }
+          }
         }
       },
       {
