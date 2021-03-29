@@ -177,6 +177,24 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option"
+        },
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fast_breathing",
+                  "chk_chest_indrawing",
+                  "chk_low_or_high_temp",
+                  "chk_refuses_to_suckle",
+                  "chk_unable_to_suck",
+                  "chk_no_movement",
+                  "chk_convulsion",
+                  "chk_jaundice"
+                ]
+              }
+            ]
+          }
         }
       }
     ]
