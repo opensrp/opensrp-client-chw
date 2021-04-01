@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.util.JsonFormUtils;
@@ -48,6 +50,8 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     private Map<String, Boolean> selectedOptions = new HashMap<>();
     private String visitJson;
     private boolean olderThen24Hours;
+    private AppExecutors appExecutors;
+    private ProgressDialog progressDialog;
 
     public static WashCheckDialogFragment getInstance(String familyBaseEntityID, Long visitDate) {
         WashCheckDialogFragment washCheckDialogFragment = new WashCheckDialogFragment();
@@ -66,7 +70,14 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initFragment();
+    }
 
+    private void initFragment() {
+        appExecutors = new AppExecutors();
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage(getActivity().getResources().getString(R.string.updating));
+        progressDialog.setCancelable(false);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Holo_Light_NoActionBar);
     }
 
@@ -205,26 +216,37 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         }
         if (v.getId() == R.id.textview_update) {
             updateDB();
-            dismiss();
         }
     }
 
     private void updateDB() {
-        try {
-            visitJson = updateVisitJson(visitJson);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        // update visits table
-        WashCheckDao.updateWashCheckVisitDetails(washCheckDate,
-                baseEntityID,
-                handwashingYes.isChecked() ? "Yes" : "No",
-                drinkingYes.isChecked() ? "Yes" : "No",
-                latrineYes.isChecked() ? "Yes" : "No");
-        // update visit details table
-        WashCheckDao.updateWashCheckVisits(washCheckDate,
-                baseEntityID,
-                visitJson);
+        progressDialog.show();
+        Runnable runnable = () -> {
+            try {
+                visitJson = updateVisitJson(visitJson);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            // update visits table
+            WashCheckDao.updateWashCheckVisitDetails(washCheckDate,
+                    baseEntityID,
+                    handwashingYes.isChecked() ? "Yes" : "No",
+                    drinkingYes.isChecked() ? "Yes" : "No",
+                    latrineYes.isChecked() ? "Yes" : "No");
+            // update visit details table
+            WashCheckDao.updateWashCheckVisits(washCheckDate,
+                    baseEntityID,
+                    visitJson);
+            // closing the fragment
+            appExecutors.mainThread().execute(this::dismissFragment);
+        };
+
+        appExecutors.diskIO().execute(runnable);
+    }
+
+    private void dismissFragment() {
+        if (progressDialog.isShowing()) progressDialog.cancel();
+        dismiss();
     }
 
     @VisibleForTesting
