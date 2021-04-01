@@ -177,7 +177,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
         }
     }
 
-    private Boolean getValueFromJsonFieldNode(JSONArray field, String key) {
+    public Boolean getValueFromJsonFieldNode(JSONArray field, String key) {
         JSONObject jsonObject = JsonFormUtils.getFieldJSONObject(field, key);
         if (jsonObject == null)
             return null;
@@ -225,7 +225,7 @@ public class WashCheckDialogFragment extends DialogFragment implements View.OnCl
             try {
                 visitJson = updateVisitJson(visitJson);
             } catch (JSONException e) {
-                e.printStackTrace();
+                Timber.e(e);
             }
             // update visits table
             WashCheckDao.updateWashCheckVisitDetails(washCheckDate,
