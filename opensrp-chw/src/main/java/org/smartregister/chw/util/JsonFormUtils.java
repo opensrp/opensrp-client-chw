@@ -18,6 +18,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -607,6 +608,17 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             step++;
         }
+    }
+
+    public static String getBirthCertificateRegex() {
+        List<String> certificateNumbers = ChwChildDao.getRegisteredCertificateNumbers();
+        final String regexPrefix = "^(?!.*^(";
+        final String regexPostfix = ")$).*^(([0-9]{1,14})|\\s*).";
+        String formattedNumbers = "";
+        for (String number : certificateNumbers) {
+            formattedNumbers = formattedNumbers.concat(String.format("|%s", number));
+        }
+        return String.format("%s%s%s", regexPrefix, formattedNumbers, regexPostfix);
     }
 
     public interface Flavor {
