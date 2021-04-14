@@ -27,14 +27,16 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
                                                     String uniqueId, String familyBaseID, String family_name) {
         Intent intent = new Intent(activity, AncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
-        phone_number = phoneNumber;
-        familyBaseEntityId = familyBaseID;
-        form_name = formName;
-        familyName = family_name;
-        unique_id = uniqueId;
+
         shouldFinishOnBack = activity instanceof FamilyOtherMemberProfileActivity;
+
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.PHONE_NUMBER, phoneNumber);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.FAMILY_BASE_ENTITY_ID, familyBaseID);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.FORM_NAME, formName);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.FAMILY_NAME, family_name);
+        intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.UNIQUE_ID, uniqueId);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
-        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, "ec_anc_register");
         activity.startActivity(intent);
     }
 

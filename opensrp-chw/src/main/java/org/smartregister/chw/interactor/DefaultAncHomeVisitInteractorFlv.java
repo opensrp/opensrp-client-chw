@@ -90,9 +90,9 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
             evaluateSleepingUnderLLITN();
             evaluateANCCard();
             evaluateHealthFacilityVisit(dateMap);
-            evaluateObservation();
             evaluateTTImmunization(vaccineTaskModel);
             evaluateIPTP();
+            evaluateObservation();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
@@ -255,7 +255,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
 
         IPTPAction helper = new IPTPAction(context, serviceIteration);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(view.getContext(), Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
-        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration, memberObject.getLastMenstrualPeriod());
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {

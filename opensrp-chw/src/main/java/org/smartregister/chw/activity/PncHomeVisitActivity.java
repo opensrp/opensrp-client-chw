@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -19,7 +18,6 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
-import org.smartregister.util.LangUtils;
 
 import java.util.Date;
 

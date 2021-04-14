@@ -52,7 +52,7 @@
     <string name="profile_activity_not_visited">Marqué comme non-visité le %s</string>
 
     <string name="cancel">ANNULER</string>
-    <string name="submit">VALIDER</string>
+    <string name="submit">Sauvegarder</string>
 
     <string name="dose_not_given">La dose n\'a pas été donnée</string>
     <string name="has_birt_cert">Possède un acte de naissance?</string>
@@ -354,4 +354,7 @@
     <string name="delivery_kit">Kit d\'accouchement</string>
     <string name="family_profile_title">Ménage %1$s</string>
     <string name="family_profile_title_with_firstname">Ménage %1$s %2$s</string>
+    <string name="tutorials">Tutoriel</string>
+    <string name="counseling">Conseil</string>
+
 </resources>

@@ -132,4 +132,5 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
             return Utils.getName(trimFirstName, trimMiddleName);
         }
     }
+
 }

@@ -58,7 +58,6 @@
         "hint": "{{anc_hv_observations.step1.date_of_illness.hint}}",
         "expanded": false,
         "max_date": "today",
-        "min_date": "today-10y",
         "v_required": {
           "value": "true",
           "err": "{{anc_hv_observations.step1.date_of_illness.v_required.err}}"

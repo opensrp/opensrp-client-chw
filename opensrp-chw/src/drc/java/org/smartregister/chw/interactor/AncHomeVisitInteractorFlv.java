@@ -64,9 +64,9 @@ public class AncHomeVisitInteractorFlv extends DefaultAncHomeVisitInteractorFlv 
             evaluateANCCard();
             evaluateDeliveryKit();
             evaluateHealthFacilityVisit(dateMap);
-            evaluateObservation();
             evaluateTTImmunization(vaccineTaskModel);
             evaluateIPTP();
+            evaluateObservation();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {

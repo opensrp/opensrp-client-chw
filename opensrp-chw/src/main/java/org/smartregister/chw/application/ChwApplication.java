@@ -9,8 +9,6 @@ import android.os.Build;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
@@ -43,13 +41,13 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.loggers.CrashlyticsTree;
 import org.smartregister.chw.core.provider.CoreAllClientsRegisterQueryProvider;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
+import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.job.ScheduleJob;
@@ -86,6 +84,8 @@ import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.P2PClassifier;
+import org.smartregister.thinkmd.ThinkMDConfig;
+import org.smartregister.thinkmd.ThinkMDLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +93,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import io.fabric.sdk.android.Fabric;
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
 
@@ -105,14 +104,14 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
     private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
-
+    private boolean isBulkProcessing;
     private boolean fetchedLoad = false;
 
     public static Flavor getApplicationFlavor() {
         return flavor;
     }
 
-    public static void prepareDirectories(){
+    public static void prepareDirectories() {
         prepareGuideBooksFolder();
         prepareCounselingDocsFolder();
     }
@@ -187,13 +186,6 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
                 getRegisteredActivities(), flavor.hasP2P());
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new CrashlyticsTree(ChwApplication.getInstance().getContext().allSharedPreferences().fetchRegisteredANM()));
-        }
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         initializeLibraries();
 
@@ -233,6 +225,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         if (getApplicationFlavor().hasMap()) {
             initializeMapBox();
         }
+
+        reloadLanguage();
     }
 
     protected void initializeMapBox() {
@@ -244,7 +238,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     private void initializeLibraries() {
         //Initialize Modules
         P2POptions p2POptions = new P2POptions(true);
-        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService());
+        p2POptions.setAuthorizationService(flavor.hasForeignData() ? new LmhAuthorizationService() : new CoreAuthorizationService(false));
         p2POptions.setRecalledIdentifier(new FailSafeRecalledID());
 
         CoreLibrary.init(context, new ChwSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP, p2POptions);
@@ -286,6 +280,9 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         SyncStatusBroadcastReceiver.init(this);
         SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
 
+        if (p2pProcessingStatusBroadcastReceiver == null)
+            p2pProcessingStatusBroadcastReceiver = new P2pProcessingStatusBroadcastReceiver(this);
+
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(p2pProcessingStatusBroadcastReceiver
                         , new IntentFilter(AllConstants.PeerToPeer.PROCESSING_ACTION));
@@ -302,6 +299,11 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
         NativeFormLibrary.getInstance().setPerformFormTranslation(true);
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
+        // ThinkMD library
+        ThinkMDConfig thinkMDConfig = new ThinkMDConfig();
+        thinkMDConfig.setThinkmdEndPoint(BuildConfig.THINKMD_BASE_URL);
+        thinkMDConfig.setThinkmdBaseUrl(BuildConfig.THINKMD_END_POINT);
+        ThinkMDLibrary.init(getApplicationContext(), thinkMDConfig);
     }
 
     @Override
@@ -393,7 +395,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
             Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
-            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing() || isBulkProcessing())
                 return;
 
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
@@ -422,6 +424,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     @Override
     public void onSyncStart() {
         Timber.v("Sync started");
+        setBulkProcessing(false);
         fetchedLoad = false;
     }
 
@@ -431,6 +434,50 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
             fetchedLoad = true;
 
         Timber.v("Sync progressing : Status " + FetchStatus.fetched.name());
+    }
+
+    @Override
+    public boolean allowLazyProcessing() {
+        return true;
+    }
+
+    @Override
+    public String[] lazyProcessedEvents() {
+        return new String[]{
+                CoreConstants.EventType.CHILD_HOME_VISIT,
+                CoreConstants.EventType.FAMILY_KIT,
+                CoreConstants.EventType.CHILD_VISIT_NOT_DONE,
+                CoreConstants.EventType.WASH_CHECK,
+                CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT,
+                CoreConstants.EventType.MINIMUM_DIETARY_DIVERSITY,
+                CoreConstants.EventType.MUAC,
+                CoreConstants.EventType.LLITN,
+                CoreConstants.EventType.ECD,
+                CoreConstants.EventType.DEWORMING,
+                CoreConstants.EventType.VITAMIN_A,
+                CoreConstants.EventType.EXCLUSIVE_BREASTFEEDING,
+                CoreConstants.EventType.MNP,
+                CoreConstants.EventType.IPTP_SP,
+                CoreConstants.EventType.TT,
+                CoreConstants.EventType.VACCINE_CARD_RECEIVED,
+                CoreConstants.EventType.DANGER_SIGNS_BABY,
+                CoreConstants.EventType.PNC_HEALTH_FACILITY_VISIT,
+                CoreConstants.EventType.KANGAROO_CARE,
+                CoreConstants.EventType.UMBILICAL_CORD_CARE,
+                CoreConstants.EventType.IMMUNIZATION_VISIT,
+                CoreConstants.EventType.OBSERVATIONS_AND_ILLNESS,
+                CoreConstants.EventType.SICK_CHILD,
+                CoreConstants.EventType.ANC_HOME_VISIT,
+                org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE,
+                org.smartregister.chw.anc.util.Constants.EVENT_TYPE.ANC_HOME_VISIT_NOT_DONE_UNDO,
+                CoreConstants.EventType.PNC_HOME_VISIT,
+                CoreConstants.EventType.PNC_HOME_VISIT_NOT_DONE,
+                FamilyPlanningConstants.EventType.FP_FOLLOW_UP_VISIT,
+                FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION,
+                org.smartregister.chw.malaria.util.Constants.EVENT_TYPE.MALARIA_FOLLOW_UP_VISIT,
+                CoreConstants.EventType.CHILD_VACCINE_CARD_RECEIVED,
+                CoreConstants.EventType.BIRTH_CERTIFICATION
+        };
     }
 
     @Override
@@ -451,6 +498,14 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     public void onStatusUpdate(boolean isProcessing) {
         if (!isProcessing)
             startProcessing();
+    }
+
+    public boolean isBulkProcessing() {
+        return isBulkProcessing;
+    }
+
+    public void setBulkProcessing(boolean bulkProcessing) {
+        isBulkProcessing = bulkProcessing;
     }
 
     public interface Flavor {
@@ -511,6 +566,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         boolean showMyCommunityActivityReport();
 
         boolean useThinkMd();
+
+        boolean hasDeliveryKit();
 
         boolean hasFamilyLocationRow();
 

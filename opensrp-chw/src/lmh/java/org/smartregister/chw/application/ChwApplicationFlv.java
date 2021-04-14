@@ -98,6 +98,12 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean useThinkMd() {
+        return true;
+    }
+
+    @Override
+
     public boolean splitUpcomingServicesView() {
         return true;
     }

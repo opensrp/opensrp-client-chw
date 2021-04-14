@@ -36,8 +36,11 @@ public class IPTPAction extends HomeVisitActionHelper {
         this.serviceIteration = serviceIteration;
     }
 
-    public JSONObject preProcess(JSONObject jsonObject, String iteration) throws JSONException {
+    public JSONObject preProcess(JSONObject jsonObject, String iteration, String lastMenstrualPeriod) throws JSONException {
         JSONArray fields = JsonFormUtils.fields(jsonObject);
+
+        JSONObject iptpJsonObject = JsonFormUtils.getFieldJSONObject(fields, "iptp{0}_date");
+        iptpJsonObject.put(JsonFormConstants.MIN_DATE, lastMenstrualPeriod);
 
         String title = jsonObject.getJSONObject(JsonFormConstants.STEP1).getString("title");
 
