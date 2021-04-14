@@ -32,7 +32,7 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                 .withHelper(new DietaryHelper())
-                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(context,view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getDIETARY(), null, details, null))
                 .build();
 
         actionList.put(context.getString(R.string.minimum_dietary_title), action);
