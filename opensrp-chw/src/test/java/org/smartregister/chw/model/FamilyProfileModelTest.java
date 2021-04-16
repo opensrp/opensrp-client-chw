@@ -13,10 +13,17 @@ public class FamilyProfileModelTest extends BaseUnitTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Test
-    public void testGetFormAsJson() {
+    public void testProcessFamilyRegistrationForm() {
         FamilyProfileModel profileModel = Mockito.mock(FamilyProfileModel.class);
-        profileModel.processFamilyRegistrationForm(Mockito.anyString(),Mockito.anyString());
-        Mockito.verify(profileModel).processFamilyRegistrationForm(Mockito.anyString(),Mockito.anyString());
+        profileModel.processFamilyRegistrationForm(Mockito.anyString(), Mockito.anyString());
+        Mockito.verify(profileModel).processFamilyRegistrationForm(Mockito.anyString(), Mockito.anyString());
+    }
+
+    @Test
+    public void testUpdateWra() {
+        FamilyProfileModel profileModel = Mockito.mock(FamilyProfileModel.class);
+        profileModel.updateWra(Mockito.any());
+        Mockito.verify(profileModel).updateWra(Mockito.any());
     }
 
 }
