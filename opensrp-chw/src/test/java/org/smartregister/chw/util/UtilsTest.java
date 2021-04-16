@@ -12,6 +12,8 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.Utils;
 
+import java.util.Arrays;
+
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.chw.util.Utils.getClientName;
 import static org.smartregister.chw.util.Utils.getFormattedDateFromTimeStamp;
@@ -95,5 +97,11 @@ public class UtilsTest extends BaseUnitTest {
     public void testGetWFHZScore() {
         double score = org.smartregister.chw.util.Utils.getWFHZScore("Male", "70", "70");
         Assert.assertNotEquals(100.0, score, 0.0);
+    }
+
+    @Test
+    public void testToCSV() {
+        String csv = org.smartregister.chw.util.Utils.toCSV(Arrays.asList("foo", "bar", "baz"));
+        Assert.assertEquals("foo, bar, baz ",csv);
     }
 }
