@@ -55,7 +55,7 @@
     }
   },
   "step1": {
-    "title": "CHILD DETAILS",
+    "title": "DÉTAILS DE L'ENFANT",
     "next": "step2",
     "fields": [
       {
@@ -79,7 +79,7 @@
         "openmrs_entity_id": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "Take the child's height (cm)",
+        "hint": "Prenez la taille de l'enfant (cm)",
         "v_required": {
           "value": "true",
           "err": "Please enter the child's height"
@@ -92,7 +92,7 @@
         "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "Take the child's weight (kgs)",
+        "hint": "Prenez le poids de l'enfant (en kg)",
         "v_required": {
           "value": "true",
           "err": "Please enter the child's weight"
@@ -105,7 +105,7 @@
         "openmrs_entity_id": "child_prob",
         "openmrs_entity_parent": "",
         "edit_type": "name",
-        "hint": "What is the child's problem?",
+        "hint": "Quel est le problème de l'enfant?",
         "v_required": {
           "value": "true",
           "err": "Please enter the child's problem"
@@ -114,7 +114,7 @@
     ]
   },
   "step2": {
-    "title": "GENERAL DANGER SIGNS",
+    "title": "SIGNES GÉNÉRAUX DE DANGER",
     "display_back_button": "true",
     "next": "step3",
     "fields": [
@@ -124,8 +124,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Check for general danger signs:",
-        "label_info_text": "Ask the caregiver and observe.",
+        "label": "Vérifiez les signes généraux de danger :",
+        "label_info_text": "Demandez à l'aidant et observez.",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "None"
@@ -133,37 +133,37 @@
         "options": [
           {
             "key": "not_able_to_drink",
-            "text": "Child is not able to drink or breastfeed",
+            "text": "L'enfant n'est pas capable de boire ou d'allaiter.",
             "value": false,
             "openmrs_choice_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "vomiting_everything",
-            "text": "Child is vomiting everything",
+            "text": "L'enfant vomit tout.",
             "value": false,
             "openmrs_choice_id": "164482AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "convulsions",
-            "text": "Child has had convulsions",
+            "text": "L'enfant a eu des convulsions.",
             "value": false,
             "openmrs_choice_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "lethargic",
-            "text": "Child is lethargic or unconscious",
+            "text": "L'enfant est léthargique ou inconscient.",
             "value": false,
             "openmrs_choice_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "child_convulsing_now",
-            "text": "Child is convulsing now",
+            "text": "L'enfant a des convulsions.",
             "value": false,
             "openmrs_choice_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "None",
-            "text": "None",
+            "text": "Aucune.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -179,7 +179,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child Has: VERY SEVERE DISEASE \n- Quickly complete the rest of this assessment \n- Give any pre-referral treatment immediately \n- Treat to prevent low blood sugar \n- Keep the child warm \n- Refer URGENTLY",
+        "text": "L'ENFANT A UN SIGNE DE DANGER : \n- Complétez rapidement le reste de cette évaluation \n- Donner immédiatement tout traitement de pré-référence \n- Traitement pour prévenir l'hypoglycémie \n- Garder l'enfant au chaud \n- Renvoi URGENT",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -195,21 +195,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "74745AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "CHILD IS CONVULSING NOW: Give diazepam",
+        "label": "L'ENFANT EST MAINTENANT EN CONVULSIONS : Donner du diazépam.",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "165169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Diazepam given"
+            "text": "Diazépam donné"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "162854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Diazepam NOT given"
+            "text": "Diazépam NON donné"
           }
         ],
         "relevance": {
@@ -227,7 +227,7 @@
     ]
   },
   "step3": {
-    "title": "MAIN SYMPTOMS",
+    "title": "SYMPTÔMES PRINCIPAUX",
     "display_back_button": "true",
     "next": "step4",
     "fields": [
@@ -237,7 +237,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have any of these symptoms?",
+        "label": "L'enfant présente-t-il l'un de ces symptômes ?",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "no_symptom"
@@ -245,31 +245,31 @@
         "options": [
           {
             "key": "difficult_breathing",
-            "text": "Cough or difficulty breathing",
+            "text": "Toux ou difficultés respiratoires",
             "value": false,
             "openmrs_choice_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "diarrhoea",
-            "text": "Diarrhoea",
+            "text": "Diarrhée",
             "value": false,
             "openmrs_choice_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fever",
-            "text": "Fever",
+            "text": "Fièvre",
             "value": false,
             "openmrs_choice_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "ear_problems",
-            "text": "Ear problems",
+            "text": "Problèmes d'oreille",
             "value": false,
             "openmrs_choice_id": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_symptom",
-            "text": "None",
+            "text": "Aucune",
             "value": false,
             "openmrs_choice_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -285,7 +285,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has no danger signs or symptoms . \nFollow-up with the caregiver to make sure the child stays healthy.",
+        "text": "L'enfant ne présente aucun signe ou symptôme de danger. \nFaites un suivi avec la personne qui s'occupe de l'enfant pour vous assurer qu'il reste en bonne santé..",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -298,7 +298,7 @@
     ]
   },
   "step4": {
-    "title": "COUGH OR DIFFICULT BREATHING",
+    "title": "VÉRIFICATION DE LA TOUX OU DES DIFFICULTÉS RESPIRATOIRES",
     "next": "step5",
     "display_back_button": "true",
     "fields": [
@@ -308,21 +308,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have cough or difficult breathing?",
+        "label": "L'enfant tousse-t-il ou a-t-il des difficultés à respirer?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "v_required": {
@@ -344,7 +344,7 @@
         "openmrs_entity_id": "5959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "How many days has the child had a cough or difficult breathing?",
+        "hint": "Depuis combien de jours l'enfant tousse-t-il ou a-t-il des difficultés respiratoires ?",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -363,8 +363,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Procedure:\n- Count the breaths in one minute. \n- Look for chest indrawing.\n- Look and listen for stridor.\n- Look and listen for wheezing.",
-        "toaster_info_text": "CHILD MUST BE CALM. \n- If pulse oximeter is available determine oxygen saturation and refer if < 90%.",
+        "text": "Procédure :\n- Comptez les respirations en une minute.  \n- Recherchez un tirage sous-costal.\n- Regardez et écoutez si l'enfant a un stridor.\n- Regardez et écoutez si la respiration est sifflante.",
+        "toaster_info_text": "(L'ENFANT DOIT ÊTRE CALME). \n- Si vous disposez d'un oxymètre de pouls, déterminez la saturation en oxygène et indiquez si elle est inférieure à 90%.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -380,7 +380,7 @@
         "openmrs_entity_id": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "Number of breaths per minute",
+        "hint": "Nombre de respirations par minute",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -413,7 +413,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Which of these difficult breathing symptoms does the child display?",
+        "label": "Parmi ces symptômes respiratoires difficiles, lesquels l'enfant présente-t-il ?",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none",
@@ -422,25 +422,25 @@
         "options": [
           {
             "key": "wheezing",
-            "text": "Child is wheezing",
+            "text": "L'enfant a une respiration sifflante.",
             "value": false,
             "openmrs_choice_id": "122863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chest_indrawing",
-            "text": "Child has chest indrawing",
+            "text": "L'enfant a un tirage au sort dans la poitrine.",
             "value": false,
             "openmrs_choice_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "stridor",
-            "text": "Child has stridor",
+            "text": "L'enfant a un stridor.",
             "value": false,
             "openmrs_choice_id": "125782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "none",
-            "text": "None",
+            "text": "Aucune.",
             "value": false,
             "openmrs_choice_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -463,7 +463,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Give a trial of rapid acting bronchodilator up to 3 times, 15-20 minutes apart.",
+        "text": "Faites un essai de bronchodilatateur à action rapide jusqu'à 3 fois, à 15-20 minutes d'intervalle.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -479,21 +479,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Did you administer the bronchodilator?",
+        "label": "Avez-vous administré le bronchodilatateur ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -514,7 +514,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Count the breaths per minute again and look again for wheezing and/or chest indrawing.",
+        "text": "Comptez à nouveau les respirations par minute et vérifiez si l'enfant a une respiration sifflante et/ou un tirage sous-costal.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -531,7 +531,7 @@
         "openmrs_entity_id": "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "Number of breaths per minute",
+        "hint": "Nombre de respirations par minute",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -564,21 +564,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Chest indrawing stopped after administering bronchodilator?",
+        "label": "CLe tirage sous-costal a cessé après l'administration du bronchodilatateur ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -627,28 +627,28 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Has the child been exposed to or is infected with HIV?",
+        "label": "L'enfant a-t-il été exposé ou est-il infecté par le VIH ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           },
           {
             "key": "dont_know",
             "openmrs_entity": "",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Don't know"
+            "text": "Ne sait pas"
           }
         ],
         "relevance": {
@@ -711,8 +711,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: SEVERE PNEUMONIA OR VERY SEVERE DISEASE\n\n- Give first dose of an appropriate antibiotic \n- Refer URGENTLY to the hospital**",
-        "toaster_info_text": "** If referral is not possible, manage the child as described in the pneumonia section of the national referral guidelines or as in WHO Pocket Book for hospital care for children.",
+        "text": "L'enfant a : UNE PNEUMONIE GRAVE OU UNE MALADIE TRÈS GRAVE\n\n- Donner la première dose d'un antibiotique approprié. \n- Renvoyez d'urgence à l'hôpital**.",
+        "toaster_info_text": "** Si l'orientation n'est pas possible, prenez en charge l'enfant comme décrit dans la section sur la pneumonie des directives nationales d'orientation ou comme dans le livre de poche de l'OMS pour les soins hospitaliers aux enfants.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -728,8 +728,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: PNEUMONIA\n\n\n- Give oral Amoxicillin for 5 days ***\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 3 days",
-        "toaster_info_text": "***Oral Amoxicillin for 3 days could be used in patients with fast breathing but no chest indrawing in low HIV settings.\n- **** In settings where inhaled bronchodilator is not available, oral salbutamol may be tried but not recommended for treatment of severe acute wheeze.",
+        "text": "L'enfant a : PNEUMONIE\n\n\n- - Amoxicilline par voie orale pendant 5 jours ***\n- En cas de respiration sifflante (ou de disparition après un bronchodilatateur à action rapide), administrer un bronchodilatateur par inhalation pendant 5 jours **** \n- Apaiser la gorge et soulager la toux avec un remède sûr.\n-  En cas de toux ou de respiration sifflante récurrente ou pendant plus de 14 jours, demandez une évaluation de la tuberculose ou de l'asthme. \n- Indiquer à la mère quand elle doit revenir immédiatement.\n- Suivi dans 3 jours.",
+        "toaster_info_text": "***L'amoxicilline orale pendant 3 jours pourrait être utilisée chez les patients qui respirent rapidement mais qui n'ont pas de tirage sous-costal dans un contexte de VIH faible.\n- **** Dans les milieux où un bronchodilatateur inhalé n'est pas disponible, le salbutamol oral peut être essayé mais n'est pas recommandé pour le traitement de la respiration sifflante aiguë sévère.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -745,8 +745,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: COUGH OR COLD\n\n- If wheezing (or disappeared afte rapidly acting bronchodilator) give an inhaled bronchodilator for 5 days ****\n- Soothe the throat and relieve the cough with a safe remedy\n- If coughing or more than 14 days or recurrent wheeze, refer for possible TB or asthma assessment\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
-        "toaster_info_text": "**** In settings where inhaled bronchodilator is not available, oral salbutamol may be tried but not recommended for treatment of severe acute wheeze.",
+        "text": "L'enfant a : LA TOUX OU LE FROID\n\n- En cas de respiration sifflante (ou de disparition après un bronchodilatateur à action rapide), administrer un bronchodilatateur par inhalation pendant 5 jours ****\n- Apaiser la gorge et soulager la toux avec un remède sûr.\n- - En cas de toux ou de respiration sifflante récurrente ou pendant plus de 14 jours, demandez une évaluation de la tuberculose ou de l'asthme. \n- Indiquer à la mère quand elle doit revenir immédiatement.\n- Suivi dans 5 jours si la situation ne s'améliore pas.",
+        "toaster_info_text": "**** Dans les milieux où il n'existe pas de bronchodilatateur inhalé, le salbutamol oral peut être essayé mais n'est pas recommandé pour le traitement de la respiration sifflante aiguë sévère.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -762,18 +762,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "severe_pneumonia_treatment",
         "openmrs_entity_parent": "",
-        "label": "Treatment given:",
+        "label": "Traitement donné :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "first_dose_antibiotic",
-            "text": "First dose of an appropriate antibiotic given",
+            "text": "Première dose d'un antibiotique approprié administrée.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referred_urgently2",
-            "text": "URGENTLY referred to hospital",
+            "text": "Renvoi d'urgence à l'hôpital.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -796,7 +796,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "CHEST INDRAWING & HIV EXPOSED/INFECTED TREATMENT:\n\n- Give first dose of amoxicillin and refer.",
+        "text": " TIRAGE AU SORT DE LA POITRINE ET TRAITEMENT DU VIH EXPOSÉ/INFECTÉ :\n\n- Donner la première dose d'amoxicilline et référer.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -812,18 +812,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "136768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given:",
+        "label": "Traitement administré :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "first_dose_antibiotic",
-            "text": "First dose of amoxicillin given",
+            "text": "Première dose d'amoxicilline administrée.",
             "value": false,
             "openmrs_choice_id": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referred",
-            "text": "Referred",
+            "text": "Référé",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -846,30 +846,30 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "114100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given:",
+        "label": "Traitement donné :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "oral_amoxicillin",
-            "text": "Oral Amoxicillin given for 5 days",
+            "text": "Amoxicilline administrée par voie orale pendant 5 jours.",
             "value": false,
             "openmrs_choice_id": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "oral_amoxicillin2",
-            "text": "Oral Amoxicillin given for 3 days",
+            "text": "Amoxicilline administrée par voie orale pendant 3 jours.",
             "value": false,
             "openmrs_choice_id": "71160AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "inhaled_broncodilator",
-            "text": "Inhaled bronchodilator given for 5 days",
+            "text": "Bronchodilatateur inhalé administré pendant 5 jours.",
             "value": false,
             "openmrs_choice_id": "162400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referred_tb_asthma",
-            "text": "Referred for possible TB or asthma assessment",
+            "text": "Renvoi pour une éventuelle évaluation de la tuberculose ou de l'asthme.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -892,18 +892,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given:",
+        "label": "Traitement donné:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "inhaled_bronchodilator_cough",
-            "text": "Inhaled bronchodilator given for 5 days",
+            "text": "Bronchodilatateur inhalé administré pendant 5 jours.",
             "value": false,
             "openmrs_choice_id": "162400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referred_tb_asthma",
-            "text": "Referred for possible TB or asthma assessment",
+            "text": "Renvoi pour une éventuelle évaluation de la tuberculose ou de l'asthme.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -923,7 +923,7 @@
     ]
   },
   "step5": {
-    "title": "DIARRHOEA CHECK",
+    "title": "CONTRÔLE DE LA DIARRHÉE",
     "next": "step6",
     "display_back_button": "true",
     "fields": [
@@ -933,21 +933,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have diarrhoea?",
+        "label": "L'enfant a-t-il la diarrhée ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -969,7 +969,7 @@
         "openmrs_entity_id": "164456AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "For how many days?",
+        "hint": "Pendant combien de jours ?",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -988,21 +988,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "117671AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is there blood in the stool?",
+        "label": "Y a-t-il du sang dans les selles ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -1023,7 +1023,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "label": "What is the general condition on the child?",
+        "label": "Quel est l'état général de l'enfant ?",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
@@ -1031,19 +1031,19 @@
         "options": [
           {
             "key": "lethargic_unconcious",
-            "text": "Child is lethargic and unconscious",
+            "text": "L'enfant est léthargique et inconscient.",
             "value": false,
             "openmrs_choice_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "restless_irritable",
-            "text": "Child is restless and irritable",
+            "text": "L'enfant est agité et irritable.",
             "value": false,
             "openmrs_choice_id": "152330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "none",
-            "text": "Child not lethargic, unconscious, restless or irritable",
+            "text": "Enfant non léthargique, inconscient, agité ou irritable.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1066,21 +1066,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164457AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have sunken eyes?",
+        "label": "L'enfant a-t-il les yeux enfoncés ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child has sunken eyes"
+            "text": "Un enfant a les yeux enfoncés."
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child does not have sunken eyes"
+            "text": "L'enfant n'a pas les yeux enfoncés."
           }
         ],
         "relevance": {
@@ -1101,21 +1101,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "drinking",
         "openmrs_entity_parent": "",
-        "label": "Offer the child fluid. How is the child drinking?",
+        "label": "Proposez à l'enfant du liquide. \nComment l'enfant boit-il ?",
         "options": [
           {
             "key": "drinking_poorly",
             "openmrs_entity": "",
             "openmrs_entity_id": "1983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child is not able to drink or drinking poorly"
+            "text": "L'enfant n'est pas capable de boire ou boit mal."
           },
           {
             "key": "drinking_eargerly",
             "openmrs_entity": "",
             "openmrs_entity_id": "1840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child is drinking eagerly, thirsty"
+            "text": "L'enfant boit avidement, il a soif."
           }
         ],
         "relevance": {
@@ -1136,21 +1136,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "How does the skin of the abdomen react when pinched?",
+        "label": "Comment la peau de l'abdomen réagit-elle lorsqu'elle est pincée ?",
         "options": [
           {
             "key": "skin_very_slowly",
             "openmrs_entity": "",
             "openmrs_entity_id": "164458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Skin pinch goes back very slowly (longer than 2 seconds)?"
+            "text": "Le pincement de la peau revient très lentement (plus de 2 secondes) ?"
           },
           {
             "key": "skin_slowly",
             "openmrs_entity": "",
             "openmrs_entity_id": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Skin pinch goes back quickly"
+            "text": "Le pincement de la peau revient rapidement."
           }
         ],
         "relevance": {
@@ -1171,21 +1171,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "145621AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Has there been cholera instances in the community or have you visited an area with cholera?",
+        "label": "Y a-t-il eu des cas de choléra dans la communauté ou avez-vous visité une zone où il y a eu le choléra ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -1318,7 +1318,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: SEVERE DEHYDRATION\n- If child has no other severe classification:\nGive fluid for severe dehydration (Plan C)\n\nOR\n\nIf child also has another severe\nclassification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n- If child is 2 years or older and there is\ncholera in your area, give antibiotic for\ncholera",
+        "text": "L'enfant a : UNE DÉSHYDRATATION SÉVÈRE\n- Si l'enfant n'a pas d'autre classification sévère :\nDonner du liquide en cas de déshydratation sévère (Plan C)\n\nOU\n\nSi l'enfant a également une autre maladie grave\nclassification :\n- Renvoyer d'URGENCE à l'hôpital avec la mère\ndonner des gorgées fréquentes de SRO en chemin\n- Conseillez à la mère de continuer\nl'allaitement maternel\n- Si l'enfant est âgé de 2 ans ou plus et qu'il y a\ncholéra dans votre région, donnez un antibiotique pour\ncholéra.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -1362,7 +1362,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: SOME DEHYDRATION\n- Give fluid, zinc supplements, and food for some\ndehydration (Plan B)\n\nIf child also has a severe classification:\n- Refer URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way\n- Advise the mother to continue\nbreastfeeding\n\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "text": "L'enfant a : UNE CERTAINE DÉSHYDRATATION\n- Donner du liquide, des suppléments de zinc et de la nourriture pour certains\nla déshydratation (Plan B).\n\nSi l'enfant a également une classification sévère :\n- Diriger d'URGENCE l'enfant vers l'hôpital avec sa mère.\ndonner des gorgées fréquentes de SRO en chemin\n- Conseillez à la mère de continuer\nl'allaitement maternel.\n\n- Indiquer à la mère quand elle doit revenir immédiatement.\n- Suivi dans les 5 jours si la situation ne s'améliore pas.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1386,12 +1386,12 @@
         }
       },
       {
-        "key": "no_dehydration_note", 
+        "key": "no_dehydration_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: NO DEHYDRATION\n- Give fluid, zinc supplements, and food to treat\ndiarrhoea at home (Plan A)\n- Advise mother when to return immediately\n- Follow-up in 5 days if not improving",
+        "text": "L'enfant a : PAS DE DÉSHYDRATATION\n- Donner du liquide, des suppléments de zinc et des aliments pour traiter\nla diarrhée à domicile (Plan A).\n- Indiquer à la mère quand elle doit revenir immédiatement.\n- Suivi dans 5 jours si la situation ne s'améliore pas .",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -1421,7 +1421,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: SEVERE PERSISTENT DIARRHOEA\n- Treat dehydration before referral unless the child\nhas another severe classification\n- REFER TO HOSPITAL URGENTLY",
+        "text": "L'enfant a : UNE DIARRHÉE GRAVE ET PERSISTANTE\n- Traiter la déshydratation avant l'orientation, sauf si l'enfant\na une autre classification sévère.\n- SE RENDRE D'URGENCE À L'HÔPITAL.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -1451,7 +1451,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: PERSISTENT DIARRHOEA\n- Advise the mother on feeding a child who has\nPERSISTENT DIARRHOEA\n- Give multivitamins and minerals (including zinc) for 14 days\n- Follow-up in 5 days\n",
+        "text": "L'enfant a : UNE DIARRHÉE PERSISTANTE\n- Conseiller la mère sur l'alimentation d'un enfant qui a\nDIARRHÉE PERSISTANTE.\n- Donner des multivitamines et des minéraux (y compris du zinc) pendant 14 jours.\n- Suivi dans 5 jours.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -1481,7 +1481,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: DYSENTERY\n- Give ciprofloxacin for 3 days\n- Follow-up in 3 days",
+        "text": "CL'enfant a : DYSENTERIE\n- Donner de la ciprofloxacine pendant 3 jours.\n- Suivi dans 3 jours.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -1511,14 +1511,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for severe dehydration (Plan C)",
+        "label": "Traitement de la déshydratation sévère (Plan C):",
         "options": [
           {
             "key": "sev_dehydratn_other_fluids",
             "openmrs_entity": "",
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Given fluid for severe dehydration (Plan C)"
+            "text": "Donner du liquide en cas de déshydratation sévère (Plan C)."
           }
         ],
         "relevance": {
@@ -1553,30 +1553,30 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for Severe dehydration with other classification",
+        "label": "Traitement de la déshydratation sévère avec une autre classification:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sev_dehydratn_no_treat",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sev_deh_referral",
-            "text": "Referred URGENTLY to hospital with mother giving frequent sips of ORS on the way",
+            "text": "Aiguillage URGENT vers l'hôpital, la mère donnant fréquemment des gorgées de SRO en chemin.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sev_deh_breastfeed",
-            "text": "Advised the mother to continue breastfeeding",
+            "text": "A conseillé à la mère de continuer à allaiter.",
             "value": false,
             "openmrs_choice_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sev_deh_no_treat",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1613,28 +1613,28 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for severe dehydration for child in a cholera prone area",
+        "label": "Traitement de la déshydratation sévère chez l'enfant dans une zone sujette au choléra.",
         "options": [
           {
             "key": "sev_deh_other_fluids",
             "openmrs_entity": "",
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Given fluid for severe dehydration (Plan C)"
+            "text": "Donner du liquide en cas de déshydratation sévère (Plan C)."
           },
           {
             "key": "sev_deh_antibiotic",
             "openmrs_entity": "",
             "openmrs_entity_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Given antibiotic for cholera"
+            "text": "Donner un antibiotique pour le choléra."
           },
           {
             "key": "sev_deh_cholera_no_treatmnt",
             "openmrs_entity": "",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No treatment"
+            "text": "Pas de traitement."
           }
         ],
         "relevance": {
@@ -1655,30 +1655,30 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment some dehydration: Plan B",
+        "label": "Traiter une certaine déshydratation : Plan B.",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "some_dehydration_referal",
-            "text": "Refered URGENTLY to hospital with mother\ngiving frequent sips of ORS on the way",
+            "text": "A été envoyé d'urgence à l'hôpital avec sa mère\nen donnant de fréquentes gorgées de SRO en chemin.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "some_dehydration_breastfeeding",
-            "text": "Advised the mother to continue breastfeeding",
+            "text": "a conseillé à la mère de continuer à allaiter.",
             "value": false,
             "openmrs_choice_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "some_dehydration_return",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "some_dehydration_follow_up",
-            "text": "Scheduled a follow-up in 5 days",
+            "text": "Un suivi est prévu dans 5 jours.",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1701,24 +1701,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "154017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for some dehydration:",
+        "label": "Traiter une certaine déshydratation:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "some_dehydration_treat_zinc",
-            "text": "Given fluid, zinc supplements, and food for some dehydration (Plan B)",
+            "text": "Donner du liquide, des suppléments de zinc et des aliments pour une certaine déshydratation (Plan B)",
             "value": false,
             "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "some_dehydration_treat_return",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "some_dehydration_treat_follow_up",
-            "text": "Scheduled a follow-up in 5 days if not improving",
+            "text": "A prévu un suivi dans 5 jours si la situation ne s'améliore pas.",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1741,24 +1741,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for no dehydration: Plan A",
+        "label": "Traitement sans déshydratation : Plan A.",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "no_dehydration_fluids",
-            "text": "Given fluid, zinc supplements, and food to treat diarrhoea at home (Plan A)",
+            "text": "Donner du liquide, des suppléments de zinc et des aliments pour traiter la diarrhée à domicile (Plan A).",
             "value": false,
             "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_dehydration_return",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_dehydration_follow_up",
-            "text": "Follow-up in 5 days if not improving",
+            "text": "Suivi dans les 5 jours si la situation ne s'améliore pas.",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1781,18 +1781,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "126626AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for severe persistent diarrhoea",
+        "label": "Traitement \npour une diarrhée persistante sévère :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sev_pers_diarrhoea_treatment",
-            "text": "Treated dehydration before referral unless the child has another severe classification",
+            "text": "Déshydratation traitée avant l'orientation, sauf si l'enfant présente une autre classification sévère.",
             "value": false,
             "openmrs_choice_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sev_pers_referel",
-            "text": "Refered to hospital",
+            "text": "Renvoi à l'hôpital",
             "value": false,
             "openmrs_choice_id": "1589AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1815,18 +1815,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for persistent diarrhoea",
+        "label": "Traitement pour la diarrhée persistante :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sev_pers_feeding",
-            "text": "Advised the mother on feeding a child who has PERSISTENT DIARRHOEA",
+            "text": "Conseiller la mère sur l'alimentation d'un enfant qui a une diarrhée persistante.",
             "value": false,
             "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sev_pers_multivitamins",
-            "text": "Gave multivitamins and minerals (including zinc) for 14 days",
+            "text": "A donné des multivitamines et des minéraux (y compris du zinc) pendant 14 jours.",
             "value": false,
             "openmrs_choice_id": "461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -1849,22 +1849,22 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for dysentery: Have you given ciprofloxacin for 3 days?",
-        "label_info_text": "Follow-up in 3 days.",
+        "label": "Traitement de la dysenterie : \nAvez-vous reçu de la ciprofloxacine pendant 3 jours ?",
+        "label_info_text": "Suivi dans 3 jours.",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Ciprofloxacin for 3 days given"
+            "text": "Ciprofloxacine pour 3 jours donnée."
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Ciprofloxacin for 3 days NOT given"
+            "text": "Ciprofloxacine pendant 3 jours NON administrée."
           }
         ],
         "relevance": {
@@ -1882,7 +1882,7 @@
     ]
   },
   "step6": {
-    "title": "FEVER",
+    "title": "FIEVRE",
     "display_back_button": "true",
     "next": "step7",
     "fields": [
@@ -1892,22 +1892,22 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have fever?",
-        "label_info_text": "*These temperatures are based on axillary temperature. Rectal temperatures are approximately 0.5°C higher.",
+        "label": "L'enfant a-t-il de la fièvre ?",
+        "label_info_text": "\n*Ces températures sont basées sur la température axillaire. Les températures rectales sont supérieures d'environ 0,5°C. ",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -1928,7 +1928,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "By history or feels hot or temperature 37.5°C* or above.",
+        "text": "Par l'histoire ou la sensation de chaleur ou une température de 37,5°C* ou plus.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -1944,28 +1944,28 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164485AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is the child sleeping under a long-lasting insecticide treated mosquito net?",
+        "label": "L'enfant dort-il sous une moustiquaire imprégnée d'insecticide longue durée ?",
         "options": [
           {
             "key": "low",
             "openmrs_entity": "",
             "openmrs_entity_id": "1407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child sleeping under a LLIT mosquito net."
+            "text": "Enfant dormant sous une moustiquaire LLIT."
           },
           {
             "key": "high",
             "openmrs_entity": "",
             "openmrs_entity_id": "1408AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child NOT sleeping under a LLIT mosquito net."
+            "text": "Enfant ne dormant pas sous une moustiquaire LLIT."
           },
           {
             "key": "no_risk",
             "openmrs_entity": "",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child not at risk at all"
+            "text": "Enfant ne présentant aucun risque."
           }
         ],
         "relevance": {
@@ -1986,21 +1986,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Has child travelled to malaria risk areas?",
+        "label": "L'enfant a-t-il voyagé dans des zones à risque de paludisme ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Have traveled to Malaria Risk Areas"
+            "text": "Ont voyagé dans des zones à risque de paludisme."
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Not travel to Malaria risk areas"
+            "text": "Ne pas se rendre dans les zones à risque de paludisme."
           }
         ],
         "relevance": {
@@ -2022,7 +2022,7 @@
         "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "For how many days has the child had fever?",
+        "hint": "Depuis combien de jours l'enfant a-t-il de la fièvre ?",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2041,21 +2041,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1100AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Has the fever been present everyday?\n\nIf fever has been more than 7 days",
+        "label": "La fièvre a-t-elle été présente tous les jours ?\n\nSi la fièvre est présente depuis plus de 7 jours. ",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -2076,35 +2076,35 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "measles",
         "openmrs_entity_parent": "",
-        "label": "Has the child had measles within the last 3 months?",
+        "label": "L'enfant a-t-il eu la rougeole au cours des 3 derniers mois ?",
         "options": [
           {
             "key": "measles_3_months",
             "openmrs_entity": "",
             "openmrs_entity_id": "134561AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child had measles in the last 3 months"
+            "text": "Un enfant a eu la rougeole au cours des 3 derniers mois"
           },
           {
             "key": "measles_now",
             "openmrs_entity": "",
             "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child has measles now"
+            "text": "Un enfant a maintenant la rougeole"
           },
           {
             "key": "no_measles",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child has NOT had measles in the last 3 months"
+            "text": "L'enfant n'a PAS eu la rougeole au cours des 3 derniers mois."
           },
           {
             "key": "not_known",
             "openmrs_entity": "",
             "openmrs_entity_id": "163609AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Not known"
+            "text": "Non connu."
           }
         ],
         "relevance": {
@@ -2125,8 +2125,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1727AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "What fever causes does the child display?",
-        "label_info_text": "Look and feel for fever symptoms **Look for local tenderness; oral sores; refusal to use a limb; hot tender swelling; red tender skin or boils; lower abdominal pain or pain on passing urine in older children.",
+        "label": "Quelles sont les causes de la fièvre dont souffre l'enfant ?",
+        "label_info_text": "Rechercher des symptômes de fièvre ** Rechercher une sensibilité locale ; des plaies buccales ; un refus d'utiliser un membre ; un gonflement chaud et sensible ; une peau rouge et sensible ou des furoncles ; une douleur dans le bas du ventre ou une douleur au moment d'uriner chez les enfants plus âgés",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none_fever_cause"
@@ -2134,25 +2134,25 @@
         "options": [
           {
             "key": "stiff_neck",
-            "text": "Stiff neck",
+            "text": "Cou raide.",
             "value": false,
             "openmrs_choice_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fever_runny_nose",
-            "text": "Runny nose",
+            "text": "Nez qui coule.",
             "value": false,
             "openmrs_choice_id": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fever_bacteria",
-            "text": "Bacterial cause of fever**",
+            "text": "Cause bactérienne de la fièvre.**",
             "value": false,
             "openmrs_choice_id": "121262AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "none_fever_cause",
-            "text": "None",
+            "text": "Aucune.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2175,37 +2175,37 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Which measles symptoms does the child have?",
-        "label_info_text": "Look and feel for measles symptoms.",
+        "label": "Quels symptômes de la rougeole l'enfant présente-t-il ?",
+        "label_info_text": "Rechercher les symptômes de la rougeole.",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "gen_rash",
-            "text": "Generalized rash",
+            "text": "L'éruption cutanée généralisée.",
             "value": false,
             "openmrs_choice_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "cough",
-            "text": "Cough",
+            "text": "Toux.",
             "value": false,
             "openmrs_choice_id": "1488AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "measles_runny_nose",
-            "text": "Runny nose",
+            "key": "runny_nose",
+            "text": "Nez qui coule.",
             "value": false,
             "openmrs_choice_id": "113224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "red_eyes",
-            "text": "Red eyes",
+            "text": "Les yeux rouges.",
             "value": false,
             "openmrs_choice_id": "127777AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "measles_no_symptoms",
-            "text": "None",
+            "text": "Aucune.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2242,7 +2242,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Do a malaria test",
+        "text": "Faites un test de paludisme. ",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -2258,21 +2258,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Was Malaria test done?",
+        "label": "Un test de dépistage du paludisme a-t-il été effectué ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Test done"
+            "text": "Test effectué."
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Test not available or not done"
+            "text": "Test non disponible ou non effectué."
           }
         ],
         "relevance": {
@@ -2293,21 +2293,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "What were the Malaria test results?",
+        "label": "Quels ont été les résultats du test de dépistage du paludisme ?",
         "options": [
           {
             "key": "mal_pos",
             "openmrs_entity": "",
             "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child Malaria test is POSITIVE"
+            "text": "Le test du paludisme infantile est POSITIF"
           },
           {
             "key": "mal_neg",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child Malaria test in NEGATIVE"
+            "text": "Test de paludisme infantile dans NEGATIVE"
           }
         ],
         "relevance": {
@@ -2328,7 +2328,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child display any additional measles symptoms?",
+        "label": "L'enfant présente-t-il d'autres symptômes de la rougeole ?",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
@@ -2336,31 +2336,31 @@
         "options": [
           {
             "key": "deep_ulcers",
-            "text": "Deep mouth ulcers",
+            "text": "Ulcères buccaux profonds.",
             "value": false,
             "openmrs_choice_id": "111721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "ext_ulcers",
-            "text": "Extensive mouth ulcers",
+            "text": "Ulcères buccaux étendus.",
             "value": false,
             "openmrs_choice_id": "105768BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
           },
           {
             "key": "pus_eye",
-            "text": "Pus draining from eye",
+            "text": "Pus s'écoulant de l'œil.",
             "value": false,
             "openmrs_choice_id": "164491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "clouding_cornea",
-            "text": "Clouding of the cornea",
+            "text": "Nuages de la cornée.",
             "value": false,
             "openmrs_choice_id": "152939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "none",
-            "text": "None",
+            "text": "Aucune",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2397,7 +2397,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of artesunate or quinine for severe malaria\n- Give first dose of an appropriate antibiotic\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Treat the child to prevent low blood sugar\n- Refer URGENTLY to hospital",
+        "text": "L'enfant a : UNE FÉBRILITÉ TRÈS SÉVÈRE\nMALADIE\n- Donner la première dose d'artésunate ou de quinine en cas de paludisme grave\n- Donner la première dose d'un antibiotique approprié\n- Donner une dose de paracétamol en clinique en cas de forte fièvre (38,5°C ou plus)\n- Traiter l'enfant pour prévenir l'hypoglycémie\n- Renvoyer d'urgence à l'hôpital.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -2427,7 +2427,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "text": "L'enfant a : MALARIA\n- Donner les antipaludéens oraux de première ligne recommandés\n- Donner une dose de paracétamol en clinique en cas de forte fièvre (38,5°C ou plus)\n- Donner un traitement antibiotique approprié pour une cause bactérienne identifiée\nde la fièvre\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi dans les 3 jours si la fièvre persiste\n- Si la fièvre est présente tous les jours pendant plus de 7 jours, consultez\névaluation.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -2457,7 +2457,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: MALARIA\n- Give recommended first line oral antimalarial\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial cause\nof fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "text": "L'enfant a : MALARIA\n- Donner les antipaludéens oraux de première ligne recommandés\n- Donner une dose de paracétamol en clinique en cas de forte fièvre (38,5°C ou plus)\n- Donner un traitement antibiotique approprié pour une cause bactérienne identifiée\nde la fièvre\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi dans les 3 jours si la fièvre persiste\n- Si la fièvre est présente tous les jours pendant plus de 7 jours, consultez\névaluation.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -2487,7 +2487,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "text": "L'enfant a : FEVER :\nPAS DE MALARIA\n- Donner une dose de paracétamol en clinique en cas de forte fièvre (38,5°C ou plus)\n- Donner un traitement antibiotique approprié pour une bactérie identifiée\ncause de la fièvre\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi dans les 3 jours si la fièvre persiste\n- Si la fièvre est présente tous les jours pendant plus de 7 jours, consultez\névaluation.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -2517,7 +2517,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: VERY SEVERE FEBRILE\nDISEASE\n- Give first dose of an appropriate antibiotic.\n- Treat the child to prevent low blood sugar.\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Refer URGENTLY to hospital.",
+        "text": "L'enfant a : UNE FÉBRILITÉ TRÈS SÉVÈRE\nMALADIE\n- Donnez la première dose d'un antibiotique approprié.\n- Traitez l'enfant pour prévenir l'hypoglycémie.\n- Donnez une dose de paracétamol en clinique en cas de forte fièvre (38,5°C ou plus)\n- Renvoyez URGENTEMENT à l'hôpital.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -2547,7 +2547,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: FEVER\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for any identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 2 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
+        "text": "L'enfant a : FEVER\n- Donner une dose de paracétamol en clinique en cas de forte fièvre (38,5°C ou plus)\n- Donner un traitement antibiotique approprié pour toute bactérie identifiée\ncause de la fièvre\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi dans les 2 jours si la fièvre persiste\n- Si la fièvre est présente tous les jours pendant plus de 7 jours, consultez\névaluation.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -2577,8 +2577,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: SEVERE COMPLICATED\nMEASLES****\n- Give Vitamin A treatment\n- Give first dose of an appropriate antibiotic\n- If clouding of the cornea or pus draining from the eye, apply\ntetracycline eye ointment\n- Refer URGENTLY to hospital",
-        "toaster_info_text": "**** Other important complications of measles - pneumonia, stridor, diarrhoea, ear infection, and acute malnutrition - are classified in other tables.",
+        "text": "L'enfant a : SÉVÈREMENT COMPLIQUÉ\nMESURES****\n- Donner un traitement à la vitamine A\n- Donner la première dose d'un antibiotique approprié\n- En cas d'opacification de la cornée ou de pus s'écoulant de l'œil, appliquer\npommade oculaire à base de tétracycline\n- Renvoyer d'urgence à l'hôpital.",
+        "toaster_info_text": "**** Les autres complications importantes de la rougeole - pneumonie, stridor, diarrhée, infection de l'oreille et malnutrition aiguë - sont classées dans d'autres tableaux.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -2608,8 +2608,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: MEASLES WITH EYE OR\nMOUTH\nCOMPLICATIONS****\n- Give Vitamin A treatment\n- If pus draining from the eye, treat eye infection with\ntetracycline eye ointment\n- If mouth ulcers, treat with gentian violet\n- Follow-up in 3 days",
-        "toaster_info_text": "**** Other important complications of measles - pneumonia, stridor, diarrhoea, ear infection, and acute malnutrition - are classified in other tables.",
+        "text": "L'enfant a : LA ROUGEOLE OCULAIRE OU\nBOUCHE\nCOMPLICATIONS****\n- Donner un traitement à la vitamine A\n- Si du pus s'écoule de l'œil, traiter l'infection oculaire avec\npommade oculaire à base de tétracycline\n- En cas d'aphtes, traiter au violet de gentiane\n- Suivi dans 3 jours.",
+        "toaster_info_text": "**** Les autres complications importantes de la rougeole - pneumonie, stridor, diarrhée, infection de l'oreille et malnutrition aiguë - sont classées dans d'autres tableaux.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -2639,8 +2639,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has:\nMEASLES\n- Give Vitamin A treatment",
+        "text": "L'enfant a :\nMESURES\n- Donner un traitement à la vitamine A.",
         "toaster_type": "positive",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fever_treatment_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TRAITEMENT DE LA FIÈVRE ",
+        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2655,42 +2671,42 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
-        "label": "Treatment for VERY SEVERE FEBRILE DISEASE: \n\nRefer URGENTLY to hospital",
+        "label": "Traitement  \npour la MALADIE DE FEBRILE TRÈS GRAVE: \n\nRenvoyer d'urgence à l'hôpital.",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_quinine_vsf",
-            "text": "Given first dose of artesunate or quinine for severe malaria",
+            "text": "Première dose d'artésunate ou de quinine pour le paludisme grave.",
             "value": false,
             "openmrs_choice_id": "83023AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "1st_dose_antibiotic_vsf",
-            "text": "Given first dose of an appropriate antibiotic",
+            "text": "En recevant la première dose d'un antibiotique approprié.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "treat_low_blood_vsf",
-            "text": "Treated the child to prevent low blood sugar",
+            "text": "Traitement de l'enfant pour prévenir l'hypoglycémie.",
             "value": false,
             "openmrs_choice_id": "138065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "paracetamol_vsf",
-            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or above)",
+            "text": "Une dose de paracétamol est administrée en clinique en cas de forte fièvre (38,5°C ou plus)",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referal_vsf",
-            "text": "URGENTLY REFERRED child to hospital",
+            "text": "Enfant envoyé d'urgence à l'hôpital.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_vsf",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2713,48 +2729,48 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "116125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for MALARIA:",
+        "label": "Traitement  pour le PALUDISME:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_antimalarial",
-            "text": "Given recommended first line oral antimalarial",
+            "text": "Compte tenu des antipaludéens oraux de première ligne recommandés",
             "value": false,
             "openmrs_choice_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "paracetamol_mal",
-            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or above)",
+            "text": "Une dose de paracétamol est administrée en clinique en cas de forte fièvre (38,5°C ou plus)",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "antibiotic_mal",
-            "text": "Given appropriate antibiotic treatment for an identified bacterial cause of fever",
+            "text": "Donner un traitement antibiotique approprié pour une cause bactérienne de fièvre identifiée.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "retrun_mal",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referal_mal",
-            "text": "Fever was present everyday for more than 7 days, referred for assessment",
+            "text": "La fièvre a été présente tous les jours pendant plus de 7 jours, et a été soumise à une évaluation.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "follow_up_mal",
-            "text": "Scheduled a follow-up visit in 3 days",
+            "text": "Une visite de suivi est prévue dans 3 jours.",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_mal",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2772,63 +2788,47 @@
         }
       },
       {
-        "key": "no_malaria_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Child has: FEVER:\nNO MALARIA\n- Give one dose of paracetamol in clinic for high fever (38.5°C or above)\n- Give appropriate antibiotic treatment for an identified bacterial\ncause of fever\n- Advise mother when to return immediately\n- Follow-up in 3 days if fever persists\n- If fever is present every day for more than 7 days, refer for\nassessment",
-        "toaster_type": "positive",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sick_child_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "no_malaria_treat",
         "type": "check_box",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for NO MALARIA FEVER:",
+        "label": "Traitement pour PAS DE FIÈVRE PALUDÉENNE:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "paracetamol_no_mal",
-            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or above)",
+            "text": "Une dose de paracétamol est administrée en clinique en cas de forte fièvre (38,5°C ou plus).",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "antibiotic_no_mal",
-            "text": "Given appropriate antibiotic treatment for an identified bacterial cause of fever",
+            "text": "Recevoir un traitement antibiotique approprié pour une cause bactérienne de fièvre identifiée.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "retrun_no_mal",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referal_no_mal",
-            "text": "Fever was present everyday for more than 7 days, reffered for assessment",
+            "text": "La fièvre a été présente tous les jours pendant plus de 7 jours, et a été soumise à une évaluation.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "follow_up_no_mal",
-            "text": "Scheduled a follow-up visit in 3 days (if fever persists)",
+            "text": "Prévoir une visite de suivi dans 3 jours (si la fièvre persiste).",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_no_mal",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2851,36 +2851,36 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1714",
         "openmrs_entity_parent": "",
-        "label": "Treatment  for VERY SEVERE FEBRILE DISEASE:",
+        "label": "Traitement pour MALADIE FÉBRILE TRÈS GRAVE:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_antibiotic_vsf2",
-            "text": "Given first dose of an appropriate antibiotic",
+            "text": "En recevant la première dose d'un antibiotique approprié.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "treat_low_blood_vsf2",
-            "text": "Treated the child to prevent low blood sugar",
+            "text": "Traitement de l'enfant pour prévenir l'hypoglycémie.",
             "value": false,
             "openmrs_choice_id": "138065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "paracetamol_vsf2",
-            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or higher)",
+            "text": "Une dose de paracétamol est administrée en clinique en cas de forte fièvre (38,5°C ou plus).",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referal_vsf2",
-            "text": "URGENTLY REFERED child to hospital",
+            "text": "Enfant envoyé d'urgence à l'hôpital.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_vsf2",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2903,42 +2903,42 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for FEVER:",
+        "label": "Traitement pour FIÈVRE :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "paracetamol_fever",
-            "text": "Given one dose of Paracetamol in clinic for high fever (38.5°C or higher)",
+            "text": "Une dose de paracétamol est administrée en clinique en cas de forte fièvre (38,5°C ou plus).",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "antibiotic_fever",
-            "text": "Give appropriate antibiotic treatment for an identified bacterial cause of fever",
+            "text": "Donner un traitement antibiotique approprié pour une cause bactérienne de fièvre identifiée.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "return_fever",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "follow_up_fever",
-            "text": "Scheduled follow-up in 2 days (if fever persists)",
+            "text": "Suivi prévu dans 2 jours (si la fièvre persiste).",
             "value": false,
             "openmrs_choice_id": "76948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referal_fever",
-            "text": "Fever was present everyday for more than 7 days, reffered for assessment",
+            "text": "La fièvre a été présente tous les jours pendant plus de 7 jours, et a été soumise à une évaluation.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_fever",
-            "text": "No treatment given",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -2961,36 +2961,36 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "115885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for COMPLICATED MEASLES:",
+        "label": "Traitemen pour ROUGEOLE COMPLIQUÉE:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "vit_a_cm",
-            "text": "Given Vitamin A treatment",
+            "text": "Traitement à la vitamine A.",
             "value": false,
             "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "1st_dose_antibiotic_cm",
-            "text": "Given first dose of an appropriate antibiotic",
+            "text": "En recevant la première dose d'un antibiotique approprié.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "tetracycline_cm",
-            "text": "Clouding of the cornea or pus draining from the eye present, applied tetracycline eye ointment",
+            "text": "Trouble de la cornée ou écoulement du pus de l'œil présent, pommade oculaire à base de tétracycline appliquée.",
             "value": false,
             "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "referal_cm",
-            "text": "URGENTLY REFERED child to hospital",
+            "text": "Enfant envoyé d'urgence à l'hôpital.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_cm",
-            "text": "No treatment",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -3013,36 +3013,36 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "157691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for MEASLES WITH EYE OR MOUTH COMPLICATIONS:",
+        "label": "Traitement pour ROUGEOLE AVEC COMPLICATIONS OCULAIRES OU BUCCALES:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "vit_a_mem",
-            "text": "Given Vitamin A treatment",
+            "text": "Traitement à la vitamine A.",
             "value": false,
             "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "tetracycline_mem",
-            "text": "Pus draining from the eye, treated eye infection with tetracycline eye ointment",
+            "text": "Pus s'écoulant de l'œil, infection oculaire traitée avec une pommade oculaire à base de tétracycline.",
             "value": false,
             "openmrs_choice_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "gentian_violet9",
-            "text": "Mouth has ulcers, treated with gentian violet 9",
+            "text": "La bouche a des ulcères, traités au violet de gentiane 9.",
             "value": false,
             "openmrs_choice_id": "84893AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "mem_follow_up",
-            "text": "Scheduled follow-up in 3 days",
+            "text": "Suivi prévu dans 3 jours.",
             "value": false,
             "openmrs_choice_id": "76948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_treat_mem",
-            "text": "No treatment",
+            "text": "Pas de traitement.",
             "value": false,
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -3065,21 +3065,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "152209AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for MEASLES",
+        "label": "Traitement de la rougeole chez l'enfant:",
         "options": [
           {
             "key": "vit_a_measles",
             "openmrs_entity": "",
             "openmrs_entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Given Vitamin A treatment"
+            "text": "Traitement à la vitamine A."
           },
           {
             "key": "no_treat_measles",
             "openmrs_entity": "",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No treatment"
+            "text": "Pas de traitement."
           }
         ],
         "relevance": {
@@ -3097,7 +3097,7 @@
     ]
   },
   "step7": {
-    "title": "EAR PROBLEMS",
+    "title": "PROBLÈMES DE L'OREILLE",
     "display_back_button": "true",
     "next": "step8",
     "fields": [
@@ -3107,21 +3107,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "141585AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have an ear problem?",
+        "label": "L'enfant a-t-il un problème d'oreille ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3142,21 +3142,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "114403AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is there ear pain?",
+        "label": "A-t-il mal aux oreilles ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3177,21 +3177,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1070AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is there ear discharge?",
+        "label": "Y a-t-il des écoulements d'oreille ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3213,7 +3213,7 @@
         "openmrs_entity_id": "1731AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "For how many days?",
+        "hint": "Pendant combien de jours ?",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -3232,21 +3232,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is there pus draining from the ear?",
+        "label": "Du pus s'écoule-t-il de l'oreille ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3267,21 +3267,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is there tender swelling behind the ear?",
+        "label": "Y a-t-il un gonflement sensible derrière l'oreille ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3316,7 +3316,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: MASTOIDITIS\n- Give first dose of an appropriate antibiotic\n- Give first dose of paracetamol for pain\n- Refer URGENTLY to hospital",
+        "text": "L'enfant a : MASTOIDITIS\n- Donner la première dose d'un antibiotique approprié\n- Donner la première dose de paracétamol pour la douleur\n- Renvoyer d'urgence à l'hôpital.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -3346,7 +3346,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: ACUTE EAR INFECTION\n- Give an antibiotic for 5 days\n- Give paracetamol for pain\n- Dry the ear by wicking\n- Follow-up in 5 days",
+        "text": "L'enfant a : UNE INFECTION AIGUË DE L'OREILLE\n- Donner un antibiotique pendant 5 jours\n- Donner du paracétamol contre la douleur\n- Séchez l'oreille par mèche\n- Suivi dans 5 jours.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -3376,7 +3376,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: CHRONIC EAR INFECTION\n- Dry the ear by wicking\n- Treat with topical quinolone eardrops for 14 days\n- Follow-up in 5 days",
+        "text": "L'enfant a : UNE INFECTION CHRONIQUE DE L'OREILLE\n- Séchez l'oreille par mèche\n- Traiter avec des gouttes de quinolone topiques pendant 14 jours\n- Suivi dans 5 jours.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -3406,7 +3406,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: NO EAR INFECTION\n- No treatment",
+        "text": "L'enfant a : AUCUNE INFECTION DE L'OREILLE\n- Pas de traitement.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -3422,24 +3422,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "134614AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given for mastoiditis:",
+        "label": "Traitement de la mastoïdite :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "1st_dose_antibiotic",
-            "text": "First dose of an appropriate antibiotic given",
+            "text": "Première dose d'un antibiotique approprié administrée.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "1st_dose_paracetamol",
-            "text": "First dose of paracetamol given for pain",
+            "text": "Première dose de paracétamol administrée contre la douleur.",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "ear_referral",
-            "text": "URGENTLY referred to hospital",
+            "text": "Renvoi d'urgence à l'hôpital.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -3462,24 +3462,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "117086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given for acute ear infection:",
+        "label": "Traitement de l'infection aiguë de l'oreille :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "acute_ear_antibiotic",
-            "text": "Antibiotic given for 5 days",
+            "text": "Antibiotique administré pendant 5 jours.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "acute_ear_paracetamol",
-            "text": "Paracetamol given for pain",
+            "text": "Paracétamol administré contre la douleur.",
             "value": false,
             "openmrs_choice_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "acute_ear_dry",
-            "text": "Ear dried by wicking",
+            "text": "Oreille séchée par mèche.",
             "value": false,
             "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -3502,18 +3502,18 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "117087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment given for chronic ear infection:",
+        "label": "Traitement de l'infection chronique de l'oreille :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "chronic_ear_dry",
-            "text": "Ear dried by wicking",
+            "text": "Oreille séchée par mèche.",
             "value": false,
             "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "topical_quinolone",
-            "text": "Treated with topical quinolone eardrops for 14 days",
+            "text": "Traité avec des gouttes de quinolone topiques pendant 14 jours.",
             "value": false,
             "openmrs_choice_id": "162304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -3533,7 +3533,7 @@
     ]
   },
   "step8": {
-    "title": "CHECK FOR ANAEMIA",
+    "title": "VÉRIFICATION DE L'ANÉMIE.",
     "display_back_button": "true",
     "next": "step9",
     "fields": [
@@ -3543,28 +3543,28 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have palmar pallor?",
+        "label": "L'enfant a-t-il une pâleur palmaire ?",
         "options": [
           {
             "key": "severe",
             "openmrs_entity": "",
             "openmrs_entity_id": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child has severe palmar pallor"
+            "text": "L'enfant présente une pâleur palmaire sévère."
           },
           {
             "key": "some",
             "openmrs_entity": "",
             "openmrs_entity_id": "164493AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child has some palmar pallor"
+            "text": "L'enfant a une certaine pâleur palmaire."
           },
           {
             "key": "no_pallor",
             "openmrs_entity": "",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No palmar pallor"
+            "text": "Pas de pâleur palmaire."
           }
         ],
         "v_required": {
@@ -3578,7 +3578,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: SEVERE ANAEMIA:\n\n- Check for sickle cell anaemia if common in this area.\n- Refer URGENTLY to hopsital",
+        "text": "L'enfant a : ANÉMIE SÉVÈRE\n\n- Vérifiez si la drépanocytose est fréquente dans cette région.\n- Référez-vous URGENTEMENT à l'hôpital.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -3622,7 +3622,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: ANAEMIA\n- Give iron**\n- Give mebendazole if child is 1 year or older and\nhas not had a dose in the previous 6 months\n- Advise mother when to return immediately\n- Follow-up in 14 days",
+        "text": "L'enfant a : ANAEMIA\n- Donner du fer**\n- Donnez du mébendazole si l'enfant a 1 an ou plus et\nn'a pas reçu de dose au cours des 6 derniers mois\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi dans 14 jours.",
         "toaster_info_text": "**If child has severe acute malnutrition and is receiving RUTF, DO NOT give iron because there is already an adequate amount of iron in RUTF.",
         "toaster_type": "warning",
         "relevance": {
@@ -3653,7 +3653,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: NO ANAEMIA\n- If child is less than 2 years old, assess the child's feeding and counsel the mother according to the feeding recommendations.",
+        "text": "L'enfant a : PAS D'ANAEMIE\n- Evaluer l'alimentation de l'enfant et conseiller la mère en fonction des recommandations alimentaires.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -3669,21 +3669,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "158420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have a feeding problem?",
+        "label": "L'enfant a-t-il un problème d'alimentation ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3704,7 +3704,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: NO ANAEMIA\n- No treatment required.",
+        "text": "L'enfant en a un : PAS D'ANAEMIE\n- Aucun traitement requis.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -3720,21 +3720,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Was child referred to the nearest hospital?",
+        "label": "L'enfant a-t-il été orienté vers l'hôpital le plus proche ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -3755,24 +3755,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Anaemia treatment provided:",
+        "label": "Le traitement de l'anémie est assuré:",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "give_iron",
-            "text": "Iron given",
+            "text": "Le fer donné.",
             "value": false,
             "openmrs_choice_id": "78218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "mabedazol",
-            "text": "Mebendazole given",
+            "text": "Mebendazole donné.",
             "value": false,
             "openmrs_choice_id": "79413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "anaemia_advise_mother",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -3795,7 +3795,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has feeding problem: Follow-up in 5 days",
+        "text": "L'enfant a un problème d'alimentation : Suivi dans 5 jours.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -3808,7 +3808,7 @@
     ]
   },
   "step9": {
-    "title": "ACUTE MALNUTRITION CHECK",
+    "title": "CONTRÔLE DE LA MALNUTRITION AIGUË",
     "display_back_button": "true",
     "next": "step10",
     "fields": [
@@ -3818,21 +3818,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have oedema of both feet?",
+        "label": "L'enfant souffre-t-il d'un œdème des deux pieds ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "v_required": {
@@ -3847,12 +3847,12 @@
         "openmrs_entity_id": "1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
-        "hint": "What is the child's MUAC reading (in mm)?",
+        "hint": "Quelle est la lecture MUAC de l'enfant (en mm) ?",
         "v_required": {
           "value": "true",
           "err": "Please enter the child's reading"
         },
-        "toaster_info_text": "MUAC is Mid-Upper Arm Circumference measured using MUAC tape in all children 6 months or older.",
+        "toaster_info_text": "Le MUAC est la circonférence moyenne du bras mesurée à l'aide d'un ruban MUAC chez tous les enfants de 6 mois ou plus.",
         "toaster_type": "info"
       },
       {
@@ -3875,7 +3875,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Weight-for-height (WFH) z-score is: \n {wfh_zscore}",
+        "text": "Le z-score du poids pour la taille (WFH) est : ${wfh_zscore}",
         "toaster_type": "info",
         "calculation": {
           "rules-engine": {
@@ -3905,8 +3905,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "ruft_feed",
         "openmrs_entity_parent": "",
-        "label": "Offer the child RUTF** to eat. Child is:",
-        "toaster_info_text": "**RUTF is Ready-to-Use Therapeutic Food for conducting the appetite test and feeding children with severe acute malnutrition..",
+        "label": "Offrez à l'enfant RUTF** de manger. L'enfant est :",
+        "toaster_info_text": "**RUTF est un aliment thérapeutique prêt à l'emploi pour effectuer le test d'appétit et nourrir les enfants souffrant de malnutrition aiguë sévère.",
         "toaster_type": "info",
         "options": [
           {
@@ -3914,14 +3914,14 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Not able to finish RUTF portion"
+            "text": "Impossible de terminer la partie RUTF."
           },
           {
             "key": "finished_rutf",
             "openmrs_entity": "",
             "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Able to finish RUTF portion"
+            "text": "Capable de terminer la partie RUTF."
           }
         ],
         "v_required": {
@@ -3942,21 +3942,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164467AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Does the child have a breastfeeding\nproblem?",
+        "label": "L'enfant est-il allaité\nproblème ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "v_required": {
@@ -3991,7 +3991,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: COMPLICATED SEVERE ACUTE MALNUTRITION\n- Give first dose of an appropriate antibiotic\n- Treat the child to prevent low blood sugar\n- Keep the child warm\n- Refer URGENTLY to hospital",
+        "text": "L'enfant a : UNE MALNUTRITION AIGUË SÉVÈRE COMPLIQUÉE\n- Donner la première dose d'un antibiotique approprié\n- Traiter l'enfant pour prévenir l'hypoglycémie\n- Garder l'enfant au chaud\n- Renvoyer d'urgence à l'hôpital.",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -4021,7 +4021,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: UNCOMPLICATED SEVERE ACUTE MALNUTRITION\n- Give oral antibiotics for 5 days\n- Give ready-to-use therapeutic food for a child aged 6 months or more\n- Counsel the mother on how to feed the child\n- Assess for possible TB infection\n- Advise mother when to return immediately\n- Follow up in 7 days",
+        "text": "L'enfant a : UNE MALNUTRITION AIGUË SÉVÈRE NON COMPLIQUÉE\n- Donner des antibiotiques par voie orale pendant 5 jours\n- Donner des aliments thérapeutiques prêts à l'emploi pour un enfant de 6 mois ou plus\n- Conseiller la mère sur la manière de nourrir l'enfant\n- Évaluer la possibilité d'une infection par la tuberculose\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi en 7 jours.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -4051,7 +4051,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: MODERATE ACUTE MALNUTRITION\n- Assess the child's feeding and counsel the mother on the feeding recommendations\n- If feeding problem, follow up in 7 days\n- Assess for possible TB infection.\n- Advise mother when to return immediately\n- Follow-up in 30 days",
+        "text": "L'enfant a : UNE MALNUTRITION AIGUË MODÉRÉE\n- Évaluer l'alimentation de l'enfant et conseiller la mère sur les recommandations en matière d'alimentation\n- En cas de problème d'alimentation, suivi dans les 7 jours\n- Évaluer la possibilité d'une infection par la tuberculose.\n- Indiquer à la mère quand elle doit revenir immédiatement\n- Suivi dans 30 jours.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -4081,7 +4081,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: NO ACUTE MALNUTRITION\n- If child is less than 2 years old, assess the child's feeding and counsel the mother on feeding according to the feeding recommendations\n- If feeding problem, follow-up in 7 days",
+        "text": "L'enfant a : PAS DE MALNUTRITION AIGUË\n- Si l'enfant a moins de 2 ans, évaluer l'alimentation de l'enfant et conseiller la mère sur l'alimentation selon les recommandations\n- En cas de problème d'alimentation, suivi dans les 7 jours.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -4097,30 +4097,30 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162330AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Complicated severe acute malnutrition treatment given:",
+        "label": "Traitement de la malnutrition aiguë sévère compliquée administré :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "complicated_sam_antibiotic",
-            "text": "Given first dose appropriate antibiotic",
+            "text": "A la première dose, un antibiotique approprié.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "complicated_sam_low_bllod_sugar",
-            "text": "Treated the child to prevent low blood sugar",
+            "text": "Traitement de l'enfant pour prévenir l'hypoglycémie.",
             "value": false,
             "openmrs_choice_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "complicated_sam_keepwarm",
-            "text": "Kept the child warm",
+            "text": "Garder l'enfant au chaud.",
             "value": false,
             "openmrs_choice_id": "164479AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "complicated_sam_referal",
-            "text": "Referred URGENTLY to hospital",
+            "text": "Renvoi URGENT à l'hôpital.",
             "value": false,
             "openmrs_choice_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -4143,36 +4143,36 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Uncomplicated severe acute malnutrition treatment given:",
+        "label": "Traitement de la malnutrition aiguë sévère non compliquée :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "sam_anitbiotics",
-            "text": "Given oral antibiotics for 5 days",
+            "text": "Administrer des antibiotiques par voie orale pendant 5 jours.",
             "value": false,
             "openmrs_choice_id": "1556AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sam_therapeauticfood",
-            "text": "Given ready-to-use therapeutic food for a child aged 6 months or more",
+            "text": "Distribution d'aliments thérapeutiques prêts à l'emploi pour un enfant de 6 mois ou plus.",
             "value": false,
             "openmrs_choice_id": "161648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sam_maln_councelling",
-            "text": "Counselled mother on how to feed the child",
+            "text": "Conseiller la mère sur la façon de nourrir l'enfant.",
             "value": false,
             "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sam_maln_tb",
-            "text": "Assessed child for possible TB infection",
+            "text": "Évaluation de l'enfant en vue d'une éventuelle infection par la tuberculose",
             "value": false,
             "openmrs_choice_id": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sam_maln_return",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -4195,36 +4195,36 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Moderate acute malnutrition treatment given:",
+        "label": "Traitement de la malnutrition aiguë modérée :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "acute_mal_feeding",
-            "text": "Assessed the child's feeding and counselled the mother on the feeding recommendations",
+            "text": "A évalué l'alimentation de l'enfant et a conseillé la mère sur les recommandations en matière d'alimentation.",
             "value": false,
             "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "acute_maln_follow_up7",
-            "text": "If feeding problem, followed up in 7 days",
+            "text": "En cas de problème d'alimentation, suivi dans les 7 jours.",
             "value": false,
             "openmrs_choice_id": "159490AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "acute_maln_tb",
-            "text": "Assessed for possible TB infection",
+            "text": "Évaluer la possibilité d'une infection par la tuberculose.",
             "value": false,
             "openmrs_choice_id": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "acute_maln_return",
-            "text": "Advised mother when to return immediately",
+            "text": "Conseiller à la mère de revenir immédiatement.",
             "value": false,
             "openmrs_choice_id": "164480AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "acute_maln_follow_up30",
-            "text": "Scheduled a follow-up in 30 days",
+            "text": "Un suivi est prévu dans 30 jours.",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -4247,24 +4247,24 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "No acute malnutrition: Counseling given",
+        "label": "Aucun conseil en matière de malnutrition aiguë n'a été donné :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "no_acute_maln_feeding",
-            "text": "Assessed the child's feeding",
+            "text": "Évaluation de l'alimentation de l'enfant.",
             "value": false,
             "openmrs_choice_id": "140475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_acute_maln_couselling",
-            "text": "Counselled the mother on feeding according to the feeding recommendations",
+            "text": "Conseiller la mère sur l'alimentation selon les recommandations.",
             "value": false,
             "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no_acute_maln_follow_up",
-            "text": "Scheduled a follow-up after 7 days",
+            "text": "Un suivi est prévu après 7 jours.",
             "value": false,
             "openmrs_choice_id": "159489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -4284,7 +4284,7 @@
     ]
   },
   "step10": {
-    "title": "CHECK FOR HIV INFECTION",
+    "title": "VÉRIFIER LA PRÉSENCE D'UNE INFECTION PAR LE VIH",
     "display_back_button": "true",
     "fields": [
       {
@@ -4293,21 +4293,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is the child already enrolled in HIV care?",
+        "label": "L'enfant est-il déjà inscrit dans un centre de soins pour le VIH ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "v_required": {
@@ -4321,21 +4321,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Has the mother had an HIV test?",
+        "label": "La mère a-t-elle fait un test de dépistage du VIH ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -4356,21 +4356,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "What was the result for the mother HIV test?",
+        "label": "Quel a été le résultat du test VIH de la mère ?",
         "options": [
           {
             "key": "positive",
             "openmrs_entity": "",
             "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Mother is HIV+"
+            "text": "La mère est séropositive."
           },
           {
             "key": "negative",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Mother does not have HIV"
+            "text": "La mère n'a pas le VIH."
           }
         ],
         "relevance": {
@@ -4391,21 +4391,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Has the child had an HIV test?",
+        "label": "L'enfant a-t-il subi un test de dépistage du VIH ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -4426,35 +4426,35 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "What was the result of the child HIV test?",
+        "label": "Quel a été le résultat du test VIH de l'enfant ?",
         "options": [
           {
             "key": "v_pos",
             "openmrs_entity": "",
             "openmrs_entity_id": "163718AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Virological test positive"
+            "text": "Test virologique positif."
           },
           {
             "key": "v_neg",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Virological test negative"
+            "text": "Test virologique négatif."
           },
           {
             "key": "s_pos",
             "openmrs_entity": "",
             "openmrs_entity_id": "163717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Serological test positive"
+            "text": "Test sérologique positif."
           },
           {
             "key": "s_neg",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Serological test negative"
+            "text": "Test sérologique négatif."
           }
         ],
         "relevance": {
@@ -4475,21 +4475,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1404AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Was the child breastfeeding at the time or 6 weeks before the test?",
+        "label": "L'enfant était-il allaité à ce moment-là ou 6 semaines avant le test ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -4510,21 +4510,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Is the child breastfeeding now?",
+        "label": "L'enfant est-il nourri au sein actuellement ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -4545,21 +4545,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "on_arv",
         "openmrs_entity_parent": "",
-        "label": "Is the mother and child on ARV prophylaxis?",
+        "label": "La mère et l'enfant sont-ils sous prophylaxie ARV ?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes"
+            "text": "Oui"
           },
           {
             "key": "no",
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Non"
           }
         ],
         "relevance": {
@@ -4580,7 +4580,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Mother and child status unknown: TEST mother",
+        "text": "Statut de la mère et de l'enfant inconnu : TESTER la mère.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4595,7 +4595,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Mother HIV positive and child status unknown: TEST child",
+        "text": "Mère séropositive et statut de l'enfant inconnu : TESTER l'enfant.",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -4610,21 +4610,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "What is the mother's HIV status after the test?",
+        "label": "Quel est le statut VIH de la mère après le test ?",
         "options": [
           {
             "key": "mother_positive",
             "openmrs_entity": "",
             "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Mother is HIV positive"
+            "text": "La mère est séropositive."
           },
           {
             "key": "mother_negative",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Mother is HIV negative"
+            "text": "La mère est séronégative."
           }
         ],
         "relevance": {
@@ -4645,35 +4645,35 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "What is the child's HIV status after the test?",
+        "label": "Quel est le statut VIH de l'enfant après le test?",
         "options": [
           {
             "key": "v_pos",
             "openmrs_entity": "",
             "openmrs_entity_id": "163718AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Virological test positive"
+            "text": "Test virologique positif."
           },
           {
             "key": "v_neg",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Virological test negative"
+            "text": "Test virologique négatif."
           },
           {
             "key": "s_pos",
             "openmrs_entity": "",
             "openmrs_entity_id": "163717AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Serological test positive"
+            "text": "Test sérologique positif."
           },
           {
             "key": "s_neg",
             "openmrs_entity": "",
             "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Serological test negative"
+            "text": "Test sérologique négatif."
           }
         ],
         "relevance": {
@@ -4704,8 +4704,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child has: CONFIRMED HIV INFECTION\n\n- Initiate ART treatment and HIV care\n- Give cotrimoxazole prophylaxis*\n- Assess the chil's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Assess or refer for TB assessment at INH preventive therapy\n- Follow-up regularly as per national guidelines",
-        "toaster_info_text": "* Give cotrimoxazole prophylaxis to all HIV infected and HIV-exposed children until confirmed negative after cessation of breastfeeding.",
+        "text": "L'enfant a : INFECTION CONFIRMÉE PAR LE VIH\n\n- Lancer le traitement ART et les soins du VIH\n- Donner une prophylaxie au cotrimoxazole*.\n- Évaluer l'alimentation de l'enfant et fournir des conseils appropriés à la mère\n- Conseiller la mère sur les soins à domicile\n- Évaluer ou orienter pour une évaluation de la tuberculose à la thérapie préventive de l'INH\n- Suivi régulier selon les lignes directrices nationales.",
+        "toaster_info_text": "* Donner une prophylaxie au cotrimoxazole à tous les enfants infectés par le VIH ou exposés au VIH jusqu'à ce que leur état soit confirmé comme négatif après la fin de l'allaitement.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -4735,8 +4735,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child is: HIV EXPOSED\n\n- Give cotrimoxazole prophylaxis\n- Start or continue ARV prophylaxis as recommended\n- Do virological test to confirm HIV status**\n- Assess the child's feeding and provide appropriate counseling to the mother\n- Advise the mother on home care\n- Follow-up regularly as per national guidelines",
-        "toaster_info_text": "** If virological test is negative, repeat test 6 weeks after the breastfeeding has stopped; if serological test is positive, do a virological test as soon as possible.",
+        "text": "L'enfant est : VIH EXPOSÉ\n\n- Donner une prophylaxie au cotrimoxazole\n- Commencer ou continuer la prophylaxie ARV selon les recommandations\n- Faire un test virologique pour confirmer le statut VIH**\n- Évaluer l'alimentation de l'enfant et fournir des conseils appropriés à la mère\n- Conseiller la mère sur les soins à domicile\n- Suivi régulier selon les lignes directrices nationales.",
+        "toaster_info_text": "** Si le test virologique est négatif, répéter le test 6 semaines après l'arrêt de l'allaitement ; si le test sérologique est positif, faire un test virologique dès que possible.",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
@@ -4766,7 +4766,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections",
+        "text": "Child: HIV INFECTION UNLIKELY\n- Treat, counsel and follow-up existing infections.",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -4782,42 +4782,42 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "HIV treatment given for child:",
+        "label": "Traitement du VIH administré à l'enfant :",
         "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "art_initiated",
-            "text": "Initiated ART treatment and HIV care",
+            "text": "Initié le traitement ART et les soins du VIH.",
             "value": false,
             "openmrs_choice_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "cotrimoxazole",
-            "text": "Given Cotrimoxazole prophylaxis",
+            "text": "Prophylaxie au cotrimoxazole.",
             "value": false,
             "openmrs_choice_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "hiv_feeding_assessment",
-            "text": "Assessed the child's feeding and provided appropriate counselling to the mother",
+            "text": "a évalué l'alimentation de l'enfant et a fourni des conseils appropriés à la mère.",
             "value": false,
             "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "hiv_advise",
-            "text": "Advised the mother on home care",
+            "text": "Conseiller la mère sur les soins à domicile.",
             "value": false,
             "openmrs_choice_id": "165328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "tb_assessment",
-            "text": "Conducted TB assessment",
+            "text": "Evaluation de la tuberculose.",
             "value": false,
             "openmrs_choice_id": "112141AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "hiv_referal",
-            "text": "Referred for TB assessment and INH preventive therapy",
+            "text": "Orientation vers l'évaluation de la tuberculose et la thérapie préventive de l'INH.",
             "value": false,
             "openmrs_choice_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -4845,31 +4845,31 @@
         "options": [
           {
             "key": "cotrimoxazole2",
-            "text": "Given cotrimoxazole prophylaxis",
+            "text": "Sous prophylaxie au cotrimoxazole.",
             "value": false,
             "openmrs_choice_id": "164361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "hiv_arv_start",
-            "text": "Started or continued ARV prophylaxis as recommended",
+            "text": "Début ou poursuite de la prophylaxie ARV selon les recommandations.",
             "value": false,
             "openmrs_choice_id": "163768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "virological_test",
-            "text": "Done virological test to confirm HIV status",
+            "text": "Faire un test virologique pour confirmer le statut VIH.",
             "value": false,
             "openmrs_choice_id": "164401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "hiv_feeding_assessment2",
-            "text": "Assessed the child's feeding and provided appropriate counselling to the mother",
+            "text": "a évalué l'alimentation de l'enfant et a fourni des conseils appropriés à la mère.",
             "value": false,
             "openmrs_choice_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "hiv_advise2",
-            "text": "Advised the mother on home care",
+            "text": "Conseiller la mère sur les soins à domicile.",
             "value": false,
             "openmrs_choice_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -4892,21 +4892,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1660AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Treatment for HIV unlikely child:",
+        "label": "Traitement d'un enfant peu susceptible d'être infecté par le VIH :",
         "options": [
           {
             "key": "treated",
             "openmrs_entity": "",
             "openmrs_entity_id": "1185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Child treated, mother counseled and followed up for other infections"
+            "text": "L'enfant est traité, la mère est conseillée et suivie pour d'autres infections."
           },
           {
             "key": "not_treated",
             "openmrs_entity": "",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "None"
+            "text": "Aucune"
           }
         ],
         "relevance": {
