@@ -90,26 +90,22 @@
           "err": "{{observation_illness.step1.action_taken_1m5yr.v_required.err}}"
         },
         "values": [
-          "ORS 5",
-          "Zinc 10",
-          "Panadol",
-          "Referred",
-          "Other treatment",
-          "No treatment given"
+          "{{observation_illness.step1.action_taken_1m5yr.values[0]}}",
+          "{{observation_illness.step1.action_taken_1m5yr.values[1]}}",
+          "{{observation_illness.step1.action_taken_1m5yr.values[2]}}",
+          "{{observation_illness.step1.action_taken_1m5yr.values[3]}}"
         ],
         "keys": [
           "ORS 5",
           "Zinc 10",
-          "Panadol",
-          "Referred",
-          "Other treatment given",
-          "No treatment"
+          "Paracetamol",
+          "Other treatment"
         ]
       },
       {
         "key": "other_treat_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{observation_illness.step1.other_treat_1m5yr.hint}}",

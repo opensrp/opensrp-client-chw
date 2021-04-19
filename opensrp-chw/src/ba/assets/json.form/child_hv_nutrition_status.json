@@ -58,9 +58,9 @@
         "type": "spinner",
         "hint": "{{child_hv_nutrition_status.step1.nutrition_status_1m5yr.hint}}",
         "values": [
-          "Normal",
-          "Moderate",
-          "Severe"
+          "{{child_hv_nutrition_status.step1.nutrition_status_1m5yr.values[0]}}",
+          "{{child_hv_nutrition_status.step1.nutrition_status_1m5yr.values[1]}}",
+          "{{child_hv_nutrition_status.step1.nutrition_status_1m5yr.values[2]}}"
         ],
         "keys": [
           "Normal",

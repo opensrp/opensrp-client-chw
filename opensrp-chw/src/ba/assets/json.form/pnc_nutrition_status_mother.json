@@ -58,9 +58,9 @@
         "type": "spinner",
         "hint": "{{pnc_nutrition_status_mother.step1.nutrition_status_mama.hint}}",
         "values": [
-          "Normal/Green",
-          "Moderate/Yellow",
-          "Severe/Red"
+          "{{pnc_nutrition_status_mother.step1.nutrition_status_mama.values[0]}}",
+          "{{pnc_nutrition_status_mother.step1.nutrition_status_mama.values[1]}}",
+          "{{pnc_nutrition_status_mother.step1.nutrition_status_mama.values[2]}}"
         ],
         "keys": [
           "Normal",

@@ -58,9 +58,9 @@
         "type": "spinner",
         "hint": "{{anc_hv_nutrition_status.step1.nutrition_status.hint}}",
         "values": [
-          "Normal/Green",
-          "Moderate/Yellow",
-          "Severe/Red"
+          "{{anc_hv_nutrition_status.step1.nutrition_status.values[0]}}",
+          "{{anc_hv_nutrition_status.step1.nutrition_status.values[1]}}",
+          "{{anc_hv_nutrition_status.step1.nutrition_status.values[2]}}"
         ],
         "keys": [
           "Normal",

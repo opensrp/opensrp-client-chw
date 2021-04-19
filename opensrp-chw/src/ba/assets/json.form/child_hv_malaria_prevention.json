@@ -52,14 +52,14 @@
       {
         "key": "fam_llin_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "{{child_hv_malaria_prevention.step1.fam_llin_1m5yr.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{child_hv_malaria_prevention.step1.fam_llin_1m5yr.values[0]}}",
+          "{{child_hv_malaria_prevention.step1.fam_llin_1m5yr.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -77,14 +77,14 @@
       {
         "key": "llin_2days_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "{{child_hv_malaria_prevention.step1.llin_2days_1m5yr.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{child_hv_malaria_prevention.step1.llin_2days_1m5yr.values[0]}}",
+          "{{child_hv_malaria_prevention.step1.llin_2days_1m5yr.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -108,14 +108,14 @@
       {
         "key": "llin_condition_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "{{child_hv_malaria_prevention.step1.llin_condition_1m5yr.hint}}",
         "values": [
-          "Okay",
-          "Bad"
+          "{{child_hv_malaria_prevention.step1.llin_condition_1m5yr.values[0]}}",
+          "{{child_hv_malaria_prevention.step1.llin_condition_1m5yr.values[1]}}"
         ],
         "keys": [
           "Okay",

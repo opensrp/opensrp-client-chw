@@ -57,7 +57,7 @@
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "30sp"
@@ -65,7 +65,7 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "{{family_details_remove_family.step1.fam_name.text}}",
@@ -74,7 +74,7 @@
       {
         "key": "details",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "{{family_details_remove_family.step1.details.text}}",
@@ -84,13 +84,13 @@
         "key": "divider1",
         "type": "h_line",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": ""
       },
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "20sp"
@@ -104,8 +104,8 @@
         "type": "spinner",
         "hint": "{{family_details_remove_family.step1.closure_reason_fam.hint}}",
         "values": [
-          "Relocation",
-          "Other"
+          "{{family_details_remove_family.step1.closure_reason_fam.values[0]}}",
+          "{{family_details_remove_family.step1.closure_reason_fam.values[1]}}"
         ],
         "keys": [
           "Relocation",
@@ -148,8 +148,8 @@
         "type": "spinner",
         "hint": "{{family_details_remove_family.step1.closure_reason_relocation_fam.hint}}",
         "values": [
-          "Within the district",
-          "Outside the district"
+          "{{family_details_remove_family.step1.closure_reason_relocation_fam.values[0]}}",
+          "{{family_details_remove_family.step1.closure_reason_relocation_fam.values[1]}}"
         ],
         "keys": [
           "Within the district",

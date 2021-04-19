@@ -60,7 +60,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
-        "is_problem": false,
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -72,7 +71,7 @@
       {
         "key": "referral_problem_child",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "{{child_referral_form.step1.referral_problem_child.label}}",
@@ -82,7 +81,7 @@
             "key": "Fast_breathing_and_difficulty_with_breathing",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Fast_breathing_and_difficulty_with_breathing.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -90,7 +89,7 @@
             "key": "Umbilical_cord_navel_bleeding",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Umbilical_cord_navel_bleeding.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -98,7 +97,7 @@
             "key": "Excessive_crying",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Excessive_crying.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -106,7 +105,7 @@
             "key": "Convulsions",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Convulsions.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -114,7 +113,7 @@
             "key": "Unable_to_breastfeed_or_swallow",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Unable_to_breastfeed_or_swallow.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -122,7 +121,7 @@
             "key": "Neck_stiffness",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Neck_stiffness.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -130,7 +129,7 @@
             "key": "Fever",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Fever.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -138,7 +137,7 @@
             "key": "Bloating",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Bloating.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -146,7 +145,7 @@
             "key": "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -154,7 +153,7 @@
             "key": "Bacterial_conjunctivitis",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Bacterial_conjunctivitis.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -162,7 +161,7 @@
             "key": "Severe_anaemia",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Severe_anaemia.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -170,7 +169,7 @@
             "key": "Severe_abdominal_pain",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Severe_abdominal_pain.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -178,7 +177,7 @@
             "key": "Pale_or_jaundiced",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Pale_or_jaundiced.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -186,7 +185,7 @@
             "key": "Cyanosis_blueness_of_lips",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Cyanosis_blueness_of_lips.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -194,7 +193,7 @@
             "key": "Skin_rash_pustules",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Skin_rash_pustules.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -202,7 +201,7 @@
             "key": "Diarrhea",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Diarrhea.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -210,7 +209,7 @@
             "key": "Vomiting",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Vomiting.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -218,7 +217,7 @@
             "key": "Disabilities",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Disabilities.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -226,7 +225,7 @@
             "key": "Premature_baby",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Premature_baby.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -234,7 +233,7 @@
             "key": "Care_of_HIV_exposed_infant",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Care_of_HIV_exposed_infant.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -242,7 +241,7 @@
             "key": "Immunisation",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Immunisation.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -250,8 +249,7 @@
             "key": "Other_symptom",
             "text": "{{child_referral_form.step1.referral_problem_child.options.Other_symptom.text}}",
             "value": false,
-            "ignore": true,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
@@ -264,9 +262,9 @@
       {
         "key": "referral_problem_child_other",
         "type": "edit_text",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "{{child_referral_form.step1.referral_problem_child_other.hint}}",
         "relevance": {
@@ -280,12 +278,11 @@
       {
         "key": "service_before_child",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "{{child_referral_form.step1.service_before_child.label}}",
         "label_text_style": "bold",
-        "is_problem": false,
         "exclusive": [
           "None"
         ],
@@ -294,7 +291,7 @@
             "key": "ORS",
             "text": "{{child_referral_form.step1.service_before_child.options.ORS.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -302,7 +299,7 @@
             "key": "Panadol",
             "text": "{{child_referral_form.step1.service_before_child.options.Panadol.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -310,8 +307,7 @@
             "key": "Other_treatment",
             "text": "{{child_referral_form.step1.service_before_child.options.Other_treatment.text}}",
             "value": false,
-            "ignore": true,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
@@ -319,7 +315,7 @@
             "key": "None",
             "text": "{{child_referral_form.step1.service_before_child.options.None.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
@@ -332,12 +328,11 @@
       {
         "key": "service_before_child_other",
         "type": "edit_text",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
         "edit_type": "name",
         "hint": "{{child_referral_form.step1.service_before_child_other.hint}}",
-        "is_problem": false,
         "v_required": {
           "value": "true",
           "err": "{{child_referral_form.step1.service_before_child_other.v_required.err}}"
@@ -356,7 +351,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
-        "is_problem": false,
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -368,10 +362,9 @@
       {
         "key": "referral_time_child",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "referral_time_child",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "hidden",
-        "is_problem": false,
         "calculation": {
           "rules-engine": {
             "ex-rules": {

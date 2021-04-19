@@ -169,7 +169,7 @@
       {
         "key": "danger_signs_present_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "{{pnc_danger_signs_baby.step1.danger_signs_present_toaster.text}}",

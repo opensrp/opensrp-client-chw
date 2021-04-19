@@ -57,7 +57,7 @@
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "{{child_enrollment.step1.photo.uploadButtonText}}"
@@ -83,7 +83,7 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{child_enrollment.step1.surname.hint}}",
@@ -107,7 +107,7 @@
       {
         "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
@@ -127,7 +127,7 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "hidden": "true"
@@ -266,19 +266,19 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.insurance_provider.hint}}",
         "values": [
-          "Community Health Fund (CHF)",
-          "iCHF",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
+          "{{child_enrollment.step1.insurance_provider.values[0]}}",
+          "{{child_enrollment.step1.insurance_provider.values[1]}}",
+          "{{child_enrollment.step1.insurance_provider.values[2]}}",
+          "{{child_enrollment.step1.insurance_provider.values[3]}}",
+          "{{child_enrollment.step1.insurance_provider.values[4]}}",
+          "{{child_enrollment.step1.insurance_provider.values[5]}}",
+          "{{child_enrollment.step1.insurance_provider.values[6]}}",
+          "{{child_enrollment.step1.insurance_provider.values[7]}}",
+          "{{child_enrollment.step1.insurance_provider.values[8]}}",
+          "{{child_enrollment.step1.insurance_provider.values[9]}}",
+          "{{child_enrollment.step1.insurance_provider.values[10]}}",
+          "{{child_enrollment.step1.insurance_provider.values[11]}}",
+          "{{child_enrollment.step1.insurance_provider.values[12]}}"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -361,8 +361,8 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.gender.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{child_enrollment.step1.gender.values[0]}}",
+          "{{child_enrollment.step1.gender.values[1]}}"
         ],
         "keys": [
           "Male",
@@ -381,8 +381,8 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.disabilities.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{child_enrollment.step1.disabilities.values[0]}}",
+          "{{child_enrollment.step1.disabilities.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -425,8 +425,8 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.birth_cert_available.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{child_enrollment.step1.birth_cert_available.values[0]}}",
+          "{{child_enrollment.step1.birth_cert_available.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -460,8 +460,8 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.rhc_card.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{child_enrollment.step1.rhc_card.values[0]}}",
+          "{{child_enrollment.step1.rhc_card.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -480,9 +480,9 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.nutrition_status.hint}}",
         "values": [
-          "Green",
-          "Grey/Yellow",
-          "Red"
+          "{{child_enrollment.step1.nutrition_status.values[0]}}",
+          "{{child_enrollment.step1.nutrition_status.values[1]}}",
+          "{{child_enrollment.step1.nutrition_status.values[2]}}"
         ],
         "keys": [
           "Green",

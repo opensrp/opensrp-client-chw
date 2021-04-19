@@ -55,11 +55,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
-        "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
-        "label_info_text": "Did the woman attend her ANC visit at the health facility?",
+        "label_info_title": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.label_info_title}}",
+        "label_info_text": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.label_info_text}}",
         "type": "spinner",
         "hint": "{{anc_hv_health_facility_visit.step1.anc_hf_visit.hint}}",
         "values": [
+          "{{anc_hv_health_facility_visit.step1.anc_hf_visit.values[0]}}",
+          "{{anc_hv_health_facility_visit.step1.anc_hf_visit.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -292,6 +296,10 @@
         "type": "spinner",
         "hint": "{{anc_hv_health_facility_visit.step1.llin_given.hint}}",
         "values": [
+          "{{anc_hv_health_facility_visit.step1.llin_given.values[0]}}",
+          "{{anc_hv_health_facility_visit.step1.llin_given.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

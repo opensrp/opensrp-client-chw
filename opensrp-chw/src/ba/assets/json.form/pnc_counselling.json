@@ -98,13 +98,6 @@
             "openmrs_entity_id": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_hiv_exposed_infant",
-            "text": "{{pnc_counselling.step1.couselling_pnc.options.chk_hiv_exposed_infant.text}}",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_pnc_danger_signs",
             "text": "{{pnc_counselling.step1.couselling_pnc.options.chk_pnc_danger_signs.text}}",
             "value": false,

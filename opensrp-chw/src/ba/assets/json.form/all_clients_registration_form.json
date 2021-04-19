@@ -474,19 +474,19 @@
         "type": "spinner",
         "hint": "{{all_clients_registration_form.step2.insurance_provider.hint}}",
         "values": [
-          "Community Health Fund (CHF)",
-          "iCHF",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
+          "{{all_clients_registration_form.step2.insurance_provider.values[0]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[1]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[2]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[3]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[4]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[5]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[6]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[7]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[8]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[9]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[10]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[11]}}",
+          "{{all_clients_registration_form.step2.insurance_provider.values[12]}}"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -569,8 +569,8 @@
         "type": "spinner",
         "hint": "{{all_clients_registration_form.step2.sex.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{all_clients_registration_form.step2.sex.values[0]}}",
+          "{{all_clients_registration_form.step2.sex.values[1]}}"
         ],
         "keys": [
           "Male",
@@ -617,8 +617,8 @@
         "type": "spinner",
         "hint": "{{all_clients_registration_form.step2.preg_1yr.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{all_clients_registration_form.step2.preg_1yr.values[0]}}",
+          "{{all_clients_registration_form.step2.preg_1yr.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -648,8 +648,8 @@
         "type": "spinner",
         "hint": "{{all_clients_registration_form.step2.disabilities.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{all_clients_registration_form.step2.disabilities.values[0]}}",
+          "{{all_clients_registration_form.step2.disabilities.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -711,8 +711,8 @@
         "type": "spinner",
         "hint": "{{all_clients_registration_form.step2.has_primary_caregiver.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{all_clients_registration_form.step2.has_primary_caregiver.values[0]}}",
+          "{{all_clients_registration_form.step2.has_primary_caregiver.values[1]}}"
         ],
         "keys": [
           "Yes",

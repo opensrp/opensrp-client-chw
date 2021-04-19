@@ -80,8 +80,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
-          "err": "{{malaria_follow_up_visit.step1.hf_chw_mfollowup.v_required.err}}"
+          "value": "true"
         }
       },
       {
@@ -143,8 +142,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
-          "err": "{{malaria_follow_up_visit.step1.treat_given_chw_mfollowup.v_required.err}}"
+          "value": "true"
         },
         "relevance": {
           "rules-engine": {
@@ -185,8 +183,7 @@
           }
         ],
         "v_required": {
-          "value": "true",
-          "err": "{{malaria_follow_up_visit.step1.reason_no_treat.v_required.err}}"
+          "value": "true"
         },
         "relevance": {
           "rules-engine": {
@@ -199,7 +196,7 @@
       {
         "key": "fever_still",
         "type": "native_radio",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "label": "{{malaria_follow_up_visit.step1.fever_still.label}}",
@@ -209,21 +206,18 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "{{malaria_follow_up_visit.step1.fever_still.options.Yes.text}}",
-            "value": false
+            "text": "{{malaria_follow_up_visit.step1.fever_still.options.Yes.text}}"
           },
           {
             "key": "No",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "{{malaria_follow_up_visit.step1.fever_still.options.No.text}}",
-            "value": false
+            "text": "{{malaria_follow_up_visit.step1.fever_still.options.No.text}}"
           }
         ],
         "v_required": {
-          "value": "true",
-          "err": "{{malaria_follow_up_visit.step1.fever_still.v_required.err}}"
+          "value": "true"
         }
       },
       {
@@ -250,26 +244,8 @@
           }
         ],
         "v_required": {
-          "value": "true",
-          "err": "{{malaria_follow_up_visit.step1.fever_duration.v_required.err}}"
+          "value": "true"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "malaria_followup_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "referral_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "{{malaria_follow_up_visit.step1.referral_note.text}}",
-        "toaster_info_text": "{{malaria_follow_up_visit.step1.referral_note.toaster_info_text}}",
-        "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

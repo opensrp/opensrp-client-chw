@@ -78,8 +78,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label_info_text": "What is their national identity number or their voter registration number?",
-        "label_info_title": "National ID number",
+        "label_info_text": "{{family_member_register.step1.national_id.label_info_text}}",
+        "label_info_title": "{{family_member_register.step1.national_id.label_info_title}}",
         "type": "edit_text",
         "hint": "{{family_member_register.step1.national_id.hint}}",
         "v_numeric": {
@@ -209,8 +209,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.sex.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{family_member_register.step1.sex.values[0]}}",
+          "{{family_member_register.step1.sex.values[1]}}"
         ],
         "v_required": {
           "value": "true",
@@ -225,8 +225,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.primary_caregiver.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_member_register.step1.primary_caregiver.values[0]}}",
+          "{{family_member_register.step1.primary_caregiver.values[1]}}"
         ],
         "relevance": {
           "rules-engine": {

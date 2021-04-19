@@ -130,7 +130,7 @@
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "15dp"
@@ -157,7 +157,7 @@
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "{{family_register.step2.photo.uploadButtonText}}"
@@ -217,7 +217,7 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{family_register.step2.surname.hint}}",
@@ -263,7 +263,7 @@
       {
         "key": "age_calculated",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
@@ -463,19 +463,19 @@
         "type": "spinner",
         "hint": "{{family_register.step2.insurance_provider.hint}}",
         "values": [
-          "Community Health Fund (CHF)",
-          "iCHF",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
+          "{{family_register.step2.insurance_provider.values[0]}}",
+          "{{family_register.step2.insurance_provider.values[1]}}",
+          "{{family_register.step2.insurance_provider.values[2]}}",
+          "{{family_register.step2.insurance_provider.values[3]}}",
+          "{{family_register.step2.insurance_provider.values[4]}}",
+          "{{family_register.step2.insurance_provider.values[5]}}",
+          "{{family_register.step2.insurance_provider.values[6]}}",
+          "{{family_register.step2.insurance_provider.values[7]}}",
+          "{{family_register.step2.insurance_provider.values[8]}}",
+          "{{family_register.step2.insurance_provider.values[9]}}",
+          "{{family_register.step2.insurance_provider.values[10]}}",
+          "{{family_register.step2.insurance_provider.values[11]}}",
+          "{{family_register.step2.insurance_provider.values[12]}}"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -558,8 +558,8 @@
         "type": "spinner",
         "hint": "{{family_register.step2.sex.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{family_register.step2.sex.values[0]}}",
+          "{{family_register.step2.sex.values[1]}}"
         ],
         "keys": [
           "Male",
@@ -573,7 +573,7 @@
       {
         "key": "wra",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
@@ -587,7 +587,7 @@
       {
         "key": "mra",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "values": ""
@@ -600,8 +600,8 @@
         "type": "spinner",
         "hint": "{{family_register.step2.preg_1yr.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_register.step2.preg_1yr.values[0]}}",
+          "{{family_register.step2.preg_1yr.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -631,8 +631,8 @@
         "type": "spinner",
         "hint": "{{family_register.step2.disabilities.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_register.step2.disabilities.values[0]}}",
+          "{{family_register.step2.disabilities.values[1]}}"
         ],
         "keys": [
           "Yes",

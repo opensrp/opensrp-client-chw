@@ -615,6 +615,14 @@
         "type": "spinner",
         "hint": "{{female_family_planning_registration.step2.fp_method_chw.hint}}",
         "values": [
+          "{{female_family_planning_registration.step2.fp_method_chw.values[0]}}",
+          "{{female_family_planning_registration.step2.fp_method_chw.values[1]}}",
+          "{{female_family_planning_registration.step2.fp_method_chw.values[2]}}",
+          "{{female_family_planning_registration.step2.fp_method_chw.values[3]}}",
+          "{{female_family_planning_registration.step2.fp_method_chw.values[4]}}",
+          "{{female_family_planning_registration.step2.fp_method_chw.values[5]}}"
+        ],
+        "keys": [
           "Male condom",
           "Female condom",
           "COC",
@@ -650,6 +658,20 @@
         "type": "spinner",
         "hint": "{{female_family_planning_registration.step2.fp_method_already.hint}}",
         "values": [
+          "{{female_family_planning_registration.step2.fp_method_already.values[0]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[1]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[2]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[3]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[4]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[5]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[6]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[7]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[8]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[9]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[10]}}",
+          "{{female_family_planning_registration.step2.fp_method_already.values[11]}}"
+        ],
+        "keys": [
           "Male condom",
           "Female condom",
           "COC",
@@ -844,6 +866,10 @@
         "type": "spinner",
         "hint": "{{female_family_planning_registration.step3.counselling_use.hint}}",
         "values": [
+          "{{female_family_planning_registration.step3.counselling_use.values[0]}}",
+          "{{female_family_planning_registration.step3.counselling_use.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

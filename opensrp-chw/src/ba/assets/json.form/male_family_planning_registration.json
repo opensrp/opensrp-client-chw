@@ -183,6 +183,10 @@
         "type": "spinner",
         "hint": "{{male_family_planning_registration.step2.fp_method_chw.hint}}",
         "values": [
+          "{{male_family_planning_registration.step2.fp_method_chw.values[0]}}",
+          "{{male_family_planning_registration.step2.fp_method_chw.values[1]}}"
+        ],
+        "keys": [
           "Male condom",
           "Female condom"
         ],
@@ -210,6 +214,11 @@
         "type": "spinner",
         "hint": "{{male_family_planning_registration.step2.fp_method_already.hint}}",
         "values": [
+          "{{male_family_planning_registration.step2.fp_method_already.values[0]}}",
+          "{{male_family_planning_registration.step2.fp_method_already.values[1]}}",
+          "{{male_family_planning_registration.step2.fp_method_already.values[2]}}"
+        ],
+        "keys": [
           "Male condom",
           "Female condom",
           "Male sterilization"
@@ -314,6 +323,10 @@
         "type": "spinner",
         "hint": "{{male_family_planning_registration.step3.counselling_use.hint}}",
         "values": [
+          "{{male_family_planning_registration.step3.counselling_use.values[0]}}",
+          "{{male_family_planning_registration.step3.counselling_use.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

@@ -16,7 +16,6 @@
       "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
     "today": {
-      "openmrs_entity_parent": "",
       "openmrs_entity": "encounter",
       "openmrs_entity_id": "encounter_date"
     },
@@ -62,6 +61,10 @@
           "err": "{{pnc_health_facility_visit_two.step1.pnc_visit_{0}.v_required.err}}"
         },
         "values": [
+          "{{pnc_health_facility_visit_two.step1.pnc_visit_{0}.values[0]}}",
+          "{{pnc_health_facility_visit_two.step1.pnc_visit_{0}.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ]

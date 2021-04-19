@@ -174,12 +174,12 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "Did the mother receive counselling",
-        "label_info_text": "Did the mother receive counselling on danger signs at the health facility recently?",
+        "label_info_title": "{{pnc_hv_danger_signs.step1.danger_signs_counseling.label_info_title}}",
+        "label_info_text": "{{pnc_hv_danger_signs.step1.danger_signs_counseling.label_info_text}}",
         "hint": "{{pnc_hv_danger_signs.step1.danger_signs_counseling.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{pnc_hv_danger_signs.step1.danger_signs_counseling.values[0]}}",
+          "{{pnc_hv_danger_signs.step1.danger_signs_counseling.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

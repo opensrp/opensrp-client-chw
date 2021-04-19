@@ -64,9 +64,9 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Allergic reactions",
-          "Others",
-          "None"
+          "{{fp_followup_side_effects.step1.condom_side_effects.values[0]}}",
+          "{{fp_followup_side_effects.step1.condom_side_effects.values[1]}}",
+          "{{fp_followup_side_effects.step1.condom_side_effects.values[2]}}"
         ],
         "keys": [
           "Allergic_reactions",
@@ -118,10 +118,10 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Heavy bleeding",
-          "Irregular periods",
-          "Others",
-          "None"
+          "{{fp_followup_side_effects.step1.cocpop_side_effects.values[0]}}",
+          "{{fp_followup_side_effects.step1.cocpop_side_effects.values[1]}}",
+          "{{fp_followup_side_effects.step1.cocpop_side_effects.values[2]}}",
+          "{{fp_followup_side_effects.step1.cocpop_side_effects.values[3]}}"
         ],
         "keys": [
           "Heavy_bleeding_",
@@ -175,10 +175,10 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Heavy bleeding",
-          "Irregular periods",
-          "Others",
-          "None"
+          "{{fp_followup_side_effects.step1.inject_side_effects.values[0]}}",
+          "{{fp_followup_side_effects.step1.inject_side_effects.values[1]}}",
+          "{{fp_followup_side_effects.step1.inject_side_effects.values[2]}}",
+          "{{fp_followup_side_effects.step1.inject_side_effects.values[3]}}"
         ],
         "keys": [
           "Heavy_bleeding_",
@@ -232,13 +232,13 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Severe pain inside the vagina after IUD was put in",
-          "Cramping or backaches for a few days after the IUD is put in",
-          "Spotting between periods and/or irregular periods",
-          "Heavier periods and worse menstrual cramps",
-          "IUCD explusion",
-          "Others",
-          "None"
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[0]}}",
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[1]}}",
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[2]}}",
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[3]}}",
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[4]}}",
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[5]}}",
+          "{{fp_followup_side_effects.step1.IUCD_side_effects.values[6]}}"
         ],
         "keys": [
           "Severe_pain_inside_the_vagina_after_IUD_was_put_in",
@@ -298,11 +298,11 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Incisional bleeding",
-          "Pus/Discharge from incision",
-          "Swollen around the incision",
-          "Others",
-          "None"
+          "{{fp_followup_side_effects.step1.sterilization_side_effects.values[0]}}",
+          "{{fp_followup_side_effects.step1.sterilization_side_effects.values[1]}}",
+          "{{fp_followup_side_effects.step1.sterilization_side_effects.values[2]}}",
+          "{{fp_followup_side_effects.step1.sterilization_side_effects.values[3]}}",
+          "{{fp_followup_side_effects.step1.sterilization_side_effects.values[4]}}"
         ],
         "keys": [
           "Incisional_bleeding",

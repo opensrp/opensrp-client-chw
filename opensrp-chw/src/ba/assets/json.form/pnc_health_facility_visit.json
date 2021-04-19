@@ -62,6 +62,10 @@
           "err": "{{pnc_health_facility_visit.step1.pnc_visit_{0}.v_required.err}}"
         },
         "values": [
+          "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[0]}}",
+          "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ]
@@ -99,6 +103,10 @@
           "err": "{{pnc_health_facility_visit.step1.vit_a_mother.v_required.err}}"
         },
         "values": [
+          "{{pnc_health_facility_visit.step1.vit_a_mother.values[0]}}",
+          "{{pnc_health_facility_visit.step1.vit_a_mother.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -122,6 +130,10 @@
           "err": "{{pnc_health_facility_visit.step1.ifa_mother.v_required.err}}"
         },
         "values": [
+          "{{pnc_health_facility_visit.step1.ifa_mother.values[0]}}",
+          "{{pnc_health_facility_visit.step1.ifa_mother.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

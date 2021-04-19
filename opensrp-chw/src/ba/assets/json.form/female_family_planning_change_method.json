@@ -612,6 +612,19 @@
         "type": "spinner",
         "hint": "{{female_family_planning_change_method.step2.fp_method_chosen.hint}}",
         "values": [
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[0]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[1]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[2]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[3]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[4]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[5]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[6]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[7]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[8]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[9]}}",
+          "{{female_family_planning_change_method.step2.fp_method_chosen.values[10]}}"
+        ],
+        "keys": [
           "Male condom",
           "Female condom",
           "COC",
@@ -773,6 +786,10 @@
         "type": "spinner",
         "hint": "{{female_family_planning_change_method.step3.counselling_use.hint}}",
         "values": [
+          "{{female_family_planning_change_method.step3.counselling_use.values[0]}}",
+          "{{female_family_planning_change_method.step3.counselling_use.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

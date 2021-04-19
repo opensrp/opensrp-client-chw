@@ -57,7 +57,7 @@
       {
         "key": "photo",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
         "uploadButtonText": "{{family_member_register.step1.photo.uploadButtonText}}"
@@ -83,7 +83,7 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{family_member_register.step1.surname.hint}}",
@@ -107,7 +107,7 @@
       {
         "key": "same_as_fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "check_box",
@@ -127,7 +127,7 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "hidden": "true"
@@ -209,7 +209,7 @@
       {
         "key": "age_calculated",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
@@ -416,19 +416,19 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.insurance_provider.hint}}",
         "values": [
-          "Community Health Fund (CHF)",
-          "iCHF",
-          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
-          "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
-          "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
-          "Other",
-          "None"
+          "{{family_member_register.step1.insurance_provider.values[0]}}",
+          "{{family_member_register.step1.insurance_provider.values[1]}}",
+          "{{family_member_register.step1.insurance_provider.values[2]}}",
+          "{{family_member_register.step1.insurance_provider.values[3]}}",
+          "{{family_member_register.step1.insurance_provider.values[4]}}",
+          "{{family_member_register.step1.insurance_provider.values[5]}}",
+          "{{family_member_register.step1.insurance_provider.values[6]}}",
+          "{{family_member_register.step1.insurance_provider.values[7]}}",
+          "{{family_member_register.step1.insurance_provider.values[8]}}",
+          "{{family_member_register.step1.insurance_provider.values[9]}}",
+          "{{family_member_register.step1.insurance_provider.values[10]}}",
+          "{{family_member_register.step1.insurance_provider.values[11]}}",
+          "{{family_member_register.step1.insurance_provider.values[12]}}"
         ],
         "keys": [
           "Community Health Fund (CHF)",
@@ -511,8 +511,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.sex.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{family_member_register.step1.sex.values[0]}}",
+          "{{family_member_register.step1.sex.values[1]}}"
         ],
         "keys": [
           "Male",
@@ -526,7 +526,7 @@
       {
         "key": "wra",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
@@ -540,7 +540,7 @@
       {
         "key": "mra",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden",
         "calculation": {
@@ -559,8 +559,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.preg_1yr.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_member_register.step1.preg_1yr.values[0]}}",
+          "{{family_member_register.step1.preg_1yr.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -590,8 +590,8 @@
         "type": "spinner",
         "hint": "{{family_member_register.step1.disabilities.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_member_register.step1.disabilities.values[0]}}",
+          "{{family_member_register.step1.disabilities.values[1]}}"
         ],
         "keys": [
           "Yes",
@@ -628,13 +628,13 @@
       {
         "key": "is_primary_caregiver",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
         "hint": "{{family_member_register.step1.is_primary_caregiver.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{family_member_register.step1.is_primary_caregiver.values[0]}}",
+          "{{family_member_register.step1.is_primary_caregiver.values[1]}}"
         ],
         "keys": [
           "Yes",

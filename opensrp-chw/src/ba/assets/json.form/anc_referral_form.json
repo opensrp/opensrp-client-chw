@@ -405,7 +405,7 @@
         "key": "referral_time_anc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "referral_time_anc",
         "type": "hidden",
         "is_problem": false,
         "calculation": {

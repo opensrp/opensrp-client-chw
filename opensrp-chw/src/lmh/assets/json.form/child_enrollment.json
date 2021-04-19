@@ -209,8 +209,8 @@
         "type": "spinner",
         "hint": "{{child_enrollment.step1.gender.hint}}",
         "values": [
-          "Male",
-          "Female"
+          "{{child_enrollment.step1.gender.values[0]}}",
+          "{{child_enrollment.step1.gender.values[1]}}"
         ],
         "v_required": {
           "value": "true",

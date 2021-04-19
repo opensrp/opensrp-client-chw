@@ -119,6 +119,10 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step1.fever_duration.hint}}",
         "values": [
+          "{{malaria_confirmation.step1.fever_duration.values[0]}}",
+          "{{malaria_confirmation.step1.fever_duration.values[1]}}"
+        ],
+        "keys": [
           "Less than 24 hrs",
           "More than 24 hrs"
         ],
@@ -146,6 +150,10 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step1.malaria_test_done.hint}}",
         "values": [
+          "{{malaria_confirmation.step1.malaria_test_done.values[0]}}",
+          "{{malaria_confirmation.step1.malaria_test_done.values[1]}}"
+        ],
+        "keys": [
           "No",
           "Yes, by the CHW"
         ],
@@ -169,6 +177,10 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step1.malaria_results.hint}}",
         "values": [
+          "{{malaria_confirmation.step1.malaria_results.values[0]}}",
+          "{{malaria_confirmation.step1.malaria_results.values[1]}}"
+        ],
+        "keys": [
           "Positive",
           "Negative"
         ],
@@ -247,6 +259,14 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step1.malaria_treat.hint}}",
         "values": [
+          "{{malaria_confirmation.step1.malaria_treat.values[0]}}",
+          "{{malaria_confirmation.step1.malaria_treat.values[1]}}",
+          "{{malaria_confirmation.step1.malaria_treat.values[2]}}",
+          "{{malaria_confirmation.step1.malaria_treat.values[3]}}",
+          "{{malaria_confirmation.step1.malaria_treat.values[4]}}",
+          "{{malaria_confirmation.step1.malaria_treat.values[5]}}"
+        ],
+        "keys": [
           "ALU 6",
           "ALU 12",
           "ALU 18",
@@ -304,6 +324,10 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step2.fam_llin.hint}}",
         "values": [
+          "{{malaria_confirmation.step2.fam_llin.values[0]}}",
+          "{{malaria_confirmation.step2.fam_llin.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -324,6 +348,10 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step2.llin_2days.hint}}",
         "values": [
+          "{{malaria_confirmation.step2.llin_2days.values[0]}}",
+          "{{malaria_confirmation.step2.llin_2days.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -351,6 +379,10 @@
         "type": "spinner",
         "hint": "{{malaria_confirmation.step2.llin_condition.hint}}",
         "values": [
+          "{{malaria_confirmation.step2.llin_condition.values[0]}}",
+          "{{malaria_confirmation.step2.llin_condition.values[1]}}"
+        ],
+        "keys": [
           "Okay",
           "Bad"
         ],

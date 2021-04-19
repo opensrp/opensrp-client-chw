@@ -63,8 +63,8 @@
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "{{anc_member_registration.step1.last_menstrual_period.hint}}",
-        "label_info_title": "LMP",
-        "label_info_text": "LMP \u003d first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
+        "label_info_title": "{{anc_member_registration.step1.last_menstrual_period.label_info_title}}",
+        "label_info_text": "{{anc_member_registration.step1.last_menstrual_period.label_info_text}}",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
@@ -134,7 +134,7 @@
       {
         "key": "gest_age_note",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "{{anc_member_registration.step1.gest_age_note.hint}}",
@@ -323,9 +323,9 @@
           "value": "true",
           "err": "{{anc_member_registration.step1.no_surv_children.v_numeric_integer.err}}"
         },
-        "v_relative_max": {
-          "value": "no_prev_preg",
-          "err": "Number must be less than or equal to Number of Previous Pregnancies"
+        "v_min": {
+          "value": "0",
+          "err": "{{anc_member_registration.step1.no_surv_children.v_min.err}}"
         }
       },
       {
@@ -341,11 +341,11 @@
           "err": "{{anc_member_registration.step1.marital_status.v_required.err}}"
         },
         "values": [
-          "Married",
-          "Co-habiting",
-          "Single",
-          "Divorced",
-          "Widowed"
+          "{{anc_member_registration.step1.marital_status.values[0]}}",
+          "{{anc_member_registration.step1.marital_status.values[1]}}",
+          "{{anc_member_registration.step1.marital_status.values[2]}}",
+          "{{anc_member_registration.step1.marital_status.values[3]}}",
+          "{{anc_member_registration.step1.marital_status.values[4]}}"
         ],
         "keys": [
           "Married",
@@ -369,6 +369,9 @@
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "{{anc_member_registration.step1.phone_number.hint}}",
+        "v_required": {
+          "value": false
+        },
         "v_numeric": {
           "value": "true",
           "err": "{{anc_member_registration.step1.phone_number.v_numeric.err}}"
@@ -376,9 +379,6 @@
         "v_regex": {
           "value": "(0[0-9]{9})|\\s*",
           "err": "{{anc_member_registration.step1.phone_number.v_regex.err}}"
-        },
-        "v_required": {
-          "value": false
         }
       },
       {
@@ -394,8 +394,8 @@
           "err": "{{anc_member_registration.step1.person_assist.v_required.err}}"
         },
         "values": [
-          "Yes",
-          "No"
+          "{{anc_member_registration.step1.person_assist.values[0]}}",
+          "{{anc_member_registration.step1.person_assist.values[1]}}"
         ],
         "keys": [
           "Yes",

@@ -73,105 +73,105 @@
             "key": "chk_maternal_nutrition",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_maternal_nutrition.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_aids",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_hiv_aids.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_pmtc_for_mother",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_pmtc_for_mother.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_malaria_prevention",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_malaria_prevention.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_hiv_exposed_infant.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_breast_feeding",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_breast_feeding.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_birth_registration",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_birth_registration.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_complementary_feeding",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_complementary_feeding.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_growth_and_dev",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_growth_and_dev.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_immunization",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_immunization.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_newborn_danger",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_newborn_danger.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_infection",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_infection.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_prevention_of_accidents",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_prevention_of_accidents.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_gender_issues",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_gender_issues.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_none",
             "text": "{{routine_home_visit.step1.counselling_1m5yrs.options.chk_none.text}}",
             "value": false,
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
         ],

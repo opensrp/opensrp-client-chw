@@ -58,8 +58,8 @@
         "type": "spinner",
         "hint": "{{anc_hv_family_planning.step1.fam_planning.hint}}",
         "values": [
-          "Yes",
-          "No"
+          "{{anc_hv_family_planning.step1.fam_planning.values[0]}}",
+          "{{anc_hv_family_planning.step1.fam_planning.values[1]}}"
         ],
         "keys": [
           "Yes",
