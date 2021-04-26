@@ -246,6 +246,21 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "int", "DATABASE_VERSION", '10'
         }
+        nigeria {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".nigeria"
+            versionCode 1
+            versionName "1.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"NIGERIA"'
+            buildConfigField "int", "DATABASE_VERSION", '13'
+        }
         guinea {
             dimension = 'baseDimension'
             applicationIdSuffix ".guinea"
@@ -275,7 +290,8 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            //buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village" }'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
