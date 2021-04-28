@@ -258,7 +258,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"NIGERIA"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '13'
         }
         guinea {
