@@ -519,6 +519,10 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{family_member_register.step1.circumcised.v_required.err}}"
+        },
         "v_numeric": {
           "value": "true",
           "err": "{{family_member_register.step1.age_of_husband.v_numeric.err}}"
@@ -539,6 +543,10 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{family_member_register.step1.circumcised.v_required.err}}"
+        },
         "v_numeric": {
           "value": "true",
           "err": "{{family_member_register.step1.age_at_marrying.v_numeric.err}}"
@@ -575,6 +583,13 @@
         "openmrs_choice_ids": {
           "Yes": "knows_fgm_yes_option",
           "No": "knows_fgm_no_option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
         }
       },
       {
@@ -600,6 +615,13 @@
         "openmrs_choice_ids": {
           "Yes": "circumcised_yes_option",
           "No": "circumcised_no_option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
         }
       },
       {
@@ -613,7 +635,18 @@
           "value": "true",
           "err": "{{family_member_register.step1.age_of_fgm.v_numeric.err}}"
         },
-        "hint": "{{family_member_register.step1.age_of_fgm.hint}}"
+        "v_required": {
+          "value": "true",
+          "err": "{{family_member_register.step1.circumcised.v_required.err}}"
+        },
+        "hint": "{{family_member_register.step1.age_of_fgm.hint}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-relevance.yml"
+            }
+          }
+        }
       }
     ]
   },
