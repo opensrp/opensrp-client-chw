@@ -55,18 +55,51 @@ condition: "step1_ever_school == 'Yes'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_school_type
-description: type of school relevance
-priority: 1
-condition: "(step1_school_level == 'Early childhood programme') || (step1_school_level == 'Primary')
-|| (step1_school_level == 'Lower secondary') || (step1_school_level == 'Upper secondary') || (step1_school_level == 'Alternative learning program')
-|| (step1_school_level == 'Higher')"
-actions:
-  - "isRelevant = true"
----
 name: step1_primary_caregiver
 description: member is between 5yrs and 120 yrs
 priority: 1
 condition: " (step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15 && helper.formatDate(step1_dob,'y') <= 120) || (step1_age != '' && step1_age >= 15 && step1_age <= 120)"
+actions:
+  - "isRelevant = true"
+---
+name: step1_currently_married
+description: currently married
+priority: 1
+condition: "(step1_sex == 'Female') && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15 && helper.formatDate(step1_dob,'y') <= 24) || (step1_age != '' && step1_age >= 15 && step1_age <= 24))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_age_of_husband
+description: age of husband
+priority: 1
+condition: "(step1_currently_married == 'Yes, Currently Married') || (step1_currently_married == 'Yes, Living with a partner')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_age_at_marrying
+description: age at marrying
+priority: 1
+condition: "(step1_currently_married == 'Yes, Currently Married') || (step1_currently_married == 'Yes, Living with a partner')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_knows_fgm
+description: knows fgm
+priority: 1
+condition: "(step1_sex == 'Female') && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15 && helper.formatDate(step1_dob,'y') <= 24) || (step1_age != '' && step1_age >= 15 && step1_age <= 24))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_circumcised
+description: circumcised
+priority: 1
+condition: "(step1_sex == 'Female') && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15 && helper.formatDate(step1_dob,'y') <= 24) || (step1_age != '' && step1_age >= 15 && step1_age <= 24))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_age_of_fgm
+description: currently married
+priority: 1
+condition: "(step1_circumcised == 'Yes')"
 actions:
   - "isRelevant = true"
