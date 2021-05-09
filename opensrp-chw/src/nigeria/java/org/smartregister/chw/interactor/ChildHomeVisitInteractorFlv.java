@@ -1,6 +1,5 @@
 package org.smartregister.chw.interactor;
 
-
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.immunization.domain.ServiceWrapper;
 
@@ -15,15 +14,10 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         try {
             evaluateChildVaccineCard();
             evaluateImmunization();
-            evaluateExclusiveBreastFeeding(serviceWrapperMap);
+            evaluateMNP(serviceWrapperMap);
             evaluateVitaminA(serviceWrapperMap);
             evaluateDeworming(serviceWrapperMap);
             evaluateBirthCertForm();
-            evaluateMUAC();
-            evaluateDietary();
-            evaluateECD();
-            evaluateLLITN();
-            evaluateObsAndIllness();
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
         } catch (Exception e) {
