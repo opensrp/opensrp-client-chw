@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.VisitDetail;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.chw.domain.FormDetails;
@@ -152,11 +153,13 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         Long visitDate = Long.parseLong(commonPersonObjectClient.getColumnmaps().get("visit_date"));
 
         if (WASH_CHECK.equalsIgnoreCase(type)) {
-            startForm(org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH, visitDate);
-
-            /*WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(familyBaseEntityId, visitDate);
-            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-            dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);*/
+            if (ChwApplication.getApplicationFlavor().launchWashCheckOnNativeForm()) {
+                startForm(org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH, visitDate);
+            } else {
+                WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(familyBaseEntityId, visitDate);
+                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                dialogFragment.show(ft, WashCheckDialogFragment.DIALOG_TAG);
+            }
 
         } else if (CoreConstants.EventType.ROUTINE_HOUSEHOLD_VISIT.equalsIgnoreCase(type)) {
 
