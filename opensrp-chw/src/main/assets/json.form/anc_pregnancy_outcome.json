@@ -208,7 +208,7 @@
         "key": "no_children_no",
         "type": "repeating_group",
         "reference_edit_text_hint": "{{anc_pregnancy_outcome.step1.no_children_no.reference_edit_text_hint}}",
-        "repeating_group_label": "Détails de l\u0027enfant #",
+        "repeating_group_label": "Baby Details #",
         "repeating_group_max": "10",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
