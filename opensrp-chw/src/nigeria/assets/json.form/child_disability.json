@@ -91,6 +91,10 @@
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
           }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.visually_impaired.v_required.err}}"
         }
       },
       {
@@ -114,6 +118,10 @@
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
           }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.hearing_impaired.v_required.err}}"
         }
       },
       {
@@ -137,6 +145,10 @@
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
           }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.difficulty_walking.v_required.err}}"
         }
       },
       {
@@ -160,6 +172,10 @@
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
           }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.learning_disability.v_required.err}}"
         }
       },
       {
@@ -210,6 +226,10 @@
               "rules-file": "child_disability_relevance.yml"
             }
           }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.disability_impact.v_required.err}}"
         }
       }
     ]
