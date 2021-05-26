@@ -47,18 +47,18 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Vérification EHA",
+    "title": "WASH check",
     "fields": [
       {
         "key": "handwash_facility",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Concept - Household has access to a handwashing facility",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "164863AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_title": "Does the household have handwashing facilities?",
         "label_info_text": "Répondez \"Oui\" si le ménage dispose d'un espace désigné pour se laver les mains (ou d'un point mobile de lavage des mains), avec de l'eau et du savon. Sinon, répondez \"Non\".",
-        "hint": "Whether or not the household has appropriate handwashing facilities.",
+        "hint": "Does the household have handwashing facilities?",
         "values": [
           "Yes",
           "No"
@@ -84,6 +84,7 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_title": "Do you have any soap or detergent or ash in your house for washing hands?",
+        "hint": "Do you have any Soap Or Detergent Or Ash in your house for washing hands?",
         "label_info_text": "Respond \"Yes\". Observe. Check if you can see soap or detergent or ash in the handwashing facility, Otherwise \"No\"",
         "values": [
           "Yes",
@@ -96,10 +97,6 @@
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": false,
-          "err": "Please select option"
         },
         "relevance": {
           "step1:handwash_facility": {
@@ -117,7 +114,7 @@
         "type": "spinner",
         "label_info_title": "Does the household have access to clean drinking water?",
         "label_info_text": "Répondez \"oui\" si le ménage a accès à des sources d'eau améliorées, disponibles en cas de besoin et exemptes de contamination. Les sources d'eau potable améliorées sont celles qui, de par leur conception et leur construction, sont susceptibles de fournir de l'eau salubre, et comprennent : l'eau courante, les puits forés ou tubés, les puits creusés protégés, les sources protégées, l'eau de pluie et l'eau conditionnée ou livrée.",
-        "hint": "Whether or not the household has access to a clean drinking water supply.",
+        "hint": "Does the household have access to clean drinking water?",
         "values": [
           "Yes",
           "No"
@@ -133,6 +130,66 @@
         "v_required": {
           "value": true,
           "err": "Please select option"
+        }
+      },
+      {
+        "key": "drinking_water_source",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "What is the main source of drinking water used by members of your household?",
+        "label_info_text": "If unclear, probe to identify the place from which members of this household most often collect drinking water (collection point).",
+        "hint": "What is the main source of drinking water used by members of your household?",
+        "values": [
+          "Piped Water through tape",
+          "Protected Dug Well",
+          "Unprotected Well",
+          "Rainwater harvesting",
+          "Open surface water (River, Dam, Lake, Pond, Stream, Canal",
+          "OTHER ( SPECIFY)"
+        ],
+        "keys": [
+          "Piped Water through tape",
+          "Protected Dug Well",
+          "Unprotected Well",
+          "Rainwater harvesting",
+          "Open surface water (River, Dam, Lake, Pond, Stream, Canal",
+          "OTHER ( SPECIFY)"
+        ],
+        "relevance": {
+          "step1:clean_drinking_water": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "water_source_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Where is that water source located?",
+        "label_info_title": "Where is that water source located?",
+        "label_info_text": "Location of the water source",
+        "values": [
+          "In Own house/dwelling",
+          "From Neighbour house",
+          "COMMUNITY/PUBLIC SOURCE"
+        ],
+        "keys": [
+          "In Own house/dwelling",
+          "From Neighbour house",
+          "COMMUNITY/PUBLIC SOURCE"
+        ],
+        "relevance": {
+          "step1:clean_drinking_water": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       },
       {
@@ -143,8 +200,8 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "label_info_title": "Do household members use a hygienic latrine for the disposal of feces?",
-        "label_info_text": "\"Répondez \"\"oui\"\" si le ménage utilise des installations sanitaires améliorées qui ne sont pas partagées avec d'autres ménages. Les installations sanitaires améliorées sont celles qui sont conçues pour séparer hygiéniquement les excréments du contact humain, et comprennent : des chasses d'eau/évacuation dans les égouts, des fosses septiques ou des latrines à fosse ; des latrines à fosse améliorées ventilées, des toilettes à compostage ou des latrines à fosse avec dalles.\n\nRépondre \"\"non\"\" s'ils pratiquent la défécation à l'air libre : élimination des excréments humains dans les champs, les forêts, les buissons, les plans d'eau ouverts, les plages et autres espaces ouverts ou avec des déchets solides.\"",
-        "hint": "Whether or not the household has a hygienic latrine for the safe disposal of feces.",
+        "label_info_text": "Répondez \"oui\" si le ménage utilise des installations sanitaires améliorées qui ne sont pas partagées avec d'autres ménages. Les installations sanitaires améliorées sont celles qui sont conçues pour séparer hygiéniquement les excréments du contact humain, et comprennent : des chasses d'eau/évacuation dans les égouts, des fosses septiques ou des latrines à fosse ; des latrines à fosse améliorées ventilées, des toilettes à compostage ou des latrines à fosse avec dalles.\n\nRépondre \"non\" s'ils pratiquent la défécation à l'air libre : élimination des excréments humains dans les champs, les forêts, les buissons, les plans d'eau ouverts, les plages et autres espaces ouverts ou avec des déchets solides.",
+        "hint": "Do household members use a hygienic latrine for the disposal of feces?",
         "values": [
           "Yes",
           "No"
@@ -163,29 +220,125 @@
         }
       },
       {
-        "key": "type_of_latrine",
+        "key": "drinking_water_safety",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "Specify type of latrine ?",
-        "label_info_text": "Type of latrine",
+        "hint": "Do You or Any Other Member Of This Household Do Anything To The Water To Make It Safer To Drink?",
+        "label_info_title": "Do You or Any Other Member Of This Household Do Anything To The Water To Make It Safer To Drink?",
+        "label_info_text": "Any action done to the water to make safe for drinking and use",
         "values": [
-          "Flush / Pour Flush",
-          "Pit Latrine"
+          "Yes",
+          "No",
+          "DK"
         ],
         "keys": [
-          "Flush / Pour Flush",
-          "Pit Latrine"
+          "Yes",
+          "No",
+          "DK"
+        ],
+        "relevance": {
+          "step1:hygienic_latrine": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "type_of_toilet",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "What Kind of Toilet Facility Do Members Of Your Household Usually Use?",
+        "label_info_title": "What Kind of Toilet Facility Do Members Of Your Household Usually Use?",
+        "label_info_text": "Type of toilet facility",
+        "values": [
+          "Pour Latrine flush to Pit",
+          "Pour Latrine flush to Septic Tank/Sewer",
+          "Pour Latrine flush To Open Drain",
+          "Pit Latrine with Slab",
+          "Pit Latrine Without Slab /",
+          "No Facility / Bush / Field",
+          "Other (Specify)",
+          "Open Drain",
+          "DK"
+        ],
+        "keys": [
+          "Pour Latrine flush to Pit",
+          "Pour Latrine flush to Septic Tank/Sewer",
+          "Pour Latrine flush To Open Drain",
+          "Pit Latrine with Slab",
+          "Pit Latrine Without Slab /",
+          "No Facility / Bush / Field",
+          "Other (Specify)",
+          "Open Drain",
+          "DK"
+        ],
+        "relevance": {
+          "step1:hygienic_latrine": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "toilet_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Where Is this Toilet Facility Located?",
+        "label_info_title": "Where Is this Toilet Facility Located?",
+        "label_info_text": "Location of the Toilet Facility ?",
+        "values": [
+          "In Own Dwelling/house",
+          "At Naighbour hosue",
+          "Community Toilet"
+        ],
+        "keys": [
+          "In Own Dwelling/house",
+          "At Naighbour hosue",
+          "Community Toilet"
+        ],
+        "relevance": {
+          "step1:hygienic_latrine": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "toilet_safe_disability",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Is the toilet platform & drop hole safe for People living with disability and for child?",
+        "label_info_title": "Is the toilet platform & drop hole safe for People living with disability and for child?",
+        "label_info_text": "OBSERVE AND RECORD",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "v_required": {
-          "value": false,
-          "err": "Please select option"
+        "relevance": {
+          "step1:hygienic_latrine": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
         }
       }
     ]
