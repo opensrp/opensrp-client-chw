@@ -16,6 +16,7 @@ allprojects {
     repositories {
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        //maven { url "http://dl.bintray.com/ona/kujaku" }
         maven {
             def githubProperties = new Properties()
             if (rootProject.file("github.properties").exists()) {
@@ -42,7 +43,7 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
@@ -247,6 +248,21 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '14'
         }
+        crvs {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".crvs"
+            versionCode 1
+            versionName "1.0.0"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+            buildConfigField "int", "DATABASE_VERSION", '13'
+        }
         drc {
             resConfigs "en", "fr"
             dimension = 'baseDimension'
@@ -338,7 +354,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.32-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.31-SNAPSHOT-CUSTOM@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
