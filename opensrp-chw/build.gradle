@@ -16,7 +16,24 @@ allprojects {
     repositories {
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url "http://dl.bintray.com/ona/kujaku" }
+        maven {
+            def githubProperties = new Properties()
+            if (rootProject.file("github.properties").exists()) {
+                githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+            }
+
+            name = "GitHubPackages"
+            /*  Configure path to the library hosted on GitHub Package Registry
+             *  Replace UserID with package owner userID and REPOSITORY with the repository name
+             *  e.g. ""https://maven.pkg.github.com/opensrp/opensrp-client-reporting""
+             */
+            url = uri("https://maven.pkg.github.com/onaio/kujaku")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+
+        }
         maven { url 'https://maven.fabric.io/public' }
         mavenLocal()
     }
@@ -176,6 +193,7 @@ android {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/NOTICE.md'
+        exclude 'META-INF/INDEX.LIST'
     }
 
     testOptions {
@@ -320,7 +338,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.30-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.0.32-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
