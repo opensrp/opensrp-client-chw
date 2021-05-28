@@ -15,6 +15,7 @@ local.properties
 classes/
 tmp/
 project.properties
+github.properties
 .DS_Store
 .settings
 build/
