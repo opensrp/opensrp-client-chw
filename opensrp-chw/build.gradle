@@ -15,7 +15,6 @@ allprojects {
     repositories {
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url "http://dl.bintray.com/ona/kujaku" }
         maven { url 'https://maven.fabric.io/public' }
         mavenLocal()
     }
@@ -149,6 +148,7 @@ android {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/NOTICE.md'
+        exclude 'META-INF/INDEX.LIST'
     }
 
     testOptions {
@@ -294,7 +294,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.26-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.27-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -318,7 +318,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
-    implementation 'com.google.guava:guava:24.1-jre'
+    implementation 'com.google.guava:guava:20.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
