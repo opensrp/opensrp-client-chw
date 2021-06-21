@@ -434,7 +434,12 @@
         "v_required": {
           "value": false,
           "err": "{{family_register.step2.phone_number.v_required.err}}"
-        }
+        },
+        "v_regex": {
+          "value": "(0[0-9]{10})|\\s*",
+          "err": "{{family_register.step2.phone_number.v_regex.err}}"
+        },
+        "value": "0"
       },
       {
         "key": "other_phone_number",
@@ -446,6 +451,10 @@
         "v_numeric": {
           "value": "true",
           "err": "{{family_register.step2.other_phone_number.v_numeric.err}}"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{10})|\\s*",
+          "err": "{{family_register.step2.other_phone_number.v_regex.err}}"
         }
       },
       {

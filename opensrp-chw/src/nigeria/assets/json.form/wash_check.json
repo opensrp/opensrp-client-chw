@@ -151,7 +151,7 @@
           "{{wash_check.step1.drinking_water_source.values[5]}}"
         ],
         "keys": [
-          "Piped Water through tape",
+          "Piped Water through tap",
           "Protected Dug Well",
           "Unprotected Well",
           "Rainwater harvesting",
@@ -193,6 +193,33 @@
         }
       },
       {
+        "key": "drinking_water_safety",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{wash_check.step1.drinking_water_safety.hint}}",
+        "label_info_title": "{{wash_check.step1.drinking_water_safety.label_info_title}}",
+        "label_info_text": "{{wash_check.step1.drinking_water_safety.label_info_text}}",
+        "values": [
+          "{{wash_check.step1.drinking_water_safety.values[0]}}",
+          "{{wash_check.step1.drinking_water_safety.values[1]}}",
+          "{{wash_check.step1.drinking_water_safety.values[2]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No",
+          "DK"
+        ],
+        "relevance": {
+          "step1:clean_drinking_water": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
         "key": "hygienic_latrine",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -217,33 +244,6 @@
         "v_required": {
           "value": true,
           "err": "{{wash_check.step1.hygienic_latrine.v_required.err}}"
-        }
-      },
-      {
-        "key": "drinking_water_safety",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "{{wash_check.step1.drinking_water_safety.hint}}",
-        "label_info_title": "{{wash_check.step1.drinking_water_safety.label_info_title}}",
-        "label_info_text": "{{wash_check.step1.drinking_water_safety.label_info_text}}",
-        "values": [
-          "{{wash_check.step1.drinking_water_safety.values[0]}}",
-          "{{wash_check.step1.drinking_water_safety.values[1]}}",
-          "{{wash_check.step1.drinking_water_safety.values[2]}}"
-        ],
-        "keys": [
-          "Yes",
-          "No",
-          "DK"
-        ],
-        "relevance": {
-          "step1:hygienic_latrine": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
         }
       },
       {
