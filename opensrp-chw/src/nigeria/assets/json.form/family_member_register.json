@@ -477,42 +477,6 @@
         }
       },
       {
-        "key": "currently_married",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "{{family_member_register.step1.currently_married.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{family_member_register.step1.currently_married.v_required.err}}"
-        },
-        "keys": [
-          "Yes, Currently Married",
-          "Yes, Living with a partner",
-          "Not in union"
-        ],
-        "values": [
-          "{{family_member_register.step1.currently_married.values[0]}}",
-          "{{family_member_register.step1.currently_married.values[1]}}",
-          "{{family_member_register.step1.currently_married.values[2]}}"
-        ],
-        "openmrs_choice_ids": {
-          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family-member-relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "age_of_husband",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

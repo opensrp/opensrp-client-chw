@@ -72,14 +72,14 @@ actions:
 name: step1_age_of_husband
 description: age of husband
 priority: 1
-condition: "(step1_currently_married == 'Yes, Currently Married') || (step1_currently_married == 'Yes, Living with a partner')"
+condition: "(step1_marital_status == 'Married') || (step1_marital_status == 'Co-habiting')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_age_at_marrying
 description: age at marrying
 priority: 1
-condition: "(step1_currently_married == 'Yes, Currently Married') || (step1_currently_married == 'Yes, Living with a partner')"
+condition: "(step1_marital_status == 'Married') || (step1_marital_status == 'Co-habiting')"
 actions:
   - "isRelevant = true"
 ---
