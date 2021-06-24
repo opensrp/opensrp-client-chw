@@ -3,7 +3,6 @@ package org.smartregister.chw.sync;
 
 import android.content.Context;
 
-import org.smartregister.CoreLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
