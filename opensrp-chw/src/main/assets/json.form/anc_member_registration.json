@@ -148,6 +148,14 @@
         }
       },
       {
+        "key": "weeks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "value": "semaines",
+        "type": "hidden"
+      },
+      {
         "key": "edd_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -232,9 +240,12 @@
           "value": "true",
           "err": "Must be a rounded number"
         },
-        "v_relative_max": {
-          "value": "no_prev_preg",
-          "err": "Number must be less than or equal to Number of Previous Pregnancies"
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
         }
       },
       {
