@@ -24,6 +24,22 @@ public class ScheduleDao extends AbstractDao {
         return AbstractDao.readData(sql, dataMap);
     }
 
+    public static @Nullable List<String> getActiveChildrenUnder5AndGirlsAge9to11(String scheduleName, String scheduleGroup) {
+        String sql = "select ec_child.base_entity_id " +
+                "from ec_child " +
+                "left join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id " +
+                "and (ec_family_member.is_closed = 1 or ec_family_member.base_entity_id is null ) " +
+                "where ec_child.is_closed = 0 and ec_child.base_entity_id not in " +
+                "(select base_entity_id from schedule_service where" +
+                " schedule_name = '" + scheduleName + "' and schedule_group_name = '" + scheduleGroup + "') " +
+                "and (((julianday('now') - julianday(ec_child.dob))/365.25) <= 5 or (ec_child.gender = 'Female'" +
+                " and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11))) ";
+
+        DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
+        return AbstractDao.readData(sql, dataMap);
+    }
+
+
     public static @Nullable List<String> getActiveChildren(String scheduleName, String scheduleGroup) {
         String sql = "select ec_child.base_entity_id from ec_child " +
                 "left join ec_family_member on ec_family_member.base_entity_id = ec_child.mother_entity_id and (ec_family_member.is_closed = 1 or ec_family_member.base_entity_id is null ) " +
@@ -32,6 +48,10 @@ public class ScheduleDao extends AbstractDao {
 
         DataMap<String> dataMap = c -> getCursorValue(c, "base_entity_id");
         return AbstractDao.readData(sql, dataMap);
+    }
+
+    public static void deleteChildrenVaccines(){
+        getRepository().getWritableDatabase().execSQL("delete from alerts where caseID in (select base_entity_id from ec_child)");
     }
 
     public static @Nullable List<String> getActiveFamilies(String scheduleName, String scheduleGroup) {

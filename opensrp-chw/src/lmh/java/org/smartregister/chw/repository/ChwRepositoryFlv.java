@@ -4,6 +4,8 @@ import android.content.Context;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.util.DatabaseMigrationUtils;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -35,6 +37,12 @@ public class ChwRepositoryFlv {
                     break;
                 case 4:
                     upgradeToVersion4(db);
+                    break;
+                case 5:
+                    upgradeToVersion5(db);
+                    break;
+                case 6:
+                    upgradeToVersion6(db);
                     break;
                 default:
                     break;
@@ -106,7 +114,24 @@ public class ChwRepositoryFlv {
             EventClientRepository.createTable(db, EventClientRepository.Table.foreignEvent, EventClientRepository.event_column.values());
             EventClientRepository.createTable(db, EventClientRepository.Table.foreignClient, EventClientRepository.client_column.values());
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion3");
+            Timber.e(e, "upgradeToVersion4");
+        }
+    }
+
+    private static void upgradeToVersion5(SQLiteDatabase db) {
+        try {
+            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion5");
+        }
+    }
+
+    private static void upgradeToVersion6(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member_location ADD COLUMN provider_id VARCHAR;");
+            DatabaseMigrationUtils.fillFamilyMemberLocationTableWithProviderIds(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion6");
         }
     }
 }

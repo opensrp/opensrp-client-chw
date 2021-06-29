@@ -185,6 +185,22 @@
           }
         },
         {
+          "column_name": "ever_school",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "everSchool"
+          }
+        },
+        {
+          "column_name": "school_level",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "schoolLevel"
+          }
+        },
+        {
           "column_name": "phone_number",
           "type": "Event",
           "json_mapping": {

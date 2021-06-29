@@ -176,7 +176,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             return true;
         } else if (itemId == R.id.action_pregnancy_out_come) {
             CoreConstants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
-            PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName());
+            PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName(), memberObject.getLastMenstrualPeriod());
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -247,6 +247,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new AncMemberDataLoader(titleString));
                 form = binder.getPrePopulatedForm(formName);
+                if (form != null) {
+                    form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_ANC_REGISTRATION);
+                }
 
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
@@ -298,7 +301,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (ChwApplication.getApplicationFlavor().hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
+        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation()) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
@@ -372,6 +375,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
+
+
+    @Override
+    public void openFamilyLocation() {
+        Intent intent = new Intent(this, AncMemberMapActivity.class);
+        this.startActivity(intent);
+    }
+
 
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {

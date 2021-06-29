@@ -243,6 +243,14 @@
             android:theme="@style/FamilyTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.AncMemberMapActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.HivRegisterActivity"
             android:label="@string/hiv_register"
             android:theme="@style/ChwTheme.NoActionBar" />

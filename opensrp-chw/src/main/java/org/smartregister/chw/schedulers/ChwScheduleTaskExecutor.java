@@ -8,6 +8,7 @@ import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.malaria.util.Constants;
 import org.smartregister.chw.task.ANCVisitScheduler;
 import org.smartregister.chw.task.ChildHomeVisitScheduler;
+import org.smartregister.chw.task.FamilyKitCheckScheduler;
 import org.smartregister.chw.task.FpVisitScheduler;
 import org.smartregister.chw.task.HivVisitScheduler;
 import org.smartregister.chw.task.MalariaScheduler;
@@ -54,6 +55,9 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
             if (ChwApplication.getApplicationFlavor().hasWashCheck())
                 initializeWashClassifier(scheduleServiceMap);
 
+            if (ChwApplication.getApplicationFlavor().hasFamilyKitCheck())
+                initializeFamilyKitClassifier(scheduleServiceMap);
+
             if (ChwApplication.getApplicationFlavor().hasFamilyPlanning())
                 initializeFPClassifier(scheduleServiceMap);
 
@@ -86,6 +90,7 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         addToClassifers(CoreConstants.EventType.CHILD_HOME_VISIT, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.CHILD_VISIT_NOT_DONE, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.CHILD_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION, classifier, scheduleServices);
     }
 
     private void initializeANCClassifier(Map<String, List<ScheduleService>> classifier) {
@@ -123,6 +128,16 @@ public class ChwScheduleTaskExecutor extends ScheduleTaskExecutor {
         addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
         addToClassifers(CoreConstants.EventType.WASH_CHECK, classifier, scheduleServices);
+    }
+
+    private void initializeFamilyKitClassifier(Map<String, List<ScheduleService>> classifier) {
+        List<ScheduleService> scheduleServices = new ArrayList<>();
+        scheduleServices.add(new FamilyKitCheckScheduler());
+
+        addToClassifers(CoreConstants.EventType.FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_FAMILY_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.UPDATE_CHILD_REGISTRATION, classifier, scheduleServices);
+        addToClassifers(CoreConstants.EventType.FAMILY_KIT, classifier, scheduleServices);
     }
 
     private void initializeFPClassifier(Map<String, List<ScheduleService>> classifier) {

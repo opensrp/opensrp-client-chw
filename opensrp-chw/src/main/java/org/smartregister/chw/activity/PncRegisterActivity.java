@@ -21,7 +21,7 @@ import timber.log.Timber;
 public class PncRegisterActivity extends CorePncRegisterActivity {
 
     public static void startPncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
-                                                    String uniqueId, String familyBaseID, String family_name) {
+                                                    String uniqueId, String familyBaseID, String family_name, String last_menstrual_period) {
         Intent intent = new Intent(activity, PncRegisterActivity.class);
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         phone_number = phoneNumber;
@@ -29,6 +29,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
         form_name = formName;
         familyName = family_name;
         unique_id = uniqueId;
+        lastMenstrualPeriod = last_menstrual_period;
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.anc.util.Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.TABLE_NAME, getFormTable());
         activity.startActivity(intent);
@@ -80,8 +81,6 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
-        } else {
-            this.finish();
         }
     }
 }

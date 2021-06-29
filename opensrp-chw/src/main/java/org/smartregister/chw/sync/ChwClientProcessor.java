@@ -7,6 +7,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
@@ -27,7 +28,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
     }
 
     @Override
-    protected void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
+    public void processEvents(ClientClassification clientClassification, Table vaccineTable, Table serviceTable, EventClient eventClient, Event event, String eventType) throws Exception {
         if (eventClient != null && eventClient.getEvent() != null) {
             String baseEntityID = eventClient.getEvent().getBaseEntityId();
 
@@ -45,6 +46,18 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
 
         super.processEvents(clientClassification, vaccineTable, serviceTable, eventClient, event, eventType);
+        if (eventClient != null && eventClient.getEvent() != null) {
+            String baseEntityID = eventClient.getEvent().getBaseEntityId();
+            switch (eventType) {
+                case CoreConstants.EventType.CHILD_HOME_VISIT:
+                case CoreConstants.EventType.CHILD_VISIT_NOT_DONE:
+                case CoreConstants.EventType.CHILD_REGISTRATION:
+                case CoreConstants.EventType.UPDATE_CHILD_REGISTRATION:
+                    ChildAlertService.updateAlerts(baseEntityID);
+                default:
+                    break;
+            }
+        }
         ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
     }
 }

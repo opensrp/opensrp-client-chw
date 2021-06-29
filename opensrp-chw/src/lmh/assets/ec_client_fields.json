@@ -793,6 +793,13 @@
           }
         },
         {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
+          }
+        },
+        {
           "column_name": "form_submission_id",
           "type": "Event",
           "json_mapping": {

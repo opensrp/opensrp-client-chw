@@ -12,6 +12,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
@@ -94,6 +95,15 @@ public class ChwRepositoryFlv {
                     break;
                 case 21:
                     upgradeToVersion21(db);
+                    break;
+                case 22:
+                    upgradeToVersion22(db);
+                    break;
+                case 23:
+                    upgradeToVersion23(db);
+                    break;
+                case 21:
+                    upgradeToVersion24(db);
                     break;
                 default:
                     break;
@@ -329,11 +339,49 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion21(SQLiteDatabase db) {
         try {
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN event_date VARCHAR; ");
+            // add missing columns
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion21 ");
+        }
+
+        try {
+            db.execSQL("UPDATE ec_family SET event_date = (select min(eventDate) from event where event.baseEntityId = ec_family.base_entity_id and event.eventType = 'Family Registration') where event_date is null;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion21 ");
+        }
+
+    }
+
+    private static void upgradeToVersion22(SQLiteDatabase db) {
+        try {
+            List<String> columns = new ArrayList<>();
+            columns.add(DBConstants.KEY.VILLAGE_TOWN);
+            columns.add(ChwDBConstants.NEAREST_HEALTH_FACILITY);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY, columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion22 ");
+        }
+    }
+
+    private static void upgradeToVersion23(SQLiteDatabase db) {
+        try {
+            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+            db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion23");
+        }
+    }
+
+
+    private static void upgradeToVersion24(SQLiteDatabase db) {
+        try {
             DatabaseMigrationUtils.createAddedECTables(db,
                     new HashSet<>(Arrays.asList("ec_hiv_register", "ec_hiv_community_followup", "ec_hiv_community_feedback", "ec_tb_register", "ec_tb_community_followup", "ec_tb_community_feedback", "ec_hiv_outcome", "ec_tb_outcome")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion21");
+            Timber.e(e, "upgradeToVersion24");
         }
     }
 }

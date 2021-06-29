@@ -83,6 +83,8 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
+        } else {
+            finish();
         }
     }
 }

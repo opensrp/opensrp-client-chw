@@ -202,6 +202,19 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
     }
 
     @Test
+    public void testEvaluateBirthCertForm() {
+        int x = 7;
+        List<PncBaby> children = getSampleKids(x);
+        ReflectionHelpers.setField(interactor, "hasBirthCert", false);
+        ReflectionHelpers.setField(interactor, "children", children);
+
+        for (Person baby : children) {
+            ReflectionHelpers.callInstanceMethod(interactor, "evaluateBirthCertForm", ReflectionHelpers.ClassParameter.from(Person.class, baby), ReflectionHelpers.ClassParameter.from(Boolean.class, false));
+        }
+        Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
+    }
+
+    @Test
     public void testEvaluateFamilyPlanning() {
         ReflectionHelpers.callInstanceMethod(interactor, "evaluateFamilyPlanning");
         Mockito.verify(actionList).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));

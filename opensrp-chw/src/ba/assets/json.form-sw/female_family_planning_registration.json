@@ -126,7 +126,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No"
+            "text": "Hapana"
           }
         ],
         "v_required": {
@@ -223,7 +223,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Oral Contraception check List",
+        "text": "Orodha kutoa vidonge vya kumeza vyenye vichocheo kimoja au viwili",
         "toaster_info_text": "Orodha hakiki ya kutoa vidonge vya kumeza vyenye vichocheo kimoja au viwili",
         "toaster_type": "info",
         "relevance": {
@@ -771,15 +771,15 @@
         "hint": "Amepata vipande vya kondpmu vingapi?",
         "v_required": {
           "value": "true",
-          "err": "Equal or greater than 0"
+          "err": "Sawa au kubwa kuliko 0"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "Lazima iwe nambari iliyokamilishwa"
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Nambari lazima iwe sawa au kubwa kuliko 0"
         },
         "relevance": {
           "rules-engine": {
@@ -820,15 +820,15 @@
         "hint": "Amepata saiko ngapi?",
         "v_required": {
           "value": "true",
-          "err": "Equal or greater than 0"
+          "err": "Sawa au kubwa kuliko 0"
         },
         "v_numeric_integer": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "Lazima iwe nambari iliyokamilishwa"
         },
         "v_min": {
           "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "err": "Nambari lazima iwe sawa au kubwa kuliko 0"
         },
         "relevance": {
           "rules-engine": {
