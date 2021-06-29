@@ -36,6 +36,9 @@ public class ChwRepositoryFlv {
                 case 4:
                     upgradeToVersion4(db);
                     break;
+                case 5:
+                    upgradeToVersion5(db);
+                    break;
                 default:
                     break;
             }
@@ -107,6 +110,14 @@ public class ChwRepositoryFlv {
           RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion5(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion7");
         }
     }
 }
