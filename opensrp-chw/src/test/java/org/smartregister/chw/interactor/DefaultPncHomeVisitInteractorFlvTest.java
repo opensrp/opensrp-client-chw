@@ -237,4 +237,13 @@ public class DefaultPncHomeVisitInteractorFlvTest extends BaseHomeVisitInteracto
         }
         Mockito.verify(actionList, Mockito.times(x)).put(Mockito.anyString(), Mockito.any(BaseAncHomeVisitAction.class));
     }
+
+    @Test
+    public void testGetBirthCert(){
+        DefaultPncHomeVisitInteractorFlv interactor = Mockito.mock(DefaultPncHomeVisitInteractorFlv.class);
+        Person person = new Person("12345","first_name","last_name","middle_name",new Date());
+        Mockito.doReturn(true).when(interactor).getBirthCert(person);
+        Boolean result = interactor.getBirthCert(person);
+        Assert.assertEquals(true,result);
+    }
 }
