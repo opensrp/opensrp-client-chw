@@ -252,6 +252,101 @@
           "json_mapping": {
             "field": "attributes.dateRemoved"
           }
+        },
+        {
+          "column_name": "marital_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "family_relation",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.familyRelation"
+          }
+        },
+        {
+          "column_name": "family_relation_other",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.familyRelationOther"
+          }
+        },
+
+        {
+          "column_name": "any_disability",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "anyDisability"
+          }
+        },
+        {
+          "column_name": "visually_impaired",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visuallyImpaired"
+          }
+        },
+        {
+          "column_name": "disability_impact_visually_impaired",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "disabilityImpactVisuallyImpaired"
+          }
+        },
+        {
+          "column_name": "hearing_impaired",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hearingImpaired"
+          }
+        },
+        {
+          "column_name": "disability_impact_hearing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "disabilityImpactHearing"
+          }
+        },
+        {
+          "column_name": "difficulty_walking",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "difficultyWalking"
+          }
+        },
+        {
+          "column_name": "disability_impact_walking",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "disabilityImpactWalking"
+          }
+        },
+        {
+          "column_name": "learning_disability",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "learningDisability"
+          }
+        },
+        {
+          "column_name": "disability_impact_learning",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "disabilityImpactLearning"
+          }
         }
       ]
     },

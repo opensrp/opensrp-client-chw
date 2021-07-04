@@ -98,6 +98,59 @@
         }
       },
       {
+        "key": "disability_impact_visually_impaired",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "disabilityImpactVisuallyImpaired",
+        "type": "check_box",
+        "label": "{{child_disability.step1.visually_impaired_disability_impact.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Mild",
+            "text": "{{child_disability.step1.visually_impaired_disability_impact.options.Mild.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mild",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Moderate",
+            "text": "{{child_disability.step1.visually_impaired_disability_impact.options.Moderate.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "moderate",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe",
+            "text": "{{child_disability.step1.visually_impaired_disability_impact.options.Severe.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "severe",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Profound",
+            "text": "{{child_disability.step1.visually_impaired_disability_impact.options.Profound.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "profound",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:visually_impaired": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.visually_impaired_disability_impact.v_required.err}}"
+        }
+      },
+      {
         "key": "hearing_impaired",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -122,6 +175,59 @@
         "v_required": {
           "value": true,
           "err": "{{child_disability.step1.hearing_impaired.v_required.err}}"
+        }
+      },
+      {
+        "key": "disability_impact_hearing",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "disabilityImpactHearing",
+        "type": "check_box",
+        "label": "{{child_disability.step1.hearing_impaired_disability_impact.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Mild",
+            "text": "{{child_disability.step1.hearing_impaired_disability_impact.options.Mild.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mild",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Moderate",
+            "text": "{{child_disability.step1.hearing_impaired_disability_impact.options.Moderate.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "moderate",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe",
+            "text": "{{child_disability.step1.hearing_impaired_disability_impact.options.Severe.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "severe",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Profound",
+            "text": "{{child_disability.step1.hearing_impaired_disability_impact.options.Profound.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "profound",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:hearing_impaired": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.hearing_impaired_disability_impact.v_required.err}}"
         }
       },
       {
@@ -152,6 +258,59 @@
         }
       },
       {
+        "key": "disability_impact_walking",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "disabilityImpactWalking",
+        "type": "check_box",
+        "label": "{{child_disability.step1.difficulty_walking_disability_impact.label}}",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Mild",
+            "text": "{{child_disability.step1.difficulty_walking_disability_impact.options.Mild.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "mild",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Moderate",
+            "text": "{{child_disability.step1.difficulty_walking_disability_impact.options.Moderate.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "moderate",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe",
+            "text": "{{child_disability.step1.difficulty_walking_disability_impact.options.Severe.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "severe",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Profound",
+            "text": "{{child_disability.step1.difficulty_walking_disability_impact.options.Profound.text}}",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "profound",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "step1:difficulty_walking": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_disability.step1.difficulty_walking_disability_impact.v_required.err}}"
+        }
+      },
+      {
         "key": "learning_disability",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -179,17 +338,17 @@
         }
       },
       {
-        "key": "disability_impact",
+        "key": "disability_impact_learning",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "disabilityImpact",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "disabilityImpactLearning",
         "type": "check_box",
-        "label": "{{child_disability.step1.disability_impact.label}}",
+        "label": "{{child_disability.step1.learning_disability_impact.label}}",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Mild",
-            "text": "{{child_disability.step1.disability_impact.options.Mild.text}}",
+            "text": "{{child_disability.step1.learning_disability_impact.options.Mild.text}}",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "mild",
@@ -197,7 +356,7 @@
           },
           {
             "key": "Moderate",
-            "text": "{{child_disability.step1.disability_impact.options.Moderate.text}}",
+            "text": "{{child_disability.step1.learning_disability_impact.options.Moderate.text}}",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "moderate",
@@ -205,7 +364,7 @@
           },
           {
             "key": "Severe",
-            "text": "{{child_disability.step1.disability_impact.options.Severe.text}}",
+            "text": "{{child_disability.step1.learning_disability_impact.options.Severe.text}}",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "severe",
@@ -213,7 +372,7 @@
           },
           {
             "key": "Profound",
-            "text": "{{child_disability.step1.disability_impact.options.Profound.text}}",
+            "text": "{{child_disability.step1.learning_disability_impact.options.Profound.text}}",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "profound",
@@ -221,15 +380,14 @@
           }
         ],
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_disability_relevance.yml"
-            }
+          "step1:learning_disability": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
           }
         },
         "v_required": {
           "value": true,
-          "err": "{{child_disability.step1.disability_impact.v_required.err}}"
+          "err": "{{child_disability.step1.learning_disability_impact.v_required.err}}"
         }
       }
     ]

@@ -291,7 +291,7 @@
       {
         "key": "family_relation",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "familyRelation",
         "type": "spinner",
         "hint": "{{family_member_register.step1.family_relation.hint}}",
@@ -304,7 +304,8 @@
           "{{family_member_register.step1.family_relation.values[5]}}",
           "{{family_member_register.step1.family_relation.values[6]}}",
           "{{family_member_register.step1.family_relation.values[7]}}",
-          "{{family_member_register.step1.family_relation.values[8]}}"
+          "{{family_member_register.step1.family_relation.values[8]}}",
+          "{{family_member_register.step1.family_relation.values[9]}}"
         ],
         "keys": [
           "Son",
@@ -325,7 +326,7 @@
       {
         "key": "family_relation_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "familyRelationOther",
         "type": "edit_text",
         "hint": "{{family_member_register.step1.family_relation_other.hint}}",
@@ -716,7 +717,7 @@
       {
         "key": "disability_impact_visually_impaired",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilityImpactVisuallyImpaired",
         "type": "check_box",
         "label": "{{family_member_register.step1.visually_impaired_disability_impact.label}}",
@@ -796,7 +797,7 @@
       {
         "key": "disability_impact_hearing",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilityImpactHearing",
         "type": "check_box",
         "label": "{{family_member_register.step1.hearing_impaired_disability_impact.label}}",
@@ -876,7 +877,7 @@
       {
         "key": "disability_impact_walking",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilityImpactWalking",
         "type": "check_box",
         "label": "{{family_member_register.step1.difficulty_walking_disability_impact.label}}",
@@ -956,7 +957,7 @@
       {
         "key": "disability_impact_learning",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "disabilityImpactLearning",
         "type": "check_box",
         "label": "{{family_member_register.step1.learning_disability_impact.label}}",
