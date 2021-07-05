@@ -29,7 +29,6 @@ import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.Column;
-import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -107,10 +106,21 @@ public class ChwRepositoryFlv {
                 case 19:
                     upgradeToVersion19(context, db);
                     break;
+                case 20:
+                    upgradeToVersion20(db);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
+        }
+    }
+
+    private static void upgradeToVersion20(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion20");
         }
     }
 

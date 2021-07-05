@@ -377,7 +377,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected void evaluateBirthCertForm(Person person) throws Exception {
         PncBaby baby = (PncBaby) person;
         String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
-        hasBirthCert = VisitDao.memberHasBirthCert(person.getBaseEntityID());
+        hasBirthCert = getBirthCert(person);
 
         if (!hasBirthCert) {
             Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.BIRTH_CERTIFICATION);
@@ -452,6 +452,10 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
     protected int getAgeInDays(Date dob) {
         return Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime().toLocalDate()).getDays();
+    }
+
+    protected Boolean getBirthCert(Person person) {
+        return VisitDao.memberHasBirthCert(person.getBaseEntityID());
     }
 
     private class VaccineCardHelper extends HomeVisitActionHelper {
