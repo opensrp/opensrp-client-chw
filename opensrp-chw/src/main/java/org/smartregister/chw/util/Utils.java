@@ -43,16 +43,6 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity) {
         List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.suspected_malaria),
-                    Constants.JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
-
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hiv_referral),
-                    Constants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
-
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.tb_referral),
-                    Constants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
-
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
                     Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }

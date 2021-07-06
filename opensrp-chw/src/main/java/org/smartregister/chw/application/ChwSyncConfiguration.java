@@ -1,7 +1,5 @@
 package org.smartregister.chw.application;
 
-import com.google.common.collect.ImmutableList;
-
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
@@ -10,6 +8,7 @@ import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.view.activity.BaseLoginActivity;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.smartregister.util.Utils.isEmptyCollection;
@@ -78,7 +77,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public List<String> getSynchronizedLocationTags() {
-        return ImmutableList.of("MOH Jhpiego Facility Name", "Health Facility", "Facility");
+        return Arrays.asList("MOH Jhpiego Facility Name", "Health Facility", "Facility");
     }
 
     @Override

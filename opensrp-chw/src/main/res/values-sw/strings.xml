@@ -409,7 +409,11 @@
 
     <string name="ten_digits_validation">Namba iwe na tarakimu 10</string>
     <string name="select_communities">Chagua jamii</string>
+<<<<<<< HEAD
     <string name="family_title">Kaya ya {0} </string>
     <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
+=======
+
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
     <string name="created">Imeumbwa: %s</string>
 </resources>

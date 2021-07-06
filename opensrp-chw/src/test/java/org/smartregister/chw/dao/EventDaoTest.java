@@ -15,7 +15,10 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.repository.Repository;
 
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
@@ -47,6 +50,7 @@ public class EventDaoTest extends AbstractDao {
         Assert.assertEquals("ec610c3c-7e37-4559-9fee-6c99d870b197", events.get(0).getBaseEntityId());
     }
 
+<<<<<<< HEAD
     @Test
     public void getLatestEvent() {
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"json"});
@@ -57,4 +61,6 @@ public class EventDaoTest extends AbstractDao {
     }
 
 
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
 }

@@ -9,9 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -389,17 +392,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.suspected_malaria),
-                    JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
-
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
-
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
-
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }
@@ -412,6 +406,24 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected void startFpRegister() {
         FpRegisterActivity.startFpRegistrationActivity(this, memberObject.getBaseEntityId(), memberObject.getDob(), CoreConstants.JSON_FORM.getFpRegistrationForm("Female"), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+    }
+
+    @Override
+    protected void startHivRegister() {
+        try {
+            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getHivRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    protected void startTbRegister() {
+        try {
+            TbRegisterActivity.startTbFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getTbRegistration()).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
     }
 
     @Override

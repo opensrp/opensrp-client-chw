@@ -8,8 +8,11 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import androidx.core.content.ContextCompat;
 
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -26,7 +29,6 @@ import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,9 +39,8 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
-    public static final String TAG = BaseLoginActivity.class.getCanonicalName();
+
     private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
 
     private PinLogger pinLogger = PinLoginUtil.getPinLogger();
@@ -47,6 +48,12 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImageView imageView = findViewById(R.id.login_logo);
+        if (BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo));
+        } else {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo_ba));
+        }
     }
 
     @Override
@@ -203,5 +210,4 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
         }
     }
-
 }

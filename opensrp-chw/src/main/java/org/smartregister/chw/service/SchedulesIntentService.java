@@ -17,6 +17,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.EventDao;
 import org.smartregister.chw.dao.ScheduleDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.hiv.util.Constants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.domain.Event;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -85,6 +86,14 @@ public class SchedulesIntentService extends IntentService {
         // execute all fp schedules
         if (getApplicationFlavor().hasFamilyPlanning())
             executeFpVisitSchedules();
+
+        // execute all tb schedules
+        if (getApplicationFlavor().hasTB())
+            executeTbVisitSchedules();
+
+        // execute all hiv schedules
+        if (getApplicationFlavor().hasHIV())
+            executeHivVisitSchedules();
 
         if (getApplicationFlavor().hasRoutineVisit())
             executeRoutineHouseholdSchedules();
@@ -248,6 +257,28 @@ public class SchedulesIntentService extends IntentService {
 
             Timber.v("  Computing Fp schedules for %s", baseID);
             ChwScheduleTaskExecutor.getInstance().execute(baseID, FamilyPlanningConstants.EventType.FAMILY_PLANNING_REGISTRATION, new Date());
+        }
+    }
+    private void executeHivVisitSchedules() {
+        Timber.v("Computing Hiv schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.HIV_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveHivClients(CoreConstants.SCHEDULE_TYPES.HIV_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing HIV schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, Constants.EventType.REGISTRATION, new Date());
+        }
+    }
+    private void executeTbVisitSchedules() {
+        Timber.v("Computing Tb schedules");
+        ChwApplication.getInstance().getScheduleRepository().deleteSchedulesNotCreatedToday(CoreConstants.SCHEDULE_TYPES.TB_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        List<String> baseEntityIDs = ScheduleDao.getActiveTbClients(CoreConstants.SCHEDULE_TYPES.TB_VISIT, CoreConstants.SCHEDULE_GROUPS.HOME_VISIT);
+        if (baseEntityIDs == null) return;
+
+        for (String baseID : baseEntityIDs) {
+            Timber.v("  Computing Tb schedules for %s", baseID);
+            ChwScheduleTaskExecutor.getInstance().execute(baseID, org.smartregister.chw.tb.util.Constants.EventType.REGISTRATION, new Date());
         }
     }
 

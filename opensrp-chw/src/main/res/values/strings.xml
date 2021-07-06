@@ -380,6 +380,7 @@
     <string name="sick_visit">Sick Visit</string>
     <string name="reports">Reports</string>
 
+
     <string name="eligible_children">Eligible Children</string>
     <string name="doses_needed">Doses Needed</string>
     <string name="community_activity">My Community Activity</string>
@@ -390,17 +391,14 @@
     <string name="enter_pin_for_user">Enter pin for %s</string>
     <string name="use_4_digit_pin_number_promt">You can use a 4 digit pin number to make logging in faster</string>
 
-    <!-- All Clients -->
-    <string name="add_client">Add client</string>
-
     <!--    Unified Referral Forms-->
     <string name="hiv_referral">Clinic of Treatment and Care</string>
     <string name="tb_referral">Clinic Of Tuberculosis Treatment</string>
     <string name="gbv_referral">Gender Based Violence Referral</string>
     <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
-    <string name="client_registration">Client Registration</string>
     <string name="error_opening_profile">Error opening client profile</string>
     <string name="location_details">Location Details</string>
+    <string name="client_registration">Client Registration</string>
     <string name="update_client_registration">Update Client Details</string>
 
     <!---Anc Home Visit Strings -->
@@ -416,6 +414,7 @@
 
     <!--Child Profile Strings -->
     <string name="family_has_nothing_else_due">Family has nothing else due</string>
+<<<<<<< HEAD
     <string name="hint_kit_type">What type of kit has the family received?</string>
     <string name="simple_kit_hint">Simple Kit (ORS/ZINC and Paracetamol)</string>
     <string name="simple_kit_with_micro_hint">Simple Kit (ORS/ZINC and Paracetamol) with micronutrients</string>
@@ -445,4 +444,8 @@
     
     <string name="unauthorized_group">This account is not allowed to access this device</string>
 
+=======
+
+    <string name="created">Created: %s</string>
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
 </resources>

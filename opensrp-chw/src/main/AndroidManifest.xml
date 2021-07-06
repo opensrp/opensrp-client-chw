@@ -26,10 +26,10 @@
 
     <application
         android:name=".application.ChwApplication"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
-        android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
 
@@ -125,8 +125,8 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.ChildProfileActivity"
-            android:launchMode="singleTop"
             android:label="@string/child_details"
+            android:launchMode="singleTop"
             android:theme="@style/ChwTheme.NoActionBar">
             <intent-filter>
                 <action android:name="org.smartregister.action.THINKMD_ASSESSMENT" />
@@ -135,9 +135,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="smartregister.org"
-                    android:path="/" />
+                    android:path="/"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -256,6 +256,8 @@
             android:theme="@style/FamilyTheme.NoActionBar" />
 
         <activity
+<<<<<<< HEAD
+=======
             android:name=".activity.AncMemberMapActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
@@ -263,11 +265,60 @@
             android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
-        <activity android:name=".activity.GuideBooksTutorialsActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
+            android:name=".activity.HivRegisterActivity"
+            android:label="@string/hiv_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
-        <activity android:name=".activity.GuideBooksCounselingActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.TbRegisterActivity"
+            android:label="@string/tb_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreTbUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivCommunityFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbCommunityFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.CoreHivUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+<<<<<<< HEAD
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.AncMemberMapActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.GuideBooksTutorialsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.GuideBooksCounselingActivity"
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
