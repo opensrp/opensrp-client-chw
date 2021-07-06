@@ -47,10 +47,21 @@ public class ChwRepositoryFlv {
                 case 7:
                     upgradeToVersion7(db);
                     break;
+                case 8:
+                    upgradeToVersion8(db);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
+        }
+    }
+
+    private static void upgradeToVersion8(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion8");
         }
     }
 
