@@ -1,8 +1,14 @@
 package org.smartregister.chw.application;
 
 public class ChwApplicationFlv extends DefaultChwApplicationFlv {
+
     @Override
     public boolean hasANC() {
+        return false;
+    }
+
+    @Override
+    public boolean syncUsingPost() {
         return false;
     }
 
@@ -92,11 +98,18 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean useThinkMd() {
+        return true;
+    }
+
+    @Override
+
     public boolean splitUpcomingServicesView() {
         return true;
     }
 
-    public boolean hasForeignData() {
+    @Override
+    public boolean showNoDueVaccineView() {
         return true;
     }
 
@@ -106,7 +119,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean hasHpvVaccineChildren() {
+    public boolean showChildrenUnderFiveAndGirlsAgeNineToEleven() {
         return true;
     }
 
@@ -116,7 +129,41 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showAllChildServicesDueIncludingCurrentChild(){
+    public boolean includeCurrentChild() {
         return false;
     }
+
+    @Override
+    public boolean saveOnSubmission() {
+        return true;
+    }
+
+    @Override
+    public boolean relaxVisitDateRestrictions() {
+        return true;
+    }
+
+    @Override
+    public boolean showLastNameOnChildProfile() {
+        return true;
+    }
+
+    @Override
+    public boolean showChildrenAboveTwoDueStatus(){
+        return false;
+    }
+
+    @Override
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {return false;}
+
+    @Override
+    public boolean hasForeignData(){return true;}
+
+    @Override
+    public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+        return true;
+    }
+
+    @Override
+    public boolean showsPhysicallyDisabledView() { return false; }
 }

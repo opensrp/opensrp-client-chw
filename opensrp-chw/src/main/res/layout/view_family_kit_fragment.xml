@@ -1,0 +1,139 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_family_kit_recieved"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="20dp"
+                    android:text="@string/hint_kit_type"
+                    android:textColor="@color/text_black"
+                    android:textSize="18dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_family_kit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
+
+                    <RadioButton
+                        android:id="@+id/choice_1_simple_kit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:tag="key_simple_kit_simple"
+                        android:text="@string/simple_kit_hint"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+
+                    <RadioButton
+                        android:id="@+id/choice_2_simple_kit_with_micro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:tag="key_simple_kit_with_micronutrients"
+                        android:text="@string/simple_kit_with_micro_hint"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+
+                    <RadioButton
+                        android:id="@+id/choice_3_no_kit_received"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:tag="key_no_kit_received"
+                        android:text="@string/no_kit_received_hint"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <org.smartregister.view.customcontrols.CustomFontTextView
+                    android:id="@+id/textview_kit_used"
+                    style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="20dp"
+                    android:text="@string/kit_been_used_hint"
+                    android:textColor="@color/text_black"
+                    android:textSize="18dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_kit_used"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="false"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
+
+                    <RadioButton
+                        android:id="@+id/choice_1_kit_used"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:tag="key_kit_used"
+                        android:text="@string/yes"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+
+                    <RadioButton
+                        android:id="@+id/choice_2_kit_used"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:padding="10dp"
+                        android:tag="key_kit_not_used"
+                        android:text="@string/no"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/register_list_desc_size" />
+                </RadioGroup>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

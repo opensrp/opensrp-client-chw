@@ -15,6 +15,7 @@ import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -42,6 +43,8 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -89,13 +92,13 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         String baseEntityId = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         String patientName = Utils.getClientName(firstName, middleName, lastName);
         String dob = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = org.smartregister.family.util.Utils.getDuration(dob);
+        String dobString = getDuration(dob);
         dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
         String dod = org.smartregister.family.util.Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOD, false);
         if (StringUtils.isNotBlank(dod)) {
 
-            dobString = org.smartregister.family.util.Utils.getDuration(dod, dob);
+            dobString = getDuration(dod, dob);
             dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
 
             patientName = patientName + ", " + org.smartregister.family.util.Utils.getTranslatedDate(dobString, context) + " " + context.getString(R.string.deceased_brackets);
@@ -143,6 +146,20 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
     }
 
+    @Override
+    protected void populateIdentifierColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
+        super.populateIdentifierColumn(pc, viewHolder);
+        String baseEntityId = pc.getCaseId();
+        if (ChwApplication.getApplicationFlavor().showsPhysicallyDisabledView()) {
+            boolean isPhysicallyChallenged = ChildDao.isPhysicallyChallenged(baseEntityId);
+            if (isPhysicallyChallenged) {
+                viewHolder.physicallyChallenged.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.physicallyChallenged.setVisibility(View.GONE);
+            }
+        }
+    }
+
     private void attachPatientOnclickListener(View view, SmartRegisterClient client) {
         view.setOnClickListener(onClickListener);
         view.setTag(client);
@@ -155,9 +172,17 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         view.setTag(R.id.VIEW_ID, BaseFamilyProfileMemberFragment.CLICK_VIEW_NEXT_ARROW);
     }
 
+    private String getDueState(String memberBaseEntityId) {
+        if (ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()) {
+            return FamilyDao.getMemberDueStatus(memberBaseEntityId);
+        } else {
+            return FamilyDao.getMemberDueStatusForUnderTwoChildren(memberBaseEntityId);
+        }
+    }
+
     private void updateDueColumn(RegisterViewHolder viewHolder, String memberBaseEntityId) {
         viewHolder.statusLayout.setVisibility(View.VISIBLE);
-        String dueState = FamilyDao.getMemberDueStatus(memberBaseEntityId);
+        String dueState = getDueState(memberBaseEntityId);
 
         try {
             if (dueState != null) {
@@ -250,7 +275,7 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
 
     private ChildVisit retrieveChildVisitList(Rules rules, CommonPersonObjectClient pc, Map<String, String> map) {
         String dob = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
-        String dobString = Utils.getDuration(dob);
+        String dobString = getDuration(dob);
         String lastVisitDate = map.get(ChildDBConstants.KEY.LAST_HOME_VISIT);
         String visitNotDone = map.get(ChildDBConstants.KEY.VISIT_NOT_DONE);
         String strDateCreated = map.get(ChildDBConstants.KEY.DATE_CREATED);

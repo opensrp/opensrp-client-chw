@@ -25,6 +25,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.RegisterParams;
@@ -33,6 +34,8 @@ import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -50,15 +53,20 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity{
     }
 
     @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        Timber.v("startFormActivity");
+    }
+
+    @Override
     public void startRegistration() {
-        startFormActivity(CoreConstants.JSON_FORM.getAllClientRegistrationForm(),null, null);
+        this.startFormActivity(Constants.ALL_CLIENT_REGISTRATION_FORM, null, "");
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             String locationId = org.smartregister.family.util.Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-            ((ChwAllClientRegisterPresenter)presenter()).startForm(formName, entityId, metaData, locationId);
+            ((ChwAllClientRegisterPresenter) presenter()).startForm(formName, entityId, metaData, locationId);
 
         } catch (Exception e) {
             Timber.e(e);
@@ -70,7 +78,8 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity{
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        BottomNavigationListener bottomNavigationListener = new BottomNavigationListener(this);
+        Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, bottomNavigationListener);
         bottomNavigationView.getMenu().findItem(R.id.action_register).setTitle(R.string.add_client).setIcon(R.drawable.ic_input_add);
     }
 
@@ -87,7 +96,6 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity{
         finish();
     }
 
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.action_scan_qr:

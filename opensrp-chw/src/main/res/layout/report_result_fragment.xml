@@ -50,7 +50,7 @@
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Community"
+                android:text="CHA"
                 android:textColor="@color/colorDarkGrey"
                 android:textSize="16sp" />
 

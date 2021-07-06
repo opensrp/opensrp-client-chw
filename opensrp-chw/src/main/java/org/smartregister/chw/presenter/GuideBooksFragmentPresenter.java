@@ -14,13 +14,12 @@ public class GuideBooksFragmentPresenter implements GuideBooksFragmentContract.P
     public GuideBooksFragmentPresenter(GuideBooksFragmentContract.View view, GuideBooksFragmentContract.Interactor interactor) {
         this.view = new WeakReference<>(view);
         this.interactor = interactor;
-        this.initialize();
     }
 
     @Override
-    public void initialize() {
+    public void initialize(String fileName, String directory) {
         if (getView() != null)
-            interactor.getVideos(getView().getViewContext(), this);
+            interactor.getFiles(getView().getViewContext(), fileName, directory, this);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class GuideBooksFragmentPresenter implements GuideBooksFragmentContract.P
     }
 
     @Override
-    public void onDataFetched(List<GuideBooksFragmentContract.Video> videos) {
+    public void onDataFetched(List<GuideBooksFragmentContract.RemoteFile> videos) {
         if (getView() == null)
             return;
 

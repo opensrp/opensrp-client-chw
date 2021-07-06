@@ -162,7 +162,7 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
             try {
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
                     JSONObject formJson = getFormUtils().getFormJson(Constants.JSON_FORM.getMalariaReferralForm());
-                    formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
+                    formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getFocus());
                     ReferralRegistrationActivity.startGeneralReferralFormActivityForResults(this, baseEntityId, formJson, true);
                 } else {
                     startFormActivity(getFormUtils().getFormJson(getReferralTypeModels().get(0).getFormName()));

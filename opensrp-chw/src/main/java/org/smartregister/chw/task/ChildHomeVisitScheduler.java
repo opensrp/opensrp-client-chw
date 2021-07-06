@@ -4,7 +4,10 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
 import org.smartregister.chw.core.domain.BaseScheduleTask;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwChildDao;
+import org.smartregister.chw.service.ChildAlertService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,14 +18,16 @@ public class ChildHomeVisitScheduler extends BaseTaskExecutor {
     public void resetSchedule(String baseEntityID, String scheduleName) {
         super.resetSchedule(baseEntityID, scheduleName);
         ChwApplication.getInstance().getScheduleRepository().deleteScheduleByGroup(getScheduleGroup(), baseEntityID);
+        ChildAlertService.updateAlerts(baseEntityID);
     }
 
     @Override
     public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate) {
         // recompute the home visit task for this child
         BaseScheduleTask baseScheduleTask = prepareNewTaskObject(baseEntityID);
-        return flavor.generateTasks(baseEntityID, eventName, eventDate, baseScheduleTask);
+        if (ChwChildDao.isPNCChild(baseEntityID)) return new ArrayList<>();
 
+        return flavor.generateTasks(baseEntityID, eventName, eventDate, baseScheduleTask);
     }
 
     @Override

@@ -27,6 +27,7 @@ import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.clientandeventmodel.Obs;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
@@ -97,6 +98,15 @@ public class ChwRepositoryFlv {
                 case 16:
                     upgradeToVersion16(db);
                     break;
+                case 17:
+                    upgradeToVersion17(db);
+                    break;
+                case 18:
+                    upgradeToVersion18(db);
+                    break;
+                case 19:
+                    upgradeToVersion19(context, db);
+                    break;
                 default:
                     break;
             }
@@ -116,8 +126,6 @@ public class ChwRepositoryFlv {
 
 //            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
@@ -389,7 +397,35 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion16(SQLiteDatabase db) {
         try {
-           RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+            RepositoryUtils.addDetailsColumnToFamilySearchTable(db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion17(SQLiteDatabase db) {
+        try {
+            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion17");
+        }
+    }
+  
+    private static void upgradeToVersion18(SQLiteDatabase db) {
+        try {
+            ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+            initializeIndicatorDefinitions(reportingLibraryInstance, db);
+        } catch (Exception e){
+            Timber.e(e, "upgradeToVersion18");
+        }
+    }
+  
+   private static void upgradeToVersion19(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
         } catch (Exception e) {
             Timber.e(e);
         }

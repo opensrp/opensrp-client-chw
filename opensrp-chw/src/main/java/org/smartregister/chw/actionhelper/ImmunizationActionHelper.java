@@ -92,11 +92,13 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     @Override
     public void onPayloadReceived(String jsonPayload) {
         try {
-            JSONObject jsonObject = new JSONObject(jsonPayload);
             notDoneVaccines.clear();
             completedVaccines.clear();
 
-            // key / name pair
+            if(jsonPayload == null) return;
+
+            JSONObject jsonObject = new JSONObject(jsonPayload);
+
             JSONArray jsonArray = jsonObject.getJSONObject("step1").getJSONArray("fields");
             int totalVacs = jsonArray.length();
             int x = 0;

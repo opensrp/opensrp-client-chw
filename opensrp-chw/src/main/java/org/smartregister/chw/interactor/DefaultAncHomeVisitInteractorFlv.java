@@ -28,6 +28,7 @@ import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.VaccineTaskModel;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
 import org.smartregister.chw.core.utils.VaccineScheduleUtil;
 import org.smartregister.chw.util.Constants;
@@ -46,11 +47,11 @@ import timber.log.Timber;
 
 public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
 
-    private MemberObject memberObject;
-    private BaseAncHomeVisitContract.View view;
-    private LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
-    private Map<String, List<VisitDetail>> details = null;
-    private Context context;
+    protected MemberObject memberObject;
+    protected BaseAncHomeVisitContract.View view;
+    protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
+    protected Map<String, List<VisitDetail>> details = null;
+    protected Context context;
     protected Boolean editMode = false;
 
 
@@ -106,11 +107,11 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
     }
 
     // read vaccine repo for all not given vaccines
-    private List<VaccineWrapper> getNotGivenVaccines() {
+    protected List<VaccineWrapper> getNotGivenVaccines() {
         return new ArrayList<>();
     }
 
-    private void evaluateDangerSigns() throws Exception {
+    protected void evaluateDangerSigns() throws Exception {
         BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
                 .withOptional(false)
                 .withDetails(details)
@@ -120,7 +121,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
     }
 
-    private void evaluateANCCounseling(Map<Integer, LocalDate> dateMap) throws Exception {
+    protected void evaluateANCCounseling(Map<Integer, LocalDate> dateMap) throws Exception {
         BaseAncHomeVisitAction counseling = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_counseling))
                 .withOptional(false)
                 .withDetails(details)
@@ -130,7 +131,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         actionList.put(context.getString(R.string.anc_home_visit_counseling), counseling);
     }
 
-    private void evaluateSleepingUnderLLITN() throws Exception {
+    protected void evaluateSleepingUnderLLITN() throws Exception {
         BaseAncHomeVisitAction sleeping = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_sleeping_under_llitn_net))
                 .withOptional(false)
                 .withDetails(details)
@@ -141,8 +142,8 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         actionList.put(context.getString(R.string.anc_home_visit_sleeping_under_llitn_net), sleeping);
     }
 
-    private void evaluateANCCard() throws Exception {
-        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes")) {
+    protected void evaluateANCCard() throws Exception {
+        if (memberObject.getHasAncCard() != null && memberObject.getHasAncCard().equals("Yes") && !editMode) {
             return;
         }
 
@@ -156,7 +157,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         actionList.put(context.getString(R.string.anc_home_visit_anc_card_received), anc_card);
     }
 
-    private void evaluateHealthFacilityVisit(Map<Integer, LocalDate> dateMap) throws Exception {
+    protected void evaluateHealthFacilityVisit(Map<Integer, LocalDate> dateMap) throws Exception {
         String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         BaseAncHomeVisitAction facility_visit = new BaseAncHomeVisitAction.Builder(context, visit_title)
                 .withOptional(false)
@@ -168,7 +169,7 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         actionList.put(visit_title, facility_visit);
     }
 
-    private void evaluateTTImmunization(VaccineTaskModel vaccineTaskModel) throws Exception {
+    protected void evaluateTTImmunization(VaccineTaskModel vaccineTaskModel) throws Exception {
         // if there are no pending vaccines
         if (vaccineTaskModel == null || vaccineTaskModel.getScheduleList().size() < 1) {
             return;
@@ -214,25 +215,47 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
         }
     }
 
-    private void evaluateIPTP() throws Exception {
+    protected void evaluateIPTP() throws Exception {
         // if there are no pending vaccines
         DateTime lmp = DateTimeFormat.forPattern("dd-MM-yyyy").parseDateTime(memberObject.getLastMenstrualPeriod());
-        Map<String, ServiceWrapper> serviceWrapperMap = RecurringServiceUtil.getRecurringServices(memberObject.getBaseEntityId(), lmp, "woman");
-        ServiceWrapper serviceWrapper = serviceWrapperMap.get("IPTp-SP");
-
-        if (serviceWrapper == null) {
-            return;
+        Visit latestVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.IPTP_SP);
+        ServiceWrapper serviceWrapper = null;
+        String serviceIteration;
+        DateTime overDueDate;
+        int overdueMonth;
+        List<VisitDetail> visitDetail = null;
+        if (latestVisit == null || latestVisit.getUpdatedAt() == null) {
+            Map<String, ServiceWrapper> serviceWrapperMap = RecurringServiceUtil.getRecurringServices(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
+            serviceWrapper = serviceWrapperMap.get("IPTp-SP");
+            overdueMonth = new Period(serviceWrapper.getVaccineDate(), new DateTime()).getMonths();
+            overDueDate = serviceWrapper.getVaccineDate();
+        } else {
+            Map<String, List<VisitDetail>> visitDetails = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(latestVisit.getVisitId()));
+            Object firstKey = visitDetails.keySet().toArray()[0];
+            visitDetail = visitDetails.get(firstKey);
+            DateTime lastVisitDate = DateTime.parse(visitDetail.get(0).getDetails());
+            overdueMonth = new Period(lastVisitDate, new DateTime()).getMonths();
+            overDueDate = lastVisitDate.plusMonths(1);
+            if (!editMode) {
+                Map<String, List<ServiceWrapper>> nextWrappers = RecurringServiceUtil.getNextWrappers(memberObject.getBaseEntityId(), lmp, CoreConstants.SERVICE_GROUPS.WOMAN, true);
+                if (nextWrappers == null) return;
+                List<ServiceWrapper> wrappers = nextWrappers.get("IPTp-SP");
+                if (wrappers == null || nextWrappers.isEmpty()) return;
+                serviceWrapper = wrappers.get(0);
+            }
         }
-
-        final String serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+        if (serviceWrapper == null && !editMode) return;
+        if (!editMode)
+            serviceIteration = serviceWrapper.getName().substring(serviceWrapper.getName().length() - 1);
+        else
+            serviceIteration = visitDetail.get(0).getPreProcessedJson().substring(visitDetail.get(0).getPreProcessedJson().length() - 1);
 
         String iptp = MessageFormat.format(context.getString(R.string.anc_home_visit_iptp_sp), serviceIteration);
-        int overdueMonth = new Period(serviceWrapper.getVaccineDate(), new DateTime()).getMonths();
         String dueState = (overdueMonth < 1) ? context.getString(R.string.due) : context.getString(R.string.overdue);
 
         IPTPAction helper = new IPTPAction(context, serviceIteration);
         JSONObject jsonObject = org.smartregister.chw.util.JsonFormUtils.getJson(view.getContext(), Constants.JSON_FORM.ANC_HOME_VISIT.getIptpSp(), memberObject.getBaseEntityId());
-        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration);
+        JSONObject preProcessObject = helper.preProcess(jsonObject, serviceIteration, memberObject.getLastMenstrualPeriod());
 
         Map<String, List<VisitDetail>> details = null;
         if (editMode) {
@@ -252,16 +275,16 @@ public abstract class DefaultAncHomeVisitInteractorFlv implements AncHomeVisitIn
                 .withPayloadDetails(MessageFormat.format("IPTp-SP_dose_{0}", serviceIteration))
                 .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, null, preProcessObject, details, serviceIteration))
                 .withScheduleStatus((overdueMonth < 1) ? BaseAncHomeVisitAction.ScheduleStatus.DUE : BaseAncHomeVisitAction.ScheduleStatus.OVERDUE)
-                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(new DateTime(serviceWrapper.getVaccineDate()))))
+                .withSubtitle(MessageFormat.format("{0}{1}", dueState, DateTimeFormat.forPattern("dd MMM yyyy").print(overDueDate)))
                 .build();
 
         // don't show if its after now
-        if (!serviceWrapper.getVaccineDate().isAfterNow()) {
+        if (editMode || !serviceWrapper.getVaccineDate().isAfterNow()) {
             actionList.put(iptp, iptp_action);
         }
     }
 
-    private void evaluateObservation() throws Exception {
+    protected void evaluateObservation() throws Exception {
         BaseAncHomeVisitAction observation = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)

@@ -18,6 +18,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -49,6 +50,8 @@ import java.util.TimeZone;
 
 import timber.log.Timber;
 
+import static com.vijay.jsonwizard.utils.NativeFormLangUtils.getTranslatedString;
+
 /**
  * Created by keyman on 13/11/2018.
  */
@@ -57,6 +60,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final int REQUEST_CODE_GET_JSON = 2244;
     public static final int REQUEST_CODE_GET_JSON_WASH = 22444;
+    public static final int REQUEST_CODE_GET_JSON_FAMILY_KIT = 22447;
     public static final int REQUEST_CODE_GET_JSON_HOUSEHOLD = 22445;
 
     public static final String CURRENT_OPENSRP_ID = "current_opensrp_id";
@@ -280,6 +284,12 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             case DBConstants.KEY.GPS:
 
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GPS, false));
+
+                break;
+
+            case ChwDBConstants.EVENT_DATE:
+
+                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, Utils.getValue(client.getColumnmaps(), ChwDBConstants.EVENT_DATE, false));
 
                 break;
 
@@ -569,7 +579,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
     public static JSONObject getJson(Context context, String formName, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-        JSONObject jsonObject = FormUtils.getInstance(context).getFormJson(formName);
+        JSONObject jsonObject = new JSONObject(getTranslatedString(FormUtils.getInstance(context).getFormJson(formName).toString(), context));
         org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(jsonObject, baseEntityID, locationId);
         return jsonObject;
     }
@@ -600,6 +610,17 @@ public class JsonFormUtils extends CoreJsonFormUtils {
 
             step++;
         }
+    }
+
+    public static String getBirthCertificateRegex() {
+        List<String> certificateNumbers = ChwChildDao.getRegisteredCertificateNumbers();
+        final String regexPrefix = "^(?!.*^(";
+        final String regexPostfix = ")$).*^(([0-9]{1,14})|\\s*).";
+        String formattedNumbers = "";
+        for (String number : certificateNumbers) {
+            formattedNumbers = formattedNumbers.concat(String.format("|%s", number));
+        }
+        return String.format("%s%s%s", regexPrefix, formattedNumbers, regexPostfix);
     }
 
     public interface Flavor {

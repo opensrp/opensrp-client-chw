@@ -33,6 +33,7 @@ import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
@@ -70,6 +71,8 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected MemberObject memberObject;
     protected BaseAncHomeVisitContract.View view;
     protected Boolean editMode = false;
+    protected Boolean hasBirthCert = false;
+    protected String parsedDate;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -93,7 +96,12 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         children.addAll(getChildren(memberObject.getBaseEntityId()));
         try {
             Constants.JSON_FORM.setLocaleAndAssetManager(ChwApplication.getCurrentLocale(), ChwApplication.getInstance().getApplicationContext().getAssets());
-        }catch (Exception e){
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        try {
+            parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(children.get(0).getDob());
+        } catch (Exception e) {
             Timber.e(e);
         }
 
@@ -103,15 +111,16 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             evaluateFamilyPlanning();
             evaluateObservationAndIllnessMother();
 
-           for(Person baby : children){
-               evaluateDangerSignsBaby(baby);
-               evaluateChildVaccineCard(baby);
-               evaluateImmunization(baby);
-               evaluateUmbilicalCord(baby);
-               evaluateExclusiveBreastFeeding(baby);
-               evaluateKangarooMotherCare(baby);
-               evaluateObservationAndIllnessBaby(baby);
-           }
+            for (Person baby : children) {
+                evaluateDangerSignsBaby(baby);
+                evaluateChildVaccineCard(baby);
+                evaluateImmunization(baby);
+                evaluateUmbilicalCord(baby);
+                evaluateExclusiveBreastFeeding(baby);
+                evaluateKangarooMotherCare(baby);
+                evaluateBirthCertForm(baby);
+                evaluateObservationAndIllnessBaby(baby);
+            }
 
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
@@ -365,6 +374,27 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 
+    protected void evaluateBirthCertForm(Person person) throws Exception {
+        PncBaby baby = (PncBaby) person;
+        String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
+        hasBirthCert = VisitDao.memberHasBirthCert(person.getBaseEntityID());
+
+        if (!hasBirthCert) {
+            Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.BIRTH_CERTIFICATION);
+
+            BaseAncHomeVisitAction action = getBuilder(title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(baby.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
+                    .withFormName(Constants.JSON_FORM.getBirthCertification())
+                    .build();
+
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName()), action);
+        }
+    }
+
     private void evaluateKangarooMotherCare(Person person) throws Exception {
         PncBaby baby = (PncBaby) person;
         if (baby.getLbw().equalsIgnoreCase("yes")) {
@@ -389,7 +419,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getFamilyPlanning())
-                .withHelper(new FamilyPlanningHelper())
+                .withHelper(new FamilyPlanningHelper(context, parsedDate))
                 .build();
         actionList.put(context.getString(R.string.pnc_family_planning), action);
     }
@@ -399,14 +429,13 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
-                .withHelper(new ObservationAction())
+                .withHelper(new ObservationAction(parsedDate))
                 .build();
         actionList.put(context.getString(R.string.pnc_observation_and_illness_mother), action);
     }
 
     private void evaluateObservationAndIllnessBaby(Person baby) throws Exception {
         if (getAgeInDays(baby.getDob()) <= 28) {
-
             Map<String, List<VisitDetail>> details = getDetails(baby.getBaseEntityID(), Constants.EventType.OBSERVATIONS_AND_ILLNESS);
 
             BaseAncHomeVisitAction action = getBuilder(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()))
@@ -415,7 +444,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                     .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
                     .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
-                    .withHelper(new ObservationAction())
+                    .withHelper(new ObservationAction(parsedDate))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_observation_and_illness_baby), baby.getFullName()), action);
         }
@@ -513,6 +542,37 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         private String fp_method;
         private String fp_start_date;
         private Date start_date;
+        private String dob;
+        private JSONObject jsonObject;
+        private Context context;
+
+        public FamilyPlanningHelper(Context context, String dob) {
+            this.dob = dob;
+            this.context = context;
+        }
+
+        @Override
+        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
+            try {
+                if (StringUtils.isNotBlank(dob)) {
+                    jsonObject = new JSONObject(jsonString);
+                    JSONArray fields = JsonFormUtils.fields(jsonObject);
+                    JSONObject dateOfIllness = JsonFormUtils.getFieldJSONObject(fields, "fp_start_date");
+                    dateOfIllness.put(JsonFormConstants.MIN_DATE, dob);
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String getPreProcessed() {
+            if (StringUtils.isNotBlank(dob)) {
+                return jsonObject.toString();
+            } else {
+                return null;
+            }
+        }
 
         @Override
         public void onPayloadReceived(String jsonPayload) {
@@ -657,6 +717,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
                 );
 
                 JSONObject pnc_visit_date = JsonFormUtils.getFieldJSONObject(fields, "pnc_hf_visit{0}_date");
+                if (StringUtils.isNotBlank(parsedDate)) pnc_visit_date.put(JsonFormConstants.MIN_DATE, parsedDate);
                 pnc_visit_date.put(JsonFormConstants.KEY, MessageFormat.format("pnc_hf_visit{0}_date", visit_num));
                 pnc_visit_date.put("hint",
                         MessageFormat.format(pnc_visit_date.getString(JsonFormConstants.HINT), visitRule.getVisitName())
@@ -833,3 +894,4 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 }
+

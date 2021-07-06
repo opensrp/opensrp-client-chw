@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -19,6 +20,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreChildProfileModel;
@@ -38,13 +40,16 @@ import java.util.Date;
 import java.util.List;
 
 import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.dao.ChildDao.queryColumnWithIdentifier;
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.FHIR_BUNDLE_INTENT;
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
-public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
+public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications, CoreChildProfileContract.Flavor {
     public FamilyMemberFloatingMenu familyFloatingMenu;
     private Flavor flavor = new ChildProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
@@ -67,13 +72,21 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
-      //  setVaccineHistoryView(lastVisitDay);
+        //  setVaccineHistoryView(lastVisitDay);
     }
 
     @Override
-    public void setUpToolbar() {
-        updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.hasExtra(FHIR_BUNDLE_INTENT)
+                && StringUtils.isNotBlank(intent.getStringExtra(FHIR_BUNDLE_INTENT))) {
+            presenter().createCarePlanEvent(getContext(), intent.getStringExtra(FHIR_BUNDLE_INTENT));
+        }
+    }
 
+    public void setUpToolbar() {
+        if (memberObject != null && memberObject.getFirstName() != null)
+            updateToolbarTitle(this, R.id.toolbar_title, flavor.getToolbarTitleName(memberObject));
     }
 
     @Override
@@ -90,11 +103,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();
-        }
-        else if(i== R.id.vaccine_history){
+        } else if (i == R.id.vaccine_history) {
             openMedicalHistoryScreen();
-        }
-        else if (i == R.id.most_due_overdue_row) {
+        } else if (i == R.id.most_due_overdue_row) {
+            openUpcomingServicePage();
+        } else if (i == R.id.view_due_today) {
             openUpcomingServicePage();
         } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
@@ -120,7 +133,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
             familyName = "";
         }
 
-        presenter = new ChildProfilePresenter(this, new CoreChildProfileModel(familyName), childBaseEntityId);
+        presenter = new ChildProfilePresenter(this, this, new CoreChildProfileModel(familyName), childBaseEntityId);
     }
 
     @Override
@@ -155,14 +168,19 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, presenter().getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
                         , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
-
                 return true;
+            case R.id.action_thinkmd_health_assessment:
+                presenter().launchThinkMDHealthAssessment(getContext());
+                break;
+            case R.id.action_thinkmd_careplan:
+                presenter().showThinkMDCarePlan(getContext());
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -174,6 +192,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
+        if (ChwApplication.getApplicationFlavor().useThinkMd()
+                && StringUtils.isNotBlank(queryColumnWithIdentifier(CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID, childBaseEntityId, CARE_PLAN_DATE))) {
+            menu.findItem(R.id.action_thinkmd_careplan).setVisible(true);
+            menu.findItem(R.id.action_thinkmd_careplan).setTitle(
+                    String.format(getResources().getString(R.string.thinkmd_careplan), queryColumnWithIdentifier(CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID, childBaseEntityId, CARE_PLAN_DATE))
+            );
+        }
         return true;
     }
 
@@ -264,11 +289,26 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public void setLastVisitRowView(String days) {
         lastVisitDay = days;
-        flavor.setLastVisitRowView(lastVisitDay,layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
-        flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
+        flavor.setLastVisitRowView(lastVisitDay, layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
+        flavor.setVaccineHistoryView(lastVisitDay, layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
 
     }
 
+    @Override
+    public void setFamilyHasNothingElseDue() {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        viewFamilyRow.setVisibility(View.VISIBLE);
+        textViewFamilyHas.setText(getString(R.string.family_has_nothing_else_due));
+    }
+
+    @Override
+    public void togglePhysicallyDisabled(boolean show) {
+        if (show) {
+            physicallyChallenged.setVisibility(View.VISIBLE);
+        } else {
+            physicallyChallenged.setVisibility(View.GONE);
+        }
+    }
 
     public interface Flavor {
 
@@ -284,5 +324,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
+        String getToolbarTitleName(MemberObject memberObject);
     }
 }
