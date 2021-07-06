@@ -136,7 +136,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         });
         return map;
     }
+<<<<<<< HEAD
 
     @Override
     public boolean showsPhysicallyDisabledView() { return false; }
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
 }

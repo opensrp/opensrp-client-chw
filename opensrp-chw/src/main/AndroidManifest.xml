@@ -256,6 +256,17 @@
             android:theme="@style/FamilyTheme.NoActionBar" />
 
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".activity.AncMemberMapActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
             android:name=".activity.HivRegisterActivity"
             android:label="@string/hiv_register"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -288,6 +299,7 @@
         <activity
             android:name=".core.activity.CoreHivUpcomingServicesActivity"
             android:label="@string/upcoming_services"
+<<<<<<< HEAD
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
@@ -304,6 +316,8 @@
 
         <activity
             android:name=".activity.GuideBooksCounselingActivity"
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

@@ -414,6 +414,7 @@
 
     <!--Child Profile Strings -->
     <string name="family_has_nothing_else_due">Family has nothing else due</string>
+<<<<<<< HEAD
     <string name="hint_kit_type">What type of kit has the family received?</string>
     <string name="simple_kit_hint">Simple Kit (ORS/ZINC and Paracetamol)</string>
     <string name="simple_kit_with_micro_hint">Simple Kit (ORS/ZINC and Paracetamol) with micronutrients</string>
@@ -443,4 +444,8 @@
     
     <string name="unauthorized_group">This account is not allowed to access this device</string>
 
+=======
+
+    <string name="created">Created: %s</string>
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
 </resources>

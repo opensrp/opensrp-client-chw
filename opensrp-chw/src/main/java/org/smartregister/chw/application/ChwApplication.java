@@ -107,9 +107,12 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     private static Flavor flavor = new ChwApplicationFlv();
     private AppExecutors appExecutors;
     private CommonFtsObject commonFtsObject;
+<<<<<<< HEAD
     private P2pProcessingStatusBroadcastReceiver p2pProcessingStatusBroadcastReceiver;
     private boolean isBulkProcessing;
     private boolean fetchedLoad = false;
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
 
     public static Flavor getApplicationFlavor() {
         return flavor;
@@ -150,12 +153,15 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         return "opensrp_guidebooks_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
+<<<<<<< HEAD
     public static String getCounselingDocsDirectory() {
         String[] packageName = ChwApplication.getInstance().getContext().applicationContext().getPackageName().split("\\.");
         String suffix = packageName[packageName.length - 1];
         return "opensrp_counseling_docs_" + (suffix.equalsIgnoreCase("chw") ? "liberia" : suffix);
     }
 
+=======
+>>>>>>> 939cab83bf354adff709f1c84ad320faf058d44c
     public CommonFtsObject getCommonFtsObject() {
         if (commonFtsObject == null) {
 

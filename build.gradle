@@ -13,7 +13,6 @@ buildscript {
         mavenLocal()
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "http://dl.bintray.com/ona/kujaku" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -71,6 +70,7 @@ subprojects {
     ext.androidMinSdkVersion = 19
     ext.androidCompileSdkVersion = 29
     ext.androidTargetSdkVersion = 29
+
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
 

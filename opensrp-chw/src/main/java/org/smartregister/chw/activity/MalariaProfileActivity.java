@@ -35,6 +35,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.CoreMalariaFloatingMenu;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.form_data.NativeFormsDataBinder;
 import org.smartregister.chw.core.interactor.CoreMalariaProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.rule.MalariaFollowUpRule;
@@ -45,6 +46,7 @@ import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.core.utils.MalariaVisitUtil;
 import org.smartregister.chw.core.utils.VisitSummary;
 import org.smartregister.chw.custom_view.MalariaFloatingMenu;
+import org.smartregister.chw.dataloader.MalariaMemberDataLoader;
 import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.malaria.domain.MemberObject;
 import org.smartregister.chw.malaria.presenter.BaseMalariaProfilePresenter;
@@ -56,6 +58,7 @@ import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 
 import java.text.SimpleDateFormat;
@@ -69,6 +72,8 @@ import timber.log.Timber;
 import static org.smartregister.chw.anc.AncLibrary.getInstance;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.malaria.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.Events.MALARIA_CONFIRMATION;
+import static org.smartregister.chw.util.Constants.Events.UPDATE_MALARIA_CONFIGURATION;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -239,6 +244,19 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
             } else if (view.getTag() == ANC) {
                 AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
             }
+        } else if (id == org.smartregister.malaria.R.id.rlMalariaPositiveDate) {
+            JSONObject form;
+            NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
+            binder.setDataLoader(new MalariaMemberDataLoader());
+            form = binder.getPrePopulatedForm(MALARIA_CONFIRMATION);
+            if (form != null) {
+                try {
+                    form.put(JsonFormUtils.ENCOUNTER_TYPE, UPDATE_MALARIA_CONFIGURATION);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         }
         handleNotificationRowClick(this, view, notificationListAdapter, baseEntityId);
     }
@@ -543,5 +561,15 @@ public class MalariaProfileActivity extends CoreMalariaProfileActivity implement
             return new DateTime(lastVisitDate);
         }
         return null;
+    }
+
+    @Override
+    protected void setupViews() {
+        super.setupViews();
+        if (memberObject.getMalariaTestDate() != null) updateMalariaFormConfigurationView();
+    }
+
+    private void updateMalariaFormConfigurationView() {
+        rlMalariaPositiveDate.setVisibility(View.VISIBLE);
     }
 }
