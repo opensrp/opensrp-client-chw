@@ -62,15 +62,8 @@ condition: " (step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15 && helpe
 actions:
   - "isRelevant = true"
 ---
-name: step1_currently_married
-description: currently married
-priority: 1
-condition: "(step1_sex == 'Female') && ((step1_dob != '' && helper.formatDate(step1_dob,'y') >= 15 && helper.formatDate(step1_dob,'y') <= 24) || (step1_age != '' && step1_age >= 15 && step1_age <= 24))"
-actions:
-  - "isRelevant = true"
----
-name: step1_age_of_husband
-description: age of husband
+name: step1_age_of_spouse
+description: age of spouse
 priority: 1
 condition: "(step1_marital_status == 'Married') || (step1_marital_status == 'Co-habiting')"
 actions:

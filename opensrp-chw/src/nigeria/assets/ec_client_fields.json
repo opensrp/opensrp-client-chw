@@ -262,6 +262,21 @@
           }
         },
         {
+          "column_name": "age_of_spouse",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ageOfSpouse"
+          }
+        },        {
+          "column_name": "age_at_marrying",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ageAtMarrying"
+          }
+        },
+        {
           "column_name": "family_relation",
           "type": "Client",
           "json_mapping": {
@@ -275,7 +290,6 @@
             "field": "attributes.familyRelationOther"
           }
         },
-
         {
           "column_name": "any_disability",
           "type": "Event",
