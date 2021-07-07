@@ -1,0 +1,14 @@
+---
+name: step1_referral_problem_child_other
+description: Calculated age_at_death
+priority: 1
+condition: "!step1_referral_problem_child.isEmpty() && step1_referral_problem_child.contains('Other_symptom')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_service_before_child_other
+description: Service
+priority: 1
+condition: "!step1_service_before_child.isEmpty() && step1_service_before_child.contains('Other_treatment')"
+actions:
+  - "isRelevant = true"

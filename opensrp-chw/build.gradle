@@ -330,6 +330,23 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '6'
         }
+        miecd {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".miecd"
+            versionCode 1
+            versionName "0.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://opensrp-miecd.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://opensrp-miecd-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country", "Province", "District", "Commune", "Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country", "Province", "District", "Commune", "Village"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Province", "District", "Commune", "Village"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
+            buildConfigField "boolean", 'SUPPORT_QR', 'false'
+            buildConfigField "boolean", 'SUPPORT_REPORT', 'false'
+            buildConfigField "int", "DATABASE_VERSION", '13'
+        }
     }
 
     dataBinding {

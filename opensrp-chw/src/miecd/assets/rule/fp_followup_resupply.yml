@@ -1,0 +1,35 @@
+---
+name: step1_no_pillcycles
+description: no pillcycle
+priority: 1
+condition: "step1_fp_method.contains('COC') || step1_fp_method.contains('POP') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_no_condoms
+description: no of condoms
+priority: 1
+condition: "step1_fp_method.contains('Female condom') || step1_fp_method.contains('Male condom') "
+actions:
+  - "isRelevant = true"
+---
+name: step1_fp_refill_injectable
+description: injectable Refill
+priority: 1
+condition: "step1_fp_method.contains('Injectable')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_fp_visit_date
+description: injectable visit date
+priority: 1
+condition: "step1_fp_method.contains('Injectable')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_next_injection_date
+description: next injection visit date
+priority: 1
+condition: "step1_fp_refill_injectable != ''"
+actions:
+  - "isRelevant = true"

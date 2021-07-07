@@ -1,0 +1,14 @@
+---
+name: step1_next_injection_date
+description: next injectable date
+priority: 1
+condition: "step1_fp_refill_injectable != ''"
+actions:
+  - 'calculation = ["fp_refill_injectable" : helper.addDuration(step1_fp_refill_injectable,"84d")]'
+---
+name: step1_fp_visit_date
+description: fp date
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_fp_refill_injectable"
