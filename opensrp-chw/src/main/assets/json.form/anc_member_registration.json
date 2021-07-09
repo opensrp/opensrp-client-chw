@@ -152,7 +152,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "value": "semaines",
+        "value": "{{anc_member_registration.step1.weeks.value}}",
         "type": "hidden"
       },
       {

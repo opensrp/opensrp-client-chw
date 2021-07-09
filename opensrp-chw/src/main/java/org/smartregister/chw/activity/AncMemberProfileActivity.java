@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -255,7 +256,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                 form = binder.getPrePopulatedForm(formName);
                 if (form != null) {
                     form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_ANC_REGISTRATION);
+                    updateWeeksValue(form);
                 }
+
 
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
@@ -270,6 +273,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private void updateWeeksValue(JSONObject form) throws JSONException {
+        JSONArray fieldsJson = form.optJSONObject("step1").getJSONArray("fields");
+
+        for (int i = 0; i < fieldsJson.length(); i++) {
+            if (fieldsJson.getJSONObject(i).getString("key").matches("weeks")) {
+                fieldsJson.getJSONObject(i).put("value", getResources().getString(R.string.gest_age_weeks));
+                break;
+            }
         }
     }
 
