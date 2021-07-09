@@ -67,6 +67,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.malaria.util.DBConstants.KEY.GEST_AGE;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -217,8 +218,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
 
                     JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
-                    JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
-                    String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
+                    String phoneNumber = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER).getString(CoreJsonFormUtils.VALUE);
+                    String gestAge = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, GEST_AGE).getString(CoreJsonFormUtils.VALUE);
+                    this.setMemberGA(gestAge);
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
                         ContentValues values = new ContentValues();
@@ -277,8 +279,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     private void updateWeeksValue(JSONObject form) throws JSONException {
-        JSONArray fieldsJson = form.optJSONObject("step1").getJSONArray("fields");
-
+        JSONArray fieldsJson = org.smartregister.util.JsonFormUtils.fields(form);
         for (int i = 0; i < fieldsJson.length(); i++) {
             if (fieldsJson.getJSONObject(i).getString("key").matches("weeks")) {
                 fieldsJson.getJSONObject(i).put("value", getResources().getString(R.string.gest_age_weeks));
