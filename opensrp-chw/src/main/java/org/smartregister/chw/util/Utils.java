@@ -24,6 +24,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
@@ -113,6 +117,13 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         return format.format(newDate);
     }
 
+    public static String getFormattedDateFromTimeStamp(Long time, String mDateFormat) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(mDateFormat, Locale.getDefault());
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date dateTime = new Date(time);
+        return dateFormat.format(dateTime);
+    }
+
     public static String getClientName(String firstName, String middleName, String lastName) {
         String trimFirstName = firstName.trim();
         String trimMiddleName = middleName.trim();
@@ -124,5 +135,14 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         }
     }
 
+    public static String addHyphenBetweenNumbers(String str) {
+        Pattern compile = Pattern.compile("(?<=\\d) (?=\\d)");
+        Matcher matcher = compile.matcher(str);
+        boolean isFound = matcher.find();
+        if (isFound) {
+            int index = matcher.start();
+            return str.substring(0, index) + "-" + str.substring(index + 1);
+        } else return str;
+    }
 
 }
