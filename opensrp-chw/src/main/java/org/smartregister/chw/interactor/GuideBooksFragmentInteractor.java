@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
-import android.os.Environment;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -10,7 +9,6 @@ import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.domain.GuideBooksFragmentVideo;
 import org.smartregister.chw.util.DownloadUtil;
@@ -23,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.addHyphenBetweenNumbers;
 
 public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.Interactor {
     private AppExecutors appExecutors;
@@ -127,7 +127,8 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     }
 
     private String toTitle(String s) {
-        return StringUtils.join(s.split("\\.")[0].split("_"), " ");
+        String smallCaps = StringUtils.join(s.split("\\.")[0].split("_"), " ");
+        return addHyphenBetweenNumbers(smallCaps);
     }
 
     private static class ServerFile {
