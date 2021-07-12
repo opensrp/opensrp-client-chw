@@ -19,6 +19,7 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.smartregister.chw.util.Utils.addHyphenBetweenNumbers;
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.chw.util.Utils.getClientName;
 import static org.smartregister.chw.util.Utils.getFormattedDateFromTimeStamp;
@@ -107,7 +108,7 @@ public class UtilsTest extends BaseUnitTest {
     @Test
     public void testToCSV() {
         String csv = org.smartregister.chw.util.Utils.toCSV(Arrays.asList("foo", "bar", "baz"));
-        Assert.assertEquals("foo, bar, baz ",csv);
+        Assert.assertEquals("foo, bar, baz ", csv);
     }
 
     @Test
@@ -115,5 +116,11 @@ public class UtilsTest extends BaseUnitTest {
         Activity activity = Mockito.mock(Activity.class);
         @NotNull List<ReferralTypeModel> referralTypeModels = org.smartregister.chw.util.Utils.getCommonReferralTypes(activity);
         Assert.assertEquals(4, referralTypeModels.size());
+    }
+
+    @Test
+    public void testAddHyphenBetweenNumbers() {
+        Assert.assertEquals("Ali is around 2-3 years old", addHyphenBetweenNumbers("Ali is around 2 3 years old"));
+        Assert.assertEquals("Ali is around 2 years old", addHyphenBetweenNumbers("Ali is around 2 years old"));
     }
 }

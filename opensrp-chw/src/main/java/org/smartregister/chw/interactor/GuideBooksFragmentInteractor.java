@@ -19,10 +19,10 @@ import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.addHyphenBetweenNumbers;
 
 public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.Interactor {
     private AppExecutors appExecutors;
@@ -128,18 +128,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
 
     private String toTitle(String s) {
         String smallCaps = StringUtils.join(s.split("\\.")[0].split("_"), " ");
-        return addHyphens(smallCaps);
-//        return smallCaps;
-    }
-
-    private String addHyphens(String str) {
-        Pattern compile = Pattern.compile("(?<=\\d) (?=\\d)");
-        Matcher matcher = compile.matcher(str);
-        boolean isFound = matcher.find();
-        if (isFound) {
-            int index = matcher.start();
-            return str.substring(0, index) + "-" + str.substring(index + 1);
-        } else return str;
+        return addHyphenBetweenNumbers(smallCaps);
     }
 
     private static class ServerFile {
