@@ -245,14 +245,14 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '13'
+            buildConfigField "int", "DATABASE_VERSION", '14'
         }
         drc {
             resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
-            versionCode 3
-            versionName "1.0.9"
+            versionCode 6
+            versionName "1.0.11"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
@@ -262,7 +262,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante" , "CAC" ,"VILLAGE/COMMUNAUTE"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
-            buildConfigField "int", "DATABASE_VERSION", '10'
+            buildConfigField "int", "DATABASE_VERSION", '11'
         }
         nigeria {
             dimension = 'baseDimension'
@@ -289,7 +289,7 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://wcaro-guinea.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/guinea/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-guinea-preview.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Region" , "Prefecture" , "Commune" , "Health Facility" , "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_PREVIEW", '{"Health Facility" , "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
@@ -297,13 +297,13 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_PREVIEW', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 21
-            versionName "1.2.3"
+            versionCode 22
+            versionName "1.2.4"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
@@ -315,7 +315,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '19'
+            buildConfigField "int", "DATABASE_VERSION", '20'
         }
         liberia {
             dimension = 'baseDimension'
@@ -323,13 +323,13 @@ android {
             versionName "0.1.12"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '5'
+            buildConfigField "int", "DATABASE_VERSION", '7'
         }
         lmh {
             dimension = 'baseDimension'

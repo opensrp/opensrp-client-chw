@@ -26,6 +26,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
@@ -131,6 +133,16 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         } else {
             return Utils.getName(trimFirstName, trimMiddleName);
         }
+    }
+
+    public static String addHyphenBetweenNumbers(String str) {
+        Pattern compile = Pattern.compile("(?<=\\d) (?=\\d)");
+        Matcher matcher = compile.matcher(str);
+        boolean isFound = matcher.find();
+        if (isFound) {
+            int index = matcher.start();
+            return str.substring(0, index) + "-" + str.substring(index + 1);
+        } else return str;
     }
 
 }
