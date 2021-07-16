@@ -412,4 +412,8 @@
     <string name="family_title">Kaya ya {0} </string>
     <string name="family_profile_title_with_firstname">Kaya ya %1$s %2$s</string>
     <string name="created">Imeumbwa: %s</string>
+
+
+    <!-- warning -->
+    <string name="any_changes_you_make">Mabadiliko yoyote uliyofanya yatapotea</string>
 </resources>
