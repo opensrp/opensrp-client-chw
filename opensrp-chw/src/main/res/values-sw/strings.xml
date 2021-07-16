@@ -410,4 +410,8 @@
     <string name="select_communities">Chagua jamii</string>
 
     <string name="created">Imeumbwa: %s</string>
+
+
+    <!-- warning -->
+    <string name="any_changes_you_make">Mabadiliko yoyote uliyofanya yatapotea</string>
 </resources>
