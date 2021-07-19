@@ -8,6 +8,7 @@ import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.List;
@@ -30,15 +31,21 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        String providerId = org.smartregister.Context.getInstance().allSharedPreferences().fetchRegisteredANM();
-        String userLocationId = org.smartregister.Context.getInstance().allSharedPreferences().fetchUserLocalityId(providerId);
+        String providerId = allSharedPreferences().fetchRegisteredANM();
+        String locationId = allSharedPreferences().fetchDefaultLocalityId(providerId);
+        if(StringUtils.isBlank(locationId)) locationId = allSharedPreferences().fetchUserLocalityId(providerId);
+
         List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
         if (!isEmptyCollection(locationIds)) {
-            int index = locationIds.indexOf(userLocationId);
+            int index = locationIds.indexOf(locationId);
             List<String> subLocationIds = locationIds.subList(index, locationIds.size());
             return StringUtils.join(subLocationIds, ",");
         }
-        return userLocationId;
+        return locationId;
+    }
+
+    private AllSharedPreferences allSharedPreferences(){
+        return org.smartregister.Context.getInstance().allSharedPreferences();
     }
 
     @Override
@@ -73,7 +80,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean isSyncUsingPost() {
-        return !BuildConfig.DEBUG && ChwApplication.getApplicationFlavor().syncUsingPost();
+        return ChwApplication.getApplicationFlavor().syncUsingPost();
     }
 
     @Override
