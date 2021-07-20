@@ -145,4 +145,14 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         } else return str;
     }
 
+    public static String getClientName(String firstName, String middleName) {
+        String trimFirstName = firstName.trim();
+        String trimMiddleName = middleName.trim();
+        if (ChwApplication.getApplicationFlavor().hasSurname()) {
+            return getName(trimFirstName, trimMiddleName);
+        } else {
+            return Utils.getName(trimFirstName, trimMiddleName);
+        }
+    }
+
 }
