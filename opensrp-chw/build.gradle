@@ -83,6 +83,7 @@ android {
         buildConfigField "String", "THINKMD_BASE_URL", '"https://app.africa.thinkmd.tech"'
         buildConfigField "String", "THINKMD_END_POINT", '"/#/start"'
         buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '1'
+        buildConfigField "int", "MAX_READ_TIMEOUT", '1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -252,8 +253,8 @@ android {
             resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
-            versionCode 8
-            versionName "1.0.13"
+            versionCode 9
+            versionName "1.0.14"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
@@ -264,6 +265,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
             buildConfigField "int", "DATABASE_VERSION", '11'
         }
         guinea {
