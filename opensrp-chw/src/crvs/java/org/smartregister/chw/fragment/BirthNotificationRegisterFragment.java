@@ -1,11 +1,6 @@
 package org.smartregister.chw.fragment;
 
-import android.util.Log;
-
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.ChildHomeVisitActivity;
-import org.smartregister.chw.activity.ChildProfileActivity;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.ChildRegisterFragmentModel;
 import org.smartregister.chw.presenter.ChildRegisterFragmentPresenter;
@@ -13,11 +8,8 @@ import org.smartregister.chw.provider.BirthNotificationProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.Set;
-import timber.log.Timber;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class BirthNotificationRegisterFragment extends CoreBirthNotificationFragment {
 
@@ -29,7 +21,6 @@ public class BirthNotificationRegisterFragment extends CoreBirthNotificationFrag
             CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
             ChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false, ChildHomeVisitActivity.class);
         }*/
-        Log.d("nothing", "do nothing");
     }
 
     @Override

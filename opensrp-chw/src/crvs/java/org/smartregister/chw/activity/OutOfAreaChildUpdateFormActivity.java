@@ -3,10 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -21,15 +18,11 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
 import java.util.Map;
-
 import timber.log.Timber;
-
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
-
 public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
 
     public CommonPersonObject commonPersonObject;
@@ -52,7 +45,6 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
-//        action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         startAncDangerSignsOutcomeForm();
     }
 
@@ -96,20 +88,7 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
-                JSONObject form = new JSONObject(jsonString);
-                Log.d("herein", "hereib: "+form);
-
                 presenter().saveOutOfAreaForm(jsonString, true);
-
-                /*if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CrvsConstants.REMOVE_FAMILY_MEMBER)
-                ) {
-                    AllCommonsRepository childCommonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository("ec_child");
-                    AllCommonsRepository familyCommonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository("ec_family_member");
-
-                    if (childCommonsRepository != null && familyCommonsRepository != null) {
-                        updateDeathCertificate(childCommonsRepository, familyCommonsRepository, jsonString);
-                    }
-                }*/
             } catch (Exception e) {
                 Timber.e(e);
             }

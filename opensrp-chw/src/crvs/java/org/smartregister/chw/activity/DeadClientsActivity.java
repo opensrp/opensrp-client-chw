@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import android.content.Intent;
+import android.view.View;
+
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
@@ -20,6 +22,7 @@ public class DeadClientsActivity extends CoreDeadClientsActivity implements Core
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
     @Override

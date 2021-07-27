@@ -47,11 +47,10 @@ public class OutOfAreaChildActivity extends BaseRegisterActivity implements Core
 
     @Override
     protected void registerBottomNavigation() {
-
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
     @Override

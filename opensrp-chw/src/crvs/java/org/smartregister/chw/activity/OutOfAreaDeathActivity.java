@@ -2,25 +2,19 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-
 import androidx.fragment.app.Fragment;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.anc.util.Constants;
-import org.smartregister.chw.contract.CoreOutOfAreaChildRegisterContract;
 import org.smartregister.chw.contract.CoreOutOfAreaDeathRegisterContract;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.CoreDeadClientsFragment;
 import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
-import org.smartregister.chw.fragment.OutOfAreaFragment;
 import org.smartregister.chw.model.CoreOutOfAreaDeathRegisterModel;
 import org.smartregister.chw.presenter.CoreOutOfAreaDeathRegisterPresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -29,7 +23,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -50,11 +43,10 @@ public class OutOfAreaDeathActivity extends BaseRegisterActivity implements Core
 
     @Override
     protected void registerBottomNavigation() {
-
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
-
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
     @Override

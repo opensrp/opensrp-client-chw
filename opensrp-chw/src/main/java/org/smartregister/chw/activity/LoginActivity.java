@@ -19,6 +19,7 @@ import org.smartregister.chw.fragment.PinLoginFragment;
 import org.smartregister.chw.pinlogin.PinLogger;
 import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.presenter.LoginPresenter;
+import org.smartregister.chw.util.CrvsConstants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.family.util.Constants;
 import org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService;
@@ -37,6 +38,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.CrvsConstants.USER_TYPE;
 
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
@@ -169,10 +172,18 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void startHome(boolean remote) {
-        Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
-                ChildRegisterActivity.class : FamilyRegisterActivity.class);
-        intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
-        startActivity(intent);
+        if (ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(USER_TYPE).equals(CrvsConstants.USER)) {
+            Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : FamilyRegisterActivity.class);
+            intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : BirthNotificationRegisterActivity.class);
+            intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            startActivity(intent);
+        }
+
     }
 
     private void startPinHome(boolean remote) {

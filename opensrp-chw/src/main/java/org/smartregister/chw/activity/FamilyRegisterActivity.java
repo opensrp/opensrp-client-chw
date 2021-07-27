@@ -8,6 +8,8 @@ import android.util.Log;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.application.ChwApplicationFlv;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
@@ -19,6 +21,8 @@ import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.domain.UniqueId;
+import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
