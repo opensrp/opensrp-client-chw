@@ -82,6 +82,7 @@ android {
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         buildConfigField "String", "THINKMD_BASE_URL", '"https://app.africa.thinkmd.tech"'
         buildConfigField "String", "THINKMD_END_POINT", '"/#/start"'
+        buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -262,6 +263,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante" , "CAC" ,"VILLAGE/COMMUNAUTE"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "DATABASE_VERSION", '11'
         }
         guinea {

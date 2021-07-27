@@ -114,6 +114,11 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
+    public int getConnectTimeout() {
+        return BuildConfig.MAX_CONNECTION_TIMEOUT * 60000;
+    }
+
+    @Override
     public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
         return LoginActivity.class;
     }
