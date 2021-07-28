@@ -39,6 +39,7 @@ import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_D
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT_NUM;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
+import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
 import static org.smartregister.chw.util.CrvsConstants.YES;
 
@@ -78,7 +79,7 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
                 long visitNot = 0;
                 long dateCreated = 0;
                 try {
-                    String createVal = Utils.getValue(commonPersonObject.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
+                    String createVal = Utils.getValue(pc.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
                     if (StringUtils.isNotBlank(createVal))
                         dateCreated = ISO8601DATEFORMAT.parse(createVal).getTime();
 
@@ -91,7 +92,7 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
                 if (notDoneSummary != null)
                     visitNot = notDoneSummary.getVisitDate().getTime();
 
-                String dobString = getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
+                String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
                 childVisit = CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
             }
             return null;
@@ -101,10 +102,10 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
 
     @Override
     protected void onPostExecute(Void param) {
-        if (commonPersonObject != null) {
+        if (pc != null) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
-            String birth_cert = Utils.getValue(commonPersonObject.getColumnmaps(), BIRTH_CERT, true);
-            String birth_notification = Utils.getValue(commonPersonObject.getColumnmaps(), BIRTH_NOTIFICATION, true);
+            String birth_cert = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT, true);
+            String birth_notification = Utils.getValue(pc.getColumnmaps(), BIRTH_NOTIFICATION, true);
             String birth_registration = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);
             String dob = Utils.getValue(pc.getColumnmaps(), "dob", true);
             try {
@@ -124,13 +125,15 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
             viewHolder.dueButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String entityId = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
-                    String birth_cert_issue_date = Utils.getValue(commonPersonObject.getColumnmaps(), BIRTH_CERTIFICATE_ISSUE_DATE, true);
-                    String birth_cert_num = Utils.getValue(commonPersonObject.getColumnmaps(), BIRTH_CERT_NUM, true);
+                    String entityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
+                    String birth_cert_issue_date = Utils.getValue(pc.getColumnmaps(), BIRTH_CERTIFICATE_ISSUE_DATE, true);
+                    String birth_cert_num = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT_NUM, true);
+                    String clienttype = Utils.getValue(pc.getColumnmaps(), CLIENT_TYPE, true);
 
                     Intent intent = new Intent(context, BirthNotificationUpdateActivity.class);
                     intent.putExtra(org.smartregister.chw.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.util.Constants.ACTION.START_REGISTRATION);
                     intent.putExtra(DBConstants.KEY.BASE_ENTITY_ID, entityId);
+                    intent.putExtra(CLIENT_TYPE, clienttype);
                     intent.putExtra(BIRTH_CERT, birth_cert);
                     intent.putExtra(BIRTH_CERTIFICATE_ISSUE_DATE, birth_cert_issue_date);
                     intent.putExtra(BIRTH_CERT_NUM, birth_cert_num);
@@ -138,7 +141,6 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
                     intent.putExtra(BIRTH_REGISTRATION, birth_registration);
                     intent.putExtra(DOB, dob);
                     context.startActivity(intent);
-
                 }
             });
         } else {

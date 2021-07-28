@@ -20,6 +20,8 @@ public class CrvsConstants {
     public static String MIN_DATE = "min_date";
     public static String DOB = "dob";
     public static String CLIENT_TYPE = "clienttype";
+    public static String BIRTH_CLIENT_TYPE = "birth";
+    public static String OUT_OF_AREA_CLIENT_TYPE = "outOfArea";
     public static String RECEIVED_DEATH_CERTIFICATE = "received_death_certificate";
     public static String BASE_ENTITY_ID = "base_entity_id";
     public static String UNIQUE_ID = "unique_id";

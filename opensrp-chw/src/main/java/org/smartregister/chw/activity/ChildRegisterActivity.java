@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.content.Intent;
-import android.util.Log;
 
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Constants;

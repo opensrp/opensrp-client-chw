@@ -1,7 +1,5 @@
 package org.smartregister.chw.interactor;
 
-import android.util.Log;
-
 import org.smartregister.chw.contract.LoginJobScheduler;
 import org.smartregister.domain.LoginResponse;
 import org.smartregister.login.interactor.BaseLoginInteractor;

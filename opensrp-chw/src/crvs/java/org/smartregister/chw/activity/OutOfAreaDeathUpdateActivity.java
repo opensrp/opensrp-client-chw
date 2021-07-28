@@ -1,8 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,12 +30,9 @@ import timber.log.Timber;
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_BIRTH;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_CHILD_FORM;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_FORM;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_FORM;
 import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
 
@@ -63,7 +58,6 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
         NavigationMenu.getInstance(this, null, null);
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
-//        action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         startAncDangerSignsOutcomeForm();
     }
 
@@ -98,11 +92,7 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
                 String jsonString = data.getStringExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
 
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("label", jsonString);
-                clipboard.setPrimaryClip(clip);
-
-                String openSRPId = AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId();
+//                String openSRPId = AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId();
 
 
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OUT_OF_AREA_DEATH_ENCOUNTER_TYPE)

@@ -1,7 +1,5 @@
 package org.smartregister.chw.pinlogin;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import org.joda.time.DateTime;

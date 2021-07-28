@@ -1,8 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -24,18 +22,25 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 import timber.log.Timber;
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
 import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
 import static org.smartregister.chw.util.CrvsConstants.DEATH_CERTIFICATE_ISSUE_DATE;
 import static org.smartregister.chw.util.CrvsConstants.DEATH_FORM;
 import static org.smartregister.chw.util.CrvsConstants.DEATH_MEMBER_FORM;
+import static org.smartregister.chw.util.CrvsConstants.DOB;
 import static org.smartregister.chw.util.CrvsConstants.HAS_DEATH_CERTIFICATE;
+import static org.smartregister.chw.util.CrvsConstants.MIN_DATE;
 import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
+import static org.smartregister.chw.util.DateUtils.changeDateFormat;
 
 public class DeadClientsUpdateActivity extends CoreFamilyRegisterActivity {
 
@@ -76,6 +81,17 @@ public class DeadClientsUpdateActivity extends CoreFamilyRegisterActivity {
             Map<String, String> valueMap = new HashMap<>();
             valueMap.put(HAS_DEATH_CERTIFICATE, death_cert);
             valueMap.put(DEATH_CERTIFICATE_ISSUE_DATE, death_cert_issue_date);
+
+            try {
+                JSONObject stepOne = formJsonObject.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                JSONObject min_date = CoreJsonFormUtils.getFieldJSONObject(jsonArray, DEATH_CERTIFICATE_ISSUE_DATE);
+                assert min_date != null;
+                min_date.put(MIN_DATE, changeDateFormat(Objects.requireNonNull(getIntent().getStringExtra(DOB))));
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
             CoreJsonFormUtils.populateJsonForm(formJsonObject, valueMap);
             JsonFormUtilsFlv.startFormActivity(DeadClientsUpdateActivity.this, formJsonObject, DEATH_FORM);
         } catch (Exception e) {
@@ -127,18 +143,46 @@ public class DeadClientsUpdateActivity extends CoreFamilyRegisterActivity {
             JSONObject certificateNumber = fields.getJSONObject(3);
 
             String hasCertificate = has_death_certificate.getString("value");
-            String issueDate = death_certificate_issue_date.getString("value");
+            String issueDate;
+            if (hasCertificate.equals("Yes")) {
+                issueDate = death_certificate_issue_date.getString("value");
+            }else {
+                issueDate = "";
+            }
 
             if (getIntent().getStringExtra(CLIENT_TYPE).equals("child")) {
                 String tableName = "ec_child";
-                String sql = "UPDATE "+tableName+" SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
-                String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
-                childCommonsRepository.customQuery(sql, selectionArgs, tableName);
-            } else {
+                if (!issueDate.equals("")) {
+                    String sql = "UPDATE " + tableName + " SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
+                    String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
+                    childCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                }else {
+                    String sql = "UPDATE " + tableName + " SET received_death_certificate = ? WHERE id = ?";
+                    String[] selectionArgs = {hasCertificate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
+                    childCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                }
+            } else if (getIntent().getStringExtra(CLIENT_TYPE).equals("still")) {
                 String tableName = "ec_family_member";
-                String sql = "UPDATE "+tableName+" SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
-                String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
-                familyCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                if (!issueDate.equals("")) {
+                    String sql = "UPDATE " + tableName + " SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
+                    String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
+                    familyCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                }else {
+                    String sql = "UPDATE " + tableName + " SET received_death_certificate = ? WHERE id = ?";
+                    String[] selectionArgs = {hasCertificate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
+                    familyCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                }
+            } else if (getIntent().getStringExtra(CLIENT_TYPE).equals("outOfArea")) {
+                String tableName = "ec_out_of_area_death";
+                if (!issueDate.equals("")) {
+                    String sql = "UPDATE " + tableName + " SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
+                    String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
+                    familyCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                }else {
+                    String sql = "UPDATE " + tableName + " SET received_death_certificate = ? WHERE id = ?";
+                    String[] selectionArgs = {hasCertificate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
+                    familyCommonsRepository.customQuery(sql, selectionArgs, tableName);
+                }
             }
             startActivity(new Intent(this, DeadClientsActivity.class));
             finish();

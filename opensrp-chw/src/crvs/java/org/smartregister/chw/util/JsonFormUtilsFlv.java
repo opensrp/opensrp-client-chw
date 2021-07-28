@@ -3,7 +3,6 @@ package org.smartregister.chw.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.vijay.jsonwizard.domain.Form;
 
@@ -11,12 +10,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.core.utils.ChwDBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
 import org.smartregister.view.LocationPickerView;
 

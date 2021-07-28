@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
@@ -16,8 +15,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
-import org.smartregister.chw.activity.DeadClientsUpdateActivity;
-import org.smartregister.chw.activity.OutOfAreaChildActivity;
 import org.smartregister.chw.activity.OutOfAreaDeathActivity;
 import org.smartregister.chw.activity.OutOfAreaDeathUpdateActivity;
 import org.smartregister.chw.contract.CoreOutOfAreaDeathRegisterContract;
@@ -37,7 +34,6 @@ import java.util.List;
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
 
 public class CoreOutOfAreaDeathRegisterPresenter implements CoreOutOfAreaDeathRegisterContract.Presenter, CoreOutOfAreaDeathRegisterContract.InteractorCallBack {
     public static final String TAG = CoreChildRegisterPresenter.class.getName();

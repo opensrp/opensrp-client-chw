@@ -2,8 +2,6 @@ package org.smartregister.chw.fragment;
 
 import android.content.Intent;
 import android.util.Log;
-import org.smartregister.chw.activity.ChildProfileActivity;
-import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.CoreDeadClientsFragmentModel;
 import org.smartregister.chw.presenter.DeadClientsFragmentPresenter;
@@ -11,11 +9,8 @@ import org.smartregister.chw.provider.DeadClientsProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.Set;
-import timber.log.Timber;
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class DeadClientsFragment extends CoreDeadClientsFragment {
 

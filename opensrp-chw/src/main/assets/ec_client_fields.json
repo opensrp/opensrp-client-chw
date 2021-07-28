@@ -705,6 +705,46 @@
           "json_mapping": {
             "field": "dateCreated"
           }
+        },
+        {
+          "column_name": "birth_cert",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert_issue_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert_num",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_notification",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_registration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birthRegistration"
+          }
         }
       ]
     },
@@ -936,6 +976,22 @@
           "type": "Client",
           "json_mapping": {
             "field": "dateCreated"
+          }
+        },
+        {
+          "column_name": "received_death_certificate",
+          "type": "Client",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "received_death_certificate"
+          }
+        },
+        {
+          "column_name": "death_certificate_issue_date",
+          "type": "Client",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathCertificateIssueDate"
           }
         }
       ]

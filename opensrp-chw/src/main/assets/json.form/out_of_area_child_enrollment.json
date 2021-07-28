@@ -113,6 +113,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
+        "hidden": "true",
         "type": "check_box",
         "label": "",
         "exclusive": [

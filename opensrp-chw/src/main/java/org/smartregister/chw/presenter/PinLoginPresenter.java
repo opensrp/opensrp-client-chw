@@ -1,7 +1,5 @@
 package org.smartregister.chw.presenter;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

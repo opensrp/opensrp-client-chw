@@ -30,6 +30,7 @@ import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
 import static org.smartregister.chw.util.CrvsConstants.DEATH_CERTIFICATE_ISSUE_DATE;
+import static org.smartregister.chw.util.CrvsConstants.DOB;
 import static org.smartregister.chw.util.CrvsConstants.NO;
 import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.util.CrvsConstants.YES;
@@ -56,8 +57,8 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     public Void doInBackground(Void... params) {
-        if (commonRepository != null) {
-            commonPersonObject = commonRepository.findByBaseEntityId(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+        if (baseEntityId != null) {
+//            commonPersonObject = commonRepository.findByBaseEntityId(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
 
             Map<String, VisitSummary> map = VisitDao.getVisitSummary(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
             if (map != null) {
@@ -68,7 +69,7 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                 long visitNot = 0;
                 long dateCreated = 0;
                 try {
-                    String createVal = Utils.getValue(commonPersonObject.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
+                    String createVal = Utils.getValue(baseEntityId.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
                     if (StringUtils.isNotBlank(createVal))
                         dateCreated = ISO8601DATEFORMAT.parse(createVal).getTime();
 
@@ -82,7 +83,7 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                     visitNot = notDoneSummary.getVisitDate().getTime();
 
                 try {
-                    String dobString = getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
+                    String dobString = getDuration(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.DOB, false));
                     childVisit = CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
                 } catch (Exception e) {
                     childVisit = null;
@@ -119,6 +120,7 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                 String death_certificate = Utils.getValue(baseEntityId.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false);
                 String client_type = Utils.getValue(baseEntityId.getColumnmaps(), CLIENT_TYPE, false);
                 String death_cert_issue_date = Utils.getValue(baseEntityId.getColumnmaps(), DEATH_CERTIFICATE_ISSUE_DATE, false);
+                String dob = Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.DOB, false);
 
                 Intent intent = new Intent(context, DeadClientsUpdateActivity.class);
                 intent.putExtra(org.smartregister.chw.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.util.Constants.ACTION.START_REGISTRATION);
@@ -126,6 +128,7 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                 intent.putExtra(RECEIVED_DEATH_CERTIFICATE, death_certificate);
                 intent.putExtra(CLIENT_TYPE, client_type);
                 intent.putExtra(DEATH_CERTIFICATE_ISSUE_DATE, death_cert_issue_date);
+                intent.putExtra(DOB, dob);
                 context.startActivity(intent);
             }
         });
