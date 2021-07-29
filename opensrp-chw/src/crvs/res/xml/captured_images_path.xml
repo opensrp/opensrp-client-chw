@@ -2,5 +2,5 @@
 <paths>
     <external-path
         name="captured_photos"
-        path="Android/data/org.smartregister.chw/files/Pictures" />
+        path="Android/data/org.smartregister.chw.crvs/files/Pictures" />
 </paths>

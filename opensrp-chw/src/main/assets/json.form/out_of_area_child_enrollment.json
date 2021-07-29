@@ -55,7 +55,7 @@
     "title": "Add Child Under N - Out of Area",
     "fields": [
       {
-        "key": "image",
+        "key": "photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",

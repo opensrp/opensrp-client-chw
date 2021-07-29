@@ -68,7 +68,7 @@ public class OutOfAreaChildAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     public Void doInBackground(Void... params) {
-        if (commonRepository != null) {
+        if (baseEntityId != null) {
             commonPersonObject = commonRepository.findByBaseEntityId(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
 
             Map<String, VisitSummary> map = VisitDao.getVisitSummary(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
@@ -80,7 +80,7 @@ public class OutOfAreaChildAsyncTask extends AsyncTask<Void, Void, Void> {
                 long visitNot = 0;
                 long dateCreated = 0;
                 try {
-                    String createVal = Utils.getValue(commonPersonObject.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
+                    String createVal = Utils.getValue(baseEntityId.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
                     if (StringUtils.isNotBlank(createVal))
                         dateCreated = ISO8601DATEFORMAT.parse(createVal).getTime();
 
@@ -94,7 +94,7 @@ public class OutOfAreaChildAsyncTask extends AsyncTask<Void, Void, Void> {
                     visitNot = notDoneSummary.getVisitDate().getTime();
 
                 try {
-                    String dobString = getDuration(Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false));
+                    String dobString = getDuration(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.DOB, false));
                     childVisit = CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
                 } catch (Exception e) {
                     childVisit = null;

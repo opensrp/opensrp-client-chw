@@ -13,6 +13,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.fragment.DeadClientsFragment;
+import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
@@ -77,7 +78,7 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new DeadClientsFragment();
+        return new OutOfAreaDeathFragment();
     }
 
     @Override

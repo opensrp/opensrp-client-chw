@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.DeadClientsFragment;
+import org.smartregister.chw.fragment.OutOfAreaFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
@@ -66,7 +67,7 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new DeadClientsFragment();
+        return new OutOfAreaFragment();
     }
 
     @Override

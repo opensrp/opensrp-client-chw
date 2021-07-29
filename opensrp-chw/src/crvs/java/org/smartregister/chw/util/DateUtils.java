@@ -1,7 +1,6 @@
 package org.smartregister.chw.util;
 
 import com.mapbox.mapboxsdk.log.Logger;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 

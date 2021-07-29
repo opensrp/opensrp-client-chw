@@ -11,10 +11,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Photo;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
+import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 
 import java.util.Date;
@@ -81,10 +84,20 @@ public class JsonFormUtilsFlv extends DefaultJsonFormUtilsFlv {
         }
     }
 
+    private static void getPhoto(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
+        Photo photo = ImageUtils.profilePhotoByClientID(client.getCaseId(), org.smartregister.chw.core.utils.Utils.getProfileImageResourceIDentifier());
+        if (StringUtils.isNotBlank(photo.getFilePath())) {
+            jsonObject.put(JsonFormUtils.VALUE, photo.getFilePath());
+        }
+    }
+
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
 
         String key = jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase();
         switch (key) {
+            case "photo":
+                getPhoto(client, jsonObject);
+                break;
             case "name":
                 String name = org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), "name", false);
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, name);
