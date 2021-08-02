@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 import android.view.View;
-
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
@@ -37,6 +36,7 @@ public class DeadClientsActivity extends CoreDeadClientsActivity implements Core
 //            process the form
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
                 String baseEnityId = form.optString(Constants.JSON_FORM_EXTRA.ENTITY_TYPE);
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);

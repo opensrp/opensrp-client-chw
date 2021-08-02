@@ -9,9 +9,7 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -27,12 +25,10 @@ import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
-
+import java.util.Objects;
 import timber.log.Timber;
-
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
 
 public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRegisterContract.Presenter, CoreOutOfAreaChildRegisterContract.InteractorCallBack {
@@ -43,7 +39,7 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
 
     public CoreOutOfAreaChildRegisterPresenter(CoreOutOfAreaChildRegisterContract.View view, CoreOutOfAreaChildRegisterContract.Model model) {
         viewReference = new WeakReference<>(view);
-        interactor = new CoreOutOfAreaChildRegisterInteractor(getView().getContext());
+        interactor = new CoreOutOfAreaChildRegisterInteractor(Objects.requireNonNull(getView()).getContext());
         this.model = model;
     }
 
@@ -97,7 +93,7 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
     @Override
     public void saveLanguage(String language) {
         model.saveLanguage(language);
-        getView().displayToast(language + " selected");
+        Objects.requireNonNull(getView()).displayToast(language + " selected");
     }
 
     @Override
@@ -176,7 +172,7 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
     public void closeFamilyRecord(String jsonString) {
 
         try {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getView().getContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getView()).getContext());
             AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
 
             Timber.d("JSONResult : %s", jsonString);
@@ -191,7 +187,7 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
 
     @Override
     public void addOutOfAreaChild(Class activity) {
-        Intent intent = new Intent(getView().getContext(), OutOfAreaChildActivity.class);
+        Intent intent = new Intent(Objects.requireNonNull(getView()).getContext(), OutOfAreaChildActivity.class);
         getView().getContext().startActivity(intent);
     }
 
@@ -200,20 +196,18 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
     public void registerFloatingActionButton(View v, int visibility) {
         FloatingActionButton addClientsFab = v.findViewById(org.smartregister.chw.core.R.id.add_clients_fab);
         addClientsFab.setVisibility(View.VISIBLE);
-        /*if (addClientsFab != null)
-            addClientsFab.setImageResource(R.drawable.ic_add);*/
 
         addClientsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                interactor.openActivityOnFloatingButtonClick(getView().getContext(), OutOfAreaChildUpdateActivity.class);
+                interactor.openActivityOnFloatingButtonClick(Objects.requireNonNull(getView()).getContext(), OutOfAreaChildUpdateActivity.class);
             }
         });
     }
 
     @Override
     public void onNoUniqueId() {
-        getView().displayShortToast(org.smartregister.chw.core.R.string.no_unique_id);
+        Objects.requireNonNull(getView()).displayShortToast(org.smartregister.chw.core.R.string.no_unique_id);
     }
 
     @Override

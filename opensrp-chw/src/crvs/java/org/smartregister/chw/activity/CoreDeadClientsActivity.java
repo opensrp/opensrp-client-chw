@@ -49,12 +49,9 @@ public class CoreDeadClientsActivity extends BaseRegisterActivity implements Cor
             bottomNavigationView.getMenu().removeItem(org.smartregister.chw.core.R.id.action_library);
 
             bottomNavigationView.inflateMenu(org.smartregister.chw.core.R.menu.bottom_nav_family_menu);
-
             bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
             CoreBottomNavigationListener childBottomNavigationListener = new CoreBottomNavigationListener(this);
             bottomNavigationView.setOnNavigationItemSelectedListener(childBottomNavigationListener);
-
         }
     }
 
@@ -122,6 +119,7 @@ public class CoreDeadClientsActivity extends BaseRegisterActivity implements Cor
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 Timber.d("JSONResult : %s", jsonString);
 
+                assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.registerEventType)
                         || form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.CHILD_REGISTRATION)

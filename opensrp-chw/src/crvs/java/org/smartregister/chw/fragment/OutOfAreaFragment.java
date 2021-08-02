@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.OutOfAreaChildActivity;
 import org.smartregister.chw.activity.OutOfAreaChildUpdateFormActivity;
@@ -16,25 +17,20 @@ import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 import org.smartregister.chw.core.fragment.BaseChwRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.CoreOutOfAreaFragmentModel;
-import org.smartregister.chw.presenter.CoreDeadClientsFragmentPresenter;
 import org.smartregister.chw.presenter.OutOfAreaChildFragmentPresenter;
 import org.smartregister.chw.provider.OutOfAreaProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.NoMatchDialogFragment;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
-
 import java.util.HashMap;
 import java.util.Set;
-
 import timber.log.Timber;
-
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 
 public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreChildRegisterFragmentContract.View {
@@ -87,7 +83,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
 
     @Override
     protected void startRegistration() {
-        ((OutOfAreaChildActivity) getActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, "");
+        ((OutOfAreaChildActivity) requireActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, "");
     }
 
     @Override
@@ -98,7 +94,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
 
         if (view.getTag() != null && view.getTag(org.smartregister.chw.core.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             if (view.getTag() instanceof CommonPersonObjectClient) {
-                goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
+                goToChildDetailActivity((CommonPersonObjectClient) view.getTag());
             }
         } else if (view.getId() == org.smartregister.chw.core.R.id.due_only_layout) {
             toggleFilterSelection(view);
@@ -142,8 +138,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
         }
     }
 
-    public void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                        boolean launchDialog) {
+    public void goToChildDetailActivity(CommonPersonObjectClient patient) {
         String entityId = org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         Intent intent = new Intent(getActivity(), OutOfAreaChildUpdateFormActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
@@ -209,7 +204,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        OutOfAreaProvider deadClientsProvider = new OutOfAreaProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        OutOfAreaProvider deadClientsProvider = new OutOfAreaProvider(requireActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, deadClientsProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
@@ -246,10 +241,11 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
         NoMatchDialogFragment.launchDialog((BaseRegisterActivity) getActivity(), DIALOG_TAG, uniqueId);
     }
 
+    @NotNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if (id == LOADER_ID) {// Returns a new CursorLoader
-            return new CursorLoader(getActivity()) {
+            return new CursorLoader(requireActivity()) {
                 @Override
                 public Cursor loadInBackground() {
                     // Count query
@@ -264,24 +260,17 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
 
     @Override
     public void countExecute() {
-        Cursor c = null;
-        try {
-            c = commonRepository().rawCustomQueryForAdapter(getCountSelect());
+        try (Cursor c = commonRepository().rawCustomQueryForAdapter(getCountSelect())) {
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
             clientAdapter.setCurrentlimit(20);
             clientAdapter.setCurrentoffset(0);
         } catch (Exception e) {
             Timber.e(e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
         }
     }
 
     private String getCountSelect() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
 
         String query = countSelect;
         try {
@@ -306,14 +295,12 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
         String query = "";
         try {
             if (StringUtils.isNoneBlank(filters)) {
-//                query = customDeathQuery(clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
                 query = customDeathQuery(clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset(), filters);
             } else if (StringUtils.isBlank(filters) && !dueFilterActive){
                 query = customDeathQuery(clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
             }
             if (dueFilterActive){
                 query = customDeathQuery(clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
-//                query = customDeathDueFilterQuery(clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset(), ((CoreDeadClientsFragmentPresenter) presenter()).getDueCondition());
             }
         } catch (Exception e) {
             e.printStackTrace();

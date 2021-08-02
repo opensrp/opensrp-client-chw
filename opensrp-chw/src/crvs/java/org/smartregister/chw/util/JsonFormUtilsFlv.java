@@ -3,27 +3,21 @@ package org.smartregister.chw.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-
 import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
-import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
-
 import java.util.Date;
-
 import timber.log.Timber;
-
 import static org.smartregister.util.JsonFormUtils.dd_MM_yyyy;
 
 public class JsonFormUtilsFlv extends DefaultJsonFormUtilsFlv {
@@ -39,7 +33,7 @@ public class JsonFormUtilsFlv extends DefaultJsonFormUtilsFlv {
         form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
         form.setPreviousLabel(context.getResources().getString(org.smartregister.chw.core.R.string.back));
         intent.putExtra("form", form);
-        ((Activity)context).startActivityForResult(intent, 2244);
+        ((Activity) context).startActivityForResult(intent, 2244);
     }
 
     public static JSONObject getAutoPopulatedJsonEditFormString(String formName, Context context, CommonPersonObjectClient client,
@@ -50,23 +44,21 @@ public class JsonFormUtilsFlv extends DefaultJsonFormUtilsFlv {
             lpv.init();
             // JsonFormUtils.addWomanRegisterHierarchyQuestions(form);
             Timber.d("Form is %s", form.toString());
-            if (form != null) {
-                form.put(org.smartregister.family.util.JsonFormUtils.ENTITY_ID, client.getCaseId());
-                form.put(org.smartregister.family.util.JsonFormUtils.ENCOUNTER_TYPE, eventType);
+            form.put(JsonFormUtils.ENTITY_ID, client.getCaseId());
+            form.put(JsonFormUtils.ENCOUNTER_TYPE, eventType);
 
-                JSONObject stepOne = form.getJSONObject(org.smartregister.family.util.JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(org.smartregister.family.util.JsonFormUtils.FIELDS);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+            JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    processPopulatableFields(client, jsonObject);
+                processPopulatableFields(client, jsonObject);
 
-                }
-
-                org.smartregister.family.util.JsonFormUtils.addLocHierarchyQuestions(form);
-
-                return form;
             }
+
+            JsonFormUtils.addLocHierarchyQuestions(form);
+
+            return form;
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -262,15 +254,5 @@ public class JsonFormUtilsFlv extends DefaultJsonFormUtilsFlv {
                 Timber.e("ERROR:: Unprocessed Form Object Key %s", jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY));
                 break;
         }
-//        updateOptions(client, jsonObject);
     }
-
-    private static void updateOptions(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
-        if (jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.DOB)) {
-            jsonObject.put(org.smartregister.family.util.JsonFormUtils.READ_ONLY, false);
-            JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-            optionsObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, org.smartregister.chw.core.utils.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false));
-        }
-    }
-
 }

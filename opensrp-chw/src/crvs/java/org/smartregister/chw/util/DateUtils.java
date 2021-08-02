@@ -10,8 +10,7 @@ public class DateUtils {
         String[] splitDob = date.split("T");
         String inputFormat = "yyyy-MM-dd";
         String OutPutFormat = "dd-MM-yyyy";
-        String convertedDate = formatDate(splitDob[0], inputFormat, OutPutFormat);
-        return convertedDate;
+        return formatDate(splitDob[0], inputFormat, OutPutFormat);
     }
 
     public static String formatDate(String dateToFormat, String inputFormat, String outputFormat) {

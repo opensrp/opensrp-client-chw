@@ -1,7 +1,6 @@
 package org.smartregister.chw.model;
 
 import android.util.Pair;
-
 import org.json.JSONObject;
 import org.smartregister.chw.contract.CoreOutOfAreaChildRegisterContract;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -11,9 +10,7 @@ import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.family.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
-
 import java.util.List;
-
 import timber.log.Timber;
 
 public class CoreOutOfAreaChildRegisterModel implements CoreOutOfAreaChildRegisterContract.Model {
@@ -32,8 +29,6 @@ public class CoreOutOfAreaChildRegisterModel implements CoreOutOfAreaChildRegist
     @Override
     public void saveLanguage(String language) {
         // TODO Save Language
-        //Map<String, String> langs = getAvailableLanguagesMap();
-        //Utils.saveLanguage(Utils.getKeyByValue(langs, language));
     }
 
     @Override
@@ -47,7 +42,7 @@ public class CoreOutOfAreaChildRegisterModel implements CoreOutOfAreaChildRegist
     }
 
     @Override
-    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyId) throws Exception {
+    public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId, String familyId) {
         return null;
     }
 

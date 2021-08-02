@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.OutOfAreaChildActivity;
 import org.smartregister.chw.activity.OutOfAreaDeathUpdateFormActivity;
@@ -21,7 +22,6 @@ import org.smartregister.chw.provider.OutOfAreaDeathProvider;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.fragment.NoMatchDialogFragment;
 import org.smartregister.family.util.DBConstants;
@@ -37,7 +37,6 @@ import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements CoreChildRegisterFragmentContract.View {
 
     public static final String CLICK_VIEW_NORMAL = "click_view_normal";
-    public static final String CLICK_VIEW_DOSAGE_STATUS = "click_view_dosage_status";
     private static final String DUE_FILTER_TAG = "PRESSED";
     protected View view;
     protected View dueOnlyLayout;
@@ -85,7 +84,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
 
     @Override
     protected void startRegistration() {
-        ((OutOfAreaChildActivity) getActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, "");
+        ((OutOfAreaChildActivity) requireActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, "");
     }
 
     @Override
@@ -96,7 +95,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
 
         if (view.getTag() != null && view.getTag(org.smartregister.chw.core.R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             if (view.getTag() instanceof CommonPersonObjectClient) {
-                goToChildDetailActivity((CommonPersonObjectClient) view.getTag(), false);
+                goToChildDetailActivity((CommonPersonObjectClient) view.getTag());
             }
         } else if (view.getId() == org.smartregister.chw.core.R.id.due_only_layout) {
             toggleFilterSelection(view);
@@ -140,8 +139,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
         }
     }
 
-    public void goToChildDetailActivity(CommonPersonObjectClient patient,
-                                        boolean launchDialog) {
+    public void goToChildDetailActivity(CommonPersonObjectClient patient) {
         String entityId = org.smartregister.family.util.Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         Intent intent = new Intent(getActivity(), OutOfAreaDeathUpdateFormActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
@@ -207,7 +205,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
 
     @Override
     public void initializeAdapter(Set<org.smartregister.configurableviews.model.View> visibleColumns) {
-        OutOfAreaDeathProvider deadClientsProvider = new OutOfAreaDeathProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        OutOfAreaDeathProvider deadClientsProvider = new OutOfAreaDeathProvider(requireActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, deadClientsProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
@@ -244,10 +242,11 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
         NoMatchDialogFragment.launchDialog((BaseRegisterActivity) getActivity(), DIALOG_TAG, uniqueId);
     }
 
+    @NotNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if (id == LOADER_ID) {// Returns a new CursorLoader
-            return new CursorLoader(getActivity()) {
+            return new CursorLoader(requireActivity()) {
                 @Override
                 public Cursor loadInBackground() {
                     // Count query
@@ -262,9 +261,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
 
     @Override
     public void countExecute() {
-        Cursor c = null;
-        try {
-            c = commonRepository().rawCustomQueryForAdapter(getCountSelect());
+        try (Cursor c = commonRepository().rawCustomQueryForAdapter(getCountSelect())) {
             c.moveToFirst();
             clientAdapter.setTotalcount(c.getInt(0));
 
@@ -272,15 +269,10 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
             clientAdapter.setCurrentoffset(0);
         } catch (Exception e) {
             Timber.e(e);
-        } finally {
-            if (c != null) {
-                c.close();
-            }
         }
     }
 
     private String getCountSelect() {
-        SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(countSelect);
 
         String query = countSelect;
         try {

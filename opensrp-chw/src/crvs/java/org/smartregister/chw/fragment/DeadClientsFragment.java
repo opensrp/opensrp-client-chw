@@ -1,7 +1,6 @@
 package org.smartregister.chw.fragment;
 
 import android.content.Intent;
-import android.util.Log;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.model.CoreDeadClientsFragmentModel;
 import org.smartregister.chw.presenter.DeadClientsFragmentPresenter;
@@ -16,30 +15,15 @@ public class DeadClientsFragment extends CoreDeadClientsFragment {
 
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
-        Log.d("nothing", "do nothing");
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            default:
-                break;
-        }
     }
 
     @Override
     public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
-        /*if (launchDialog) {
-            Timber.i(patient.name);
-        }
-        MemberObject memberObject = new MemberObject(patient);
-        try {
-            memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), FAMILY_LAST_NAME, false));
-        }catch (Exception e){
-            memberObject.setFamilyName("test family");
-            e.printStackTrace();
-        }
-        ChildProfileActivity.startMe(getActivity(), memberObject, ChildProfileActivity.class);*/
+
     }
 
     @Override

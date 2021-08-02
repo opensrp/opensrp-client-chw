@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.json.JSONObject;
@@ -32,13 +30,12 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.utils.OpdConstants;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import timber.log.Timber;
-
 import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.NO;
@@ -81,7 +78,7 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
                 try {
                     String createVal = Utils.getValue(commonPersonObject.getColumnmaps(), ChwDBConstants.DATE_CREATED, false);
                     if (StringUtils.isNotBlank(createVal))
-                        dateCreated = ISO8601DATEFORMAT.parse(createVal).getTime();
+                        dateCreated = Objects.requireNonNull(ISO8601DATEFORMAT.parse(createVal)).getTime();
 
                 } catch (Exception e) {
                     Timber.e(e);
@@ -109,7 +106,7 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void param) {
         viewHolder.dueButtonLayout.setVisibility(View.VISIBLE);
         viewHolder.dueButton.setVisibility(View.VISIBLE);
-        String received_death_certificate = "";
+        String received_death_certificate;
         try {
             received_death_certificate = Utils.getValue(baseEntityId.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false);
             if (received_death_certificate.trim().equalsIgnoreCase(YES)) {
@@ -123,15 +120,12 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
             viewHolder.dueButton.setText(context.getResources().getString(R.string.update_status));
             e.printStackTrace();
         }
-        viewHolder.dueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String entityId = Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-                Intent intent = new Intent(context, OutOfAreaDeathUpdateFormActivity.class);
-                intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
-                intent.putExtra(BASE_ENTITY_ID, entityId);
-                context.startActivity(intent);
-            }
+        viewHolder.dueButton.setOnClickListener(view -> {
+            String entityId = Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
+            Intent intent = new Intent(context, OutOfAreaDeathUpdateFormActivity.class);
+            intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
+            intent.putExtra(BASE_ENTITY_ID, entityId);
+            context.startActivity(intent);
         });
 
     }

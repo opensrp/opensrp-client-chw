@@ -1,11 +1,8 @@
 package org.smartregister.chw.interactor;
 
-
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.immunization.domain.ServiceWrapper;
-
 import java.util.Map;
-
 import timber.log.Timber;
 
 public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractorFlv {

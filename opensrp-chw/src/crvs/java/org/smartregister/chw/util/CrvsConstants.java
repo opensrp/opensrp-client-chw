@@ -1,6 +1,10 @@
 package org.smartregister.chw.util;
 
 public class CrvsConstants {
+    public static String STILL = "still";
+    public static String CHILD = "child";
+    public static String STEP1 = "step1";
+    public static String FIELDS = "fields";
     public static String USER_TYPE = "userType";
     public static String USER = "User";
     public static String AGENT = "Agent";
@@ -51,13 +55,23 @@ public class CrvsConstants {
     public static String MOTHER_HIGHEST_EDU_LEVEL = "mother_highest_edu_level";
     public static String FATHER_MARITAL_STATUS = "father_marital_status";
     public static String FATHER_HIGHEST_EDU_LEVEL = "father_highest_edu_level";
+    public static String OUT_OF_AREA = "outOfArea";
 
     // Forms
     public static String DEATH_MEMBER_FORM = "death_member_form";
     public static String OUT_OF_AREA_CHILD_FORM = "out_of_area_child_enrollment";
     public static String OUT_OF_AREA_DEATH_FORM = "out_of_area_death_form";
+    public static String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";
 
-    //Posifixes
+    // Posifixes
     public static String OUT_OF_AREA_BIRTH = "_outOfAreaBirth";
     public static String OUT_OF_AREA_DEATH = "_outOfAreaDeath";
+
+    // Tables
+    public static String TABLE_OUT_OF_AREA_DEATH = "ec_out_of_area_death";
+    public static String TABLE_OUT_OF_AREA_CHILD = "ec_out_of_area_child";
+
+    // Headings
+    public static String OUT_OF_AREA_DEATH_HEADING = "Out of area death";
+
 }

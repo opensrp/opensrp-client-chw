@@ -12,4 +12,5 @@
     <string name="certificate_not_received" tools:ignore="MissingTranslation">Certificate not received</string>
     <string name="status_updated" tools:ignore="MissingTranslation">Status updated</string>
     <string name="update_status" tools:ignore="MissingTranslation">Update Status</string>
+    <string name="certified" tools:ignore="MissingTranslation">Certified</string>
 </resources>

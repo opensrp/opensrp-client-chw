@@ -13,12 +13,10 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.constants.CrvsDbConstants;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
-import org.smartregister.chw.task.DeadUpdateLastAsyncTask;
 import org.smartregister.chw.task.OutOfAreaChildAsyncTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
-import org.smartregister.family.fragment.BaseFamilyRegisterFragment;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -59,9 +57,8 @@ public class OutOfAreaProvider implements RecyclerViewProvider<RegisterViewHolde
     public void getView(Cursor cursor, SmartRegisterClient client, RegisterViewHolder viewHolder) {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
-            populatePatientColumn(pc, client, viewHolder);
+            populatePatientColumn(pc, viewHolder);
             populateLastColumn(pc, viewHolder);
-            return;
         }
     }
 
@@ -123,7 +120,7 @@ public class OutOfAreaProvider implements RecyclerViewProvider<RegisterViewHolde
         return viewHolder instanceof FooterViewHolder;
     }
 
-    protected void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
+    protected void populatePatientColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         try{
             String motherName = Utils.getValue(pc.getColumnmaps(), CrvsDbConstants.KEY.MOTHER_NAME, true);
             String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + motherName;
@@ -146,28 +143,6 @@ public class OutOfAreaProvider implements RecyclerViewProvider<RegisterViewHolde
             e.printStackTrace();
         }
 
-//        addButtonClickListeners(client, viewHolder);
-
-    }
-
-    public void addButtonClickListeners(SmartRegisterClient client, RegisterViewHolder viewHolder) {
-        View patient = viewHolder.childColumn;
-        attachPatientOnclickListener(patient, client);
-
-        View dueButton = viewHolder.dueButton;
-        attachDosageOnclickListener(dueButton, client);
-    }
-
-    protected void attachPatientOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(org.smartregister.chw.core.R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_NORMAL);
-    }
-
-    protected void attachDosageOnclickListener(View view, SmartRegisterClient client) {
-        view.setOnClickListener(onClickListener);
-        view.setTag(client);
-        view.setTag(org.smartregister.chw.core.R.id.VIEW_ID, BaseFamilyRegisterFragment.CLICK_VIEW_DOSAGE_STATUS);
     }
 
     public LayoutInflater getInflater() {

@@ -46,7 +46,7 @@ public class CoreOutOfAreaDeathFragmentModel implements CoreChildRegisterFragmen
 
     @Override
     public String mainSelect(String tableName, String familyName, String familyMemberName, String mainCondition) {
-        return OutOfAreaDeathUtils.mainSelectRegisterWithoutGroupby(tableName, familyName, familyMemberName, mainCondition);
+        return OutOfAreaDeathUtils.mainSelectRegisterWithoutGroupby(tableName, mainCondition);
     }
 
     @Override

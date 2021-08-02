@@ -63,7 +63,6 @@ public class OutOfAreaChildFragmentPresenter implements CoreChildRegisterFragmen
 
     @Override
     public void startSync() {
-        //ServiceTools.startSyncService(getActivity());
     }
 
     @Override

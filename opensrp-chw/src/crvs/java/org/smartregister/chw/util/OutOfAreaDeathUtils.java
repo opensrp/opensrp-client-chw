@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -27,7 +26,7 @@ public abstract class OutOfAreaDeathUtils {
                 .create();
     }
 
-    public static String mainSelectRegisterWithoutGroupby(String tableName, String familyTableName, String familyMemberTableName, String mainCondition) {
+    public static String mainSelectRegisterWithoutGroupby(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName));
         return queryBuilder.mainCondition(mainCondition);

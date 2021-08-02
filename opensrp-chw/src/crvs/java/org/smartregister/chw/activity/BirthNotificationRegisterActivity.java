@@ -37,6 +37,7 @@ public class BirthNotificationRegisterActivity extends CoreBirthNotificationRegi
 //            process the form
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
                 String baseEnityId = form.optString(Constants.JSON_FORM_EXTRA.ENTITY_TYPE);
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);

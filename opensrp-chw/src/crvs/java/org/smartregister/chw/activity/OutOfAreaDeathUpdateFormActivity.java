@@ -4,29 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.fragment.DeadClientsFragment;
 import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
+import org.smartregister.chw.util.CrvsConstants;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
 import java.util.Map;
-
+import java.util.Objects;
 import timber.log.Timber;
-
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
 
 public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
 
@@ -55,9 +50,10 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
     public void startAncDangerSignsOutcomeForm() {
 
         try {
-            JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString("out_of_area_death_form", this, getFamilyRegistrationDetails(getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()), "Out Of Area Death Registration");
+            JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString(CrvsConstants.OUT_OF_AREA_DEATH_FORM, this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE);
             try {
-                JsonFormUtilsFlv.startFormActivity(this, form, "Out of area death");
+                assert form != null;
+                JsonFormUtilsFlv.startFormActivity(this, form, CrvsConstants.OUT_OF_AREA_DEATH_HEADING);
             } catch (Exception e) {
                 Timber.e(e);
             }
@@ -97,38 +93,6 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
                 Timber.e(e);
             }
 
-        }
-    }
-
-    private void updateDeathCertificate(AllCommonsRepository childCommonsRepository, AllCommonsRepository familyCommonsRepository, String jsonString) {
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONObject stepOne = jsonObject.getJSONObject("step1");
-            JSONArray fields = stepOne.getJSONArray("fields");
-
-            JSONObject has_death_certificate = fields.getJSONObject(1);
-            JSONObject death_certificate_issue_date = fields.getJSONObject(2);
-            JSONObject certificateNumber = fields.getJSONObject(3);
-
-            String hasCertificate = has_death_certificate.getString("value");
-            String issueDate = death_certificate_issue_date.getString("value");
-
-            if (getIntent().getStringExtra(CLIENT_TYPE).equals("child")) {
-                String tableName = "ec_child";
-                String sql = "UPDATE "+tableName+" SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
-                String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
-                childCommonsRepository.customQuery(sql, selectionArgs, tableName);
-            } else {
-                String tableName = "ec_family_member";
-                String sql = "UPDATE "+tableName+" SET received_death_certificate = ?, death_certificate_issue_date = ? WHERE id = ?";
-                String[] selectionArgs = {hasCertificate, issueDate, getIntent().getStringExtra(BASE_ENTITY_ID).toLowerCase()};
-                familyCommonsRepository.customQuery(sql, selectionArgs, tableName);
-            }
-            startActivity(new Intent(this, DeadClientsActivity.class));
-            finish();
-
-        } catch (Exception e) {
-            Timber.e(e);
         }
     }
 

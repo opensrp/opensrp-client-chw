@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
@@ -24,15 +22,9 @@ import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
-
 import java.text.MessageFormat;
 import java.util.Set;
-
 import static org.smartregister.chw.core.utils.Utils.getDuration;
-
-/**
- * Created by keyman on 13/11/2018.
- */
 
 public class CoreDeadClientsProvider implements RecyclerViewProvider<RegisterViewHolder> {
     public final LayoutInflater inflater;

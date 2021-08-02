@@ -2,7 +2,6 @@ package org.smartregister.chw.interactor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.util.Pair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -12,6 +11,7 @@ import org.smartregister.chw.contract.CoreOutOfAreaChildRegisterContract;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.interactor.CoreChildRegisterInteractor;
 import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.util.CrvsConstants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
@@ -28,6 +28,8 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 import timber.log.Timber;
 
 public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava implements CoreOutOfAreaChildRegisterContract.Interactor {
@@ -112,6 +114,7 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
             }
 
             if (isEditMode) {
+                assert baseClient != null;
                 String currentOpenSRPId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
                 getUniqueIdRepository().open(currentOpenSRPId);
 
@@ -126,6 +129,8 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
 
             if (baseClient != null || baseEvent != null) {
                 String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                assert baseEvent != null;
+                assert baseClient != null;
                 JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
 
@@ -141,7 +146,6 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
 
             long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
             Date lastSyncDate = new Date(lastSyncTimeStamp);
-//            getClientProcessorForJava().processClient(eventClientList);
             processClient(eventClientList, false);
             getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
 
@@ -153,7 +157,7 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
     }
 
     public synchronized void processClient(List<EventClient> eventClientList, boolean localSubmission) throws Exception {
-        final String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";
+        final String EC_CLIENT_CLASSIFICATION = CrvsConstants.EC_CLIENT_CLASSIFICATION;
         ClientClassification clientClassification = assetJsonToJava(EC_CLIENT_CLASSIFICATION, ClientClassification.class);
         if (clientClassification == null) {
             return;
@@ -178,7 +182,7 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
                     }
                 }
 
-                if (localSubmission && CoreLibrary.getInstance().getSyncConfiguration().runPlanEvaluationOnClientProcessing()) {
+                if (localSubmission && Objects.requireNonNull(CoreLibrary.getInstance().getSyncConfiguration()).runPlanEvaluationOnClientProcessing()) {
                     processPlanEvaluation(eventClient);
                 }
             }
@@ -191,10 +195,6 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
 
     public AllSharedPreferences getAllSharedPreferences() {
         return Utils.context().allSharedPreferences();
-    }
-
-    public ClientProcessorForJava getClientProcessorForJava() {
-        return CoreChwApplication.getInstance().getClientProcessorForJava();
     }
 
     public UniqueIdRepository getUniqueIdRepository() {

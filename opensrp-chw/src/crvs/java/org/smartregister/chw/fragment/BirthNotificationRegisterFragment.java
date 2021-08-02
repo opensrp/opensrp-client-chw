@@ -16,21 +16,11 @@ public class BirthNotificationRegisterFragment extends CoreBirthNotificationFrag
     @Override
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
-        /*if (view.getTag() instanceof CommonPersonObjectClient
-                && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_DOSAGE_STATUS) {
-            CommonPersonObjectClient client = (CommonPersonObjectClient) view.getTag();
-            ChildHomeVisitActivity.startMe(getActivity(), new MemberObject(client), false, ChildHomeVisitActivity.class);
-        }*/
     }
 
     @Override
     public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
-        /*if (launchDialog) {
-            Timber.i(patient.name);
-        }
-        MemberObject memberObject = new MemberObject(patient);
-        memberObject.setFamilyName(Utils.getValue(patient.getColumnmaps(), FAMILY_LAST_NAME, false));
-        ChildProfileActivity.startMe(getActivity(), memberObject, ChildProfileActivity.class);*/
+
     }
 
     @Override

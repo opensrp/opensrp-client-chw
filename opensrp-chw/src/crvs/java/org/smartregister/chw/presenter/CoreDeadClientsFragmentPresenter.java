@@ -11,13 +11,11 @@ import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.family.util.DBConstants;
 import java.lang.ref.WeakReference;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class CoreDeadClientsFragmentPresenter implements CoreChildRegisterFragmentContract.Presenter {
-
 
     protected Set<View> visibleColumns = new TreeSet<>();
     private WeakReference<CoreChildRegisterFragmentContract.View> viewReference;
@@ -63,7 +61,6 @@ public class CoreDeadClientsFragmentPresenter implements CoreChildRegisterFragme
 
     @Override
     public void startSync() {
-        //ServiceTools.startSyncService(getActivity());
     }
 
     @Override
@@ -107,29 +104,20 @@ public class CoreDeadClientsFragmentPresenter implements CoreChildRegisterFragme
         return getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
     }
 
-    public String getDueCondition() {
-        return " and " + CoreConstants.TABLE_NAME.CHILD + ".base_entity_id in (select base_entity_id from schedule_service where strftime('%Y-%m-%d') BETWEEN due_date and expiry_date and schedule_name = '" + CoreConstants.SCHEDULE_TYPES.CHILD_VISIT + "' and ifnull(not_done_date,'') = '' and ifnull(completion_date,'') = '' )  ";
-    }
-
-    public String getFilterString(String filters) {
-
-        StringBuilder customFilter = new StringBuilder();
-        if (StringUtils.isNotBlank(filters)) {
-            customFilter.append(" and ( ");
-            customFilter.append(MessageFormat.format(" {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.FIRST_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.LAST_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.MIDDLE_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.FAMILY_MEMBER, org.smartregister.chw.anc.util.DBConstants.KEY.UNIQUE_ID, filters));
-
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.CHILD, org.smartregister.chw.anc.util.DBConstants.KEY.FIRST_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.CHILD, org.smartregister.chw.anc.util.DBConstants.KEY.LAST_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.CHILD, org.smartregister.chw.anc.util.DBConstants.KEY.MIDDLE_NAME, filters));
-            customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.CHILD, org.smartregister.chw.anc.util.DBConstants.KEY.UNIQUE_ID, filters));
-
-            customFilter.append(" ) ");
+    public String getDueCondition(String check) {
+        String dueCondition = "";
+        switch (check){
+            case "1":
+                dueCondition =  " AND ec_child.received_death_certificate = 'Yes' ";
+                break;
+            case "2":
+                dueCondition =  " AND ec_family_member.received_death_certificate = 'Yes' ";
+                break;
+            case "3":
+                dueCondition =  " WHERE ec_out_of_area_death.received_death_certificate = 'Yes' ";
+                break;
         }
-
-        return customFilter.toString();
+        return dueCondition;
     }
 
     public void setModel(CoreChildRegisterFragmentContract.Model model) {

@@ -171,7 +171,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "birth_certification.yml"
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
             }
           }
         }
