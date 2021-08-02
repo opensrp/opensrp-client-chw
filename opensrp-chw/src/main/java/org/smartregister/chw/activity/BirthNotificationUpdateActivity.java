@@ -123,7 +123,7 @@ public class BirthNotificationUpdateActivity extends CoreFamilyRegisterActivity 
                 assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
 
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.BIRTH_CERTIFICATION)
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.BIRTH_CERTIFICATION)
                 ) {
 
                     AllCommonsRepository allCommonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository("ec_child");
@@ -156,7 +156,7 @@ public class BirthNotificationUpdateActivity extends CoreFamilyRegisterActivity 
 
             String tableName;
             assert client_type != null;
-            if (client_type.toLowerCase().equals(BIRTH_CLIENT_TYPE)){
+            if (client_type.toLowerCase().equalsIgnoreCase(BIRTH_CLIENT_TYPE)){
                 tableName = Constants.TABLE_NAME.CHILD;
             }else {
                 tableName = CrvsConstants.TABLE_OUT_OF_AREA_CHILD;

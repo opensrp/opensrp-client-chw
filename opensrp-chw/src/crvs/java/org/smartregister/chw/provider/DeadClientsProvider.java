@@ -123,7 +123,7 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
     }
 
     private void populateLastColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
-        Utils.startAsyncTask(new DeadUpdateLastAsyncTask(context, commonRepository, viewHolder, pc, onClickListener), null);
+        Utils.startAsyncTask(new DeadUpdateLastAsyncTask(context, viewHolder, pc, onClickListener), null);
     }
 
 }

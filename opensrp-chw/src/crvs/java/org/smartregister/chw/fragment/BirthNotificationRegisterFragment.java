@@ -20,7 +20,7 @@ public class BirthNotificationRegisterFragment extends CoreBirthNotificationFrag
 
     @Override
     public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
-
+        // Do nothing
     }
 
     @Override

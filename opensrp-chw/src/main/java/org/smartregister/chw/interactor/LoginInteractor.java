@@ -28,7 +28,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     @Override
     protected void processServerSettings(LoginResponse loginResponse) {
         super.processServerSettings(loginResponse);
-        String type = loginResponse.payload().user.getType();
         int size = loginResponse.payload().user.getRoles().size();
 
         for (int i=0; i<size; i++){

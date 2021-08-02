@@ -37,7 +37,6 @@ import static org.smartregister.chw.util.CrvsConstants.YES;
 
 public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     public final Context context;
-    private final CommonRepository commonRepository;
     public final RegisterViewHolder viewHolder;
     public final CommonPersonObjectClient baseEntityId;
     private final Rules rules;
@@ -46,9 +45,8 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     public View.OnClickListener onClickListener;
     private SimpleDateFormat ISO8601DATEFORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
-    public DeadUpdateLastAsyncTask(Context context, CommonRepository commonRepository, RegisterViewHolder viewHolder, CommonPersonObjectClient baseEntityId, View.OnClickListener onClickListener) {
+    public DeadUpdateLastAsyncTask(Context context, RegisterViewHolder viewHolder, CommonPersonObjectClient baseEntityId, View.OnClickListener onClickListener) {
         this.context = context;
-        this.commonRepository = commonRepository;
         this.viewHolder = viewHolder;
         this.baseEntityId = baseEntityId;
         this.onClickListener = onClickListener;

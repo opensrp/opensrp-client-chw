@@ -97,11 +97,11 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
 
     @Override
     public void openFamilyListView() {
-
+        // Do nothing
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
+        // Do nothing
     }
 }

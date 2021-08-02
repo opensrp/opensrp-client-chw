@@ -343,6 +343,8 @@ public class CoreDeadClientsFragment extends BaseChwRegisterFragment implements 
             case "fourth":
                 filterQuery = "WHERE (  ec_out_of_area_death.name like '%" + filter + "%'  or ec_out_of_area_death.official_name like '%" + filter + "%'  or ec_out_of_area_death.unique_id like '%" + filter + "%')";
                 break;
+            default:
+                filterQuery = "and (  ec_family_member.first_name like '%" + filter + "%'  or ec_family_member.last_name like '%" + filter + "%'  or ec_family_member.middle_name like '%" + filter + "%'  or ec_family_member.unique_id like '%" + filter + "%')";
         }
         return filterQuery;
     }

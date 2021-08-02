@@ -13,9 +13,6 @@ import static org.smartregister.chw.util.CrvsConstants.USER_TYPE;
 
 public class NavigationModelFlv extends DefaultNavigationModelFlv {
 
-    public NavigationModelFlv() {
-    }
-
     private List<NavigationOption> navigationOptions = new ArrayList<>();
 
     @Override

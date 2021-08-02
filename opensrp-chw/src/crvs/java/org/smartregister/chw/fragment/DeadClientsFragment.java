@@ -19,11 +19,12 @@ public class DeadClientsFragment extends CoreDeadClientsFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Do nothing
     }
 
     @Override
     public void goToChildDetailActivity(CommonPersonObjectClient patient, boolean launchDialog) {
-
+        // Do nothing
     }
 
     @Override

@@ -63,6 +63,7 @@ public class OutOfAreaChildFragmentPresenter implements CoreChildRegisterFragmen
 
     @Override
     public void startSync() {
+        // Do nothing
     }
 
     @Override

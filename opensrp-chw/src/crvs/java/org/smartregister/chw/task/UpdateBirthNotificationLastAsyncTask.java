@@ -107,7 +107,7 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
             String birth_cert = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT, true);
             String birth_notification = Utils.getValue(pc.getColumnmaps(), BIRTH_NOTIFICATION, true);
             String birth_registration = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);
-            String dob = Utils.getValue(pc.getColumnmaps(), CrvsConstants.DOB, true);
+            String dob = Utils.getValue(pc.getColumnmaps(), DOB, true);
             try {
                 if (birth_cert.trim().equalsIgnoreCase(YES)) {
                     setReceivedButtonColor(context, viewHolder.dueButton);

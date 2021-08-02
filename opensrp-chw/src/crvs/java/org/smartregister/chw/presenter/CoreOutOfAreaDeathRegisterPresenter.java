@@ -134,10 +134,12 @@ public class CoreOutOfAreaDeathRegisterPresenter implements CoreOutOfAreaDeathRe
                 new CoreOutOfAreaDeathRegisterInteractor(getView().getContext()).saveRegistration(fevent, jsonString, isEditMode, new CoreOutOfAreaDeathRegisterContract.InteractorCallBack() {
                     @Override
                     public void onNoUniqueId() {
+                        // Do nothing
                     }
 
                     @Override
                     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId, String familyId) {
+                        // Do nothing
                     }
 
                     @Override

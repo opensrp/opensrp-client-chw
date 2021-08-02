@@ -61,6 +61,7 @@ public class CoreDeadClientsFragmentPresenter implements CoreChildRegisterFragme
 
     @Override
     public void startSync() {
+        // Do nothing
     }
 
     @Override
@@ -116,6 +117,8 @@ public class CoreDeadClientsFragmentPresenter implements CoreChildRegisterFragme
             case "3":
                 dueCondition =  " WHERE ec_out_of_area_death.received_death_certificate = 'Yes' ";
                 break;
+            default:
+                dueCondition =  " AND ec_child.received_death_certificate = 'Yes' ";
         }
         return dueCondition;
     }

@@ -90,14 +90,11 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
     private boolean saveRegistration(Pair<Client, Event> pair, String jsonString, boolean isEditMode) {
 
         try {
-
             Client baseClient = pair.first;
             Event baseEvent = pair.second;
 
             JSONObject clientJson = null;
             JSONObject eventJson = null;
-
-
 
             if (baseClient != null) {
                 clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
@@ -121,8 +118,6 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
             } else {
                 if (baseClient != null) {
                     String opensrpId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
-                    // my generated id above
-                    //mark OPENSRP ID as used
                     getUniqueIdRepository().close(opensrpId);
                 }
             }

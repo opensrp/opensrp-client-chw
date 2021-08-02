@@ -98,11 +98,11 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
 
     @Override
     public void openFamilyListView() {
-
+        // Do nothing
     }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
+        // Do nothing
     }
 }
