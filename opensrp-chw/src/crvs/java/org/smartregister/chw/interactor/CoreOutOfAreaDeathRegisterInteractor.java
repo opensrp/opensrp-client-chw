@@ -204,5 +204,4 @@ public class CoreOutOfAreaDeathRegisterInteractor extends ClientProcessorForJava
         return CoreChwApplication.getInstance().getUniqueIdRepository();
     }
 
-    public enum type {SAVED, UPDATED}
 }

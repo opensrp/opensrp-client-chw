@@ -13,8 +13,6 @@ import java.util.UUID;
 
 public class FailSafeRecalledID implements RecalledIdentifier {
 
-    private static final String FAIL_SAFE_ID = "P2P_FAIL_SAFE_ID";
-
     @NonNull
     @Override
     public String getUniqueID(Context context) {

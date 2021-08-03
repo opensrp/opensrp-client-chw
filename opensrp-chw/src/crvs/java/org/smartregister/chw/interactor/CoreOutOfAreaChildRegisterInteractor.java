@@ -203,5 +203,4 @@ public class CoreOutOfAreaChildRegisterInteractor extends ClientProcessorForJava
         return CoreChwApplication.getInstance().getUniqueIdRepository();
     }
 
-    public enum type {SAVED, UPDATED}
 }

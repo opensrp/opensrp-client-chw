@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.constants.CrvsDbConstants;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.task.OutOfAreaChildAsyncTask;
+import org.smartregister.chw.util.CrvsConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
@@ -122,7 +122,7 @@ public class OutOfAreaProvider implements RecyclerViewProvider<RegisterViewHolde
 
     protected void populatePatientColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         try{
-            String motherName = Utils.getValue(pc.getColumnmaps(), CrvsDbConstants.KEY.MOTHER_NAME, true);
+            String motherName = Utils.getValue(pc.getColumnmaps(), CrvsConstants.MOTHER_NAME, true);
             String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + motherName;
             fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
             String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
@@ -131,14 +131,8 @@ public class OutOfAreaProvider implements RecyclerViewProvider<RegisterViewHolde
             String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
             String age = WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
             fillValue(viewHolder.textViewChildName, WordUtils.capitalize(childName)+", "+age);
-            String gender = "";
             String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
-            if (gender_key.equalsIgnoreCase("Male")) {
-                gender = context.getString(org.smartregister.chw.core.R.string.male);
-            } else if (gender_key.equalsIgnoreCase("Female")) {
-                gender = context.getString(org.smartregister.chw.core.R.string.female);
-            }
-            fillValue(viewHolder.textViewAddressGender, "Gender: "+gender);
+            fillValue(viewHolder.textViewAddressGender, "Gender: "+gender_key);
         }catch (Exception e){
             e.printStackTrace();
         }

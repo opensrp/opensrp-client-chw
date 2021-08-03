@@ -333,18 +333,17 @@ public class CoreDeadClientsFragment extends BaseChwRegisterFragment implements 
     private String getFilters(String query, String filter) {
         String filterQuery = "";
         switch (query) {
-            case "first":
-            case "third":
-                filterQuery = "and (  ec_family_member.first_name like '%" + filter + "%'  or ec_family_member.last_name like '%" + filter + "%'  or ec_family_member.middle_name like '%" + filter + "%'  or ec_family_member.unique_id like '%" + filter + "%')";
-                break;
             case "second":
                 filterQuery = "and (  ec_child.first_name like '%" + filter + "%'  or ec_family_member.last_name like '%" + filter + "%'  or ec_child.middle_name like '%" + filter + "%'  or ec_child.unique_id like '%" + filter + "%')";
                 break;
             case "fourth":
                 filterQuery = "WHERE (  ec_out_of_area_death.name like '%" + filter + "%'  or ec_out_of_area_death.official_name like '%" + filter + "%'  or ec_out_of_area_death.unique_id like '%" + filter + "%')";
                 break;
+            case "first":
+            case "third":
             default:
                 filterQuery = "and (  ec_family_member.first_name like '%" + filter + "%'  or ec_family_member.last_name like '%" + filter + "%'  or ec_family_member.middle_name like '%" + filter + "%'  or ec_family_member.unique_id like '%" + filter + "%')";
+                break;
         }
         return filterQuery;
     }

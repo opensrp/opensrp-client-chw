@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 public class CrvsConstants {
+    public static String MOTHER_NAME = "mother_name";
     public static String STILL = "still";
     public static String CHILD = "child";
     public static String STEP1 = "step1";
