@@ -46,7 +46,6 @@ public class CrvsConstants {
     public static String NATIONALITY = "nationality";
     public static String MIDDLE_NAME = "middle_name";
     public static String MARITAL_STATUS = "marital_status";
-    public static String MOTHER_NAME = "mother_name";
     public static String FATHER_NAME = "father_name";
     public static String NAME = "name";
     public static String NATIONAL_ID = "national_id";

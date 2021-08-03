@@ -117,7 +117,7 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
                 setUpdateStatusButtonColor(context, viewHolder.dueButton);
             }
         } catch (Exception e) {
-            viewHolder.dueButton.setText(context.getResources().getString(R.string.update_status));
+            viewHolder.dueButton.setText(context.getResources().getString(R.string.update_details));
             e.printStackTrace();
         }
         viewHolder.dueButton.setOnClickListener(view -> {
@@ -158,7 +158,7 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public void setUpdateStatusButtonColor(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.pie_chart_yellow));
-        dueButton.setText(context.getString(R.string.update_status));
+        dueButton.setText(context.getString(R.string.update_details));
         dueButton.setBackgroundResource(R.drawable.update_cert_status_btn);
     }
 }

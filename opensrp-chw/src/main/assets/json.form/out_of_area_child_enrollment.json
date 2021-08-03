@@ -307,7 +307,7 @@
           "label": "Age"
         },
         "min_date": "today-120y",
-        "max_date": "today",
+        "max_date": "today-10y",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -453,11 +453,7 @@
         "openmrs_entity_id": "fatherName",
         "type": "edit_text",
         "hint": "Father's name",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter father name"
-        }
+        "edit_type": "name"
       },
       {
         "key": "father_id",
@@ -466,11 +462,7 @@
         "openmrs_entity_id": "fatherId",
         "type": "edit_text",
         "hint": "Father's national ID number",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter father id"
-        }
+        "edit_type": "name"
       },
       {
         "key": "father_dob_entered",
@@ -485,10 +477,6 @@
         },
         "min_date": "today-120y",
         "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the date of birth"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -531,10 +519,6 @@
           "value": "11",
           "err": "Age must be equal or less than 5"
         },
-        "v_required": {
-          "value": true,
-          "err": "Please enter the age"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -551,10 +535,6 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Father's marital status",
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option"
-        },
         "values": [
           "Married",
           "Co-habiting",
@@ -606,11 +586,7 @@
         "type": "edit_text",
         "hint": "Father's place of birth",
         "look_up": "true",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the birth place"
-        }
+        "edit_type": "name"
       }
     ]
   }
