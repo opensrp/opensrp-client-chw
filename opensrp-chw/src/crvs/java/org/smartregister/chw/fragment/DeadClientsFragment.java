@@ -29,7 +29,7 @@ public class DeadClientsFragment extends CoreDeadClientsFragment {
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        DeadClientsProvider deadClientsProvider = new DeadClientsProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        DeadClientsProvider deadClientsProvider = new DeadClientsProvider(getActivity(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, deadClientsProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

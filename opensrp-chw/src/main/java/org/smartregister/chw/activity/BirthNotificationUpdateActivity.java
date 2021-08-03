@@ -156,7 +156,7 @@ public class BirthNotificationUpdateActivity extends CoreFamilyRegisterActivity 
 
             String tableName;
             assert client_type != null;
-            if (client_type.toLowerCase().equalsIgnoreCase(BIRTH_CLIENT_TYPE)){
+            if (client_type.equalsIgnoreCase(BIRTH_CLIENT_TYPE)){
                 tableName = Constants.TABLE_NAME.CHILD;
             }else {
                 tableName = CrvsConstants.TABLE_OUT_OF_AREA_CHILD;

@@ -11,7 +11,6 @@ import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.task.DeadUpdateLastAsyncTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
@@ -26,14 +25,12 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
     private Set<org.smartregister.configurableviews.model.View> visibleColumns;
     private View.OnClickListener onClickListener;
     private Context context;
-    private CommonRepository commonRepository;
 
-    public DeadClientsProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
+    public DeadClientsProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, visibleColumns, onClickListener, paginationClickListener);
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.context = context;
-        this.commonRepository = commonRepository;
     }
 
     @Override
@@ -112,6 +109,9 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
                     fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
                     break;
                 }
+                default:
+                    // Do nothing
+                    break;
             }
 
         } catch (Exception e) {

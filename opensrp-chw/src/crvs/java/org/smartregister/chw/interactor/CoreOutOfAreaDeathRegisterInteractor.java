@@ -3,6 +3,7 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Pair;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -25,6 +26,7 @@ import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,8 +99,6 @@ public class CoreOutOfAreaDeathRegisterInteractor extends ClientProcessorForJava
             JSONObject clientJson = null;
             JSONObject eventJson = null;
 
-
-
             if (baseClient != null) {
                 clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
                 if (isEditMode) {
@@ -113,29 +113,9 @@ public class CoreOutOfAreaDeathRegisterInteractor extends ClientProcessorForJava
                 getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson, BaseRepository.TYPE_Unsynced);
             }
 
-            if (isEditMode) {
-                // Unassign current OPENSRP ID
-                if (baseClient != null) {
-                    String currentOpenSRPId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
-                    getUniqueIdRepository().open(currentOpenSRPId);
-                }
+            checkMode(isEditMode, baseClient);
 
-            } else {
-                if (baseClient != null) {
-                    String opensrpId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
-                    // my generated id above
-                    //mark OPENSRP ID as used
-                    getUniqueIdRepository().close(opensrpId);
-                }
-            }
-
-            if (baseClient != null || baseEvent != null) {
-                String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
-                assert baseEvent != null;
-                assert baseClient != null;
-                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
-            }
-
+            saveImage(baseClient, baseEvent, jsonString);
 
             List<EventClient> eventClientList = new ArrayList<>();
 
@@ -156,6 +136,27 @@ public class CoreOutOfAreaDeathRegisterInteractor extends ClientProcessorForJava
             return false;
         }
         return true;
+    }
+
+    private void saveImage(Client baseClient, Event baseEvent, String jsonString) {
+        if (baseClient != null || baseEvent != null) {
+            String imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+            assert baseEvent != null;
+            assert baseClient != null;
+            JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+        }
+    }
+
+    private void checkMode(boolean isEditMode, Client baseClient) {
+        if (isEditMode) {
+            assert baseClient != null;
+            String currentOpenSRPId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
+            getUniqueIdRepository().open(currentOpenSRPId);
+        } else {
+            assert baseClient != null;
+            String opensrpId = baseClient.getIdentifier(Utils.metadata().uniqueIdentifierKey);
+            getUniqueIdRepository().close(opensrpId);
+        }
     }
 
     public synchronized void processClient(List<EventClient> eventClientList, boolean localSubmission) throws Exception {

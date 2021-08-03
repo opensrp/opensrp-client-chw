@@ -108,17 +108,16 @@ public class CoreDeadClientsFragmentPresenter implements CoreChildRegisterFragme
     public String getDueCondition(String check) {
         String dueCondition = "";
         switch (check){
-            case "1":
-                dueCondition =  " AND ec_child.received_death_certificate = 'Yes' ";
-                break;
             case "2":
                 dueCondition =  " AND ec_family_member.received_death_certificate = 'Yes' ";
                 break;
             case "3":
                 dueCondition =  " WHERE ec_out_of_area_death.received_death_certificate = 'Yes' ";
                 break;
+            case "1":
             default:
                 dueCondition =  " AND ec_child.received_death_certificate = 'Yes' ";
+                break;
         }
         return dueCondition;
     }

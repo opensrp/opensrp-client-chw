@@ -85,21 +85,21 @@ public class JsonFormUtilsFlv extends DefaultJsonFormUtilsFlv {
 
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
 
-        String key = jsonObject.getString(org.smartregister.family.util.JsonFormUtils.KEY).toLowerCase();
+        String key = jsonObject.getString(JsonFormUtils.KEY).toLowerCase();
         switch (key) {
             case "photo":
                 getPhoto(client, jsonObject);
                 break;
             case "name":
                 String name = Utils.getValue(client.getColumnmaps(), "name", false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, name);
+                jsonObject.put(JsonFormUtils.VALUE, name);
                 break;
             case DBConstants.KEY.DOB:
                 getDob(client, jsonObject);
                 break;
             default:
                 String otherKey = Utils.getValue(client.getColumnmaps(), key, false);
-                jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, otherKey);
+                jsonObject.put(JsonFormUtils.VALUE, otherKey);
                 break;
         }
     }

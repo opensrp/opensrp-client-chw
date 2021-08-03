@@ -10,7 +10,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreChildRegisterProvider;
-import org.smartregister.chw.core.task.UpdateLastAsyncTask;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.task.ChwUpdateLastAsyncTask;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
