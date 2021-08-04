@@ -40,6 +40,8 @@ public class OutOfAreaDeathActivity extends BaseRegisterActivity implements Core
         presenter().registerFloatingActionButton(view, View.VISIBLE);
     }
 
+
+
     @Override
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();

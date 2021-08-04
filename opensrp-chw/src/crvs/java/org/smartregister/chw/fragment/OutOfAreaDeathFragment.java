@@ -272,7 +272,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
         }
     }
 
-    private String getCountSelect() {
+    public String getCountSelect() {
 
         String query = countSelect;
         try {
@@ -293,7 +293,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
         return query;
     }
 
-    private String filterandSortQuery() {
+    public String filterandSortQuery() {
         String query = "";
         try {
             if (StringUtils.isNoneBlank(filters)) {
@@ -312,7 +312,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
         return query;
     }
 
-    private String customDeathQuery(int limit, int offset) {
+    public String customDeathQuery(int limit, int offset) {
         return "Select ec_out_of_area_death.id as _id, ec_out_of_area_death.relationalid, ec_out_of_area_death.last_interacted_with, " +
                 "ec_out_of_area_death.base_entity_id , ec_out_of_area_death.name, ec_out_of_area_death.national_id, " +
                 "ec_out_of_area_death.dob, ec_out_of_area_death.dob_unknown, ec_out_of_area_death.age_calculated, " +
@@ -321,7 +321,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
                 "from ec_out_of_area_death ORDER BY ec_out_of_area_death.last_interacted_with DESC LIMIT " + offset + "," + limit;
     }
 
-    private String customDeathQuery(int limit, int offset, String filter) {
+    public String customDeathQuery(int limit, int offset, String filter) {
         return "Select ec_out_of_area_death.id as _id, ec_out_of_area_death.relationalid, ec_out_of_area_death.last_interacted_with, " +
                 "ec_out_of_area_death.base_entity_id , ec_out_of_area_death.name, ec_out_of_area_death.national_id, " +
                 "ec_out_of_area_death.dob, ec_out_of_area_death.dob_unknown, ec_out_of_area_death.age_calculated, " +
@@ -330,7 +330,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
                 "from ec_out_of_area_death "+getFilters(filter)+" ORDER BY ec_out_of_area_death.last_interacted_with DESC LIMIT " + offset + "," + limit;
     }
 
-    private String getFilters(String filter) {
+    public String getFilters(String filter) {
         return "where ( ec_out_of_area_death.name like '%" + filter + "%' or ec_out_of_area_death.unique_id like '%" + filter + "%')";
     }
 }
