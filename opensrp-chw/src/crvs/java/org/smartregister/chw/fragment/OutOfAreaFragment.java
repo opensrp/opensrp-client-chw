@@ -270,7 +270,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
         }
     }
 
-    private String getCountSelect() {
+    public String getCountSelect() {
 
         String query = countSelect;
         try {
@@ -291,7 +291,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
         return query;
     }
 
-    private String filterandSortQuery() {
+    public String filterandSortQuery() {
         String query = "";
         try {
             if (StringUtils.isNoneBlank(filters)) {
@@ -308,7 +308,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
         return query;
     }
 
-    private String customDeathQuery(int limit, int offset) {
+    public String customDeathQuery(int limit, int offset) {
         return "Select ec_out_of_area_child.id as _id, ec_out_of_area_child.relationalid, ec_out_of_area_child.last_interacted_with, " +
                 "ec_out_of_area_child.base_entity_id , ec_out_of_area_child.first_name, ec_out_of_area_child.middle_name, " +
                 "ec_out_of_area_child.surname, ec_out_of_area_child.middle_name as family_middle_name, ec_out_of_area_child.unique_id, " +
@@ -317,7 +317,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
                 "from ec_out_of_area_child ORDER BY ec_out_of_area_child.last_interacted_with DESC LIMIT " + offset + "," + limit;
     }
 
-    private String customDeathQuery(int limit, int offset, String filter) {
+    public String customDeathQuery(int limit, int offset, String filter) {
         return "Select ec_out_of_area_child.id as _id, ec_out_of_area_child.relationalid, ec_out_of_area_child.last_interacted_with, " +
                 "ec_out_of_area_child.base_entity_id , ec_out_of_area_child.first_name, ec_out_of_area_child.middle_name, " +
                 "ec_out_of_area_child.surname, ec_out_of_area_child.middle_name as family_middle_name, ec_out_of_area_child.unique_id, " +
@@ -326,7 +326,7 @@ public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreCh
                 "from ec_out_of_area_child "+getFilters(filter)+" ORDER BY ec_out_of_area_child.last_interacted_with DESC LIMIT " + offset + "," + limit;
     }
 
-    private String getFilters(String filter) {
+    public String getFilters(String filter) {
         return "where ( ec_out_of_area_child.first_name like '%" + filter + "%'  or ec_out_of_area_child.middle_name like '%" + filter + "%' or ec_out_of_area_child.unique_id like '%" + filter + "%')";
     }
 }
