@@ -233,7 +233,7 @@ android {
             // Kujaku variables
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
 
-            buildConfigField "int", "DATABASE_VERSION", '24'
+            buildConfigField "int", "DATABASE_VERSION", '25'
         }
         chad {
             dimension = 'baseDimension'
