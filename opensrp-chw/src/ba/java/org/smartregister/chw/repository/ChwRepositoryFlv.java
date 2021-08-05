@@ -100,8 +100,15 @@ public class ChwRepositoryFlv {
                     upgradeToVersion22(db);
                     break;
                 case 23:
-                    upgradeToVersion23(db);
+                    upgradeToVersion23(context, db);
                     break;
+                case 24:
+                    upgradeToVersion24(db);
+                    break;
+                case 25:
+                    upgradeToVersion25(db);
+                    break;
+
                 default:
                     break;
             }
@@ -122,8 +129,6 @@ public class ChwRepositoryFlv {
 
 //            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
@@ -362,7 +367,29 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion23(SQLiteDatabase db) {
+    private static void upgradeToVersion23(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion24(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_hiv_register", "ec_hiv_community_followup", "ec_hiv_community_feedback", "ec_tb_register", "ec_tb_community_followup", "ec_tb_community_feedback", "ec_hiv_outcome", "ec_tb_outcome")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion24");
+        }
+
+    }
+
+    private static void upgradeToVersion25(SQLiteDatabase db) {
         try {
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
             db.execSQL("ALTER TABLE ec_anc_register ADD COLUMN delivery_kit VARCHAR;");
@@ -370,5 +397,5 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion23");
         }
     }
-
 }
+
