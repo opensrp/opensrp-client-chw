@@ -14,6 +14,7 @@ import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.job.SyncAllLocationsServiceJob;
 import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
@@ -63,6 +64,8 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        // sync all locations into device
+        SyncAllLocationsServiceJob.scheduleJobImmediately(SyncAllLocationsServiceJob.TAG);
 
         if (ChwApplication.getApplicationFlavor().hasTasks())
             SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);
@@ -79,6 +82,7 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
 
         if (ChwApplication.getApplicationFlavor().hasServiceReport())
             ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+
     }
 
     @Override

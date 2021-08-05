@@ -39,6 +39,34 @@
           }
         },
         {
+          "column_name": "family_state",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.familyState"
+          }
+        },
+        {
+          "column_name": "family_lga",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.familyLga"
+          }
+        },
+        {
+          "column_name": "family_ward",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.familyWard"
+          }
+        },
+        {
+          "column_name": "family_community",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.familyCommunity"
+          }
+        },
+        {
           "column_name": "quarter_clan",
           "type": "Client",
           "json_mapping": {

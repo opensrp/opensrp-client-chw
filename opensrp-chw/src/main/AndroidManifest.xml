@@ -109,7 +109,7 @@
                 android:value="org.smartregister.chw.activity.FamilyProfileActivity" />
         </activity>
         <activity
-            android:name="org.smartregister.family.activity.FamilyWizardFormActivity"
+            android:name="org.smartregister.chw.activity.FamilyWizardFormExtendedActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/FamilyTheme.NoActionBar"
@@ -289,6 +289,7 @@
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.SyncLocationsByLevelAndTagsIntentService" />
         <service android:name="org.smartregister.sync.intent.DocumentConfigurationIntentService" />
+        <service android:name="org.smartregister.sync.intent.SyncAllLocationsIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.service.ImageUploadSyncService" />
         <service android:name=".anc.intent.HomeVisitIntentService" />

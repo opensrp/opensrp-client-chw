@@ -1,5 +1,7 @@
 package org.smartregister.chw.application;
 
+import static org.koin.core.context.GlobalContext.getOrNull;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -44,7 +46,6 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.provider.CoreAllClientsRegisterQueryProvider;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -62,6 +63,7 @@ import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChwLocationBasedClassifier;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
+import org.smartregister.chw.util.FormUtils;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
@@ -95,8 +97,6 @@ import java.util.Map;
 
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
-
-import static org.koin.core.context.GlobalContext.getOrNull;
 
 public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
 
@@ -326,7 +326,6 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     @Override
     public FamilyMetadata getMetadata() {
         FamilyMetadata metadata = FormUtils.getFamilyMetadata(new FamilyProfileActivity(), getDefaultLocationLevel(), getFacilityHierarchy(), getFamilyLocationFields());
-
         HashMap<String, String> setting = new HashMap<>();
         setting.put(Constants.CustomConfig.FAMILY_FORM_IMAGE_STEP, JsonFormUtils.STEP1);
         setting.put(Constants.CustomConfig.FAMILY_MEMBER_FORM_IMAGE_STEP, JsonFormUtils.STEP2);

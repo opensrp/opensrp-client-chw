@@ -72,6 +72,66 @@
         }
       },
       {
+        "key": "state",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "familyState",
+        "type": "spinner",
+        "sub_type": "location",
+        "value_field": "community",
+        "hint": "Select the State",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the state"
+        }
+      },
+      {
+        "key": "lga",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "familyLga",
+        "type": "spinner",
+        "sub_type": "location",
+        "value_field": "community",
+        "hint": "Select the LGA",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the lga"
+        }
+      },
+      {
+        "key": "ward",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "familyWard",
+        "type": "spinner",
+        "sub_type": "location",
+        "value_field": "community",
+        "hint": "Select Ward",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the ward"
+        }
+      },
+      {
+        "key": "community",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "familyCommunity",
+        "openmrs_data_type": "text",
+        "type": "spinner",
+        "sub_type": "location",
+        "hint": "Select Community",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the community"
+        }
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",

@@ -52,6 +52,8 @@ jacoco {
     toolVersion = "0.8.5"
 }
 
+Properties properties = new Properties()
+
 android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
@@ -82,6 +84,7 @@ android {
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
         buildConfigField "String", "THINKMD_BASE_URL", '"https://app.africa.thinkmd.tech"'
         buildConfigField "String", "THINKMD_END_POINT", '"/#/start"'
+        buildConfigField "String", "ROOT_LOCATION_TAG", '"Country"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -91,7 +94,6 @@ android {
 
         if (project.rootProject.file("local.properties").exists()) {
 
-            Properties properties = new Properties()
             properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
             if (properties != null && properties.containsKey("oauth.client.id")) {
@@ -158,7 +160,7 @@ android {
         }
 
         debug {
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "boolean", "TIME_CHECK", "false"
@@ -174,6 +176,8 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
             testCoverageEnabled true
+            resValue("string", "DB_PASSWORD_DRISHTI", properties['db.password'])
+            resValue("string", "PORT_NUMBER", "8088")
         }
     }
 
@@ -271,12 +275,13 @@ android {
             versionName "1.0.1"
             buildConfigField "String", 'opensrp_url', '"https://dcis-ng.labs.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+//            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://dcis-ng.labs.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"State" , "Lga" , "Ward","Community"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"State" , "Lga" , "Ward","Community"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"State" , "Lga" , "Ward","Community"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Community"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Community"'
             buildConfigField "int", "DATABASE_VERSION", '15'
         }
         guinea {
@@ -354,7 +359,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.0.32-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.0-SNAPSHOT-LOCATION-HIERARCHY@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -364,6 +369,8 @@ dependencies {
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'stax', module: 'stax-api'
     }
+
+    debugImplementation 'com.amitshekhar.android:debug-db-encrypt:1.0.6'
 
     api('org.smartregister:opensrp-client-native-form:2.1.1-SNAPSHOT-RELEASE@aar') {
         transitive = true
@@ -375,7 +382,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
         exclude group: 'com.google.guava', module: 'guava'
     }
-    
+
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
     implementation('io.ona.kujaku:library:0.9.0') {
         exclude group: 'com.android.volley', module: 'volley'

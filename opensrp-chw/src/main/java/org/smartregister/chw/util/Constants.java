@@ -13,6 +13,8 @@ public class Constants extends CoreConstants {
     public static String pregnancyOutcome = "preg_outcome";
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
+    public static final String SUB_TYPE = "sub_type";
+    public static final String LOCATION_SUB_TYPE = "location";
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
