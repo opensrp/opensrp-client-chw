@@ -1,6 +1,5 @@
 package org.smartregister.chw.fragment;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +15,15 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
 import org.smartregister.chw.presenter.OutOfAreaDeathFragmentPresenter;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import java.util.ArrayList;
+
+import static android.view.View.GONE;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+
 public class OutOfAreaDeathFragmentTest extends BaseUnitTest {
 
     @Mock
@@ -42,15 +43,13 @@ public class OutOfAreaDeathFragmentTest extends BaseUnitTest {
 
     private OutOfAreaDeathFragment fragment;
 
-    private FragmentActivity activity;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         fragment = Mockito.mock(OutOfAreaDeathFragment.class, Mockito.CALLS_REAL_METHODS);
         CoreLibrary.init(context);
         when(context.commonrepository(anyString())).thenReturn(commonRepository);
-        activity = Robolectric.buildActivity(AppCompatActivity.class).create().resume().get();
+        FragmentActivity activity = Robolectric.buildActivity(AppCompatActivity.class).create().resume().get();
         Context.bindtypes = new ArrayList<>();
         SyncStatusBroadcastReceiver.init(activity);
     }
@@ -66,8 +65,8 @@ public class OutOfAreaDeathFragmentTest extends BaseUnitTest {
         ReflectionHelpers.setField(fragment, "syncButton", syncButton);
         ReflectionHelpers.setField(fragment, "syncProgressBar", syncProgressBar);
         fragment.refreshSyncProgressSpinner();
-        Mockito.verify(syncProgressBar, Mockito.times(1)).setVisibility(android.view.View.GONE);
-        Mockito.verify(syncButton, Mockito.times(1)).setVisibility(android.view.View.GONE);
+        Mockito.verify(syncProgressBar, Mockito.times(1)).setVisibility(GONE);
+        Mockito.verify(syncButton, Mockito.times(1)).setVisibility(GONE);
     }
 
     @Test

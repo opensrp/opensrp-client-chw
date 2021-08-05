@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
@@ -22,25 +21,16 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.BaseActivityTest;
 import org.smartregister.chw.BaseUnitTest;
-import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
-import org.smartregister.chw.contract.CoreOutOfAreaDeathRegisterContract;
 import org.smartregister.chw.core.adapter.NavigationAdapter;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
-import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.CoreOutOfAreaDeathRegisterPresenter;
-import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.chw.util.CrvsConstants;
-import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-
-import static org.junit.Assert.*;
 
 public class OutOfAreaDeathActivityTest extends BaseUnitTest {
 

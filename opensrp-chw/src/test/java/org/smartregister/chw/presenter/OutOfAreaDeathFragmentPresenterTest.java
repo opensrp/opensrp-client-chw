@@ -4,20 +4,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
-import org.smartregister.chw.core.contract.FamilyChangeContract;
-import org.smartregister.chw.core.domain.FamilyMember;
-import org.smartregister.chw.core.interactor.CoreFamilyChangeContractInteractor;
-import org.smartregister.chw.core.model.FamilyChangeContractModel;
-import org.smartregister.chw.core.presenter.CoreFamilyChangePresenter;
 import org.smartregister.chw.model.CoreOutOfAreaDeathFragmentModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OutOfAreaDeathFragmentPresenterTest {
 
