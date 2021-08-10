@@ -138,6 +138,7 @@ public class AllClientsUtils {
 
         // Update the family head and primary caregiver
         Client familyClient = locationDetailsEvent.getClient();
+        assert familyClient != null;
         familyClient.addRelationship(Utils.metadata().familyRegister.familyHeadRelationKey, clientDetailsEvent.getClient().getBaseEntityId());
         familyClient.addRelationship(Utils.metadata().familyRegister.familyCareGiverRelationKey, clientDetailsEvent.getClient().getBaseEntityId());
 
