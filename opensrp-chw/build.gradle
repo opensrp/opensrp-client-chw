@@ -16,7 +16,6 @@ allprojects {
     repositories {
         maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        //maven { url "http://dl.bintray.com/ona/kujaku" }
         maven {
             def githubProperties = new Properties()
             if (rootProject.file("github.properties").exists()) {
