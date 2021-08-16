@@ -297,7 +297,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village" }'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
@@ -342,7 +342,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.1-alpha-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.2-alpha-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
