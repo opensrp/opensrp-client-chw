@@ -1,7 +1,6 @@
 package org.smartregister.chw.dao;
 
 import org.jetbrains.annotations.Nullable;
-import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -10,11 +9,8 @@ import org.smartregister.dao.AbstractDao;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -35,10 +31,12 @@ public class EventDao extends AbstractDao {
      * This method should return a NULL value if all events are synced.
      * @return
      */
-    public static Long getMinimumVerifiedServerVersion(){
+    public static Long getMinimumVerifiedServerVersion() {
         String sql = "select max(serverVersion) serverVersion  from event where dateCreated <= (select min(dateCreated) minDate from event where ifnull(eventId,'') = '' and syncStatus = 'Synced') ";
-        DataMap<Long> dataMap = c -> { return getCursorLongValue(c, "serverVersion"); };
-        return  AbstractDao.readSingleValue(sql, dataMap);
+        DataMap<Long> dataMap = c -> {
+            return getCursorLongValue(c, "serverVersion");
+        };
+        return AbstractDao.readSingleValue(sql, dataMap);
     }
 
     public static List<Event> getEvents(String baseEntityID, String eventType, int limit) {
