@@ -156,8 +156,8 @@
           "due": [
             {
               "reference": "prerequisite",
-              "prerequisite": "Penta 2",
-              "offset": "+28d",
+              "prerequisite": "Penta 1",
+              "offset": "+56d",
               "window": "+14d"
             }
           ],
