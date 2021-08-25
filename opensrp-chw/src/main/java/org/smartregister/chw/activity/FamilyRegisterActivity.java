@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Trace;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,7 +45,9 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
+            Trace.beginSection("registration_form");
             startRegistration();
+            Trace.endSection();
         }
     }
 
