@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
+import android.os.Environment;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.domain.GuideBooksFragmentVideo;
 import org.smartregister.chw.util.DownloadUtil;
