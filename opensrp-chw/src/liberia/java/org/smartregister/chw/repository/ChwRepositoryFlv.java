@@ -117,7 +117,7 @@ public class ChwRepositoryFlv {
         try {
             db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion7");
+            Timber.e(e, "upgradeToVersion5");
         }
     }
 }
