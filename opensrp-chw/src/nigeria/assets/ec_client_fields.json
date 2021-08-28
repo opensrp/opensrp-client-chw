@@ -103,6 +103,13 @@
           }
         },
         {
+          "column_name": "income_bracket",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.income_bracket"
+          }
+        },
+        {
           "column_name": "family_head",
           "type": "Client",
           "json_mapping": {

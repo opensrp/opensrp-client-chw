@@ -6,10 +6,10 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUES;
 import static com.vijay.jsonwizard.widgets.TimePickerFactory.KEY.VALUE;
 
-import static org.smartregister.chw.core.utils.CoreConstants.LOCATIONS.FAMILY_LOCATION_COMMUNITY;
-import static org.smartregister.chw.core.utils.CoreConstants.LOCATIONS.FAMILY_LOCATION_LGA;
-import static org.smartregister.chw.core.utils.CoreConstants.LOCATIONS.FAMILY_LOCATION_STATE;
-import static org.smartregister.chw.core.utils.CoreConstants.LOCATIONS.FAMILY_LOCATION_WARD;
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_COMMUNITY;
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_LGA;
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_STATE;
+import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_WARD;
 
 import android.util.Pair;
 import android.view.View;

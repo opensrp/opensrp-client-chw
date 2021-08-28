@@ -249,6 +249,27 @@
           "Communication, social and personal services": "165415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
+      },
+      {
+        "key": "income_bracket",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "income_bracket",
+        "hint": "{{family_register.step1.income_bracket.hint}}",
+        "type": "spinner",
+        "openmrs_data_type": "",
+        "values": [
+          "{{family_register.step1.income_bracket.values[0]}}",
+          "{{family_register.step1.income_bracket.values[1]}}",
+          "{{family_register.step1.income_bracket.values[2]}}",
+          "{{family_register.step1.income_bracket.values[3]}}"
+        ],
+        "keys": [
+          "Less than Naira 50,000",
+          "Naira 50,000- 100,000",
+          "Naira 100,000-500,000",
+          "More than Naira 500,000"
+        ]
       }
     ],
     "next": "step2"
