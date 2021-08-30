@@ -87,6 +87,7 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
+        "edit_type": "name",
         "hint": "First name",
         "expanded": false,
         "v_required": {
@@ -105,6 +106,7 @@
         "openmrs_entity_id": "middle_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
+        "edit_type": "name",
         "hint": "Middle name",
         "expanded": false,
         "v_regex": {

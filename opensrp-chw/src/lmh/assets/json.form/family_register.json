@@ -95,6 +95,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
+        "edit_type": "name",
         "hint": "Village/Town",
         "v_required": {
           "value": "true",
