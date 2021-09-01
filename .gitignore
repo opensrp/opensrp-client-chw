@@ -19,5 +19,5 @@ project.properties
 .settings
 build/
 jacoco.exec
-opensrp-chw/ba/
 *google-services.json
+opensrp-chw/ba/
