@@ -1,9 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -18,7 +22,9 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
+import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.ChwFamilyFloatingMenu;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
@@ -38,10 +44,31 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.HashMap;
 
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+
+        // Update profile border
+        CircleImageView profileView = findViewById(org.smartregister.chw.core.R.id.imageview_profile);
+        profileView.setBorderWidth(2);
+
+        // add floating menu
+        familyFloatingMenu = new ChwFamilyFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+        familyFloatingMenu.setClickListener(
+                FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
+        );
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -222,10 +249,5 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
-    }
-
-    @Override
-    public void setEventDate(String s) {
-
     }
 }
