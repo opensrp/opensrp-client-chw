@@ -104,6 +104,10 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
                         , ((AboveFiveChildProfilePresenter) presenter()).getFamilyHeadID(), ((AboveFiveChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
 
                 return true;
+
+            case R.id.action_registration:
+                presenter().startFormForEdit(getString(R.string.edit_eligible_child_form_title, memberObject.getFirstName()), presenter().getChildClient());
+                return true;
             default:
                 break;
         }

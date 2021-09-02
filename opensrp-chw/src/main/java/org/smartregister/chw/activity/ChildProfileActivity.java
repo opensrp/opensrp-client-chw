@@ -144,6 +144,15 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
     }
 
+    private String getEligibleChildString(){
+        if(flavor.usesEligibleChildText()){
+            return getString(R.string.edit_eligible_child_form_title, memberObject.getFirstName());
+        }
+        else {
+            return getString(org.smartregister.chw.core.R.string.edit_child_form_title, memberObject.getFirstName());
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -154,8 +163,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                 IndividualProfileRemoveActivity.startIndividualProfileActivity(ChildProfileActivity.this, presenter().getChildClient(),
                         ((ChildProfilePresenter) presenter()).getFamilyID()
                         , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
-
                 return true;
+            case R.id.action_registration:
+                presenter().startFormForEdit(getEligibleChildString(), presenter().getChildClient());
+                return true;
+
             default:
                 break;
         }
@@ -290,5 +302,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
         String getToolbarTitleName(MemberObject memberObject);
+
+        boolean usesEligibleChildText();
     }
 }
