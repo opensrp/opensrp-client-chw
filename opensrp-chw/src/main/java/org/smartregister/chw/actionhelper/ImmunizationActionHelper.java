@@ -26,6 +26,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +49,12 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     public ImmunizationActionHelper(Context context, List<VaccineWrapper> wrappers) {
         this.context = context;
         this.wrappers = wrappers;
-        List<VaccineRepo.Vaccine> repo = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        List<String> serviceGroups = Arrays.asList(CoreConstants.SERVICE_GROUPS.CHILD, org.smartregister.chw.util.Constants.CHILD_OVER_5);
+        List<VaccineRepo.Vaccine> repo = new ArrayList<>();
+        for (String serviceGroup : serviceGroups) {
+            List<VaccineRepo.Vaccine> childrenRepo = VaccineRepo.getVaccines(serviceGroup);
+            repo.addAll(childrenRepo);
+        }
         for (VaccineRepo.Vaccine v : repo) {
             vaccineMap.put(v.display().toLowerCase().replace(" ", "_"), v);
         }
@@ -95,7 +101,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             notDoneVaccines.clear();
             completedVaccines.clear();
 
-            if(jsonPayload == null) return;
+            if (jsonPayload == null) return;
 
             JSONObject jsonObject = new JSONObject(jsonPayload);
 
