@@ -95,6 +95,14 @@
           "json_mapping": {
             "field": "entityType"
           }
+        },
+        {
+          "column_name": "event_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate",
+            "event_type": "Family Registration"
+          }
         }
       ]
     },

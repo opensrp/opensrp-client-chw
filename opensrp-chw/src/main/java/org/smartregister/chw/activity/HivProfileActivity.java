@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +32,7 @@ import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.HivFloatingMenu;
-import org.smartregister.chw.hiv.activity.BaseHivRegistrationFormsActivity;
+import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -43,9 +46,6 @@ import java.util.List;
 
 import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class HivProfileActivity extends CoreHivProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
@@ -61,7 +61,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     public static void startHivFollowupActivity(Activity activity, String baseEntityID) throws JSONException {
-        Intent intent = new Intent(activity, BaseHivRegistrationFormsActivity.class);
+        Intent intent = new Intent(activity, BaseHivFormsActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit()).toString());
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
