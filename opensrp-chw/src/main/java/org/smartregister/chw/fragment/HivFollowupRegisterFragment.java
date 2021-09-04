@@ -43,7 +43,7 @@ public class HivFollowupRegisterFragment extends CoreHivCommunityFollowupRegiste
         if (getActivity() != null) {
             Intent intent = new Intent(getActivity(), HivCommunityFollowupDetailsActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable(Constants.HivMemberObject.MEMBER_OBJECT, HivDao.getCommunityFollowupMember(client.getColumnmaps().get(DBConstants.Key.BASE_ENTITY_ID)));
+            bundle.putSerializable(Constants.ActivityPayload.HIV_MEMBER_OBJECT, HivDao.getCommunityFollowupMember(client.getColumnmaps().get(DBConstants.Key.BASE_ENTITY_ID)));
             intent.putExtras(bundle);
 
             getActivity().startActivity(intent);

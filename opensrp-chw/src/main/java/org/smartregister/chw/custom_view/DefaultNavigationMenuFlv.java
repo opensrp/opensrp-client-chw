@@ -54,11 +54,6 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     }
 
     @Override
-    public boolean hasCommunityResponders() {
-        return false;
-    }
-
-    @Override
     public Intent getHIA2ReportActivityIntent(Activity activity) {
         return null;
     }

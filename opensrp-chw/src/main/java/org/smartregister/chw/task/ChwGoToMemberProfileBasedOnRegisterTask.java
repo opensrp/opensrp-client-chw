@@ -7,6 +7,7 @@ import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyPlanningMemberProfileActivity;
+import org.smartregister.chw.activity.HivIndexContactProfileActivity;
 import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
@@ -17,6 +18,7 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.task.CoreChwNotificationGoToMemberProfileTask;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.hiv.dao.HivDao;
+import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.malaria.activity.BaseMalariaProfileActivity;
 import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.tb.dao.TbDao;
@@ -36,6 +38,11 @@ public class ChwGoToMemberProfileBasedOnRegisterTask extends CoreChwNotification
     @Override
     protected void goToHivProfile(String baseEntityId, Activity activity) {
         HivProfileActivity.startHivProfileActivity(activity, HivDao.getMember(baseEntityId));
+    }
+
+    @Override
+    protected void goToHivIndexContactProfile(String baseEntityId, Activity activity) {
+        HivIndexContactProfileActivity.startHivIndexContactProfileActivity(activity, HivIndexDao.getMember(baseEntityId));
     }
 
     @Override
