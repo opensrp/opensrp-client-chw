@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.smartregister.chw.core.utils.CoreConstants.INTENT_KEY.CLIENT;
+import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.opd.utils.OpdDbConstants.KEY.REGISTER_TYPE;
 import static org.smartregister.util.Utils.showShortToast;
@@ -45,7 +46,7 @@ import static org.smartregister.util.Utils.showShortToast;
 public class AllClientsUtils {
 
     public static void goToChildProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
-        String dobString = Utils.getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
+        String dobString = getDuration(Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false));
         Integer yearOfBirth = CoreChildUtils.dobStringToYear(dobString);
         Intent intent;
         if (yearOfBirth != null && yearOfBirth >= 5) {

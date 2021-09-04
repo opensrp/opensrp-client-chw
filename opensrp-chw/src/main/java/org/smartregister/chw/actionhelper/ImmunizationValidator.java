@@ -30,6 +30,10 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     private int lastValidKeyPosition = 0;
     private HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
     private Map<String, Date> administeredVaccines = new HashMap<>();
+    private Map<Integer, Map<String, Date>> previousVaccines = new HashMap<>();
+
+    private Map<String, BaseAncHomeVisitAction> actions = new HashMap<>();
+    private Map<String, Integer> vaccineOrder = new HashMap<>();
 
     public ImmunizationValidator(
             List<VaccineGroup> vaccinesGroups,
@@ -41,6 +45,14 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
             administeredVaccines.put(vaccine.getName(), vaccine.getDate());
         }
+    }
+
+    public void setActions(Map<String, BaseAncHomeVisitAction> actions) {
+        this.actions = actions;
+    }
+
+    public void setVaccineOrder(Map<String, Integer> vaccineOrder) {
+        this.vaccineOrder = vaccineOrder;
     }
 
     public void addFragment(String key, BaseHomeVisitImmunizationFragmentFlv fragment, VaccineGroup vaccineGroup, DateTime anchorDate) {
@@ -79,6 +91,18 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
         return position >= 0 && position <= lastValidKeyPosition;
     }
 
+    public void resetVaccinesBelow(String s) {
+        Integer pos = vaccineOrder.get(s);
+        if (pos != null) {
+            for (Map.Entry<String, BaseAncHomeVisitAction> entry : actions.entrySet()) {
+                Integer entryPos = vaccineOrder.get(entry.getKey());
+                if (entryPos != null && entryPos > pos && entry.getValue().getJsonPayload() != null) {
+                    entry.getValue().setJsonPayload(null);
+                }
+            }
+        }
+    }
+
     /**
      * receives a notification on the changed action
      *
@@ -115,10 +139,19 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
                 }
             }
 
+            previousVaccines.put(position, receivedVacs);
+
+            Map<String, Date> allReceivedVaccines = new HashMap<>();
+            for (Map.Entry<Integer, Map<String, Date>> map : previousVaccines.entrySet()) {
+                if (position >= map.getKey()) {
+                    allReceivedVaccines.putAll(map.getValue());
+                }
+            }
+
             DateTime anchorDate = anchorDates.get(key);
             VaccineGroup vaccineGroup = vaccineGroupMap.get(key);
 
-            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, anchorDate, vaccineGroup, receivedVacs);
+            List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, anchorDate, vaccineGroup, allReceivedVaccines);
             List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, anchorDate.toDate());
 
             // update the vaccines
@@ -144,6 +177,9 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             }
         }
 
+
+        // reset all vaccines below
+        resetVaccinesBelow(s);
     }
 
     private List<VaccineDisplay> generateDisplaysFromWrappers(List<VaccineWrapper> wrappers, Date startDate) {

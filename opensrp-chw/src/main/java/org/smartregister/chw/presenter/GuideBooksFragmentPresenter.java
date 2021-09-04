@@ -14,7 +14,6 @@ public class GuideBooksFragmentPresenter implements GuideBooksFragmentContract.P
     public GuideBooksFragmentPresenter(GuideBooksFragmentContract.View view, GuideBooksFragmentContract.Interactor interactor) {
         this.view = new WeakReference<>(view);
         this.interactor = interactor;
-        this.initialize();
     }
 
     @Override

@@ -67,13 +67,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
-      //  setVaccineHistoryView(lastVisitDay);
+        //  setVaccineHistoryView(lastVisitDay);
     }
 
     @Override
     public void setUpToolbar() {
-        updateToolbarTitle(this, org.smartregister.chw.core.R.id.toolbar_title, memberObject.getFirstName());
-
+        updateToolbarTitle(this, R.id.toolbar_title, flavor.getToolbarTitleName(memberObject));
     }
 
     @Override
@@ -90,11 +89,11 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();
-        }
-        else if(i== R.id.vaccine_history){
+        } else if (i == R.id.vaccine_history) {
             openMedicalHistoryScreen();
-        }
-        else if (i == R.id.most_due_overdue_row) {
+        } else if (i == R.id.most_due_overdue_row) {
+            openUpcomingServicePage();
+        } else if (i == R.id.view_due_today) {
             openUpcomingServicePage();
         } else if (i == R.id.textview_record_visit || i == R.id.record_visit_done_bar) {
             openVisitHomeScreen(false);
@@ -264,11 +263,17 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     public void setLastVisitRowView(String days) {
         lastVisitDay = days;
-        flavor.setLastVisitRowView(lastVisitDay,layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
-        flavor.setVaccineHistoryView(lastVisitDay,layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
+        flavor.setLastVisitRowView(lastVisitDay, layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
+        flavor.setVaccineHistoryView(lastVisitDay, layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
 
     }
 
+    @Override
+    public void setFamilyHasNothingElseDue() {
+        layoutFamilyHasRow.setVisibility(View.VISIBLE);
+        viewFamilyRow.setVisibility(View.VISIBLE);
+        textViewFamilyHas.setText(getString(R.string.family_has_nothing_else_due));
+    }
 
     public interface Flavor {
 
@@ -284,5 +289,6 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
+        String getToolbarTitleName(MemberObject memberObject);
     }
 }

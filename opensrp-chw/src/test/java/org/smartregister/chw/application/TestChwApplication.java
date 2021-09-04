@@ -1,9 +1,8 @@
 package org.smartregister.chw.application;
 
-
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.koin.core.context.GlobalContextKt;
+import org.koin.core.context.GlobalContext;
 import org.mockito.Mockito;
 import org.smartregister.chw.R;
 import org.smartregister.family.util.AppExecutors;
@@ -11,6 +10,7 @@ import org.smartregister.repository.Repository;
 
 import java.util.concurrent.Executors;
 
+import timber.log.Timber;
 
 /**
  * Created by keyman on 11/03/2019.
@@ -26,9 +26,14 @@ public class TestChwApplication extends ChwApplication {
     }
 
     @Override
+    protected void initializeMapBox() {
+        Timber.v("Mute Map Box");
+    }
+
+    @Override
     public void onTerminate() {
         super.onTerminate();
-        GlobalContextKt.stopKoin();
+        GlobalContext.stop();
     }
 
     @Override
@@ -44,4 +49,6 @@ public class TestChwApplication extends ChwApplication {
     public AppExecutors getAppExecutors() {
         return new AppExecutors(Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor(), Executors.newSingleThreadExecutor());
     }
+
+
 }

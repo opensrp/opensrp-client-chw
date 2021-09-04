@@ -58,7 +58,8 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private Button saveButton;
     private SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
     protected boolean vaccinesDefaultChecked = true;
-
+    private Date minimumDate;
+    private boolean relaxedDates = false;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -98,6 +99,14 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         initializePresenter();
 
         return view;
+    }
+
+    public void setMinimumDate(Date minimumDate) {
+        this.minimumDate = minimumDate;
+    }
+
+    public void setRelaxedDates(boolean relaxedDates) {
+        this.relaxedDates = relaxedDates;
     }
 
     private void setCheckBoxState(@Nullable CheckBox checkBox, boolean state) {
@@ -180,12 +189,11 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
                 vaccineDisplay.getEndDate() : new Date();
 
         if (startDate.getTime() > endDate.getTime()) {
-            datePicker.setMinDate(endDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
         } else {
-            datePicker.setMinDate(startDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : startDate.getTime());
         }
+        datePicker.setMaxDate((relaxedDates ? new Date() : endDate).getTime());
     }
 
     private void initializeDatePicker(@NotNull DatePicker datePicker, @NotNull Map<String, VaccineDisplay> vaccineDisplays) {
@@ -205,12 +213,12 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         }
 
         if (startDate != null && startDate.getTime() > endDate.getTime()) {
-            datePicker.setMinDate(endDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
         } else {
-            datePicker.setMinDate(startDate != null ? startDate.getTime() : endDate.getTime());
-            datePicker.setMaxDate(endDate.getTime());
+            long minDate = startDate != null ? startDate.getTime() : endDate.getTime();
+            datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : minDate);
         }
+        datePicker.setMaxDate((relaxedDates ? new Date() : endDate).getTime());
     }
 
     private Date getDateFromDatePicker(DatePicker datePicker) {
@@ -225,7 +233,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     }
 
     private void setDateFromDatePicker(DatePicker datePicker, Date date) {
-        datePicker.init(date.getYear(), date.getMonth(), date.getDay(), null);
+        datePicker.updateDate(date.getYear(), date.getMonth(), date.getDay());
     }
 
     /**
@@ -423,7 +431,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     /**
      * holding container
      */
-    private class VaccineView {
+    private static class VaccineView {
         private String vaccineName;
         private DatePicker datePickerView;
         private CheckBox checkBox;

@@ -47,4 +47,20 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     public Intent getServiceReportIntent(Activity activity) {
         return null;
     }
+
+    @Override
+    public String childNavigationMenuCountString() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCommunityResponders() {
+        return false;
+    }
+
+    @Override
+    public Intent getHIA2ReportActivityIntent(Activity activity) {
+        return null;
+    }
+
 }

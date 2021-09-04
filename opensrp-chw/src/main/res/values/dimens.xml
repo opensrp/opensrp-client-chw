@@ -37,4 +37,6 @@
     <dimen name="member_profile_list_title_size">18sp</dimen>
     <dimen name="member_due_list_title_size">17.5sp</dimen>
 
+    <dimen name="default_font_size_search_bar">@dimen/_10ssp</dimen>
+
 </resources>

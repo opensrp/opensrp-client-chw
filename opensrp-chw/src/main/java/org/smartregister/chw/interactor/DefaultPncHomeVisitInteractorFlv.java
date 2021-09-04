@@ -33,6 +33,7 @@ import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.RecurringServiceUtil;
@@ -70,6 +71,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
     protected MemberObject memberObject;
     protected BaseAncHomeVisitContract.View view;
     protected Boolean editMode = false;
+    protected Boolean hasBirthCert = false;
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
@@ -97,21 +99,23 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             Timber.e(e);
         }
 
+
         try {
             evaluateDangerSignsMother();
             evaluatePNCHealthFacilityVisit();
             evaluateFamilyPlanning();
             evaluateObservationAndIllnessMother();
 
-           for(Person baby : children){
-               evaluateDangerSignsBaby(baby);
-               evaluateChildVaccineCard(baby);
-               evaluateImmunization(baby);
-               evaluateUmbilicalCord(baby);
-               evaluateExclusiveBreastFeeding(baby);
-               evaluateKangarooMotherCare(baby);
-               evaluateObservationAndIllnessBaby(baby);
-           }
+            for(Person baby : children){
+                evaluateDangerSignsBaby(baby);
+                evaluateChildVaccineCard(baby);
+                evaluateImmunization(baby);
+                evaluateUmbilicalCord(baby);
+                evaluateExclusiveBreastFeeding(baby);
+                evaluateKangarooMotherCare(baby);
+                evaluateBirthCertForm(baby, VisitDao.memberHasBirthCert(baby.getBaseEntityID()));
+                evaluateObservationAndIllnessBaby(baby);
+            }
 
         } catch (BaseAncHomeVisitAction.ValidationException e) {
             throw (e);
@@ -362,6 +366,27 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
             if (!serviceWrapper.getVaccineDate().isAfterNow())
                 actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
 
+        }
+    }
+
+    protected void evaluateBirthCertForm(Person person, Boolean hasBirthCert) throws Exception {
+        PncBaby baby = (PncBaby) person;
+        String title = MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName());
+
+        if (!hasBirthCert) {
+
+            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.BIRTH_CERTIFICATION);
+
+            BaseAncHomeVisitAction action = getBuilder(title)
+                    .withOptional(false)
+                    .withDetails(details)
+                    .withBaseEntityID(person.getBaseEntityID())
+                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                    .withHelper(new DefaultChildHomeVisitInteractorFlv.BirthCertHelper(baby.getDob()))
+                    .withFormName(Constants.JSON_FORM.getBirthCertification())
+                    .build();
+
+            actionList.put(MessageFormat.format(context.getString(R.string.pnc_birth_certification), baby.getFullName()), action);
         }
     }
 
@@ -833,3 +858,4 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
         }
     }
 }
+
