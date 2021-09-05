@@ -8,6 +8,5 @@ import org.smartregister.chw.hiv.domain.HivIndexContactObject;
 public class HivIndexContactFloatingMenu extends CoreHivIndexContactFloatingMenu {
     public HivIndexContactFloatingMenu(Context context, HivIndexContactObject hivIndexContactObject) {
         super(context, hivIndexContactObject);
-        referLayout.setVisibility(GONE);
     }
 }

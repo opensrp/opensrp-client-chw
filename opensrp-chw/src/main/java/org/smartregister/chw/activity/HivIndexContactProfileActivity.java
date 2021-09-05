@@ -5,6 +5,7 @@ import static org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_MEMBE
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,22 +18,29 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreHivIndexContactProfileActivity;
+import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.interactor.CoreHivIndexContactProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
+import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.HivIndexContactFloatingMenu;
 import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
+import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,6 +50,8 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
 
     public final static String REGISTERED_TO_HIV_REGISTRY = "registered_to_hiv_registry";
     private CommonPersonObjectClient commonPersonObjectClient;
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
 
     public static void startHivIndexContactProfileActivity(Activity activity, HivIndexContactObject hivIndexContactObject) {
         Intent intent = new Intent(activity, HivIndexContactProfileActivity.class);
@@ -56,27 +66,8 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
 
         HivIndexContactObject hivIndexContactObject = HivIndexDao.getMember(baseEntityID);
 
-        if (hivIndexContactObject.getHivStatus().equals("negative")) {
-            if (hivIndexContactObject.getRelationship().equals("sexual_partner")) { //Changing the rule file to the rule file for index contacts who are sex partners
-                JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisitForNegativeClients());
-                if (form != null)
-                    form.put("rules_file", "rule/hiv_index_contact_followup_for_negative_sex_partners_rules.yml");
-                intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, form.toString());
-            } else { //Leaving the default rule files for non sex partners index contacts
-                intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisitForNegativeClients()).toString());
-            }
-        } else if (hivIndexContactObject.getHivStatus().equals("positive")) {
-            intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisitForPositiveClients()).toString());
-        } else {
-            if (hivIndexContactObject.getRelationship().equals("sexual_partner")) { //Changing the rule file to the rule file for index contacts who are sex partners
-                JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit());
-                if (form != null)
-                    form.put("rules_file", "rule/hiv_index_contact_followup_for_unknown_status_sex_partner_rules.yml");
-                intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, form.toString());
-            } else { //Leaving the default rule files for non sex partners index contacts
-                intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit()).toString());
-            }
-        }
+        JSONObject form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit());
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, form.toString());
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
@@ -88,14 +79,22 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     protected void onCreation() {
         super.onCreation();
         setCommonPersonObjectClient(getClientDetailsByBaseEntityID(getHivIndexContactObject().getBaseEntityId()));
+        addHivReferralTypes();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
+        notificationListAdapter.setOnClickListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (notificationAndReferralRecyclerView != null && notificationAndReferralRecyclerView.getAdapter() != null) {
-            notificationAndReferralRecyclerView.getAdapter().notifyDataSetChanged();
-        }
+        notificationListAdapter.canOpen = true;
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
+                getHivIndexContactObject().getBaseEntityId(), this);
     }
 
     public CommonPersonObjectClient getCommonPersonObjectClient() {
@@ -159,6 +158,21 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         }
     }
 
+    private void addHivReferralTypes() {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
+                    CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+        }
+
+    }
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
+    }
+
     @Override
     public void initializeCallFAB() {
         setHivFloatingMenu(new HivIndexContactFloatingMenu(this, getHivIndexContactObject()));
@@ -172,6 +186,9 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
                 case R.id.call_layout:
                     ((HivIndexContactFloatingMenu) getHivFloatingMenu()).launchCallWidget();
                     ((HivIndexContactFloatingMenu) getHivFloatingMenu()).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ((HivIndexContactProfilePresenter) getHivContactProfilePresenter()).referToFacility();
                     break;
                 default:
                     Timber.d("Unknown fab action");
@@ -198,12 +215,12 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
 
     @Override
     public void verifyHasPhone() {
-        // TODO -> Implement for HF
+        // Implement
     }
 
     @Override
     public void notifyHasPhone(boolean b) {
-        // TODO -> Implement for HF
+        // Implement
     }
 
     @Override

@@ -256,6 +256,11 @@
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
+            android:name=".activity.HivIndexContactsContactsRegisterActivity"
+            android:label="@string/menu_hiv_index_contacts"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.TbRegisterActivity"
             android:label="@string/tb_register"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -270,6 +275,11 @@
 
         <activity
             android:name=".activity.HivProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivIndexContactProfileActivity"
+            android:parentActivityName=".activity.HivIndexContactsContactsRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity

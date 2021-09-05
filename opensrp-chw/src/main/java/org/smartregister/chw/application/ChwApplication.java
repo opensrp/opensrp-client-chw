@@ -30,6 +30,7 @@ import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
+import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
@@ -343,6 +344,7 @@ public class ChwApplication extends CoreChwApplication {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HIV_REGISTER_ACTIVITY, HivRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HIV_INDEX_REGISTER_ACTIVITY, HivIndexContactsContactsRegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TB_REGISTER_ACTIVITY, TbRegisterActivity.class);
 
         }
