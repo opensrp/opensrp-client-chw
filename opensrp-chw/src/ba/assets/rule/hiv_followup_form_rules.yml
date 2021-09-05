@@ -20,13 +20,6 @@ condition: "problem['other_problems'] != null"
 actions:
   - "problem_other_visibility =  true"
 ---
-name: "client_behaviour_and_environmental_risk_visibility"
-description: "client_behaviour_and_environmental_risk visibility"
-priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
-actions:
-  - "client_behaviour_and_environmental_risk_visibility =  true"
----
 name: "supplies_provided_visibility"
 description: "supplies_provided visibility"
 priority: 1

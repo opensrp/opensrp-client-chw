@@ -250,121 +250,6 @@
           "subjects": "problem:map"
         },
         {
-          "name": "client_behaviour_and_environmental_risk",
-          "type": "spinner",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "client_behaviour_and_environmental_risk",
-            "openmrs_entity_parent": ""
-          },
-          "properties": {
-            "text": "Tabia na mazingira hatarishi ya mteja"
-          },
-          "options": [
-            {
-              "name": "none",
-              "text": "Haihusiki",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "alcoholism",
-              "text": "Mlevi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "alcoholism",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "has_multiple_sexual_partners",
-              "text": "Ana wapenzi wengi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_multiple_sexual_partners",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "has_sexual_relations_with_different_peers",
-              "text": "Mahusiano ya kingono na rika tofauti (Ngono  mtambuka rika",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_sexual_relations_with_different_peers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "fisherman",
-              "text": "Wavuvi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "women_having_sex_with_other_women",
-              "text": "Wanawake wanaofanya ngono na wanawake wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "sex_workers",
-              "text": "Wanaofanya biashara ya ngono",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sex_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "wood_workers",
-              "text": "Wapasua mbao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "wood_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "mining_workers",
-              "text": "Wachimba madini",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "mining_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "men_having_sex_with_other_men ",
-              "text": "Wanaume wanaofanya ngono na wanaume wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "men_having_sex_with_other_men",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "truck_drivers ",
-              "text": "Madreva wa masafa marefu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "truck_drivers",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Tafadhali chagua tabia na mazingira hatarishi ya mteja",
-          "subjects": "registration_or_followup_status:text"
-        },
-        {
           "name": "supplies_provided",
           "type": "multi_choice_checkbox",
           "properties": {
@@ -426,6 +311,15 @@
             "openmrs_entity_parent": ""
           },
           "options": [
+            {
+              "name": "counselling",
+              "text": "Ushauri nasaha",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "counselling",
+                "openmrs_entity_parent": ""
+              }
+            },
             {
               "name": "other_hiv_services",
               "text": "Huduma nyingnie za UKIMWI katika jamii",

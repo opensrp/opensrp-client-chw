@@ -69,6 +69,12 @@
             "openmrs_entity_id": "ctc_number",
             "openmrs_entity_parent": ""
           },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "Not a valid CTC Number."
+            }
+          ],
           "required_status": "false"
         },
         {
@@ -128,6 +134,120 @@
           "dependent_calculations": [
             "hiv_registration_date"
           ]
+        },
+        {
+          "name": "client_behaviour_and_environmental_risk",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_behaviour_and_environmental_risk",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Vulnerable and at risk behaviors"
+          },
+          "options": [
+            {
+              "name": "na",
+              "text": "Not Applicable",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "alcoholism",
+              "text": "Alcoholism",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "alcoholism",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "has_multiple_sexual_partners",
+              "text": "Has multiple sexual partners",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "has_multiple_sexual_partners",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "has_sexual_relations_with_different_peers",
+              "text": "Sexual relations with different peers",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "has_sexual_relations_with_different_peers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "fisherman",
+              "text": "Fisherman",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "fisherman",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "women_having_sex_with_other_women",
+              "text": "Women having sex with other women",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "women_having_sex_with_other_women",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "sex_workers",
+              "text": "Sex workers",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "sex_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "wood_workers",
+              "text": "Lumberman",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "wood_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "mining_workers",
+              "text": "Mining workers ",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "mining_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "men_having_sex_with_other_men ",
+              "text": "Men having sex with other men",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "men_having_sex_with_other_men",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "truck_drivers ",
+              "text": "Trucks and long distance drivers",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "truck_drivers",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify client's behaviour"
         }
       ]
     }

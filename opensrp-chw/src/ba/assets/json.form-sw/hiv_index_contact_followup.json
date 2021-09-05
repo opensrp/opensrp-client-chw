@@ -1,0 +1,194 @@
+{
+  "form": "HIV Index Contact CHW Followup",
+  "count": "1",
+  "encounter_type": "HIV Index Contact CHW Followup",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/hiv_index_contact_followup_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "Index Client Contact Followup",
+      "fields": [
+        {
+          "name": "has_the_contact_client_been_found",
+          "type": "radio_group",
+          "properties": {
+            "text": "Have you found the contact client?"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_the_contact_client_been_found",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "yes",
+              "text": "Yes",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "no",
+              "text": "No",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select the answer",
+          "dependent_calculations": [
+            "client_followed_up_by_chw"
+          ]
+        },
+        {
+          "name": "has_the_client_agreed_to_be_tested",
+          "type": "radio_group",
+          "properties": {
+            "text": "Has the client agreed to be tested for HIV?"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "has_the_client_agreed_to_be_tested",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "yes",
+              "text": "Yes",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "no",
+              "text": "No",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select whether the client has agreed to be tested for HIV",
+          "subjects": "has_the_contact_client_been_found:map"
+        },
+        {
+          "name": "place_where_test_will_be_conducted",
+          "type": "radio_group",
+          "properties": {
+            "text": "Where has the client agreed to have the test?"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "place_where_test_was_conducted",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "facility",
+              "text": "At the Health Facility",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "facility",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "community",
+              "text": "At the community",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "community",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select the answer",
+          "subjects": "has_the_contact_client_been_found:map, has_the_client_agreed_to_be_tested:map"
+        },
+        {
+          "name": "toast_give_a_referral_to_the_client",
+          "type": "toast_notification",
+          "properties": {
+            "notification_type": "info",
+            "dismissible": "no",
+            "title": "Client should be referred to Hospital",
+            "text": "The client should be referred to the Hospital for HIV testing.\nGive the client a referral",
+            "background_color": "#082455",
+            "text_color": "#EBEE2F"
+          },
+          "subjects": "has_the_contact_client_been_found:map, has_the_client_agreed_to_be_tested:map, place_where_test_will_be_conducted:map"
+        },
+        {
+          "name": "chw_comment",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Remarks/Comments"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_comment",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "false"
+        }
+      ]
+    }
+  ]
+}
+
