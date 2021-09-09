@@ -105,7 +105,7 @@ public class BirthNotificationProvider extends CoreChildRegisterProvider {
         fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
 
         String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-        //dobString = dobString.contains("y") ? dobString.substring(0, dobString.indexOf("y")) : dobString;
+//        String dobString = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false);
         fillChildNameAndAge(viewHolder, childName, dobString);
         setAddressAndGender(pc, viewHolder);
 

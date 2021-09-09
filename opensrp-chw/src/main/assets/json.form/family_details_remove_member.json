@@ -72,19 +72,13 @@
         "text_size": "25px"
       },
       {
-        "key": "divider1",
-        "type": "h_line",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": ""
-      },
-      {
-        "key": "spacer",
+        "key": "hiddengender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "type": "spacer",
-        "spacer_height": "15dp"
+        "type": "edit_text",
+        "edit_type": "name",
+        "read_only": "true"
       },
       {
         "key": "remove_reason",
@@ -204,6 +198,7 @@
           }
         }
       },
+
       {
         "key": "death_place",
         "openmrs_entity_parent": "",
@@ -219,11 +214,13 @@
         "values": [
           "Home",
           "Place of work",
+          "Health Facility",
           "Other"
         ],
         "openmrs_choice_ids": {
           "Home": "home_id_openmrs",
           "Place of work": "place_of_work_id_openmrs",
+          "Health Facility": "health_facility_id_openmrs",
           "Other": "other_id_openmrs"
         },
         "relevance": {
@@ -233,6 +230,144 @@
           }
         }
       },
+      {
+        "key": "mccd_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mccdConducted",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was MCCD conducted ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "mccd_yes_id_openmrs",
+          "No": "mccd_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "death_manner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "Manner of death",
+        "hint": "Manner of death",
+        "type": "spinner",
+        "values": [
+          "Disease",
+          "Accident",
+          "Intentional self harm",
+          "Assault",
+          "Legal Intervention",
+          "War",
+          "Could not determine",
+          "Pending investigation",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Disease": "disease_id_openmrs",
+          "Accident": "accident_id_openmrs",
+          "Intentional self harm": "international_self_harm_id_openmrs",
+          "Assault": "assault_id_openmrs",
+          "Legal Intervention": "legal_intervention_id_openmrs",
+          "War": "war_id_openmrs",
+          "Could not determine": "could_not_determine_id_openmrs",
+          "Pending investigation": "pending_investigation_id_openmrs",
+          "Unknown": "unknown_id_openmrs"
+        },
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
+        "key": "medically_treated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medicallyTreated",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was the deceased medically treated 4 weeks prior to death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "medically_treated_yes_id_openmrs",
+          "No": "medically_treated_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "know_death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knowDeathCause",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Do you know the cause of death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "cause_of_death_yes_id_openmrs",
+          "No": "cause_of_death_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "Cause of death",
+        "hint": "Cause of death",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+
       {
         "key": "nationality",
         "openmrs_entity_parent": "",
@@ -287,6 +422,63 @@
           "Widowed": "widowed_id_openmrs"
         }
       },
+
+      {
+        "key": "deceased_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deceasedPregnant",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was the deceased pregnant ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "deceased_pregnant_yes_id_openmrs",
+          "No": "deceased_pregnant_no_id_openmrs"
+        },
+        "relevance": {
+          "step1:hiddengender": {
+            "type": "string",
+            "ex": "equalTo(., \"Female\")"
+          }
+        }
+      },
+      {
+        "key": "pregnant_died",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnantDied",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Did the pregnancy contribute to her death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "pregnant_died_yes_id_openmrs",
+          "No": "pregnant_died_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+
       {
         "key": "death_certificate_fields",
         "openmrs_entity_parent": "",
@@ -569,9 +761,10 @@
         "hint": "Name of physician signing MCCD",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -584,42 +777,14 @@
         "hint": "Position of physician signing MCCD",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
-      {
-        "key": "death_cause",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "Cause of death",
-        "hint": "Cause of death",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
-      },
-      {
-        "key": "death_manner",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "Manner of death",
-        "hint": "Manner of death",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
-      },
+
       {
         "key": "official_address",
         "openmrs_entity_parent": "",

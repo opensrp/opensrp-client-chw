@@ -269,6 +269,38 @@
             "field": "obs.fieldCode",
             "concept": "deathCertificateIssueDate"
           }
+        },
+        {
+          "column_name": "mccd_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mccdConducted"
+          }
+        },
+        {
+          "column_name": "medically_treated",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "medicallyTreated"
+          }
+        },
+        {
+          "column_name": "deceased_pregnant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deceasedPregnant"
+          }
+        },
+        {
+          "column_name": "pregnant_died",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnantDied"
+          }
         }
       ]
     },
@@ -993,6 +1025,45 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "deathCertificateIssueDate"
+          }
+        },
+        {
+          "column_name": "sex",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "mccd_conducted",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "mccdConducted"
+          }
+        },
+        {
+          "column_name": "medically_treated",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "medicallyTreated"
+          }
+        },
+        {
+          "column_name": "deceased_pregnant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "deceasedPregnant"
+          }
+        },
+        {
+          "column_name": "pregnant_died",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "pregnantDied"
           }
         }
       ]
