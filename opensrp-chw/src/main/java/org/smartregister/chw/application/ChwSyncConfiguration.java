@@ -127,4 +127,9 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
         return LoginActivity.class;
     }
+
+    @Override
+    public boolean validateUserAssignments() {
+        return false;
+    }
 }
