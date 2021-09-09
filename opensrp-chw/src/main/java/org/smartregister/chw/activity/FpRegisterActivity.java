@@ -2,6 +2,10 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +23,14 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     private static String baseEntityId;
     private static String fpFormName;
+
+    private Trace myTrace = FirebasePerformance.getInstance().newTrace("fp_register_trace");
+
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        super.startFormActivity(formName, entityId, metaData);
+        myTrace.start();
+    }
 
     public static void startFpRegistrationActivity(Activity activity, String baseEntityID, String dob, String formName, String payloadType) {
         Intent intent = new Intent(activity, FpRegisterActivity.class);
@@ -40,6 +52,7 @@ public class FpRegisterActivity extends CoreFpRegisterActivity {
 
     @Override
     public void onFormSaved() {
+        myTrace.stop();
         startActivity(new Intent(this, FpRegisterActivity.class));
         super.onFormSaved();
         this.finish();

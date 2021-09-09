@@ -3,6 +3,9 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
+
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.util.Constants;
@@ -21,6 +24,18 @@ import timber.log.Timber;
 import static org.smartregister.chw.core.utils.CoreConstants.EventType.ANC_REGISTRATION;
 
 public class AncRegisterActivity extends CoreAncRegisterActivity {
+    private Trace myTrace = FirebasePerformance.getInstance().newTrace("anc_register_trace");
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        super.startFormActivity(formName, entityId, metaData);
+        myTrace.start();
+    }
+
+    @Override
+    protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
+        super.onActivityResultExtended(requestCode, resultCode, data);
+        myTrace.stop();
+    }
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name) {

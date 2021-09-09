@@ -23,12 +23,24 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
-    Trace myTrace = FirebasePerformance.getInstance().newTrace("register_family_trace");
+    private Trace myTrace = FirebasePerformance.getInstance().newTrace("family_registration_trace");
 
     public static void startFamilyRegisterForm(Activity activity) {
         Intent intent = new Intent(activity, FamilyRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        super.startFormActivity(formName, entityId, metaData);
+        myTrace.start();
+    }
+
+    @Override
+    protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
+        super.onActivityResultExtended(requestCode, resultCode, data);
+        myTrace.stop();
     }
 
     public static void registerBottomNavigation(
@@ -50,16 +62,9 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
-        myTrace.start();
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
             startRegistration();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        myTrace.stop();
     }
 
     @Override
