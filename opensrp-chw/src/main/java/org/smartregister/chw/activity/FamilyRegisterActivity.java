@@ -3,9 +3,13 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Trace;
+import android.os.PersistableBundle;
+
+import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
@@ -18,6 +22,8 @@ import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
+
+    Trace myTrace = FirebasePerformance.getInstance().newTrace("register_family_trace");
 
     public static void startFamilyRegisterForm(Activity activity) {
         Intent intent = new Intent(activity, FamilyRegisterActivity.class);
@@ -44,11 +50,16 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         ChwApplication.getInstance().notifyAppContextChange(); // initialize the language (bug in translation)
 
         action = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.ACTION);
+        myTrace.start();
         if (action != null && action.equals(Constants.ACTION.START_REGISTRATION)) {
-            Trace.beginSection("registration_form");
             startRegistration();
-            Trace.endSection();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myTrace.stop();
     }
 
     @Override

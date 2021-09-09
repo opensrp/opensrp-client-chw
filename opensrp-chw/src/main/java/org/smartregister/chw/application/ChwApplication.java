@@ -9,8 +9,6 @@ import android.os.Build;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
-import com.google.firebase.perf.FirebasePerformance;
-import com.google.firebase.perf.metrics.Trace;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
@@ -147,9 +145,6 @@ public class ChwApplication extends CoreChwApplication {
     public void onCreate() {
         super.onCreate();
 
-        Trace myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
-        myTrace.start();
-
         mInstance = this;
         context = Context.getInstance();
         context.updateApplicationContext(getApplicationContext());
@@ -209,7 +204,6 @@ public class ChwApplication extends CoreChwApplication {
         if (getApplicationFlavor().hasMap()) {
             initializeMapBox();
         }
-        myTrace.stop();
     }
 
     protected void initializeMapBox() {
