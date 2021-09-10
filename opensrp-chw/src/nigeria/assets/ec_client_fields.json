@@ -39,28 +39,28 @@
           }
         },
         {
-          "column_name": "family_state",
+          "column_name": "state",
           "type": "Client",
           "json_mapping": {
             "field": "addresses.familyState"
           }
         },
         {
-          "column_name": "family_lga",
+          "column_name": "lga",
           "type": "Client",
           "json_mapping": {
             "field": "addresses.familyLga"
           }
         },
         {
-          "column_name": "family_ward",
+          "column_name": "ward",
           "type": "Client",
           "json_mapping": {
             "field": "addresses.familyWard"
           }
         },
         {
-          "column_name": "family_community",
+          "column_name": "community",
           "type": "Client",
           "json_mapping": {
             "field": "addresses.familyCommunity"

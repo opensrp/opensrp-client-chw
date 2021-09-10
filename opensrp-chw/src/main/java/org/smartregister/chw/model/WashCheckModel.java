@@ -44,8 +44,8 @@ public class WashCheckModel {
                     AncLibrary.getInstance().visitRepository().deleteVisit(visitIds.get(i));
                 }
             }
-            /*NCUtils.addEvent(allSharedPreferences, baseEvent);
-            NCUtils.startClientProcessing();*/
+            NCUtils.addEvent(allSharedPreferences, baseEvent);
+            NCUtils.startClientProcessing();
             return true;
         } catch (Exception e) {
             Timber.e(e);
