@@ -64,6 +64,9 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     public void setupViews(android.view.View view) {
         super.setupViews(view);
 
+        android.view.View titleLayout = view.findViewById(R.id.title_layout);
+        titleLayout.setOnClickListener(null);
+
         if (ChwApplication.getApplicationFlavor().hasDefaultDueFilterForChildClient()) {
             android.view.View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
             dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
