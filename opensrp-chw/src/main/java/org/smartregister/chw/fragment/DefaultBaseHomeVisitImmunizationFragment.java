@@ -249,6 +249,14 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         redrawView();
     }
 
+    /**
+     * Sets theme for generated DatePickers
+     * @param picker
+     */
+    protected void setDatePickerTheme(DatePicker picker){
+        // no-op but may be extended in child fragments to set date picker theme
+    }
+
     private void generateDatePickerViews() {
         int x = 0;
         while (vaccineViews.size() > x) {
@@ -257,6 +265,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
             View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
             TextView question = layout.findViewById(R.id.vaccines_given_when_title_question);
             DatePicker datePicker = layout.findViewById(R.id.earlier_date_picker);
+            setDatePickerTheme(datePicker);
             String translatedVaccineName = NCUtils.getStringResourceByName(vaccineView.vaccineName.toLowerCase().replace(" ", "_"), getActivity());
             question.setText(getString(R.string.when_vaccine, translatedVaccineName));
 
