@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,5 +45,10 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         DatePickerUtils.themeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    protected void setDatePickerTheme(DatePicker picker) {
+        DatePickerUtils.themeDatePicker(picker, new char[]{'d', 'm', 'y'});
     }
 }
