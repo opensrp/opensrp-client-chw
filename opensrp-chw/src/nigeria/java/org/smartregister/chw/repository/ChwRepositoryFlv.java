@@ -24,8 +24,6 @@ import timber.log.Timber;
 
 public class ChwRepositoryFlv {
 
-    private static final String TAG = ChwRepositoryFlv.class.getCanonicalName();
-
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
@@ -34,7 +32,7 @@ public class ChwRepositoryFlv {
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
                 case 2:
-                    upgradeToVersion2(context, db);
+                    upgradeToVersion2(db);
                     break;
                 case 3:
                     upgradeToVersion3(db);
@@ -45,14 +43,8 @@ public class ChwRepositoryFlv {
                 case 5:
                     upgradeToVersion5(db);
                     break;
-                case 7:
-                    upgradeToVersion7(db);
-                    break;
                 case 8:
                     upgradeToVersion8(db);
-                    break;
-                case 9:
-                    upgradeToVersion9(db);
                     break;
                 case 10:
                     upgradeToVersion10(db, oldVersion);
@@ -99,7 +91,7 @@ public class ChwRepositoryFlv {
     }
 
 
-    private static void upgradeToVersion2(Context context, SQLiteDatabase db) {
+    private static void upgradeToVersion2(SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
             db.execSQL(VaccineRepository.EVENT_ID_INDEX);
@@ -163,14 +155,14 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion7(SQLiteDatabase db) {
+    /*private static void upgradeToVersion7() {
         try {
             //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_VACCINE_NOT_GIVEN);
             //db.execSQL(HomeVisitRepository.UPDATE_TABLE_ADD_SERVICE_NOT_GIVEN)
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion7 ");
         }
-    }
+    }*/
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
         try {
@@ -178,9 +170,6 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion8 ");
         }
-    }
-
-    private static void upgradeToVersion9(SQLiteDatabase db) {
     }
 
     private static void upgradeToVersion12(SQLiteDatabase db) {

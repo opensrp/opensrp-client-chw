@@ -86,7 +86,7 @@ public class FamilyRegisterJsonFormFragmentPresenter extends JsonFormFragmentPre
         List<Location> locations = Utils.getLocationsByParentId(parentLocationId);
         String selectedLocation = getCurrentLocation(spinnerKey);
 
-        MaterialSpinner spinner = (MaterialSpinner) familyWizardFormExtendedActivity.getFormDataView(JsonFormConstants.STEP1 + ":" + spinnerKey);
+        MaterialSpinner spinner = (MaterialSpinner) familyWizardFormExtendedActivity.getFormDataView(STEP1 + ":" + spinnerKey);
         if (spinner != null) {
             if (locations != null && !locations.isEmpty()) {
                 Pair<JSONArray, JSONArray> options = populateLocationOptions(locations);

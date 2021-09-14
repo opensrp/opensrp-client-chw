@@ -60,10 +60,6 @@ public class FamilyRegisterSpinnerFactory extends SpinnerFactory {
         put(FAMILY_LOCATION_COMMUNITY, FAMILY_LOCATION_WARD);
     }};
 
-    public FamilyRegisterSpinnerFactory() {
-        super();
-    }
-
     @Override
     public void genericWidgetLayoutHookback(View view, JSONObject jsonObject, JsonFormFragment formFragment) {
         super.genericWidgetLayoutHookback(view, jsonObject, formFragment);
