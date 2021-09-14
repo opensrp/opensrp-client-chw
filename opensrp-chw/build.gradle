@@ -42,7 +42,7 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
@@ -275,8 +275,7 @@ android {
             versionName "1.0.1"
             buildConfigField "String", 'opensrp_url', '"https://dcis-ng.labs.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
-//            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://dcis-ng.labs.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"State" , "Lga" , "Ward","Community"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"State" , "Lga" , "Ward","Community"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"State" , "Lga" , "Ward","Community"}'
