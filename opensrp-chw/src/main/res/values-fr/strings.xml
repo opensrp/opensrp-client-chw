@@ -2,6 +2,9 @@
     <string name="login_title">Appli CFC</string>
     <string name="logo">logo</string>
 
+    <string name="login_text">Connexion</string>
+    <string name="home">Accueil</string>
+    <string name="searching_for_device_to_connect_to">En recherche l\'appareil (destinataire) à envoyer les données...</string>
     <string name="title_family_detail">Détails sur le ménage</string>
     <string name="not_done">N\'a pas été fait</string>
     <string name="not_provided">N\'a pas été donné</string>
@@ -358,7 +361,7 @@
     <string name="counseling">Conseil</string>
 
     <string name="unauthorized_group">Ce compte n\'est pas autorisé à accéder à cet appareil</string>
-
     <!-- warning -->
     <string name="any_changes_you_make">Toutes les modifications que vous avez apportées seront perdues</string>
+
 </resources>

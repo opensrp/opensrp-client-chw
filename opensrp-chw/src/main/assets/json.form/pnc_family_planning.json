@@ -115,6 +115,13 @@
         "v_required": {
           "value": "true",
           "err": "{{pnc_family_planning.step1.fp_method.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc_family_planning_relevance.yml"
+            }
+          }
         }
       },
       {
