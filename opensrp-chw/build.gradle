@@ -176,8 +176,6 @@ android {
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
             testCoverageEnabled true
-            resValue("string", "DB_PASSWORD_DRISHTI", properties['db.password'])
-            resValue("string", "PORT_NUMBER", "8088")
         }
     }
 
