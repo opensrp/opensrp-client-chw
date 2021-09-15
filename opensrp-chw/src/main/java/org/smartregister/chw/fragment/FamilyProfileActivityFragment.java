@@ -39,6 +39,7 @@ import java.util.Set;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.CoreConstants.EventType.WASH_CHECK;
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.READ_ONLY;
 
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
@@ -154,7 +155,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
         if (WASH_CHECK.equalsIgnoreCase(type)) {
             if (ChwApplication.getApplicationFlavor().launchWashCheckOnNativeForm()) {
-                startForm(org.smartregister.chw.util.JsonFormUtils.REQUEST_CODE_GET_JSON_WASH, visitDate);
+                startForm(visitDate);
             } else {
                 WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(familyBaseEntityId, visitDate);
                 FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
@@ -180,7 +181,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         }
     }
 
-    private void startForm(int requestCode, Long visitDate) {
+    private void startForm(Long visitDate) {
         try {
             JSONObject jsonForm = populateWashCheckFields(visitDate);
             jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
@@ -190,11 +191,12 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             Form form = new Form();
             form.setWizard(false);
             form.setActionBarBackground(R.color.family_actionbar);
+            form.setSaveLabel(getString(R.string.close));
 
             intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-            intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, true);
+            intent.putExtra(Constants.WizardFormActivity.EnableOnCloseDialog, false);
             if (getActivity() != null) {
-                getActivity().startActivityForResult(intent, requestCode);
+                getActivity().startActivity(intent);
             }
         } catch (Exception e) {
             Timber.e(e);
@@ -212,6 +214,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             if (washData.containsKey(key)) {
                 String value = washData.get(key).getHumanReadable();
                 jsonObject.put(org.smartregister.family.util.JsonFormUtils.VALUE, value);
+                jsonObject.put(READ_ONLY, true);
             }
         }
         return jsonForm;
