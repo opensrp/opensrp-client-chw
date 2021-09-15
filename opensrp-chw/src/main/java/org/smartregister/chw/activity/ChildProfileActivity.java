@@ -99,7 +99,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
 
     @Override
     public void onClick(View view) {
-        super.onClick(view);
+//        super.onClick(view); // uncomment will duplicate the calls of click listeners
         int i = view.getId();
         if (i == R.id.last_visit_row) {
             openMedicalHistoryScreen();

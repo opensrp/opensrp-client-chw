@@ -184,4 +184,16 @@ public class ChwChildDao extends ChildDao {
         AbstractDao.readData(sql, dataMap);
         return childExists[0] && motherAlive[0];
     }
+
+    public static List<String> getRegisteredCertificateNumbers() {
+        String sql = "SELECT birth_cert_num FROM ec_child e WHERE e.birth_cert_num NOTNULL GROUP BY e.birth_cert_num;";
+
+        AbstractDao.DataMap<String> dataMap = c -> getCursorValue(c, "birth_cert_num");
+
+        List<String> res = readData(sql, dataMap);
+        if (res == null || res.size() < 1)
+            return new ArrayList<>();
+
+        return res;
+    }
 }
