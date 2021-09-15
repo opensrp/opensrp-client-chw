@@ -89,7 +89,6 @@ public class ContactUtilTest {
     @Test
     public void testGetContactSchedule() {
         LocalDate lastContact = LocalDate.parse("19/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"));
-        LocalDate lastMenstrualPeriod = LocalDate.parse("20/03/2019", DateTimeFormat.forPattern("dd/MM/yyyy"));
 
         MemberObject memberObject = new MemberObject();
         ReflectionHelpers.setField(memberObject, "lastMenstrualPeriod", "01-01-2019");
