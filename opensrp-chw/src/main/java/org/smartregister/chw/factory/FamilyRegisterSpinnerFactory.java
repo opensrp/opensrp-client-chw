@@ -175,7 +175,6 @@ public class FamilyRegisterSpinnerFactory extends SpinnerFactory {
 
     private String getCurrentLocation(String level) {
         String facilityId = Utils.getAllSharedPreferences().fetchUserLocalityId(Utils.getAllSharedPreferences().fetchRegisteredANM());
-        String currentLocation = "";
 
         try {
             JSONObject form = familyWizardFormExtendedActivity.getmJSONObject();
@@ -187,30 +186,29 @@ public class FamilyRegisterSpinnerFactory extends SpinnerFactory {
             Location ward = Utils.getLocationById(wardId);
             Location lga = Utils.getLocationById(ward != null ? ward.getProperties().getParentId() : "");
             Location state = Utils.getLocationById(lga != null ? lga.getProperties().getParentId() : "");
-            switch (level) {
-                case "state":
-                    if (fieldValue != null) state = Utils.getLocationById(fieldValue);
-                    currentLocation = state != null ? state.getId() : "";
-                    break;
-                case "lga":
-                    if (fieldValue != null) lga = Utils.getLocationById(fieldValue);
-                    currentLocation = lga != null ? lga.getId() : "";
-                    break;
-                case "community":
-                    if (fieldValue != null) community = Utils.getLocationById(fieldValue);
-                    currentLocation = community != null ? community.getId() : "";
-                    break;
-                case "ward":
-                default:
-                    if (fieldValue != null) ward = Utils.getLocationById(fieldValue);
-                    currentLocation = wardId != null ? ward.getId() : "";
-                    break;
-            }
+            return getCurrentLocationLevel(level, state, lga, ward, community, wardId,fieldValue);
         } catch (Exception e) {
             Timber.e(e);
         }
 
-        return currentLocation;
+        return "";
     }
 
+    private String getCurrentLocationLevel(String level, Location state, Location lga, Location ward, Location community, String wardId, String fieldValue) {
+        switch (level) {
+            case "state":
+                if (fieldValue != null) state = Utils.getLocationById(fieldValue);
+                return state != null ? state.getId() : "";
+            case "lga":
+                if (fieldValue != null) lga = Utils.getLocationById(fieldValue);
+                return  lga != null ? lga.getId() : "";
+            case "community":
+                if (fieldValue != null) community = Utils.getLocationById(fieldValue);
+                return  community != null ? community.getId() : "";
+            case "ward":
+            default:
+                if (fieldValue != null) ward = Utils.getLocationById(fieldValue);
+                return  wardId != null ? ward.getId() : "";
+        }
+    }
 }
