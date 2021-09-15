@@ -5,7 +5,6 @@ import static com.vijay.jsonwizard.constants.JsonFormConstants.KEYS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUES;
 import static com.vijay.jsonwizard.widgets.TimePickerFactory.KEY.VALUE;
-
 import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_COMMUNITY;
 import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_LGA;
 import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME.FAMILY_LOCATION_STATE;
@@ -17,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
@@ -102,7 +100,7 @@ public class FamilyRegisterJsonFormFragmentPresenter extends JsonFormFragmentPre
 
             if (controlsToHide != null && !controlsToHide.isEmpty()) {
                 for (String control : controlsToHide) {
-                    MaterialSpinner spinnerToHide = (MaterialSpinner) familyWizardFormExtendedActivity.getFormDataView(JsonFormConstants.STEP1 + ":" + control);
+                    MaterialSpinner spinnerToHide = (MaterialSpinner) familyWizardFormExtendedActivity.getFormDataView(STEP1 + ":" + control);
                     spinnerToHide.setVisibility(View.GONE);
                 }
             }
@@ -149,7 +147,6 @@ public class FamilyRegisterJsonFormFragmentPresenter extends JsonFormFragmentPre
 
     private String getCurrentLocation(String level) {
         String facilityId = Utils.getAllSharedPreferences().fetchUserLocalityId(Utils.getAllSharedPreferences().fetchRegisteredANM());
-        String currentLocation = "";
 
         try {
             JSONObject form = familyWizardFormExtendedActivity.getmJSONObject();
@@ -161,25 +158,24 @@ public class FamilyRegisterJsonFormFragmentPresenter extends JsonFormFragmentPre
             Location ward = Utils.getLocationById(wardId);
             Location lga = Utils.getLocationById(ward != null ? ward.getProperties().getParentId() : "");
             Location state = Utils.getLocationById(lga != null ? lga.getProperties().getParentId() : "");
-            switch (level) {
-                case "state":
-                    currentLocation = state != null ? state.getId() : "";
-                    break;
-                case "lga":
-                    currentLocation = lga != null ? lga.getId() : "";
-                    break;
-                case "community":
-                    currentLocation = community != null ? community.getId() : "";
-                    break;
-                case "ward":
-                default:
-                    currentLocation = wardId != null ? ward.getId() : "";
-                    break;
-            }
+            return getCurrentLocationLevel(level, state, lga, ward, community, wardId);
         } catch (Exception e) {
             Timber.e(e);
         }
+        return "";
+    }
 
-        return currentLocation;
+    private String getCurrentLocationLevel(String level, Location state, Location lga, Location ward, Location community, String wardId) {
+        switch (level) {
+            case "state":
+                return state != null ? state.getId() : "";
+            case "lga":
+                return lga != null ? lga.getId() : "";
+            case "community":
+                return community != null ? community.getId() : "";
+            case "ward":
+            default:
+                return wardId != null ? ward.getId() : "";
+        }
     }
 }
