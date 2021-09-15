@@ -194,21 +194,25 @@ public class FamilyRegisterSpinnerFactory extends SpinnerFactory {
         return "";
     }
 
-    private String getCurrentLocationLevel(String level, Location state, Location lga, Location ward, Location community, String wardId, String fieldValue) {
+    private String getCurrentLocationLevel(String level,final Location state,final Location lga,final Location ward,final Location community, String wardId, String fieldValue) {
+        Location mState = state;
+        Location mLga = lga;
+        Location mCommunity = community;
+        Location mWard = ward;
         switch (level) {
             case "state":
-                if (fieldValue != null) state = Utils.getLocationById(fieldValue);
-                return state != null ? state.getId() : "";
+                if (fieldValue != null) mState = Utils.getLocationById(fieldValue);
+                return mState != null ? mState.getId() : "";
             case "lga":
-                if (fieldValue != null) lga = Utils.getLocationById(fieldValue);
-                return  lga != null ? lga.getId() : "";
+                if (fieldValue != null) mLga = Utils.getLocationById(fieldValue);
+                return  mLga != null ? mLga.getId() : "";
             case "community":
-                if (fieldValue != null) community = Utils.getLocationById(fieldValue);
-                return  community != null ? community.getId() : "";
+                if (fieldValue != null) mCommunity = Utils.getLocationById(fieldValue);
+                return  mCommunity != null ? mCommunity.getId() : "";
             case "ward":
             default:
-                if (fieldValue != null) ward = Utils.getLocationById(fieldValue);
-                return  wardId != null ? ward.getId() : "";
+                if (fieldValue != null) mWard = Utils.getLocationById(fieldValue);
+                return  wardId != null ? mWard.getId() : "";
         }
     }
 }
