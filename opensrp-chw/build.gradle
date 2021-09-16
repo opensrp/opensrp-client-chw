@@ -313,7 +313,7 @@ android {
             versionName "0.1.12"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-lr-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
@@ -344,7 +344,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.2-alpha-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -374,8 +374,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
-
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
 
     //For viewing PDFs in the app
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
