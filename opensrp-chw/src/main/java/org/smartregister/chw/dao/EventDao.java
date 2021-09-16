@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.dao.AbstractDao;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.util.ArrayList;
@@ -15,6 +16,28 @@ import timber.log.Timber;
 
 public class EventDao extends AbstractDao {
 
+    /***
+     * This method forces the device to resync all the data without an event id
+     * NB: Critical bug detected on Sync
+     */
+    public static void markEventsForReUpload() {
+        updateDB("update client set syncStatus = '" + BaseRepository.TYPE_Unsynced + "' where baseEntityId in (select baseEntityId from event where ifnull(eventId,'') = '') ");
+        updateDB("update ImageList set syncStatus = '" + BaseRepository.TYPE_Unsynced + "' where entityId in (select baseEntityId from event where ifnull(eventId,'') = '') ");
+        updateDB("update event set syncStatus = '" + BaseRepository.TYPE_Unsynced + "' where ifnull(eventId,'') = '' ");
+    }
+
+    /***
+     * Computes the minimum server Id before any possibly unsynced event found in the database.
+     * This method should return a NULL value if all events are synced.
+     * @return
+     */
+    public static Long getMinimumVerifiedServerVersion() {
+        String sql = "select max(serverVersion) serverVersion from event where dateCreated <= (select min(dateCreated) minDate from event where ifnull(eventId,'') = '' and syncStatus = 'Synced') ";
+        DataMap<Long> dataMap = c -> {
+            return getCursorLongValue(c, "serverVersion");
+        };
+        return AbstractDao.readSingleValue(sql, dataMap);
+    }
 
     public static List<Event> getEvents(String baseEntityID, String eventType, int limit) {
         String sql = "select json from event where baseEntityId = '" + baseEntityID + "' COLLATE NOCASE and eventType = '" + eventType + "' COLLATE NOCASE order by updatedAt desc limit " + limit;
