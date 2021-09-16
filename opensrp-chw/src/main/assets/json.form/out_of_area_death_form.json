@@ -300,6 +300,7 @@
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Reason",
+        "hidden": "true",
         "values": [
           "Died",
           "Moved away",
@@ -318,6 +319,13 @@
           "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -342,14 +350,7 @@
             "ex": "greaterThanEqualTo(., step1:dob)",
             "err": "Date of death can't occur before date of birth"
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "age_at_death",
@@ -360,13 +361,6 @@
         "hint": "Age at death",
         "type": "edit_text",
         "read_only": "true",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
-        },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
@@ -375,7 +369,6 @@
           }
         }
       },
-
 
 
       {
@@ -401,12 +394,6 @@
           "Place of work": "place_of_work_id_openmrs",
           "Health Facility": "health_facility_id_openmrs",
           "Other": "other_id_openmrs"
-        },
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
         }
       },
       {
@@ -466,13 +453,6 @@
           "Could not determine": "could_not_determine_id_openmrs",
           "Pending investigation": "pending_investigation_id_openmrs",
           "Unknown": "unknown_id_openmrs"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -563,6 +543,10 @@
           "Yes",
           "No"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "deceased_pregnant_yes_id_openmrs",
           "No": "deceased_pregnant_no_id_openmrs"
@@ -610,13 +594,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Informant Details",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "text": "Informant Details"
       },
       {
         "key": "informant_name",
@@ -625,13 +603,7 @@
         "openmrs_entity_id": "informantName",
         "label": "Name",
         "hint": "Name",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "informant_relationship",
@@ -650,12 +622,6 @@
           "Sibling": "sibling_id_openmrs",
           "Parent": "parent_id_openmrs",
           "Other": "other_id_openmrs"
-        },
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
         }
       },
       {
@@ -665,13 +631,7 @@
         "openmrs_entity_id": "informantAddress",
         "label": "Address",
         "hint": "Address",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "informant_phone",
@@ -684,12 +644,6 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid number"
-        },
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
         }
       },
       {
@@ -698,13 +652,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Official Details",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "text": "Official Details"
       },
       {
         "key": "official_name",
@@ -713,13 +661,7 @@
         "openmrs_entity_id": "officialName",
         "label": "Full Name",
         "hint": "Full Name",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "official_ID",
@@ -728,13 +670,7 @@
         "openmrs_entity_id": "officialId",
         "label": "Personal ID number",
         "hint": "Personal ID number",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "official_position",
@@ -743,13 +679,7 @@
         "openmrs_entity_id": "officialPosition",
         "label": "Official position",
         "hint": "Official position",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "type": "edit_text"
       },
 
       {
@@ -759,14 +689,7 @@
         "openmrs_entity_id": "physicianName",
         "label": "Name of physician signing MCCD",
         "hint": "Name of physician signing MCCD",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "physician_position",
@@ -775,14 +698,7 @@
         "openmrs_entity_id": "physicianPosition",
         "label": "Position of physician signing MCCD",
         "hint": "Position of physician signing MCCD",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
-        }
+        "type": "edit_text"
       },
 
       {
@@ -792,13 +708,7 @@
         "openmrs_entity_id": "officialAddress",
         "label": "Address of official",
         "hint": "Address of official",
-        "type": "edit_text",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "official_number",
@@ -811,13 +721,17 @@
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid number"
-        },
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
         }
+      },
+      {
+        "key": "hidden_died_check",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "",
+        "hint": "",
+        "type": "edit_text",
+        "read_only": "true"
       }
     ]
   }

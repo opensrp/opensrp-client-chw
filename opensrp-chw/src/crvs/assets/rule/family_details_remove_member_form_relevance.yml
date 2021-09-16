@@ -45,7 +45,7 @@ actions:
 name: step1_pregnant_died
 description: pregnant_died
 priority: 1
-condition: "step1_deceased_pregnant.equals('Yes')"
+condition: "step1_deceased_pregnant.equals('Yes') && step1_sex.equals('Female')"
 actions:
   - "isRelevant = true"
 ---

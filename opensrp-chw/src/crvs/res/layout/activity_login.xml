@@ -14,7 +14,6 @@
         android:background="#F6F6F6"
         android:paddingBottom="@dimen/login_bottom_margin">
 
-
         <!-- Top section -->
         <LinearLayout
             android:id="@+id/top_section"

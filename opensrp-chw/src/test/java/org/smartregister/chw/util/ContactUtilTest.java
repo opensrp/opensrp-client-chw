@@ -15,9 +15,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.activity.FamilyProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 
 import java.util.LinkedHashMap;
@@ -68,6 +70,19 @@ public class ContactUtilTest {
 
         TestCase.assertNotNull(contacts);
         //assertTrue(isEqual(contacts, expectedResult));
+    }
+
+    @Test
+    public void testGetContactSchedule() {
+        LocalDate lastContact = LocalDate.parse("19/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"));
+
+        MemberObject memberObject = new MemberObject();
+        ReflectionHelpers.setField(memberObject, "lastMenstrualPeriod", "01-01-2019");
+        ReflectionHelpers.setField(memberObject, "baseEntityId", "12345");
+
+        Map<Integer, LocalDate> contacts = ContactUtil.getContactSchedule(memberObject, lastContact);
+
+        TestCase.assertNotNull(contacts);
     }
 
     @After

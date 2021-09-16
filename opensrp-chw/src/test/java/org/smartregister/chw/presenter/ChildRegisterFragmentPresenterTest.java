@@ -52,7 +52,6 @@ public class ChildRegisterFragmentPresenterTest extends BaseUnitTest {
     @Test
     public void testDefaultSortQuery() {
         Assert.assertEquals(" MAX(ec_child.last_interacted_with , ifnull(VISIT_SUMMARY.visit_date,0)) DESC ", presenter.getDefaultSortQuery());
-
     }
 
     @Test

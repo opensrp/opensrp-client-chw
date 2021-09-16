@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+
 import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;

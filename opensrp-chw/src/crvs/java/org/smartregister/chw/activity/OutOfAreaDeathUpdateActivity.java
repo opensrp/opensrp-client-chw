@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.AncLibrary;
@@ -53,7 +55,6 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
     }
 
     public void startAncDangerSignsOutcomeForm() {
-
         try {
             JSONObject formJsonObject = getFormUtils().getFormJson(OUT_OF_AREA_DEATH_FORM);
             String openSRPId = AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId();
