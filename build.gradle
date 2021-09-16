@@ -53,9 +53,8 @@ allprojects {
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
-        maven { url "https://dl.bintray.com/ona/rdt-capture" }
+        maven { url 'https://nexus.pentaho.org/content/groups/omni/' }
         maven { url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases' }
-        maven { url "https://dl.bintray.com/ona/kujaku" }
     }
 }
 
