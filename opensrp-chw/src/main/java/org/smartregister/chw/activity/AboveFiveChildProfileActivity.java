@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
@@ -23,8 +25,6 @@ import org.smartregister.family.util.Constants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 
 public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -161,6 +161,12 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
                     CoreConstants.JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
+    }
+
+    @Override
+    public void setDueTodayServices() {
+        layoutServiceDueRow.setVisibility(View.GONE);
+        textViewDueToday.setVisibility(View.GONE);
     }
 
 }
