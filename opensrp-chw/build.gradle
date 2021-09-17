@@ -85,6 +85,8 @@ android {
         buildConfigField "String", "THINKMD_BASE_URL", '"https://app.africa.thinkmd.tech"'
         buildConfigField "String", "THINKMD_END_POINT", '"/#/start"'
         buildConfigField "String", "ROOT_LOCATION_TAG", '"Country"'
+        buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '1'
+        buildConfigField "int", "MAX_READ_TIMEOUT", '1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -237,8 +239,8 @@ android {
         chad {
             dimension = 'baseDimension'
             applicationIdSuffix ".chad"
-            versionCode 1
-            versionName "1.0.1"
+            versionCode 2
+            versionName "1.0.2"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
@@ -248,13 +250,15 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "DATABASE_VERSION", '14'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
         }
         drc {
             resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
-            versionCode 6
-            versionName "1.0.11"
+            versionCode 10
+            versionName "1.0.15"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
@@ -264,6 +268,8 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante" , "CAC" ,"VILLAGE/COMMUNAUTE"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
             buildConfigField "int", "DATABASE_VERSION", '11'
         }
         nigeria {
@@ -304,14 +310,13 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 22
-            versionName "1.2.4"
+            versionCode 23
+            versionName "1.2.5"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
-            //buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-togo-preview.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village" }'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
