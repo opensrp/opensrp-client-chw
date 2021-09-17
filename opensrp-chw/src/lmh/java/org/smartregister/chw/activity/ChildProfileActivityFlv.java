@@ -7,11 +7,21 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import timber.log.Timber;
 
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
@@ -52,5 +62,35 @@ public class ChildProfileActivityFlv extends DefaultChildProfileActivityFlv {
     @Override
     public String getToolbarTitleName(MemberObject memberObject) {
         return memberObject.getFamilyName();
+    }
+
+    public int immunizationCeiling(final MemberObject memberObject) {
+        String gender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
+
+        if(gender != null && gender.equalsIgnoreCase("Female")){
+            if(memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
+                return 132;
+            }
+            else {
+                return 60;
+            }
+        }
+
+        return 60;
+    }
+
+    public int getAgeInMonths(final MemberObject memberObject) {
+        Date dob = null;
+        try {
+            dob = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(memberObject.getDob());
+        } catch (ParseException e) {
+            Timber.e(e);
+        }
+        return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
+    }
+
+    @Override
+    public boolean childHasPassedImmunizationCeiling(MemberObject memberObject) {
+        return getAgeInMonths(memberObject) > immunizationCeiling(memberObject);
     }
 }

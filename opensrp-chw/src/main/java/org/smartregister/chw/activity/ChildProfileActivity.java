@@ -81,6 +81,9 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 childBaseEntityId, this);
+        if (flavor.childHasPassedImmunizationCeiling(memberObject)){
+            findViewById(R.id.record_visit_bar).setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -290,5 +293,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
         String getToolbarTitleName(MemberObject memberObject);
+
+        /**
+         * checks if child MemberObject has surpassed eligible immunization ceiling
+         * @param memberObject MemberObject
+         * @return boolean
+         */
+        boolean childHasPassedImmunizationCeiling(MemberObject memberObject);
     }
 }

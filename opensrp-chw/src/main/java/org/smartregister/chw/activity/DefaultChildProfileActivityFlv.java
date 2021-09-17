@@ -99,4 +99,9 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     public String getToolbarTitleName(MemberObject memberObject) {
         return memberObject.getFirstName();
     }
+
+    @Override
+    public boolean childHasPassedImmunizationCeiling(MemberObject memberObject) {
+        return false;
+    }
 }
