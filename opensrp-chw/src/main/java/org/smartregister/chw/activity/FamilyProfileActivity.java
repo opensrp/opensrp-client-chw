@@ -35,6 +35,7 @@ import org.smartregister.chw.pnc.activity.BasePncMemberProfileActivity;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.adapter.ViewPagerAdapter;
 import org.smartregister.family.fragment.BaseFamilyProfileDueFragment;
 import org.smartregister.family.util.Constants;
@@ -42,6 +43,8 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -225,8 +228,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     private Intent getChildIntent(CommonPersonObjectClient patient) {
         String dobString = Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false);
-
-        int age = (int) Math.floor(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+        //Today's date
+        LocalDate today = LocalDate.now();
+        LocalDate birthday = LocalDate.of(new DateTime(dobString).toLocalDate().getYear(), new DateTime(dobString).toLocalDate().getMonthOfYear(), new DateTime(dobString).toLocalDate().getDayOfMonth()); //Birth date
+        Period p = Period.between(birthday, today);
+        int age = p.getYears();
 
         String gender = ChwChildDao.getChildGender(patient.entityId());
         if (ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven()) {
