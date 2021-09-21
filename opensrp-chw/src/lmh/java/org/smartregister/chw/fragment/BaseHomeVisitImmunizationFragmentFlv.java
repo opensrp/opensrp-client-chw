@@ -6,6 +6,7 @@ import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
@@ -43,12 +44,17 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        DatePickerUtils.themeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
+        callDatePickerUtilsThemeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @VisibleForTesting
+    void callDatePickerUtilsThemeDatePicker(DatePicker datePicker, char[] ymdOrder){
+        DatePickerUtils.themeDatePicker(datePicker, ymdOrder);
     }
 
     @Override
     protected void setDatePickerTheme(DatePicker picker) {
-        DatePickerUtils.themeDatePicker(picker, new char[]{'d', 'm', 'y'});
+        callDatePickerUtilsThemeDatePicker(picker, new char[]{'d', 'm', 'y'});
     }
 }
