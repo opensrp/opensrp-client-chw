@@ -19,6 +19,8 @@ import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.presenter.CoreChildRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.domain.FetchStatus;
@@ -27,8 +29,13 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -93,11 +100,29 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
         when(fragment.getActivity()).thenReturn(activity);
         when(fragment.getContext()).thenReturn(activity);
         View view = LayoutInflater.from(activity).inflate(org.smartregister.chw.core.R.layout.fragment_base_register, null);
+        View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+        doNothing().when(fragment).toggleFilterSelection(eq(dueOnlyLayout));
         fragment.setupViews(view);
 
-        View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         assertEquals(View.VISIBLE, dueOnlyLayout.getVisibility());
+    }
+
+    @Test
+    public void testSetUpViewsWithDisableChildRegistrationTitleGoBack(){
+        when(fragment.getActivity()).thenReturn(activity);
+        when(fragment.getContext()).thenReturn(activity);
+        View view = LayoutInflater.from(activity).inflate(org.smartregister.chw.core.R.layout.fragment_base_register, null);
+        View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
+        doNothing().when(fragment).toggleFilterSelection(eq(dueOnlyLayout));
+        fragment.setupViews(view);
+
+        View titleLayout = view.findViewById(R.id.title_layout);
+        if (ChwApplication.getApplicationFlavor().disableChildRegistrationTitleGoBack()){
+            assertFalse(titleLayout.hasOnClickListeners());
+        }else{
+            assertTrue(titleLayout.hasOnClickListeners());
+        }
     }
 }
 
