@@ -1,5 +1,12 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +25,6 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildProfileActivity;
-import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
@@ -37,13 +43,6 @@ import org.smartregister.family.util.Constants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
-import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -145,11 +144,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
     }
 
-    private String getEligibleChildString(){
-        if(flavor.usesEligibleChildText()){
+    private String getEligibleChildString() {
+        if (flavor.usesEligibleChildText()) {
             return getString(R.string.edit_eligible_child_form_title, memberObject.getFirstName());
-        }
-        else {
+        } else {
             return getString(org.smartregister.chw.core.R.string.edit_child_form_title, memberObject.getFirstName());
         }
     }
