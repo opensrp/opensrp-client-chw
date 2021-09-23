@@ -4,14 +4,16 @@
     <string name="nav_logo" tools:ignore="MissingTranslation">CRVS App</string>
     <string name="dead_clients" tools:ignore="MissingTranslation">Dead Clients</string>
     <string name="birth_certification">Birth certification</string>
-    <string name="out_of_area_registration" tools:ignore="MissingTranslation">Out of area birth</string>
-    <string name="out_of_area_death" tools:ignore="MissingTranslation">Out of area death</string>
     <string name="birth_notification" tools:ignore="MissingTranslation">Birth Notification</string>
-    <string name="death_certification" tools:ignore="MissingTranslation">Death certification</string>
     <string name="certificate_received" tools:ignore="MissingTranslation">Certificate received</string>
     <string name="certificate_not_received" tools:ignore="MissingTranslation">Certificate not received</string>
     <string name="status_updated" tools:ignore="MissingTranslation">Status updated</string>
     <string name="update_status" tools:ignore="MissingTranslation">Update Status</string>
     <string name="update_details" tools:ignore="MissingTranslation">Update Details</string>
     <string name="certified" tools:ignore="MissingTranslation">Certified</string>
+
+    <!-- Sync status progress bar -->
+    <string name="device_data_synced">Device data synced</string>
+    <string name="device_data_not_synced">Device data not synced</string>
+    <string name="progressBarLabel">Syncing %s : %d%% </string>
 </resources>

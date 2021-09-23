@@ -442,9 +442,12 @@
     <string name="counseling">Counseling</string>
     <string name="reset_pin_login">Reset Pin Login</string>
     <string name="birth_certificate_num_error_msg">Birth certificate number must be unique and cannot exceed 15 digits.</string>
-    
     <string name="unauthorized_group">This account is not allowed to access this device</string>
-
     <string name="birth_notification" translatable="false">Birth Notification</string>
+
+    <!-- Sync status progress bar -->
+    <string name="device_data_synced">Device data synced</string>
+    <string name="device_data_not_synced">Device data not synced</string>
+    <string name="progressBarLabel">Syncing %s : %d%% </string>
 
 </resources>

@@ -2,4 +2,9 @@
     <string name="app_name">CRVS</string>
     <string name="login_title">CRVS Login</string>
     <string name="nav_logo">CRVS App</string>
+
+    <!-- Sync status progress bar -->
+    <string name="device_data_synced">Les données de l\'appareil ont été synchronisées</string>
+    <string name="device_data_not_synced">Les données de l\'appareil ne sont synchronisées</string>
+    <string name="progressBarLabel">Synchronisation %s : %d%% </string>
 </resources>

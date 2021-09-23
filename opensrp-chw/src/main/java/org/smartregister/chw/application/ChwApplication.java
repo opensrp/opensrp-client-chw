@@ -4,16 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Build;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.evernote.android.job.JobManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -202,16 +199,13 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
         setOpenSRPUrl();
 
-        Configuration configuration = getApplicationContext().getResources().getConfiguration();
-        String language;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            language = configuration.getLocales().get(0).getLanguage();
-        } else {
-            language = configuration.locale.getLanguage();
-        }
-
+        String language = CoreChwApplication.getLanguage(getApplicationContext());
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
+            CoreChwApplication.getInstance().persistLanguage(language);
+        }else if (language.equals(Locale.ENGLISH.getLanguage())) {
+            saveLanguage(Locale.ENGLISH.getLanguage());
+            CoreChwApplication.getInstance().persistLanguage(language);
         }
 
         // create a folder for guidebooks
