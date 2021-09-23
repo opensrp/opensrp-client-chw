@@ -19,8 +19,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getBirthCertification;
-
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
 
     public static void startFamilyRegisterForm(Activity activity) {
