@@ -1,6 +1,7 @@
 package org.smartregister.chw.model;
 
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import static org.smartregister.chw.util.JsonFormUtils.processFamilyUpdateForm;
+
 import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyProfileModel;
@@ -20,6 +21,6 @@ public class FamilyProfileModel extends BaseFamilyProfileModel {
     }
 
     public FamilyEventClient processFamilyRegistrationForm(String jsonString, String familyBaseEntityId) {
-        return CoreJsonFormUtils.processFamilyUpdateForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId);
+        return processFamilyUpdateForm(FamilyLibrary.getInstance().context().allSharedPreferences(), jsonString, familyBaseEntityId);
     }
 }
