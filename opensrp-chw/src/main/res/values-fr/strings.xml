@@ -362,8 +362,8 @@
     <string name="any_changes_you_make">Toutes les modifications que vous avez apportées seront perdues</string>
 
     <!-- Sync status progress bar -->
-    <string name="device_data_synced">Les données de l\'appareil ont été synchronisées</string>
-    <string name="device_data_not_synced">Les données de l\'appareil ne sont synchronisées</string>
+    <string name="device_data_synced">Données de l’appareil synchronisées</string>
+    <string name="device_data_not_synced">Données de l\'appareil non synchronisées</string>
     <string name="progressBarLabel">Synchronisation %s : %d%% </string>
 
 </resources>
