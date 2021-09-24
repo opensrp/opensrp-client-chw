@@ -1,10 +1,14 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.core.utils.CoreConstants.EventType.WASH_CHECK;
+import static org.smartregister.chw.core.utils.CoreJsonFormUtils.READ_ONLY;
+
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
@@ -37,9 +41,6 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.CoreConstants.EventType.WASH_CHECK;
-import static org.smartregister.chw.core.utils.CoreJsonFormUtils.READ_ONLY;
 
 
 public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFragment {
@@ -155,7 +156,7 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
 
         if (WASH_CHECK.equalsIgnoreCase(type)) {
             if (ChwApplication.getApplicationFlavor().launchWashCheckOnNativeForm()) {
-                startForm(visitDate);
+                startWashCheckNativeForm(visitDate,familyBaseEntityId);
             } else {
                 WashCheckDialogFragment dialogFragment = WashCheckDialogFragment.getInstance(familyBaseEntityId, visitDate);
                 FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
@@ -181,9 +182,10 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         }
     }
 
-    private void startForm(Long visitDate) {
+    @VisibleForTesting
+    protected void startWashCheckNativeForm(Long visitDate, String familyBaseEntityId) {
         try {
-            JSONObject jsonForm = populateWashCheckFields(visitDate);
+            JSONObject jsonForm = populateWashCheckFields(visitDate, familyBaseEntityId);
             jsonForm.put(JsonFormUtils.ENTITY_ID, familyBaseEntityId);
             Intent intent = new Intent(getActivity(), Utils.metadata().familyMemberFormActivity);
             intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
@@ -203,9 +205,10 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
         }
     }
 
-    private JSONObject populateWashCheckFields(Long visitDate) throws Exception {
-        JSONObject jsonForm = FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
-        Map<String, VisitDetail> washData = WashCheckDao.getWashCheckDetails(visitDate, familyBaseEntityId);
+    @VisibleForTesting
+    protected JSONObject populateWashCheckFields(Long visitDate, String familyBaseEntityId) throws Exception {
+        JSONObject jsonForm = getWashCheckForm();
+        Map<String, VisitDetail> washData = queryWashCheckDetails(visitDate, familyBaseEntityId);
         JSONArray jsonArray = jsonForm.getJSONObject("step1").getJSONArray("fields");
 
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -218,6 +221,16 @@ public class FamilyProfileActivityFragment extends BaseFamilyProfileActivityFrag
             }
         }
         return jsonForm;
+    }
+
+    @VisibleForTesting
+    protected Map<String, VisitDetail> queryWashCheckDetails(Long visitDate, String familyBaseEntityId) {
+        return WashCheckDao.getWashCheckDetails(visitDate, familyBaseEntityId);
+    }
+
+    @VisibleForTesting
+    protected JSONObject getWashCheckForm() throws Exception {
+        return FormUtils.getInstance(getActivity()).getFormJson(org.smartregister.chw.util.Constants.JSON_FORM.getWashCheck());
     }
 
 }

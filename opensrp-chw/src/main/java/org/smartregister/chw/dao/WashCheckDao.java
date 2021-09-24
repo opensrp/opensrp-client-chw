@@ -1,5 +1,7 @@
 package org.smartregister.chw.dao;
 
+import static org.mvel2.DataConversion.convert;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,8 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.mvel2.DataConversion.convert;
 
 public class WashCheckDao extends AbstractDao {
 
