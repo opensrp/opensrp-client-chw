@@ -144,7 +144,12 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             startActivity(intent);
             finish();
         }
+        execute();
+    }
+
+    protected void execute(){
         ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+
     }
 
     private void addChildReferralTypes() {
