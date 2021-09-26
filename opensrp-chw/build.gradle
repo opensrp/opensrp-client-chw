@@ -307,9 +307,9 @@ android {
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 6
-            versionName "0.1.12"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
+            versionCode 7
+            versionName "0.2.0"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-lr-preview.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
@@ -317,6 +317,8 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
             buildConfigField "int", "DATABASE_VERSION", '7'
         }
         lmh {
