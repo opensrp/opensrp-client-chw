@@ -15,11 +15,10 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     protected int immunizationCeiling() {
         String gender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
 
-        if(gender != null && gender.equalsIgnoreCase("Female")){
-            if(memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
+        if (gender != null && gender.equalsIgnoreCase("Female")) {
+            if (memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
                 return 132;
-            }
-            else {
+            } else {
                 return 60;
             }
         }
@@ -37,6 +36,11 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    protected int vaccineCardCeiling() {
+        return 60;
     }
 
 }

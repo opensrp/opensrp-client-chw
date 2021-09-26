@@ -32,7 +32,6 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
         return false;
     }
 
-
     @Override
     public Intent getStockReportIntent(Activity activity) {
         return null;
@@ -58,4 +57,8 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
         return null;
     }
 
+    @Override
+    public boolean hasMultipleLanguages() {
+        return true;
+    }
 }

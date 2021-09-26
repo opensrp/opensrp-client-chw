@@ -22,7 +22,9 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.custom_views.FamilyFloatingMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
@@ -34,6 +36,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
@@ -200,5 +204,25 @@ public class FamilyProfileActivityTest {
         // test that updates are sent to the refresh member list
 
         Mockito.verify(spyActivity).refreshMemberList(FetchStatus.fetched);
+    }
+
+    @Test
+    public void testSetupViews() {
+        activity = Mockito.spy(FamilyProfileActivity.class);
+        //TextView titleTv = Mockito.mock(TextView.class);
+        //  ListView listView = Mockito.mock(ListView.class);
+        CircleImageView circleImageView = Mockito.mock(CircleImageView.class);
+        FamilyFloatingMenu familyFloatingMenu = Mockito.mock(FamilyFloatingMenu.class);
+
+        ReflectionHelpers.setField(activity, "familyFloatingMenu", familyFloatingMenu);
+
+        Mockito.doReturn(circleImageView).when(activity).findViewById(R.id.imageview_profile);
+
+        //  Mockito.doReturn(listView).when(activity).findViewById(R.id.lv_reportRegister_groupings);
+        // Mockito.doReturn(titleTv).when(activity).findViewById(R.id.title);
+
+        activity.setupViews();
+
+        Mockito.verify(circleImageView).setBorderWidth(2);
     }
 }

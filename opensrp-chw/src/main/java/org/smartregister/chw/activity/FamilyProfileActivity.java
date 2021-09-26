@@ -1,15 +1,18 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -18,7 +21,9 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
+import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.ChwFamilyFloatingMenu;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
@@ -36,12 +41,35 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+
+        // Update profile border
+        CircleImageView profileView = findViewById(org.smartregister.chw.core.R.id.imageview_profile);
+        profileView.setBorderWidth(2);
+
+        // add floating menu
+        familyFloatingMenu = new ChwFamilyFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+        familyFloatingMenu.setClickListener(
+                FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
+        );
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -198,8 +226,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     private Intent getChildIntent(CommonPersonObjectClient patient) {
         String dobString = Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false);
-
-        int age = (int) Math.floor(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+        //Today's date
+        LocalDate today = LocalDate.now();
+        LocalDate birthday = LocalDate.of(new DateTime(dobString).toLocalDate().getYear(), new DateTime(dobString).toLocalDate().getMonthOfYear(), new DateTime(dobString).toLocalDate().getDayOfMonth()); //Birth date
+        Period p = Period.between(birthday, today);
+        int age = p.getYears();
 
         String gender = ChwChildDao.getChildGender(patient.entityId());
         if (ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven()) {
@@ -222,10 +253,5 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
-    }
-
-    @Override
-    public void setEventDate(String s) {
-
     }
 }
