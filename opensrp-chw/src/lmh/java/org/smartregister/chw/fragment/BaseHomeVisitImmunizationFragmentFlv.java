@@ -11,12 +11,15 @@ import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.util.DatePickerUtils;
 
 import java.util.List;
 import java.util.Map;
 
 public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitImmunizationFragment {
+
+    private List<VaccineWrapper> vaccineWrappers;
 
     public static BaseHomeVisitImmunizationFragmentFlv getInstance(final BaseAncHomeVisitContract.VisitView view, String baseEntityID, Map<String, List<VisitDetail>> details, List<VaccineDisplay> vaccineDisplays) {
         return getInstance(view, baseEntityID, details, vaccineDisplays, true);
@@ -44,5 +47,13 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         DatePickerUtils.themeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    public void setVaccineWrappers(List<VaccineWrapper> vaccineWrappers) {
+        this.vaccineWrappers = vaccineWrappers;
+    }
+
+    public List<VaccineWrapper> getVaccineWrappers() {
+        return vaccineWrappers;
     }
 }

@@ -2,6 +2,8 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
+import androidx.core.util.Supplier;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.joda.time.LocalDate;
@@ -37,8 +39,7 @@ import timber.log.Timber;
 public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
 
     private Context context;
-    private List<VaccineWrapper> wrappers;
-    private LocalDate dueDate;
+    private Supplier<List<VaccineWrapper>> vaccineSupplier;
     private AlertStatus status;
 
     private List<String> keys = new ArrayList<>();
@@ -46,9 +47,9 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     private List<String> notDoneVaccines = new ArrayList<>();
     private Map<String, VaccineRepo.Vaccine> vaccineMap = new HashMap<>();
 
-    public ImmunizationActionHelper(Context context, List<VaccineWrapper> wrappers) {
+    public ImmunizationActionHelper(Context context, Supplier<List<VaccineWrapper>> vaccineSupplier) {
         this.context = context;
-        this.wrappers = wrappers;
+        this.vaccineSupplier = vaccineSupplier;
         List<String> serviceGroups = Arrays.asList(CoreConstants.SERVICE_GROUPS.CHILD, org.smartregister.chw.util.Constants.CHILD_OVER_5);
         List<VaccineRepo.Vaccine> repo = new ArrayList<>();
         for (String serviceGroup : serviceGroups) {
@@ -65,7 +66,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         LocalDate dueDate = null;
         AlertStatus myStatus = null;
 
-        for (VaccineWrapper vaccineWrapper : wrappers) {
+        for (VaccineWrapper vaccineWrapper : vaccineSupplier.get()) {
             Alert alert = vaccineWrapper.getAlert();
 
             if (myStatus == null || (alert != null && !alert.status().equals(AlertStatus.expired))) {
@@ -81,8 +82,27 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             keys.add(NCUtils.removeSpaces(vaccineWrapper.getName()));
         }
 
-        this.dueDate = new LocalDate(dueDate);
         this.status = myStatus;
+    }
+
+    private LocalDate getDueDate(){
+        LocalDate dueDate = null;
+        AlertStatus myStatus = null;
+
+        for (VaccineWrapper vaccineWrapper : vaccineSupplier.get()) {
+            Alert alert = vaccineWrapper.getAlert();
+
+            if (myStatus == null || (alert != null && !alert.status().equals(AlertStatus.expired))) {
+                myStatus = alert.status();
+            } else if (alert != null && alert.status().equals(AlertStatus.urgent)) {
+                myStatus = alert.status();
+            }
+
+            if (dueDate == null) {
+                dueDate = new LocalDate(alert.startDate());
+            }
+        }
+        return dueDate == null ? LocalDate.now() : dueDate;
     }
 
     @Override
@@ -150,7 +170,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             due = context.getString(R.string.overdue);
         }
 
-        return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(dueDate));
+        return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(getDueDate()));
     }
 
     /**
