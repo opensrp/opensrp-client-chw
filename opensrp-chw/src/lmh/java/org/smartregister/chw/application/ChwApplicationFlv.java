@@ -161,4 +161,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean useAllChildrenTitle(){
         return true;
     }
+
+    @Override
+    public boolean showDueFilterToggle(){
+        return false;
+    }
 }

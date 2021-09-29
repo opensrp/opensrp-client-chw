@@ -221,4 +221,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean useAllChildrenTitle(){
         return false;
     }
+
+    @Override
+    public boolean showDueFilterToggle(){
+        return true;
+    }
 }

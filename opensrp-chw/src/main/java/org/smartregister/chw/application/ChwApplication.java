@@ -440,6 +440,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean useAllChildrenTitle();
 
+        boolean showDueFilterToggle();
+
     }
 
 }
