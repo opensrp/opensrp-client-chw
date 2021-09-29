@@ -93,7 +93,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean launchChildClientsAtLogin() {
-        return true;
+        return false;
     }
 
     @Override
@@ -154,6 +154,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+        return true;
+    }
+
+    @Override
+    public boolean useAllChildrenTitle(){
         return true;
     }
 }
