@@ -32,7 +32,7 @@ public class EventDao extends AbstractDao {
      * @return
      */
     public static Long getMinimumVerifiedServerVersion() {
-        String sql = "select max(serverVersion) serverVersion  from event where dateCreated <= (select min(dateCreated) minDate from event where ifnull(eventId,'') = '' and syncStatus = 'Synced') ";
+        String sql = "select max(serverVersion) serverVersion from event where dateCreated <= (select min(dateCreated) minDate from event where ifnull(eventId,'') = '' and syncStatus = 'Synced') ";
         DataMap<Long> dataMap = c -> {
             return getCursorLongValue(c, "serverVersion");
         };
