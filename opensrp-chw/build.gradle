@@ -310,7 +310,7 @@ android {
         liberia {
             dimension = 'baseDimension'
             versionCode 7
-            versionName "0.2.0"
+            versionName "1.0.0"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
