@@ -104,14 +104,6 @@
           "value": "true",
           "err": "{{birth_certification.step1.birth_cert_num.v_required.err}}"
         },
-        "v_numeric": {
-          "value": "true",
-          "err": "{{birth_certification.step1.birth_cert_num.v_numeric.err}}"
-        },
-        "v_regex": {
-          "value": "([0-9]{1,15})|\\s*",
-          "err": "{{birth_certification.step1.birth_cert_num.v_regex.err}}"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

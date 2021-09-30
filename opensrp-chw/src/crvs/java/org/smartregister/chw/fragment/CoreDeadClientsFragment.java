@@ -1,7 +1,11 @@
 package org.smartregister.chw.fragment;
 
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
@@ -28,6 +32,8 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.HashMap;
 import java.util.Set;
 import timber.log.Timber;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class CoreDeadClientsFragment extends BaseChwRegisterFragment implements CoreChildRegisterFragmentContract.View {
 
@@ -312,6 +318,9 @@ public class CoreDeadClientsFragment extends BaseChwRegisterFragment implements 
             if (dueFilterActive){
                 query = customDeathDueFilterQuery(clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset(), ((CoreDeadClientsFragmentPresenter) presenter()).getDueCondition("1"), ((CoreDeadClientsFragmentPresenter) presenter()).getDueCondition("2"), ((CoreDeadClientsFragmentPresenter) presenter()).getDueCondition("3"));
             }
+            ClipboardManager clipboard = (ClipboardManager) mView.getContext().getSystemService(CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("label", query);
+            clipboard.setPrimaryClip(clip);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -109,7 +109,7 @@
         "hint": "Date of birth (DOB)",
         "expanded": false,
         "min_date": "today-120y",
-        "max_date": "today-5y",
+        "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -165,8 +165,8 @@
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
         "v_min": {
-          "value": "5",
-          "err": "Age must be equal or greater than 5"
+          "value": "1",
+          "err": "Age must be greater than 0"
         },
         "v_max": {
           "value": "120",
@@ -299,7 +299,7 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Reason",
+        "hint": "Select the reason for removing the child's record.",
         "hidden": "true",
         "values": [
           "Died",
@@ -462,7 +462,7 @@
         "openmrs_entity_id": "medicallyTreated",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the deceased medically treated 4 weeks prior to death ?",
+        "hint": "Was the deceased admitted to a health facility in the past 4 weeks ?",
         "v_required": {
           "value": "true",
           "err": "Select one value from dropdown"
@@ -503,22 +503,6 @@
           "Yes": "cause_of_death_yes_id_openmrs",
           "No": "cause_of_death_no_id_openmrs"
         },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "death_cause",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "deathCause",
-        "label": "Cause of death",
-        "hint": "Cause of death",
-        "type": "edit_text",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -681,26 +665,6 @@
         "hint": "Official position",
         "type": "edit_text"
       },
-
-      {
-        "key": "physician_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "physicianName",
-        "label": "Name of physician signing MCCD",
-        "hint": "Name of physician signing MCCD",
-        "type": "edit_text"
-      },
-      {
-        "key": "physician_position",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "physicianPosition",
-        "label": "Position of physician signing MCCD",
-        "hint": "Position of physician signing MCCD",
-        "type": "edit_text"
-      },
-
       {
         "key": "official_address",
         "openmrs_entity_parent": "",
@@ -723,6 +687,79 @@
           "err": "Please enter a valid number"
         }
       },
+
+
+
+
+
+
+
+
+      {
+        "key": "physician_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physicianName",
+        "label": "Name of physician signing MCCD",
+        "hint": "Name of physician signing MCCD",
+        "type": "edit_text"
+      },
+      {
+        "key": "physician_position",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physicianPosition",
+        "label": "Position of physician signing MCCD",
+        "hint": "Position of physician signing MCCD",
+        "type": "edit_text"
+      },
+
+      {
+        "key": "still_born_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stillBornDeath",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was this a stillborn Death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select One"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "still_born_yes_id_openmrs",
+          "No": "still_born_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCause",
+        "label": "Cause of death",
+        "hint": "Cause of death",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+
       {
         "key": "hidden_died_check",
         "openmrs_entity_parent": "",

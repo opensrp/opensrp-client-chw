@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -199,13 +200,18 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
         setOpenSRPUrl();
 
-        String language = CoreChwApplication.getLanguage(getApplicationContext());
+        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+        String language;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            language = configuration.getLocales().get(0).getLanguage();
+        } else {
+            language = configuration.locale.getLanguage();
+        }
+
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
-            CoreChwApplication.getInstance().persistLanguage(language);
         }else if (language.equals(Locale.ENGLISH.getLanguage())) {
             saveLanguage(Locale.ENGLISH.getLanguage());
-            CoreChwApplication.getInstance().persistLanguage(language);
         }
 
         // create a folder for guidebooks

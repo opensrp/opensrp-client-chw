@@ -271,6 +271,120 @@
           "err": "Please enter birth place name"
         }
       },
+
+
+      {
+        "key": "no_children",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "Number of children born",
+        "repeating_group_label": "Baby Details #",
+        "repeating_group_max": "10",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "hint": "Number of children born",
+        "openmrs_entity_id": "",
+        "v_numeric_integer": {
+          "value": "true"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please specify the # of babies"
+        }
+      },
+      {
+        "key": "del_attendant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Type of attendance at delivery",
+        "values": [
+          "Doctor",
+          "Nurse",
+          "Midwife",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Doctor": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Nurse": "openmrs_choice_ids_birth_nurse",
+          "Midwife": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "openmrs_choice_ids_birth_other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "del_mode",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Mode of delivery",
+        "values": [
+          "C-Section",
+          "Forceps",
+          "Normal delivery",
+          "Vacuum",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "C-Section": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Forceps": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Normal delivery": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Vacuum": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "type_of_pregnancy",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Type of pregnancy (singlet, twin, etc.)",
+        "values": [
+          "Singleton",
+          "Twin",
+          "Triplet",
+          "Other",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Singleton": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Twin": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Triplet": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "birth_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "Baby birth weight",
+        "hint": "Baby birth weight",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        }
+      },
+
+
       {
         "key": "mother_name",
         "openmrs_entity_parent": "",
