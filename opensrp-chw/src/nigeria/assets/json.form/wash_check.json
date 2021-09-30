@@ -148,15 +148,19 @@
           "{{wash_check.step1.drinking_water_source.values[2]}}",
           "{{wash_check.step1.drinking_water_source.values[3]}}",
           "{{wash_check.step1.drinking_water_source.values[4]}}",
-          "{{wash_check.step1.drinking_water_source.values[5]}}"
+          "{{wash_check.step1.drinking_water_source.values[5]}}",
+          "{{wash_check.step1.drinking_water_source.values[6]}}",
+          "{{wash_check.step1.drinking_water_source.values[7]}}"
         ],
         "keys": [
           "Piped Water through tap",
+          "Hand Pump Borehole",
+          "Motorized Borehole with public tap",
+          "Motorized Borehole with house connection",
           "Protected Dug Well",
-          "Unprotected Well",
           "Rainwater harvesting",
-          "Open surface water (River, Dam, Lake, Pond, Stream, Canal",
-          "OTHER ( SPECIFY)"
+          "Open surface water (River, Stream, Unprotected Well etc)",
+          "Other ( Specify)"
         ],
         "relevance": {
           "step1:clean_drinking_water": {

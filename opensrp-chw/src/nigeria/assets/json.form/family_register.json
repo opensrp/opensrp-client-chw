@@ -152,11 +152,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "{{family_register.step1.village_town.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{family_register.step1.village_town.v_required.err}}"
-        }
+        "hint": "{{family_register.step1.village_town.hint}}"
       },
       {
         "key": "quarter_clan",
@@ -164,11 +160,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "commune",
-        "hint": "{{family_register.step1.quarter_clan.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{family_register.step1.quarter_clan.v_required.err}}"
-        }
+        "hint": "{{family_register.step1.quarter_clan.hint}}"
       },
       {
         "key": "street",
