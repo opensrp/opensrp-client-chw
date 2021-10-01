@@ -1,10 +1,14 @@
 package org.smartregister.chw.repository;
 
+import static org.smartregister.repository.BaseRepository.TYPE_Synced;
+import static org.smartregister.repository.BaseRepository.TYPE_Valid;
+
 import android.content.Context;
 import android.database.Cursor;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.format.DateTimeFormat;
 import org.json.JSONObject;
 import org.smartregister.chw.anc.AncLibrary;
@@ -50,6 +54,9 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class ChwRepositoryFlv {
+
+    private static final String EVENT_ID = "id";
+    private static final String _ID = "_id";
 
     public static void onUpgrade(Context context, SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w(ChwRepository.class.getName(),
@@ -109,18 +116,13 @@ public class ChwRepositoryFlv {
                 case 20:
                     upgradeToVersion20(db);
                     break;
+                case 21:
+                    upgradeToVersion21(db);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
-        }
-    }
-
-    private static void upgradeToVersion20(SQLiteDatabase db) {
-        try {
-            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion20");
         }
     }
 
@@ -336,6 +338,7 @@ public class ChwRepositoryFlv {
                 while (!cursor.isAfterLast()) {
                     String json = cursor.getString(cursor.getColumnIndex("json"));
                     Event event = syncHelper.convert(new JSONObject(json), Event.class);
+                    event.setEventId(getEventId(json));
                     events.add(event);
                     cursor.moveToNext();
                 }
@@ -346,6 +349,24 @@ public class ChwRepositoryFlv {
             cursor.close();
         }
         return events;
+    }
+
+    private static String getEventId(String jsonString) {
+        JSONObject jsonObject;
+        String eventId = null;
+        if (StringUtils.isNotEmpty(jsonString)) {
+            try {
+                jsonObject = new JSONObject(jsonString);
+                if (jsonObject.has(EVENT_ID)) {
+                    eventId = jsonObject.getString(EVENT_ID);
+                }else if (jsonObject.has(_ID)) {
+                    eventId = jsonObject.getString(_ID);
+                }
+            } catch (Exception ex) {
+                Timber.e(ex);
+            }
+        }
+        return eventId;
     }
 
     private static void processHFNextVisitDateObs(List<Event> events, SQLiteDatabase sqLiteDatabase) {
@@ -420,17 +441,17 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion17");
         }
     }
-  
+
     private static void upgradeToVersion18(SQLiteDatabase db) {
         try {
             ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
             initializeIndicatorDefinitions(reportingLibraryInstance, db);
-        } catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e, "upgradeToVersion18");
         }
     }
-  
-   private static void upgradeToVersion19(Context context, SQLiteDatabase db) {
+
+    private static void upgradeToVersion19(Context context, SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
@@ -438,6 +459,44 @@ public class ChwRepositoryFlv {
             IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion20(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion20");
+        }
+    }
+
+    private static void upgradeToVersion21(SQLiteDatabase db) {
+        List<Event> events = new ArrayList<>();
+        String eventTableName = EventClientRepository.Table.event.name();
+        String eventIdCol = EventClientRepository.event_column.eventId.name();
+        String eventSyncStatusCol = EventClientRepository.event_column.syncStatus.name();
+        String eventValidCol = EventClientRepository.event_column.validationStatus.name();
+        String jsonCol = EventClientRepository.event_column.json.name();
+        String formSubmissionCol = EventClientRepository.event_column.formSubmissionId.name();
+
+        Cursor cursor;
+        String selection = eventIdCol + " IS NULL AND " + eventValidCol + " = ?";
+        try {
+            cursor = db.query(eventTableName, new String[]{jsonCol},
+                    selection, new String[]{TYPE_Valid}, null, null, null);
+            events = readEvents(cursor);
+        } catch (Exception ex) {
+            Timber.e(ex);
+        }
+        String updateSQL;
+        for (Event event : events) {
+            updateSQL = String.format("UPDATE %s SET %s = '%s', %s = '%s' WHERE %s = '%s';", eventTableName,
+                    eventIdCol, event.getEventId(), eventSyncStatusCol, TYPE_Synced, formSubmissionCol, event.getFormSubmissionId());
+            try {
+                db.execSQL(updateSQL);
+            } catch (Exception e) {
+                Timber.e(e, "upgradeToVersion21 ");
+            }
         }
     }
 }
