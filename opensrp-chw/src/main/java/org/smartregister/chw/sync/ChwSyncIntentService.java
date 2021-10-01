@@ -12,6 +12,6 @@ public class ChwSyncIntentService extends SyncIntentService {
 
     @Override
     protected Integer getEventBatchSize(){
-        return 250;
-    }
+        return 180;
+    } // Should this be configurable?
 }
