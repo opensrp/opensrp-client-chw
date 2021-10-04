@@ -25,4 +25,8 @@
 
     <string name="remove_family_count">%s adults and %s U11 children</string>
     <string name="any_changes_you_make">Are you sure you want to go back? All data you have entered in this form will be cleared.</string>
+
+    <string name="device_to_device">Transfer Data</string>
+    <string name="menu_child_clients">All Children</string>
+    <string name="menu_add_new_family">Add New Family</string>
 </resources>

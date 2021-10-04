@@ -156,4 +156,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
         return true;
     }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return false;
+    }
 }

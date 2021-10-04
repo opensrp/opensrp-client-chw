@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,6 +29,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             BottomNavigationHelper bottomNavigationHelper, BottomNavigationView bottomNavigationView, Activity activity
     ) {
         Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, new ChwBottomNavigationListener(activity));
+        if (!ChwApplication.getApplicationFlavor().showBottomNavigation()
+                && bottomNavigationView != null){
+            bottomNavigationView.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -216,4 +216,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
         return false;
     }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return true;
+    }
 }

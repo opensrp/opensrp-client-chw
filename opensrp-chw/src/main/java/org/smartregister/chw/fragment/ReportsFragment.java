@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import org.smartregister.chw.activity.FragmentBaseActivity;
 import org.smartregister.chw.adapter.ListableAdapter;
 import org.smartregister.chw.adapter.ReportsFragmentAdapter;
 import org.smartregister.chw.contract.ListContract;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.domain.ReportType;
 import org.smartregister.chw.presenter.ListPresenter;
 import org.smartregister.chw.viewholder.ListableViewHolder;
@@ -38,6 +40,8 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.reports_fragment, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar_top);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
         bindLayout();
         loadPresenter();
 
