@@ -158,6 +158,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean disableChildRegistrationTitleGoBack() {
+        return true;
+    }
+
     public boolean showReportsDescription() {
         return true;
     }
