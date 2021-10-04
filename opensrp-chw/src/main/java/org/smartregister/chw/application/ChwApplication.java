@@ -443,6 +443,12 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showBottomNavigation();
 
+        boolean disableChildRegistrationTitleGoBack();
+
+        boolean showReportsDescription();
+
+        boolean showReportsDivider();
+
     }
 
 }
