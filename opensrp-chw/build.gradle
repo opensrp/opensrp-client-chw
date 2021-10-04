@@ -165,9 +165,9 @@ android {
             returnDefaultValues = true
             includeAndroidResources = true
         }
+
         unitTests.all {
-            systemProperty 'robolectric.enabledSdks', '28'
-            jvmArgs '-noverify'
+            jvmArgs "-Xmx3g"
         }
     }
 
@@ -302,7 +302,7 @@ android {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-LMH-Beta-01-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -311,6 +311,7 @@ dependencies {
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
         exclude group: 'com.ibm.fhir', module: 'fhir-path'
+        exclude group: 'com.ibm.fhir', module: 'fhir-model'
     }
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
@@ -343,8 +344,15 @@ dependencies {
     testImplementation 'org.robolectric:shadows-multidex:4.3.1'
     testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
     testImplementation 'androidx.test:core:1.3.0'
-  //  testImplementation 'com.ibm.fhir:fhir-model:4.7.0'
+    //  testImplementation 'com.ibm.fhir:fhir-model:4.7.0'
     // testImplementation 'com.ibm.fhir:fhir-path:4.7.0'
+
+    // unit test
+    def powerMockVersion = '2.0.7'
+    testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
+    testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
+    testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 }
 
 def flavors = android.productFlavors.collect { flavor -> flavor.name }

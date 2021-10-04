@@ -53,13 +53,13 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+5y"
+              "window": "+1y"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+5y"
+              "offset": "+1y"
             }
           ]
         }
