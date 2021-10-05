@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,6 +37,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
             BottomNavigationHelper bottomNavigationHelper, BottomNavigationView bottomNavigationView, Activity activity
     ) {
         Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, new ChwBottomNavigationListener(activity));
+        if (!ChwApplication.getApplicationFlavor().showBottomNavigation()
+                && bottomNavigationView != null){
+            bottomNavigationView.setVisibility(View.GONE);
+        }
     }
 
     @Override

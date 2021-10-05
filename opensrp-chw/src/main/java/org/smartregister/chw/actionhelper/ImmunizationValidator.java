@@ -43,7 +43,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
     ) {
         vaccineSchedules = VisitVaccineUtil.getSchedule(vaccinesGroups, specialVaccines, vaccineCategory);
         for (org.smartregister.immunization.domain.Vaccine vaccine : vaccines) {
-            administeredVaccines.put(vaccine.getName(), vaccine.getDate());
+            administeredVaccines.put(vaccine.getName().toLowerCase(), vaccine.getDate());
         }
     }
 
@@ -134,8 +134,14 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
             // add all the received vaccines in the map
             if (prevFragment != null) {
                 for (VaccineDisplay display : prevFragment.getVaccineDisplays().values()) {
-                    if (display.getValid())
-                        receivedVacs.put(display.getVaccineWrapper().getName(), display.getDateGiven());
+                    String displayName = display.getVaccineWrapper().getName().toLowerCase();
+                    if (display.getValid()) {
+                        receivedVacs.put(displayName, display.getDateGiven());
+                    } else if (receivedVacs.containsKey(displayName)
+                            && !display.getValid() // If not valid, remove from administered vaccines
+                    ) {
+                        receivedVacs.remove(displayName);
+                    }
                 }
             }
 

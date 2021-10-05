@@ -142,28 +142,52 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showChildrenAboveTwoDueStatus(){
+    public boolean showChildrenAboveTwoDueStatus() {
         return false;
     }
 
     @Override
-    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {return false;}
-
-    @Override
-    public boolean hasForeignData(){return true;}
-
-    @Override
-    public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
-        return true;
-    }
-
-    @Override
-    public boolean useAllChildrenTitle(){
-        return true;
-    }
-
-    @Override
-    public boolean showDueFilterToggle(){
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {
         return false;
+    }
+
+    @Override
+    public boolean hasForeignData() {
+        return true;
+    }
+
+    @Override
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven() {
+        return true;
+    }
+
+    @Override
+    public boolean useAllChildrenTitle() {
+        return false;
+    }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return false;
+    }
+
+    @Override
+    public boolean disableChildRegistrationTitleGoBack() {
+        return true;
+    }
+
+    @Override
+    public boolean showReportsDescription() {
+        return true;
+    }
+
+    @Override
+    public boolean showDueFilterToggle() {
+        return false;
+    }
+
+    @Override
+    public boolean showReportsDivider() {
+        return true;
     }
 }

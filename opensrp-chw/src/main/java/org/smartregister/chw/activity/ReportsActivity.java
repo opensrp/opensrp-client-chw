@@ -2,11 +2,13 @@ package org.smartregister.chw.activity;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.fragment.ReportsFragment;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -28,13 +30,20 @@ public class ReportsActivity extends SecuredActivity {
             switchToFragment(new ReportsFragment());
         }
 
+        NavigationMenu.getInstance(this, null, null);
+
         onCreation();
+
+        if (getSupportActionBar() != null){
+
+        }
+
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
     }
 
     private void switchToFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.content, fragment)
+                .add(R.id.main_content, fragment)
                 .commit();
     }
 
@@ -44,7 +53,7 @@ public class ReportsActivity extends SecuredActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
         if (bottomNavigationView != null)
-           bottomNavigationView.getMenu().findItem(R.id.action_report).setChecked(true);
+            bottomNavigationView.getMenu().findItem(R.id.action_report).setChecked(true);
     }
 
     @Override

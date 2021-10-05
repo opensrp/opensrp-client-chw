@@ -131,7 +131,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showChildrenUnder5(){return true;}
+    public boolean showChildrenUnder5() {
+        return true;
+    }
 
     @Override
     public boolean launchChildClientsAtLogin() {
@@ -184,7 +186,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean includeCurrentChild(){
+    public boolean includeCurrentChild() {
         return true;
     }
 
@@ -204,26 +206,52 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean showChildrenAboveTwoDueStatus(){return true;}
-
-    @Override
-    public boolean showFamilyServicesScheduleWithChildrenAboveTwo(){return true;}
-
-    @Override
-    public boolean hasForeignData(){return false;}
-
-    @Override
-    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
-        return false;
-    }
-
-    @Override
-    public boolean useAllChildrenTitle(){
-        return false;
-    }
-
-    @Override
-    public boolean showDueFilterToggle(){
+    public boolean showChildrenAboveTwoDueStatus() {
         return true;
+    }
+
+    @Override
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {
+        return true;
+    }
+
+    @Override
+    public boolean hasForeignData() {
+        return false;
+    }
+
+    @Override
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven() {
+        return false;
+    }
+
+    @Override
+    public boolean useAllChildrenTitle() {
+        return true;
+    }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return true;
+    }
+
+    @Override
+    public boolean disableChildRegistrationTitleGoBack() {
+        return false;
+    }
+
+    @Override
+    public boolean showReportsDescription() {
+        return false;
+    }
+
+    @Override
+    public boolean showDueFilterToggle() {
+        return true;
+    }
+
+    @Override
+    public boolean showReportsDivider() {
+        return false;
     }
 }

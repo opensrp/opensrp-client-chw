@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +17,9 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.FragmentBaseActivity;
 import org.smartregister.chw.adapter.ListableAdapter;
 import org.smartregister.chw.adapter.ReportsFragmentAdapter;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.ListContract;
+import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.domain.ReportType;
 import org.smartregister.chw.presenter.ListPresenter;
 import org.smartregister.chw.viewholder.ListableViewHolder;
@@ -38,14 +42,22 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.reports_fragment, container, false);
+        Toolbar toolbar = view.findViewById(R.id.toolbar_top);
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
         bindLayout();
         loadPresenter();
 
         presenter.fetchList(() -> {
             List<ReportType> list = new ArrayList<>();
-            list.add(new ReportType(getString(R.string.eligible_children), getString(R.string.eligible_children)));
-            list.add(new ReportType(getString(R.string.doses_needed), getString(R.string.doses_needed)));
-            list.add(new ReportType(getString(R.string.community_activity), getString(R.string.community_activity)));
+            if (ChwApplication.getApplicationFlavor().showReportsDescription()){
+                list.add(new ReportType(getString(R.string.eligible_children), getString(R.string.eligible_children), getString(R.string.eligible_children_description)));
+                list.add(new ReportType(getString(R.string.doses_needed), getString(R.string.doses_needed), getString(R.string.doses_needed_description)));
+                list.add(new ReportType(getString(R.string.community_activity), getString(R.string.community_activity), getString(R.string.community_activity_description)));
+            }else {
+                list.add(new ReportType(getString(R.string.eligible_children), getString(R.string.eligible_children)));
+                list.add(new ReportType(getString(R.string.doses_needed), getString(R.string.doses_needed)));
+                list.add(new ReportType(getString(R.string.community_activity), getString(R.string.community_activity)));
+            }
             return list;
         });
 
@@ -57,8 +69,12 @@ public class ReportsFragment extends Fragment implements ListContract.View<Repor
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        if (ChwApplication.getApplicationFlavor().showReportsDivider()){
+            recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), layoutManager.getOrientation()));
+        }
 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
