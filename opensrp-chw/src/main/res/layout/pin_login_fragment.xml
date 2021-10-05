@@ -99,6 +99,7 @@
                 android:inputType="numberPassword"
                 android:lines="1"
                 android:paddingLeft="10dp"
+                android:maxLength="4"
                 android:paddingBottom="20dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"

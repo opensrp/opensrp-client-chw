@@ -69,6 +69,7 @@
         android:imeOptions="actionDone"
         android:inputType="numberPassword"
         android:focusedByDefault="true"
+        android:maxLength="4"
         android:paddingBottom="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
