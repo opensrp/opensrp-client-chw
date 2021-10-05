@@ -27,10 +27,15 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
 
     private PinLogger pinLogger = PinLoginUtil.getPinLogger();
+    private String adminLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            adminLogin = bundle.getString(org.smartregister.chw.util.Constants.Login.ADMIN_LOGIN);
+        }
     }
 
     @Override
@@ -50,15 +55,17 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     private void pinLoginAttempt() {
         // if the user has pin
-        if (mLoginPresenter.isUserLoggedOut()) {
-            if (pinLogger.isPinSet()) {
-                Intent intent = new Intent(this, PinLoginActivity.class);
-                intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
-                startActivity(intent);
-                finish();
+        if(adminLogin == null){
+            if (mLoginPresenter.isUserLoggedOut()) {
+                if (pinLogger.isPinSet()) {
+                    Intent intent = new Intent(this, PinLoginActivity.class);
+                    intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
+                    startActivity(intent);
+                    finish();
+                }
+            } else {
+                goToHome(false);
             }
-        } else {
-            goToHome(false);
         }
     }
 
