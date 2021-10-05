@@ -310,8 +310,8 @@ android {
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 23
-            versionName "1.2.5"
+            versionCode 26
+            versionName "1.2.7"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
@@ -322,13 +322,15 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '20'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '10'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '10'
+            buildConfigField "int", "DATABASE_VERSION", '21'
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 6
-            versionName "0.1.12"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
+            versionCode 7
+            versionName "1.0.0"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
@@ -336,6 +338,8 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
             buildConfigField "int", "DATABASE_VERSION", '7'
         }
         lmh {
@@ -396,6 +400,8 @@ dependencies {
 
     //For viewing PDFs in the app
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8@aar'
 
     testImplementation "org.koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13'
