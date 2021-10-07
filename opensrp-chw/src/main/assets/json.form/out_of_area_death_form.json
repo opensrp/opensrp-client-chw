@@ -760,6 +760,94 @@
         }
       },
 
+
+      {
+        "key": "received_death_certificate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receivedDeathCertificate",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the family of the decedent have a death certificate (Y/N)?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please choose an option"
+        }
+      },
+      {
+        "key": "death_certificate_issue_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificateIssueDate",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "label": "Death certificate issuance date (if certificate received)",
+        "hint": "Death certificate issuance date (if certificate received)",
+        "expanded": false,
+        "min_date": "",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Required issue date"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumber",
+        "label": "Death certificate number (if certificate received)",
+        "hint": "Death certificate number (if certificate received)",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_notification_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathNotificationDone",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was the death notification done (if certificate not received) - Y/N)?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+
       {
         "key": "hidden_died_check",
         "openmrs_entity_parent": "",

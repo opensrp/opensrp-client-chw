@@ -62,6 +62,7 @@
         "type": "label",
         "text": "Death Certificate"
       },
+      
       {
         "key": "received_death_certificate",
         "openmrs_entity_parent": "",
@@ -110,7 +111,7 @@
         "key": "death_certificate_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "deathCertificationNumber",
         "label": "Death certificate number (if certificate received)",
         "hint": "Death certificate number (if certificate received)",
         "type": "edit_text",
@@ -129,7 +130,7 @@
         "key": "death_notification_done",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "deathNotificationDone",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Was the death notification done (if certificate not received) - Y/N)?",

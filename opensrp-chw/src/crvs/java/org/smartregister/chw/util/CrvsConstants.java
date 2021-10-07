@@ -17,6 +17,8 @@ public class CrvsConstants {
     public static String HAS_DEATH_CERTIFICATE = "received_death_certificate";
     public static String BIRTH_CERT_NUM = "birth_cert_num";
     public static String DEATH_CERTIFICATE_ISSUE_DATE = "death_certificate_issue_date";
+    public static String DEATH_NOTIFICATION_DONE = "death_notification_done";
+    public static String DEATH_CERTIFICATE_NUMBER = "death_certificate_number";
     public static String BIRTH_CERT = "birth_cert";
     public static String BIRTH_CERTIFICATE_ISSUE_DATE = "birth_cert_issue_date";
     public static String BIRTH_CERTIFICATION_CHANGED = "birth_certification_changed";
@@ -56,6 +58,7 @@ public class CrvsConstants {
     public static String FATHER_MARITAL_STATUS = "father_marital_status";
     public static String FATHER_HIGHEST_EDU_LEVEL = "father_highest_edu_level";
     public static String OUT_OF_AREA = "outOfArea";
+    public static String ADULT = "adult";
 
     // Forms
     public static String DEATH_MEMBER_FORM = "death_member_form";
@@ -70,6 +73,7 @@ public class CrvsConstants {
     // Tables
     public static String TABLE_OUT_OF_AREA_DEATH = "ec_out_of_area_death";
     public static String TABLE_OUT_OF_AREA_CHILD = "ec_out_of_area_child";
+    public static String TABLE_FAMILY_MEMBER = "ec_family_member";
 
     // Headings
     public static String OUT_OF_AREA_DEATH_HEADING = "Out of area death";

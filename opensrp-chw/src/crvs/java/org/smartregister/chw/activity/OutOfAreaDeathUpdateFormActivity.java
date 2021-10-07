@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -83,6 +84,8 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
         return commonPersonObjectClient;
     }
 
+
+
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
@@ -92,7 +95,9 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
-
+        }else{
+            startActivity(new Intent(this, OutOfAreaDeathActivity.class));
+            finish();
         }
     }
 

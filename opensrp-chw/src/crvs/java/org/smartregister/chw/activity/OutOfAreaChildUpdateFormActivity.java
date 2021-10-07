@@ -92,6 +92,9 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
             } catch (Exception e) {
                 Timber.e(e);
             }
+        }else{
+            startActivity(new Intent(this, OutOfAreaChildActivity.class));
+            finish();
         }
     }
 

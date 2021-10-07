@@ -109,6 +109,23 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
                     fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
                     break;
                 }
+                case "OutOfArea": {
+                    viewHolder.textViewChildName.setVisibility(View.GONE);
+                    viewHolder.textViewChildAge.setVisibility(View.GONE);
+                    String age = WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
+                    String personName = firstName;
+                    fillValue(viewHolder.textViewParentName, WordUtils.capitalize(personName) + ", " + age);
+                    String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
+                    String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+                    String gender = "";
+                    if (gender_key.equalsIgnoreCase("Male")) {
+                        gender = context.getString(org.smartregister.chw.core.R.string.male);
+                    } else if (gender_key.equalsIgnoreCase("Female")) {
+                        gender = context.getString(org.smartregister.chw.core.R.string.female);
+                    }
+                    fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
+                    break;
+                }
                 default:
                     // Do nothing
                     break;

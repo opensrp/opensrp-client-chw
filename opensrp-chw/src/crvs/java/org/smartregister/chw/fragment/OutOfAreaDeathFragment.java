@@ -10,7 +10,7 @@ import androidx.loader.content.Loader;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.OutOfAreaChildActivity;
+import org.smartregister.chw.activity.OutOfAreaDeathActivity;
 import org.smartregister.chw.activity.OutOfAreaDeathUpdateFormActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildRegisterFragmentContract;
@@ -65,6 +65,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
 
     @Override
     protected void onResumption() {
+
         if (dueFilterActive && dueOnlyLayout != null) {
             dueFilter(dueOnlyLayout);
         } else {
@@ -84,7 +85,7 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
 
     @Override
     protected void startRegistration() {
-        ((OutOfAreaChildActivity) requireActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, "");
+        ((OutOfAreaDeathActivity) requireActivity()).startFormActivity(CoreConstants.JSON_FORM.getChildRegister(), null, "");
     }
 
     @Override

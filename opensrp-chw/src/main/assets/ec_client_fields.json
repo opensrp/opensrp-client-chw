@@ -256,10 +256,10 @@
         },
         {
           "column_name": "received_death_certificate",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "received_death_certificate"
+            "concept": "receivedDeathCertificate"
           }
         },
         {
@@ -300,6 +300,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "pregnantDied"
+          }
+        },
+        {
+          "column_name": "death_certificate_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathCertificationNumber"
+          }
+        },
+        {
+          "column_name": "death_notification_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "deathNotificationDone"
           }
         }
       ]
@@ -540,6 +556,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "birthRegistration"
+          }
+        },
+        {
+          "column_name": "death_notification_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "deathNotificationDone"
+          }
+        },
+        {
+          "column_name": "death_certificate_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathCertificationNumber"
           }
         }
       ]
@@ -1013,15 +1045,15 @@
         },
         {
           "column_name": "received_death_certificate",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "received_death_certificate"
+            "concept": "receivedDeathCertificate"
           }
         },
         {
           "column_name": "death_certificate_issue_date",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "deathCertificateIssueDate"
@@ -1064,6 +1096,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "formSubmissionField": "pregnantDied"
+          }
+        },
+        {
+          "column_name": "death_notification_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "deathNotificationDone"
+          }
+        },
+        {
+          "column_name": "death_certificate_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathCertificationNumber"
           }
         }
       ]
@@ -1376,6 +1424,22 @@
           "type": "Event",
           "json_mapping": {
             "field": "version"
+          }
+        },
+        {
+          "column_name": "death_notification_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "formSubmissionField": "deathNotificationDone"
+          }
+        },
+        {
+          "column_name": "death_certificate_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathCertificationNumber"
           }
         }
       ]

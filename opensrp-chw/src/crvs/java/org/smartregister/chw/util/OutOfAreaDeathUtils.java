@@ -34,23 +34,19 @@ public abstract class OutOfAreaDeathUtils {
 
     public static String[] mainColumns(String tableName) {
         ArrayList<String> columnList = new ArrayList<>();
-        columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
-        columnList.add(tableName + "." + CrvsConstants.SURNAME);
         columnList.add(tableName + "." + CrvsConstants.NAME);
         columnList.add(tableName + "." + CrvsConstants.NATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.DOB);
-        columnList.add(tableName + "." + CrvsConstants.DOB_UNKNOWN);
-        columnList.add(tableName + "." + CrvsConstants.AGE_CALCULATED);
-        columnList.add(tableName + "." + CrvsConstants.AGE);
         columnList.add(tableName + "." + CrvsConstants.REMOVE_REASON);
-        columnList.add(tableName + "." + CrvsConstants.DOD);
+        columnList.add(tableName + "." + "date_died");
         columnList.add(tableName + "." + CrvsConstants.DEATH_PLACE);
         columnList.add(tableName + "." + CrvsConstants.NATIONALITY);
-        columnList.add(tableName + "." + CrvsConstants.MIDDLE_NAME);
         columnList.add(tableName + "." + CrvsConstants.MARITAL_STATUS);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
+        columnList.add(tableName + "." + CrvsConstants.DEATH_CERTIFICATE_NUMBER);
         return columnList.toArray(new String[columnList.size()]);
     }
 
