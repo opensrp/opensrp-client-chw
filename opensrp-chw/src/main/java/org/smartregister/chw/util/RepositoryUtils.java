@@ -79,7 +79,7 @@ public interface RepositoryUtils {
                     selection, new String[]{TYPE_Valid}, null, null, null);
             events = readEvents(cursor);
         } catch (Exception ex) {
-            Timber.e(ex);
+            Timber.e(ex, "Problem getting events ");
         }
         String updateSQL;
         for (Event event : events) {
@@ -88,7 +88,7 @@ public interface RepositoryUtils {
             try {
                 db.execSQL(updateSQL);
             } catch (Exception e) {
-                Timber.e(e, "UpdateNullEventIds ");
+                Timber.e(e, "Problem executing update ");
             }
         }
     }
