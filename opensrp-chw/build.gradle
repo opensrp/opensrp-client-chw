@@ -247,7 +247,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '14'
+            buildConfigField "int", "DATABASE_VERSION", '15'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
         }
