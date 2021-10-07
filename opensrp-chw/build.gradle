@@ -255,8 +255,8 @@ android {
             resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
-            versionCode 10
-            versionName "1.0.15"
+            versionCode 11
+            versionName "1.0.16"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
@@ -268,7 +268,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
-            buildConfigField "int", "DATABASE_VERSION", '11'
+            buildConfigField "int", "DATABASE_VERSION", '12'
         }
         guinea {
             dimension = 'baseDimension'
