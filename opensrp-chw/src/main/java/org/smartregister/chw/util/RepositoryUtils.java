@@ -93,7 +93,7 @@ public class RepositoryUtils {
         }
     }
 
-    static List<Event> readEvents(Cursor cursor) {
+    public static List<Event> readEvents(Cursor cursor) {
         List<Event> events = new ArrayList<>();
         ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
         try {
