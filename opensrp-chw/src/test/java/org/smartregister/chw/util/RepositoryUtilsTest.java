@@ -16,7 +16,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.repository.EventClientRepository;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class)
+@Config(application = ChwApplication.class, sdk = 22)
 public class RepositoryUtilsTest {
 
     @Mock
