@@ -123,10 +123,9 @@ public class OutOfAreaDeathProvider implements RecyclerViewProvider<RegisterView
         try{
             String name = "Name: "+Utils.getValue(pc.getColumnmaps(), "name", true);
             fillValue(viewHolder.textViewParentName, WordUtils.capitalize(name));
-            String removeReason = "Remove reason: "+Utils.getValue(pc.getColumnmaps(), "remove_reason", true);
             String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-            String age = WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
-            fillValue(viewHolder.textViewChildName, WordUtils.capitalize(removeReason)+", "+age);
+            String age = "Age at death: "+WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
+            fillValue(viewHolder.textViewChildName, age);
             String marital_status = Utils.getValue(pc.getColumnmaps(), "marital_status", true);
             fillValue(viewHolder.textViewAddressGender, "Marital status: "+marital_status);
         }catch (Exception e){
