@@ -239,8 +239,8 @@ android {
         chad {
             dimension = 'baseDimension'
             applicationIdSuffix ".chad"
-            versionCode 2
-            versionName "1.0.2"
+            versionCode 3
+            versionName "1.0.3"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
@@ -249,7 +249,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '14'
+            buildConfigField "int", "DATABASE_VERSION", '15'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
         }
@@ -328,8 +328,8 @@ android {
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 7
-            versionName "1.0.0"
+            versionCode 8
+            versionName "1.0.1"
             buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
@@ -340,7 +340,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
-            buildConfigField "int", "DATABASE_VERSION", '7'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
         lmh {
             dimension = 'baseDimension'
