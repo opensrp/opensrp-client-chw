@@ -280,11 +280,11 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://dcis-ng.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://dcis-ng.labs.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"State" , "Lga" , "Ward","Community"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"State" , "Lga" , "Ward","Community"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"State" , "Lga" , "Ward","Community"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"Community"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Community"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"State" , "Lga" , "Ward","Community","Sub-Community"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"State" , "Lga" , "Ward","Community","Sub-Community"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"State" , "Lga" , "Ward","Community","Sub-Community"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Sub-Community"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Sub-Community"'
             buildConfigField "int", "DATABASE_VERSION", '15'
         }
         guinea {
