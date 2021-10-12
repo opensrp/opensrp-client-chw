@@ -223,7 +223,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean disableChildRegistrationTitleGoBack() {
+    public boolean disableTitleClickGoBack() {
         return false;
     }
 
