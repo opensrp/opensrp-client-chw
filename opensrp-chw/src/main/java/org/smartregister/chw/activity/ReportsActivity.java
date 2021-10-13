@@ -34,10 +34,6 @@ public class ReportsActivity extends SecuredActivity {
 
         onCreation();
 
-        if (getSupportActionBar() != null){
-
-        }
-
         ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
     }
 
