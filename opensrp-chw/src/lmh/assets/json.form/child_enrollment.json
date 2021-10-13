@@ -62,6 +62,7 @@
         "type": "edit_text",
         "hint": "ID *",
         "read_only": "true",
+        "hidden": "true",
         "value": "0",
         "v_numeric": {
           "value": "true",

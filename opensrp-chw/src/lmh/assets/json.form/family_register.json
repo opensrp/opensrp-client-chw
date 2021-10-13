@@ -123,6 +123,7 @@
         "type": "edit_text",
         "hint": "ID *",
         "value": "0",
+        "hidden": "true",
         "read_only": "true",
         "v_numeric": {
           "value": "true",

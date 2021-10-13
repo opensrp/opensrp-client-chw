@@ -62,6 +62,7 @@
         "type": "edit_text",
         "read_only": "true",
         "hint": "UNIQUE ID *",
+        "hidden": "true",
         "value": "0",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
