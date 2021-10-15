@@ -382,7 +382,7 @@ dependencies {
     //For viewing PDFs in the app
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8@aar'
+    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
 
     testImplementation "org.koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13'
