@@ -449,6 +449,14 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showReportsDivider();
 
+        boolean hideChildRegisterPreviousNextIcons();
+
+        boolean hideFamilyRegisterPreviousNextIcons();
+
+        boolean showFamilyRegisterNextInToolbar();
+
+        boolean onFamilySaveGoToProfile();
+
     }
 
 }

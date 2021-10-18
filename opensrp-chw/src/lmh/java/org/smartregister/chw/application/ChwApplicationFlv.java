@@ -93,7 +93,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean launchChildClientsAtLogin() {
-        return true;
+        return false;
     }
 
     @Override
@@ -173,6 +173,26 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean showReportsDivider() {
+        return true;
+    }
+
+    @Override
+    public boolean hideChildRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean hideFamilyRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return true;
+    }
+
+    @Override
+    public boolean onFamilySaveGoToProfile() {
         return true;
     }
 }

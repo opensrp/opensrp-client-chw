@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="family_floating_fab_icon" type="drawable">@drawable/ic_input_add</item>
+</resources>

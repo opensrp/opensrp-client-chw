@@ -6,14 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.vijay.jsonwizard.domain.Form;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
+import org.smartregister.chw.presenter.FamilyRegisterPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -33,6 +37,11 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
                 && bottomNavigationView != null){
             bottomNavigationView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void initializePresenter() {
+        this.presenter = new FamilyRegisterPresenter(this, new BaseFamilyRegisterModel());
     }
 
     @Override
@@ -56,5 +65,21 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new FamilyRegisterFragment();
+    }
+
+
+    @Override
+    public Form getFormConfig() {
+        Form currentConfig =  super.getFormConfig();
+        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()){
+            currentConfig.setHidePreviousIcon(true);
+            currentConfig.setHideNextIcon(true);
+        }
+        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()){
+            currentConfig.setHideNextButton(true);
+            currentConfig.setNextLabel(getString(R.string.next));
+            currentConfig.setShowNextInToolbarWhenWizard(true);
+        }
+        return currentConfig;
     }
 }
