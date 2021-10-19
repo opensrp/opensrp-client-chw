@@ -69,5 +69,11 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         } else {
             dueOnlyLayout.setVisibility(View.GONE);
         }
+
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
+            android.view.View titleLayout = view.findViewById(R.id.title_layout);
+            titleLayout.setOnClickListener(null);
+        }
     }
+
 }

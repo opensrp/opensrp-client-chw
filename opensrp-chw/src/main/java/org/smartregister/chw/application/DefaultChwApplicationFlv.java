@@ -227,7 +227,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean useAllChildrenTitle() {
-        return true;
+        return false;
     }
 
     @Override
@@ -236,7 +236,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
-    public boolean disableChildRegistrationTitleGoBack() {
+    public boolean disableTitleClickGoBack() {
         return false;
     }
 
@@ -252,6 +252,24 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean showReportsDivider() {
+        return false;
+    }
+
+    public boolean hideChildRegisterPreviousNextIcons(){
+        return false;
+    }
+
+    public boolean hideFamilyRegisterPreviousNextIcons(){
+        return false;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return false;
+    }
+
+    @Override
+    public boolean onFamilySaveGoToProfile() {
         return false;
     }
 }

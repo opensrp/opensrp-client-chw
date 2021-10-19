@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/chw_primary</item>
         <item name="colorPrimaryDark">@color/chw_primary_dark</item>
         <item name="colorAccent">@color/chw_accent</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="ChwTheme.NoActionBar">

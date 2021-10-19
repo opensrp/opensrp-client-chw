@@ -64,7 +64,7 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     public void setupViews(android.view.View view) {
         super.setupViews(view);
 
-        if (ChwApplication.getApplicationFlavor().disableChildRegistrationTitleGoBack()) {
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
             android.view.View titleLayout = view.findViewById(R.id.title_layout);
             titleLayout.setOnClickListener(null);
         }

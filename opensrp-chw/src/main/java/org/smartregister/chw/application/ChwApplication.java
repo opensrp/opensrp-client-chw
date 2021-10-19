@@ -447,11 +447,20 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showBottomNavigation();
 
-        boolean disableChildRegistrationTitleGoBack();
+        boolean disableTitleClickGoBack();
 
         boolean showReportsDescription();
 
         boolean showReportsDivider();
+
+        boolean hideChildRegisterPreviousNextIcons();
+
+        boolean hideFamilyRegisterPreviousNextIcons();
+
+        boolean showFamilyRegisterNextInToolbar();
+
+        boolean onFamilySaveGoToProfile();
+
     }
 
 }

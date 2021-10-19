@@ -163,7 +163,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean useAllChildrenTitle() {
-        return false;
+        return true;
     }
 
     @Override
@@ -172,7 +172,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean disableChildRegistrationTitleGoBack() {
+    public boolean disableTitleClickGoBack() {
         return true;
     }
 
@@ -188,6 +188,26 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean showReportsDivider() {
+        return true;
+    }
+
+    @Override
+    public boolean hideChildRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean hideFamilyRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return true;
+    }
+
+    @Override
+    public boolean onFamilySaveGoToProfile() {
         return true;
     }
 }
