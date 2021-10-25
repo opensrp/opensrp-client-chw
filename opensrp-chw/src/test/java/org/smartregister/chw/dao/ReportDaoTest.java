@@ -16,6 +16,9 @@ import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.Repository;
 
 import java.util.ArrayList;
+import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.repository.Repository;
+
 import java.util.List;
 import java.util.Map;
 
@@ -58,17 +61,5 @@ public class ReportDaoTest extends ReportDao {
 
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
         Assert.assertEquals(vaccines.size(), 0);
-    }
-
-    @Test
-    public void testFetchLiveEligibleChildrenReport() {
-        LocalDate dueDate = LocalDate.parse("19/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"));
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"location_id", "provider_id"});
-        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
-        List<String> communityIds = new ArrayList<>();
-        communityIds.add("1");
-        List<EligibleChild> eligibleChildren = ReportDao.fetchLiveEligibleChildrenReport(communityIds, dueDate.toDate());
-        Assert.assertEquals(eligibleChildren.size(), 0);
     }
 }

@@ -6,14 +6,12 @@ import android.database.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.joda.time.format.DateTimeFormat;
-import org.json.JSONObject;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
@@ -38,7 +36,6 @@ import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
@@ -109,18 +106,13 @@ public class ChwRepositoryFlv {
                 case 20:
                     upgradeToVersion20(db);
                     break;
+                case 21:
+                    upgradeToVersion21(db);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
-        }
-    }
-
-    private static void upgradeToVersion20(SQLiteDatabase db) {
-        try {
-            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion20");
         }
     }
 
@@ -317,33 +309,13 @@ public class ChwRepositoryFlv {
         try {
             String[] myStringArray = {"json"};
             cursor = db.query(EventClientRepository.Table.event.name(), myStringArray, " eventType = ? ", selectionArgs, null, null, " eventDate ASC ", null);
-            events = readEvents(cursor);
+            events = RepositoryUtils.readEvents(cursor);
         } catch (Exception e) {
             Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
-        }
-        return events;
-    }
-
-    private static List<Event> readEvents(Cursor cursor) {
-        List<Event> events = new ArrayList<>();
-        ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
-        try {
-            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-                while (!cursor.isAfterLast()) {
-                    String json = cursor.getString(cursor.getColumnIndex("json"));
-                    Event event = syncHelper.convert(new JSONObject(json), Event.class);
-                    events.add(event);
-                    cursor.moveToNext();
-                }
-            }
-        } catch (Exception e) {
-            Timber.e(e);
-        } finally {
-            cursor.close();
         }
         return events;
     }
@@ -420,17 +392,17 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion17");
         }
     }
-  
+
     private static void upgradeToVersion18(SQLiteDatabase db) {
         try {
             ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
             initializeIndicatorDefinitions(reportingLibraryInstance, db);
-        } catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e, "upgradeToVersion18");
         }
     }
-  
-   private static void upgradeToVersion19(Context context, SQLiteDatabase db) {
+
+    private static void upgradeToVersion19(Context context, SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
@@ -439,5 +411,17 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private static void upgradeToVersion20(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion20");
+        }
+    }
+
+    private static void upgradeToVersion21(SQLiteDatabase db) {
+        RepositoryUtils.updateNullEventIds(db);
     }
 }

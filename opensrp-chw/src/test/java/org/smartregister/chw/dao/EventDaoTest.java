@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.dao.AbstractDao;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class EventDaoTest extends AbstractDao {
     }
 
     @Test
-    public void getEvents() {
+    public void getEventsReturnsCorrectEvents() {
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"json"});
         matrixCursor.addRow(new Object[]{eventJson});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
@@ -48,7 +49,7 @@ public class EventDaoTest extends AbstractDao {
     }
 
     @Test
-    public void getLatestEvent() {
+    public void getLatestEventReturnsCorrectEvent() {
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"json"});
         matrixCursor.addRow(new Object[]{eventJson});
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
@@ -56,5 +57,23 @@ public class EventDaoTest extends AbstractDao {
         Assert.assertNotNull(event);
     }
 
+    @Test
+    public void markEventsForReUploadExecutesCorrectUpdateQueries() {
+        Mockito.doReturn(database).when(repository).getWritableDatabase();
+        EventDao.markEventsForReUpload();
+        Mockito.verify(database).rawExecSQL("update client set syncStatus = '" + BaseRepository.TYPE_Unsynced + "' where baseEntityId in (select baseEntityId from event where ifnull(eventId,'') = '') ");
+        Mockito.verify(database).rawExecSQL("update ImageList set syncStatus = '" + BaseRepository.TYPE_Unsynced + "' where entityId in (select baseEntityId from event where ifnull(eventId,'') = '') ");
+        Mockito.verify(database).rawExecSQL("update event set syncStatus = '" + BaseRepository.TYPE_Unsynced + "' where ifnull(eventId,'') = '' ");
+    }
+
+    @Test
+    public void getMinimumVerifiedServerVersionReturnsCorrectVersion() {
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"serverVersion"});
+        matrixCursor.addRow(new Object[]{12324567L});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+        Long serverVersion = EventDao.getMinimumVerifiedServerVersion();
+        Assert.assertNotNull(serverVersion);
+        Assert.assertTrue(serverVersion.equals(12324567L));
+    }
 
 }

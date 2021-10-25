@@ -8,4 +8,10 @@ public class ChwSyncIntentService extends SyncIntentService {
     public int getEventPullLimit() {
         return 1000;
     }
+
+
+    @Override
+    protected Integer getEventBatchSize(){
+        return 50;
+    } // Should this be configurable?
 }
