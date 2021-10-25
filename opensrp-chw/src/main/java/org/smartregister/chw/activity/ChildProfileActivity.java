@@ -156,10 +156,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, ChildRegisterActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
+                if (ChwApplication.getApplicationFlavor().onChildProfileHomeGoToChildRegister()) {
+                    Intent intent = new Intent(this, ChildRegisterActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return super.onOptionsItemSelected(item);
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this, presenter().getChildClient().getCaseId(), ((ChildProfilePresenter) presenter()).getFamilyID());
                 return true;

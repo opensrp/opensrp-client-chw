@@ -457,6 +457,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean onFamilySaveGoToProfile();
 
+        boolean onChildProfileHomeGoToChildRegister();
+
     }
 
 }
