@@ -792,6 +792,30 @@
         }
       },
       {
+        "key": "service_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider_other",
+        "type": "edit_text",
+        "hint": "Mention other Occupation",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the occupation"
+        },
+        "relevance": {
+          "step1:service_provider": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "leader",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
