@@ -1036,7 +1036,7 @@
           },
           {
             "key": "sex_worker_woman",
-            "text": "Woman who sell sex",
+            "text": "Sex Worker",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
