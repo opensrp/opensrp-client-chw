@@ -96,14 +96,14 @@
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
-        "hint": "Village",
+        "hint": "Area Name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the village or town"
+          "err": "Please enter the area name"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid village name"
+          "err": "Please enter a valid area name"
         }
       },
       {
@@ -142,11 +142,11 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Nearest health facility",
+        "hint": "Village",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please enter the nearest health facility"
+          "err": "Please select the village"
         }
       }
     ]

@@ -58,26 +58,6 @@
       "title": "HIV Clients Registration form",
       "fields": [
         {
-          "name": "ctc_number",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "CTC Number",
-            "type": "Clinic of Treatment and Care registration number (CTC Number)"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "ctc_number",
-            "openmrs_entity_parent": ""
-          },
-          "validation": [
-            {
-              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "Not a valid CTC Number."
-            }
-          ],
-          "required_status": "false"
-        },
-        {
           "name": "cbhs_number",
           "type": "text_input_edit_text",
           "properties": {
@@ -134,6 +114,27 @@
           "dependent_calculations": [
             "hiv_registration_date"
           ]
+        },
+        {
+          "name": "ctc_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "CTC Number",
+            "type": "Clinic of Treatment and Care registration number (CTC Number)"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "Not a valid CTC Number."
+            }
+          ],
+          "required_status": "yes:Please specify client's CTC Number",
+          "subjects": "client_hiv_status_during_registration:text"
         },
         {
           "name": "client_behaviour_and_environmental_risk",

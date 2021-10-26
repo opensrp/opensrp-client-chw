@@ -92,10 +92,10 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Village/Town",
+        "hint": "Area Name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the village or town"
+          "err": "Please enter the area name"
         }
       },
       {
@@ -121,11 +121,11 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Nearest health facility",
+        "hint": "Village",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please enter the nearest health facility"
+          "err": "Please enter the village"
         }
       }
     ]

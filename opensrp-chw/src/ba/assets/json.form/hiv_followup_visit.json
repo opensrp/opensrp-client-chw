@@ -179,7 +179,7 @@
             },
             {
               "name": "client_takes_care_of_himself",
-              "text": "Client takes care of him/herself (bathing, Eating)",
+              "text": "Client takes care of him/herself (Bathing, Eating)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_takes_care_of_himself",
