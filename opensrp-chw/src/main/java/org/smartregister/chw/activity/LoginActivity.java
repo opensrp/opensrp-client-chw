@@ -121,8 +121,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void startHome(boolean remote) {
-        Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
-                ChildRegisterActivity.class : FamilyRegisterActivity.class);
+        Intent intent;
+        if (BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
+            intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : AllClientsRegisterActivity.class);
+        } else {
+            intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : FamilyRegisterActivity.class);
+        }
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }
