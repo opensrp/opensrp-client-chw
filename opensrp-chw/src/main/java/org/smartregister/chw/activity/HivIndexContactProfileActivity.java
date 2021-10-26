@@ -76,6 +76,15 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     }
 
     @Override
+    public void setupViews() {
+        super.setupViews();
+        if(getHivIndexContactObject().getFollowedUpByChw()){
+
+        }
+    }
+
+
+    @Override
     protected void onCreation() {
         super.onCreation();
         setCommonPersonObjectClient(getClientDetailsByBaseEntityID(getHivIndexContactObject().getBaseEntityId()));
@@ -245,7 +254,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     @Override
     public void setFollowUpButtonDue() {
         super.setFollowUpButtonDue();
-        showFollowUpVisitButton(!getHivIndexContactObject().getContactClientNotificationMethod().equals("na"));
+        showFollowUpVisitButton(!getHivIndexContactObject().getFollowedUpByChw());
     }
 
     @Override

@@ -52,6 +52,7 @@ public class HivIndexContactsRegisterFragmentModel extends BaseHivRegisterFragme
         columnList.add(Tables.HIV_INDEX + "." + Key.TEST_RESULTS);
         columnList.add(Tables.HIV_INDEX + "." + Key.HOW_TO_NOTIFY_CONTACT_CLIENT);
         columnList.add(Tables.HIV_INDEX + "." + Key.HAS_THE_CONTACT_CLIENT_BEEN_TESTED);
+        columnList.add(Tables.HIV_INDEX + "." + Key.FOLLOWED_UP_BY_CHW);
         columnList.add(Tables.HIV_INDEX + "." + Key.ENROLLED_TO_CLINIC);
         columnList.add(Tables.HIV_INDEX + "." + Key.HIV_INDEX_REGISTRATION_DATE);
         columnList.add(Tables.HIV_INDEX + "." + Key.IS_CLOSED);

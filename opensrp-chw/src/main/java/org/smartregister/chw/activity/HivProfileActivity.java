@@ -38,7 +38,7 @@ import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
-import org.smartregister.chw.tb.util.Constants;
+import org.smartregister.chw.hiv.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +56,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     public static void startHivProfileActivity(Activity activity, HivMemberObject memberObject) {
         Intent intent = new Intent(activity, HivProfileActivity.class);
-        intent.putExtra(Constants.ActivityPayload.MEMBER_OBJECT, memberObject);
+        intent.putExtra(Constants.ActivityPayload.HIV_MEMBER_OBJECT, memberObject);
         activity.startActivity(intent);
     }
 
