@@ -5,6 +5,9 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
+
 import org.smartregister.chw.core.activity.CoreMalariaRegisterActivity;
 import org.smartregister.chw.fragment.MalariaRegisterFragment;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -13,6 +16,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getMalariaConfirmation;
 
 public class MalariaRegisterActivity extends CoreMalariaRegisterActivity {
+    private Trace myTrace = FirebasePerformance.getInstance().newTrace("malaria_register_trace");
 
     public static void startMalariaRegistrationActivity(Activity activity, String baseEntityID, @Nullable String familyBaseEntityID) {
         Intent intent = new Intent(activity, MalariaRegisterActivity.class);
@@ -35,4 +39,15 @@ public class MalariaRegisterActivity extends CoreMalariaRegisterActivity {
         return new MalariaRegisterFragment();
     }
 
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        super.startFormActivity(formName, entityId, metaData);
+        myTrace.start();
+    }
+
+    @Override
+    protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
+        super.onActivityResultExtended(requestCode, resultCode, data);
+        myTrace.stop();
+    }
 }

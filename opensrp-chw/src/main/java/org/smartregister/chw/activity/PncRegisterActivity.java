@@ -4,6 +4,9 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
+
 import org.apache.commons.lang3.EnumUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +22,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import timber.log.Timber;
 
 public class PncRegisterActivity extends CorePncRegisterActivity {
+    private Trace myTrace = FirebasePerformance.getInstance().newTrace("pnc_register_trace");
 
     public static void startPncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name, String last_menstrual_period) {
@@ -42,6 +46,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
         } else {
             super.onRegistrationSaved(encounterType, isEdit, hasChildren);
         }
+
     }
 
     @Override
@@ -62,6 +67,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResultExtended(requestCode, resultCode, data);
+        myTrace.stop();
         if (resultCode == Activity.RESULT_OK) {
             try {
                 JSONObject form = new JSONObject(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
@@ -82,5 +88,11 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
                 Timber.e(e);
             }
         }
+    }
+
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+        super.startFormActivity(formName, entityId, metaData);
+        myTrace.start();
     }
 }
