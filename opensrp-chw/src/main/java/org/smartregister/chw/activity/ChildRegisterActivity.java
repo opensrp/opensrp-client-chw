@@ -60,6 +60,7 @@ public class ChildRegisterActivity extends CoreChildRegisterActivity implements 
             currentConfig.setHideNextIcon(true);
             currentConfig.setHidePreviousIcon(true);
         }
+        currentConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
         return currentConfig;
     }
 }
