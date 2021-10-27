@@ -79,7 +79,10 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
             currentConfig.setHideNextButton(true);
             currentConfig.setNextLabel(getString(R.string.next));
             currentConfig.setShowNextInToolbarWhenWizard(true);
+
+            currentConfig.setGreyOutSaveWhenFormInvalid(true);
         }
+        currentConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
         return currentConfig;
     }
 }

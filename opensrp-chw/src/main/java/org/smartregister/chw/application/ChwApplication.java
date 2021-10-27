@@ -459,6 +459,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean onChildProfileHomeGoToChildRegister();
 
+        boolean greyOutFormActionsIfInvalid();
+
     }
 
 }
