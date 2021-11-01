@@ -36,7 +36,6 @@ import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
-import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -138,7 +137,6 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
-        menu.findItem(R.id.action_issue_hiv_community_followup_referral).setVisible(true);
         return true;
     }
 
@@ -169,8 +167,8 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
 
     private void addHivReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral),
+                    CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
                     CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));

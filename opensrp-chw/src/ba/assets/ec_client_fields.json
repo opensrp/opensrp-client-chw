@@ -2497,6 +2497,15 @@
           }
         },
         {
+          "column_name": "registration_or_followup_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "registration_or_followup_status",
+            "value_field": "obs.fieldCode"
+          }
+        },
+        {
           "column_name": "client_hiv_status_during_registration",
           "type": "Event",
           "json_mapping": {

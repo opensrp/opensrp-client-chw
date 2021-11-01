@@ -55,7 +55,7 @@
   },
   "steps": [
     {
-      "title": "HIV Clients Registration form",
+      "title": "CBHS Registration Form",
       "fields": [
         {
           "name": "cbhs_number",
@@ -68,7 +68,13 @@
             "openmrs_entity_id": "cbhs_number",
             "openmrs_entity_parent": ""
           },
-          "required_status": "false"
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{5}/\\\\d{4}/\\\\d{4}/\\\\d{6})?\")",
+              "message": "CBHS Number should be of the format (-----/----/----/------)."
+            }
+          ],
+          "required_status": "yes:Please specify client's CBHS Number"
         },
         {
           "name": "client_hiv_status_during_registration",
@@ -110,7 +116,6 @@
               }
             }
           ],
-          "required_status": "yes:Please specify client's hiv status",
           "dependent_calculations": [
             "hiv_registration_date"
           ]
@@ -133,122 +138,46 @@
               "message": "Not a valid CTC Number."
             }
           ],
-          "required_status": "yes:Please specify client's CTC Number",
           "subjects": "client_hiv_status_during_registration:text"
         },
         {
-          "name": "client_behaviour_and_environmental_risk",
-          "type": "spinner",
+          "name": "tb_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "TB ID",
+            "type": "TB Clinic ID"
+          },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "client_behaviour_and_environmental_risk",
+            "openmrs_entity_id": "tb_number",
             "openmrs_entity_parent": ""
-          },
+          }
+        },
+        {
+          "name": "rch_number",
+          "type": "text_input_edit_text",
           "properties": {
-            "text": "Vulnerable and at risk behaviors"
+            "hint": "RCH ID",
+            "type": "RCH Clinic ID"
           },
-          "options": [
-            {
-              "name": "na",
-              "text": "Not Applicable",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "alcoholism",
-              "text": "Alcoholism",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "alcoholism",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "has_multiple_sexual_partners",
-              "text": "Has multiple sexual partners",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_multiple_sexual_partners",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "has_sexual_relations_with_different_peers",
-              "text": "Sexual relations with different peers",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "has_sexual_relations_with_different_peers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "fisherman",
-              "text": "Fisherman",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "women_having_sex_with_other_women",
-              "text": "Women having sex with other women",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "sex_workers",
-              "text": "Sex workers",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sex_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "wood_workers",
-              "text": "Lumberman",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "wood_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "mining_workers",
-              "text": "Mining workers ",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "mining_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "men_having_sex_with_other_men ",
-              "text": "Men having sex with other men",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "men_having_sex_with_other_men",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "truck_drivers ",
-              "text": "Trucks and long distance drivers",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "truck_drivers",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Please specify client's behaviour"
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rch_number",
+            "openmrs_entity_parent": ""
+          }
+        },
+        {
+          "name": "mat_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "MAT ID",
+            "type": "MAT Clinic ID"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mat_number",
+            "openmrs_entity_parent": ""
+          }
         }
       ]
     }

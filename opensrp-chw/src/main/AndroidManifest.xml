@@ -28,6 +28,7 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
         <activity
@@ -275,6 +276,7 @@
 
         <activity
             android:name=".activity.HivProfileActivity"
+            android:parentActivityName=".activity.HivRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity

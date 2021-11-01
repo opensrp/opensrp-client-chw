@@ -169,8 +169,8 @@
             "dismissible": "no",
             "title": "Client should be referred to Hospital",
             "text": "The client should be referred to the Hospital for HIV testing.\nGive the client a referral",
-            "background_color": "#082455",
-            "text_color": "#EBEE2F"
+            "background_color": "#f50424",
+            "text_color": "#FFFFFF"
           },
           "subjects": "has_the_contact_client_been_found:map, has_the_client_agreed_to_be_tested:map, place_where_test_will_be_conducted:map"
         },

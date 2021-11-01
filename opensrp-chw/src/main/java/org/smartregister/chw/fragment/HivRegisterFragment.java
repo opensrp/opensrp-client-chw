@@ -4,6 +4,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
+import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HivProfileActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreHivRegisterFragment;
@@ -12,12 +13,18 @@ import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.model.HivRegisterFragmentModel;
 import org.smartregister.chw.presenter.HivRegisterFragmentPresenter;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.Objects;
 
 import timber.log.Timber;
 
 public class HivRegisterFragment extends CoreHivRegisterFragment {
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        ((CustomFontTextView) view.findViewById(R.id.txt_title_label)).setText(getString(R.string.hiv_clients));
+    }
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {

@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "Clinic of Treatment and Care Referral form",
+      "title": "HIV Testing Services Referral Form",
       "fields": [
         {
           "name": "problem",
@@ -69,20 +69,38 @@
           },
           "options": [
             {
-              "name": "pain",
-              "text": "Pain",
+              "name": "frequent_fever",
+              "text": "Frequent fever",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "pain",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "frequent_fever",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "coughing",
-              "text": "Coughing",
+              "name": "weight_loss",
+              "text": "Weight loss",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "coughing",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "weight_loss",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "living_with_a_spouse_with_hiv",
+              "text": "Living with HIV+ spouse",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "living_in_a_risky_area",
+              "text": "Risk area/location",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "living_in_a_risky_area",
                 "openmrs_entity_parent": ""
               }
             },
@@ -118,73 +136,6 @@
           },
           "required_status": "true:Please specify other symptoms",
           "subjects": "problem:map"
-        },
-        {
-          "name": "service_before_referral",
-          "type": "multi_choice_checkbox",
-          "properties": {
-            "text": "Pre referral management given."
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "cotrimoxazole",
-              "text": "Cotrimoxazole",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "cotrimoxazole",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "aspirin",
-              "text": "Aspirin",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "aspirin",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Other_treatment",
-              "text": "Other treatment",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "Other_treatment",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "none",
-              "text": "None",
-              "is_exclusive": true,
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "yes:Please specify pre referral managements given"
-        },
-        {
-          "name": "service_before_referral_other",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Other Treatment",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "required_status": "true:Please specify other treatment given",
-          "subjects": "service_before_referral:map"
         },
         {
           "name": "chw_referral_hf",

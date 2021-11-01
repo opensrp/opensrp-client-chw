@@ -7,12 +7,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -21,22 +15,15 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AllClientsRegisterFragment;
 import org.smartregister.chw.model.ChwAllClientsRegisterModel;
 import org.smartregister.chw.presenter.ChwAllClientRegisterPresenter;
-import org.smartregister.chw.util.Constants;
-import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
-import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
-import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
-import org.smartregister.opd.utils.OpdConstants;
-import org.smartregister.opd.utils.OpdJsonFormUtils;
-import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import timber.log.Timber;
 
-public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity{
+public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,14 +38,14 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity{
 
     @Override
     public void startRegistration() {
-        startFormActivity(CoreConstants.JSON_FORM.getAllClientRegistrationForm(),null, null);
+        startFormActivity(CoreConstants.JSON_FORM.getAllClientRegistrationForm(), null, null);
     }
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
             String locationId = org.smartregister.family.util.Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-            ((ChwAllClientRegisterPresenter)presenter()).startForm(formName, entityId, metaData, locationId);
+            ((ChwAllClientRegisterPresenter) presenter()).startForm(formName, entityId, metaData, locationId);
 
         } catch (Exception e) {
             Timber.e(e);

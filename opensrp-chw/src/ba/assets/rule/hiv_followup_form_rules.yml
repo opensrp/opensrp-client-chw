@@ -6,19 +6,47 @@ condition: "registration_or_followup_status.value=='New Client' || registration_
 actions:
   - "client_condition_visibility =  true"
 ---
-name: "problem_visibility"
-description: "problem visibility"
+name: "client_hiv_status_after_testing_visibility"
+description: "client_hiv_status_after_testing visibility"
 priority: 1
 condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
 actions:
-  - "problem_visibility =  true"
+  - "client_hiv_status_after_testing_visibility =  true"
 ---
-name: "problem_other_visibility"
-description: "problem visibility"
+name: "ctc_number_visibility"
+description: "ctc_number visibility"
 priority: 1
-condition: "problem['other_problems'] != null"
+condition: "client_hiv_status_after_testing.value == 'Positive'"
 actions:
-  - "problem_other_visibility =  true"
+  - "ctc_number_visibility =  true"
+---
+name: "health_problem_visibility"
+description: "health_problem visibility"
+priority: 1
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+actions:
+  - "health_problem_visibility =  true"
+---
+name: "health_problem_other_visibility"
+description: "health_problem_other visibility"
+priority: 1
+condition: "health_problem['other_health_problems'] != null"
+actions:
+  - "health_problem_other_visibility =  true"
+---
+name: "social_problem_visibility"
+description: "social_problem visibility"
+priority: 1
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+actions:
+  - "social_problem_visibility =  true"
+---
+name: "social_problem_other_visibility"
+description: "social_problem_other visibility"
+priority: 1
+condition: "social_problem['other_social_problems'] != null"
+actions:
+  - "social_problem_other_visibility =  true"
 ---
 name: "supplies_provided_visibility"
 description: "supplies_provided visibility"
@@ -30,9 +58,30 @@ actions:
 name: "supplies_provided_other_visibility"
 description: "supplies_provided_other visibility"
 priority: 1
-condition: "supplies_provided['other_medicine'] != null"
+condition: "supplies_provided['other_supplies'] != null"
 actions:
   - "supplies_provided_other_visibility =  true"
+---
+name: "client_behaviour_and_environmental_risk_visibility"
+description: "client_behaviour_and_environmental_risk visibility"
+priority: 1
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+actions:
+  - "client_behaviour_and_environmental_risk_visibility =  true"
+---
+name: "medicine_provided_visibility"
+description: "medicine_provided visibility"
+priority: 1
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+actions:
+  - "medicine_provided_visibility =  true"
+---
+name: "medicine_provided_other_visibility"
+description: "medicine_provided_other visibility"
+priority: 1
+condition: "medicine_provided['other_medicine'] != null"
+actions:
+  - "medicine_provided_other_visibility =  true"
 ---
 name: "hiv_services_provided_visibility"
 description: "hiv_services_provided visibility"
@@ -47,6 +96,34 @@ priority: 1
 condition: "hiv_services_provided['other_hiv_services'] != null"
 actions:
   - "hiv_services_provided_other_visibility =  true"
+---
+name: "referrals_issued_to_other_services_visibility"
+description: "referrals_issued_to_other_services visibility"
+priority: 1
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services'"
+actions:
+  - "referrals_issued_to_other_services_visibility =  true"
+---
+name: "referrals_issued_to_other_services_other_visibility"
+description: "referrals_issued_to_other_services_other visibility"
+priority: 1
+condition: "referrals_issued_to_other_services['other_referrals'] != null"
+actions:
+  - "referrals_issued_to_other_services_other_visibility =  true"
+---
+name: "referrals_to_other_services_completed_visibility"
+description: "referrals_to_other_services_completed visibility"
+priority: 1
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services'"
+actions:
+  - "referrals_to_other_services_completed_visibility =  true"
+---
+name: "referrals_to_other_services_completed_other_visibility"
+description: "referrals_to_other_services_completed_other visibility"
+priority: 1
+condition: "referrals_to_other_services_completed['other_referrals'] != null"
+actions:
+  - "referrals_to_other_services_completed_other_visibility =  true"
 ---
 name: "state_of_therapy_visibility"
 description: "state_of_therapy visibility"
