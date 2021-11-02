@@ -309,6 +309,13 @@
             "field": "obs.fieldCode",
             "concept": "deathCertificationNumber"
           }
+        },  {
+          "column_name": "official_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialId"
+          }
         },
         {
           "column_name": "death_notification_done",
@@ -573,6 +580,13 @@
             "field": "obs.fieldCode",
             "concept": "deathCertificationNumber"
           }
+        },  {
+          "column_name": "official_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialId"
+          }
         }
       ]
     },
@@ -722,7 +736,31 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "concept": "birthPlaceType"
+          }
+        },
+        {
+          "column_name": "del_attendant",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "delAttendant"
+          }
+        },
+        {
+          "column_name": "del_mode",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "delMode"
+          }
+        },
+        {
+          "column_name": "type_of_pregnancy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "typeOfPregnancy"
           }
         },
         {
@@ -923,6 +961,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "maritalStatus"
+          }
+        },
+        {
+          "column_name": "know_death_cause",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "knowDeathCause"
+          }
+        },
+        {
+          "column_name": "still_born_death",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "stillBornDeath"
           }
         },
         {
@@ -1440,6 +1494,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "deathCertificationNumber"
+          }
+        },  {
+          "column_name": "official_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialId"
           }
         }
       ]

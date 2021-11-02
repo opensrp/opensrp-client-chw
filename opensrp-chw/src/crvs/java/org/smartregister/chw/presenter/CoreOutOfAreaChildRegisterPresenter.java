@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +11,9 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -25,11 +29,12 @@ import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.model.BaseFamilyRegisterModel;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Objects;
+
 import timber.log.Timber;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
 
 public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRegisterContract.Presenter, CoreOutOfAreaChildRegisterContract.InteractorCallBack {
     public static final String TAG = CoreChildRegisterPresenter.class.getName();
@@ -119,18 +124,17 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
     public void saveOutOfAreaForm(String jsonString, boolean isEditMode) {
 
         try {
-
             if (getView() != null)
                 getView().showProgressDialog(org.smartregister.chw.core.R.string.saving_dialog_title);
             JSONObject form = new JSONObject(jsonString);
             if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OUT_OF_AREA_ENCOUNTER_TYPE)) {
 
-                Pair<Client, Event> fevent = model.processRegistration(jsonString);
-                if (fevent == null) {
+                Pair<Client, Event> clientEventPair = model.processRegistration(jsonString);
+                if (clientEventPair == null) {
                     return;
                 }
 
-                new CoreOutOfAreaChildRegisterInteractor(getView().getContext()).saveRegistration(fevent, jsonString, isEditMode, new CoreOutOfAreaChildRegisterContract.InteractorCallBack() {
+                new CoreOutOfAreaChildRegisterInteractor(getView().getContext()).saveRegistration(clientEventPair, jsonString, isEditMode, new CoreOutOfAreaChildRegisterContract.InteractorCallBack() {
                     @Override
                     public void onNoUniqueId() {
                         // Do nothing
@@ -147,9 +151,9 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
                         getView().openFamilyListView();
                         if (!isSaved && getView().getContext() != null) {
                             Toast.makeText(getView().getContext(), "Saving failed", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             getView().getContext().startActivity(new Intent(getView().getContext(), OutOfAreaChildActivity.class));
-                            ((Activity)getView().getContext()).finish();
+                            ((Activity) getView().getContext()).finish();
                         }
                     }
                 });

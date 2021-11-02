@@ -47,6 +47,9 @@ public abstract class CoreChildUtils {
         columnList.add(tableName + "." + CrvsConstants.FATHER_BIRTH_PLACE);
         columnList.add(tableName + "." + CrvsConstants.MOTHER_MARITAL_STATUS);
         columnList.add(tableName + "." + CrvsConstants.BIRTH_PLACE_TYPE);
+        columnList.add(tableName + "." + CrvsConstants.DEL_ATTENDANT);
+        columnList.add(tableName + "." + CrvsConstants.DEL_MODE);
+        columnList.add(tableName + "." + CrvsConstants.TYPE_OF_PREGNANCY);
         columnList.add(tableName + "." + CrvsConstants.MOTHER_HIGHEST_EDU_LEVEL);
         columnList.add(tableName + "." + CrvsConstants.FATHER_MARITAL_STATUS);
         columnList.add(tableName + "." + CrvsConstants.FATHER_HIGHEST_EDU_LEVEL);

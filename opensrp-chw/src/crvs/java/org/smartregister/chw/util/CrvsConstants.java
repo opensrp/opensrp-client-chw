@@ -19,6 +19,7 @@ public class CrvsConstants {
     public static String DEATH_CERTIFICATE_ISSUE_DATE = "death_certificate_issue_date";
     public static String DEATH_NOTIFICATION_DONE = "death_notification_done";
     public static String DEATH_CERTIFICATE_NUMBER = "death_certificate_number";
+    public static String OFFICIAL_ID = "official_id";
     public static String BIRTH_CERT = "birth_cert";
     public static String BIRTH_CERTIFICATE_ISSUE_DATE = "birth_cert_issue_date";
     public static String BIRTH_CERTIFICATION_CHANGED = "birth_certification_changed";
@@ -54,6 +55,9 @@ public class CrvsConstants {
     public static String FATHER_BIRTH_PLACE = "father_birth_place";
     public static String MOTHER_MARITAL_STATUS = "mother_marital_status";
     public static String BIRTH_PLACE_TYPE = "birth_place_type";
+    public static String DEL_ATTENDANT = "del_attendant";
+    public static String DEL_MODE = "del_mode";
+    public static String TYPE_OF_PREGNANCY = "type_of_pregnancy";
     public static String MOTHER_HIGHEST_EDU_LEVEL = "mother_highest_edu_level";
     public static String FATHER_MARITAL_STATUS = "father_marital_status";
     public static String FATHER_HIGHEST_EDU_LEVEL = "father_highest_edu_level";

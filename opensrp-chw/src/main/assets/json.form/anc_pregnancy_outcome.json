@@ -583,6 +583,14 @@
           "value": "true",
           "err": "Please enter a valid number"
         },
+        "v_min": {
+          "value": "500",
+          "err": "Weight must be equal or greater than 500"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "Weight must be equal or less than 6000"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

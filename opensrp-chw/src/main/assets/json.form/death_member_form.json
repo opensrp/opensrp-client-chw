@@ -295,10 +295,10 @@
         }
       },
       {
-        "key": "official_ID",
+        "key": "official_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "officialId",
         "label": "Personal ID number",
         "hint": "Personal ID number",
         "type": "edit_text",

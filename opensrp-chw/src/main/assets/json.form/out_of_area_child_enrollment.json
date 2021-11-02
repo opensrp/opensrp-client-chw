@@ -231,7 +231,7 @@
         "key": "birth_place_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "birthPlaceType",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Type of birth place",
@@ -271,8 +271,6 @@
           "err": "Please enter birth place name"
         }
       },
-
-
       {
         "key": "no_children",
         "type": "repeating_group",
@@ -295,7 +293,7 @@
         "key": "del_attendant",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "delAttendant",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Type of attendance at delivery",
@@ -320,7 +318,7 @@
         "key": "del_mode",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "delMode",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Mode of delivery",
@@ -347,7 +345,7 @@
         "key": "type_of_pregnancy",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "typeOfPregnancy",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Type of pregnancy (singlet, twin, etc.)",
@@ -466,7 +464,7 @@
         },
         "v_max": {
           "value": "11",
-          "err": "Age must be equal or less than 5"
+          "err": "Age must be equal or less than 11"
         },
         "v_required": {
           "value": true,
@@ -631,7 +629,7 @@
         },
         "v_max": {
           "value": "11",
-          "err": "Age must be equal or less than 5"
+          "err": "Age must be equal or less than 11"
         },
         "relevance": {
           "rules-engine": {

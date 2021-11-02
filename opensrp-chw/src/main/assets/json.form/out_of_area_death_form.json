@@ -291,7 +291,6 @@
           "Widowed": "widowed_id_openmrs"
         }
       },
-
       {
         "key": "remove_reason",
         "openmrs_entity_parent": "",
@@ -648,7 +647,7 @@
         "type": "edit_text"
       },
       {
-        "key": "official_ID",
+        "key": "official_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialId",
@@ -687,14 +686,6 @@
           "err": "Please enter a valid number"
         }
       },
-
-
-
-
-
-
-
-
       {
         "key": "physician_name",
         "openmrs_entity_parent": "",
@@ -702,7 +693,14 @@
         "openmrs_entity_id": "physicianName",
         "label": "Name of physician signing MCCD",
         "hint": "Name of physician signing MCCD",
-        "type": "edit_text"
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "physician_position",
@@ -711,7 +709,14 @@
         "openmrs_entity_id": "physicianPosition",
         "label": "Position of physician signing MCCD",
         "hint": "Position of physician signing MCCD",
-        "type": "edit_text"
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
       },
 
       {
@@ -792,12 +797,18 @@
         "label": "Death certificate issuance date (if certificate received)",
         "hint": "Death certificate issuance date (if certificate received)",
         "expanded": false,
-        "min_date": "",
         "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Required issue date"
         },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:date_died)",
+            "err": "Death certificate issuance date can't occur before date of death"
+          }
+        ],
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",

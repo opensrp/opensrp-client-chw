@@ -131,3 +131,17 @@ priority: 1
 condition: "!step1_hidden_died_check=='.'"
 actions:
   - "isRelevant = true"
+---
+name: step1_physician_name
+description: Name of physician signing MCCD
+priority: 1
+condition: "step1_death_place=='Health Facility' || step1_mccd_conducted=='Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_physician_position
+description: Position of physician signing MCCD
+priority: 1
+condition: "step1_death_place=='Health Facility' || step1_mccd_conducted=='Yes'"
+actions:
+  - "isRelevant = true"
