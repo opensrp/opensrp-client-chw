@@ -160,8 +160,8 @@ android {
         }
 
         debug {
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '500'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -330,6 +330,8 @@ android {
             applicationIdSuffix ".lmh"
             versionCode 2
             versionName "0.1.7"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://lmh-liberia-preview.smartregister.org/opensrp/"'
@@ -338,7 +340,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Commune"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Commune"'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "int", "DATABASE_VERSION", '7'
         }
     }
 

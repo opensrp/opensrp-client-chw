@@ -1,5 +1,6 @@
 package org.smartregister.chw.application;
 
+import static org.koin.core.context.GlobalContext.getOrNull;
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -33,6 +34,7 @@ import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.PinLoginActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
@@ -53,6 +55,7 @@ import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
+import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.repository.ChwRepository;
@@ -95,8 +98,6 @@ import java.util.Map;
 
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
-
-import static org.koin.core.context.GlobalContext.getOrNull;
 
 public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
 
@@ -320,7 +321,12 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
+        if (PinLoginUtil.getPinLogger().enabledPin()) {
+            context.userService().logoutSession();
+        } else {
+            Intent intent1 = new Intent(ChwApplication.this, PinLoginActivity.class);
+            startActivity(intent1);
+        }
     }
 
     @Override
