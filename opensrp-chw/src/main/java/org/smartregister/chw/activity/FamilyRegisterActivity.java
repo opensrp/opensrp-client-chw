@@ -28,7 +28,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 import timber.log.Timber;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener {
-    private ProgressDialog progressDialog;
+    protected ProgressDialog progressDialog;
 
     public static void startFamilyRegisterForm(Activity activity) {
         Intent intent = new Intent(activity, FamilyRegisterActivity.class);
@@ -86,7 +86,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
         progressDialog.setTitle(getString(R.string.syncing_records));
     }
 
-    private void showProgressDialog() {
+    public void showProgressDialog() {
         try {
             if (progressDialog == null) {
                 initializeProgressDialog();
