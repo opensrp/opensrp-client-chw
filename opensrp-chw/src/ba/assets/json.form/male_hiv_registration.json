@@ -61,7 +61,7 @@
           "name": "cbhs_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Community Based Health Services Registration Number (CBHS Number)"
+            "hint": "CBHS Number e.g 1234/56/78/912"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -70,8 +70,8 @@
           },
           "validation": [
             {
-              "condition": "value.matches(\"(\\\\d{5}/\\\\d{4}/\\\\d{4}/\\\\d{6})?\")",
-              "message": "CBHS Number should be of the format (-----/----/----/------)."
+              "condition": "value.matches(\"(\\\\d{4}/\\\\d{2}/\\\\d{2}/\\\\d{3})?\")",
+              "message": "CBHS Number should be of the format (XXXX/XX/XX/XXX)."
             }
           ],
           "required_status": "yes:Please specify client's CBHS Number"
