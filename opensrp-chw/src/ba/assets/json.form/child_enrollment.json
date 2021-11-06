@@ -61,7 +61,7 @@
         "openmrs_entity_id": "opensrp_id",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "Boresha Afya ID",
+        "hint": "WAJA ID",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
