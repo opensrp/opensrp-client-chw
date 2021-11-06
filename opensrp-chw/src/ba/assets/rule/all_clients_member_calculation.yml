@@ -19,3 +19,17 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_fam_name"
+---
+name: step2_first_name
+description: set surname as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_first_name"
+---
+name: step2_middle_name
+description: set surname as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_middle_name"

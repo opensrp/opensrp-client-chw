@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import androidx.core.content.ContextCompat;
+
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.fragment.ChooseLoginMethodFragment;
@@ -21,9 +25,8 @@ import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
-
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
-    public static final String TAG = BaseLoginActivity.class.getCanonicalName();
+
     private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
 
     private PinLogger pinLogger = PinLoginUtil.getPinLogger();
@@ -31,6 +34,12 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImageView imageView = findViewById(R.id.login_logo);
+        if (BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo));
+        } else {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_logo_ba));
+        }
     }
 
     @Override
@@ -62,7 +71,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
     }
 
-    private boolean hasPinLogin(){
+    private boolean hasPinLogin() {
         return ChwApplication.getApplicationFlavor().hasPinLogin();
     }
 
@@ -104,7 +113,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
         if (hasPinLogin()) {
             startPinHome(remote);
-        }else{
+        } else {
             startHome(remote);
         }
 
@@ -112,8 +121,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     private void startHome(boolean remote) {
-        Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
-                ChildRegisterActivity.class : FamilyRegisterActivity.class);
+        Intent intent;
+        if (BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
+            intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : AllClientsRegisterActivity.class);
+        } else {
+            intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
+                    ChildRegisterActivity.class : FamilyRegisterActivity.class);
+        }
         intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
         startActivity(intent);
     }
@@ -147,5 +162,4 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
         }
     }
-
 }

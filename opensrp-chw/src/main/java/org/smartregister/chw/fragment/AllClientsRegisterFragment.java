@@ -10,8 +10,10 @@ import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
+import org.smartregister.chw.provider.OpdRegisterProvider;
 import org.smartregister.chw.util.AllClientsUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.Constants;
 import org.smartregister.opd.utils.OpdDbConstants;
 
@@ -58,6 +60,12 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                 case CoreConstants.REGISTER_TYPE.FAMILY_PLANNING:
                     AllClientsUtils.goToFamilyPlanningProfile(this.getActivity(), commonPersonObjectClient);
                     break;
+                case CoreConstants.REGISTER_TYPE.TB:
+                    AllClientsUtils.goToTbProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.HIV:
+                    AllClientsUtils.goToHivProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
                 default:
                     AllClientsUtils.goToOtherMemberProfile(this.getActivity(), commonPersonObjectClient, bundle,
                             familyDetailsModel.getFamilyHead(), familyDetailsModel.getPrimaryCareGiver());
@@ -69,5 +77,14 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                         familyDetailsModel.getFamilyHead(), familyDetailsModel.getPrimaryCareGiver());
             }
         }
+    }
+
+
+    @Override
+    public void initializeAdapter() {
+        OpdRegisterProvider childRegisterProvider = new OpdRegisterProvider(getActivity(), registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, childRegisterProvider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
     }
 }

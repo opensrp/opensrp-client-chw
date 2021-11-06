@@ -55,21 +55,13 @@
     "title": "Ongeza Mwanachama wa Familia",
     "fields": [
       {
-        "key": "photo",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "choose_image",
-        "uploadButtonText": "Chukua picha ya muhusika"
-      },
-      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "Boresha Afya ID",
+        "hint": "WAJA ID",
         "scanButtonText": "Chukua QR code",
         "v_numeric": {
           "value": "true",
@@ -789,6 +781,30 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "service_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider_other",
+        "type": "edit_text",
+        "hint": "Aina nyinginezo za shughuli anazojishughulisha mteja",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja anina ya shughuli"
+        },
+        "relevance": {
+          "step1:service_provider": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
         }
       },
       {

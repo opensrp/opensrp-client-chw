@@ -91,6 +91,4 @@ public class WashCheckDao extends AbstractDao {
 
         return new EventClient(event, null);
     }
-
-
 }

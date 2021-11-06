@@ -63,7 +63,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Family name",
+        "hint": "Family name (Family Head's Surname)",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -72,6 +72,40 @@
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "client_first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "Family Head's First name",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the first name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "client_middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "middle_name",
+        "type": "edit_text",
+        "hint": "Family Head's Middle name",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the middle name"
         }
       },
       {
@@ -96,14 +130,14 @@
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
-        "hint": "Village",
+        "hint": "Area Name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the village or town"
+          "err": "Please enter the area name"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid village name"
+          "err": "Please enter a valid area name"
         }
       },
       {
@@ -142,11 +176,11 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Nearest health facility",
+        "hint": "Village",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please enter the nearest health facility"
+          "err": "Please select the village"
         }
       }
     ]
@@ -154,14 +188,6 @@
   "step2": {
     "title": "Family head",
     "fields": [
-      {
-        "key": "photo",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "choose_image",
-        "uploadButtonText": "Take a picture of the person"
-      },
       {
         "key": "unique_id",
         "openmrs_entity_parent": "",
@@ -195,6 +221,14 @@
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
+        },
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -212,6 +246,14 @@
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
+        },
+        "read_only": true,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -651,9 +693,69 @@
         "key": "type_of_disability",
         "openmrs_entity_parent": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Type of disability",
+        "openmrs_entity_id": "type_of_disability",
+        "type": "check_box",
+        "label": "Type of physical disabilities",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "physical_impairments",
+            "text": "Mobility and Physical Impairments",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical_impairments"
+          },
+          {
+            "key": "spinal_cord_disability",
+            "text": "Spinal Cord Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "spinal_cord_disability"
+          },
+          {
+            "key": "brain_disability",
+            "text": "Head Injuries - Brain Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "brain_disability"
+          },
+          {
+            "key": "vision_disability",
+            "text": "Vision Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vision_disability"
+          },
+          {
+            "key": "hearing_disability",
+            "text": "Hearing Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hearing_disability"
+          },
+          {
+            "key": "learning_disabilities",
+            "text": "Cognitive or Learning Disabilities",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "learning_disabilities"
+          },
+          {
+            "key": "psychological_disorders",
+            "text": "Psychological Disorders",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_disorders"
+          },
+          {
+            "key": "invisible_disabilities",
+            "text": "Invisible Disabilities",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "invisible_disabilities"
+          }
+        ],
         "v_required": {
           "value": "true",
           "err": "Please enter type of disability"
@@ -806,6 +908,30 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "service_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider_other",
+        "type": "edit_text",
+        "hint": "Mention other Occupation",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the occupation"
+        },
+        "relevance": {
+          "step2:service_provider": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
         }
       },
       {

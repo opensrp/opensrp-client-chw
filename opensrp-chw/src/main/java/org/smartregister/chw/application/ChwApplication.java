@@ -30,10 +30,13 @@ import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
+import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
+import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
+import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
@@ -47,6 +50,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
+import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
@@ -57,6 +61,7 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.chw.sync.ChwClientProcessor;
 import org.smartregister.chw.util.ChwLocationBasedClassifier;
+import org.smartregister.chw.tb.TbLibrary;
 import org.smartregister.chw.util.FailSafeRecalledID;
 import org.smartregister.chw.util.FileUtils;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -246,6 +251,20 @@ public class ChwApplication extends CoreChwApplication {
             ReferralLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
+        if (hasHIV()) {
+            //Setup hiv library
+            HivLibrary.init(this);
+            HivLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            HivLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        }
+
+        if (hasTB()) {
+            //Setup tb library
+            TbLibrary.init(this);
+            TbLibrary.getInstance().setAppVersion(BuildConfig.VERSION_CODE);
+            TbLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
+        }
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(CoreAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
@@ -324,6 +343,10 @@ public class ChwApplication extends CoreChwApplication {
         }
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ALL_CLIENTS_REGISTERED_ACTIVITY, AllClientsRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HIV_REGISTER_ACTIVITY, HivRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HIV_INDEX_REGISTER_ACTIVITY, HivIndexContactsContactsRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TB_REGISTER_ACTIVITY, TbRegisterActivity.class);
+
         }
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
@@ -351,6 +374,12 @@ public class ChwApplication extends CoreChwApplication {
 
     public boolean hasReferrals() {
         return flavor.hasReferrals();
+    }
+    public boolean hasHIV() {
+        return flavor.hasHIV();
+    }
+    public boolean hasTB() {
+        return flavor.hasTB();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -424,6 +453,10 @@ public class ChwApplication extends CoreChwApplication {
         boolean launchChildClientsAtLogin();
 
         boolean hasJobAidsVitaminAGraph();
+
+        boolean hasHIV();
+
+        boolean hasTB();
 
         boolean hasJobAidsDewormingGraph();
 

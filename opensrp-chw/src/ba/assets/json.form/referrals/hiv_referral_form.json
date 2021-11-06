@@ -69,38 +69,20 @@
           },
           "options": [
             {
-              "name": "frequent_fever",
-              "text": "Frequent fever",
+              "name": "pain",
+              "text": "Pain",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "frequent_fever",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "pain",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "weight_loss",
-              "text": "Weight loss",
+              "name": "coughing",
+              "text": "Coughing",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "weight_loss",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_with_a_spouse_with_hiv",
-              "text": "Living with HIV+ spouse",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_in_a_risky_area",
-              "text": "Risk area/location",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_in_a_risky_area",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "coughing",
                 "openmrs_entity_parent": ""
               }
             },
@@ -150,11 +132,29 @@
           },
           "options": [
             {
+              "name": "cotrimoxazole",
+              "text": "Cotrimoxazole",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "cotrimoxazole",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "aspirin",
+              "text": "Aspirin",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "aspirin",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "Other_treatment",
               "text": "Other treatment",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Other_treatment",
                 "openmrs_entity_parent": ""
               }
             },

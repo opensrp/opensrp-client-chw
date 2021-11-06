@@ -163,7 +163,17 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean hasHIV() {
+        return false;
+    }
+
+    @Override
     public boolean hasFamilyLocationRow() {
+        return false;
+    }
+
+    @Override
+    public boolean hasTB() {
         return false;
     }
 

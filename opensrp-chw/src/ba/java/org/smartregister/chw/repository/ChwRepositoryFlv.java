@@ -102,6 +102,9 @@ public class ChwRepositoryFlv {
                 case 23:
                     upgradeToVersion23(db);
                     break;
+                case 24:
+                    upgradeToVersion24(db);
+                    break;
                 default:
                     break;
             }
@@ -371,4 +374,14 @@ public class ChwRepositoryFlv {
         }
     }
 
+
+    private static void upgradeToVersion24(SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Arrays.asList("ec_hiv_register", "ec_hiv_community_followup", "ec_hiv_community_feedback", "ec_tb_register", "ec_tb_community_followup", "ec_tb_community_feedback", "ec_hiv_outcome", "ec_tb_outcome","ec_hiv_index","ec_hiv_index_contact_community_followup")),
+                    ChwApplication.createCommonFtsObject());
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion24");
+        }
+    }
 }

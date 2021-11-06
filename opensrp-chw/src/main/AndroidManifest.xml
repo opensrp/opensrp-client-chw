@@ -28,6 +28,7 @@
         android:name=".application.ChwApplication"
         android:allowBackup="true"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/ChwTheme"
         tools:replace="android:theme">
         <activity
@@ -248,6 +249,52 @@
 
         <activity
             android:name=".core.activity.CoreCommunityRespondersRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivRegisterActivity"
+            android:label="@string/hiv_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivIndexContactsContactsRegisterActivity"
+            android:label="@string/menu_hiv_index_contacts"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbRegisterActivity"
+            android:label="@string/tb_register"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".core.activity.CoreTbUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivProfileActivity"
+            android:parentActivityName=".activity.HivRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivIndexContactProfileActivity"
+            android:parentActivityName=".activity.HivIndexContactsContactsRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.HivCommunityFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TbCommunityFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".core.activity.CoreHivUpcomingServicesActivity"
+            android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

@@ -92,10 +92,10 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Kijiji / mtaa",
+        "hint": "Jina la eneno",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza kijiji au jiji"
+          "err": "Tafadhali ingiza jina la eneo"
         }
       },
       {
@@ -121,11 +121,11 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Kituo cha karibu cha kutolea huduma za afya",
+        "hint": "Kijiji",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Tafadhali ingiza kituo cha afya kilicho karibu"
+          "err": "Tafadhali chagua kijiji"
         }
       }
     ]

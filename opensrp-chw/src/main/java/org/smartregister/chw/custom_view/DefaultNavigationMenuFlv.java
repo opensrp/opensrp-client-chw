@@ -32,6 +32,11 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
         return false;
     }
 
+    @Override
+    public boolean hasCommunityResponders() {
+        return false;
+    }
+
 
     @Override
     public Intent getStockReportIntent(Activity activity) {
@@ -46,11 +51,6 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     @Override
     public String childNavigationMenuCountString() {
         return null;
-    }
-
-    @Override
-    public boolean hasCommunityResponders() {
-        return false;
     }
 
     @Override
