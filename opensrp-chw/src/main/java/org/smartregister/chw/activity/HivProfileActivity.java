@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -185,6 +186,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
         int id = view.getId();
         if (id == R.id.record_hiv_followup_visit) {
             openFollowUpVisitForm(false);
+        } else if (id == R.id.rlHivRegistrationDate) {
+            startHivRegistrationDetailsActivity();
         }
         handleNotificationRowClick(this, view, notificationListAdapter, getHivMemberObject().getBaseEntityId());
     }
@@ -227,7 +230,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     public void openHivRegistrationForm() {
         try {
-            HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(), CoreConstants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivRegistration()).toString());
+            String formName;
+            if (getHivMemberObject().getGender().equalsIgnoreCase("male")) {
+                formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+            } else {
+                formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+            }
+            HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -366,6 +375,50 @@ public class HivProfileActivity extends CoreHivProfileActivity
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    /**
+     * Pre-populating the registration form before opening it
+     */
+    public void startHivRegistrationDetailsActivity() {
+        Intent intent = new Intent(this, BaseHivFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, getHivMemberObject().getBaseEntityId());
+
+        String formName;
+        if (getHivMemberObject().getGender().equalsIgnoreCase("male")) {
+            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+        } else {
+            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+        }
+
+        JSONObject formJsonObject = null;
+        try {
+            formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray fields = formJsonObject.getJSONArray("steps").getJSONObject(0).getJSONArray("fields");
+
+            for (int i = 0; i < fields.length(); i++) {
+                JSONObject field = fields.getJSONObject(i);
+                if (field.getString("name").equals("cbhs_number")) {
+                    field.getJSONObject("properties").put("text", getHivMemberObject().getCbhsNumber());
+                } else if (field.getString("name").equals("client_hiv_status_during_registration")) {
+                    if (!getHivMemberObject().getCtcNumber().isEmpty())
+                        field.getJSONObject("properties").put("selection", "1");
+                    else
+                        field.getJSONObject("properties").put("selection", "0");
+                } else if (field.getString("name").equals("ctc_number") && !getHivMemberObject().getCtcNumber().isEmpty()) {
+                    field.getJSONObject("properties").put("text", getHivMemberObject().getCtcNumber());
+                }
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.REGISTRATION);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        this.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
     }
 
     public interface Flavor {

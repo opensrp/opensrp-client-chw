@@ -2489,6 +2489,30 @@
           }
         },
         {
+          "column_name": "tb_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "tb_number"
+          }
+        },
+        {
+          "column_name": "rch_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "rch_number"
+          }
+        },
+        {
+          "column_name": "mat_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mat_number"
+          }
+        },
+        {
           "column_name": "cbhs_number",
           "type": "Event",
           "json_mapping": {

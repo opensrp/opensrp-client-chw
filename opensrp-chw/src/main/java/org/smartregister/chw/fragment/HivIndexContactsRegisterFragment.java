@@ -44,8 +44,15 @@ public class HivIndexContactsRegisterFragment extends CoreHivIndexContactsRegist
     @Override
     protected void openFollowUpVisit(@Nullable HivMemberObject hivMemberObject) {
         if (getActivity() != null) {
+            String formName;
+            if (hivMemberObject.getGender().equalsIgnoreCase("male")) {
+                formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+            } else {
+                formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+            }
+
             try {
-                HivIndexContactsContactsRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), CoreConstants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), CoreConstants.JSON_FORM.getHivFollowupVisit()).toString());
+                HivIndexContactsContactsRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), CoreConstants.JSON_FORM.getHivFollowupVisit()).toString());
             } catch (JSONException e) {
                 Timber.e(e);
             }

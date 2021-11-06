@@ -122,8 +122,16 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startHivRegister() {
+        String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        String formName;
+        if (gender.equalsIgnoreCase("male")) {
+            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+        } else {
+            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+        }
+
         try {
-            HivRegisterActivity.startHIVFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, Constants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, Constants.JSON_FORM.getHivRegistration()).toString());
+            HivRegisterActivity.startHIVFormActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
         } catch (JSONException e) {
             Timber.e(e);
         }

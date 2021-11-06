@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -43,9 +46,6 @@ import java.util.List;
 
 import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class TbProfileActivity extends CoreTbProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
@@ -275,8 +275,14 @@ public class TbProfileActivity extends CoreTbProfileActivity
     }
 
     protected void startHivRegister() {
+        String formName;
+        if (getTbMemberObject().getGender().equalsIgnoreCase("male")) {
+            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+        } else {
+            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+        }
         try {
-            HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), CoreConstants.JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivRegistration()).toString());
+            HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
         } catch (JSONException e) {
             Timber.e(e);
         }

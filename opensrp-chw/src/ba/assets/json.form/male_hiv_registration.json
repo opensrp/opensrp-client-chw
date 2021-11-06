@@ -55,21 +55,26 @@
   },
   "steps": [
     {
-      "title": "Usajili wa wateja wa VVU",
+      "title": "CBHS Registration Form",
       "fields": [
         {
           "name": "cbhs_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Namba ya HUWANYU",
-            "type": "Namba ya HUWANYU"
+            "hint": "Community Based Health Services Registration Number (CBHS Number)"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "cbhs_number",
             "openmrs_entity_parent": ""
           },
-          "required_status": "false"
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{5}/\\\\d{4}/\\\\d{4}/\\\\d{6})?\")",
+              "message": "CBHS Number should be of the format (-----/----/----/------)."
+            }
+          ],
+          "required_status": "yes:Please specify client's CBHS Number"
         },
         {
           "name": "client_hiv_status_during_registration",
@@ -80,12 +85,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Hali ya maambukizo ya VVU wakati wa kuandikishwa"
+            "text": "Client's HIV status during registration"
           },
           "options": [
             {
               "name": "unknown",
-              "text": "Haihusiki",
+              "text": "Unknown",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "unknown",
@@ -94,7 +99,7 @@
             },
             {
               "name": "positive",
-              "text": "Ana maambukizi ",
+              "text": "Positive",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -103,7 +108,7 @@
             },
             {
               "name": "negative",
-              "text": "Hana maambukizi ",
+              "text": "Negative",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -111,7 +116,6 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya maabukizo ya vvu wakati wa kuandikisha",
           "dependent_calculations": [
             "hiv_registration_date"
           ]
@@ -120,8 +124,8 @@
           "name": "ctc_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Namba ya CTC",
-            "type": "Namba ya CTC"
+            "hint": "CTC Number",
+            "type": "Clinic of Treatment and Care registration number (CTC Number)"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -131,7 +135,7 @@
           "validation": [
             {
               "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "Namba ya CTC iliyojazwa si sahihi."
+              "message": "Not a valid CTC Number."
             }
           ],
           "subjects": "client_hiv_status_during_registration:text"
@@ -146,19 +150,6 @@
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "tb_number",
-            "openmrs_entity_parent": ""
-          }
-        },
-        {
-          "name": "rch_number",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "RCH ID",
-            "type": "RCH Clinic ID"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "rch_number",
             "openmrs_entity_parent": ""
           }
         },

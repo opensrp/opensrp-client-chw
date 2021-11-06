@@ -398,7 +398,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     protected void startHivRegister() {
         try {
-            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getHivRegistration()).toString());
+            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getFemaleHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getFemaleHivRegistration()).toString());
         } catch (JSONException e) {
             Timber.e(e);
         }
