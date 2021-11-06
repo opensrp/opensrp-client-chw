@@ -61,7 +61,7 @@
           "name": "cbhs_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "CBHS Number eg 1234/56/78/912"
+            "hint": "CBHS Number e.g 1234/56/78/912"
           },
           "meta_data": {
             "openmrs_entity": "concept",
