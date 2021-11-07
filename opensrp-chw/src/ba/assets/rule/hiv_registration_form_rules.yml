@@ -2,7 +2,7 @@
 name: "ctc_number_visibility"
 description: "ctc_number visibility"
 priority: 1
-condition: "client_hiv_status_during_registration.value == 'Positive'"
+condition: "client_hiv_status_during_registration.value == 'Positive' || client_hiv_status_during_registration.value == 'Ana maambukizi'"
 actions:
   - "ctc_number_visibility =  true"
 ---
