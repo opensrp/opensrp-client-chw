@@ -75,7 +75,7 @@
               "message": "Namba ya HUWANYU iwe kwenye mfumo wa (XXXX/XX/XX/XXX)."
             }
           ],
-          "required_status": "yes:Please specify client's CBHS Number"
+          "required_status": "yes:Tafadhali weka namba ya HUWANYU"
         },
         {
           "name": "client_hiv_status_during_registration",
