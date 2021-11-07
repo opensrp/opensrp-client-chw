@@ -81,13 +81,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
         if (hivMemberObject.getCtcNumber().isEmpty()) {
             if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit());
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getFemaleHivFollowupVisit());
             } else {
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisit());
             }
         } else {
             if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisitForClientsWithCtcNumbers());
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getFemaleHivFollowupVisitForClientsWithCtcNumbers());
             } else {
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisitForClientsWithCtcNumbers());
             }
