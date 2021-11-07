@@ -125,7 +125,7 @@
           "type": "text_input_edit_text",
           "properties": {
             "hint": "CTC Number",
-            "type": "Clinic of Treatment and Care registration number (CTC Number)"
+            "type": "CTC Number e.g 12-34-5678-912345"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -135,7 +135,7 @@
           "validation": [
             {
               "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "Not a valid CTC Number."
+              "message": "CTC Number should be of format (XX-XX-XXXX-XXXXXX)."
             }
           ],
           "subjects": "client_hiv_status_during_registration:text"
