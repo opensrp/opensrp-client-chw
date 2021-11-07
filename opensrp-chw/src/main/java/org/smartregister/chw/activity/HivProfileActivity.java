@@ -86,9 +86,17 @@ public class HivProfileActivity extends CoreHivProfileActivity
         JSONObject formJsonObject;
 
         if (hivMemberObject.getCtcNumber().isEmpty()) {
-            formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisit());
+            if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getFemaleHivFollowupVisit());
+            } else {
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisit());
+            }
         } else {
-            formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getHivFollowupVisitForClientsWithCtcNumbers());
+            if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getFemaleHivFollowupVisitForClientsWithCtcNumbers());
+            } else {
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisitForClientsWithCtcNumbers());
+            }
         }
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);

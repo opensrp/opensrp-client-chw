@@ -52,7 +52,7 @@ public class HivIndexContactsRegisterFragment extends CoreHivIndexContactsRegist
             }
 
             try {
-                HivIndexContactsContactsRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), CoreConstants.JSON_FORM.getHivFollowupVisit()).toString());
+                HivIndexContactsContactsRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit()).toString());
             } catch (JSONException e) {
                 Timber.e(e);
             }
