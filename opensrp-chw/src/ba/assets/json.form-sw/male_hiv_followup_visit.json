@@ -402,15 +402,6 @@
               }
             },
             {
-              "name": "women_having_sex_with_other_women",
-              "text": "Wanawake wanaofanya ngono na wanawake wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "people_who_inject_drugs",
               "text": "Wajidunga",
               "meta_data": {
@@ -443,6 +434,15 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mining_workers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "men_having_sex_with_other_men ",
+              "text": "Wanaume wanaofanya ngono na wanaume wenzao",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "men_having_sex_with_other_men",
                 "openmrs_entity_parent": ""
               }
             },

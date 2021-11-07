@@ -170,7 +170,7 @@
           "options": [
             {
               "name": "client_does_her_daily_activities",
-              "text": "Client does her daily activities",
+              "text": "Client does his/her daily activities",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_does_her_daily_activities",
@@ -443,15 +443,6 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mining_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "men_having_sex_with_other_men ",
-              "text": "Men having sex with other men",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "men_having_sex_with_other_men",
                 "openmrs_entity_parent": ""
               }
             },

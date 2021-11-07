@@ -55,13 +55,13 @@
   },
   "steps": [
     {
-      "title": "Fomu ya kumtembelea mgonjwa wa VVU",
+      "title": "HIV Followup form",
       "fields": [
         {
           "name": "registration_or_followup_status",
           "type": "spinner",
           "properties": {
-            "text": "Hali ya usajili/ ufuatiliaji"
+            "text": "Registration/Followup status"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -71,7 +71,7 @@
           "options": [
             {
               "name": "new_client",
-              "text": "Mpya",
+              "text": "New Client",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "new_client",
@@ -80,7 +80,7 @@
             },
             {
               "name": "continuing_with_services",
-              "text": "Anaendelea na Huduma.",
+              "text": "Continuing with services",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "continuing_with_services",
@@ -89,7 +89,7 @@
             },
             {
               "name": "deceased",
-              "text": "Amefariki",
+              "text": "Deceased",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "deceased",
@@ -98,7 +98,7 @@
             },
             {
               "name": "client_not_found",
-              "text": "Hapatikani",
+              "text": "Client not found",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_not_found",
@@ -107,7 +107,7 @@
             },
             {
               "name": "client_relocated_to_another_location",
-              "text": "Amehamishiwa mahali pengine",
+              "text": "Client has relocated to another location",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_relocated_to_another_location",
@@ -116,7 +116,7 @@
             },
             {
               "name": "client_has_moved",
-              "text": "Amehama",
+              "text": "Client has moved ",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_moved",
@@ -125,7 +125,7 @@
             },
             {
               "name": "client_has_absconded",
-              "text": "Amejitoa",
+              "text": "Client has absconded",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_absconded",
@@ -134,7 +134,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Anaendelea na huduma akitokea mahali pengine",
+              "text": "Clients continues with clinic from elsewhere",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
@@ -142,8 +142,8 @@
               }
             },
             {
-              "name": "completed_and_qualified_from_the_services ",
-              "text": "Amefuzu huduma",
+              "name": "completed_and_qualified_from_the_services",
+              "text": "Client has completed and qualified from the services",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "completed_and_qualified_from_the_services",
@@ -151,10 +151,83 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua hali ya ufwatiliaji",
+          "required_status": "yes:Please select the registration/followup status",
           "dependent_calculations": [
             "hiv_followup_visit_date"
           ]
+        },
+        {
+          "name": "client_hiv_status_after_testing",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_hiv_status_after_testing",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Client's HIV status after testing"
+          },
+          "options": [
+            {
+              "name": "na",
+              "text": "Not Applicable",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "unknown",
+              "text": "Unknown",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "unknown",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "positive",
+              "text": "Positive",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "positive",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "negative",
+              "text": "Negative",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "negative",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify client's hiv status",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "ctc_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "CTC Number",
+            "type": "Clinic of Treatment and Care registration number (CTC Number)"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "Not a valid CTC Number."
+            }
+          ],
+          "required_status": "yes:Please specify client's CTC Number",
+          "subjects": "client_hiv_status_after_testing:text"
         },
         {
           "name": "client_condition",
@@ -165,12 +238,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Hali ya mteja"
+            "text": "Condition of the client"
           },
           "options": [
             {
               "name": "client_does_her_daily_activities",
-              "text": "Anaweza kufanya shughuli zake za kila siku",
+              "text": "Client does his/her daily activities",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_does_her_daily_activities",
@@ -179,7 +252,7 @@
             },
             {
               "name": "client_takes_care_of_himself",
-              "text": "Anajimudu mwenyewe (kuoga, kula, kuvaa) ",
+              "text": "Client takes care of him/herself (Bathing, Eating)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_takes_care_of_himself",
@@ -188,7 +261,7 @@
             },
             {
               "name": "client_is_unable_to_take_care_of_himself",
-              "text": "Hajimudu",
+              "text": "Client is unable to take care of him/herself",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_is_unable_to_take_care_of_himself",
@@ -196,24 +269,24 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua hali ya mteja",
+          "required_status": "yes:Please specify client's condition",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "health_problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Matatizo ya kijamii/kitabibu ya Mteja"
+            "text": "Pick Health Challenges faced by the Client."
           },
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "health_problem"
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
               "name": "pain",
-              "text": "Maumivu",
+              "text": "Pain",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "pain",
@@ -222,7 +295,7 @@
             },
             {
               "name": "coughing",
-              "text": "kukohoa",
+              "text": "Coughing",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "coughing",
@@ -231,7 +304,7 @@
             },
             {
               "name": "other_health_problems",
-              "text": "Matatizo mengine",
+              "text": "Other Health Challenges",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_health_problems",
@@ -240,7 +313,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "None",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -249,14 +322,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua matatizo ya kijamii/kitabibu ya Mteja",
+          "required_status": "yes:Please specify client's problems",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "health_problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Matatizo mengine ya kitabibu ya Mteja",
+            "hint": "Other Health Problems",
             "type": "name"
           },
           "meta_data": {
@@ -264,14 +337,14 @@
             "openmrs_entity_id": "health_problem_other",
             "openmrs_entity_parent": "health_problem"
           },
-          "required_status": "true:Tafadhali jaza matatizo mengine",
+          "required_status": "true:Please specify other health problems",
           "subjects": "health_problem:map"
         },
         {
           "name": "social_problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Matatizo ya kijamii/kitabibu ya Mteja"
+            "text": "Pick Social challenges faced by the Client."
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -281,7 +354,7 @@
           "options": [
             {
               "name": "malnutrition",
-              "text": "Matatizo ya lishe",
+              "text": "Malnutrition",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "malnutrition",
@@ -290,7 +363,7 @@
             },
             {
               "name": "failed_adhere_to_ctc_appointments_schedule",
-              "text": "kushindwa kutimiza ratiba ya CTC",
+              "text": "Failure to adhere to CTC Appointments Schedule",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "failed_to_attend_ctc_appointments",
@@ -299,7 +372,7 @@
             },
             {
               "name": "transport_issues_for_attending_ctc",
-              "text": "Matatizo ya usafiri kwa ajili ya kutimiza rufaa na huduma",
+              "text": "Transport issues while attending CTC",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "transport_issues_for_attending_ctc",
@@ -308,7 +381,7 @@
             },
             {
               "name": "other_social_problems",
-              "text": "Matatizo mengine",
+              "text": "Other Social Challenges",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_social_problems",
@@ -317,7 +390,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "None",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -326,14 +399,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua matatizo ya kijamii/kitabibu ya Mteja",
+          "required_status": "yes:Please specify client's problems",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "social_problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Matatizo mengine ya kijamii ya Mteja",
+            "hint": "Other Social Challenges",
             "type": "name"
           },
           "meta_data": {
@@ -341,7 +414,7 @@
             "openmrs_entity_id": "social_problem_other",
             "openmrs_entity_parent": "social_problem"
           },
-          "required_status": "true:Tafadhali jaza matatizo mengine",
+          "required_status": "true:Please specify other social problems faced",
           "subjects": "social_problem:map"
         },
         {
@@ -353,12 +426,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Tabia na mazingira hatarishi ya mteja"
+            "text": "Vulnerable and at risk behaviors"
           },
           "options": [
             {
-              "name": "none",
-              "text": "Haihusiki",
+              "name": "na",
+              "text": "Not Applicable",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "",
@@ -367,7 +440,7 @@
             },
             {
               "name": "alcoholism",
-              "text": "Mlevi",
+              "text": "Alcoholism",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "alcoholism",
@@ -376,7 +449,7 @@
             },
             {
               "name": "has_multiple_sexual_partners",
-              "text": "Ana wapenzi wengi",
+              "text": "Has multiple sexual partners",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "has_multiple_sexual_partners",
@@ -385,7 +458,7 @@
             },
             {
               "name": "has_sexual_relations_with_different_peers",
-              "text": "Mahusiano ya kingono na rika tofauti (Ngono  mtambuka rika",
+              "text": "Sexual relations with different peers",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "has_sexual_relations_with_different_peers",
@@ -394,7 +467,7 @@
             },
             {
               "name": "fisherman",
-              "text": "Wavuvi",
+              "text": "Fisherman",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "fisherman",
@@ -402,17 +475,8 @@
               }
             },
             {
-              "name": "women_having_sex_with_other_women",
-              "text": "Wanawake wanaofanya ngono na wanawake wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "people_who_inject_drugs",
-              "text": "Wajidunga",
+              "text": "People Who Inject Drugs (PWID)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "people_who_inject_drugs",
@@ -421,7 +485,7 @@
             },
             {
               "name": "sex_workers",
-              "text": "Wanaofanya biashara ya ngono",
+              "text": "Sex workers",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "sex_workers",
@@ -430,7 +494,7 @@
             },
             {
               "name": "wood_workers",
-              "text": "Wapasua mbao",
+              "text": "Lumberman",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "wood_workers",
@@ -439,7 +503,7 @@
             },
             {
               "name": "mining_workers",
-              "text": "Wachimba madini",
+              "text": "Mining workers ",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mining_workers",
@@ -447,8 +511,17 @@
               }
             },
             {
+              "name": "men_having_sex_with_other_men ",
+              "text": "Men having sex with other men",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "men_having_sex_with_other_men",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "truck_drivers ",
-              "text": "Madreva wa masafa marefu",
+              "text": "Trucks and long distance drivers",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "truck_drivers",
@@ -456,14 +529,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua tabia na mazingira hatarishi ya mteja",
+          "required_status": "yes:Please specify client's behaviour",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "supplies_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Vifaa vilizotolewa"
+            "text": "Supplies provided"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -473,7 +546,7 @@
           "options": [
             {
               "name": "soap",
-              "text": "Sabuni",
+              "text": "Soap",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "soap",
@@ -481,17 +554,8 @@
               }
             },
             {
-              "name": "bed_sheets",
-              "text": "Mashuka",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "bed_sheets",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "mosquito_nets",
-              "text": "chandarua",
+              "text": "Mosquito Nets",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mosquito_nets",
@@ -499,8 +563,17 @@
               }
             },
             {
+              "name": "bed_sheets",
+              "text": "Bed Sheets",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "bed_sheets",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "water_disinfectant",
-              "text": "Dawa ya kusafisha/kuua vijidudu kwenye maji",
+              "text": "Water disinfectant",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "water_disinfectant",
@@ -509,7 +582,7 @@
             },
             {
               "name": "condoms",
-              "text": "Kondomu",
+              "text": "Condoms",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "condoms",
@@ -536,14 +609,14 @@
               }
             }
           ],
-          "required_status": "yes:Please choose supplies given",
+          "required_status": "yes:Please choose supplies/medicine given",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "supplies_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Vifaa vingine",
+            "hint": "Other Supplies",
             "type": "name"
           },
           "meta_data": {
@@ -551,7 +624,7 @@
             "openmrs_entity_id": "supplies_provided_other",
             "openmrs_entity_parent": "supplies_provided"
           },
-          "required_status": "true:Tafadhali jaza vifaa vingine vilivyotolewa",
+          "required_status": "true:Please specify other supplies given",
           "subjects": "supplies_provided:map"
         },
         {
@@ -586,7 +659,7 @@
             },
             {
               "name": "other_medicine",
-              "text": "Dawa Nyinginezo",
+              "text": "Other Medicine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_medicine",
@@ -619,14 +692,14 @@
             "openmrs_entity_id": "medicine_provided_other",
             "openmrs_entity_parent": "medicine_provided"
           },
-          "required_status": "true:Tafadhali jaza dawa nyingine zilizotolewa",
+          "required_status": "true:Please specify other medicine given",
           "subjects": "medicine_provided:map"
         },
         {
           "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma zilizotolewa (Huduma za UKIMWI katika jamii ikiwemo ACUK) "
+            "text": "HIV services provided by CHW at the community"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -636,7 +709,7 @@
           "options": [
             {
               "name": "nutrition_counselling",
-              "text": "ushauri wa lishe",
+              "text": "Nutririon Counselling",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "nutrition_counselling",
@@ -645,7 +718,7 @@
             },
             {
               "name": "hiv_infection_education",
-              "text": "Elimu kuhusu maambukizi",
+              "text": "HIV Infection Education",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "hiv_infection_education",
@@ -654,7 +727,7 @@
             },
             {
               "name": "preliminary_testing",
-              "text": "Upimaji wa awali",
+              "text": "Preliminary Testing",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "preliminary_testing",
@@ -663,7 +736,7 @@
             },
             {
               "name": "psychological_counseling",
-              "text": "Ushauri wa kisaikolojia",
+              "text": "Psychological Counseling",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "psychological_counseling",
@@ -672,7 +745,7 @@
             },
             {
               "name": "house_cleanliness",
-              "text": "Usafi wa nyumba",
+              "text": "House Cleanliness",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "house_cleanliness",
@@ -681,7 +754,7 @@
             },
             {
               "name": "health_care",
-              "text": "Huduma za afya",
+              "text": "Health Care",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "health_care",
@@ -690,7 +763,7 @@
             },
             {
               "name": "medical_services",
-              "text": "Huduma za tiba",
+              "text": "Medical Services",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "medical_services",
@@ -699,7 +772,7 @@
             },
             {
               "name": "other_hiv_services",
-              "text": "Huduma nyingnie za UKIMWI katika jamii",
+              "text": "Other HIV services",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_hiv_services",
@@ -708,7 +781,7 @@
             },
             {
               "name": "none",
-              "text": "Hamna huduma iliyotolewa",
+              "text": "None",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -717,14 +790,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii",
+          "required_status": "yes:Please fill the HIV services provided",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "hiv_services_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Huduma nyingnie za UKIMWI katika jamii zilizotolewa",
+            "hint": "Other HIV Services Provided",
             "type": "name"
           },
           "meta_data": {
@@ -732,14 +805,186 @@
             "openmrs_entity_id": "hiv_services_provided_other",
             "openmrs_entity_parent": "hiv_services_provided"
           },
-          "required_status": "true:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii zilizotolewa",
+          "required_status": "true:Please specify other HIV services provided",
           "subjects": "hiv_services_provided:map"
+        },
+        {
+          "name": "referrals_issued_to_other_services",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Pick Referrals Issued to the Client for Other Services."
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_issued_to_other_services"
+          },
+          "options": [
+            {
+              "name": "legal_services",
+              "text": "Legal Services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "legal_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "support_groups",
+              "text": "Psycho Social Support groups",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "support_groups",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ovc_services",
+              "text": " OVC services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "ovc_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "elderly_centers",
+              "text": "Elderly Centers ",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "elderly_centers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_referrals",
+              "text": "Other Referrals",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "other_referrals",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "none",
+              "text": "None",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify the referrals issued",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "referrals_issued_to_other_services_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other HIV Services Provided",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_issued_to_other_services_other",
+            "openmrs_entity_parent": "referrals_issued_to_other_services"
+          },
+          "required_status": "true:Please specify other Referrals Issued",
+          "subjects": "referrals_issued_to_other_services:map"
+        },
+        {
+          "name": "referrals_to_other_services_completed",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Pick Referrals to other services Completed by the Client."
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_to_other_services_completed"
+          },
+          "options": [
+            {
+              "name": "legal_services",
+              "text": "Legal Services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "legal_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "support_groups",
+              "text": "Psycho Social Support groups",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "support_groups",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ovc_services",
+              "text": " OVC services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "ovc_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "elderly_centers",
+              "text": "Elderly Centers ",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "elderly_centers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_referrals",
+              "text": "Other Referrals",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "other_referrals",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "none",
+              "text": "None",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify the referrals completed",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "referrals_to_other_services_completed_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other Referrals Completed",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_to_other_services_completed_other",
+            "openmrs_entity_parent": "referrals_to_other_services_completed"
+          },
+          "required_status": "true:Please specify other Referrals Completed",
+          "subjects": "referrals_to_other_services_completed:map"
         },
         {
           "name": "state_of_therapy",
           "type": "spinner",
           "properties": {
-            "text": "Hali ya Tiba na Matunzo (CTC)"
+            "text": "State of HIV Care and treatment"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -748,8 +993,17 @@
           },
           "options": [
             {
+              "name": "na",
+              "text": "Not Applicable",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "registered_but_not_began_medication",
-              "text": "Ameandikishwa CTC/PMTCT lakini hajaanza ARV",
+              "text": "Registered in CTC/PMTCT clinic but hasn't begun ARV medication",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_but_not_began_medication",
@@ -758,7 +1012,7 @@
             },
             {
               "name": "registered_and_uses_medication",
-              "text": "Ameandikishwa CTC/PMTCT na anatumia ARV",
+              "text": "Registered in CTC/PMTCT  clinic and uses ARV medication",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_and_uses_medication",
@@ -767,24 +1021,15 @@
             },
             {
               "name": "not_registered_in_ctc_clinic",
-              "text": "Hajaandikishwa CTC/PMTCT",
+              "text": "Client is not registered in CTC/PMTCT clinic",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "not_registered_in_ctc_clinic",
                 "openmrs_entity_parent": ""
               }
-            },
-            {
-              "name": "none",
-              "text": "Haihusiki",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
-                "openmrs_entity_parent": ""
-              }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya Tiba na Matunzo (CTC)",
+          "required_status": "yes:Please specify the state of HIV therapy",
           "subjects": "registration_or_followup_status:text"
         }
       ]
