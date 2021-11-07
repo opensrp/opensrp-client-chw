@@ -38,6 +38,7 @@ import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.Constants;
+import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
@@ -57,11 +58,16 @@ import timber.log.Timber;
 public class HivProfileActivity extends CoreHivProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
+    public static final String UPDATE_HIV_REGISTRATION = "Update HIV Registration";
+    public static final String ENCOUNTER_TYPE = "encounter_type";
+    public static final String NAME = "name";
+    public static final String PROPERTIES = "properties";
+    public static final String TEXT = "text";
+    public static final String SELECTION = "selection";
     private static final String FOLLOWUP_STATUS_DECEASED_EN_VALUE = "Deceased";
     private static final String FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE_EN_VALUE = "Client has completed and qualified from the services";
     private static final String FOLLOWUP_STATUS_DECEASED_SW_VALUE = "Amefariki";
     private static final String FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE_SW_VALUE = "Amefuzu huduma";
-
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
     private Flavor flavor = new HivProfileActivityFlv();
@@ -402,19 +408,26 @@ public class HivProfileActivity extends CoreHivProfileActivity
         JSONObject formJsonObject = null;
         try {
             formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+            formJsonObject.put(ENCOUNTER_TYPE, UPDATE_HIV_REGISTRATION);
             JSONArray fields = formJsonObject.getJSONArray("steps").getJSONObject(0).getJSONArray("fields");
 
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject field = fields.getJSONObject(i);
-                if (field.getString("name").equals("cbhs_number")) {
-                    field.getJSONObject("properties").put("text", getHivMemberObject().getCbhsNumber());
-                } else if (field.getString("name").equals("client_hiv_status_during_registration")) {
+                if (field.getString(NAME).equals(DBConstants.Key.CBHS_NUMBER)) {
+                    field.getJSONObject(PROPERTIES).put(TEXT, getHivMemberObject().getCbhsNumber());
+                } else if (field.getString(NAME).equals(DBConstants.Key.CLIENT_HIV_STATUS_DURING_REGISTRATION)) {
                     if (!getHivMemberObject().getCtcNumber().isEmpty())
-                        field.getJSONObject("properties").put("selection", "1");
+                        field.getJSONObject(PROPERTIES).put(SELECTION, "1");
                     else
-                        field.getJSONObject("properties").put("selection", "0");
-                } else if (field.getString("name").equals("ctc_number") && !getHivMemberObject().getCtcNumber().isEmpty()) {
-                    field.getJSONObject("properties").put("text", getHivMemberObject().getCtcNumber());
+                        field.getJSONObject(PROPERTIES).put(SELECTION, "0");
+                } else if (field.getString(NAME).equals(DBConstants.Key.CTC_NUMBER) && !getHivMemberObject().getCtcNumber().isEmpty()) {
+                    field.getJSONObject(PROPERTIES).put(TEXT, getHivMemberObject().getCtcNumber());
+                } else if (field.getString(NAME).equals(DBConstants.Key.TB_NUMBER) && !getHivMemberObject().getTbNumber().isEmpty()) {
+                    field.getJSONObject(PROPERTIES).put(TEXT, getHivMemberObject().getTbNumber());
+                } else if (field.getString(NAME).equals(DBConstants.Key.MAT_NUMBER) && !getHivMemberObject().getMatNumber().isEmpty()) {
+                    field.getJSONObject(PROPERTIES).put(TEXT, getHivMemberObject().getMatNumber());
+                } else if (field.getString(NAME).equals(DBConstants.Key.RCH_NUMBER) && !getHivMemberObject().getRchNumber().isEmpty()) {
+                    field.getJSONObject(PROPERTIES).put(TEXT, getHivMemberObject().getRchNumber());
                 }
             }
 
