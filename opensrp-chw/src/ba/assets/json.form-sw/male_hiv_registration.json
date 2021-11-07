@@ -137,7 +137,7 @@
           "validation": [
             {
               "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX/XX/XX/XXX)."
+              "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX-XX-XX-XXX)."
             }
           ],
           "subjects": "client_hiv_status_during_registration:text"
