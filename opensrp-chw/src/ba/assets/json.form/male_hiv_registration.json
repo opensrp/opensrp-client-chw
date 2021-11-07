@@ -124,7 +124,7 @@
           "name": "ctc_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "CTC Number",
+            "hint": "CTC Number e.g 12-34-5678-912345",
             "type": "CTC Number e.g 12-34-5678-912345"
           },
           "meta_data": {
