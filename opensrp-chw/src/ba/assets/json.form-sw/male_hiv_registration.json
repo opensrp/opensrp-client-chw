@@ -55,13 +55,14 @@
   },
   "steps": [
     {
-      "title": "CBHS Registration Form",
+      "title": "Usajili wa wateja wa VVU",
       "fields": [
         {
           "name": "cbhs_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "CBHS Number e.g 1234/56/78/912"
+            "hint": "Namba ya HUWANYU mfano: 1234/56/78/912",
+            "type": "Namba ya HUWANYU mfano: 1234/56/78/912"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -71,10 +72,10 @@
           "validation": [
             {
               "condition": "value.matches(\"(\\\\d{4}/\\\\d{2}/\\\\d{2}/\\\\d{3})?\")",
-              "message": "CBHS Number should be of the format (XXXX/XX/XX/XXX)."
+              "message": "Namba ya HUWANYU iwe kwenye mfumo wa (XXXX/XX/XX/XXX)."
             }
           ],
-          "required_status": "yes:Please specify client's CBHS Number"
+          "required_status": "yes:Tafadhali weka namba ya HUWANYU"
         },
         {
           "name": "client_hiv_status_during_registration",
@@ -85,12 +86,12 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Client's HIV status during registration"
+            "text": "Hali ya maambukizo ya VVU wakati wa kuandikishwa"
           },
           "options": [
             {
               "name": "unknown",
-              "text": "Unknown",
+              "text": "Haihusiki",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "unknown",
@@ -99,7 +100,7 @@
             },
             {
               "name": "positive",
-              "text": "Positive",
+              "text": "Ana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -108,7 +109,7 @@
             },
             {
               "name": "negative",
-              "text": "Negative",
+              "text": "Hana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -116,6 +117,7 @@
               }
             }
           ],
+          "required_status": "yes:Tafadhali jaza hali ya maabukizo ya vvu wakati wa kuandikisha",
           "dependent_calculations": [
             "hiv_registration_date"
           ]
@@ -124,8 +126,8 @@
           "name": "ctc_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "CTC Number e.g 12-34-5678-912345",
-            "type": "CTC Number e.g 12-34-5678-912345"
+            "hint": "Namba ya CTC mfano: 12-34-5678-912345",
+            "type": "Namba ya CTC mfano: 12-34-5678-912345"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -135,7 +137,7 @@
           "validation": [
             {
               "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "CTC Number should be of format (XX-XX-XXXX-XXXXXX)."
+              "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX-XX-XX-XXX)."
             }
           ],
           "subjects": "client_hiv_status_during_registration:text"
