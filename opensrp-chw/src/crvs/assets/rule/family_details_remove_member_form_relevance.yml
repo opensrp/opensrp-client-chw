@@ -52,6 +52,13 @@ actions:
 name: step1_deceased_pregnant
 description: deceased_pregnant
 priority: 1
-condition: "step1_hiddengender.equals('Female')"
+condition: "step1_sex=='Female' && ((step1_dob != '' && (helper.formatDate(step1_dob,'y') > 14 && helper.formatDate(step1_dob,'y') < 50)) || (step1_age != '' && (step1_age > 14 && step1_age < 50)))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_still_born_death
+description: still_born_death
+priority: 1
+condition: "(step1_dob != '' && (helper.formatDate(step1_dob,'d') >= 0 && helper.formatDate(step1_dob,'d') < 27))"
 actions:
   - "isRelevant = true"

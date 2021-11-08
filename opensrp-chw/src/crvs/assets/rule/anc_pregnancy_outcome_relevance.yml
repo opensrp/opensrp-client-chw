@@ -87,3 +87,10 @@ priority: 1
 condition: "step1_preg_outcome == 'Live birth' || step1_preg_outcome == 'Stillbirth'"
 actions:
   - "isRelevant = true"
+---
+name: step1_del_attendant_other
+description: Del Attendant Other
+priority: 1
+condition: "step1_del_attendant == 'Other'"
+actions:
+  - "isRelevant = true"
