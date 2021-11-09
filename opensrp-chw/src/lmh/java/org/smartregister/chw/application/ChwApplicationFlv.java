@@ -210,4 +210,15 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean onFamilySaveGoToProfile() {
         return true;
     }
+
+    @Override
+    public boolean onChildProfileHomeGoToChildRegister() {
+        return false;
+    }
+
+    @Override
+    public boolean greyOutFormActionsIfInvalid() {
+        return true;
+    }
 }
+

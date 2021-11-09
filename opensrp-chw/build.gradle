@@ -281,7 +281,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 2
-            versionName "0.1.7"
+            versionName "0.1.12"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
@@ -304,7 +304,7 @@ android {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-LMH-Beta-01-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-LMH-Beta-06-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

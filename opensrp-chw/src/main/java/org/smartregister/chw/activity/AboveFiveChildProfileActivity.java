@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -174,4 +176,10 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
         textViewDueToday.setVisibility(View.GONE);
     }
 
+    @Override
+    public Form getForm() {
+        Form currentFormConfig = super.getForm();
+        currentFormConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentFormConfig;
+    }
 }

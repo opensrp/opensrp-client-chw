@@ -114,6 +114,21 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
     }
 
     @Override
+    public Form getFormConfig() {
+        Form currentConfig =  super.getFormConfig();
+        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()){
+            currentConfig.setHidePreviousIcon(true);
+            currentConfig.setHideNextIcon(true);
+        }
+        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()){
+            currentConfig.setHideNextButton(true);
+            currentConfig.setNextLabel(getString(R.string.next));
+            currentConfig.setShowNextInToolbarWhenWizard(true);
+        }
+        currentConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentConfig;
+    }
+
     public void onSyncInProgress(FetchStatus fetchStatus) {
         showProgressDialog();
     }
@@ -128,18 +143,4 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
         super.onDestroy();
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
     }
-        @Override
-        public Form getFormConfig() {
-            Form currentConfig =  super.getFormConfig();
-            if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()){
-                currentConfig.setHidePreviousIcon(true);
-                currentConfig.setHideNextIcon(true);
-            }
-            if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()){
-                currentConfig.setHideNextButton(true);
-                currentConfig.setNextLabel(getString(R.string.next));
-                currentConfig.setShowNextInToolbarWhenWizard(true);
-            }
-            return currentConfig;
-        }
 }

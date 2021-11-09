@@ -38,4 +38,7 @@
     <string name="eligible_children_description">List of children who can take the vaccines at a date in the future</string>
     <string name="doses_needed_description">Number of vaccine doses needed for children who can take the vaccine at a date in the future</string>
     <string name="community_activity_description">Number on vaccines provided and child deaths in my area</string>
+
+    <string name="submit">SAVE</string>
+    <string name="cancel">CANCEL</string>
 </resources>

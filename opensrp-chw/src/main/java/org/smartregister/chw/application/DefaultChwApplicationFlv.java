@@ -272,4 +272,14 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean onFamilySaveGoToProfile() {
         return false;
     }
+
+    @Override
+    public boolean onChildProfileHomeGoToChildRegister() {
+        return true;
+    }
+
+    @Override
+    public boolean greyOutFormActionsIfInvalid() {
+        return false;
+    }
 }

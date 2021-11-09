@@ -12,7 +12,11 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.joda.time.DateTime;
+import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -253,5 +257,26 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
+    }
+
+    @Override
+    public Form getFormConfig() {
+        Form currentConfig =  new Form();
+        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()){
+            currentConfig.setHidePreviousIcon(true);
+            currentConfig.setHideNextIcon(true);
+        }
+        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()){
+            currentConfig.setHideNextButton(true);
+            currentConfig.setNextLabel(getString(R.string.next));
+            currentConfig.setShowNextInToolbarWhenWizard(true);
+        }
+        currentConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentConfig;
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        super.startFormActivity(jsonForm);
     }
 }
