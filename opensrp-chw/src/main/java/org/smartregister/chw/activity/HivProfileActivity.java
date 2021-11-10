@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,11 +43,16 @@ import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
+import org.smartregister.chw.referral.domain.NeatFormMetaData;
+import org.smartregister.chw.referral.domain.NeatFormOption;
+import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Location;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.LocationRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -98,11 +104,79 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisitForClientsWithCtcNumbers());
             }
         }
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
+
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+    }
+
+    private static JSONObject initializeHealthFacilitiesList(JSONObject form){
+        LocationRepository locationRepository = new LocationRepository();
+        List<Location> locations = locationRepository.getAllLocations();
+        if(locations != null && form != null){
+            try {
+                JSONArray fields = form.getJSONArray(JsonFormConstants.STEPS)
+                                        .getJSONObject(0)
+                                        .getJSONArray(JsonFormConstants.FIELDS);
+                JSONObject referralHealthFacilities = null;
+                for (int i= 0; i < fields.length(); i++) {
+                    if (fields.getJSONObject(i)
+                            .getString(JsonFormConstants.NAME).equals(org.smartregister.chw.util.Constants.JSON_FORM_CONSTANTS.CLIENT_MOVED_LOCATION)
+                ) {
+                        referralHealthFacilities = fields.getJSONObject(i);
+                        break;
+                    }
+                }
+
+                ArrayList<NeatFormOption> healthFacilitiesOptions = new ArrayList<>();
+
+                for(Location location : locations){
+                    NeatFormOption healthFacilityOption = new NeatFormOption();
+                    healthFacilityOption.name = location.getProperties().getName();
+                    healthFacilityOption.text = location.getProperties().getName();
+
+                    NeatFormMetaData metaData = new NeatFormMetaData();
+                    metaData.openmrsEntity = "location_uuid";
+                    metaData.openmrsEntityId = location.getProperties().getUid();
+
+                    healthFacilityOption.neatFormMetaData = metaData;
+                    healthFacilitiesOptions.add(healthFacilityOption);
+                }
+                /*
+                 * Other Option field
+                 */
+                NeatFormOption otherFacilityOption = new NeatFormOption();
+                otherFacilityOption.text = "Other";
+                otherFacilityOption.name = "Other";
+
+                NeatFormMetaData metaData = new NeatFormMetaData();
+                metaData.openmrsEntity = "";
+                metaData.openmrsEntityId = "";
+
+                otherFacilityOption.neatFormMetaData = metaData;
+
+                healthFacilitiesOptions.add(otherFacilityOption);
+
+
+
+                if (referralHealthFacilities != null) {
+                    JSONArray optionsArray = new JSONArray();
+                    for(int i =0;i<referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS)
+                            .length(); i++){
+                            optionsArray.put(referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS).get(i));
+                    }
+                    referralHealthFacilities.put(
+                            JsonFormConstants.OPTIONS, (new JSONArray((new Gson()).toJson(healthFacilitiesOptions)))
+                    );
+                }
+            } catch (JSONException e) {
+               Timber.e(e);
+            }
+
+        }
+        return form;
     }
 
     @Override
