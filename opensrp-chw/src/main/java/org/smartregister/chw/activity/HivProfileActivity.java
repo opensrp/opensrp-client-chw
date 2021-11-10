@@ -152,8 +152,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 otherFacilityOption.name = "Other";
 
                 NeatFormMetaData metaData = new NeatFormMetaData();
-                metaData.openmrsEntity = "";
-                metaData.openmrsEntityId = "";
+                metaData.openmrsEntity = "concept";
+                metaData.openmrsEntityId = "Other";
 
                 otherFacilityOption.neatFormMetaData = metaData;
 
