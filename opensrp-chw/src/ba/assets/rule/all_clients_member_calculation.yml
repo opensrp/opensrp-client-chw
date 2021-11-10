@@ -4,7 +4,7 @@ description: Age calculated
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (!step2_dob_unknown.isEmpty() && step2_dob_unknown.contains('dob_unknown')) ? step2_age : helper.getDifferenceDays(step2_dob) / 365.25"
+  - "calculation = (!step1_dob_unknown.isEmpty() && step1_dob_unknown.contains('dob_unknown')) ? step1_age : helper.getDifferenceDays(step1_dob) / 365.25"
 ---
 name: step2_wra
 description: wra calculation
@@ -33,3 +33,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_client_middle_name"
+---
+name: step2_sex
+description: set sex as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_sex"

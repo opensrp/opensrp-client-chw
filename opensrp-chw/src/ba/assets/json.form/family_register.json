@@ -109,6 +109,108 @@
         }
       },
       {
+        "key": "client_sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex",
+        "values": [
+          "Male",
+          "Female"
+        ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Date of birth (DOB)",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-15y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ],
+        "relevance": {
+          "step1:dob": {
+            "type": "string",
+            "ex": "equalTo(.,\"\")"
+          }
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_min": {
+          "value": "15",
+          "err": "Age must be equal or greater than 15"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Age must be equal or less than 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
+        }
+      },
+      {
         "key": "unique_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
@@ -278,31 +380,6 @@
         }
       },
       {
-        "key": "dob",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdate",
-        "type": "date_picker",
-        "hint": "Date of birth (DOB)",
-        "expanded": false,
-        "duration": {
-          "label": "Age"
-        },
-        "min_date": "today-120y",
-        "max_date": "today-15y",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the date of birth"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "age_calculated",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -314,63 +391,6 @@
               "rules-file": "family_register_calculation.yml"
             }
           }
-        }
-      },
-      {
-        "key": "dob_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "birthdateApprox",
-        "type": "check_box",
-        "label": "",
-        "options": [
-          {
-            "key": "dob_unknown",
-            "text": "DOB unknown?",
-            "text_size": "18px",
-            "value": "false"
-          }
-        ],
-        "relevance": {
-          "step2:dob": {
-            "type": "string",
-            "ex": "equalTo(.,\"\")"
-          }
-        }
-      },
-      {
-        "key": "age",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "age_entered",
-        "type": "edit_text",
-        "hint": "Age",
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Must be a rounded number"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
-        },
-        "v_min": {
-          "value": "15",
-          "err": "Age must be equal or greater than 15"
-        },
-        "v_max": {
-          "value": "120",
-          "err": "Age must be equal or less than 120"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_register_relevance.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter the age"
         }
       },
       {
@@ -608,21 +628,15 @@
       {
         "key": "sex",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Sex",
-        "values": [
-          "Male",
-          "Female"
-        ],
-        "keys": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_calculation.yml"
+            }
+          }
         }
       },
       {
