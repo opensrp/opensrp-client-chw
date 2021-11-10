@@ -4,6 +4,7 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -52,11 +53,21 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         return query;
     }
 
-    private String getFilterString(String filters){
-        if(StringUtils.isBlank(filters))
+    private String getFilterString(String filters) {
+        if (StringUtils.isBlank(filters))
             return "";
 
-        return " and (" + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME +  " like '%" + filters + "%' or "
-                + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.LAST_NAME +  " like '%" + filters + "%')";
+        return " and (" + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " like '%" + filters + "%' or "
+                + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.LAST_NAME + " like '%" + filters + "%')";
+    }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        if (ChwApplication.getApplicationFlavor().showDueFilterToggle()) {
+            dueOnlyLayout.setVisibility(View.VISIBLE);
+        } else {
+            dueOnlyLayout.setVisibility(View.GONE);
+        }
     }
 }

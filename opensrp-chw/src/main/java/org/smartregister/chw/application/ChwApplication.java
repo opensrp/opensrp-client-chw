@@ -438,6 +438,12 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
 
+        boolean useAllChildrenTitle();
+
+        boolean showDueFilterToggle();
+
+        boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult();
+
     }
 
 }

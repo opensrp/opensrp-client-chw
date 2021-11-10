@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Supplier;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -272,6 +273,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
                 fragment.setMinimumDate(dob);
             }
+            fragment.setVaccineWrappers(wrappers);
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
@@ -279,7 +281,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     .withOptional(false)
                     .withDetails(details)
                     .withDestinationFragment(fragment)
-                    .withHelper(new ImmunizationActionHelper(context, wrappers))
+                    .withHelper(new ImmunizationActionHelper(context, fragment::getVaccineWrappers))
                     .withDisabledMessage(context.getString(R.string.fill_earler_immunization))
                     .withValidator(validator)
                     .build();

@@ -216,4 +216,20 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
         return false;
     }
+
+    @Override
+    public boolean useAllChildrenTitle(){
+        return false;
+    }
+
+    @Override
+    public boolean showDueFilterToggle(){
+        return true;
+    }
+
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
+        return false;
+    }
+
 }

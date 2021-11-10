@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import org.joda.time.DateTime;
+import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -25,6 +28,7 @@ import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.ChwFamilyFloatingMenu;
 import org.smartregister.chw.dao.ChwChildDao;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
@@ -69,6 +73,27 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         familyFloatingMenu.setClickListener(
                 FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
         );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        Integer noOfAdults = FamilyDao.countAdultsFamilyMembers(familyBaseEntityId);
+        MenuItem cannotChangeCaregiver = menu.findItem(R.id.action_not_able_to_change_caregiver);
+        MenuItem cannotChangeFamilyHead = menu.findItem(R.id.action_not_able_to_change_head);
+        MenuItem changeCaregiver = menu.findItem(R.id.action_change_care_giver);
+        MenuItem changeFamilyHead = menu.findItem(R.id.action_change_head);
+
+        if (ChwApplication.getApplicationFlavor().hideCaregiverAndFamilyHeadWhenOnlyOneAdult() && noOfAdults == 1) {
+            cannotChangeCaregiver.setVisible(true);
+            cannotChangeFamilyHead.setVisible(true);
+        }
+        if ((!ChwApplication.getApplicationFlavor().hideCaregiverAndFamilyHeadWhenOnlyOneAdult())
+                || (ChwApplication.getApplicationFlavor().hideCaregiverAndFamilyHeadWhenOnlyOneAdult() && noOfAdults > 1)) {
+            changeCaregiver.setVisible(true);
+            changeFamilyHead.setVisible(true);
+        }
+        return true;
     }
 
     @Override

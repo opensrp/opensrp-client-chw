@@ -258,14 +258,21 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
-        "type": "spinner",
+        "type": "native_radio",
+        "label": "Sex",
         "hint": "Sex",
-        "values": [
-          "Male",
-          "Female"
+        "options": [
+          {
+            "key": "Male",
+            "text": "Male"
+          },
+          {
+            "key": "Female",
+            "text": "Female"
+          }
         ],
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please enter the sex"
         }
       }

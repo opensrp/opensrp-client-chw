@@ -153,6 +153,7 @@ public class ImmunizationValidator implements BaseAncHomeVisitAction.Validator {
 
             List<VaccineWrapper> wrappers = VaccineScheduleUtil.recomputeSchedule(vaccineSchedules, anchorDate, vaccineGroup, allReceivedVaccines);
             List<VaccineDisplay> displays = generateDisplaysFromWrappers(wrappers, anchorDate.toDate());
+            fragment.setVaccineWrappers(wrappers);
 
             // update the vaccines
             Map<String, VaccineDisplay> linkedHashMap = new LinkedHashMap<>();

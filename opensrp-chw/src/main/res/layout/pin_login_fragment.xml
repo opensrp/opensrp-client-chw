@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/canvasSV"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,32 +17,34 @@
 
 
         <!-- Top section -->
-        <LinearLayout
+
+        <!-- Middle section -->
+        <RelativeLayout
             android:id="@+id/top_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
             android:paddingTop="@dimen/login_logo_top_padding">
 
             <ImageView
                 android:id="@+id/login_logo"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/login_logo_height"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
+                android:layout_width="237dp"
+                android:layout_height="113dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:contentDescription="@string/logo"
-                android:scaleType="fitCenter"
                 android:src="@drawable/ic_logo" />
 
             <TextView
                 android:id="@+id/login_title_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center_horizontal"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="73dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/login_title"
                 android:textColor="#272727"
                 android:textSize="@dimen/login_title_text_size"
@@ -56,11 +59,11 @@
                 android:gravity="center_horizontal"
                 android:text="@string/app_version"
                 android:textColor="#999999"
-                android:textSize="@dimen/login_build_text_view_textSize" />
+                android:textSize="@dimen/login_build_text_view_textSize"
+                android:visibility="gone" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <!-- Middle section -->
         <LinearLayout
             android:id="@+id/middle_section"
             android:layout_width="match_parent"
@@ -76,7 +79,6 @@
                 android:id="@+id/pin_title_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/enter_pin_for_user"
                 android:textColor="#272727"
@@ -89,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="0dp"
                 android:layout_weight="8"
                 android:cursorVisible="true"
                 android:ems="10"
@@ -98,14 +100,17 @@
                 android:inputType="numberPassword"
                 android:lines="1"
                 android:paddingLeft="10dp"
+                android:maxLength="4"
                 android:paddingBottom="20dp"
                 android:textColor="#666666"
                 android:textColorHint="#bfbfbf"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/login_edit_text_textSize"
-                android:typeface="sans" />
+                android:typeface="sans"
+                app:backgroundTint="@android:color/black"/>
 
             <RelativeLayout
+                android:id="@+id/rl_show_pin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/checkbox_margin_top">
@@ -115,9 +120,9 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
                     android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:button="@drawable/white_checkbox_bg_selector" />
 
                 <TextView
@@ -125,43 +130,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/login_show_password_checkbox"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/login_show_password_checkbox"
                     android:text="Show pin"
                     android:textColor="#585858"
                     android:textSize="@dimen/login_edit_text_textSize" />
+
+                <TextView
+                    android:id="@+id/forgot_pin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="0dp"
+                    android:text="@string/forgot_pin"
+                    android:textColor="@color/bluetext"
+                    android:textSize="@dimen/login_edit_text_textSize" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/use_your_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="horizontal">
+                    android:layout_margin="5dp"
+                    android:text="@string/use_your_password"
+                    android:textColor="#0089D5"
+                    android:textSize="@dimen/login_edit_text_textSize"
+                    android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/forgot_pin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="@string/forgot_pin"
-                        android:textColor="#585858"
-                        android:textSize="@dimen/login_edit_text_textSize" />
-
-                    <TextView
-                        android:id="@+id/use_your_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="@string/use_your_password"
-                        android:textColor="#0089D5"
-                        android:textSize="@dimen/login_edit_text_textSize" />
-
-                </LinearLayout>
 
             </RelativeLayout>
 
@@ -223,5 +224,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
+
     </RelativeLayout>
 </ScrollView>
