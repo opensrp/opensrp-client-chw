@@ -1161,14 +1161,14 @@
           },
           {
             "key": "homosexual",
-            "text": "Man who has sex with a man",
+            "text": "Men who have sex with men",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "sex_worker_woman",
-            "text": "Sex Worker",
+            "text": "Sex worker",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
