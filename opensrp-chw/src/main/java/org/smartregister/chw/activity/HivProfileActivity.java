@@ -1,8 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -61,6 +58,9 @@ import java.util.List;
 import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 public class HivProfileActivity extends CoreHivProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
@@ -112,19 +112,19 @@ public class HivProfileActivity extends CoreHivProfileActivity
         activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
     }
 
-    private static JSONObject initializeHealthFacilitiesList(JSONObject form){
+    private static JSONObject initializeHealthFacilitiesList(JSONObject form) {
         LocationRepository locationRepository = new LocationRepository();
         List<Location> locations = locationRepository.getAllLocations();
-        if(locations != null && form != null){
+        if (locations != null && form != null) {
             try {
                 JSONArray fields = form.getJSONArray(JsonFormConstants.STEPS)
-                                        .getJSONObject(0)
-                                        .getJSONArray(JsonFormConstants.FIELDS);
+                        .getJSONObject(0)
+                        .getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject referralHealthFacilities = null;
-                for (int i= 0; i < fields.length(); i++) {
+                for (int i = 0; i < fields.length(); i++) {
                     if (fields.getJSONObject(i)
                             .getString(JsonFormConstants.NAME).equals(org.smartregister.chw.util.Constants.JSON_FORM_CONSTANTS.CLIENT_MOVED_LOCATION)
-                ) {
+                    ) {
                         referralHealthFacilities = fields.getJSONObject(i);
                         break;
                     }
@@ -132,7 +132,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
                 ArrayList<NeatFormOption> healthFacilitiesOptions = new ArrayList<>();
 
-                for(Location location : locations){
+                for (Location location : locations) {
                     NeatFormOption healthFacilityOption = new NeatFormOption();
                     healthFacilityOption.name = location.getProperties().getName();
                     healthFacilityOption.text = location.getProperties().getName();
@@ -160,19 +160,18 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 healthFacilitiesOptions.add(otherFacilityOption);
 
 
-
                 if (referralHealthFacilities != null) {
                     JSONArray optionsArray = new JSONArray();
-                    for(int i =0;i<referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS)
-                            .length(); i++){
-                            optionsArray.put(referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS).get(i));
+                    for (int i = 0; i < referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS)
+                            .length(); i++) {
+                        optionsArray.put(referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS).get(i));
                     }
                     referralHealthFacilities.put(
                             JsonFormConstants.OPTIONS, (new JSONArray((new Gson()).toJson(healthFacilitiesOptions)))
                     );
                 }
             } catch (JSONException e) {
-               Timber.e(e);
+                Timber.e(e);
             }
 
         }
