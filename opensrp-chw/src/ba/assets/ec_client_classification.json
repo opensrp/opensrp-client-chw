@@ -307,6 +307,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Update HIV Registration",
+            "creates_case": [
+              "ec_hiv_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "HIV Followup",
             "creates_case": [
               "ec_hiv_register"
