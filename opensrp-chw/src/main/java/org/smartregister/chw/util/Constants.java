@@ -23,6 +23,10 @@ public class Constants extends CoreConstants {
 
     }
 
+    public static class JsonFormConstants{
+        public static String CLIENT_MOVED_LOCATION = "client_moved_location";
+    }
+
     public static class EncounterType {
         public static final String SICK_CHILD = "Sick Child Referral";
         public static final String PNC_REFERRAL = "PNC Referral";

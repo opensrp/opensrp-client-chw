@@ -1031,6 +1031,47 @@
           ],
           "required_status": "yes:Please specify the state of HIV therapy",
           "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "client_moved_location",
+          "type": "spinner",
+          "properties": {
+            "text": "Choose Moved To Facility",
+            "searchable": "Choose moved to facility"
+          },
+          "options": [
+            {
+              "name": "Other",
+              "text": "Other",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Other",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_moved_location",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Please select the moved to facility",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "client_moved_location_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Enter the other location",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_moved_location",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Please enter the moved to facility",
+          "subjects": "client_moved_location:text"
         }
       ]
     }
