@@ -167,6 +167,19 @@ public class FamilyDao extends AbstractDao {
         return res.get(0) > 0;
     }
 
+    public static Integer countAdultsFamilyMembers(String baseEntityID) {
+        String sql = "SELECT count(base_entity_id) count from ec_family_member \n" +
+                "where relational_id = '" + baseEntityID + "' and base_entity_id not in (select base_entity_id FROM ec_child)";
+
+        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.get(0) == 0)
+            return 0;
+
+        return res.get(0);
+    }
+
     public static AlertStatus getFamilyAlertStatus(String baseEntityID) {
         return AlertDao.getFamilyAlertStatus(baseEntityID);
     }

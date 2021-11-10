@@ -226,4 +226,10 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showDueFilterToggle(){
         return true;
     }
+
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
+        return false;
+    }
+
 }

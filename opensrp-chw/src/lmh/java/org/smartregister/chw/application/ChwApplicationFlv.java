@@ -166,4 +166,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showDueFilterToggle(){
         return false;
     }
+
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
+        return true;
+    }
 }

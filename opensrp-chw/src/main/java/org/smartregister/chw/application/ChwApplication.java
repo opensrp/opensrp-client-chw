@@ -442,6 +442,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean showDueFilterToggle();
 
+        boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult();
+
     }
 
 }
