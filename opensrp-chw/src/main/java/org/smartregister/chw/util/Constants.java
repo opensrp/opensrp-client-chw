@@ -23,7 +23,7 @@ public class Constants extends CoreConstants {
 
     }
 
-    public static class JSON_FORM_CONSTANTS{
+    public static class JsonFormConstants{
         public static String CLIENT_MOVED_LOCATION = "client_moved_location";
     }
 

@@ -123,7 +123,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 JSONObject referralHealthFacilities = null;
                 for (int i = 0; i < fields.length(); i++) {
                     if (fields.getJSONObject(i)
-                            .getString(JsonFormConstants.NAME).equals(org.smartregister.chw.util.Constants.JSON_FORM_CONSTANTS.CLIENT_MOVED_LOCATION)
+                            .getString(JsonFormConstants.NAME).equals(org.smartregister.chw.util.Constants.JsonFormConstants.CLIENT_MOVED_LOCATION)
                     ) {
                         referralHealthFacilities = fields.getJSONObject(i);
                         break;
