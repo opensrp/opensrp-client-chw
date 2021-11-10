@@ -953,8 +953,8 @@
               "name": "Other",
               "text": "Other",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Other",
                 "openmrs_entity_parent": ""
               }
             }
@@ -980,7 +980,7 @@
             "openmrs_entity_parent": ""
           },
           "required_status": "yes:Please enter the moved to facility",
-          "subjects": "client_moved_location:text:text"
+          "subjects": "client_moved_location:text"
         }
       ]
     }

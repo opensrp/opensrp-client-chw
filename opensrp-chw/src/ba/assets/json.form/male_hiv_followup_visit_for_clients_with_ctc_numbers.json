@@ -953,8 +953,8 @@
               "name": "Other",
               "text": "Other",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Other",
                 "openmrs_entity_parent": ""
               }
             }
