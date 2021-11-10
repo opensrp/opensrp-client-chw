@@ -740,6 +740,52 @@
         }
       },
       {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "marital_status",
+        "type": "spinner",
+        "hint": "Client's Marital Status?",
+        "values": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "keys": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "openmrs_choice_ids": {
+          "Single": "Single",
+          "Married": "Married",
+          "Divorced": "Divorced",
+          "Monogamy": "Monogamy",
+          "Polygamy": "Polygamy",
+          "Widowed": "Widowed",
+          "Cohabitation": "Cohabitation"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "service_provider",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -847,6 +893,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -932,6 +985,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
         }
       },
       {
