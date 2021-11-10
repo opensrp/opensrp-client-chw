@@ -138,4 +138,18 @@ priority: 1
 condition: "true"
 actions:
   - "hiv_followup_visit_date_calculation = System.currentTimeMillis()"
+---
+name: "client_moved_location_visibility"
+description: "client_moved_location visibility"
+priority: 1
+condition: "registration_or_followup_status.value == 'Client has relocated to another location' || registration_or_followup_status.value == 'Amehamishiwa mahali pengine'"
+actions:
+  - "client_moved_location_visibility = true"
+---
+name: "client_moved_location_other_visibility"
+description: "client_moved_location visibility"
+priority: 1
+condition: "client_moved_location.value == 'Other'  "
+actions:
+  - "client_moved_location_other_visibility = true"
 
