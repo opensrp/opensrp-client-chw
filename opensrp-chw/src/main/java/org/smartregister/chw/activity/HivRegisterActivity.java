@@ -9,6 +9,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.activity.CoreHivRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.HivFollowupRegisterFragment;
 import org.smartregister.chw.fragment.HivRegisterFragment;
 import org.smartregister.chw.hiv.fragment.BaseHivCommunityFollowupRegisterFragment;
@@ -71,6 +72,15 @@ public class HivRegisterActivity extends CoreHivRegisterActivity {
     protected BaseHivCommunityFollowupRegisterFragment[] getOtherFragments() {
         return new HivFollowupRegisterFragment[]{
                 new HivFollowupRegisterFragment()};
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
+        if (menu != null) {
+            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.CBHS_CLIENTS);
+        }
     }
 }
  
