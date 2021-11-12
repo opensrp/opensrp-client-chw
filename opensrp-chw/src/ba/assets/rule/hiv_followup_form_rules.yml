@@ -149,7 +149,7 @@ actions:
 name: "client_moved_location_other_visibility"
 description: "client_moved_location visibility"
 priority: 1
-condition: "client_moved_location.value == 'Other'  "
+condition: "client_moved_location.value == 'Other' && (registration_or_followup_status.value == 'Client has relocated to another location' || registration_or_followup_status.value == 'Amehamishiwa mahali pengine')"
 actions:
   - "client_moved_location_other_visibility = true"
 
