@@ -230,6 +230,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         //Implements from super
     }
 
+    @Override
+    protected void startPmtctRegisration() {
+        //do nothing - implementation in hf
+    }
+
     /**
      * build implementation differences file
      */

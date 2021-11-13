@@ -195,6 +195,11 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
+    protected void startPmtctRegisration() {
+        //do nothing - implementation in hf
+    }
+
+    @Override
     protected void setIndependentClient(boolean isIndependentClient) {
         super.isIndependent = isIndependentClient;
     }
