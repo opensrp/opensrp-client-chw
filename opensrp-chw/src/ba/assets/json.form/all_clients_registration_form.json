@@ -293,7 +293,7 @@
           "label": "Age"
         },
         "min_date": "today-120y",
-        "max_date": "today-15y",
+        "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -358,8 +358,8 @@
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         },
         "v_min": {
-          "value": "15",
-          "err": "Age must be equal or greater than 15"
+          "value": "0",
+          "err": "Age must be equal or greater than 0"
         },
         "v_max": {
           "value": "120",
@@ -383,7 +383,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
-        "label": "Do have any of the following IDs?",
+        "label": "Do you have any of the following IDs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -522,8 +522,7 @@
         "type": "spinner",
         "hint": "Health insurance provider",
         "values": [
-          "Community Health Fund (CHF)",
-          "iCHF",
+          "Community Health Fund (CHF)/(iCHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
@@ -538,7 +537,6 @@
         ],
         "keys": [
           "Community Health Fund (CHF)",
-          "iCHF",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
@@ -553,7 +551,6 @@
         ],
         "openmrs_choice_ids": {
           "Community Health Fund (CHF)": "Community_Health_Fund",
-          "iCHF": "iCHF",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
           "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
           "AAR Healthcare": "AAR_Healthcare",
