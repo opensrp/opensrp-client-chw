@@ -1,5 +1,5 @@
 {
-  "form": "HIV Followup form",
+  "form": "CBHS Follow-up form",
   "count": "1",
   "encounter_type": "HIV Followup",
   "entity_id": "",
@@ -55,7 +55,7 @@
   },
   "steps": [
     {
-      "title": "HIV Followup form",
+      "title": "CBHS Follow-up form",
       "fields": [
         {
           "name": "registration_or_followup_status",
