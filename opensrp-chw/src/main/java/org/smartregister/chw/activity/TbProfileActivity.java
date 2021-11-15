@@ -267,7 +267,7 @@ public class TbProfileActivity extends CoreTbProfileActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == org.smartregister.chw.core.R.id.action_hiv_registration) {
+        if (itemId == org.smartregister.chw.core.R.id.action_cbhs_registration) {
             startHivRegister();
             return true;
         }
