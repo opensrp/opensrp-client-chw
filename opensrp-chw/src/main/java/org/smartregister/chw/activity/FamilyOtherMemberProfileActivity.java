@@ -69,7 +69,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         }
 
         if (!ChwApplication.getApplicationFlavor().hasHIV()) {
-            menu.findItem(R.id.action_hiv_registration).setVisible(false);
+            menu.findItem(R.id.action_cbhs_registration).setVisible(false);
         } else {
             flavor.updateHivMenuItems(baseEntityId, menu);
         }
@@ -228,6 +228,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startHfMalariaFollowupForm() {
         //Implements from super
+    }
+
+    @Override
+    protected void startPmtctRegisration() {
+        //do nothing - implementation in hf
     }
 
     /**

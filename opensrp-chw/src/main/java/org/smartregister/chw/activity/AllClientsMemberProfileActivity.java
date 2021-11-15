@@ -42,7 +42,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_location_info).setVisible(true);
-        menu.findItem(R.id.action_hiv_registration).setVisible(true);
+        menu.findItem(R.id.action_cbhs_registration).setVisible(true);
         menu.findItem(R.id.action_tb_registration).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
@@ -192,6 +192,11 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     protected void startHfMalariaFollowupForm() {
         //Implements from super
+    }
+
+    @Override
+    protected void startPmtctRegisration() {
+        //do nothing - implementation in hf
     }
 
     @Override
