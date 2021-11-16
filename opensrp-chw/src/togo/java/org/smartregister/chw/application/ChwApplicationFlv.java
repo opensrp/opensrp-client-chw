@@ -5,4 +5,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean showChildrenUnderFiveAndGirlsAgeNineToEleven() {
         return true;
     }
+
+    @Override
+    public boolean hasChildSickForm() {
+        return true;
+    }
 }
