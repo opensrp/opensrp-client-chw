@@ -461,6 +461,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean greyOutFormActionsIfInvalid();
 
+        boolean checkExtraForDueInFamily();
+
     }
 
 }

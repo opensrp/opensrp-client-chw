@@ -205,4 +205,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean greyOutFormActionsIfInvalid() {
         return true;
     }
+
+    @Override
+    public boolean checkExtraForDueInFamily() {
+        return true;
+    }
 }
