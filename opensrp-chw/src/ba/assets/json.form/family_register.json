@@ -862,7 +862,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Occupation of the family member",
+        "label": "Occupation of the family head",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
