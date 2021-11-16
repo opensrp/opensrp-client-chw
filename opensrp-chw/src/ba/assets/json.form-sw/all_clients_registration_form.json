@@ -293,7 +293,7 @@
           "label": "Age"
         },
         "min_date": "today-120y",
-        "max_date": "today-15y",
+        "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza tarehe ya kuzaliwa"
@@ -358,8 +358,8 @@
           "err": "Tafadhali ingiza umri"
         },
         "v_min": {
-          "value": "15",
-          "err": "Umri lazima uwe sawa au mkubwa kuliko 15"
+          "value": "0",
+          "err": "Umri lazima uwe sawa au mkubwa kuliko 0"
         },
         "v_max": {
           "value": "120",
@@ -522,8 +522,7 @@
         "type": "spinner",
         "hint": "Bima ya afya unaotumia",
         "values": [
-          "Bima ya afya ya jamii (CHF)",
-          "Bima ya afya ya jamii ulioboreshwa (iCHF)",
+          "Bima ya afya ya jamii (CHF)/(iCHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
@@ -538,7 +537,6 @@
         ],
         "keys": [
           "Community Health Fund (CHF)",
-          "iCHF",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
@@ -553,7 +551,6 @@
         ],
         "openmrs_choice_ids": {
           "Community Health Fund (CHF)": "Community_Health_Fund",
-          "iCHF": "iCHF",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
           "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
           "AAR Healthcare": "AAR_Healthcare",

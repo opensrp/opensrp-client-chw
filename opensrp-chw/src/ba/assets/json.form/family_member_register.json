@@ -275,7 +275,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
-        "label": "Do have any of the following IDs?",
+        "label": "Do you have any of the following IDs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

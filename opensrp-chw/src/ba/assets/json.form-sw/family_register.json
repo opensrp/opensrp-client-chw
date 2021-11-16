@@ -160,7 +160,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "ID",
+        "hint": "WAJA ID",
         "value": "0",
         "read_only": "true",
         "v_numeric": {
