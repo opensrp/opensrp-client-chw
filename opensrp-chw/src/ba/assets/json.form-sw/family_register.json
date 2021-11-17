@@ -96,7 +96,7 @@
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
         "edit_type": "name",
-        "hint": "Eneo",
+        "hint": "Jina la eneo",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza jina la eneo"
@@ -142,11 +142,11 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Kijiji/Mtaa",
+        "hint": "Kijiji/ Mtaa",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Tafadhali chagua jina la kijiji"
+          "err": "Tafadhali chagua jina la kijiji au mtaa"
         }
       }
     ]
@@ -371,7 +371,14 @@
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_register_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "national_id",
@@ -379,8 +386,12 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "National_ID",
         "type": "edit_text",
-        "hint": "Namba ya kitambulisho cha taifa",
+        "hint": "Namba ya kitambulisho cha taifa, mfano: 12345678-91234-56789-12",
         "edit_type": "name",
+        "v_regex": {
+          "value": "^\\d{8}-\\d{5}-\\d{5}-\\d{2}$",
+          "err": "Namba ya kitambulisho cha taifa inatakiwa kuwa (XXXXXXXX-XXXXX-XXXXX-XX)"
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
@@ -399,8 +410,12 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Voter_Registration_Number",
         "type": "edit_text",
-        "hint": "Namba ya kitambulisho cha mpiga kura",
+        "hint": "Namba ya kitambulisho cha mpiga kura, mfano: T-1234-5678-912-3",
         "edit_type": "name",
+        "v_regex": {
+          "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
+          "err": "Namba ya kitambulisho cha mpiga kura inatakiwa kuwa (T-XXXX-XXXX-XXX-X)"
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
@@ -419,8 +434,12 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Driver_License_Number",
         "type": "edit_text",
-        "hint": "Namba ya leseni ya udereva",
+        "hint": "Namba ya leseni ya udereva, mfano: 1234567891",
         "edit_type": "name",
+        "v_regex": {
+          "value": "^([0-9]{10})",
+          "err": "Namba ya leseni ya udereva inatakiwa kuwa (XXXXXXXXXX)"
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [

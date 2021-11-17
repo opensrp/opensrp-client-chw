@@ -148,3 +148,10 @@ priority: 1
 condition: "step2_wra == 1"
 actions:
   - "isRelevant = true"
+---
+name: step2_id_avail
+description: identity relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 18) || (step2_age != '' && step2_age >= 18)"
+actions:
+  - "isRelevant = true"
