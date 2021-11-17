@@ -282,4 +282,9 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean greyOutFormActionsIfInvalid() {
         return false;
     }
+
+    @Override
+    public boolean checkExtraForDueInFamily() {
+        return false;
+    }
 }
