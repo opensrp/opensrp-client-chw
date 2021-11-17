@@ -176,7 +176,7 @@
         "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Kijiji",
+        "hint": "Kijiji/Mtaa",
         "tree": [],
         "v_required": {
           "value": true,
