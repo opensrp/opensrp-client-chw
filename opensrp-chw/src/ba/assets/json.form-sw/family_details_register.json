@@ -92,7 +92,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Jina la eneno",
+        "hint": "Jina la eneo",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza jina la eneo"
