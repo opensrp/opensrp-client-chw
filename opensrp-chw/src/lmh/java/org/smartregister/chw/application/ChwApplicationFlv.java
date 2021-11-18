@@ -223,6 +223,10 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean checkExtraForDueInFamily() {
+      return true;
+    }
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
         return true;
     }
 }

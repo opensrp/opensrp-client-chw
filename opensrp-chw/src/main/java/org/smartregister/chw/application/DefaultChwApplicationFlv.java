@@ -287,4 +287,10 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean checkExtraForDueInFamily() {
         return false;
     }
+
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
+        return false;
+    }
+
 }

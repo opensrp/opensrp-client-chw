@@ -467,6 +467,8 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean checkExtraForDueInFamily();
 
+        boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult();
+
     }
 
 }
