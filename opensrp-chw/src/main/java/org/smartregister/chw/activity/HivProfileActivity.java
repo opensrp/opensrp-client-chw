@@ -25,7 +25,6 @@ import org.smartregister.chw.core.activity.CoreHivProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
-import org.smartregister.chw.core.interactor.CoreHivProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.task.RunnableTask;
@@ -38,6 +37,7 @@ import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.hiv.util.Constants;
 import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.hiv.util.HivUtil;
+import org.smartregister.chw.interactor.CbhsProfileInteractor;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.referral.domain.NeatFormMetaData;
@@ -256,7 +256,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     protected void initializePresenter() {
         showProgressBar(true);
-        setHivProfilePresenter(new HivProfilePresenter(this, new CoreHivProfileInteractor(this), getHivMemberObject()));
+        setHivProfilePresenter(new HivProfilePresenter(this, new CbhsProfileInteractor(this), getHivMemberObject()));
         fetchProfileData();
     }
 
