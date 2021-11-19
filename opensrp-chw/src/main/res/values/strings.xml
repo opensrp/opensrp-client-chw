@@ -416,5 +416,6 @@
     <string name="family_has_nothing_else_due">Family has nothing else due</string>
 
     <string name="edit_eligible_child_form_title">Edit eligible child %1$s\'s details</string>
+    <item name="reports_title" type="string">@string/report</item>
 
 </resources>

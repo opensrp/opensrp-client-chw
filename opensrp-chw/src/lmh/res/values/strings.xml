@@ -42,4 +42,5 @@
 
     <string name="add_child_under_11">Add child under 11 years</string>
     <string name="reports_dashboard">Dashboard</string>
+    <item name="reports_title" type="string">@string/reports_dashboard</item>
 </resources>
