@@ -69,7 +69,7 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity {
 
     @Override
     public void switchToBaseFragment() {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        Intent intent = new Intent(this, AllClientsRegisterActivity.class);
         startActivity(intent);
         finish();
     }
