@@ -72,8 +72,13 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
         }
         if (ChwApplication.getApplicationFlavor().showDueFilterToggle()) {
             dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
-        } else {
+        }
+        else {
             dueOnlyLayout.setVisibility(android.view.View.GONE);
+        }
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
+            view.findViewById(R.id.title_layout)
+                    .setOnClickListener(null);
         }
     }
 

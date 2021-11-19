@@ -281,7 +281,7 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 2
-            versionName "0.1.13"
+            versionName "0.1.14"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'

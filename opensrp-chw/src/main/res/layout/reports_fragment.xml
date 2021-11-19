@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:text="Reports"
+            android:text="@string/reports_title"
             android:textColor="@android:color/white" />
 
     </androidx.appcompat.widget.Toolbar>
