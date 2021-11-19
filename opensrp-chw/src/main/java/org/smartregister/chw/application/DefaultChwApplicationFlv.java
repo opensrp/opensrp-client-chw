@@ -216,4 +216,56 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
         return false;
     }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return true;
+    }
+
+    @Override
+    public boolean disableTitleClickGoBack() {
+        return false;
+    }
+
+    public boolean showReportsDescription() {
+        return false;
+    }
+
+    @Override
+    public boolean showReportsDivider() {
+        return false;
+    }
+
+    public boolean hideChildRegisterPreviousNextIcons(){
+        return false;
+    }
+
+    public boolean hideFamilyRegisterPreviousNextIcons(){
+        return false;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return false;
+    }
+
+    @Override
+    public boolean onFamilySaveGoToProfile() {
+        return false;
+    }
+
+    @Override
+    public boolean onChildProfileHomeGoToChildRegister() {
+        return true;
+    }
+
+    @Override
+    public boolean greyOutFormActionsIfInvalid() {
+        return false;
+    }
+
+    @Override
+    public boolean checkExtraForDueInFamily() {
+        return false;
+    }
 }

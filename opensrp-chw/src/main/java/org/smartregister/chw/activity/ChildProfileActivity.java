@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -156,10 +158,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, ChildRegisterActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
+                if (ChwApplication.getApplicationFlavor().onChildProfileHomeGoToChildRegister()) {
+                    Intent intent = new Intent(this, ChildRegisterActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return super.onOptionsItemSelected(item);
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this, presenter().getChildClient().getCaseId(), ((ChildProfilePresenter) presenter()).getFamilyID());
                 return true;
@@ -282,6 +287,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         flavor.setLastVisitRowView(lastVisitDay, layoutLastVisitRow, viewLastVisitRow, textViewLastVisit, this);
         flavor.setVaccineHistoryView(lastVisitDay, layoutVaccineHistoryRow, viewVaccineHistoryRow, this);
 
+    }
+
+    @Override
+    public Form getForm() {
+        Form currentFormConfig = super.getForm();
+        currentFormConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentFormConfig;
     }
 
     @Override

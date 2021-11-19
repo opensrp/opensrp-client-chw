@@ -4,6 +4,7 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -58,5 +59,15 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
 
         return " and (" + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME +  " like '%" + filters + "%' or "
                 + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.LAST_NAME +  " like '%" + filters + "%')";
+    }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
+            android.view.View titleLayout = view.findViewById(R.id.title_layout);
+            titleLayout.setOnClickListener(null);
+        }
     }
 }

@@ -93,7 +93,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean launchChildClientsAtLogin() {
-        return true;
+        return false;
     }
 
     @Override
@@ -154,6 +154,60 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+        return true;
+    }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return false;
+    }
+
+    @Override
+    public boolean disableTitleClickGoBack() {
+        return true;
+    }
+
+    public boolean showReportsDescription() {
+        return true;
+    }
+
+    @Override
+    public boolean showReportsDivider() {
+        return true;
+    }
+
+    @Override
+    public boolean hideChildRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean hideFamilyRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return true;
+    }
+
+    @Override
+    public boolean onFamilySaveGoToProfile() {
+        return true;
+    }
+
+    @Override
+    public boolean onChildProfileHomeGoToChildRegister() {
+        return false;
+    }
+
+    @Override
+    public boolean greyOutFormActionsIfInvalid() {
+        return true;
+    }
+
+    @Override
+    public boolean checkExtraForDueInFamily() {
         return true;
     }
 }

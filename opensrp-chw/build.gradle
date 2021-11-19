@@ -302,7 +302,7 @@ android {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-LMH-Beta-01-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-LMH-Beta-07-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

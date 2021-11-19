@@ -71,6 +71,11 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             dueOnlyLayout.setTag(null);
             toggleFilterSelection(dueOnlyLayout);
         }
+
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
+            view.findViewById(R.id.title_layout)
+                    .setOnClickListener(null);
+        }
     }
 
 }
