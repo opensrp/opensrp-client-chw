@@ -134,7 +134,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Clients continues with clinic from elsewhere",
+              "text": "Client continues with clinic from elsewhere",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
@@ -398,15 +398,6 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "women_having_sex_with_other_women",
-              "text": "Women having sex with other women",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
                 "openmrs_entity_parent": ""
               }
             },

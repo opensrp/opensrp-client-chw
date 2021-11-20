@@ -931,7 +931,7 @@
         "options": [
           {
             "key": "hiv_aids_transmission",
-            "text": "HIV/AIDs transimission",
+            "text": "HIV/AIDs transmission",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""

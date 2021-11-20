@@ -134,7 +134,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Anaendelea na huduma akitokea mahali pengine",
+              "text": "Anaendelea na huduma kutoka sehemu nyingine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
@@ -398,15 +398,6 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "women_having_sex_with_other_women",
-              "text": "Wanawake wanaofanya ngono na wanawake wenzao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "women_having_sex_with_other_women",
                 "openmrs_entity_parent": ""
               }
             },
