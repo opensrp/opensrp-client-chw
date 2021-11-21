@@ -1,13 +1,17 @@
 package org.smartregister.chw.fragment;
 
+import android.view.View;
+
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
+import org.smartregister.chw.R;
 import org.smartregister.chw.activity.HivIndexContactProfileActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreHivIndexContactsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.chw.model.HivIndexContactsRegisterFragmentModel;
@@ -40,24 +44,22 @@ public class HivIndexContactsRegisterFragment extends CoreHivIndexContactsRegist
         }
     }
 
-
     @Override
-    protected void openFollowUpVisit(@Nullable HivMemberObject hivMemberObject) {
-        if (getActivity() != null) {
-            String formName;
-            if (hivMemberObject.getGender().equalsIgnoreCase("male")) {
-                formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-            } else {
-                formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-            }
-
+    protected void onViewClicked(View view) {
+        if (getActivity() == null) {
+            return;
+        }
+        if (view.getTag() instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
+            openProfile((CommonPersonObjectClient) view.getTag());
+        } else if (view.getTag() instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == FOLLOW_UP_VISIT) {
             try {
-                HivIndexContactsContactsRegisterActivity.startHIVFormActivity(getActivity(), hivMemberObject.getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(getActivity(), CoreConstants.JSON_FORM.getHivIndexContactFollowupVisit()).toString());
+                HivIndexContactProfileActivity.startHivIndexContactFollowupActivity(getActivity(), HivIndexDao.getMember(((CommonPersonObjectClient) view.getTag()).getCaseId()).getBaseEntityId());
             } catch (JSONException e) {
                 Timber.e(e);
             }
         }
     }
+
 }
 
 
