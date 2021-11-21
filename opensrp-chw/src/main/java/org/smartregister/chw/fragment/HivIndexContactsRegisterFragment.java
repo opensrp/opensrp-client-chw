@@ -43,21 +43,20 @@ public class HivIndexContactsRegisterFragment extends CoreHivIndexContactsRegist
             HivIndexContactProfileActivity.startHivIndexContactProfileActivity(getActivity(), Objects.requireNonNull(HivIndexDao.getMember(client.getCaseId())));
         }
     }
+
     @Override
     protected void onViewClicked(View view) {
-        if(getActivity() == null){
+        if (getActivity() == null) {
             return;
         }
-        if(view.getTag()  instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL ){
+        if (view.getTag() instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == CLICK_VIEW_NORMAL) {
             openProfile((CommonPersonObjectClient) view.getTag());
-        }else if(view.getTag()  instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == FOLLOW_UP_VISIT){
+        } else if (view.getTag() instanceof CommonPersonObjectClient && view.getTag(R.id.VIEW_ID) == FOLLOW_UP_VISIT) {
             try {
-                HivIndexContactProfileActivity.startHivIndexContactFollowupActivity(getActivity(), HivIndexDao.getMember(((CommonPersonObjectClient)view.getTag()).getCaseId()).getBaseEntityId());
+                HivIndexContactProfileActivity.startHivIndexContactFollowupActivity(getActivity(), HivIndexDao.getMember(((CommonPersonObjectClient) view.getTag()).getCaseId()).getBaseEntityId());
             } catch (JSONException e) {
                 Timber.e(e);
             }
-
-            //openFollowUpVisit(HivDao.getMember(((CommonPersonObjectClient)view.getTag()).getCaseId()));
         }
     }
 
