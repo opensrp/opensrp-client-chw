@@ -1,0 +1,146 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Anc Counseling",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "{{anc_hv_counseling.step1.title}}",
+    "fields": [
+      {
+        "key": "anc_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "{{anc_hv_counseling.step1.anc_counseling.label_info_title}}",
+        "label_info_text": "{{anc_hv_counseling.step1.anc_counseling.label_info_text}}",
+        "hint": "{{anc_hv_counseling.step1.anc_counseling.hint}}",
+        "values": [
+          "{{anc_hv_counseling.step1.anc_counseling.values[0]}}",
+          "{{anc_hv_counseling.step1.anc_counseling.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_hv_counseling.step1.anc_counseling.v_required.err}}"
+        }
+      },
+      {
+        "key": "anc_counseling_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "{{anc_hv_counseling.step1.anc_counseling_toaster.text}}",
+        "text_color": "#1199F9",
+        "toaster_type": "info"
+      },
+      {
+        "key": "birth_hf_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "{{anc_hv_counseling.step1.birth_hf_counseling.label_info_title}}",
+        "label_info_text": "{{anc_hv_counseling.step1.birth_hf_counseling.label_info_text}}",
+        "hint": "{{anc_hv_counseling.step1.birth_hf_counseling.hint}}",
+        "values": [
+          "{{anc_hv_counseling.step1.birth_hf_counseling.values[0]}}",
+          "{{anc_hv_counseling.step1.birth_hf_counseling.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_hv_counseling.step1.birth_hf_counseling.v_required.err}}"
+        }
+      },
+      {
+        "key": "nutrition_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "{{anc_hv_counseling.step1.nutrition_counseling.label_info_title}}",
+        "label_info_text": "{{anc_hv_counseling.step1.nutrition_counseling.label_info_text}}",
+        "hint": "{{anc_hv_counseling.step1.nutrition_counseling.hint}}",
+        "values": [
+          "{{anc_hv_counseling.step1.nutrition_counseling.values[0]}}",
+          "{{anc_hv_counseling.step1.nutrition_counseling.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{anc_hv_counseling.step1.nutrition_counseling.v_required.err}}"
+        }
+      }
+    ]
+  },
+  "properties_file_name": "anc_hv_counseling"
+}

@@ -77,7 +77,7 @@
         "openmrs_entity_id": "birthRegistration",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the birth of registered by the civil registrar?",
+        "hint": "Does the birth registration done?",
         "values": [
           "Yes",
           "No"
@@ -105,7 +105,7 @@
         "openmrs_entity_id": "165405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the birth notified to the civil registrar ?",
+        "hint": "Was the birth notification done?",
         "values": [
           "Yes",
           "No"
@@ -181,62 +181,6 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "birth_certification_intro_relevance_rule.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "system_birth_notification",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "systemBirthNotification",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "This child qualifies for electronic birth notification, do you want to proceed and make birth notification?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "birth_certification.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "birth_reg_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "birthRegType",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Select Birth Registration Type",
-        "values": [
-          "Both Parents",
-          "Self",
-          "Informant Only",
-          "Mother Only",
-          "Father Only"
-        ]
-      },
-      {
-        "key": "informant_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "informantReason",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "If Informant, give reason why mother or father is not applying",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "birth_certification.yml"
             }
           }
         }

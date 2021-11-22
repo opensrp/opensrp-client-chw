@@ -1,0 +1,874 @@
+{
+  "count": "1",
+  "encounter_type": "Out Of Area Death Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Add Child Under N - Out of Area Death",
+    "fields": [
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "hidden": "false",
+        "type": "edit_text",
+        "hint": "ID *",
+        "read_only": "true",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the Child's OpenMRS ID"
+        }
+      },
+      {
+        "key": "name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "name",
+        "type": "edit_text",
+        "hint": "Name",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the name"
+        }
+      },
+      {
+        "key": "national_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "National_ID",
+        "type": "edit_text",
+        "hint": "National ID number",
+        "edit_type": "name"
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "hint": "Date of birth (DOB)",
+        "expanded": false,
+        "min_date": "today-120y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "hidden": "false",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ageCalculated",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Age",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+        },
+        "v_min": {
+          "value": "1",
+          "err": "Age must be greater than 0"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Age must be equal or less than 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
+        }
+      },
+      {
+        "key": "dob_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_estimated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_estimated",
+            "text": "DOB is estimated",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "native_radio",
+        "label": "Sex",
+        "options": [
+          {
+            "key": "Male",
+            "text": "Male"
+          },
+          {
+            "key": "Female",
+            "text": "Female"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "nationality",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nationality",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Nationality (citizenship)",
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the family member's record"
+        },
+        "values": [
+          "Togo",
+          "DRC",
+          "Guinea",
+          "Liberia",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Togo": "togo_id_openmrs",
+          "DRC": "drc_id_openmrs",
+          "Guinea": "guinea_id_openmrs",
+          "Liberia": "liberia_id_openmrs",
+          "Other": "other_id_openmrs"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "maritalStatus",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Marital Status",
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the family member's record"
+        },
+        "values": [
+          "Co-Habiting",
+          "Divorced",
+          "Married",
+          "Single",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Co-Habiting": "co_habiting_id_openmrs",
+          "Divorced": "divorced_id_openmrs",
+          "Married": "married_id_openmrs",
+          "Single": "single_id_openmrs",
+          "Widowed": "widowed_id_openmrs"
+        }
+      },
+      {
+        "key": "remove_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Select the reason for removing the child's record.",
+        "hidden": "true",
+        "values": [
+          "Died",
+          "Moved away",
+          "Other"
+        ],
+        "keys": [
+          "Died",
+          "Moved away",
+          "Other"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the child's record."
+        },
+        "openmrs_choice_ids": {
+          "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "date_died",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "label": "Date of death",
+        "hint": "Date of death",
+        "expanded": false,
+        "min_date": "today-80y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Enter the date of death"
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "Date of death can't occur before date of birth"
+          }
+        ]
+      },
+      {
+        "key": "age_at_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "Age at death",
+        "hint": "Age at death",
+        "type": "edit_text",
+        "read_only": "true",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_remove_calculation.yml"
+            }
+          }
+        }
+      },
+
+
+      {
+        "key": "death_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathPlace",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Place of occurrence of death (if known)",
+        "v_required": {
+          "value": "true",
+          "err": "Select the reason for removing the family member's record"
+        },
+        "values": [
+          "Home",
+          "Place of work",
+          "Health Facility",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Home": "home_id_openmrs",
+          "Place of work": "place_of_work_id_openmrs",
+          "Health Facility": "health_facility_id_openmrs",
+          "Other": "other_id_openmrs"
+        }
+      },
+      {
+        "key": "mccd_conducted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mccdConducted",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was MCCD conducted ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "mccd_yes_id_openmrs",
+          "No": "mccd_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "death_manner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathManner",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Select Manner of death",
+        "values": [
+          "Disease",
+          "Accident",
+          "Intentional self harm",
+          "Assault",
+          "Legal Intervention",
+          "War",
+          "Could not determine",
+          "Pending investigation",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Disease": "disease_id_openmrs",
+          "Accident": "accident_id_openmrs",
+          "Intentional self harm": "international_self_harm_id_openmrs",
+          "Assault": "assault_id_openmrs",
+          "Legal Intervention": "legal_intervention_id_openmrs",
+          "War": "war_id_openmrs",
+          "Could not determine": "could_not_determine_id_openmrs",
+          "Pending investigation": "pending_investigation_id_openmrs",
+          "Unknown": "unknown_id_openmrs"
+        }
+      },
+      {
+        "key": "medically_treated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medicallyTreated",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was the deceased admitted to a health facility in the past 4 weeks ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "medically_treated_yes_id_openmrs",
+          "No": "medically_treated_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "know_death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "knowDeathCause",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Do you know the cause of death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "cause_of_death_yes_id_openmrs",
+          "No": "cause_of_death_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "deceased_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deceasedPregnant",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was the deceased pregnant ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "deceased_pregnant_yes_id_openmrs",
+          "No": "deceased_pregnant_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnant_died",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnantDied",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Did the pregnancy contribute to her death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select one value from dropdown"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "pregnant_died_yes_id_openmrs",
+          "No": "pregnant_died_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "informant_fields",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Informant Details"
+      },
+      {
+        "key": "informant_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "informantName",
+        "label": "Name",
+        "hint": "Name",
+        "type": "edit_text"
+      },
+      {
+        "key": "informant_relationship",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "informantRelationship",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Relationship to decedent",
+        "values": [
+          "Sibling",
+          "Parent",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Sibling": "sibling_id_openmrs",
+          "Parent": "parent_id_openmrs",
+          "Other": "other_id_openmrs"
+        }
+      },
+      {
+        "key": "informant_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "informantAddress",
+        "label": "Address",
+        "hint": "Address",
+        "type": "edit_text"
+      },
+      {
+        "key": "informant_phone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "informantPhone",
+        "label": "Phone",
+        "hint": "Phone",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        }
+      },
+      {
+        "key": "official_fields",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "Official Details"
+      },
+      {
+        "key": "official_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "officialName",
+        "label": "Full Name",
+        "hint": "Full Name",
+        "type": "edit_text"
+      },
+      {
+        "key": "official_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "officialId",
+        "label": "Personal ID number",
+        "hint": "Personal ID number",
+        "type": "edit_text"
+      },
+      {
+        "key": "official_position",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "officialPosition",
+        "label": "Official position",
+        "hint": "Official position",
+        "type": "edit_text"
+      },
+      {
+        "key": "official_address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "officialAddress",
+        "label": "Address of official",
+        "hint": "Address of official",
+        "type": "edit_text"
+      },
+      {
+        "key": "official_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "officialNumber",
+        "label": "Phone number of official",
+        "hint": "Phone number of official",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        }
+      },
+      {
+        "key": "physician_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physicianName",
+        "label": "Name of physician signing MCCD",
+        "hint": "Name of physician signing MCCD",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physician_position",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "physicianPosition",
+        "label": "Position of physician signing MCCD",
+        "hint": "Position of physician signing MCCD",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "still_born_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stillBornDeath",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was this a stillborn Death ?",
+        "v_required": {
+          "value": "true",
+          "err": "Select One"
+        },
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "still_born_yes_id_openmrs",
+          "No": "still_born_no_id_openmrs"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+
+      {
+        "key": "death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCause",
+        "label": "Cause of death",
+        "hint": "Cause of death",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_death_form_relevance.yml"
+            }
+          }
+        }
+      },
+
+
+      {
+        "key": "received_death_certificate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "receivedDeathCertificate",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Does the family of the decedent have a death certificate (Y/N)?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please choose an option"
+        }
+      },
+      {
+        "key": "death_certificate_issue_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificateIssueDate",
+        "openmrs_data_type": "text",
+        "type": "date_picker",
+        "label": "Death certificate issuance date (if certificate received)",
+        "hint": "Death certificate issuance date (if certificate received)",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Required issue date"
+        },
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:date_died)",
+            "err": "Death certificate issuance date can't occur before date of death"
+          }
+        ],
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumber",
+        "label": "Death certificate number (if certificate received)",
+        "hint": "Death certificate number (if certificate received)",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_notification_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathNotificationDone",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Was the death notification done (if certificate not received) - Y/N)?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+
+      {
+        "key": "hidden_died_check",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "",
+        "hint": "",
+        "type": "edit_text",
+        "read_only": "true"
+      }
+    ]
+  }
+}

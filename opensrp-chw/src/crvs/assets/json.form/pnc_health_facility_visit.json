@@ -1,0 +1,185 @@
+{
+  "count": "1",
+  "encounter_type": "PNC health facility visit",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "{{pnc_health_facility_visit.step1.title}}",
+    "fields": [
+      {
+        "key": "pnc_visit_{0}",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{pnc_health_facility_visit.step1.pnc_visit_{0}.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{pnc_health_facility_visit.step1.pnc_visit_{0}.v_required.err}}"
+        },
+        "values": [
+          "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[0]}}",
+          "{{pnc_health_facility_visit.step1.pnc_visit_{0}.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "key": "pnc_hf_visit{0}_date",
+        "openmrs_entity_parent": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "{{pnc_health_facility_visit.step1.pnc_hf_visit{0}_date.hint}}",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "{{pnc_health_facility_visit.step1.pnc_hf_visit{0}_date.v_required.err}}"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "baby_weight",
+        "openmrs_entity_parent": "1528AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "{{pnc_health_facility_visit.step1.baby_weight.hint}}",
+        "v_min": {
+          "value": "0",
+          "err": "{{pnc_health_facility_visit.step1.baby_weight.v_min.err}}"
+        },
+        "v_max": {
+          "value": "20",
+          "err": "{{pnc_health_facility_visit.step1.baby_weight.v_max.err}}"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{pnc_health_facility_visit.step1.baby_weight.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{pnc_health_facility_visit.step1.baby_weight.v_numeric.err}}"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "baby_temp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "{{pnc_health_facility_visit.step1.baby_temp.hint}}",
+        "v_min": {
+          "value": "35",
+          "err": "{{pnc_health_facility_visit.step1.baby_temp.v_min.err}}"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "{{pnc_health_facility_visit.step1.baby_temp.v_max.err}}"
+        },
+        "v_required": {
+          "value": "false",
+          "err": "{{pnc_health_facility_visit.step1.baby_temp.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{pnc_health_facility_visit.step1.baby_temp.v_numeric.err}}"
+        },
+        "relevance": {
+          "step1:pnc_visit_{0}": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "confirmed_health_facility_visits",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "confirmed_health_facility_visits",
+        "type": "spacer",
+        "read_only": "true",
+        "hidden": "true",
+        "value": "0"
+      },
+      {
+        "key": "last_health_facility_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_health_facility_visit_date",
+        "type": "spacer",
+        "read_only": "true",
+        "hidden": "true",
+        "value": "0"
+      },
+      {
+        "key": "pnc_hf_next_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pnc_hf_next_visit_date",
+        "type": "spacer"
+      }
+    ]
+  },
+  "properties_file_name": "pnc_health_facility_visit"
+}
