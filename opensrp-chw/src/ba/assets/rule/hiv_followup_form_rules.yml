@@ -2,14 +2,14 @@
 name: "client_condition_visibility"
 description: "client_condition visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "client_condition_visibility =  true"
 ---
 name: "client_hiv_status_after_testing_visibility"
 description: "client_hiv_status_after_testing visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "client_hiv_status_after_testing_visibility =  true"
 ---
@@ -23,7 +23,7 @@ actions:
 name: "health_problem_visibility"
 description: "health_problem visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "health_problem_visibility =  true"
 ---
@@ -37,7 +37,7 @@ actions:
 name: "social_problem_visibility"
 description: "social_problem visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "social_problem_visibility =  true"
 ---
@@ -51,7 +51,7 @@ actions:
 name: "supplies_provided_visibility"
 description: "supplies_provided visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "supplies_provided_visibility =  true"
 ---
@@ -65,14 +65,14 @@ actions:
 name: "client_behaviour_and_environmental_risk_visibility"
 description: "client_behaviour_and_environmental_risk visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "client_behaviour_and_environmental_risk_visibility =  true"
 ---
 name: "medicine_provided_visibility"
 description: "medicine_provided visibility"
 priority: 1
-condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services'"
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "medicine_provided_visibility =  true"
 ---
@@ -86,7 +86,7 @@ actions:
 name: "hiv_services_provided_visibility"
 description: "hiv_services_provided visibility"
 priority: 1
-condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services'"
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "hiv_services_provided_visibility =  true"
 ---
@@ -100,7 +100,7 @@ actions:
 name: "referrals_issued_to_other_services_visibility"
 description: "referrals_issued_to_other_services visibility"
 priority: 1
-condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services'"
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "referrals_issued_to_other_services_visibility =  true"
 ---
@@ -114,7 +114,7 @@ actions:
 name: "referrals_to_other_services_completed_visibility"
 description: "referrals_to_other_services_completed visibility"
 priority: 1
-condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services'"
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "referrals_to_other_services_completed_visibility =  true"
 ---
@@ -128,7 +128,7 @@ actions:
 name: "state_of_therapy_visibility"
 description: "state_of_therapy visibility"
 priority: 1
-condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services'"
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
 actions:
   - "state_of_therapy_visibility =  true"
 ---
