@@ -75,6 +75,7 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
                         .replace("-", "");
 
             case Constants.JsonAssets.FAM_NAME:
+            case Constants.JsonAssets.SURNAME:
                 computeFamName(client, jsonObject, jsonArray, familyName);
                 break;
 
@@ -160,7 +161,7 @@ public class FamilyMemberDataLoader extends NativeFormsDataLoader {
             if (!familyName.equals(lastName)) {
                 surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, lastName);
             } else {
-                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, "");
+                surname.put(org.smartregister.family.util.JsonFormUtils.VALUE, familyName);
             }
         }
     }
