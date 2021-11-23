@@ -266,6 +266,7 @@
         "values": [
           "Community Health Fund (CHF)/(iCHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "National Health Insurance Fund (NHIF)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
           "Strategies Insurance",
@@ -280,6 +281,7 @@
         "keys": [
           "Community Health Fund (CHF)",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "National Health Insurance Fund (NHIF)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Healthcare",
           "Strategies Insurance",
@@ -294,6 +296,7 @@
         "openmrs_choice_ids": {
           "Community Health Fund (CHF)": "Community_Health_Fund",
           "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
+          "National Health Insurance Fund (NHIF)": "National_Health_Insurance_Fund",
           "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
           "AAR Healthcare": "AAR_Healthcare",
           "AAR Strategies Insurance": "Strategies_Insurance",
