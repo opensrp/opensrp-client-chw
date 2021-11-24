@@ -3,8 +3,6 @@ package org.smartregister.chw.presenter;
 import android.content.Intent;
 
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.interactor.FamilyProfileInteractor;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.family.contract.FamilyRegisterContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;

@@ -9,7 +9,6 @@ import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.provider.FamilyRegisterProvider;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
@@ -93,7 +92,7 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         }
 
         if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
-            android.view.View titleLayout = view.findViewById(R.id.title_layout);
+            View titleLayout = view.findViewById(R.id.title_layout);
             titleLayout.setOnClickListener(null);
         }
     }

@@ -87,12 +87,8 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-<<<<<<< HEAD
         "edit_type": "name",
-        "hint": "First name",
-=======
         "hint": "{{child_enrollment.step1.first_name.hint}}",
->>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         "expanded": false,
         "v_required": {
           "value": "true",
@@ -110,12 +106,8 @@
         "openmrs_entity_id": "middle_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-<<<<<<< HEAD
         "edit_type": "name",
-        "hint": "Middle name",
-=======
         "hint": "{{child_enrollment.step1.middle_name.hint}}",
->>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         "expanded": false,
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
@@ -216,26 +208,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
-<<<<<<< HEAD
         "type": "native_radio",
-        "label": "Sex",
-        "hint": "Sex",
+        "hint": "{{child_enrollment.step1.gender.hint}}",
+        "label": "{{child_enrollment.step1.gender.hint}}",
         "options": [
           {
-            "key": "Male",
-            "text": "Male"
+            "key": "{{child_enrollment.step1.gender.values[0]}}",
+            "text": "{{child_enrollment.step1.gender.values[0]}}"
           },
           {
-            "key": "Female",
-            "text": "Female"
+            "key": "{{child_enrollment.step1.gender.values[1]}}",
+            "text": "{{child_enrollment.step1.gender.values[1]}}"
           }
-=======
-        "type": "spinner",
-        "hint": "{{child_enrollment.step1.gender.hint}}",
-        "values": [
-          "{{child_enrollment.step1.gender.values[0]}}",
-          "{{child_enrollment.step1.gender.values[1]}}"
->>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         ],
         "v_required": {
           "value": "true",
