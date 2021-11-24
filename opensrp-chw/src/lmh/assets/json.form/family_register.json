@@ -95,12 +95,8 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-<<<<<<< HEAD
         "edit_type": "name",
-        "hint": "Village/Town",
-=======
         "hint": "{{family_register.step1.village_town.hint}}",
->>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         "v_required": {
           "value": "true",
           "err": "{{family_register.step1.village_town.v_required.err}}"
@@ -262,34 +258,22 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
-<<<<<<< HEAD
         "type": "native_radio",
-        "label": "Sex",
-        "hint": "Sex",
+        "label": "{{family_register.step2.sex.hint}}",
+        "hint": "{{family_register.step2.sex.hint}}",
         "options": [
           {
-            "key": "Male",
-            "text": "Male"
+            "key":  "{{family_register.step2.sex.values[0]}}",
+            "text":  "{{family_register.step2.sex.values[0]}}"
           },
           {
-            "key": "Female",
-            "text": "Female"
+            "key": "{{family_register.step2.sex.values[1]}}",
+            "text": "{{family_register.step2.sex.values[1]}}"
           }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please enter the sex"
-=======
-        "type": "spinner",
-        "hint": "{{family_register.step2.sex.hint}}",
-        "values": [
-          "{{family_register.step2.sex.values[0]}}",
-          "{{family_register.step2.sex.values[1]}}"
         ],
         "v_required": {
           "value": "true",
           "err": "{{family_register.step2.sex.v_required.err}}"
->>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         }
       }
     ]
