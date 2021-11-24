@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Remove Family Member",
+    "title": "{{death_member_form_fr.step1.title}}",
     "fields": [
       {
         "key": "death_certificate_fields",
@@ -60,9 +60,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Death Certificate"
+        "text": "{{death_member_form_fr.step1.death_certificate_fields.text}}"
       },
-      
       {
         "key": "received_death_certificate",
         "openmrs_entity_parent": "",
@@ -70,8 +69,12 @@
         "openmrs_entity_id": "receivedDeathCertificate",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the family of the decedent have a death certificate (Y/N)?",
+        "hint": "{{death_member_form_fr.step1.received_death_certificate.hint}}",
         "values": [
+          "{{death_member_form_fr.step1.received_death_certificate.values[0]}}",
+          "{{death_member_form_fr.step1.received_death_certificate.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -81,7 +84,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please choose an option"
+          "err": "{{death_member_form_fr.step1.received_death_certificate.v_required.err}}"
         }
       },
       {
@@ -91,14 +94,14 @@
         "openmrs_entity_id": "deathCertificateIssueDate",
         "openmrs_data_type": "text",
         "type": "date_picker",
-        "label": "Death certificate issuance date (if certificate received)",
-        "hint": "Death certificate issuance date (if certificate received)",
+        "label": "{{death_member_form_fr.step1.death_certificate_issue_date.label}}",
+        "hint": "{{death_member_form_fr.step1.death_certificate_issue_date.hint}}",
         "expanded": false,
         "min_date": "",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Required issue date"
+          "err": "{{death_member_form_fr.step1.death_certificate_issue_date.v_required.err}}"
         },
         "relevance": {
           "step1:received_death_certificate": {
@@ -112,12 +115,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "deathCertificationNumber",
-        "label": "Death certificate number (if certificate received)",
-        "hint": "Death certificate number (if certificate received)",
+        "label": "{{death_member_form_fr.step1.death_certificate_number.label}}",
+        "hint": "{{death_member_form_fr.step1.death_certificate_number.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{death_member_form_fr.step1.death_certificate_number.v_numeric.err}}"
         },
         "relevance": {
           "step1:received_death_certificate": {
@@ -133,8 +136,12 @@
         "openmrs_entity_id": "deathNotificationDone",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the death notification done (if certificate not received) - Y/N)?",
+        "hint": "{{death_member_form_fr.step1.death_notification_done.hint}}",
         "values": [
+          "{{death_member_form_fr.step1.death_notification_done.values[0]}}",
+          "{{death_member_form_fr.step1.death_notification_done.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -154,7 +161,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "text": "Ask to see the death notification and instruct the family member to register the death at CRO. (if death notification done)",
+        "text": "{{death_member_form_fr.step1.ask_family_member.text}}",
         "type": "label",
         "relevance": {
           "step1:received_death_certificate": {
@@ -168,7 +175,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "text": "Instruct the family member to have the death registered at CRO. (if birth notification not done)",
+        "text": "{{death_member_form_fr.step1.instruct_family_member.text}}",
         "type": "label",
         "relevance": {
           "step1:received_death_certificate": {
@@ -183,7 +190,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Informant Details",
+        "text": "{{death_member_form_fr.step1.informant_fields.text}}",
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",
@@ -196,8 +203,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Name",
-        "hint": "Name",
+        "label": "{{death_member_form_fr.step1.informant_name.label}}",
+        "hint": "{{death_member_form_fr.step1.informant_name.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -213,8 +220,13 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Relationship to decedent",
+        "hint": "{{death_member_form_fr.step1.informant_relationship.hint}}",
         "values": [
+          "{{death_member_form_fr.step1.informant_relationship.values[0]}}",
+          "{{death_member_form_fr.step1.informant_relationship.values[1]}}",
+          "{{death_member_form_fr.step1.informant_relationship.values[2]}}"
+        ],
+        "keys": [
           "Sibling",
           "Parent",
           "Other"
@@ -236,8 +248,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Address",
-        "hint": "Address",
+        "label": "{{death_member_form_fr.step1.informant_address.label}}",
+        "hint": "{{death_member_form_fr.step1.informant_address.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -251,12 +263,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Phone",
-        "hint": "Phone",
+        "label": "{{death_member_form_fr.step1.informant_phone.label}}",
+        "hint": "{{death_member_form_fr.step1.informant_phone.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{death_member_form_fr.step1.informant_phone.v_numeric.err}}"
         },
         "relevance": {
           "step1:received_death_certificate": {
@@ -271,7 +283,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Official Details",
+        "text": "{{death_member_form_fr.step1.official_fields.text}}",
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",
@@ -284,8 +296,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Full Name",
-        "hint": "Full Name",
+        "label": "{{death_member_form_fr.step1.official_name.label}}",
+        "hint": "{{death_member_form_fr.step1.official_name.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -299,8 +311,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialId",
-        "label": "Personal ID number",
-        "hint": "Personal ID number",
+        "label": "{{death_member_form_fr.step1.official_id.label}}",
+        "hint": "{{death_member_form_fr.step1.official_id.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -314,8 +326,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Official position",
-        "hint": "Official position",
+        "label": "{{death_member_form_fr.step1.official_position.label}}",
+        "hint": "{{death_member_form_fr.step1.official_position.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -329,8 +341,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Name of physician signing MCCD",
-        "hint": "Name of physician signing MCCD",
+        "label": "{{death_member_form_fr.step1.physician_name.label}}",
+        "hint": "{{death_member_form_fr.step1.physician_name.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -344,8 +356,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Position of physician signing MCCD",
-        "hint": "Position of physician signing MCCD",
+        "label": "{{death_member_form_fr.step1.physician_position.label}}",
+        "hint": "{{death_member_form_fr.step1.physician_position.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -359,8 +371,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Cause of death",
-        "hint": "Cause of death",
+        "label": "{{death_member_form_fr.step1.death_cause.label}}",
+        "hint": "{{death_member_form_fr.step1.death_cause.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -374,8 +386,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Manner of death",
-        "hint": "Manner of death",
+        "label": "{{death_member_form_fr.step1.death_manner.label}}",
+        "hint": "{{death_member_form_fr.step1.death_manner.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -389,8 +401,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Address of official",
-        "hint": "Address of official",
+        "label": "{{death_member_form_fr.step1.official_address.label}}",
+        "hint": "{{death_member_form_fr.step1.official_address.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
@@ -404,12 +416,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Phone number of official",
-        "hint": "Phone number of official",
+        "label": "{{death_member_form_fr.step1.official_number.label}}",
+        "hint": "{{death_member_form_fr.step1.official_number.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{death_member_form_fr.step1.official_number.v_numeric.err}}"
         },
         "relevance": {
           "step1:received_death_certificate": {
@@ -419,5 +431,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "death_member_form_fr"
 }

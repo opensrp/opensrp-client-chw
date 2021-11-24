@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Remove Family Member",
+    "title": "{{death_certification_form_fr.step1.title}}",
     "fields": [
       {
         "key": "spacer",
@@ -69,8 +69,12 @@
         "openmrs_entity_id": "receivedDeathCertificate",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did the family received a death certificate?",
+        "hint": "{{death_certification_form_fr.step1.received_death_certificate.hint}}",
         "values": [
+          "{{death_certification_form_fr.step1.received_death_certificate.values[0]}}",
+          "{{death_certification_form_fr.step1.received_death_certificate.values[1]}}"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],
@@ -86,8 +90,8 @@
         "openmrs_entity_id": "deathCertificateIssueDate",
         "openmrs_data_type": "text",
         "type": "date_picker",
-        "label": "Death certificate issuance date",
-        "hint": "Death certificate issuance date",
+        "label": "{{death_certification_form_fr.step1.death_certificate_issue_date.label}}",
+        "hint": "{{death_certification_form_fr.step1.death_certificate_issue_date.hint}}",
         "expanded": false,
         "min_date": "",
         "max_date": "today",
@@ -105,10 +109,10 @@
         "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Birth certificate number",
+        "hint": "{{death_certification_form_fr.step1.birth_cert_num.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Please enter number"
+          "err": "{{death_certification_form_fr.step1.birth_cert_num.v_required.err}}"
         },
         "relevance": {
           "step1:received_death_certificate": {
@@ -122,7 +126,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "text": "Instruct the family to have the death registered at County Health.",
+        "text": "{{death_certification_form_fr.step1.ask_family_member.text}}",
         "type": "label",
         "relevance": {
           "step1:received_death_certificate": {
@@ -138,8 +142,19 @@
         "openmrs_entity_id": "deathManner",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Select Manner of death",
+        "hint": "{{death_certification_form_fr.step1.death_manner.hint}}",
         "values": [
+          "{{death_certification_form_fr.step1.death_manner.values[0]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[1]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[2]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[3]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[4]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[5]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[6]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[7]}}",
+          "{{death_certification_form_fr.step1.death_manner.values[8]}}"
+        ],
+        "keys": [
           "Disease",
           "Accident",
           "Intentional self harm",
@@ -162,7 +177,7 @@
           "Unknown": "unknown_id_openmrs"
         }
       }
-
     ]
-  }
+  },
+  "properties_file_name": "death_certification_form_fr"
 }
