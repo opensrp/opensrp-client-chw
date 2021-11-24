@@ -44,6 +44,9 @@ public class ChwRepositoryFlv {
                 case 6:
                     upgradeToVersion6(db);
                     break;
+                case 7:
+                    upgradeToVersion7(db);
+                    break;
                 default:
                     break;
             }
@@ -132,6 +135,15 @@ public class ChwRepositoryFlv {
             DatabaseMigrationUtils.fillFamilyMemberLocationTableWithProviderIds(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion6");
+        }
+    }
+
+    private static void upgradeToVersion7(SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion7");
         }
     }
 }

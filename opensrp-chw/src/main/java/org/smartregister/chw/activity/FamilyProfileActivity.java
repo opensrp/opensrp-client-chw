@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -18,7 +20,6 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.joda.time.DateTime;
 import org.json.JSONObject;
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -57,10 +58,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
+    private TextView tvEventDate;
+    private TextView tvInterpunct;
 
     @Override
     public void setupViews() {
         super.setupViews();
+        tvEventDate = findViewById(R.id.textview_event_date);
+        tvInterpunct = findViewById(R.id.interpunct);
 
         // Update profile border
         CircleImageView profileView = findViewById(org.smartregister.chw.core.R.id.imageview_profile);
@@ -105,6 +110,15 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && profileDueFragment != null) {
             profileDueFragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void setEventDate(String eventDate) {
+        if (ChwApplication.getApplicationFlavor().hasEventDateOnFamilyProfile()) {
+            tvEventDate.setVisibility(View.VISIBLE);
+            tvInterpunct.setVisibility(View.VISIBLE);
+            tvEventDate.setText(String.format(this.getString(R.string.created), eventDate));
         }
     }
 
@@ -286,12 +300,12 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     @Override
     public Form getFormConfig() {
-        Form currentConfig =  new Form();
-        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()){
+        Form currentConfig = new Form();
+        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()) {
             currentConfig.setHidePreviousIcon(true);
             currentConfig.setHideNextIcon(true);
         }
-        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()){
+        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()) {
             currentConfig.setHideNextButton(true);
             currentConfig.setNextLabel(getString(R.string.next));
             currentConfig.setShowNextInToolbarWhenWizard(true);

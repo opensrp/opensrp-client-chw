@@ -12,6 +12,7 @@ import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.StockUsageReportRepository;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.ChildDBConstants;
+import org.smartregister.chw.util.ChwDBConstants;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
@@ -92,6 +93,15 @@ public class ChwRepositoryFlv {
                 case 20:
                     upgradeToVersion20(db);
                     break;
+                case 21:
+                    upgradeToVersion21(db);
+                    break;
+                case 22:
+                    upgradeToVersion22(db);
+                    break;
+                case 23:
+                    upgradeToVersion23(context, db);
+                    break;
                 default:
                     break;
             }
@@ -112,8 +122,6 @@ public class ChwRepositoryFlv {
 
 //            EventClientRepository.createTable(db, EventClientRepository.Table.path_reports, EventClientRepository.report_column.values());
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
-
-            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion2 ");
@@ -323,4 +331,44 @@ public class ChwRepositoryFlv {
             Timber.e(e, "upgradeToVersion20");
         }
     }
+
+    private static void upgradeToVersion21(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN event_date VARCHAR; ");
+            // add missing columns
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion21 ");
+        }
+
+        try {
+            db.execSQL("UPDATE ec_family SET event_date = (select min(eventDate) from event where event.baseEntityId = ec_family.base_entity_id and event.eventType = 'Family Registration') where event_date is null;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion21 ");
+        }
+
+    }
+
+    private static void upgradeToVersion22(SQLiteDatabase db) {
+        try {
+            List<String> columns = new ArrayList<>();
+            columns.add(DBConstants.KEY.VILLAGE_TOWN);
+            columns.add(ChwDBConstants.NEAREST_HEALTH_FACILITY);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY, columns);
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion22 ");
+        }
+    }
+
+    private static void upgradeToVersion23(Context context, SQLiteDatabase db) {
+        try {
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+            db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+
+            IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
 }

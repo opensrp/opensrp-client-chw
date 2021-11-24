@@ -25,6 +25,8 @@ import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Map;
+
 import timber.log.Timber;
 
 public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implements SyncStatusBroadcastReceiver.SyncStatusListener {
@@ -41,7 +43,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
     ) {
         Utils.setupBottomNavigation(bottomNavigationHelper, bottomNavigationView, new ChwBottomNavigationListener(activity));
         if (!ChwApplication.getApplicationFlavor().showBottomNavigation()
-                && bottomNavigationView != null){
+                && bottomNavigationView != null) {
             bottomNavigationView.setVisibility(View.GONE);
         }
     }
@@ -69,8 +71,7 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
         }
         try {
             SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
     }
@@ -115,12 +116,12 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
 
     @Override
     public Form getFormConfig() {
-        Form currentConfig =  super.getFormConfig();
-        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()){
+        Form currentConfig = super.getFormConfig();
+        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()) {
             currentConfig.setHidePreviousIcon(true);
             currentConfig.setHideNextIcon(true);
         }
-        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()){
+        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()) {
             currentConfig.setHideNextButton(true);
             currentConfig.setNextLabel(getString(R.string.next));
             currentConfig.setShowNextInToolbarWhenWizard(true);
@@ -142,5 +143,11 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
     protected void onDestroy() {
         super.onDestroy();
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        Timber.v("startFormActivity");
+
     }
 }

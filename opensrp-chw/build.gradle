@@ -6,8 +6,9 @@ buildscript {
     }
     dependencies {
         classpath 'org.apache.commons:commons-lang3:3.10'
-        classpath 'io.fabric.tools:gradle:1.31.2'
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.google.gms:google-services:4.3.4'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
     }
 }
 
@@ -42,7 +43,8 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -85,11 +87,54 @@ android {
         buildConfigField "int", "MAX_SYNC_RETRIES", '3'
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "false"
+        buildConfigField "String", "THINKMD_BASE_URL", '"https://app.africa.thinkmd.tech"'
+        buildConfigField "String", "THINKMD_END_POINT", '"/#/start"'
+        buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '1'
+        buildConfigField "int", "MAX_READ_TIMEOUT", '1'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath = true
             }
+        }
+
+        if (project.rootProject.file("local.properties").exists()) {
+
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+            if (properties != null && properties.containsKey("oauth.client.id")) {
+
+                buildConfigField "String", "OAUTH_CLIENT_ID", properties["oauth.client.id"]
+
+            } else {
+                project.logger.error("oauth.client.id variable is not set in your local.properties")
+                buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            }
+
+
+            if (properties != null && properties.containsKey("oauth.client.secret")) {
+
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", properties["oauth.client.secret"]
+
+            } else {
+                project.logger.error("oauth.client.secret variable is not set in your local.properties")
+                buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+            }
+
+            if (properties != null &&
+                    properties.containsKey("mapbox.sdk.token")) {
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", properties["mapbox.sdk.token"]
+            } else {
+                println("Mapbox key config variables is not set in your local.properties")
+                buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
+            }
+
+        } else {
+            println("local.properties does not exist")
+            buildConfigField "String", "OAUTH_CLIENT_ID", "\"sample_client_id\""
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
+            buildConfigField "String", "MAPBOX_SDK_ACCESS_TOKEN", "\"sample_key\""
         }
     }
 
@@ -194,37 +239,43 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '20'
+            buildConfigField "int", "DATABASE_VERSION", '23'
         }
         chad {
             dimension = 'baseDimension'
             applicationIdSuffix ".chad"
-            versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            versionCode 3
+            versionName "1.0.3"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Health District","Health Facility","Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '10'
+            buildConfigField "int", "DATABASE_VERSION", '15'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
         }
         drc {
+            resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
-            versionCode 1
-            versionName "0.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://unicefwcaro.smartregister.org/opensrp/"'
+            versionCode 11
+            versionName "1.0.16"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '9'
+            buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante", "CAC" ,"VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante" , "CAC" ,"VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Pays" , "Province(DPS)" , "Zone de Sante","Aire de Sante" , "CAC" ,"VILLAGE/COMMUNAUTE"}'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"VILLAGE/COMMUNAUTE"'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
+            buildConfigField "int", "DATABASE_VERSION", '12'
         }
         guinea {
             dimension = 'baseDimension'
@@ -236,7 +287,7 @@ android {
             buildConfigField "String", 'opensrp_url', '"https://wcaro-guinea.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/guinea/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-guinea-preview.smartregister.org/opensrp/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Region" , "Prefecture" , "Commune" , "Health Facility" , "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_PREVIEW", '{"Health Facility" , "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
@@ -244,55 +295,59 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_PREVIEW', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '5'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 13
-            versionName "1.0.13"
+            versionCode 26
+            versionName "1.2.7"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-togo.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
-            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country", "Clinic" , "CHSS" , "CHA", "Supervisor", "CHW"}'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village" }'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"National", "Regional" , "District" , "Formation sanitaire", "Supervisor", "Village"}'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '16'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '10'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '10'
+            buildConfigField "int", "DATABASE_VERSION", '21'
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 6
-            versionName "0.1.12"
-            buildConfigField "String", 'opensrp_url', '"https://wcaro-liberia.smartregister.org/opensrp/"'
+            versionCode 8
+            versionName "1.0.1"
+            buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://unicefwcaro-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}git'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '4'
+            buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
+            buildConfigField "int", "MAX_READ_TIMEOUT", '5'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
         lmh {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 2
-            versionName "0.1.14"
+            versionName "1.1.0"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://lmh-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://lmh-liberia-preview.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
-            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Commune"'
-            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '6'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Commune"'
+            buildConfigField "int", "DATABASE_VERSION", '7'
         }
     }
 
@@ -304,7 +359,7 @@ android {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation('org.smartregister:opensrp-client-chw-core:1.5.25-LMH-Beta-07-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.4-LMH-Beta-02-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -312,8 +367,7 @@ dependencies {
         exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-        exclude group: 'com.ibm.fhir', module: 'fhir-path'
-        exclude group: 'com.ibm.fhir', module: 'fhir-model'
+        exclude group: 'stax', module: 'stax-api'
     }
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
@@ -321,8 +375,6 @@ dependencies {
         exclude group: 'com.android.volley', module: 'volley'
         exclude group: 'stax', module: 'stax-api'
     }
-   // implementation 'com.ibm.fhir:fhir-model:4.7.0'
-    //implementation 'com.ibm.fhir:fhir-path:4.7.0'
 
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -330,16 +382,21 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //Do not upgrade to 1.1.0 due to compatibility issues
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.support:multidex:1.0.3'
     //Do not upgrade to 24.jre-1 due to compatibility issues
-    implementation 'com.google.guava:guava:20.0'
+    implementation 'com.google.guava:guava:24.1-jre'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'org.mockito:mockito-android:3.0.0'
 
+    //implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
+    //For viewing PDFs in the app
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+
     implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
 
+    testImplementation "org.koin:koin-test:2.0.1"
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
@@ -393,6 +450,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: [
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    maxHeapSize = "3g"
 }
 
 tasks.coveralls {

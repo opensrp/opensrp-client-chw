@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -66,6 +67,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.malaria.util.DBConstants.KEY.GEST_AGE;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -216,8 +218,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                     AllCommonsRepository commonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(CoreConstants.TABLE_NAME.ANC_MEMBER);
 
                     JSONArray field = org.smartregister.util.JsonFormUtils.fields(form);
-                    JSONObject phoneNumberObject = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER);
-                    String phoneNumber = phoneNumberObject.getString(CoreJsonFormUtils.VALUE);
+                    String phoneNumber = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, DBConstants.KEY.PHONE_NUMBER).getString(CoreJsonFormUtils.VALUE);
+                    String gestAge = org.smartregister.util.JsonFormUtils.getFieldJSONObject(field, GEST_AGE).getString(CoreJsonFormUtils.VALUE);
+                    this.setMemberGA(gestAge);
                     String baseEntityId = baseEvent.getBaseEntityId();
                     if (commonsRepository != null) {
                         ContentValues values = new ContentValues();
@@ -253,6 +256,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
                 NativeFormsDataBinder binder = new NativeFormsDataBinder(this, memberObject.getBaseEntityId());
                 binder.setDataLoader(new AncMemberDataLoader(titleString));
                 form = binder.getPrePopulatedForm(formName);
+                if (form != null) {
+                    form.put(JsonFormUtils.ENCOUNTER_TYPE, CoreConstants.EventType.UPDATE_ANC_REGISTRATION);
+                    updateWeeksValue(form);
+                }
+
 
             } else if (formName.equals(CoreConstants.JSON_FORM.getFamilyMemberRegister())) {
 
@@ -267,6 +275,16 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             startActivityForResult(org.smartregister.chw.util.JsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private void updateWeeksValue(JSONObject form) throws JSONException {
+        JSONArray fieldsJson = org.smartregister.util.JsonFormUtils.fields(form);
+        for (int i = 0; i < fieldsJson.length(); i++) {
+            if (fieldsJson.getJSONObject(i).getString("key").matches("weeks")) {
+                fieldsJson.getJSONObject(i).put("value", getResources().getString(R.string.gest_age_weeks));
+                break;
+            }
         }
     }
 
@@ -304,7 +322,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (ChwApplication.getApplicationFlavor().hasFamilyLocationRow() && !StringUtils.isBlank(getMemberGPS())) {
+        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation()) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
@@ -378,6 +396,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         startActivityForResult(CoreJsonFormUtils.getJsonIntent(this, formJson, Utils.metadata().familyMemberFormActivity),
                 JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
+
+
+    @Override
+    public void openFamilyLocation() {
+        Intent intent = new Intent(this, AncMemberMapActivity.class);
+        this.startActivity(intent);
+    }
+
 
     @Override
     public List<ReferralTypeModel> getReferralTypeModels() {

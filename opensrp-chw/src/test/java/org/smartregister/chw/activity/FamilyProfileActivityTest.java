@@ -35,6 +35,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import static org.mockito.Mockito.times;
+
 @RunWith(RobolectricTestRunner.class)
 @Config(application = ChwApplication.class, sdk = 22)
 public class FamilyProfileActivityTest {
@@ -49,18 +51,11 @@ public class FamilyProfileActivityTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(FamilyProfileActivity.class).create().start();
-        activity = controller.get();
-
-
         Context context = Context.getInstance();
         CoreLibrary.init(context);
 
         //Auto login by default
-        String password = "pwd";
         context.session().start(context.session().lengthInMilliseconds());
-        context.configuration().getDrishtiApplication().setPassword(password);
-        context.session().setPassword(password);
 
         MockitoAnnotations.initMocks(this);
         Intent testIntent = new Intent();
@@ -82,9 +77,7 @@ public class FamilyProfileActivityTest {
         }
 
         //logout
-        Context context = Context.getInstance();
-        context.session().expire();
-
+        Context.getInstance().session().expire();
         System.gc();
     }
 
@@ -200,5 +193,17 @@ public class FamilyProfileActivityTest {
         // test that updates are sent to the refresh member list
 
         Mockito.verify(spyActivity).refreshMemberList(FetchStatus.fetched);
+    }
+
+    @Test
+    public void testSetEventDate() {
+        FamilyProfileActivity spyActivity = Mockito.spy(activity);
+        spyActivity.setEventDate(Mockito.anyString());
+        Mockito.verify(spyActivity, times(1)).setEventDate(Mockito.anyString());
+    }
+
+    @Test
+    public void testGetPresenter(){
+        Assert.assertEquals(presenter, activity.getFamilyProfilePresenter());
     }
 }

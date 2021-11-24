@@ -15,9 +15,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.activity.FamilyProfileActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 
 import java.util.LinkedHashMap;
@@ -47,23 +49,15 @@ public class ContactUtilTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(FamilyProfileActivity.class).create().start();
-        activity = controller.get();
-
-
         Context context = Context.getInstance();
         CoreLibrary.init(context);
 
         //Auto login by default
-        String password = "pwd";
         context.session().start(context.session().lengthInMilliseconds());
-        context.configuration().getDrishtiApplication().setPassword(password);
-        context.session().setPassword(password);
 
         MockitoAnnotations.initMocks(this);
         Intent testIntent = new Intent();
         controller = Robolectric.buildActivity(FamilyProfileActivity.class, testIntent).create().start();
-
         activity = controller.get();
     }
 
@@ -88,9 +82,20 @@ public class ContactUtilTest {
         }
 
         //logout
-        Context context = Context.getInstance();
-        context.session().expire();
-
+        Context.getInstance().session().expire();
         System.gc();
+    }
+
+    @Test
+    public void testGetContactSchedule() {
+        LocalDate lastContact = LocalDate.parse("19/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"));
+
+        MemberObject memberObject = new MemberObject();
+        ReflectionHelpers.setField(memberObject, "lastMenstrualPeriod", "01-01-2019");
+        ReflectionHelpers.setField(memberObject, "baseEntityId", "12345");
+
+        Map<Integer, LocalDate> contacts = ContactUtil.getContactSchedule(memberObject, lastContact);
+
+        TestCase.assertNotNull(contacts);
     }
 }

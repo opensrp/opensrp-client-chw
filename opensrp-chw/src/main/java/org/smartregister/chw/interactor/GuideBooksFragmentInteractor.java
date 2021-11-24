@@ -1,7 +1,6 @@
 package org.smartregister.chw.interactor;
 
 import android.content.Context;
-import android.os.Environment;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -10,7 +9,6 @@ import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.GuideBooksFragmentContract;
 import org.smartregister.chw.domain.GuideBooksFragmentVideo;
 import org.smartregister.chw.util.DownloadUtil;
@@ -23,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.addHyphenBetweenNumbers;
 
 public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.Interactor {
     private AppExecutors appExecutors;
@@ -37,23 +37,23 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     }
 
     @Override
-    public void getVideos(Context context, GuideBooksFragmentContract.InteractorCallBack callBack) {
+    public void getFiles(Context context, String fileName, String directory, GuideBooksFragmentContract.InteractorCallBack callBack) {
 
         Runnable runnable = () -> {
-            getRemoteVideos(context, callBack);
-            getLocalVideos(context, callBack);
+            getRemoteFiles(context, fileName, directory, callBack);
+            getLocalFiles(context, directory, callBack);
         };
         appExecutors.diskIO().execute(runnable);
     }
 
-    private synchronized void updateVideos(List<GuideBooksFragmentContract.Video> videos, GuideBooksFragmentContract.InteractorCallBack callBack) {
+    private synchronized void updateVideos(List<GuideBooksFragmentContract.RemoteFile> videos, GuideBooksFragmentContract.InteractorCallBack callBack) {
         Runnable runnable1 = () -> appExecutors.mainThread().execute(() -> callBack.onDataFetched(videos));
         appExecutors.mainThread().execute(runnable1);
     }
 
-    private void getLocalVideos(Context context, GuideBooksFragmentContract.InteractorCallBack callBack) {
-        List<GuideBooksFragmentContract.Video> res = new ArrayList<>();
-        String folder = ChwApplication.getGuideBooksDirectory() + File.separator + context.getResources().getConfiguration().locale.getLanguage();
+    private void getLocalFiles(Context context, String directory, GuideBooksFragmentContract.InteractorCallBack callBack) {
+        List<GuideBooksFragmentContract.RemoteFile> res = new ArrayList<>();
+        String folder = directory + File.separator + context.getResources().getConfiguration().locale.getLanguage();
         File[] files = FileUtils.getFiles(folder);
         if (files == null || files.length == 0) return;
 
@@ -68,13 +68,16 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
         updateVideos(res, callBack);
     }
 
-    private void getRemoteVideos(Context context, GuideBooksFragmentContract.InteractorCallBack callBack) {
+    private void getRemoteFiles(Context context, String fileName, String directory, GuideBooksFragmentContract.InteractorCallBack callBack) {
         if (context == null) return;
 
         // attempt to refresh the list if the internet is on
-        String folder = Environment.getExternalStorageDirectory() + File.separator +
-                ChwApplication.getGuideBooksDirectory() + File.separator;
-        String fileName = "files.json";
+        File externalFile = context.getExternalFilesDir(null);
+        if (externalFile == null) {
+            throw new IllegalStateException("Root directory not found");
+        }
+        String folder = externalFile.getAbsolutePath() + File.separator +
+                directory + File.separator;
 
         GuideBooksFragmentContract.DownloadListener downloadListener = new GuideBooksFragmentContract.DownloadListener() {
             @Override
@@ -102,7 +105,7 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
             }.getType();
             List<ServerFile> serverFiles = new Gson().fromJson(content, listType);
 
-            List<GuideBooksFragmentContract.Video> res = new ArrayList<>();
+            List<GuideBooksFragmentContract.RemoteFile> res = new ArrayList<>();
 
             for (ServerFile serverFile : serverFiles) {
                 if (lang.equalsIgnoreCase(serverFile.getLang())) {
@@ -124,7 +127,8 @@ public class GuideBooksFragmentInteractor implements GuideBooksFragmentContract.
     }
 
     private String toTitle(String s) {
-        return StringUtils.join(s.split("\\.")[0].split("_"), " ");
+        String smallCaps = StringUtils.join(s.split("\\.")[0].split("_"), " ");
+        return addHyphenBetweenNumbers(smallCaps);
     }
 
     private static class ServerFile {

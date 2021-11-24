@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Eligible child",
+    "title": "{{child_enrollment.step1.title}}",
     "fields": [
       {
         "key": "unique_id",
@@ -60,16 +60,16 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "type": "edit_text",
-        "hint": "ID *",
+        "hint": "{{child_enrollment.step1.unique_id.hint}}",
         "read_only": "true",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid ID"
+          "err": "{{child_enrollment.step1.unique_id.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the Child's OpenMRS ID"
+          "err": "{{child_enrollment.step1.unique_id.v_required.err}}"
         }
       },
       {
@@ -87,16 +87,20 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
+<<<<<<< HEAD
         "edit_type": "name",
         "hint": "First name",
+=======
+        "hint": "{{child_enrollment.step1.first_name.hint}}",
+>>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         "expanded": false,
         "v_required": {
           "value": "true",
-          "err": "Please Enter a Valid Name"
+          "err": "{{child_enrollment.step1.first_name.v_required.err}}"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please Enter a Valid Name"
+          "err": "{{child_enrollment.step1.first_name.v_regex.err}}"
         }
       },
       {
@@ -106,12 +110,16 @@
         "openmrs_entity_id": "middle_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
+<<<<<<< HEAD
         "edit_type": "name",
         "hint": "Middle name",
+=======
+        "hint": "{{child_enrollment.step1.middle_name.hint}}",
+>>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         "expanded": false,
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please Enter a Valid Name"
+          "err": "{{child_enrollment.step1.middle_name.v_regex.err}}"
         }
       },
       {
@@ -120,16 +128,16 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Date of birth (DOB)",
+        "hint": "{{child_enrollment.step1.dob.hint}}",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "{{child_enrollment.step1.dob.duration.label}}"
         },
         "min_date": "today-11y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "{{child_enrollment.step1.dob.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -145,11 +153,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "",
+        "label": "{{child_enrollment.step1.dob_estimated.label}}",
         "options": [
           {
             "key": "dob_estimated",
-            "text": "DOB is estimated",
+            "text": "{{child_enrollment.step1.dob_estimated.options.dob_estimated.text}}",
             "text_size": "18px",
             "value": "false"
           }
@@ -162,11 +170,11 @@
         "openmrs_entity_id": "birthdateApprox",
         "hidden": "true",
         "type": "check_box",
-        "label": "",
+        "label": "{{child_enrollment.step1.dob_unknown.label}}",
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DOB unknown?",
+            "text": "{{child_enrollment.step1.dob_unknown.options.dob_unknown.text}}",
             "text_size": "18px",
             "value": "false"
           }
@@ -178,18 +186,18 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age",
+        "hint": "{{child_enrollment.step1.age.hint}}",
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+          "err": "{{child_enrollment.step1.age.v_numeric.err}}"
         },
         "v_min": {
           "value": "0",
-          "err": "Age must be equal or greater than 0"
+          "err": "{{child_enrollment.step1.age.v_min.err}}"
         },
         "v_max": {
           "value": "11",
-          "err": "Age must be equal or less than 11"
+          "err": "{{child_enrollment.step1.age.v_max.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -200,7 +208,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the age"
+          "err": "{{child_enrollment.step1.age.v_required.err}}"
         }
       },
       {
@@ -208,6 +216,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
+<<<<<<< HEAD
         "type": "native_radio",
         "label": "Sex",
         "hint": "Sex",
@@ -220,12 +229,20 @@
             "key": "Female",
             "text": "Female"
           }
+=======
+        "type": "spinner",
+        "hint": "{{child_enrollment.step1.gender.hint}}",
+        "values": [
+          "{{child_enrollment.step1.gender.values[0]}}",
+          "{{child_enrollment.step1.gender.values[1]}}"
+>>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "{{child_enrollment.step1.gender.v_required.err}}"
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "child_enrollment"
 }

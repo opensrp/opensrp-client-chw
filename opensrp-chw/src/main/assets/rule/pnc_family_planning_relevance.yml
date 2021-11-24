@@ -5,3 +5,10 @@ priority: 1
 condition: "step1_fp_method == 'Tablets' || step1_fp_method == 'Injectable' || step1_fp_method == 'IUD'"
 actions:
   - "isRelevant = true"
+---
+name: step1_fp_method
+description: fp_method relevance
+priority: 1
+condition: "step1_fp_counseling == 'Yes'"
+actions:
+  - "isRelevant = true"

@@ -38,7 +38,6 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         }
     }
 
-    @Override
     protected int vaccineCardCeiling() {
         return 60;
     }

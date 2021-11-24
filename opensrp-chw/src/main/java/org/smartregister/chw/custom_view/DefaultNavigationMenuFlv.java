@@ -18,6 +18,11 @@ public abstract class DefaultNavigationMenuFlv implements NavigationMenu.Flavour
     }
 
     @Override
+    public boolean hasSyncStatusProgressBar() {
+        return true;
+    }
+
+    @Override
     public HashMap<String, String> getTableMapValues() {
         return new HashMap<>();
     }

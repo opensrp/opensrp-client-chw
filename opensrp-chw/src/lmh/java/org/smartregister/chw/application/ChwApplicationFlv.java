@@ -1,6 +1,7 @@
 package org.smartregister.chw.application;
 
 public class ChwApplicationFlv extends DefaultChwApplicationFlv {
+
     @Override
     public boolean hasANC() {
         return false;
@@ -94,6 +95,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean launchChildClientsAtLogin() {
         return false;
+    }
+
+    @Override
+    public boolean useThinkMd() {
+        return true;
     }
 
     @Override
@@ -229,5 +235,8 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
         return true;
     }
+
+    @Override
+    public boolean showsPhysicallyDisabledView() { return false; }
 }
 

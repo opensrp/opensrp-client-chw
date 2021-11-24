@@ -2,12 +2,18 @@ package org.smartregister.chw.application;
 
 import com.google.common.collect.ImmutableList;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.chw.BuildConfig;
-import org.smartregister.chw.core.utils.Utils;
+import org.smartregister.chw.activity.LoginActivity;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.List;
+
+import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by samuelgithengi on 10/19/18.
@@ -25,7 +31,21 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        return Utils.getSyncFilterValue();
+        String providerId = allSharedPreferences().fetchRegisteredANM();
+        String locationId = allSharedPreferences().fetchDefaultLocalityId(providerId);
+        if(StringUtils.isBlank(locationId)) locationId = allSharedPreferences().fetchUserLocalityId(providerId);
+
+        List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
+        if (!isEmptyCollection(locationIds)) {
+            int index = locationIds.indexOf(locationId);
+            List<String> subLocationIds = locationIds.subList(index, locationIds.size());
+            return StringUtils.join(subLocationIds, ",");
+        }
+        return locationId;
+    }
+
+    private AllSharedPreferences allSharedPreferences(){
+        return org.smartregister.Context.getInstance().allSharedPreferences();
     }
 
     @Override
@@ -50,7 +70,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getEncryptionParam() {
-        return SyncFilter.LOCATION;
+        return SyncFilter.TEAM_ID;
     }
 
     @Override
@@ -60,7 +80,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean isSyncUsingPost() {
-        return !BuildConfig.DEBUG && ChwApplication.getApplicationFlavor().syncUsingPost();
+        return ChwApplication.getApplicationFlavor().syncUsingPost();
     }
 
     @Override
@@ -69,7 +89,47 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     }
 
     @Override
+    public SyncFilter getSettingsSyncFilterParam() {
+        return SyncFilter.TEAM_ID;
+    }
+
+    @Override
+    public boolean clearDataOnNewTeamLogin() {
+        return false;
+    }
+
+    @Override
     public String getTopAllowedLocationLevel() {
         return "District";
+    }
+
+    @Override
+    public String getOauthClientId() {
+        return BuildConfig.OAUTH_CLIENT_ID;
+    }
+
+    @Override
+    public String getOauthClientSecret() {
+        return BuildConfig.OAUTH_CLIENT_SECRET;
+    }
+
+    @Override
+    public int getConnectTimeout() {
+        return BuildConfig.MAX_CONNECTION_TIMEOUT * 60000;
+    }
+
+    @Override
+    public int getReadTimeout() {
+        return BuildConfig.MAX_READ_TIMEOUT *  60000;
+    }
+
+    @Override
+    public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
+        return LoginActivity.class;
+    }
+
+    @Override
+    public boolean validateUserAssignments() {
+        return false;
     }
 }
