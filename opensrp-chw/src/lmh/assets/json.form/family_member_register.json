@@ -206,26 +206,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
-<<<<<<< HEAD
         "type": "native_radio",
-        "label": "Sex",
-        "hint": "Sex",
+        "label": "{{family_member_register.step1.sex.hint}}",
+        "hint": "{{family_member_register.step1.sex.hint}}",
         "options": [
           {
-            "key": "Male",
-            "text": "Male"
+            "key":  "{{family_member_register.step1.sex.values[0]}}",
+            "text":  "{{family_member_register.step1.sex.values[0]}}"
           },
           {
-            "key": "Female",
-            "text": "Female"
+            "key": "{{family_member_register.step1.sex.values[1]}}",
+            "text":"{{family_member_register.step1.sex.values[1]}}"
           }
-=======
-        "type": "spinner",
-        "hint": "{{family_member_register.step1.sex.hint}}",
-        "values": [
-          "{{family_member_register.step1.sex.values[0]}}",
-          "{{family_member_register.step1.sex.values[1]}}"
->>>>>>> 08c5637292eaf0403cd20fd3dd2507fa12b59bef
         ],
         "v_required": {
           "value": "true",
