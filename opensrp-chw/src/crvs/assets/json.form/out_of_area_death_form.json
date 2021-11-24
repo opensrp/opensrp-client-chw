@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Add Child Under N - Out of Area Death",
+    "title": "{{out_of_area_death_form.step1.title}}",
     "fields": [
       {
         "key": "unique_id",
@@ -61,16 +61,16 @@
         "openmrs_entity_id": "opensrp_id",
         "hidden": "false",
         "type": "edit_text",
-        "hint": "ID *",
+        "hint": "{{out_of_area_death_form.step1.unique_id.hint}}",
         "read_only": "true",
         "value": "0",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid ID"
+          "err": "{{out_of_area_death_form.step1.unique_id.v_numeric.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the Child's OpenMRS ID"
+          "err": "{{out_of_area_death_form.step1.unique_id.v_required.err}}"
         }
       },
       {
@@ -79,15 +79,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "name",
         "type": "edit_text",
-        "hint": "Name",
-        "edit_type": "name",
+        "hint": "{{out_of_area_death_form.step1.name.hint}}",
+        "edit_type": "Nom",
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Please enter a valid name"
+          "err": "{{out_of_area_death_form.step1.name.v_regex.err}}"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the name"
+          "err": "{{out_of_area_death_form.step1.name.v_required.err}}"
         }
       },
       {
@@ -96,7 +96,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "National_ID",
         "type": "edit_text",
-        "hint": "National ID number",
+        "hint": "{{out_of_area_death_form.step1.national_id.hint}}",
         "edit_type": "name"
       },
       {
@@ -106,13 +106,13 @@
         "openmrs_entity_id": "birthdate",
         "openmrs_data_type": "text",
         "type": "date_picker",
-        "hint": "Date of birth (DOB)",
+        "hint": "{{out_of_area_death_form.step1.dob.hint}}",
         "expanded": false,
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "{{out_of_area_death_form.step1.dob.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -129,11 +129,11 @@
         "openmrs_entity_id": "birthdateApprox",
         "hidden": "false",
         "type": "check_box",
-        "label": "",
+        "label": "{{out_of_area_death_form.step1.dob_unknown.label}}",
         "options": [
           {
             "key": "dob_unknown",
-            "text": "DOB unknown?",
+            "text": "{{out_of_area_death_form.step1.dob_unknown.options.dob_unknown.text}}",
             "text_size": "18px",
             "value": "false"
           }
@@ -159,18 +159,18 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "age",
         "type": "edit_text",
-        "hint": "Age",
+        "hint": "{{out_of_area_death_form.step1.age.hint}}",
         "v_numeric": {
           "value": "true",
-          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+          "err": "{{out_of_area_death_form.step1.age.v_numeric.err}}"
         },
         "v_min": {
           "value": "1",
-          "err": "Age must be greater than 0"
+          "err": "{{out_of_area_death_form.step1.age.v_min.err}}"
         },
         "v_max": {
           "value": "120",
-          "err": "Age must be equal or less than 120"
+          "err": "{{out_of_area_death_form.step1.age.v_max.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -181,7 +181,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please enter the age"
+          "err": "{{out_of_area_death_form.step1.age.v_required.err}}"
         }
       },
       {
@@ -205,11 +205,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "",
+        "label": "{{out_of_area_death_form.step1.dob_estimated.label}}",
         "options": [
           {
             "key": "dob_estimated",
-            "text": "DOB is estimated",
+            "text": "{{out_of_area_death_form.step1.dob_estimated.options.dob_estimated.text}}",
             "text_size": "18px",
             "value": "false"
           }
@@ -221,20 +221,20 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "native_radio",
-        "label": "Sex",
+        "label": "{{out_of_area_death_form.step1.sex.label}}",
         "options": [
           {
             "key": "Male",
-            "text": "Male"
+            "text": "{{out_of_area_death_form.step1.sex.options.Male.text}}"
           },
           {
             "key": "Female",
-            "text": "Female"
+            "text": "{{out_of_area_death_form.step1.sex.options.Female.text}}"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the sex"
+          "err": "{{out_of_area_death_form.step1.sex.v_required.err}}"
         }
       },
       {
@@ -244,12 +244,19 @@
         "openmrs_entity_id": "nationality",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Nationality (citizenship)",
+        "hint": "{{out_of_area_death_form.step1.nationality.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select the reason for removing the family member's record"
+          "err": "{{out_of_area_death_form.step1.nationality.v_required.err}}"
         },
         "values": [
+          "{{out_of_area_death_form.step1.nationality.values[0]}}",
+          "{{out_of_area_death_form.step1.nationality.values[1]}}",
+          "{{out_of_area_death_form.step1.nationality.values[2]}}",
+          "{{out_of_area_death_form.step1.nationality.values[3]}}",
+          "{{out_of_area_death_form.step1.nationality.values[4]}}"
+        ],
+        "keys": [
           "Togo",
           "DRC",
           "Guinea",
@@ -271,12 +278,19 @@
         "openmrs_entity_id": "maritalStatus",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Marital Status",
+        "hint": "{{out_of_area_death_form.step1.marital_status.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select the reason for removing the family member's record"
+          "err": "{{out_of_area_death_form.step1.marital_status.v_required.err}}"
         },
         "values": [
+          "{{out_of_area_death_form.step1.marital_status.values[0]}}",
+          "{{out_of_area_death_form.step1.marital_status.values[1]}}",
+          "{{out_of_area_death_form.step1.marital_status.values[2]}}",
+          "{{out_of_area_death_form.step1.marital_status.values[3]}}",
+          "{{out_of_area_death_form.step1.marital_status.values[4]}}"
+        ],
+        "keys": [
           "Co-Habiting",
           "Divorced",
           "Married",
@@ -298,22 +312,22 @@
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Select the reason for removing the child's record.",
+        "hint": "{{out_of_area_death_form.step1.remove_reason.hint}}",
         "hidden": "true",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_death_form.step1.remove_reason.v_required.err}}"
+        },
         "values": [
-          "Died",
-          "Moved away",
-          "Other"
+          "{{out_of_area_death_form.step1.remove_reason.values[0]}}",
+          "{{out_of_area_death_form.step1.remove_reason.values[1]}}",
+          "{{out_of_area_death_form.step1.remove_reason.values[2]}}"
         ],
         "keys": [
           "Died",
           "Moved away",
           "Other"
         ],
-        "v_required": {
-          "value": "true",
-          "err": "Select the reason for removing the child's record."
-        },
         "openmrs_choice_ids": {
           "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -334,20 +348,20 @@
         "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "date_picker",
-        "label": "Date of death",
-        "hint": "Date of death",
+        "label": "{{out_of_area_death_form.step1.date_died.label}}",
+        "hint": "{{out_of_area_death_form.step1.date_died.hint}}",
         "expanded": false,
         "min_date": "today-80y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the date of death"
+          "err": "{{out_of_area_death_form.step1.date_died.v_required.err}}"
         },
         "constraints": [
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:dob)",
-            "err": "Date of death can't occur before date of birth"
+            "err": "{{out_of_area_death_form.step1.date_died.constraints.err}}"
           }
         ]
       },
@@ -356,8 +370,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "Age at death",
-        "hint": "Age at death",
+        "label": "{{out_of_area_death_form.step1.age_at_death.label}}",
+        "hint": "{{out_of_area_death_form.step1.age_at_death.hint}}",
         "type": "edit_text",
         "read_only": "true",
         "calculation": {
@@ -368,8 +382,6 @@
           }
         }
       },
-
-
       {
         "key": "death_place",
         "openmrs_entity_parent": "",
@@ -377,15 +389,21 @@
         "openmrs_entity_id": "deathPlace",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Place of occurrence of death (if known)",
+        "hint": "{{out_of_area_death_form.step1.death_place.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select the reason for removing the family member's record"
+          "err": "{{out_of_area_death_form.step1.death_place.v_required.err}}"
         },
         "values": [
+          "{{out_of_area_death_form.step1.death_place.values[0]}}",
+          "{{out_of_area_death_form.step1.death_place.values[1]}}",
+          "{{out_of_area_death_form.step1.death_place.values[2]}}",
+          "{{out_of_area_death_form.step1.death_place.values[3]}}"
+        ],
+        "keys": [
+          "Health Facility",
           "Home",
           "Place of work",
-          "Health Facility",
           "Other"
         ],
         "openmrs_choice_ids": {
@@ -402,14 +420,18 @@
         "openmrs_entity_id": "mccdConducted",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was MCCD conducted ?",
+        "hint": "{{out_of_area_death_form.step1.mccd_conducted.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select one value from dropdown"
+          "err": "{{out_of_area_death_form.step1.mccd_conducted.v_required.err}}"
         },
-        "values": [
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.mccd_conducted.values[0]}}",
+          "{{out_of_area_death_form.step1.mccd_conducted.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "mccd_yes_id_openmrs",
@@ -429,9 +451,21 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "deathManner",
         "openmrs_data_type": "select one",
+        "label": "{{out_of_area_death_form.step1.death_manner.label}}",
+        "hint": "{{out_of_area_death_form.step1.death_manner.hint}}",
         "type": "spinner",
-        "hint": "Select Manner of death",
         "values": [
+          "{{out_of_area_death_form.step1.death_manner.values[0]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[1]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[2]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[3]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[4]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[5]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[6]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[7]}}",
+          "{{out_of_area_death_form.step1.death_manner.values[8]}}"
+        ],
+        "keys": [
           "Disease",
           "Accident",
           "Intentional self harm",
@@ -461,14 +495,18 @@
         "openmrs_entity_id": "medicallyTreated",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the deceased admitted to a health facility in the past 4 weeks?",
+        "hint": "{{out_of_area_death_form.step1.medically_treated.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select one value from dropdown"
+          "err": "{{out_of_area_death_form.step1.medically_treated.v_required.err}}"
         },
-        "values": [
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.medically_treated.values[0]}}",
+          "{{out_of_area_death_form.step1.medically_treated.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "medically_treated_yes_id_openmrs",
@@ -489,14 +527,18 @@
         "openmrs_entity_id": "knowDeathCause",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Do you know the cause of death ?",
+        "hint": "{{out_of_area_death_form.step1.know_death_cause.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select one value from dropdown"
+          "err": "{{out_of_area_death_form.step1.know_death_cause.v_required.err}}"
         },
-        "values": [
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.know_death_cause.values[0]}}",
+          "{{out_of_area_death_form.step1.know_death_cause.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "cause_of_death_yes_id_openmrs",
@@ -517,18 +559,18 @@
         "openmrs_entity_id": "deceasedPregnant",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the deceased pregnant ?",
+        "hint": "{{out_of_area_death_form.step1.deceased_pregnant.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select one value from dropdown"
+          "err": "{{out_of_area_death_form.step1.deceased_pregnant.v_required.err}}"
         },
-        "values": [
-          "Yes",
-          "No"
-        ],
         "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.deceased_pregnant.values[0]}}",
+          "{{out_of_area_death_form.step1.deceased_pregnant.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "deceased_pregnant_yes_id_openmrs",
@@ -549,14 +591,18 @@
         "openmrs_entity_id": "pregnantDied",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Did the pregnancy contribute to her death ?",
+        "hint": "{{out_of_area_death_form.step1.pregnant_died.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Select one value from dropdown"
+          "err": "{{out_of_area_death_form.step1.pregnant_died.v_required.err}}"
         },
-        "values": [
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.pregnant_died.values[0]}}",
+          "{{out_of_area_death_form.step1.pregnant_died.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "pregnant_died_yes_id_openmrs",
@@ -570,22 +616,21 @@
           }
         }
       },
-
       {
         "key": "informant_fields",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Informant Details"
+        "text": "{{out_of_area_death_form.step1.informant_fields.text}}"
       },
       {
         "key": "informant_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "informantName",
-        "label": "Name",
-        "hint": "Name",
+        "label": "{{out_of_area_death_form.step1.informant_name.label}}",
+        "hint": "{{out_of_area_death_form.step1.informant_name.hint}}",
         "type": "edit_text"
       },
       {
@@ -595,12 +640,18 @@
         "openmrs_entity_id": "informantRelationship",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Relationship to decedent",
+        "hint": "{{out_of_area_death_form.step1.informant_relationship.hint}}",
         "values": [
-          "Sibling",
-          "Spouse",
-          "Parent",
-          "Other"
+          "{{out_of_area_death_form.step1.informant_relationship.values[0]}}",
+          "{{out_of_area_death_form.step1.informant_relationship.values[1]}}",
+          "{{out_of_area_death_form.step1.informant_relationship.values[2]}}",
+          "{{out_of_area_death_form.step1.informant_relationship.values[3]}}"
+        ],
+        "keys": [
+          "Frère et sœur",
+          "Conjointe",
+          "Parente",
+          "Autre"
         ],
         "openmrs_choice_ids": {
           "Sibling": "sibling_id_openmrs",
@@ -614,8 +665,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "informantAddress",
-        "label": "Address",
-        "hint": "Address",
+        "label": "{{out_of_area_death_form.step1.informant_address.label}}",
+        "hint": "{{out_of_area_death_form.step1.informant_address.hint}}",
         "type": "edit_text"
       },
       {
@@ -623,12 +674,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "informantPhone",
-        "label": "Phone",
-        "hint": "Phone",
+        "label": "{{out_of_area_death_form.step1.informant_phone.label}}",
+        "hint": "{{out_of_area_death_form.step1.informant_phone.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{out_of_area_death_form.step1.informant_phone.v_numeric.err}}"
         }
       },
       {
@@ -637,15 +688,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Official Details"
+        "text": "{{out_of_area_death_form.step1.official_fields.text}}"
       },
       {
         "key": "official_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialName",
-        "label": "Full Name",
-        "hint": "Full Name",
+        "label": "{{out_of_area_death_form.step1.official_name.label}}",
+        "hint": "{{out_of_area_death_form.step1.official_name.hint}}",
         "type": "edit_text"
       },
       {
@@ -653,8 +704,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialId",
-        "label": "Personal ID number",
-        "hint": "Personal ID number",
+        "label": "{{out_of_area_death_form.step1.official_id.label}}",
+        "hint": "{{out_of_area_death_form.step1.official_id.hint}}",
         "type": "edit_text"
       },
       {
@@ -662,8 +713,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialPosition",
-        "label": "Official position",
-        "hint": "Official position",
+        "label": "{{out_of_area_death_form.step1.official_position.label}}",
+        "hint": "{{out_of_area_death_form.step1.official_position.hint}}",
         "type": "edit_text"
       },
       {
@@ -671,8 +722,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialAddress",
-        "label": "Address of official",
-        "hint": "Address of official",
+        "label": "{{out_of_area_death_form.step1.official_address.label}}",
+        "hint": "{{out_of_area_death_form.step1.official_address.hint}}",
         "type": "edit_text"
       },
       {
@@ -680,12 +731,13 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "officialNumber",
-        "label": "Phone number of official",
-        "hint": "Phone number of official",
+        "label": "{{out_of_area_death_form.step1.official_number.label}}",
+        "hint": "{{out_of_area_death_form.step1.official_number.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "label": "Numéro de téléphone du fonctionnaire",
+          "hint": "Numéro de téléphone du fonctionnaire"
         }
       },
       {
@@ -693,8 +745,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "physicianName",
-        "label": "Name of physician signing MCCD",
-        "hint": "Name of physician signing MCCD",
+        "label": "{{out_of_area_death_form.step1.physician_name.label}}",
+        "hint": "{{out_of_area_death_form.step1.physician_name.hint}}",
         "type": "edit_text",
         "relevance": {
           "rules-engine": {
@@ -709,8 +761,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "physicianPosition",
-        "label": "Position of physician signing MCCD",
-        "hint": "Position of physician signing MCCD",
+        "label": "{{out_of_area_death_form.step1.physician_position.label}}",
+        "hint": "{{out_of_area_death_form.step1.physician_position.hint}}",
         "type": "edit_text",
         "relevance": {
           "rules-engine": {
@@ -720,7 +772,6 @@
           }
         }
       },
-
       {
         "key": "still_born_death",
         "openmrs_entity_parent": "",
@@ -728,10 +779,14 @@
         "openmrs_entity_id": "stillBornDeath",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was this a stillborn Death?",
-        "values": [
+        "hint": "{{out_of_area_death_form.step1.still_born_death.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.still_born_death.values[0]}}",
+          "{{out_of_area_death_form.step1.still_born_death.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "still_born_yes_id_openmrs",
@@ -745,14 +800,13 @@
           }
         }
       },
-
       {
         "key": "death_cause",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "deathCause",
-        "label": "Cause of death",
-        "hint": "Cause of death",
+        "label": "{{out_of_area_death_form.step1.death_cause.label}}",
+        "hint": "{{out_of_area_death_form.step1.death_cause.hint}}",
         "type": "edit_text",
         "relevance": {
           "rules-engine": {
@@ -762,8 +816,6 @@
           }
         }
       },
-
-
       {
         "key": "received_death_certificate",
         "openmrs_entity_parent": "",
@@ -771,10 +823,14 @@
         "openmrs_entity_id": "receivedDeathCertificate",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the family of the decedent have a death certificate (Y/N)?",
-        "values": [
+        "hint": "{{out_of_area_death_form.step1.received_death_certificate.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.received_death_certificate.values[0]}}",
+          "{{out_of_area_death_form.step1.received_death_certificate.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -782,7 +838,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please choose an option"
+          "err": "{{out_of_area_death_form.step1.received_death_certificate.v_required.err}}"
         }
       },
       {
@@ -792,19 +848,19 @@
         "openmrs_entity_id": "deathCertificateIssueDate",
         "openmrs_data_type": "text",
         "type": "date_picker",
-        "label": "Death certificate issuance date (if certificate received)",
-        "hint": "Death certificate issuance date (if certificate received)",
+        "label": "{{out_of_area_death_form.step1.death_certificate_issue_date.label}}",
+        "hint": "{{out_of_area_death_form.step1.death_certificate_issue_date.hint}}",
         "expanded": false,
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Required issue date"
+          "err": "{{out_of_area_death_form.step1.death_certificate_issue_date.v_required.err}}"
         },
         "constraints": [
           {
             "type": "date",
             "ex": "greaterThanEqualTo(., step1:date_died)",
-            "err": "Death certificate issuance date can't occur before date of death"
+            "err": "{{out_of_area_death_form.step1.death_certificate_issue_date.constraints.err}}"
           }
         ],
         "relevance": {
@@ -819,12 +875,12 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "deathCertificationNumber",
-        "label": "Death certificate number (if certificate received)",
-        "hint": "Death certificate number (if certificate received)",
+        "label": "{{out_of_area_death_form.step1.death_certificate_number.label}}",
+        "hint": "{{out_of_area_death_form.step1.death_certificate_number.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{out_of_area_death_form.step1.death_certificate_number.v_numeric.err}}"
         },
         "relevance": {
           "step1:received_death_certificate": {
@@ -840,10 +896,14 @@
         "openmrs_entity_id": "deathNotificationDone",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the death notification done (if certificate not received) - Y/N)?",
-        "values": [
+        "hint": "{{out_of_area_death_form.step1.death_notification_done.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{out_of_area_death_form.step1.death_notification_done.values[0]}}",
+          "{{out_of_area_death_form.step1.death_notification_done.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -856,17 +916,17 @@
           }
         }
       },
-
       {
         "key": "hidden_died_check",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "label": "",
-        "hint": "",
+        "label": "{{out_of_area_death_form.step1.hidden_died_check.label}}",
+        "hint": "{{out_of_area_death_form.step1.hidden_died_check.hint}}",
         "type": "edit_text",
         "read_only": "true"
       }
     ]
-  }
+  },
+  "properties_file_name": "out_of_area_death_form"
 }

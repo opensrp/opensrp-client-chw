@@ -98,17 +98,4 @@ public class ContactUtilTest {
         Context.getInstance().session().expire();
         System.gc();
     }
-
-    @Test
-    public void testGetContactSchedule() {
-        LocalDate lastContact = LocalDate.parse("19/06/2019", DateTimeFormat.forPattern("dd/MM/yyyy"));
-
-        MemberObject memberObject = new MemberObject();
-        ReflectionHelpers.setField(memberObject, "lastMenstrualPeriod", "01-01-2019");
-        ReflectionHelpers.setField(memberObject, "baseEntityId", "12345");
-
-        Map<Integer, LocalDate> contacts = ContactUtil.getContactSchedule(memberObject, lastContact);
-
-        TestCase.assertNotNull(contacts);
-    }
 }

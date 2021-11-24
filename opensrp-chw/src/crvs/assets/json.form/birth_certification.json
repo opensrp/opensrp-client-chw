@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Birth Certification",
+    "title": "{{birth_certification.step1.title}}",
     "fields": [
       {
         "key": "birth_cert",
@@ -56,10 +56,14 @@
         "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Does the child have a birth certificate?",
-        "values": [
+        "hint": "{{birth_certification.step1.birth_cert.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{birth_certification.step1.birth_cert.values[0]}}",
+          "{{birth_certification.step1.birth_cert.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -67,7 +71,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select option"
+          "err": "{{birth_certification.step1.birth_cert.v_required.err}}"
         }
       },
       {
@@ -77,10 +81,14 @@
         "openmrs_entity_id": "birthRegistration",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the birth of registered by the civil registrar?",
-        "values": [
+        "hint": "{{birth_certification.step1.birth_registration.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{birth_certification.step1.birth_registration.values[0]}}",
+          "{{birth_certification.step1.birth_registration.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -88,7 +96,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Please select option"
+          "err": "{{birth_certification.step1.birth_registration.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -104,13 +112,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Birth certificate issuance date",
+        "hint": "{{birth_certification.step1.birth_cert_issue_date.hint}}",
         "expanded": false,
         "max_date": "today",
         "min_date": "",
         "v_required": {
           "value": "true",
-          "err": "Please enter Birth certificate issuance date"
+          "err": "{{birth_certification.step1.birth_cert_issue_date.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -127,10 +135,10 @@
         "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Birth certificate number",
+        "hint": "{{birth_certification.step1.birth_cert_num.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Please enter number"
+          "err": "{{birth_certification.step1.birth_cert_num.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -147,10 +155,14 @@
         "openmrs_entity_id": "165405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the birth notified to the civil registrar ?",
-        "values": [
+        "hint": "{{birth_certification.step1.birth_notification.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{birth_certification.step1.birth_notification.values[0]}}",
+          "{{birth_certification.step1.birth_notification.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -158,7 +170,7 @@
         },
         "v_required": {
           "value": false,
-          "err": "Please select option"
+          "err": "{{birth_certification.step1.birth_notification.v_required.err}}"
         },
         "relevance": {
           "rules-engine": {
@@ -174,7 +186,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Ask to see the birth notification and instruct the caregiver to register the birth at County Health.",
+        "text": "{{birth_certification.step1.birthinstroductions.text}}",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -189,7 +201,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "Instruct the caregiver to have the birth registered at County Health.",
+        "text": "{{birth_certification.step1.caregiverinstroductions.text}}",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -205,10 +217,14 @@
         "openmrs_entity_id": "systemBirthNotification",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "This child qualifies for electronic birth notification, do you want to proceed and make birth notification?",
-        "values": [
+        "hint": "{{birth_certification.step1.system_birth_notification.hint}}",
+        "keys": [
           "Yes",
           "No"
+        ],
+        "values": [
+          "{{birth_certification.step1.system_birth_notification.values[0]}}",
+          "{{birth_certification.step1.system_birth_notification.values[1]}}"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -229,8 +245,15 @@
         "openmrs_entity_id": "birthRegType",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Select Birth Registration Type",
+        "hint": "{{birth_certification.step1.birth_reg_type.hint}}",
         "values": [
+          "{{birth_certification.step1.birth_reg_type.values[0]}}",
+          "{{birth_certification.step1.birth_reg_type.values[1]}}",
+          "{{birth_certification.step1.birth_reg_type.values[2]}}",
+          "{{birth_certification.step1.birth_reg_type.values[3]}}",
+          "{{birth_certification.step1.birth_reg_type.values[4]}}"
+        ],
+        "keys": [
           "Both Parents",
           "Self",
           "Informant Only",
@@ -245,7 +268,7 @@
         "openmrs_entity_id": "informantReason",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "If Informant, give reason why mother or father is not applying",
+        "hint": "{{birth_certification.step1.informant_reason.hint}}",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -255,5 +278,6 @@
         }
       }
     ]
-  }
+  },
+  "properties_file_name": "birth_certification"
 }
