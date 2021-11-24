@@ -24,7 +24,6 @@ import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -64,14 +63,10 @@ public class FamilyRegisterFragmentTest extends BaseUnitTest {
         when(fragment.getActivity()).thenReturn(activity);
         when(fragment.getContext()).thenReturn(activity);
         View view = LayoutInflater.from(activity).inflate(org.smartregister.chw.core.R.layout.fragment_base_register, null);
-        View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
         fragment.setupViews(view);
 
         View titleLayout = view.findViewById(R.id.title_layout);
-        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()){
-            assertFalse(titleLayout.hasOnClickListeners());
-        }else{
-            assertTrue(titleLayout.hasOnClickListeners());
-        }
+        boolean disableGoBack = ChwApplication.getApplicationFlavor().disableTitleClickGoBack();
+        assertTrue(!disableGoBack || (disableGoBack && !titleLayout.hasOnClickListeners()));
     }
 }

@@ -326,7 +326,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
             context.userService().logoutSession();
         } else {
             Intent intent1 = new Intent(ChwApplication.this, PinLoginActivity.class);
-            startActivity(intent1);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            getApplicationContext().startActivity(intent1);
         }
     }
 

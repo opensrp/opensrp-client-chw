@@ -44,7 +44,6 @@ public class AboveFiveChildProfileActivityTest {
     public MockitoRule rule = MockitoJUnit.rule();
 
     private AboveFiveChildProfileActivity activity;
-    private ActivityController<AboveFiveChildProfileActivity> controller;
 
     @Mock
     private RelativeLayout layoutLastVisitRow;
@@ -57,7 +56,9 @@ public class AboveFiveChildProfileActivityTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = Robolectric.buildActivity(AboveFiveChildProfileActivity.class).create().start();
+        ActivityController<AboveFiveChildProfileActivity> controller = Robolectric.buildActivity(AboveFiveChildProfileActivity.class)
+                .create()
+                .start();
         activity = controller.get();
 
 
