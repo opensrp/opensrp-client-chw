@@ -1,7 +1,6 @@
 package org.smartregister.chw.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -10,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;

@@ -13,7 +13,6 @@ import org.smartregister.chw.anc.domain.VaccineDisplay;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
-import org.smartregister.immunization.domain.VaccineWrapper;
 import org.smartregister.util.DatePickerUtils;
 
 import java.util.List;

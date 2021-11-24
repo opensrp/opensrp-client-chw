@@ -1,14 +1,12 @@
 package org.smartregister.chw.custom_view;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.smartregister.chw.R;
 
 import java.util.Arrays;
 import java.util.List;

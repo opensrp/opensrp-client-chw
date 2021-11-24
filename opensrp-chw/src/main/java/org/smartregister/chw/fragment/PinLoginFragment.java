@@ -139,7 +139,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void showAlertDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this.getActivity())
+        new AlertDialog.Builder(this.getActivity())
                 //set title
                 .setTitle("Forgot PIN?")
 //set message
