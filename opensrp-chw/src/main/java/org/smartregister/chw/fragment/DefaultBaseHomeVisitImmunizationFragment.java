@@ -61,6 +61,8 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private Date minimumDate;
     private boolean relaxedDates = false;
 
+    private List<VaccineWrapper> vaccineWrappers;
+
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -435,6 +437,14 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
                 }
             }
         }
+    }
+
+    public void setVaccineWrappers(List<VaccineWrapper> vaccineWrappers) {
+        this.vaccineWrappers = vaccineWrappers;
+    }
+
+    public List<VaccineWrapper> getVaccineWrappers() {
+        return vaccineWrappers;
     }
 
     /**

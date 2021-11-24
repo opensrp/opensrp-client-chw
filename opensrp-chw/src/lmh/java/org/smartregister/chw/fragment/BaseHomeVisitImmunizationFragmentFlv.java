@@ -21,8 +21,6 @@ import java.util.Map;
 
 public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitImmunizationFragment {
 
-    private List<VaccineWrapper> vaccineWrappers;
-
     public static BaseHomeVisitImmunizationFragmentFlv getInstance(final BaseAncHomeVisitContract.VisitView view, String baseEntityID, Map<String, List<VisitDetail>> details, List<VaccineDisplay> vaccineDisplays) {
         return getInstance(view, baseEntityID, details, vaccineDisplays, true);
     }
@@ -49,14 +47,6 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         callDatePickerUtilsThemeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    public List<VaccineWrapper> getVaccineWrappers() {
-        return vaccineWrappers;
-    }
-
-    public void setVaccineWrappers(List<VaccineWrapper> vaccineWrappers) {
-        this.vaccineWrappers = vaccineWrappers;
     }
 
     @VisibleForTesting

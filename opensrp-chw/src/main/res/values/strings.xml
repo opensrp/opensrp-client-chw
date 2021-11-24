@@ -456,4 +456,7 @@
 
     <!-- warning -->
     <string name="any_changes_you_make">Any changes you have made will be lost</string>
+
+    <string name="syncing_records">Syncing records…</string>
+    <string name="all_children_title">All Children</string>
 </resources>
