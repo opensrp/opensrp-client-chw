@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ReportDaoTest extends ReportDao {
+public class LMHReportDaoTest extends ReportDao {
     @Mock
     private Repository repository;
 

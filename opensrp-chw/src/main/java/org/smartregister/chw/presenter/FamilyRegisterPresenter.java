@@ -25,7 +25,7 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter {
 //                view.refreshList(FetchStatus.fetched);
 
                 FamilyEventClient familyEventClient = familyEventClientList.get(0);
-                FamilyEventClient headEventClient = familyEventClientList.get(1);
+//                FamilyEventClient headEventClient = familyEventClientList.get(1);
                 Intent intent = new Intent(view.getContext(), Utils.metadata().profileActivity);
                 intent.putExtra(Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, familyEventClient.getClient().getBaseEntityId());
 //                intent.putExtra("family_head", Utils.getValue(patient.getColumnmaps(), "family_head", false));
