@@ -50,7 +50,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            adminLogin = bundle.getString(org.smartregister.chw.util.Constants.Login.ADMIN_LOGIN);
+            adminLogin = bundle.getString(org.smartregister.chw.util.Constants.LoginUtil.ADMIN_LOGIN);
         }
     }
 

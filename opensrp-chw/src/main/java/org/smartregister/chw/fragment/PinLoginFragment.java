@@ -225,7 +225,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
         }
         else if (item.getItemId() == R.id.admin_login)  {
             Intent intent = new Intent(this.getActivity(), LoginActivity.class);
-            intent.putExtra(Constants.Login.ADMIN_LOGIN,"true" );
+            intent.putExtra(Constants.LoginUtil.ADMIN_LOGIN,"true" );
             startActivity(intent);
             return true;
         }
