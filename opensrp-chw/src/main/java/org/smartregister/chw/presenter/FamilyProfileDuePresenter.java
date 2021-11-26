@@ -114,7 +114,9 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
                 joiner.append(",");
             }
         }
-        joiner.deleteCharAt(joiner.length() - 1);
+        if(!joiner.toString().equalsIgnoreCase("")){
+            joiner.deleteCharAt(joiner.length() - 1);
+        }
 
         return joiner.toString();
     }
