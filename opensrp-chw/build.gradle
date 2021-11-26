@@ -360,7 +360,7 @@ android {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.4-LMH-Beta-02-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.4-LMH-Beta-03-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
