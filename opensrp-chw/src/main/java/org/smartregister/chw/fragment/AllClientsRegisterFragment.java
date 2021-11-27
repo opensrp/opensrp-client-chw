@@ -64,6 +64,7 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                     AllClientsUtils.goToTbProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 case CoreConstants.REGISTER_TYPE.HIV:
+                case CoreConstants.REGISTER_TYPE.CBHS:
                     AllClientsUtils.goToHivProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 default:

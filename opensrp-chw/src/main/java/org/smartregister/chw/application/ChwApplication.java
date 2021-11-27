@@ -44,7 +44,6 @@ import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.loggers.CrashlyticsTree;
-import org.smartregister.chw.core.provider.CoreAllClientsRegisterQueryProvider;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
@@ -55,6 +54,7 @@ import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
+import org.smartregister.chw.provider.ChwAllClientsRegisterQueryProvider;
 import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -266,7 +266,7 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         OpdLibrary.init(context, getRepository(),
-                new OpdConfiguration.Builder(CoreAllClientsRegisterQueryProvider.class)
+                new OpdConfiguration.Builder(ChwAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
                         .setOpdRegisterRowOptions(AllClientsRegisterRowOptions.class)
                         .build(),
