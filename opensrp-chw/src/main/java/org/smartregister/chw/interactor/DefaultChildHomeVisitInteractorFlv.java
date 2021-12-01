@@ -80,7 +80,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean vaccineCardReceived = false;
     protected Boolean hasBirthCert = false;
     protected Boolean editMode = false;
-    protected Boolean vaccinesDefaultChecked = true;
+    protected Boolean vaccinesDefaultChecked = ChwApplication.getApplicationFlavor().vaccinesDefaultChecked();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
     private static final int FIVE_YEARS = 5;
 

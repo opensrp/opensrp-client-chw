@@ -99,7 +99,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean useThinkMd() {
-        return true;
+        return false;
     }
 
     @Override
@@ -238,5 +238,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean showsPhysicallyDisabledView() { return false; }
+
+    @Override
+    public boolean vaccinesDefaultChecked() { return false; }
+
 }
 

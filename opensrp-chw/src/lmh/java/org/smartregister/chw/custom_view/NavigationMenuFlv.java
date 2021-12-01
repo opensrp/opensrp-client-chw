@@ -62,4 +62,9 @@ public class NavigationMenuFlv extends DefaultNavigationMenuFlv {
 
         return dialog;
     }
+
+     @Override
+    public boolean hasSyncStatusProgressBar() {
+        return false;
+    }
 }
