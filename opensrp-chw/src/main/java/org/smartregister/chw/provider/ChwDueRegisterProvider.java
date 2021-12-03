@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.util.TypedValue;
 import android.view.View;
 
+import androidx.annotation.VisibleForTesting;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.utils.ChildDBConstants;
@@ -45,7 +47,8 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         populatePatientColumn(pc, client, viewHolder);
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final RegisterViewHolder viewHolder) {
+    @VisibleForTesting
+    void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final RegisterViewHolder viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
