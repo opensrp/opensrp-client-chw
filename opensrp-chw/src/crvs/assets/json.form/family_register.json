@@ -412,8 +412,8 @@
           "{{family_register.step2.sex.values[1]}}"
         ],
         "keys": [
-          "Masculin",
-          "Feminin"
+          "Male",
+          "Female"
         ],
         "v_required": {
           "value": "true",
