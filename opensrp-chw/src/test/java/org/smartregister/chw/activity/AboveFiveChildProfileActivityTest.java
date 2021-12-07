@@ -9,11 +9,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -21,13 +22,12 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
@@ -37,9 +37,10 @@ import org.smartregister.helper.ImageRenderHelper;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, sdk = 22)
-public class AboveFiveChildProfileActivityTest {
+import static org.mockito.ArgumentMatchers.any;
+
+
+public class AboveFiveChildProfileActivityTest extends BaseUnitTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
@@ -56,7 +57,10 @@ public class AboveFiveChildProfileActivityTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        ActivityController<AboveFiveChildProfileActivity> controller = Robolectric.buildActivity(AboveFiveChildProfileActivity.class)
+        Intent activityIntent = new Intent();
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        activityIntent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
+        ActivityController<AboveFiveChildProfileActivity> controller = Robolectric.buildActivity(AboveFiveChildProfileActivity.class, activityIntent)
                 .create()
                 .start();
         activity = controller.get();
@@ -99,14 +103,13 @@ public class AboveFiveChildProfileActivityTest {
 
     @Test
     public void setLastVisitRowGone() {
-        AboveFiveChildProfileActivity spyActivity = Mockito.spy(AboveFiveChildProfileActivity.class);
         TextView textViewLastVisit = Mockito.spy(new TextView(RuntimeEnvironment.application));
         TextView textViewMedicalHistory = Mockito.spy(new TextView(RuntimeEnvironment.application));
-        ReflectionHelpers.setField(spyActivity, "layoutLastVisitRow", layoutLastVisitRow);
-        ReflectionHelpers.setField(spyActivity, "viewLastVisitRow", viewLastVisitRow);
-        ReflectionHelpers.setField(spyActivity, "textViewLastVisit", textViewLastVisit);
-        ReflectionHelpers.setField(spyActivity, "textViewMedicalHistory", textViewMedicalHistory);
-        spyActivity.setLastVisitRowView("10");
+        ReflectionHelpers.setField(activity, "layoutLastVisitRow", layoutLastVisitRow);
+        ReflectionHelpers.setField(activity, "viewLastVisitRow", viewLastVisitRow);
+        ReflectionHelpers.setField(activity, "textViewLastVisit", textViewLastVisit);
+        ReflectionHelpers.setField(activity, "textViewMedicalHistory", textViewMedicalHistory);
+        activity.setLastVisitRowView("10");
         Assert.assertEquals(View.GONE, textViewLastVisit.getVisibility());
     }
 
@@ -178,7 +181,7 @@ public class AboveFiveChildProfileActivityTest {
         MenuItem item = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.action_registration).when(item).getItemId();
         activity.onOptionsItemSelected(item);
-        Mockito.verify(presenter).startFormForEdit(Mockito.any(), Mockito.any());
+        Mockito.verify(presenter).startFormForEdit(any(), any());
 
         Mockito.doReturn(android.R.id.home).when(item).getItemId();
         activity.onOptionsItemSelected(item);
@@ -186,7 +189,7 @@ public class AboveFiveChildProfileActivityTest {
 
         Mockito.doReturn(org.smartregister.chw.core.R.id.action_sick_child_form).when(item).getItemId();
         activity.onOptionsItemSelected(item);
-        Mockito.verify(presenter).startSickChildForm(Mockito.any());
+        Mockito.verify(presenter).startSickChildForm(any());
     }
 
 
@@ -206,6 +209,13 @@ public class AboveFiveChildProfileActivityTest {
         activity.setDueTodayServices();
         Mockito.verify(relativeLayout).setVisibility(View.GONE);
         Mockito.verify(textView).setVisibility(View.GONE);
+    }
+
+    @Test
+    public void testGetFormConfig(){
+        Form form = activity.getForm();
+        Assert.assertNotNull(form);
+        Assert.assertEquals(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid(), form.isGreyOutSaveWhenFormInvalid());
     }
 
 }

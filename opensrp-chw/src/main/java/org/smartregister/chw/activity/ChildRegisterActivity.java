@@ -30,6 +30,11 @@ public class ChildRegisterActivity extends CoreChildRegisterActivity implements 
     }
 
     @Override
+    protected void onResumption() {
+        super.onResumption();
+    }
+
+    @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new ChildRegisterFragment();
     }
