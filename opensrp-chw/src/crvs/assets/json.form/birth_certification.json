@@ -181,21 +181,6 @@
         }
       },
       {
-        "key": "birthinstroductions",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "text": "{{birth_certification.step1.birthinstroductions.text}}",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "birth_certification.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "caregiverinstroductions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -259,7 +244,14 @@
           "Informant Only",
           "Mother Only",
           "Father Only"
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification.yml"
+            }
+          }
+        }
       },
       {
         "key": "informant_reason",

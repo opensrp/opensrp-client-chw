@@ -47,3 +47,10 @@ priority: 1
 condition: "step1_birth_reg_type == 'Informant Only'"
 actions:
   - "isRelevant = true"
+---
+name: step1_birth_reg_type
+description: no. condoms
+priority: 1
+condition: "step1_birth_cert == 'Yes' || step1_system_birth_notification == 'Yes'"
+actions:
+  - "isRelevant = true"

@@ -1,8 +1,8 @@
 ---
 name: step1_birthinstroductions
-description: birth introduction
+description: birth notification and instruct
 priority: 1
-condition: "step1_birth_cert == 'No' && step1_birth_registration == 'No'"
+condition: "step1_birth_notification == 'Yes'"
 actions:
   - "isRelevant = true"
 ---

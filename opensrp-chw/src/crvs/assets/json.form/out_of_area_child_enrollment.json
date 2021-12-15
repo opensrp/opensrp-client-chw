@@ -242,13 +242,11 @@
         "values": [
           "{{out_of_area_child_enrollment.step1.birth_place_type.values[0]}}",
           "{{out_of_area_child_enrollment.step1.birth_place_type.values[1]}}",
-          "{{out_of_area_child_enrollment.step1.birth_place_type.values[2]}}",
-          "{{out_of_area_child_enrollment.step1.birth_place_type.values[3]}}"
+          "{{out_of_area_child_enrollment.step1.birth_place_type.values[2]}}"
         ],
         "keys": [
           "Home",
           "Health facility",
-          "Hospital",
           "Other"
         ],
         "openmrs_choice_ids": {

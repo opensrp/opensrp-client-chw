@@ -65,7 +65,7 @@ actions:
 name: step1_medically_treated
 description: medically_treated
 priority: 1
-condition: "!step1_death_place.equals('Health Facility') && (step1_death_place.equals('Home') || step1_death_place.equals('Place of work') || step1_death_place.equals('Other'))"
+condition: "step1_death_place!='Health Facility'"
 actions:
   - "isRelevant = true"
 ---
@@ -93,7 +93,7 @@ actions:
 name: step1_know_death_cause
 description: know_death_cause
 priority: 1
-condition: "step1_medically_treated=='Yes'"
+condition: "!step1_death_place.equals('Health Facility')"
 actions:
   - "isRelevant = true"
 ---

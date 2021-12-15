@@ -157,12 +157,13 @@
         }
       },
       {
-        "key": "ask_family_member",
+        "key": "physician_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "text": "{{death_member_form.step1.ask_family_member.text}}",
-        "type": "label",
+        "label": "{{death_member_form.step1.physician_name.label}}",
+        "hint": "{{death_member_form.step1.physician_name.hint}}",
+        "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",
@@ -171,12 +172,43 @@
         }
       },
       {
-        "key": "instruct_family_member",
+        "key": "physician_position",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-        "text": "{{death_member_form.step1.instruct_family_member.text}}",
-        "type": "label",
+        "label": "{{death_member_form.step1.physician_position.label}}",
+        "hint": "{{death_member_form.step1.physician_position.hint}}",
+        "type": "edit_text",
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "{{death_member_form.step1.death_cause.label}}",
+        "hint": "{{death_member_form.step1.death_cause.hint}}",
+        "type": "edit_text",
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_manner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "{{death_member_form.step1.death_manner.label}}",
+        "hint": "{{death_member_form.step1.death_manner.hint}}",
+        "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",
@@ -328,66 +360,6 @@
         "openmrs_entity_id": "",
         "label": "{{death_member_form.step1.official_position.label}}",
         "hint": "{{death_member_form.step1.official_position.hint}}",
-        "type": "edit_text",
-        "relevance": {
-          "step1:received_death_certificate": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "physician_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{death_member_form.step1.physician_name.label}}",
-        "hint": "{{death_member_form.step1.physician_name.hint}}",
-        "type": "edit_text",
-        "relevance": {
-          "step1:received_death_certificate": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "physician_position",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{death_member_form.step1.physician_position.label}}",
-        "hint": "{{death_member_form.step1.physician_position.hint}}",
-        "type": "edit_text",
-        "relevance": {
-          "step1:received_death_certificate": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "death_cause",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{death_member_form.step1.death_cause.label}}",
-        "hint": "{{death_member_form.step1.death_cause.hint}}",
-        "type": "edit_text",
-        "relevance": {
-          "step1:received_death_certificate": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "death_manner",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{death_member_form.step1.death_manner.label}}",
-        "hint": "{{death_member_form.step1.death_manner.hint}}",
         "type": "edit_text",
         "relevance": {
           "step1:received_death_certificate": {

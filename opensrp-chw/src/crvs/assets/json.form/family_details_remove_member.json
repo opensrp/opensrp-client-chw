@@ -241,6 +241,74 @@
         }
       },
       {
+        "key": "nationality",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{family_details_remove_member.step1.nationality.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{family_details_remove_member.step1.nationality.v_required.err}}"
+        },
+        "values": [
+          "{{family_details_remove_member.step1.nationality.values[0]}}",
+          "{{family_details_remove_member.step1.nationality.values[1]}}",
+          "{{family_details_remove_member.step1.nationality.values[2]}}",
+          "{{family_details_remove_member.step1.nationality.values[3]}}",
+          "{{family_details_remove_member.step1.nationality.values[4]}}"
+        ],
+        "keys": [
+          "Togo",
+          "DRC",
+          "Guinea",
+          "Liberia",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Togo": "togo_id_openmrs",
+          "DRC": "drc_id_openmrs",
+          "Guinea": "guinea_id_openmrs",
+          "Liberia": "liberia_id_openmrs",
+          "Other": "other_id_openmrs"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{family_details_remove_member.step1.marital_status.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{family_details_remove_member.step1.marital_status.v_required.err}}"
+        },
+        "values": [
+          "{{family_details_remove_member.step1.marital_status.values[0]}}",
+          "{{family_details_remove_member.step1.marital_status.values[1]}}",
+          "{{family_details_remove_member.step1.marital_status.values[2]}}",
+          "{{family_details_remove_member.step1.marital_status.values[3]}}",
+          "{{family_details_remove_member.step1.marital_status.values[4]}}"
+        ],
+        "keys": [
+          "Co-Habiting",
+          "Divorced",
+          "Married",
+          "Single",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Co-Habiting": "co_habiting_id_openmrs",
+          "Divorced": "divorced_id_openmrs",
+          "Married": "married_id_openmrs",
+          "Single": "single_id_openmrs",
+          "Widowed": "widowed_id_openmrs"
+        }
+      },
+      {
         "key": "mccd_conducted",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -264,6 +332,38 @@
           "Yes": "mccd_yes_id_openmrs",
           "No": "mccd_no_id_openmrs"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physician_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "{{family_details_remove_member.step1.physician_name.label}}",
+        "hint": "{{family_details_remove_member.step1.physician_name.hint}}",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physician_position",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "{{family_details_remove_member.step1.physician_position.label}}",
+        "hint": "{{family_details_remove_member.step1.physician_position.hint}}",
+        "type": "edit_text",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -382,74 +482,6 @@
               "rules-file": "family_details_remove_member_form_relevance.yml"
             }
           }
-        }
-      },
-      {
-        "key": "nationality",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "{{family_details_remove_member.step1.nationality.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{family_details_remove_member.step1.nationality.v_required.err}}"
-        },
-        "values": [
-          "{{family_details_remove_member.step1.nationality.values[0]}}",
-          "{{family_details_remove_member.step1.nationality.values[1]}}",
-          "{{family_details_remove_member.step1.nationality.values[2]}}",
-          "{{family_details_remove_member.step1.nationality.values[3]}}",
-          "{{family_details_remove_member.step1.nationality.values[4]}}"
-        ],
-        "keys": [
-          "Togo",
-          "DRC",
-          "Guinea",
-          "Liberia",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Togo": "togo_id_openmrs",
-          "DRC": "drc_id_openmrs",
-          "Guinea": "guinea_id_openmrs",
-          "Liberia": "liberia_id_openmrs",
-          "Other": "other_id_openmrs"
-        }
-      },
-      {
-        "key": "marital_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "{{family_details_remove_member.step1.marital_status.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{family_details_remove_member.step1.marital_status.v_required.err}}"
-        },
-        "values": [
-          "{{family_details_remove_member.step1.marital_status.values[0]}}",
-          "{{family_details_remove_member.step1.marital_status.values[1]}}",
-          "{{family_details_remove_member.step1.marital_status.values[2]}}",
-          "{{family_details_remove_member.step1.marital_status.values[3]}}",
-          "{{family_details_remove_member.step1.marital_status.values[4]}}"
-        ],
-        "keys": [
-          "Co-Habiting",
-          "Divorced",
-          "Married",
-          "Single",
-          "Widowed"
-        ],
-        "openmrs_choice_ids": {
-          "Co-Habiting": "co_habiting_id_openmrs",
-          "Divorced": "divorced_id_openmrs",
-          "Married": "married_id_openmrs",
-          "Single": "single_id_openmrs",
-          "Widowed": "widowed_id_openmrs"
         }
       },
       {
@@ -659,34 +691,6 @@
         }
       },
       {
-        "key": "ask_family_member",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "text": "{{family_details_remove_member.step1.ask_family_member.text}}",
-        "type": "label",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
-      },
-      {
-        "key": "instruct_family_member",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "text": "{{family_details_remove_member.step1.instruct_family_member.text}}",
-        "type": "label",
-        "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
-          }
-        }
-      },
-      {
         "key": "informant_fields",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -838,38 +842,6 @@
           "step1:remove_reason": {
             "type": "string",
             "ex": "equalTo(., \"Died\")"
-          }
-        }
-      },
-      {
-        "key": "physician_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{family_details_remove_member.step1.physician_name.label}}",
-        "hint": "{{family_details_remove_member.step1.physician_name.hint}}",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_details_remove_member_form_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "physician_position",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{family_details_remove_member.step1.physician_position.label}}",
-        "hint": "{{family_details_remove_member.step1.physician_position.hint}}",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_details_remove_member_form_relevance.yml"
-            }
           }
         }
       },
