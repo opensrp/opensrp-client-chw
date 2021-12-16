@@ -1,9 +1,15 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
+import static org.smartregister.chw.util.CrvsConstants.PREG_OUTCOME;
+import static org.smartregister.chw.util.Utils.getClientName;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 import android.view.ViewGroup;
+
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -14,11 +20,8 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
+
 import java.util.Set;
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.PREG_OUTCOME;
-import static org.smartregister.chw.util.Utils.getClientName;
 
 public class DeadClientsProvider extends CoreDeadClientsProvider {
 
@@ -69,9 +72,9 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
 
             switch (clientType) {
                 case "Still": {
-                    String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName);
+                    String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName) + ", [" + stillBirth + "]";
                     fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
-                    fillValue(viewHolder.textViewChildName, "Baby (" + stillBirth + ")");
+//                    fillValue(viewHolder.textViewChildName, "Baby (" + stillBirth + ")");
                     String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
                     fillValue(viewHolder.textViewAddressGender, address);
                     break;
