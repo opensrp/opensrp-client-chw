@@ -1,10 +1,18 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_BIRTH;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_CHILD_FORM;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_FORM;
+import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.json.JSONObject;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.application.ChwApplication;
@@ -18,15 +26,11 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import timber.log.Timber;
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_BIRTH;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_CHILD_FORM;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_FORM;
-import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
 
 public class OutOfAreaChildUpdateActivity extends OutOfAreaChildActivity {
 
@@ -60,7 +64,7 @@ public class OutOfAreaChildUpdateActivity extends OutOfAreaChildActivity {
             JSONObject formJsonObject = getFormUtils().getFormJson(OUT_OF_AREA_CHILD_FORM);
             String openSRPId = AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId();
             Map<String, String> valueMap = new HashMap<>();
-            valueMap.put(UNIQUE_ID, openSRPId.replace("-", "")+OUT_OF_AREA_BIRTH);
+            valueMap.put(UNIQUE_ID, openSRPId.replace("-", "") + OUT_OF_AREA_BIRTH);
             CoreJsonFormUtils.populateJsonForm(formJsonObject, valueMap);
             JsonFormUtilsFlv.startFormActivity(OutOfAreaChildUpdateActivity.this, formJsonObject, OUT_OF_AREA_FORM);
         } catch (Exception e) {
@@ -95,6 +99,8 @@ public class OutOfAreaChildUpdateActivity extends OutOfAreaChildActivity {
                 Timber.e(e);
             }
 
+        } else {
+            Utils.launchAndClearOldInstanceOfActivity(this,OutOfAreaChildActivity.class);
         }
     }
 

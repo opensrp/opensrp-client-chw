@@ -1,10 +1,18 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_FORM;
+import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_FORM;
+import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.json.JSONObject;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.application.ChwApplication;
@@ -18,15 +26,11 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import timber.log.Timber;
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_FORM;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_FORM;
-import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
 
 public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
 
@@ -93,6 +97,8 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
                 Timber.e(e);
             }
 
+        }else {
+            Utils.launchAndClearOldInstanceOfActivity(this,OutOfAreaDeathActivity.class);
         }
     }
 }

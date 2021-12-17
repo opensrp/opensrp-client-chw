@@ -1,10 +1,14 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
+import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import org.json.JSONObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -18,11 +22,11 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
 import java.util.Map;
 import java.util.Objects;
+
 import timber.log.Timber;
-import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 
 public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
 
@@ -96,8 +100,9 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
                 Timber.e(e);
             }
         }else{
-            startActivity(new Intent(this, OutOfAreaDeathActivity.class));
-            finish();
+            Utils.launchAndClearOldInstanceOfActivity(this, OutOfAreaDeathActivity.class);
+//            startActivity(new Intent(this, OutOfAreaDeathActivity.class));
+//            finish();
         }
     }
 

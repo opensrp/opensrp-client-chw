@@ -3,7 +3,6 @@ package org.smartregister.chw.presenter;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -22,6 +21,7 @@ import org.smartregister.chw.activity.OutOfAreaChildUpdateActivity;
 import org.smartregister.chw.contract.CoreOutOfAreaChildRegisterContract;
 import org.smartregister.chw.core.presenter.CoreChildRegisterPresenter;
 import org.smartregister.chw.interactor.CoreOutOfAreaChildRegisterInteractor;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;
@@ -152,8 +152,7 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
                         if (!isSaved && getView().getContext() != null) {
                             Toast.makeText(getView().getContext(), "Saving failed", Toast.LENGTH_SHORT).show();
                         } else {
-                            getView().getContext().startActivity(new Intent(getView().getContext(), OutOfAreaChildActivity.class));
-                            ((Activity) getView().getContext()).finish();
+                            Utils.launchAndClearOldInstanceOfActivity(getView().getContext(), OutOfAreaChildActivity.class);
                         }
                     }
                 });
