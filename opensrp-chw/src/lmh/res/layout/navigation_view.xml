@@ -381,6 +381,40 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/progress_status_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="32dp"
+                android:layout_toEndOf="@+id/tvSync"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/sync_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:visibility="invisible"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/sync_progress_bar_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:visibility="invisible" />
+
+                <ProgressBar
+                    android:id="@+id/sync_status_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="false"
+                    android:indeterminateTint="@color/colorGreen"
+                    android:max="100"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tvSync"
                 android:layout_width="80sp"
