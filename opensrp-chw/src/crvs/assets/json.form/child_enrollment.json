@@ -318,6 +318,16 @@
             }
           }
         }
+      },
+      {
+        "key": "birth_place_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthPlaceName",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "expanded": false,
+        "hint": "{{child_enrollment.step1.birth_place_name.hint}}"
       }
     ]
   },

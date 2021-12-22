@@ -425,6 +425,14 @@
           }
         },
         {
+          "column_name": "birth_place_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birthPlaceName"
+          }
+        },
+        {
           "column_name": "low_birth_weight",
           "type": "Event",
           "json_mapping": {
