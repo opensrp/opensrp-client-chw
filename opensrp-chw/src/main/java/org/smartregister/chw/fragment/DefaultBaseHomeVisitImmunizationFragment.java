@@ -56,7 +56,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     private CheckBox checkBoxNoVaccinesDone;
     protected DatePicker singleDatePicker;
     private Button saveButton;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
+    protected static SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
     protected boolean vaccinesDefaultChecked = true;
     private Date minimumDate;
     private boolean relaxedDates = false;
@@ -190,12 +190,24 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         Date endDate = (vaccineDisplay.getEndDate() != null && vaccineDisplay.getEndDate().getTime() < new Date().getTime()) ?
                 vaccineDisplay.getEndDate() : new Date();
 
+        Calendar c = Calendar.getInstance();
+        datePicker.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Timber.v("%d-%d-%d", year, monthOfYear, dayOfMonth);
+            }
+        });
+
         if (startDate.getTime() > endDate.getTime()) {
             datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : endDate.getTime());
         } else {
             datePicker.setMinDate(relaxedDates ? minimumDate.getTime() : startDate.getTime());
         }
         datePicker.setMaxDate((relaxedDates ? new Date() : endDate).getTime());
+
+        if (vaccineDisplay.getDateGiven() != null){
+            setDateFromDatePicker(datePicker, vaccineDisplay.getDateGiven());
+        }
     }
 
     private void initializeDatePicker(@NotNull DatePicker datePicker, @NotNull Map<String, VaccineDisplay> vaccineDisplays) {
@@ -235,7 +247,9 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
     }
 
     private void setDateFromDatePicker(DatePicker datePicker, Date date) {
-        datePicker.updateDate(date.getYear(), date.getMonth(), date.getDay());
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        datePicker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
