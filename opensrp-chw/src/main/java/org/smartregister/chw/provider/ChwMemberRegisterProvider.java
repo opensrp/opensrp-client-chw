@@ -12,11 +12,19 @@ import android.widget.RelativeLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.adapter.BaseUpcomingServiceAdapter;
+import org.smartregister.chw.anc.contract.BaseAncUpcomingServicesContract;
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.PNCDao;
+import org.smartregister.chw.core.interactor.CoreChildUpcomingServiceInteractor;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -45,6 +53,9 @@ import java.util.Set;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.getDuration;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -142,7 +153,12 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
             attachNextArrowOnclickListener(nextArrow, client);
         }
 
-        updateDueColumn(viewHolder, baseEntityId);
+        new CoreChildUpcomingServiceInteractor().getUpComingServices(new MemberObject(pc), context, new BaseAncUpcomingServicesContract.InteractorCallBack() {
+            @Override
+            public void onDataFetched(List<BaseUpcomingService> serviceList) {
+                updateDueColumn(viewHolder, getDueServicesState(serviceList));
+            }
+        });
 
     }
 
@@ -180,9 +196,55 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
     }
 
-    private void updateDueColumn(RegisterViewHolder viewHolder, String memberBaseEntityId) {
+    private List<BaseUpcomingService> deepCopy(@Nullable List<BaseUpcomingService> serviceList) {
+        if (serviceList == null) return null;
+
+        List<BaseUpcomingService> result = new ArrayList<>();
+
+        for (BaseUpcomingService service : serviceList) {
+            BaseUpcomingService copy = new BaseUpcomingService();
+            copy.setServiceName(service.getServiceName());
+            copy.setServiceDate(service.getOverDueDate());
+            copy.setExpiryDate(service.getExpiryDate());
+            copy.setOverDueDate(service.getOverDueDate());
+
+            copy.setUpcomingServiceList(deepCopy(service.getUpcomingServiceList()));
+            result.add(copy);
+        }
+
+        return result;
+    }
+
+    private String getDueServicesState(List<BaseUpcomingService> serviceList) {
+        List<BaseUpcomingService> eligibleServiceList = new ArrayList<>();
+        for (BaseUpcomingService filterService : deepCopy(serviceList)) {
+            List<BaseUpcomingService> eligibleVaccines = new ArrayList<>();
+            for (BaseUpcomingService vaccine : filterService.getUpcomingServiceList()) {
+                if (vaccine.getExpiryDate() == null || new LocalDate(vaccine.getExpiryDate()).isAfter(new LocalDate())) {
+                    eligibleVaccines.add(vaccine);
+                }
+            }
+
+            filterService.setUpcomingServiceList(eligibleVaccines);
+            if (filterService.getUpcomingServiceList().size() > 0)
+                eligibleServiceList.add(filterService);
+        }
+
+        boolean hasDue = false;
+        for (BaseUpcomingService service : eligibleServiceList) {
+            if (service.getServiceDate() == null) continue;
+
+            int overduePeriod = Days.daysBetween(new DateTime(service.getOverDueDate()).toLocalDate(), new DateTime().toLocalDate()).getDays();
+            if (overduePeriod > 0) return CoreConstants.VISIT_STATE.OVERDUE;
+            int periodDue = Days.daysBetween(new DateTime(service.getServiceDate()).toLocalDate(), new DateTime().toLocalDate()).getDays();
+            hasDue = hasDue || periodDue >= 0;
+        }
+
+        return hasDue ? CoreConstants.VISIT_STATE.DUE : null;
+    }
+
+    private void updateDueColumn(RegisterViewHolder viewHolder, String dueState) {
         viewHolder.statusLayout.setVisibility(View.VISIBLE);
-        String dueState = getDueState(memberBaseEntityId);
 
         try {
             if (dueState != null) {
