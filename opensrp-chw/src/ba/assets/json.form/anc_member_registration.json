@@ -62,9 +62,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Last Menstrual Period (LMP)",
-        "label_info_title": "LMP",
-        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
+        "hint": "Last Normal Menstrual Period (LNMP)",
+        "label_info_title": "LNMP",
+        "label_info_text": "LNMP = first day of Last Normal Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
@@ -97,7 +97,7 @@
         "options": [
           {
             "key": "lmp_unknown",
-            "text": "LMP unknown?",
+            "text": "LNMP unknown?",
             "text_size": "18px",
             "value": "false"
           }
