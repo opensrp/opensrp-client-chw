@@ -354,10 +354,7 @@
             }
           }
         },
-        "v_required": {
-          "value": true,
-          "err": "Please specify the # of babies"
-        },
+
         "value": [
           {
             "key": "surname",
