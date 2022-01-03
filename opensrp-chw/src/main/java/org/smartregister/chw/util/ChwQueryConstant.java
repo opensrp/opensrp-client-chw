@@ -24,10 +24,10 @@ public interface ChwQueryConstant {
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_anc_register\n" +
+            "    FROM ec_anc_register where ec_anc_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_pregnancy_outcome\n" +
+            "    FROM ec_pregnancy_outcome where ec_pregnancy_outcome.delivery_date is not null\n" +
             "    UNION ALL\n" +
             "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
             "    FROM ec_child\n" +
@@ -106,10 +106,10 @@ public interface ChwQueryConstant {
             "  AND ec_family_member.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_anc_register\n" +
+            "    FROM ec_anc_register where ec_anc_register.is_closed is 0\n" +
             "    UNION ALL\n" +
             "    SELECT ec_pregnancy_outcome.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_pregnancy_outcome\n" +
+            "    FROM ec_pregnancy_outcome where ec_pregnancy_outcome.delivery_date is not null\n" +
             "    UNION ALL\n" +
             "    SELECT ec_child.base_entity_id AS base_entity_id\n" +
             "    FROM ec_child\n" +
@@ -173,6 +173,7 @@ public interface ChwQueryConstant {
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
             "where ec_family_member.date_removed is null\n" +
             "  and ec_pregnancy_outcome.is_closed is 0\n" +
+            "  and ec_pregnancy_outcome.delivery_date is not null\n" +
             "  AND ec_pregnancy_outcome.base_entity_id NOT IN\n" +
             "      (SELECT base_entity_id FROM ec_anc_register WHERE ec_anc_register.is_closed IS 0)\n" +
             "  AND ec_pregnancy_outcome.base_entity_id IN (%s)\n" +
