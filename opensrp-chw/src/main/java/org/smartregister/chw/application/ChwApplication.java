@@ -654,6 +654,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         Map<String, String[]> getFTSSortMap();
 
          boolean vaccinesDefaultChecked();
+
+         boolean checkDueStatusFromUpcomingServices();
     }
 
 }
