@@ -242,5 +242,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean vaccinesDefaultChecked() { return false; }
 
+    @Override
+    public boolean checkDueStatusFromUpcomingServices() {
+        return true;
+    }
 }
 
