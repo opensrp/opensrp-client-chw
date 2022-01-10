@@ -124,6 +124,14 @@
           },
           {
             "field": "eventType",
+            "field_value": "Pregnancy Confirmation",
+            "creates_case": [
+              "ec_anc_register",
+              "ec_anc_log"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "ANC Registration",
             "creates_case": [
               "ec_anc_register",

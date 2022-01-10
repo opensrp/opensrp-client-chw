@@ -68,9 +68,8 @@ public class AllClientsUtils {
         activity.startActivity(initProfileActivityIntent(activity, patient, bundle, PncMemberProfileActivity.class));
     }
 
-    public static void goToAncProfile(Activity activity, CommonPersonObjectClient patient, Bundle bundle) {
-        patient.getColumnmaps().putAll(CoreChwApplication.ancRegisterRepository().getAncCommonPersonObject(patient.entityId()).getColumnmaps());
-        activity.startActivity(initProfileActivityIntent(activity, patient, bundle, AncMemberProfileActivity.class));
+    public static void goToAncProfile(Activity activity, CommonPersonObjectClient patient) {
+        AncMemberProfileActivity.startMe(activity,patient.getCaseId());
     }
 
     public static void gotToMalariaProfile(Activity activity, CommonPersonObjectClient patient) {
