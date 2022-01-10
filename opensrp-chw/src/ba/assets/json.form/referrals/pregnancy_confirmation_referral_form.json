@@ -1,0 +1,211 @@
+{
+  "form": "Pregnancy Confirmation Referral",
+  "encounter_type": "Pregnancy Confirmation Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/pregnancy_confirmation_referral_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "Pregnancy Confirmation Referral",
+      "fields": [
+        {
+          "name": "problem",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Pick condition/problem associated with the client."
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "options": [
+            {
+              "name": "ten_or_more_years_since_last_pregnancy",
+              "text": "Ten or more years since last pregnancy",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "ten_or_more_years_since_last_pregnancy",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "delivery_by_c_section",
+              "text": "Delivery by Cesarean delivery (C-section)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "delivery_by_c_section",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "still_birth",
+              "text": "Still Birth",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "still_birth",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "two_or_more_miscarriages",
+              "text": "Two or more miscarriages",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "two_or_more_miscarriages",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "heart_problems",
+              "text": "Heart Problems",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "heart_problems",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "diabetes",
+              "text": "Diabetes",
+              "meta_data": {
+                "openmrs_entity": "conceptc",
+                "openmrs_entity_id": "diabetes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tb",
+              "text": "Tuberculosis (TB)",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "tb",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_symptoms",
+              "text": "Other symptoms",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "other_symptoms",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "none",
+              "text": "None",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify reason for Pregnancy Confirmation referral",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status",
+            "service_before_referral"
+          ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "properties": {
+            "hint": "Other symptoms",
+            "type": "name"
+          },
+          "required_status": "true:Please specify other symptoms",
+          "subjects": "problem:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Choose referral facility",
+            "searchable": "Choose referral facility"
+          },
+          "options": [],
+          "required_status": "yes:Please specify referral facility"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Please select the appointment date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Please specify the appointment date"
+        }
+      ]
+    }
+  ]
+}

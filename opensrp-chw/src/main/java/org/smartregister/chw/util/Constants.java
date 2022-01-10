@@ -23,6 +23,18 @@ public class Constants extends CoreConstants {
 
     }
 
+    public static class JsonReferralForms {
+        public static String pregnancyConfirmationReferralForm = "referrals/pregnancy_confirmation_referral_form";
+
+        public static String getPregnancyConfirmationReferralForm() {
+            return pregnancyConfirmationReferralForm;
+        }
+    }
+
+    public static class ReferralTaskFocus {
+        public static final String PREGNANCY_CONFIRMATION = "Pregnancy Confirmation";
+    }
+
     public static class JsonFormConstants{
         public static String CLIENT_MOVED_LOCATION = "client_moved_location";
     }

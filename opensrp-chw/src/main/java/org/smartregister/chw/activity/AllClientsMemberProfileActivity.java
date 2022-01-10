@@ -211,7 +211,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
                 FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId);
                 break;
             case R.id.refer_to_facility_layout:
-                Utils.launchClientReferralActivity(this, Utils.getCommonReferralTypes(this), baseEntityId);
+                Utils.launchClientReferralActivity(this, Utils.getCommonReferralTypes(this,baseEntityId), baseEntityId);
                 break;
             default:
                 break;

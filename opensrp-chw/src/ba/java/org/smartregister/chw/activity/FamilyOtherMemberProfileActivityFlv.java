@@ -29,7 +29,7 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
                     break;
                 case R.id.refer_to_facility_layout:
                     if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-                        launchClientReferralActivity(activity, getCommonReferralTypes(activity), baseEntityId);
+                        launchClientReferralActivity(activity, getCommonReferralTypes(activity,baseEntityId), baseEntityId);
                     } else {
                         Toast.makeText(activity, "Refer to facility", Toast.LENGTH_SHORT).show();
                     }
