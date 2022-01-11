@@ -15,6 +15,8 @@ import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -38,11 +40,18 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     }
 
     @NotNull
-    public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity) {
+    public static List<ReferralTypeModel> getCommonReferralTypes(Activity activity, String baseEntityId) {
+        CommonPersonObjectClient client = Utils.getCommonPersonObjectClient(baseEntityId);
+        String gender = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, false);
+
         List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
                     Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+            if(gender.equalsIgnoreCase("Female") && isMemberOfReproductiveAge(client, 10, 49)){
+                referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.pregnancy_confirmation_referral),
+                        CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
+            }
         }
         return referralTypeModels;
     }

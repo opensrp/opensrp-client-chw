@@ -49,7 +49,7 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                     AllClientsUtils.goToChildProfile(this.getActivity(), commonPersonObjectClient, bundle);
                     break;
                 case CoreConstants.REGISTER_TYPE.ANC:
-                    AllClientsUtils.goToAncProfile(this.getActivity(), commonPersonObjectClient, bundle);
+                    AllClientsUtils.goToAncProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 case CoreConstants.REGISTER_TYPE.PNC:
                     AllClientsUtils.gotToPncProfile(this.getActivity(), commonPersonObjectClient, bundle);

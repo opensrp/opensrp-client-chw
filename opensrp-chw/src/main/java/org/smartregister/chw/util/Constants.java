@@ -22,7 +22,6 @@ public class Constants extends CoreConstants {
         public static String pncHfNextVisitDateFieldType = "pnc_hf_next_visit_date";
 
     }
-
     public static class JsonFormConstants{
         public static String CLIENT_MOVED_LOCATION = "client_moved_location";
     }

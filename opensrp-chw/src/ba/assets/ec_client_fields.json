@@ -306,6 +306,14 @@
           }
         },
         {
+          "column_name": "marital_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "marital_status"
+          }
+        },
+        {
           "column_name": "entity_type",
           "type": "Event",
           "json_mapping": {
@@ -679,24 +687,24 @@
           "column_name": "last_menstrual_period",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "last_menstrual_period"
           }
         },
         {
           "column_name": "gest_age",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "gest_age"
           }
         },
         {
           "column_name": "edd",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "obs.formSubmissionField",
+            "concept": "edd"
           }
         },
         {
@@ -721,22 +729,6 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "phone_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "marital_status",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -3162,6 +3154,41 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "comment_tb_problems"
+          }
+        },
+        {
+          "column_name": "date_marked_as_done",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "date_marked_as_done"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_pregnancy_confirmation_updates",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "end"
           }
         },
         {
