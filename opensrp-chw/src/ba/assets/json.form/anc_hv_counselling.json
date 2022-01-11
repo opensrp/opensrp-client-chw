@@ -64,7 +64,7 @@
         "options": [
           {
             "key": "chk_attended_anc_contacts",
-            "text": "1. Attend ANC contacts early",
+            "text": "1. Attend ANC clinic early",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161013AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -120,56 +120,56 @@
           },
           {
             "key": "chk_pnc_danger_signs",
-            "text": "10. PNC danger signs",
+            "text": "9. PNC danger signs",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_care_of_infant",
-            "text": "11. Care of infant after birth",
+            "text": "10. Care of infant after birth",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_infant_danger_signs",
-            "text": "14. Infant danger signs",
+            "text": "11. Infant danger signs",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_exposed_infant",
-            "text": "15. Follow-up for the HIV-exposed infant",
+            "text": "12. Follow-up for the HIV-exposed infant",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_breastfeeding",
-            "text": "16. Breastfeeding",
+            "text": "13. Breastfeeding",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_exclusive_breast_feeding ",
-            "text": "17. Plan for family planning using exclusive breast feeding for 6 months after birth",
+            "text": "14. Plan for family planning using exclusive breast feeding for 6 months after birth",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_family_planning",
-            "text": "18. Family planning",
+            "text": "15. Family planning",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_infection_prevention",
-            "text": "24. Infection prevention and control",
+            "text": "16. Infection prevention and control",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

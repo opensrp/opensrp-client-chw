@@ -118,38 +118,16 @@
             "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_other_treatment",
-            "text": "Other treatment",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_none",
             "text": "No treatment given",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
-      },
-      {
-        "key": "other_treatment_illness",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Other treatment",
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the illness details"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_observations.yml"
-            }
-          }
+          "err": "Please select an option"
         }
       }
     ]

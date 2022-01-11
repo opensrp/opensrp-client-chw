@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -18,9 +17,6 @@ import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.VisitUtils;
-import org.smartregister.chw.core.dao.AncDao;
-import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -77,7 +73,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         evaluateDangerSigns(actionList, details, context);
         evaluateHealthFacilityVisit(actionList, details, memberObject, dateMap, context);
-        evaluatePregnancyRisk(actionList, details, context);
         evaluateFamilyPlanning(actionList, details, context);
         evaluateNutritionStatus(actionList, details, context);
         evaluateCounsellingStatus(actionList, details, context);
@@ -188,19 +183,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);
     }
 
-    private void evaluatePregnancyRisk(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                       Map<String, List<VisitDetail>> details,
-                                       final Context context) throws BaseAncHomeVisitAction.ValidationException {
-
-        BaseAncHomeVisitAction pregnancyRisk = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_pregnancy_risk))
-                .withOptional(true)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getPregnancyRisk())
-                .withHelper(new PregnancyRisk())
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_pregnancy_risk), pregnancyRisk);
-    }
-
 
     private class DangerSignsAction implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
         private String danger_signs_counseling;
@@ -278,9 +260,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         private String anc_hf_visit;
         private String anc_hf_visit_date;
-        private String tests_done;
-        private String imm_medicine_given;
-        private String llin_given;
         private Date visitDate;
 
 
@@ -301,10 +280,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
                 anc_hf_visit = JsonFormUtils.getValue(jsonObject, "anc_hf_visit");
                 anc_hf_visit_date = JsonFormUtils.getValue(jsonObject, "anc_hf_visit_date");
-                tests_done = JsonFormUtils.getCheckBoxValue(jsonObject, "tests_done");
-                imm_medicine_given = JsonFormUtils.getCheckBoxValue(jsonObject, "imm_medicine_given");
-                llin_given = JsonFormUtils.getValue(jsonObject, "llin_given");
-
                 visitDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).parse(anc_hf_visit_date);
 
             } catch (Exception e) {
@@ -314,49 +289,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String getPreProcessed() {
-            String jsonString = super.getPreProcessed();
-            List<String> testDoneItems = AncDao.getTestDone(memberObject.getBaseEntityId());
-            Boolean showTT = AncDao.showTT(memberObject.getBaseEntityId());
-
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = new JSONObject(jsonString);
-                JSONArray fields = JsonFormUtils.fields(jsonObject);
-                JSONObject tests_done_fields = JsonFormUtils.getFieldJSONObject(fields, "tests_done");
-                JSONArray testDoneOptions = tests_done_fields.getJSONArray(JsonFormConstants.OPTIONS);
-                JSONArray jsonArrayItems = new JSONArray();
-                int x = 0;
-                while (x < testDoneOptions.length()) {
-                    JSONObject testDoneJsonOption = testDoneOptions.getJSONObject(x);
-                    if (!testDoneItems.contains(testDoneJsonOption.getString("text"))){
-                        jsonArrayItems.put(testDoneJsonOption);
-                    }
-                    x++;
-                }
-                tests_done_fields.put(JsonFormConstants.OPTIONS, jsonArrayItems);
-
-
-                JSONObject imm_medicine_given_fields = JsonFormUtils.getFieldJSONObject(fields, "imm_medicine_given");
-                JSONArray immMedicineGivenOptions = imm_medicine_given_fields.getJSONArray(JsonFormConstants.OPTIONS);
-                JSONArray jsonArray = new JSONArray();
-                int i = 0;
-                while (i < immMedicineGivenOptions.length()) {
-                    JSONObject immGivenJsonOption = immMedicineGivenOptions.getJSONObject(i);
-                    if(!immGivenJsonOption.getString("text").equalsIgnoreCase(CoreConstants.AncHealthFacilityVisitUtil.TETANUS_TOXOID)){
-                        jsonArray.put(immGivenJsonOption);
-                    }
-                    else if(showTT){
-                        jsonArray.put(immGivenJsonOption);
-                    }
-                    i++;
-                }
-                imm_medicine_given_fields.put(JsonFormConstants.OPTIONS, jsonArray);
-                return jsonObject.toString();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
+            return super.getPreProcessed();
         }
 
         @Override
@@ -366,9 +299,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 stringBuilder.append(context.getString(R.string.visit_not_done).replace("\n", ""));
             } else {
                 stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.date), new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(visitDate)));
-                stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.tests_done), tests_done));
-                stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.treatment_given), imm_medicine_given));
-                stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.received_llin), llin_given));
             }
             return stringBuilder.toString();
         }
@@ -638,7 +568,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 return BaseAncHomeVisitAction.Status.PENDING;
             }
 
-            if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Okay")) {
+            if (fam_llin.equalsIgnoreCase("Yes") && llin_2days.equalsIgnoreCase("Yes") && llin_condition.equalsIgnoreCase("Good")) {
                 return BaseAncHomeVisitAction.Status.COMPLETED;
             } else {
                 return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
@@ -783,69 +713,5 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         }
     }
 
-
-    private class PregnancyRisk implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
-        private String preg_risk;
-        private Context context;
-
-        @Override
-        public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-            this.context = context;
-        }
-
-        @Override
-        public String getPreProcessed() {
-            return null;
-        }
-
-        @Override
-        public void onPayloadReceived(String jsonPayload) {
-            try {
-
-                JSONObject jsonObject = new JSONObject(jsonPayload);
-                preg_risk = JsonFormUtils.getCheckBoxValue(jsonObject, "preg_risk").toLowerCase();
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.ScheduleStatus getPreProcessedStatus() {
-            return null;
-        }
-
-        @Override
-        public String getPreProcessedSubTitle() {
-            return null;
-        }
-
-        @Override
-        public String postProcess(String s) {
-            return null;
-        }
-
-        @Override
-        public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}",
-                    context.getString(R.string.anc_home_visit_pregnancy_risk), StringUtils.capitalize(preg_risk));
-        }
-
-        @Override
-        public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(preg_risk)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
-            if (preg_risk.equalsIgnoreCase("Low")) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else {
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
-            }
-        }
-
-        @Override
-        public void onPayloadReceived(BaseAncHomeVisitAction baseAncHomeVisitAction) {
-            Timber.v("onPayloadReceived");
-        }
-    }
 }
 
