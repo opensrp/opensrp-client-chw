@@ -100,16 +100,56 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_for_missed_visit",
-        "type": "edit_text",
+        "type": "spinner",
         "hint": "Reason for missed facility visit",
+        "values": [
+          "Fear to disclose her pregnancy",
+          "She forgot the appointment date",
+          "She did not have transport fare",
+          "She was not feeling well",
+          "Other"
+        ],
+        "keys": [
+          "fear_to_disclose_her_pregnancy",
+          "she_forgot_the_appointment_date",
+          "she_did_not_have_transport_fare",
+          "she_was_not_feeling_well",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "Fear to disclose her pregnancy":  "fear_to_disclose_her_pregnancy",
+          "She forgot the appointment date":  "she_forgot_the_appointment_date",
+          "She did not have transport fare":  "she_did_not_have_transport_fare",
+          "She was not feeling well":  "she_was_not_feeling_well",
+          "Other": "other"
+        },
         "v_required": {
           "value": "true",
-          "err": "Please enter the reason"
+          "err": "Please select a reason"
         },
         "relevance": {
           "step1:anc_hf_visit": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_missed_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_missed_visit",
+        "type": "edit_text",
+        "hint": "Other reason for missed facility visit",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter other reason"
+        },
+        "relevance": {
+          "step1:reason_for_missed_visit": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
