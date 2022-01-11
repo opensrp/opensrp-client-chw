@@ -127,7 +127,15 @@
             "field_value": "Pregnancy Confirmation",
             "creates_case": [
               "ec_anc_register",
-              "ec_anc_log"
+              "ec_anc_log",
+              "ec_pregnancy_confirmation_updates"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Pregnancy Confirmation Dismissal",
+            "creates_case": [
+              "ec_pregnancy_confirmation_updates"
             ]
           },
           {
