@@ -53,7 +53,7 @@
         "key": "fam_llin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "fam_llin",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Does the woman have a long lasting insecticide net (LLIN)?",
@@ -78,7 +78,7 @@
         "key": "llin_2days",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "llin_2days",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Did she sleep under the LLIN last night?",
@@ -109,20 +109,20 @@
         "key": "llin_condition",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "llin_condition",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
-          "Okay",
+          "Good",
           "Bad"
         ],
         "keys": [
-          "Okay",
+          "Good",
           "Bad"
         ],
         "openmrs_choice_ids": {
-          "Okay": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Good": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Bad": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
@@ -133,6 +133,49 @@
           "step1:fam_llin": {
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "malaria_sp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_sp",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Has the client taken malaria prevention dosage (SP)?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "reason_for_missed_sp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_for_missed_sp",
+        "type": "edit_text",
+        "hint": "Reason as to why the client is not taking the SP medication",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the reason"
+        },
+        "relevance": {
+          "step1:malaria_sp": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
           }
         }
       }
