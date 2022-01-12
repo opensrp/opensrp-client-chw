@@ -181,10 +181,10 @@
           "other"
         ],
         "openmrs_choice_ids": {
-          "Client was not given SP dosage": "client_was_not_given_sp_dosage",
-          "Client lost her medication": "client_lost_her_medication",
-          "Client negligence": "client_negligence",
-          "Other": "other"
+          "client_was_not_given_sp_dosage": "client_was_not_given_sp_dosage",
+          "client_lost_her_medication": "client_lost_her_medication",
+          "client_negligence": "client_negligence",
+          "other": "other"
         },
         "v_required": {
           "value": "true",
