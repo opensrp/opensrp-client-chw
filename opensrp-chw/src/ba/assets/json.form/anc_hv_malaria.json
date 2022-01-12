@@ -166,16 +166,53 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reason_for_missed_sp",
-        "type": "edit_text",
+        "type": "spinner",
         "hint": "Reason as to why the client is not taking the SP medication",
+        "values": [
+          "Client was not given SP dosage",
+          "Client lost her medication",
+          "Client negligence",
+          "Other"
+        ],
+        "keys": [
+          "client_was_not_given_sp_dosage",
+          "client_lost_her_medication",
+          "client_negligence",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "Client was not given SP dosage": "client_was_not_given_sp_dosage",
+          "Client lost her medication": "client_lost_her_medication",
+          "Client negligence": "client_negligence",
+          "Other": "other"
+        },
         "v_required": {
           "value": "true",
-          "err": "Please enter the reason"
+          "err": "Please select a reason"
         },
         "relevance": {
           "step1:malaria_sp": {
             "type": "string",
             "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_missed_sp_dosage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_missed_sp_dosage",
+        "type": "edit_text",
+        "hint": "Other reason for why the client is not taking the SP medication",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the reason"
+        },
+        "relevance": {
+          "step1:reason_for_missed_sp": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       }
