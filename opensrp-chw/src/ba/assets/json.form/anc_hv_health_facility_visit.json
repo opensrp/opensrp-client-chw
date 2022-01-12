@@ -117,11 +117,11 @@
           "other"
         ],
         "openmrs_choice_ids": {
-          "Fear to disclose her pregnancy":  "fear_to_disclose_her_pregnancy",
-          "She forgot the appointment date":  "she_forgot_the_appointment_date",
-          "She did not have transport fare":  "she_did_not_have_transport_fare",
-          "She was not feeling well":  "she_was_not_feeling_well",
-          "Other": "other"
+          "fear_to_disclose_her_pregnancy":  "fear_to_disclose_her_pregnancy",
+          "she_forgot_the_appointment_date":  "she_forgot_the_appointment_date",
+          "she_did_not_have_transport_fare":  "she_did_not_have_transport_fare",
+          "she_was_not_feeling_well":  "she_was_not_feeling_well",
+          "other": "other"
         },
         "v_required": {
           "value": "true",
