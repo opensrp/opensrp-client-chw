@@ -57,7 +57,6 @@ public class BirthNotificationProvider extends CoreChildRegisterProvider {
         CommonPersonObjectClient pc = (CommonPersonObjectClient) client;
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, viewHolder);
-            populateIdentifierColumn(pc, viewHolder);
             populateLastColumn(pc, viewHolder);
 
             return;
