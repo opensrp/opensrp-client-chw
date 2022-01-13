@@ -346,6 +346,10 @@
         "openmrs_entity_id": "Passport_Number",
         "type": "edit_text",
         "hint": "Passport number",
+        "v_regex": {
+          "value": "^TAE-\\d{6}$",
+          "err": "Passport Number should be in the format (TAE-XXXXXX)"
+        },
         "edit_type": "name",
         "relevance": {
           "step1:id_avail": {

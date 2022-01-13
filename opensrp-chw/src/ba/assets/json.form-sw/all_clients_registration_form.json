@@ -514,6 +514,10 @@
         "type": "edit_text",
         "hint": "Namba ya hati ya kusafiria",
         "edit_type": "name",
+        "v_regex": {
+          "value": "^TAE-\\d{6}$",
+          "err": "Namba ya hati ya kusafiria inatakiwa kuwa (TAE-XXXXXX)"
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
