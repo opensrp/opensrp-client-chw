@@ -61,10 +61,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
-        "type": "barcode",
-        "barcode_type": "qrcode",
+        "type": "edit_text",
+        "read_only": true,
         "hint": "WAJA ID",
-        "scanButtonText": "Chukua QR code",
         "v_numeric": {
           "value": "true",
           "err": "Tafadhali ingiza namba halali"
