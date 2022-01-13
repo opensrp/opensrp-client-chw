@@ -459,6 +459,10 @@
         "openmrs_entity_id": "Passport_Number",
         "type": "edit_text",
         "hint": "Namba ya hati ya kusafiria",
+        "v_regex": {
+          "value": "^TAE-\\d{6}$",
+          "err": "Namba ya hati ya kusafiria inatakiwa kuwa (TAE-XXXXXX)"
+        },
         "edit_type": "name",
         "relevance": {
           "step2:id_avail": {
