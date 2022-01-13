@@ -36,7 +36,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
             //Reordered the Items as requested by Ministry of Health National AIDS Control Program (NACP)
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                navigationOptions.addAll(Arrays.asList(op10,op1, op11, op12, op8, op3, op5, op2, op6, op7, op13, op9));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op6, op8, op2, op7, op13, op9));
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
