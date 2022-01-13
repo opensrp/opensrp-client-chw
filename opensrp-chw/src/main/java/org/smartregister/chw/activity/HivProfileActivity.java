@@ -389,6 +389,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
                             CoreConstants.JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
+                    referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation),
+                            CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(),CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
                 }
             }
 

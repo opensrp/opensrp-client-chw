@@ -69,65 +69,74 @@
           },
           "options": [
             {
-              "name": "ten_or_more_years_since_last_pregnancy",
-              "text": "Ten or more years since last pregnancy",
+              "name": "loss_of_menstrual_period",
+              "text": "Loss of Menstrual Period",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "ten_or_more_years_since_last_pregnancy",
+                "openmrs_entity_id": "loss_of_menstrual_period",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "delivery_by_c_section",
-              "text": "Delivery by Cesarean delivery (C-section)",
+              "name": "vomiting",
+              "text": "Vomiting",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "delivery_by_c_section",
+                "openmrs_entity_id": "vomiting",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "still_birth",
-              "text": "Still Birth",
+              "name": "fever",
+              "text": "Fever",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "still_birth",
+                "openmrs_entity_id": "fever",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "two_or_more_miscarriages",
-              "text": "Two or more miscarriages",
+              "name": "severe_headache",
+              "text": "Severe Headache",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "two_or_more_miscarriages",
+                "openmrs_entity_id": "severe_headache",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "heart_problems",
-              "text": "Heart Problems",
+              "name": "nausea",
+              "text": "Nausea",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "heart_problems",
+                "openmrs_entity_id": "nausea",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "diabetes",
-              "text": "Diabetes",
+              "name": "feeling_lightheaded_or_dizzy",
+              "text": "Feeling lightheaded or dizzy",
               "meta_data": {
                 "openmrs_entity": "conceptc",
-                "openmrs_entity_id": "diabetes",
+                "openmrs_entity_id": "feeling_lightheaded_or_dizzy",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "tb",
-              "text": "Tuberculosis (TB)",
+              "name": "frequent_urination",
+              "text": "Frequent urination",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "tb",
+                "openmrs_entity_id": "frequent_urination",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "painful_breasts",
+              "text": "Painful breasts",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "painful_breasts",
                 "openmrs_entity_parent": ""
               }
             },
@@ -196,7 +205,8 @@
           "properties": {
             "hint": "Please select the appointment date",
             "type": "date_picker",
-            "display_format": "dd/MM/yyyy"
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
           },
           "meta_data": {
             "openmrs_entity": "concept",
