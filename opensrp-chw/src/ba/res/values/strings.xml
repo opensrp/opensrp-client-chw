@@ -19,4 +19,5 @@
     <string name="menu_hiv">CBHS</string>
     <string name="hiv_return_to_previous_page">Return to all CBHS clients</string>
     <string name="hiv_clients">CBHS Clients</string>
+    <string name="any_changes_you_make">Any Changes You Made Will Be Discarded</string>
 </resources>
