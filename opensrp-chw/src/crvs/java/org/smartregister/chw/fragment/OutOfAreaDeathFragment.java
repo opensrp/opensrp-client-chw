@@ -1,12 +1,16 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
@@ -28,11 +32,11 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
+
 import java.util.HashMap;
 import java.util.Set;
-import timber.log.Timber;
 
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+import timber.log.Timber;
 
 public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements CoreChildRegisterFragmentContract.View {
 
@@ -318,7 +322,8 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
                 "ec_out_of_area_death.base_entity_id , ec_out_of_area_death.name, ec_out_of_area_death.national_id, " +
                 "ec_out_of_area_death.dob, ec_out_of_area_death.dob_unknown, ec_out_of_area_death.age_calculated, " +
                 "ec_out_of_area_death.remove_reason, ec_out_of_area_death.death_place, " +
-                "ec_out_of_area_death.nationality, ec_out_of_area_death.marital_status " +
+                "ec_out_of_area_death.nationality, ec_out_of_area_death.marital_status, " +
+                "ec_out_of_area_death.still_born_death " +
                 "from ec_out_of_area_death ORDER BY ec_out_of_area_death.last_interacted_with DESC LIMIT " + offset + "," + limit;
     }
 
@@ -327,7 +332,8 @@ public class OutOfAreaDeathFragment extends BaseChwRegisterFragment implements C
                 "ec_out_of_area_death.base_entity_id , ec_out_of_area_death.name, ec_out_of_area_death.national_id, " +
                 "ec_out_of_area_death.dob, ec_out_of_area_death.dob_unknown, ec_out_of_area_death.age_calculated, " +
                 "ec_out_of_area_death.remove_reason, ec_out_of_area_death.death_place, " +
-                "ec_out_of_area_death.nationality, ec_out_of_area_death.marital_status " +
+                "ec_out_of_area_death.nationality, ec_out_of_area_death.marital_status, " +
+                "ec_out_of_area_death.still_born_death " +
                 "from ec_out_of_area_death "+getFilters(filter)+" ORDER BY ec_out_of_area_death.last_interacted_with DESC LIMIT " + offset + "," + limit;
     }
 

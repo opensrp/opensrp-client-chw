@@ -1,18 +1,23 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import org.apache.commons.lang3.text.WordUtils;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.task.OutOfAreaDeathAsyncTask;
+import org.smartregister.chw.util.CrvsConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
@@ -25,9 +30,9 @@ import org.smartregister.view.dialog.FilterOption;
 import org.smartregister.view.dialog.ServiceModeOption;
 import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
+
 import java.text.MessageFormat;
 import java.util.Set;
-import static org.smartregister.chw.core.utils.Utils.getDuration;
 
 public class OutOfAreaDeathProvider implements RecyclerViewProvider<RegisterViewHolder> {
     public final LayoutInflater inflater;
@@ -120,15 +125,19 @@ public class OutOfAreaDeathProvider implements RecyclerViewProvider<RegisterView
     }
 
     protected void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, RegisterViewHolder viewHolder) {
-        try{
-            String name = "Name: "+Utils.getValue(pc.getColumnmaps(), "name", true);
-            fillValue(viewHolder.textViewParentName, WordUtils.capitalize(name));
+        try {
+            StringBuilder name = new StringBuilder();
+            name.append("Name: ").append(Utils.getValue(pc.getColumnmaps(), "name", true));
+            if (Utils.getValue(pc.getColumnmaps(), CrvsConstants.STILL_BORN_DEATH, false).equalsIgnoreCase("Yes")) {
+                name.append(", [StillBirth]");
+            }
+            fillValue(viewHolder.textViewParentName, WordUtils.capitalize(name.toString()));
             String dobString = getDuration(Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.DOB, false));
-            String age = "Age at death: "+WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
+            String age = "Age at death: " + WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
             fillValue(viewHolder.textViewChildName, age);
             String marital_status = Utils.getValue(pc.getColumnmaps(), "marital_status", true);
-            fillValue(viewHolder.textViewAddressGender, "Marital status: "+marital_status);
-        }catch (Exception e){
+            fillValue(viewHolder.textViewAddressGender, "Marital status: " + marital_status);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -922,8 +922,7 @@
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "label": "Numéro de téléphone du fonctionnaire",
-          "hint": "Numéro de téléphone du fonctionnaire"
+          "err": "{{out_of_area_death_form.step1.official_number.v_numeric.err}}"
         }
       }
     ]
