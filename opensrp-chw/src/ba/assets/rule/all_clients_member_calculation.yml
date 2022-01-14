@@ -33,3 +33,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_client_middle_name"
+---
+name: step2_reasons_for_registration
+description: set reasons for registration
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_age < 15 ? step2_reasons_for_registration_under_15 : (step2_sex.equalsIgnoreCase('Female') ? step2_reasons_for_registration_female_15 : step2_reasons_for_registration_male_15)"
