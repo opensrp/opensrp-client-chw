@@ -966,6 +966,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Registration_Reason",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_registration_male_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Sababu za Usajili",
         "label_text_style": "normal",
@@ -1028,8 +1042,194 @@
             "openmrs_entity_id": ""
           },
           {
+            "key": "gender_violence",
+            "text": "Mtu aliyenyanyaswa kijinsia",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "drug_abuse",
+            "text": "Mtu anayejidunga",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Sababu ya kisajili mteja inahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_registration_female_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Sababu za Usajili",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "hiv_aids_transmission",
+            "text": "Maambukizo ya VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Sickle cell disease ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "heart_disease",
+            "text": "Magonjwa ya moyo ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "diabetes",
+            "text": "Kisukari ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cerebral_palsy",
+            "text": "Mtindio wa ubongo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cancer",
+            "text": "Saratani ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "tuberculosis",
+            "text": "Kifua kikuu ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "sex_worker_woman",
             "text": "Mwanamke anayefanya biashara ya ngono",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "gender_violence",
+            "text": "Mtu aliyenyanyaswa kijinsia",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "drug_abuse",
+            "text": "Mtu anayejidunga",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pregnant_mother",
+            "text": "Mama mjamzito",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "breastfeeding_mother",
+            "text": "Mama anayenyonyesha ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Sababu ya kisajili mteja inahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_registration_under_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Sababu za Usajili",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "hiv_aids_transmission",
+            "text": "Maambukizo ya VVU",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Sickle cell disease ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "heart_disease",
+            "text": "Magonjwa ya moyo ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "diabetes",
+            "text": "Kisukari ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cerebral_palsy",
+            "text": "Mtindio wa ubongo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cancer",
+            "text": "Saratani ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "tuberculosis",
+            "text": "Kifua kikuu ",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
@@ -1084,20 +1284,6 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "pregnant_mother",
-            "text": "Mama mjamzito",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "breastfeeding_mother",
-            "text": "Mama anayenyonyesha ",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
             "key": "child_in_risky_environment",
             "text": "Mtoto anayeishi mazingira hatarishi",
             "value": false,
@@ -1108,6 +1294,13 @@
         "v_required": {
           "value": "true",
           "err": "Sababu ya kisajili mteja inahitajika"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       }
     ]

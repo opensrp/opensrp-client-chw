@@ -97,3 +97,24 @@ priority: 1
 condition: "step2_has_primary_caregiver == 'Yes'"
 actions:
   - "isRelevant = true"
+---
+name: step2_reasons_for_registration_male_15
+description: Show up if client is male and age 15 above
+priority: 1
+condition: "step2_sex.equals('Male') && step2_age >= 15"
+actions:
+  - "isRelevant = true"
+---
+name: step2_reasons_for_registration_female_15
+description: Show up if client is female and age 15 above
+priority: 1
+condition: "step2_sex.equals('Female') && step2_age >= 15"
+actions:
+  - "isRelevant = true"
+---
+name: step2_reasons_for_registration_under_15
+description: Show up if client is below 15
+priority: 1
+condition: "step2_age < 15"
+actions:
+  - "isRelevant = true"
