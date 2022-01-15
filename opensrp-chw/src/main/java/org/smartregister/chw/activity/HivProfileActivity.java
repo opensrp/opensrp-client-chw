@@ -47,6 +47,7 @@ import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Location;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.LocationRepository;
@@ -333,6 +334,14 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     public void openUpcomingServices() {
         CoreHivUpcomingServicesActivity.startMe(this, HivUtil.toMember(getHivMemberObject()));
+    }
+
+    @Override
+    public void setFamilyStatus(@androidx.annotation.Nullable AlertStatus status) {
+        super.setFamilyStatus(status);
+        if(getHivMemberObject().getFamilyMemberEntityType().equals(Constants.FamilyMemberEntityType.EC_INDEPENDENT_CLIENT)){
+            findViewById(R.id.rlFamilyServicesDue).setVisibility(View.GONE);
+        }
     }
 
     @Override
