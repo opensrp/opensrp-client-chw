@@ -269,6 +269,92 @@
         }
       },
       {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex",
+        "values": [
+          "Male",
+          "Female"
+        ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "marital_status",
+        "type": "spinner",
+        "hint": "Client's Marital Status?",
+        "values": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "keys": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "openmrs_choice_ids": {
+          "Single": "Single",
+          "Married": "Married",
+          "Divorced": "Divorced",
+          "Monogamy": "Monogamy",
+          "Polygamy": "Polygamy",
+          "Widowed": "Widowed",
+          "Cohabitation": "Cohabitation"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "Number must be 10 digits and must start with 0."
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please specify the phone number"
+        }
+      },
+      {
         "key": "id_avail",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -517,26 +603,6 @@
         }
       },
       {
-        "key": "sex",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Sex",
-        "values": [
-          "Male",
-          "Female"
-        ],
-        "keys": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the sex"
-        }
-      },
-      {
         "key": "wra",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -719,26 +785,6 @@
         }
       },
       {
-        "key": "phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Phone number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
-        },
-        "v_required": {
-          "value": false,
-          "err": "Please specify the phone number"
-        }
-      },
-      {
         "key": "other_phone_number",
         "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -752,52 +798,6 @@
         "v_regex": {
           "value": "(0[0-9]{9})|\\s*",
           "err": "Number must be 10 digits and must start with 0."
-        }
-      },
-      {
-        "key": "marital_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "marital_status",
-        "type": "spinner",
-        "hint": "Client's Marital Status?",
-        "values": [
-          "Single",
-          "Married",
-          "Divorced",
-          "Monogamy",
-          "Polygamy",
-          "Widowed",
-          "Cohabitation"
-        ],
-        "keys": [
-          "Single",
-          "Married",
-          "Divorced",
-          "Monogamy",
-          "Polygamy",
-          "Widowed",
-          "Cohabitation"
-        ],
-        "openmrs_choice_ids": {
-          "Single": "Single",
-          "Married": "Married",
-          "Divorced": "Divorced",
-          "Monogamy": "Monogamy",
-          "Polygamy": "Polygamy",
-          "Widowed": "Widowed",
-          "Cohabitation": "Cohabitation"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
-          }
         }
       },
       {

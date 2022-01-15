@@ -378,6 +378,92 @@
         }
       },
       {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Jinsi",
+        "values": [
+          "Me",
+          "Ke"
+        ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza jinsi"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "marital_status",
+        "type": "spinner",
+        "hint": "Hali ya ndoa ya mteja?",
+        "values": [
+          "Hajaolewa",
+          "Ameolewa",
+          "Ameachwa",
+          "Ndoa ya mme/mke mmoja",
+          "Mitala",
+          "Mjane",
+          "Kuishi pamoja"
+        ],
+        "keys": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "openmrs_choice_ids": {
+          "Single": "Single",
+          "Married": "Married",
+          "Divorced": "Divorced",
+          "Monogamy": "Monogamy",
+          "Polygamy": "Polygamy",
+          "Widowed": "Widowed",
+          "Cohabitation": "Cohabitation"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Namba ya simu",
+        "v_numeric": {
+          "value": "true",
+          "err": "Nambari lazima iwe jumla ya nambari 10 kwa urefu"
+        },
+        "v_regex": {
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "Nambari lazima iwe na nambari 10 na lazima ianze na 0."
+        },
+        "v_required": {
+          "value": false,
+          "err": "Tafadhali taja numbe ya simu"
+        }
+      },
+      {
         "key": "id_avail",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
@@ -626,26 +712,6 @@
         }
       },
       {
-        "key": "sex",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "gender",
-        "type": "spinner",
-        "hint": "Jinsi",
-        "values": [
-          "Me",
-          "Ke"
-        ],
-        "keys": [
-          "Male",
-          "Female"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali ingiza jinsi"
-        }
-      },
-      {
         "key": "wra",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -748,26 +814,6 @@
         }
       },
       {
-        "key": "phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Namba ya simu",
-        "v_numeric": {
-          "value": "true",
-          "err": "Nambari lazima iwe jumla ya nambari 10 kwa urefu"
-        },
-        "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Nambari lazima iwe na nambari 10 na lazima ianze na 0."
-        },
-        "v_required": {
-          "value": false,
-          "err": "Tafadhali taja numbe ya simu"
-        }
-      },
-      {
         "key": "has_primary_caregiver",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -828,52 +874,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali weka namba ya msaidizi."
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "marital_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "marital_status",
-        "type": "spinner",
-        "hint": "Hali ya ndoa ya mteja?",
-        "values": [
-          "Hajaolewa",
-          "Ameolewa",
-          "Ameachwa",
-          "Ndoa ya mme/mke mmoja",
-          "Mitala",
-          "Mjane",
-          "Kuishi pamoja"
-        ],
-        "keys": [
-          "Single",
-          "Married",
-          "Divorced",
-          "Monogamy",
-          "Polygamy",
-          "Widowed",
-          "Cohabitation"
-        ],
-        "openmrs_choice_ids": {
-          "Single": "Single",
-          "Married": "Married",
-          "Divorced": "Divorced",
-          "Monogamy": "Monogamy",
-          "Polygamy": "Polygamy",
-          "Widowed": "Widowed",
-          "Cohabitation": "Cohabitation"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "rules-engine": {
