@@ -970,7 +970,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "all_clients_member_calculation.yml"
+              "rules-file": "all_clients_member_update_calculation.yml"
             }
           }
         }
@@ -978,8 +978,8 @@
       {
         "key": "reasons_for_registration_male_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_male_15",
         "type": "native_radio",
         "label": "Sababu za Usajili",
         "label_text_style": "normal",
@@ -1063,7 +1063,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
+              "rules-file": "all_clients_member_update_relevance.yml"
             }
           }
         }
@@ -1071,8 +1071,8 @@
       {
         "key": "reasons_for_registration_female_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_female_15",
         "type": "native_radio",
         "label": "Sababu za Usajili",
         "label_text_style": "normal",
@@ -1170,7 +1170,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
+              "rules-file": "all_clients_member_update_relevance.yml"
             }
           }
         }
@@ -1178,8 +1178,8 @@
       {
         "key": "reasons_for_registration_under_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_under_15",
         "type": "native_radio",
         "label": "Sababu za Usajili",
         "label_text_style": "normal",
@@ -1298,7 +1298,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
+              "rules-file": "all_clients_member_update_relevance.yml"
             }
           }
         }
