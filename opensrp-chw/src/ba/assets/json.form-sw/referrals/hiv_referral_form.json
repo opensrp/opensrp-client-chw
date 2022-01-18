@@ -64,7 +64,7 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "problem",
             "openmrs_entity_parent": ""
           },
           "options": [
@@ -131,8 +131,8 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
           },
           "required_status": "true:Tafadhali jaza dalili nyingine",
           "subjects": "problem:map"
@@ -142,7 +142,7 @@
           "type": "multi_choice_checkbox",
           "meta_data": {
           "openmrs_entity": "concept",
-          "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_id": "service_before_referral",
           "openmrs_entity_parent": ""
         },
           "properties": {
@@ -153,8 +153,8 @@
               "name": "Other_treatment",
               "text": "Matibabu mengine",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Other_treatment",
                 "openmrs_entity_parent": ""
               }
             },
@@ -163,8 +163,8 @@
               "text": "Hajapewa matibabu yoyote",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -180,8 +180,8 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "service_before_referral_other",
+            "openmrs_entity_parent": "service_before_referral"
           },
           "required_status": "true:Tafadhali taja matibabu mengine",
           "subjects": "service_before_referral:map"

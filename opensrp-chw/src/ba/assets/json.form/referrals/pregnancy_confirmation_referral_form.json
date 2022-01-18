@@ -65,7 +65,7 @@
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
@@ -175,7 +175,7 @@
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "problem_other",
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_parent": "problem"
           },
           "properties": {
             "hint": "Other symptoms",
