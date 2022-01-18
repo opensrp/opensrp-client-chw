@@ -374,7 +374,7 @@
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "disabilities",
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
@@ -386,8 +386,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",
@@ -396,7 +396,7 @@
       },
       {
         "key": "type_of_disability",
-        "openmrs_entity_parent": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "disabilities",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
@@ -477,7 +477,7 @@
         "key": "birth_cert_available",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "birth_cert_available",
         "type": "spinner",
         "hint": "Birth registration/certificate",
         "values": [
@@ -489,8 +489,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "relevance": {
           "rules-engine": {
@@ -504,7 +504,7 @@
         "key": "birth_regist_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "birth_regist_number",
         "type": "edit_text",
         "hint": "Birth registration number",
         "relevance": {
@@ -519,7 +519,7 @@
         "key": "rhc_card",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "rhc_card",
         "type": "spinner",
         "hint": "Does the child have RCH card 1/child growth booklet?",
         "values": [
@@ -531,15 +531,15 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         }
       },
       {
         "key": "nutrition_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "nutrition_status",
         "type": "spinner",
         "hint": "Nutrition status",
         "values": [
@@ -553,9 +553,9 @@
           "Red"
         ],
         "openmrs_choice_ids": {
-          "Green": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Grey": "163639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Red": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Green": "Green",
+          "Grey": "Grey",
+          "Red": "Red"
         },
         "v_required": {
           "value": "true",
