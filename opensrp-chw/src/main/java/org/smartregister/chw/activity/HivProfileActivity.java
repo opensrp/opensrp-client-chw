@@ -65,7 +65,7 @@ import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotific
 public class HivProfileActivity extends CoreHivProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
-    public static final String UPDATE_HIV_REGISTRATION = "Update HIV Registration";
+    public static final String UPDATE_HIV_REGISTRATION = "Update CBHS Registration";
     public static final String ENCOUNTER_TYPE = "encounter_type";
     public static final String NAME = "name";
     public static final String PROPERTIES = "properties";
