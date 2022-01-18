@@ -316,28 +316,28 @@
           },
           {
             "field": "eventType",
-            "field_value": "Hiv Registration",
+            "field_value": "CBHS Registration",
             "creates_case": [
               "ec_hiv_register"
             ]
           },
           {
             "field": "eventType",
-            "field_value": "Hiv Registration",
+            "field_value": "CBHS Registration",
             "creates_case": [
               "ec_cbhs_register"
             ]
           },
           {
             "field": "eventType",
-            "field_value": "Update HIV Registration",
+            "field_value": "Update CBHS Registration",
             "creates_case": [
               "ec_hiv_register"
             ]
           },
           {
             "field": "eventType",
-            "field_value": "HIV Followup",
+            "field_value": "CBHS Followup",
             "creates_case": [
               "ec_hiv_register"
             ]
