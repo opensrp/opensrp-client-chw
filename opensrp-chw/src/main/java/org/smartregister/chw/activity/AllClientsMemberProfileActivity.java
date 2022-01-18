@@ -37,14 +37,21 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private CoreAllClientsMemberContract.Presenter allClientsMemberPresenter;
-
+    private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+
+        String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         menu.findItem(R.id.action_location_info).setVisible(true);
         menu.findItem(R.id.action_cbhs_registration).setVisible(true);
         menu.findItem(R.id.action_tb_registration).setVisible(true);
-        menu.findItem(R.id.action_anc_registration).setVisible(false);
+        if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+            flavor.updateFpMenuItems(baseEntityId, menu);
+            menu.findItem(R.id.action_anc_registration).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_anc_registration).setVisible(false);
+        }
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         return true;
