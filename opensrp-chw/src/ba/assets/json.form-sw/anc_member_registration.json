@@ -60,7 +60,7 @@
         "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "last_menstrual_period",
         "type": "date_picker",
         "hint": "Tarehe ya kwanza ya hedhi ya kawaida ya mwisho (LNMP)",
         "label_info_title": "LMP",
@@ -107,7 +107,7 @@
         "key": "edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "edd",
         "type": "date_picker",
         "hint": "Tarehe ya kutarijia kujifungua (EDD)",
         "max_date": "today+50w",
@@ -167,7 +167,7 @@
         "key": "gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "gest_age",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -202,7 +202,7 @@
         "key": "gravida",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "gravida",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -216,7 +216,7 @@
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "delivery_method",
         "type": "check_box",
         "label": "Je, umejifungua mtoto/watoto kwa  njia ya kawaida au kwa njia ya upasuaji?",
         "label_text_style": "normal",
@@ -234,21 +234,21 @@
             "text": "Njia ya kawaida",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_vaginally"
           },
           {
             "key": "chk_cesarean_section",
             "text": "Njia ya upasuaji",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_cesarean_section"
           },
           {
             "key": "chk_miscarriage",
             "text": "Mimba kuharibika",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_miscarriage"
           }
         ],
         "v_required": {
@@ -260,7 +260,7 @@
         "key": "delivery_method_one",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "delivery_method_one",
         "type": "native_radio",
         "label": "Je, umejifungua mtoto/watoto kwa  njia ya kawaida au kwa njia ya upasuaji?",
         "label_text_style": "normal",
@@ -278,21 +278,21 @@
             "text": "Njia ya kawaida",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_vaginally"
           },
           {
             "key": "chk_cesarean_section",
             "text": "Njia ya upasuaji",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_cesarean_section"
           },
           {
             "key": "chk_miscarriage",
             "text": "Mimba kuharibika",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_miscarriage"
           }
         ],
         "v_required": {
@@ -304,7 +304,7 @@
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "no_surv_children",
         "type": "edit_text",
         "edit_type": "number",
         "hint": "Idadi ya watoto walio hai",
@@ -329,44 +329,10 @@
         }
       },
       {
-        "key": "marital_status",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Hali ya ndoa",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
-        },
-        "values": [
-          "Ameolewa",
-          "Anaishi na mwenza",
-          "Hajaolewa",
-          "Ameachika",
-          "Mjane"
-        ],
-        "keys": [
-          "Married",
-          "Co-habiting",
-          "Single",
-          "Divorced",
-          "Widowed"
-        ],
-        "openmrs_choice_ids": {
-          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Divorced": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
-      },
-      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "Namba ya simu",
         "v_required": {
@@ -385,7 +351,7 @@
         "key": "person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "person_assist",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Je, mama ana mwenza/ndugu wa karibu wa umri kuanzia miaka 18 na zaidi ambae ataweza kumsaidia wakati wa ujauzito?",
@@ -402,15 +368,15 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         }
       },
       {
         "key": "name_person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "name_person_assist",
         "type": "edit_text",
         "hint": "Jina la mwenza/ndugu wa karibu anayeishi naye mwenye umri kuanzia miaka 18 na zaidi",
         "edit_type": "name",
@@ -430,7 +396,7 @@
         "key": "phone_person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "phone_person_assist",
         "type": "edit_text",
         "hint": "Phone number",
         "v_required": {

@@ -53,7 +53,7 @@
         "key": "nutrition_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "nutrition_status",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Je, hali ya lishe ya mama ikoje?",
@@ -68,9 +68,9 @@
           "Severe"
         ],
         "openmrs_choice_ids": {
-          "Normal": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moderate": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Normal": "Normal",
+          "Moderate": "Moderate",
+          "Severe": "Severe"
         },
         "v_required": {
           "value": "true",

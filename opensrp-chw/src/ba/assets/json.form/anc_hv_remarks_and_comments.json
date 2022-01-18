@@ -53,7 +53,7 @@
         "key": "chw_comment_anc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "chw_comment_anc",
         "type": "edit_text",
         "hint": "Remarks/Comments",
         "v_required": {

@@ -53,7 +53,7 @@
         "key": "date_of_illness",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "date_of_illness",
         "type": "date_picker",
         "hint": "Date ",
         "expanded": false,
@@ -68,7 +68,7 @@
         "key": "illness_description",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "illness_description",
         "type": "edit_text",
         "hint": "Description",
         "v_required": {
@@ -80,7 +80,7 @@
         "key": "action_taken",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "action_taken",
         "type": "check_box",
         "label": "Action taken",
         "label_text_style": "normal",
@@ -94,35 +94,35 @@
             "text": "ORS 5",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_ors"
           },
           {
             "key": "chk_zinc",
             "text": "Zinc 10",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_zinc"
           },
           {
             "key": "chk_paracetamol",
             "text": "Panadol",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_paracetamol"
           },
           {
             "key": "chk_referred",
             "text": "Referred",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_referred"
           },
           {
             "key": "chk_none",
             "text": "No treatment given",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {

@@ -65,7 +65,7 @@
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
@@ -73,7 +73,7 @@
               "text": "Vaginal bleeding",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Vaginal_bleeding",
                 "openmrs_entity_parent": ""
               }
             },
@@ -82,7 +82,7 @@
               "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
                 "openmrs_entity_parent": ""
               }
             },
@@ -91,7 +91,7 @@
               "text": "High blood pressure",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "113088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "High_blood_pressure",
                 "openmrs_entity_parent": ""
               }
             },
@@ -100,7 +100,7 @@
               "text": "Severe abdominal pain",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Severe_abdominal_pain",
                 "openmrs_entity_parent": ""
               }
             },
@@ -109,7 +109,7 @@
               "text": "Severe anaemia",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Severe_anaemia",
                 "openmrs_entity_parent": ""
               }
             },
@@ -118,7 +118,7 @@
               "text": "Convulsions",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Convulsions",
                 "openmrs_entity_parent": ""
               }
             },
@@ -127,7 +127,7 @@
               "text": "No movement / unusual movement for a child in the womb",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "No_movement_unusual_movement_for_a_child_in_the_womb",
                 "openmrs_entity_parent": ""
               }
             },
@@ -136,7 +136,7 @@
               "text": "Pregnancy pains before 9 months",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "153316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Pregnancy_pains_before_9_months",
                 "openmrs_entity_parent": ""
               }
             },
@@ -145,7 +145,7 @@
               "text": "Early age pregnancy (below 18 years)",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "163119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Early_age_pregnancy_below_18_years",
                 "openmrs_entity_parent": ""
               }
             },
@@ -154,7 +154,7 @@
               "text": "A severe headache / dizziness",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "A_severe_headache_dizziness",
                 "openmrs_entity_parent": ""
               }
             },
@@ -163,7 +163,7 @@
               "text": "Swelling of the face and/or hands",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Swelling_of_the_face_andor_hands",
                 "openmrs_entity_parent": ""
               }
             },
@@ -172,7 +172,7 @@
               "text": "Fever",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Fever",
                 "openmrs_entity_parent": ""
               }
             },
@@ -181,7 +181,7 @@
               "text": "Shivering/trembling",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Shivering_trembling",
                 "openmrs_entity_parent": ""
               }
             },
@@ -190,7 +190,7 @@
               "text": "Nausea and vomiting",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Nausea_and_Vomiting",
                 "openmrs_entity_parent": ""
               }
             },
@@ -199,7 +199,7 @@
               "text": "Water sack broke before contractions",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "129211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Water_sack_broke_before_contractions",
                 "openmrs_entity_parent": ""
               }
             },
@@ -208,7 +208,7 @@
               "text": "Cord prolapse",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "128419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Cord_prolapse",
                 "openmrs_entity_parent": ""
               }
             },
@@ -217,7 +217,7 @@
               "text": "HIV care and support services",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "HIV_care_and_support_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -226,7 +226,7 @@
               "text": "Family planning services",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Family_planning_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -235,7 +235,7 @@
               "text": "PMTCT for mothers",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "PMTCT_for_mothers",
                 "openmrs_entity_parent": ""
               }
             },
@@ -244,7 +244,7 @@
               "text": "Fistula",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "160854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Fistula",
                 "openmrs_entity_parent": ""
               }
             },
@@ -253,7 +253,7 @@
               "text": "Difficultly breathing",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Difficultly_breathing",
                 "openmrs_entity_parent": ""
               }
             },
@@ -262,7 +262,7 @@
               "text": "Breast engorgement",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Breast_engorgement",
                 "openmrs_entity_parent": ""
               }
             },
@@ -271,7 +271,7 @@
               "text": "Blurred vision",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Blurred_vision",
                 "openmrs_entity_parent": ""
               }
             },
@@ -280,7 +280,7 @@
               "text": "Perineum tear",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Perineum_tear",
                 "openmrs_entity_parent": ""
               }
             },
@@ -289,7 +289,7 @@
               "text": "Pregnancy confirmation",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "152305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Pregnancy_confirmation",
                 "openmrs_entity_parent": ""
               }
             },
@@ -298,7 +298,7 @@
               "text": "Other symptoms",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Other_symptoms",
                 "openmrs_entity_parent": ""
               }
             }
@@ -316,8 +316,8 @@
           "type": "text_input_edit_text",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
           },
           "properties": {
             "hint": "Other symptoms",
@@ -331,7 +331,7 @@
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "service_before_referral"
           },
           "type": "multi_choice_checkbox",
           "properties": {
@@ -343,7 +343,7 @@
               "text": "ORS",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "ORS",
                 "openmrs_entity_parent": ""
               }
             },
@@ -352,7 +352,7 @@
               "text": "Panadol",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Panadol",
                 "openmrs_entity_parent": ""
               }
             },
@@ -361,7 +361,7 @@
               "text": "Other treatment",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "Other_treatment",
                 "openmrs_entity_parent": ""
               }
             },
@@ -371,7 +371,7 @@
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "None",
                 "openmrs_entity_parent": ""
               }
             }
@@ -383,8 +383,8 @@
           "type": "text_input_edit_text",
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "service_before_referral_other",
+            "openmrs_entity_parent": "service_before_referral"
           },
           "properties": {
             "hint": "Other Treatment",

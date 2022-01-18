@@ -53,7 +53,7 @@
         "key": "anc_hf_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
         "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
         "label_info_text": "Did the woman attend her ANC visit at the health facility?",
@@ -64,8 +64,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",
@@ -76,7 +76,7 @@
         "key": "anc_hf_visit_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "anc_hf_visit_date",
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "ANC visit date",
