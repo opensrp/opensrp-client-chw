@@ -1238,8 +1238,8 @@
       {
         "key": "reasons_for_registration_under_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Registration_Reason",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
