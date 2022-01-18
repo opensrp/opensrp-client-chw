@@ -157,7 +157,7 @@
         "key": "gps",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "gps",
         "openmrs_data_type": "text",
         "type": "gps"
       },
@@ -173,7 +173,7 @@
         "key": "nearest_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Village/Street",
@@ -446,7 +446,7 @@
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "Client phone number",
         "v_numeric": {
@@ -742,7 +742,7 @@
         "key": "preg_1yr",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "preg_1yr",
         "type": "spinner",
         "hint": "Has the woman delivered in the last 1 year?",
         "values": [
@@ -754,8 +754,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",
@@ -773,7 +773,7 @@
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "disabilities",
         "type": "spinner",
         "hint": "Physical disabilities",
         "values": [
@@ -785,8 +785,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",
@@ -795,7 +795,7 @@
       },
       {
         "key": "type_of_disability",
-        "openmrs_entity_parent": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "disabilities",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
@@ -917,9 +917,9 @@
       },
       {
         "key": "other_phone_number",
-        "openmrs_entity_parent": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "phone_number",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "other_phone_number",
         "type": "edit_text",
         "hint": "Primary caregiver phone number",
         "v_numeric": {
@@ -946,7 +946,7 @@
         "key": "service_provider",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "service_provider",
         "type": "check_box",
         "label": "Occupation of the Client",
         "label_text_style": "normal",
@@ -960,91 +960,91 @@
             "text": "Farmer",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_farmer"
           },
           {
             "key": "chk_cs",
             "text": "Civil Servant",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "162944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_cs"
           },
           {
             "key": "chk_nurse",
             "text": "Nurse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_nurse"
           },
           {
             "key": "chk_teacher",
             "text": "Teacher",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "162946AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_teacher"
           },
           {
             "key": "chk_th",
             "text": "Traditional Healer",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1821AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_th"
           },
           {
             "key": "chk_chw",
             "text": "Community Health Worker (CHW)",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_chw"
           },
           {
             "key": "chk_tba",
             "text": "Traditional Birth Attendant",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_tba"
           },
           {
             "key": "chk_chmis",
             "text": "Community HMIS (cHMIS)",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_chmis"
           },
           {
             "key": "chk_cbd",
             "text": "Community Based Distributor",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_cbd"
           },
           {
             "key": "chk_hbc",
             "text": "Home Based Care (HBC)",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "161359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_hbc"
           },
           {
             "key": "chk_cimmci",
             "text": "Community IMCI",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_cimmci"
           },
           {
             "key": "chk_other",
             "text": "Other",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_other"
           },
           {
             "key": "chk_none",
             "text": "None",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
@@ -1192,8 +1192,8 @@
       {
         "key": "reasons_for_registration_male_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_male_15",
         "type": "native_radio",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
@@ -1285,8 +1285,8 @@
       {
         "key": "reasons_for_registration_female_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_female_15",
         "type": "native_radio",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
@@ -1392,8 +1392,8 @@
       {
         "key": "reasons_for_registration_under_15",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_under_15",
         "type": "native_radio",
         "label": "Reasons for Registration",
         "label_text_style": "normal",

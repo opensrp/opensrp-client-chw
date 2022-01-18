@@ -53,7 +53,7 @@
         "key": "fam_planning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "fam_planning",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Je, mama ameshauriwa kuhusu uzazi wa mpango alipohudhuria kituoni?",
@@ -66,8 +66,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",

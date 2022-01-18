@@ -110,7 +110,7 @@
         "key": "gps",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "gps",
         "openmrs_data_type": "text",
         "type": "gps"
       },
@@ -118,7 +118,7 @@
         "key": "nearest_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "nearest_facility",
         "openmrs_data_type": "text",
         "type": "tree",
         "hint": "Village/Street",

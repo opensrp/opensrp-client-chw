@@ -374,7 +374,7 @@
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "disabilities",
         "type": "spinner",
         "hint": "Hali ya ulemavu",
         "values": [
@@ -386,8 +386,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",
@@ -398,7 +398,7 @@
         "key": "type_of_disability",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "type_of_disability",
         "type": "edit_text",
         "edit_type": "name",
         "hint": "Aina ya ulemavu",
@@ -418,7 +418,7 @@
         "key": "birth_cert_available",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "birth_cert_available",
         "type": "spinner",
         "hint": "Cheti cha kuzaliwa",
         "values": [
@@ -430,8 +430,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "relevance": {
           "rules-engine": {
@@ -445,7 +445,7 @@
         "key": "birth_regist_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "birth_regist_number",
         "type": "edit_text",
         "hint": "Namba ya cheti cha kuzaliwa",
         "relevance": {
@@ -460,7 +460,7 @@
         "key": "rhc_card",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "164147AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "rhc_card",
         "type": "spinner",
         "hint": "Je, mtoto ana RCH kadi namba moja/kitabu cha ukuaji wa mtoto?",
         "values": [
@@ -472,15 +472,15 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         }
       },
       {
         "key": "nutrition_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "nutrition_status",
         "type": "spinner",
         "hint": "Hali ya lishe ya mtoto",
         "values": [
@@ -494,9 +494,9 @@
           "Red"
         ],
         "openmrs_choice_ids": {
-          "Green": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Grey": "163639AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Red": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Green": "Green",
+          "Grey": "Grey",
+          "Red": "Red"
         },
         "v_required": {
           "value": "true",

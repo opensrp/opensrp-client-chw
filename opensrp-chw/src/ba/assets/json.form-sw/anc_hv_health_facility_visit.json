@@ -53,7 +53,7 @@
         "key": "anc_hf_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
         "label_info_title": "Je, mama  amehudhuria kliniki ya wajawazito hudhurio la {0} katika kituo cha kutolea huduma za afya?",
         "label_info_text": "Je, mama  amehudhuria kliniki ya wajawazito hudhurio la katika kituo cha kutolea huduma za afya?",
@@ -68,8 +68,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yes": "Yes",
+          "No": "No"
         },
         "v_required": {
           "value": "true",
@@ -80,7 +80,7 @@
         "key": "anc_hf_visit_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "anc_hf_visit_date",
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Tarehe ya hudhurio la kliniki ya wajawazito",
@@ -100,228 +100,69 @@
         }
       },
       {
+        "key": "reason_for_missed_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_for_missed_visit",
+        "type": "spinner",
+        "hint": "Reason for missed facility visit",
+        "values": [
+          "Fear to disclose her pregnancy",
+          "She forgot the appointment date",
+          "She did not have transport fare",
+          "She was not feeling well",
+          "Other"
+        ],
+        "keys": [
+          "fear_to_disclose_her_pregnancy",
+          "she_forgot_the_appointment_date",
+          "she_did_not_have_transport_fare",
+          "she_was_not_feeling_well",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "fear_to_disclose_her_pregnancy":  "fear_to_disclose_her_pregnancy",
+          "she_forgot_the_appointment_date":  "she_forgot_the_appointment_date",
+          "she_did_not_have_transport_fare":  "she_did_not_have_transport_fare",
+          "she_was_not_feeling_well":  "she_was_not_feeling_well",
+          "other": "other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select a reason"
+        },
+        "relevance": {
+          "step1:anc_hf_visit": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_missed_visit",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_missed_visit",
+        "type": "edit_text",
+        "hint": "Other reason for missed facility visit",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter other reason"
+        },
+        "relevance": {
+          "step1:reason_for_missed_visit": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
         "key": "anc_hf_next_visit_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_next_visit_date",
         "type": "spacer"
-      },
-      {
-        "key": "tests_done",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label": "Vipimo vilivyofanyika",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
-        "options": [
-          {
-            "key": "chk_haemoglobin",
-            "text": "Wingi wa damu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_urine_analysis_uti",
-            "text": "Kipimo cha maambukizi kwenye njia ya mkojo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_urine_analysis_protein",
-            "text": "Kipimo cha kuangalia uwepo wa protini na sukari kwenye mkojo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_hiv",
-            "text": "Kipimo cha VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_syphilis",
-            "text": "Kipimo cha kaswende",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_malaria",
-            "text": "Kipimo cha malaria",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_tb",
-            "text": "Uchunguzi wa kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_other",
-            "text": "Vipimo vingine",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_none",
-            "text": "Vipimo havijafanyika",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua angalau chaguo moja"
-        },
-        "relevance": {
-          "step1:anc_hf_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "imm_medicine_given",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label": "Chanjo na dawa alizopata",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
-        "options": [
-          {
-            "key": "chk_tetanus",
-            "text": "Chanjo ya pepopunda",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_malaria",
-            "text": "Tiba kinga ya malaria wakati wa ujauzito (IPTp-SP)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "105232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_iron",
-            "text": "Dawa za kuongeza damu (FEFO)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_albendazole",
-            "text": "Albendazole / Medandozle",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "159922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_calcuim",
-            "text": "Calcium supplement",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_other",
-            "text": "Dawa nyingine au chanjo nyingine",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "chk_none",
-            "text": "Hajapewa dawa au chanjo yoyote",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua angalau chaguo moja"
-        },
-        "relevance": {
-          "step1:anc_hf_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "other_imm_medicine_given",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Dawa au chanjo nyingine",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali ingiza chanjo au dawa nyingine"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_health_facility_visit.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "llin_given",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Je, mama alipata chandarua chenye viuwatilifu katika hudhurio la kwanza katika kituo cha kutolea huduma za afya?",
-        "values": [
-          "Ndiyo",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua chaguo angalau moja"
-        },
-        "relevance": {
-          "step1:anc_hf_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          },
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_hv_health_facility_visit.yml"
-            }
-          }
-        }
       },
       {
         "key": "confirmed_visits",

@@ -64,7 +64,7 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "problem",
             "openmrs_entity_parent": ""
           },
           "options": [
@@ -147,8 +147,8 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
           },
           "required_status": "true:Tafadhali jaza dalili nyingine",
           "subjects": "problem:map"
