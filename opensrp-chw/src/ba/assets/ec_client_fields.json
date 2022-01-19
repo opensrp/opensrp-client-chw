@@ -760,7 +760,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "last_contact_visit"
+            "concept": "anc_hf_visit_date"
           }
         }
       ]
