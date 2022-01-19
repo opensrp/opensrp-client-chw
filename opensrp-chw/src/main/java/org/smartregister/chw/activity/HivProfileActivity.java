@@ -113,6 +113,21 @@ public class HivProfileActivity extends CoreHivProfileActivity
         activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
     }
 
+    public static void startHivCommunityFollowupFeedbackActivity(Activity activity, String baseEntityID) throws JSONException{
+        Intent intent = new Intent(activity, BaseHivFormsActivity.class);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
+
+        JSONObject formJsonObject;
+
+        formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivCommunityFollowFeedback());
+
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
+        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
+
+        activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+    }
+
     private static JSONObject initializeHealthFacilitiesList(JSONObject form) {
         LocationRepository locationRepository = new LocationRepository();
         List<Location> locations = locationRepository.getAllLocations();
