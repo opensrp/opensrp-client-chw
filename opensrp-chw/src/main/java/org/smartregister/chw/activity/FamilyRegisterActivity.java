@@ -11,10 +11,8 @@ import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.FamilyRegisterFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
-import org.smartregister.chw.model.FamilyRegisterModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
-import org.smartregister.family.presenter.BaseFamilyRegisterPresenter;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -42,10 +40,6 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity {
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
     }
 
-    @Override
-    protected void initializePresenter() {
-        presenter = new BaseFamilyRegisterPresenter(this, new FamilyRegisterModel());
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

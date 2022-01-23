@@ -16,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.domain.FamilyMember;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -30,7 +29,6 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Photo;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.family.FamilyLibrary;
-import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.domain.ServiceRecord;
@@ -201,108 +199,6 @@ public class JsonFormUtils extends CoreJsonFormUtils {
             Timber.e(e);
         }
         return value;
-    }
-
-    // update family registration
-    public static FamilyEventClient processFamilyUpdateForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId) {
-        return processFamilyForm(allSharedPreferences, jsonString, familyBaseEntityId, org.smartregister.family.util.Utils.metadata().familyRegister.updateEventType);
-    }
-
-    private static FamilyEventClient processFamilyForm(AllSharedPreferences allSharedPreferences, String jsonString, String familyBaseEntityId, String encounterType) {
-        try {
-            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = validateParameters(jsonString);
-            if (!(Boolean) registrationFormParams.getLeft()) {
-                return null;
-            } else {
-                JSONObject jsonForm = (JSONObject) registrationFormParams.getMiddle();
-                JSONArray fields = (JSONArray) registrationFormParams.getRight();
-                String entityId = getString(jsonForm, "entity_id");
-                if (StringUtils.isBlank(entityId)) {
-                    entityId = generateRandomUUIDString();
-                }
-
-                lastInteractedWith(fields);
-                dobUnknownUpdateFromAge(fields);
-                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
-                if (baseClient != null && !baseClient.getBaseEntityId().equals(familyBaseEntityId)) {
-                    baseClient.addRelationship(org.smartregister.family.util.Utils.metadata().familyMemberRegister.familyRelationKey, familyBaseEntityId);
-                }
-
-                if (baseClient != null) {
-                    Map<String, Object> attributes = baseClient.getAttributes();
-                    if (attributes != null) {
-                        if (baseClient.getAttribute("fam_source_income").toString().equals("Family source of income"))
-                            attributes.remove("fam_source_income");
-                        if (baseClient.getAttribute("income_bracket").toString().equals("Income Bracket"))
-                            attributes.remove("income_bracket");
-                        baseClient.setAttributes(attributes.isEmpty() ? null : attributes);
-                    }
-                }
-
-                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, encounterType, org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
-                tagSyncMetadata(allSharedPreferences, baseEvent);
-                if (encounterType.equals(org.smartregister.family.util.Utils.metadata().familyRegister.updateEventType) && baseClient != null) {
-                    updateFamilyMembersLastName(familyBaseEntityId, baseClient.getFirstName(), formTag(allSharedPreferences), allSharedPreferences);
-                }
-
-                return new FamilyEventClient(baseClient, baseEvent);
-            }
-        } catch (Exception var10) {
-            Timber.e(var10);
-            return null;
-        }
-    }
-
-    private static void updateFamilyMembersLastName(String familyBaseEntityId, String familyName, FormTag formTag, AllSharedPreferences allSharedPreferences) throws Exception {
-        List<org.apache.commons.lang3.tuple.Pair<Client, Event>> familyMembersEvents = processFamilyMemberUpdateFamilyName(familyBaseEntityId, familyName, formTag, allSharedPreferences);
-
-        for (org.apache.commons.lang3.tuple.Pair<Client, Event> familyMembersEvent : familyMembersEvents) {
-
-            JSONObject eventPartialJson = new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(familyMembersEvent.getRight()));
-            getSyncHelper().addEvent(familyMembersEvent.getLeft().getBaseEntityId(), eventPartialJson);
-            org.smartregister.family.util.JsonFormUtils.mergeAndSaveClient(getSyncHelper(), familyMembersEvent.getLeft());
-            NCUtils.processEvent(familyMembersEvent.getRight().getBaseEntityId(), new JSONObject(org.smartregister.family.util.JsonFormUtils.gson.toJson(familyMembersEvent.getRight())));
-        }
-    }
-
-    // family registration
-    public static FamilyEventClient processFamilyUpdateForm(AllSharedPreferences allSharedPreferences, String jsonString) {
-        try {
-            String familyStep = org.smartregister.family.util.Utils.getCustomConfigs("family_form_image_step");
-            Triple<Boolean, JSONObject, JSONArray> registrationFormParams = StringUtils.isBlank(familyStep) ? validateParameters(jsonString, "step1") : validateParameters(jsonString, familyStep);
-            if (!(Boolean) registrationFormParams.getLeft()) {
-                return null;
-            } else {
-                JSONObject jsonForm = registrationFormParams.getMiddle();
-                JSONArray fields = registrationFormParams.getRight();
-                String entityId = getString(jsonForm, "entity_id");
-                if (StringUtils.isBlank(entityId)) {
-                    entityId = generateRandomUUIDString();
-                }
-
-                lastInteractedWith(fields);
-                dobUnknownUpdateFromAge(fields);
-                Client baseClient = org.smartregister.util.JsonFormUtils.createBaseClient(fields, formTag(allSharedPreferences), entityId);
-                Map<String, Object> attributes = baseClient.getAttributes();
-                if (attributes != null) {
-                    if (baseClient.getAttribute("fam_source_income").toString().equals("Family source of income"))
-                        attributes.remove("fam_source_income");
-                    if (baseClient.getAttribute("income_bracket").toString().equals("Income Bracket"))
-                        attributes.remove("income_bracket");
-                    baseClient.setAttributes(attributes.isEmpty() ? null : attributes);
-                }
-                baseClient.setLastName("Family");
-                baseClient.setBirthdate(new Date(0L));
-                baseClient.setGender("Male");
-                baseClient.setClientType("Family");
-                Event baseEvent = org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, "metadata"), formTag(allSharedPreferences), entityId, org.smartregister.family.util.Utils.metadata().familyRegister.registerEventType, org.smartregister.family.util.Utils.metadata().familyRegister.tableName);
-                tagSyncMetadata(allSharedPreferences, baseEvent);
-                return new FamilyEventClient(baseClient, baseEvent);
-            }
-        } catch (Exception var9) {
-            Timber.e(var9);
-            return null;
-        }
     }
 
     protected static void processPopulatableFields(CommonPersonObjectClient client, JSONObject jsonObject) throws JSONException {
