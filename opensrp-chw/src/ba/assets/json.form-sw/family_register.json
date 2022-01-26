@@ -455,11 +455,6 @@
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 0."
-        },
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err":  "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         }
       },
       {
@@ -928,11 +923,6 @@
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 0."
-        },
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err":  "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         }
       },
       {
