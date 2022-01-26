@@ -1,9 +1,7 @@
 package org.smartregister.chw.util;
 
 import android.content.Context;
-import android.util.Pair;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.joda.time.DateTime;
@@ -16,7 +14,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.interactor.CoreChildUpcomingServiceInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
-import org.smartregister.chw.dao.FamilyDao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
