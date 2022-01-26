@@ -164,6 +164,7 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "boolean", "LOG_CRASHLYTICS", "true"
         }
 
         debug {
@@ -182,7 +183,13 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "boolean", "LOG_CRASHLYTICS", "false"
             testCoverageEnabled true
+        }
+
+        preview {
+            initWith debug
+            buildConfigField "boolean", "LOG_CRASHLYTICS", "true"
         }
     }
 

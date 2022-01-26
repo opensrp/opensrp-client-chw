@@ -7,18 +7,22 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.evernote.android.job.JobManager;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
@@ -449,6 +453,34 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     @Override
     public boolean allowLazyProcessing() {
         return true;
+    }
+
+    @Override
+    public void initializeCrashLyticsTree() {
+//        super.initializeCrashLyticsTree();
+        if (BuildConfig.LOG_CRASHLYTICS){
+            Timber.plant(new Timber.Tree(){
+                @Override
+                protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
+                    if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
+                        return;
+                    }
+
+                    FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
+                    if (StringUtils.isNotBlank(getUsername())){
+                        crashlytics.setUserId(getUsername());
+                    }
+
+                    if (t == null) {
+                        crashlytics.recordException(new Exception(message));
+                    } else {
+                        crashlytics.recordException(t);
+                    }
+                }
+            });
+        }else {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     @Override
