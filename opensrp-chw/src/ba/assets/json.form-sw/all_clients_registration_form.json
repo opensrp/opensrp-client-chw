@@ -449,15 +449,23 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "phone_number",
-        "type": "edit_text",
+        "type": "mask_edit_text",
+        "mask": "0#########",
+        "mask_hint": "714000000",
+        "allowed_chars": "0123456789",
         "hint": "Nambari ya simu ya mteja",
         "v_numeric": {
           "value": "true",
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 0."
+        },
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err":  "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_required": {
           "value": false,
@@ -526,12 +534,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "National_ID",
-        "type": "edit_text",
+        "type": "mask_edit_text",
+        "mask": "########-#####-#####-##",
+        "mask_hint": "12345678912345678912",
+        "allowed_chars": "0123456789",
         "hint": "Nambari ya kitambulisho cha taifa k.m 12345678-91234-56789-12",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_regex": {
           "value": "^\\d{8}-\\d{5}-\\d{5}-\\d{2}$",
           "err": "Nambari ya kitambulisho cha kitaifa inapaswa kuwa ya umbizo (XXXXXXXX-XXXXX-XXXXX-XX)"
+        },
+        "v_max_length": {
+          "value": "23",
+          "is_fixed_size": "true",
+          "err": "Tafadhali weka namba sahihi"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali weka namba sahihi"
         },
         "relevance": {
           "step2:id_avail": {
@@ -550,12 +570,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Voter_Registration_Number",
-        "type": "edit_text",
+        "type": "mask_edit_text",
+        "mask": "T-####-####-###-#",
+        "mask_hint": "123456789123",
+        "allowed_chars": "0123456789",
         "hint": "Nambari ya usajili ya mpiga kura k.m T-1234-5678-912-3",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_regex": {
           "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
           "err": "Nambari ya usajili wa mpiga kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Tafadhali weka namba sahihi"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali weka namba sahihi"
         },
         "relevance": {
           "step2:id_avail": {
@@ -574,12 +606,24 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Driver_License_Number",
-        "type": "edit_text",
+        "type": "mask_edit_text",
+        "mask": "##########",
+        "mask_hint": "1234567891",
+        "allowed_chars": "0123456789",
         "hint": "Nambari ya leseni ya udereva k.m 1234567891",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_regex": {
           "value": "^([0-9]{10})",
           "err": "Nambari ya leseni ya udereva inapaswa kuwa ya umbizo (XXXXXXXXX)"
+        },
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Tafadhali weka namba sahihi"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali weka namba sahihi"
         },
         "relevance": {
           "step2:id_avail": {
@@ -598,13 +642,25 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Passport_Number",
-        "type": "edit_text",
-        "hint": "Passport number",
+        "type": "mask_edit_text",
+        "mask": "TAE-######",
+        "mask_hint": "123456",
+        "allowed_chars": "0123456789",
+        "hint": "Namba ya hati ya kusafiria",
         "v_regex": {
           "value": "^TAE-\\d{6}$",
           "err": "Nambari ya Pasipoti inapaswa kuwa katika muundo (TAE-XXXXXX)"
         },
-        "edit_type": "name",
+        "edit_type": "number",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err":  "Tafadhali weka namba sahihi"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali weka namba sahihi"
+        },
         "relevance": {
           "step2:id_avail": {
             "ex-checkbox": [
@@ -922,14 +978,22 @@
         "openmrs_entity_parent": "phone_number",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_phone_number",
-        "type": "edit_text",
+        "type": "mask_edit_text",
+        "mask": "0#########",
+        "mask_hint": "714000000",
+        "allowed_chars": "0123456789",
         "hint": "Nambari ya simu ya mlezi mkuu",
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err":  "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 0."
         },
         "v_required": {
