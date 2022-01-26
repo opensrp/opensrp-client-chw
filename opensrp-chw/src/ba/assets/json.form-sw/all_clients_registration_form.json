@@ -449,10 +449,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "phone_number",
-        "type": "mask_edit_text",
-        "mask": "0#########",
-        "mask_hint": "714000000",
-        "allowed_chars": "0123456789",
+        "type": "edit_text",
         "hint": "Nambari ya simu ya mteja",
         "v_numeric": {
           "value": "true",
@@ -978,10 +975,7 @@
         "openmrs_entity_parent": "phone_number",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_phone_number",
-        "type": "mask_edit_text",
-        "mask": "0#########",
-        "mask_hint": "714000000",
-        "allowed_chars": "0123456789",
+        "type": "edit_text",
         "hint": "Nambari ya simu ya mlezi mkuu",
         "v_max_length": {
           "value": "10",
