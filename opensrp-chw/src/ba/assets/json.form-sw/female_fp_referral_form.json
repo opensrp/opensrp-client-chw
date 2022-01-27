@@ -1,1 +1,536 @@
-{"count":"1","encounter_type":"Family Planning Referral","entity_id":"","relational_id":"","metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"deviceid":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"deviceid","openmrs_entity_id":"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"subscriberid":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"subscriberid","openmrs_entity_id":"163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"simserial":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"simserial","openmrs_entity_id":"163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"phonenumber":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"phonenumber","openmrs_entity_id":"163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"encounter_location":"","look_up":{"entity_id":"","value":""}},"step1":{"title":"Family Planning Referral","fields":[{"key":"fp_method_accepted_referral","type":"native_radio","openmrs_entity":"concept","openmrs_entity_id":"374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","label":"Mbinu ya FP iliyochaguliwa inayohitaji rufaa","label_text_style":"bold","options":[{"key":"Male_condom","openmrs_entity":"","openmrs_entity_id":"164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Kondomu ya kiume"},{"key":"Female_condom","openmrs_entity":"","openmrs_entity_id":"164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Kondomu ya kike"},{"key":"COC","openmrs_entity":"","openmrs_entity_id":"159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"COC"},{"key":"POP","openmrs_entity":"","openmrs_entity_id":"159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"POP"},{"key":"Standard_day_method","openmrs_entity":"","openmrs_entity_id":"5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Njia ya kawaida ya siku"},{"key":"Emergency_contraceptive","openmrs_entity":"","openmrs_entity_id":"160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Uzazi wa mpango wa dharura"},{"key":"Injectable","openmrs_entity":"","openmrs_entity_id":"5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Sindano"},{"key":"IUCD","openmrs_entity":"","openmrs_entity_id":"5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"IUXD"},{"key":"Implanon_NXT","openmrs_entity":"","openmrs_entity_id":"76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Kitanzi"},{"key":"Jadelle","openmrs_entity":"","openmrs_entity_id":"1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Kijiti"},{"key":"Female_sterilization","openmrs_entity":"","openmrs_entity_id":"5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Kufunga kizazi kwa mwanamke"},{"key":"Male_sterilization","openmrs_entity":"","openmrs_entity_id":"1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Kufunga kizazi kwa wanaume"},{"key":"None","openmrs_entity":"","openmrs_entity_id":"164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Hakuna"},{"key":"Not_applicable","openmrs_entity":"","openmrs_entity_id":"1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","text":"Haiusiki"}],"v_required":{"value":"true","err":"Tafadhali chagua mbinu ya kupanga uzazi"}},{"key":"side_effects_sterialization","type":"check_box","openmrs_entity":"","openmrs_entity_id":"","openmrs_entity_parent":"","label":"Madhara ya uzazi wa mpango","label_text_style":"bold","exclusive":["None","Not_applicable"],"options":[{"key":"Incisional_bleeding","text":"Kutokwa na damu kwa mkato","value":false,"openmrs_entity":"","openmrs_entity_id":"147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Pus_Discharge_from_incision","text":"Usaha/Kutokwa na chale","value":false,"openmrs_entity":"","openmrs_entity_id":"164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Swollen_around_the_incision","text":"Kuvimba karibu na chale","value":false,"openmrs_entity":"","openmrs_entity_id":"159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Others","text":"Nyinginezo","value":false,"openmrs_entity":"","openmrs_entity_id":"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"None","text":"Hakuna","value":false,"openmrs_entity":"","openmrs_entity_id":"164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Not_applicable","text":"Haiusiki","value":false,"openmrs_entity":"","openmrs_entity_id":"1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""}],"v_required":{"value":"true","err":"Tafadhali chagua thamani"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_relevance.yml"}}}},{"key":"side_effects_iucd","type":"check_box","openmrs_entity":"","openmrs_entity_id":"","openmrs_entity_parent":"","label":"Madhara ya uzazi wa mpango","label_text_style":"bold","options":[{"key":"Severe_pain_inside_the_vagina_after_IUD_was_put_in","text":"Maumivu makali ndani ya uke baada ya IUD kuwekwa","value":false,"openmrs_entity":"","openmrs_entity_id":"123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Cramping_or_backaches_for_a_few_days_after_the_IUD_is_put_in","text":"Mimba au maumivu ya mgongo kwa siku chache baada ya kuweka IUD","value":false,"openmrs_entity":"","openmrs_entity_id":"148031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Spotting_between_periods_and_or_irregular_periods","text":"Kugundua kati ya hedhi na/au hedhi isiyo ya kawaida","value":false,"openmrs_entity":"","openmrs_entity_id":"116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Heavier_periods_and_worse_menstrual_cramps","text":"Hedhi nzito na maumivu makali ya hedhi","value":false,"openmrs_entity":"","openmrs_entity_id":"156197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"IUCD_explusion","text":"Kufukuzwa kwa IUD","value":false,"openmrs_entity":"","openmrs_entity_id":"157401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Others","text":"Nyinginezo","value":false,"openmrs_entity":"","openmrs_entity_id":"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"None","text":"Hakuna","value":false,"openmrs_entity":"","openmrs_entity_id":"164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Not_applicable","text":"Haiusiki","value":false,"openmrs_entity":"","openmrs_entity_id":"1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""}],"v_required":{"value":"true","err":"Tafadhali chagua thamani"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_relevance.yml"}}}},{"key":"side_effects_implant","type":"check_box","openmrs_entity":"","openmrs_entity_id":"","openmrs_entity_parent":"","label":"Madhara ya uzazi wa mpango","label_text_style":"bold","options":[{"key":"Insertion_site_infected_pus_discharge","text":"Sehemu ya kuingizwa iliyoambukizwa - usaha / kutokwa","value":false,"openmrs_entity":"","openmrs_entity_id":"164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Insertion_site_swollen","text":"Sehemu iliyopandikizwa imevimba","value":false,"openmrs_entity":"","openmrs_entity_id":"159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Implant_expulsion","text":"Kufukuzwa kwa implant","value":false,"openmrs_entity":"","openmrs_entity_id":"144458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Heavy_bleeding","text":"Kutokwa na damu nyingi","value":false,"openmrs_entity":"","openmrs_entity_id":"136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Others","text":"Nyinginezo","value":false,"openmrs_entity":"","openmrs_entity_id":"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"None","text":"Hakuna","value":false,"openmrs_entity":"","openmrs_entity_id":"164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Not_applicable","text":"Haiusiki","value":false,"openmrs_entity":"","openmrs_entity_id":"1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""}],"v_required":{"value":"true","err":"Tafadhali chagua "},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_relevance.yml"}}}},{"key":"side_effects_inject_pills","type":"check_box","openmrs_entity":"","openmrs_entity_id":"","openmrs_entity_parent":"","label":"Madhara ya uzazi wa mpango","label_text_style":"bold","options":[{"key":"Heavy_bleeding_","text":"Kutokwa na damu nyingi","value":false,"openmrs_entity":"","openmrs_entity_id":"136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Irregular_periods","text":"Vipindi visivyo vya kawaida","value":false,"openmrs_entity":"","openmrs_entity_id":"116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Others","text":"Nyinginezo","value":false,"openmrs_entity":"","openmrs_entity_id":"5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"None","text":"Hakuna","value":false,"openmrs_entity":"","openmrs_entity_id":"164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""},{"key":"Not_applicable","text":"Haiusiki","value":false,"openmrs_entity":"","openmrs_entity_id":"1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":""}],"v_required":{"value":"true","err":"Tafadhali chagua "},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_relevance.yml"}}}},{"key":"fp_side_effects","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","type":"hidden","is_problem":false,"calculation":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_calculation.yml"}}}},{"key":"fp_side_effects_other","type":"edit_text","openmrs_entity":"concept","openmrs_entity_id":"160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","openmrs_entity_parent":"","hint":"Madhara mengine","v_required":{"value":"true","err":"Tafadhali bainisha madhara mengine"},"relevance":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_relevance.yml"}}}},{"key":"referral_date_fp","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","type":"hidden","is_problem":false,"calculation":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_calculation.yml"}}}},{"key":"referral_time_fp","openmrs_entity_parent":"","openmrs_entity":"","openmrs_entity_id":"","type":"hidden","is_problem":false,"calculation":{"rules-engine":{"ex-rules":{"rules-file":"fp_referral_calculation.yml"}}}}]}}
+{
+  "count": "1",
+  "encounter_type": "Family Planning Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Family Planning Referral",
+    "fields": [
+      {
+        "key": "fp_method_accepted_referral",
+        "type": "native_radio",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "label": "Mbinu ya FP iliyochaguliwa inayohitaji rufaa",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Male_condom",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Kondomu ya kiume"
+          },
+          {
+            "key": "Female_condom",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Kondomu ya kike"
+          },
+          {
+            "key": "COC",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "COC"
+          },
+          {
+            "key": "POP",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "POP"
+          },
+          {
+            "key": "Standard_day_method",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Njia ya kawaida ya siku"
+          },
+          {
+            "key": "Emergency_contraceptive",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Uzazi wa mpango wa dharura"
+          },
+          {
+            "key": "Injectable",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Sindano"
+          },
+          {
+            "key": "IUCD",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "IUXD"
+          },
+          {
+            "key": "Implanon_NXT",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Kitanzi"
+          },
+          {
+            "key": "Jadelle",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Kijiti"
+          },
+          {
+            "key": "Female_sterilization",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Kufunga kizazi kwa mwanamke"
+          },
+          {
+            "key": "Male_sterilization",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Kufunga kizazi kwa wanaume"
+          },
+          {
+            "key": "None",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Hakuna"
+          },
+          {
+            "key": "Not_applicable",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "text": "Haiusiki"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua mbinu ya kupanga uzazi"
+        }
+      },
+      {
+        "key": "side_effects_sterialization",
+        "type": "check_box",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "label": "Madhara ya uzazi wa mpango",
+        "label_text_style": "bold",
+        "exclusive": [
+          "None",
+          "Not_applicable"
+        ],
+        "options": [
+          {
+            "key": "Incisional_bleeding",
+            "text": "Kutokwa na damu kwa mkato",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Pus_Discharge_from_incision",
+            "text": "Usaha/Kutokwa na chale",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Swollen_around_the_incision",
+            "text": "Kuvimba karibu na chale",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Others",
+            "text": "Nyinginezo",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "None",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Not_applicable",
+            "text": "Haiusiki",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua thamani"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "side_effects_iucd",
+        "type": "check_box",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "label": "Madhara ya uzazi wa mpango",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Severe_pain_inside_the_vagina_after_IUD_was_put_in",
+            "text": "Maumivu makali ndani ya uke baada ya IUD kuwekwa",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Cramping_or_backaches_for_a_few_days_after_the_IUD_is_put_in",
+            "text": "Mimba au maumivu ya mgongo kwa siku chache baada ya kuweka IUD",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "148031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Spotting_between_periods_and_or_irregular_periods",
+            "text": "Kugundua kati ya hedhi na/au hedhi isiyo ya kawaida",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Heavier_periods_and_worse_menstrual_cramps",
+            "text": "Hedhi nzito na maumivu makali ya hedhi",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "156197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "IUCD_explusion",
+            "text": "Kufukuzwa kwa IUD",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "157401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Others",
+            "text": "Nyinginezo",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "None",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Not_applicable",
+            "text": "Haiusiki",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua thamani"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "side_effects_implant",
+        "type": "check_box",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "label": "Madhara ya uzazi wa mpango",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Insertion_site_infected_pus_discharge",
+            "text": "Sehemu ya kuingizwa iliyoambukizwa - usaha / kutokwa",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Insertion_site_swollen",
+            "text": "Sehemu iliyopandikizwa imevimba",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Implant_expulsion",
+            "text": "Kufukuzwa kwa implant",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "144458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Heavy_bleeding",
+            "text": "Kutokwa na damu nyingi",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Others",
+            "text": "Nyinginezo",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "None",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Not_applicable",
+            "text": "Haiusiki",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua "
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "side_effects_inject_pills",
+        "type": "check_box",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "label": "Madhara ya uzazi wa mpango",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Heavy_bleeding_",
+            "text": "Kutokwa na damu nyingi",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Irregular_periods",
+            "text": "Vipindi visivyo vya kawaida",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Others",
+            "text": "Nyinginezo",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "None",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Not_applicable",
+            "text": "Haiusiki",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua "
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_side_effects",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fp_side_effects_other",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "hint": "Madhara mengine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali bainisha madhara mengine"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_date_fp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_time_fp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "fp_referral_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
