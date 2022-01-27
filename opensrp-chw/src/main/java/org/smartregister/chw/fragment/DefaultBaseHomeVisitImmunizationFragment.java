@@ -150,16 +150,18 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
             View vaccinationName = inflater.inflate(R.layout.custom_vaccine_name_check, null);
             TextView vaccineView = vaccinationName.findViewById(R.id.vaccine);
             CheckBox checkBox = vaccinationName.findViewById(R.id.select);
-            setCheckBoxState(checkBox, true);
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             final VaccineView view = new VaccineView(vaccineWrapper.getName(), null, checkBox);
 
             String name = (vaccineWrapper.getVaccine() != null) ? vaccine.display() : vaccineWrapper.getName();
             String translated_name = NCUtils.getStringResourceByName(name.toLowerCase().replace(" ", "_"), getActivity());
             vaccineView.setText(translated_name);
-            if (!vaccinesDefaultChecked && details == null)
+            if (!vaccinesDefaultChecked && details == null) {
                 setCheckBoxState(checkBox, false);
-
+            }else {
+                setCheckBoxState(checkBox, true);
+            }
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> Timber.d("%s - checked: %s", translated_name, isChecked));
             checkBox.setOnClickListener(v -> onVaccineCheckBoxStateChange(checkBox.isChecked()));
 
             vaccinationNameLayout.addView(vaccinationName);
