@@ -63,6 +63,10 @@
           "Ndiyo",
           "Hapana"
         ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
         "openmrs_choice_ids": {
           "Yes": "Yes",
           "No": "No"
