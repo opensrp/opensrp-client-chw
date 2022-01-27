@@ -1,1 +1,221 @@
-{"count":"1","encounter_type":"Home Visit - Malaria","entity_id":"","metadata":{"start":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"start","openmrs_entity_id":"163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"end":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"end","openmrs_entity_id":"163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"today":{"openmrs_entity_parent":"","openmrs_entity":"encounter","openmrs_entity_id":"encounter_date"},"deviceid":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"deviceid","openmrs_entity_id":"163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"subscriberid":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"subscriberid","openmrs_entity_id":"163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"simserial":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"simserial","openmrs_entity_id":"163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"phonenumber":{"openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_data_type":"phonenumber","openmrs_entity_id":"163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"encounter_location":""},"step1":{"title":"Malaria prevention","fields":[{"key":"fam_llin","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"fam_llin","openmrs_data_type":"select one","type":"spinner","hint":"Je, mwanamke ana chandarua chenye dawa ya muda mrefu (LLIN)?","values":["Ndiyo ","Hapana"],"keys":["Yes","No"],"openmrs_choice_ids":{"Yes":"Yes","No":"No"},"v_required":{"value":"true","err":"Tafadhali chagua chaguo moja"}},{"key":"llin_2days","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"llin_2days","openmrs_data_type":"select one","type":"spinner","hint":"Je, alilala ndani ya chandarua jana usiku?","values":["Ndiyo","Hapana"],"keys":["Yes","No"],"openmrs_choice_ids":{"Yes":"Yes","No":"No"},"v_required":{"value":"true","err":"Tafadhali chagua chaguo moja"},"relevance":{"step1:fam_llin":{"type":"string","ex":"equalTo(., \"Yes\")"}}},{"key":"llin_condition","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"llin_condition","openmrs_data_type":"select one","type":"spinner","hint":"Hali ya chandarua","values":["Nzuri","Mbaya"],"keys":["Good","Bad"],"openmrs_choice_ids":{"Good":"Good","Bad":"Bad"},"v_required":{"value":"true","err":"Tafadhali chagua chaguo moja"},"relevance":{"step1:fam_llin":{"type":"string","ex":"equalTo(., \"Yes\")"}}},{"key":"malaria_sp","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"malaria_sp","openmrs_data_type":"select one","type":"spinner","hint":"Je, mteja ametumia dawa ya kuzuia malaria (SP)?","values":["Ndiyo ",""],"keys":["Yes","No"],"openmrs_choice_ids":{"Yes":"Yes","No":"No"},"v_required":{"value":"true","err":"Tafadhali chagua chaguo moja"}},{"key":"reason_for_missed_sp","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"reason_for_missed_sp","type":"spinner","hint":"Sababu kwa nini mteja hatumii dawa za SP","values":["Mteja hakupewa dawa za SP","Mteja alipoteza dawa zake","Uzembe wa mteja","Nyingine"],"keys":["client_was_not_given_sp_dosage","client_lost_her_medication","client_negligence","other"],"openmrs_choice_ids":{"client_was_not_given_sp_dosage":"client_was_not_given_sp_dosage","client_lost_her_medication":"client_lost_her_medication","client_negligence":"client_negligence","other":"other"},"v_required":{"value":"true","err":"Tafadhali chagua chaguo moja"},"relevance":{"step1:malaria_sp":{"type":"string","ex":"equalTo(., \"No\")"}}},{"key":"other_reason_missed_sp_dosage","openmrs_entity_parent":"","openmrs_entity":"concept","openmrs_entity_id":"other_reason_missed_sp_dosage","type":"edit_text","hint":"Sababu nyingine kwa nini mteja hatumii dawa za SP","edit_type":"name","v_required":{"value":"true","err":"Tafahdali ingiza sababu hiyo"},"relevance":{"step1:reason_for_missed_sp":{"type":"string","ex":"equalTo(., \"other\")"}}}]}}
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Malaria",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Malaria prevention",
+    "fields": [
+      {
+        "key": "fam_llin",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fam_llin",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je, mwanamke ana chandarua chenye dawa ya muda mrefu (LLIN)?",
+        "values": [
+          "Ndiyo ",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "llin_2days",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "llin_2days",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je, alilala ndani ya chandarua jana usiku?",
+        "values": [
+          "Ndiyo",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        },
+        "relevance": {
+          "step1:fam_llin": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "llin_condition",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "llin_condition",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Hali ya chandarua",
+        "values": [
+          "Nzuri",
+          "Mbaya"
+        ],
+        "keys": [
+          "Good",
+          "Bad"
+        ],
+        "openmrs_choice_ids": {
+          "Good": "Good",
+          "Bad": "Bad"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        },
+        "relevance": {
+          "step1:fam_llin": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "malaria_sp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "malaria_sp",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Je, mteja ametumia dawa ya kuzuia malaria (SP)?",
+        "values": [
+          "Ndiyo ",
+          ""
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "reason_for_missed_sp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_for_missed_sp",
+        "type": "spinner",
+        "hint": "Sababu kwa nini mteja hatumii dawa za SP",
+        "values": [
+          "Mteja hakupewa dawa za SP",
+          "Mteja alipoteza dawa zake",
+          "Uzembe wa mteja",
+          "Nyingine"
+        ],
+        "keys": [
+          "client_was_not_given_sp_dosage",
+          "client_lost_her_medication",
+          "client_negligence",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "client_was_not_given_sp_dosage": "client_was_not_given_sp_dosage",
+          "client_lost_her_medication": "client_lost_her_medication",
+          "client_negligence": "client_negligence",
+          "other": "other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        },
+        "relevance": {
+          "step1:malaria_sp": {
+            "type": "string",
+            "ex": "equalTo(., \"No\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_missed_sp_dosage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_missed_sp_dosage",
+        "type": "edit_text",
+        "hint": "Sababu nyingine kwa nini mteja hatumii dawa za SP",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Tafahdali ingiza sababu hiyo"
+        },
+        "relevance": {
+          "step1:reason_for_missed_sp": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      }
+    ]
+  }
+}

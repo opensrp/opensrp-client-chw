@@ -355,11 +355,11 @@
         },
         "v_min": {
           "value": "15",
-          "err": "Age must be equal or greater than 15"
+          "err": "Umri lazima uwe sawa au zaidi ya 15"
         },
         "v_max": {
           "value": "120",
-          "err": "Age must be equal or less than 120"
+          "err": "Umri lazima uwe sawa au chini ya 120"
         },
         "relevance": {
           "rules-engine": {
@@ -371,9 +371,7 @@
         "v_required": {
           "value": true,
           "err": "Tafadhali weka umri"
-        },
-        "v_min.err": "Umri lazima uwe sawa au zaidi ya 15",
-        "v_max.err": "Umri lazima uwe sawa au chini ya 120"
+        }
       },
       {
         "key": "sex",
