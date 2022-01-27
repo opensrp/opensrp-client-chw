@@ -42,12 +42,12 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public void updateMalariaMenuItems(String baseEntityId, Menu menu) {
-        UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
+       // UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
     }
 
     @Override
     public void updateMaleFpMenuItems(String baseEntityId, Menu menu) {
-        UtilsFlv.updateFpMenuItems(baseEntityId, menu);
+      //  UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class FamilyOtherMemberProfileActivityFlv implements FamilyOtherMemberPro
 
     @Override
     public void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu) {
-        UtilsFlv.updateTbMenuItems(baseEntityId, menu);
+      //  UtilsFlv.updateTbMenuItems(baseEntityId, menu);
     }
 
     @Override
     public void updateFpMenuItems(String baseEntityId, Menu menu) {
-        UtilsFlv.updateFpMenuItems(baseEntityId, menu);
+       // UtilsFlv.updateFpMenuItems(baseEntityId, menu);
     }
 
     @Override
