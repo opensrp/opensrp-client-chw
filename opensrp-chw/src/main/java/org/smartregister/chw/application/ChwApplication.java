@@ -310,6 +310,10 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         thinkMDConfig.setThinkmdEndPoint(BuildConfig.THINKMD_BASE_URL);
         thinkMDConfig.setThinkmdBaseUrl(BuildConfig.THINKMD_END_POINT);
         ThinkMDLibrary.init(getApplicationContext(), thinkMDConfig);
+
+        if (StringUtils.isNotBlank(getUsername())){
+            FirebaseCrashlytics.getInstance().setUserId(getUsername());
+        }
     }
 
     @Override
