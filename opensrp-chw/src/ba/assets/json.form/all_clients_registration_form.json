@@ -452,16 +452,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "phone_number",
-        "type": "mask_edit_text",
-        "mask": "0#########",
-        "mask_hint": "714000000",
-        "allowed_chars": "0123456789",
+        "type": "edit_text",
         "hint": "Client phone number",
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid phone number"
-        },
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
@@ -469,10 +461,6 @@
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Number must be 10 digits and must start with 06 or 07."
-        },
-        "v_required": {
-          "value": false,
-          "err": "Please specify the phone number"
         }
       },
       {
@@ -981,27 +969,15 @@
         "openmrs_entity_parent": "phone_number",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_phone_number",
-        "type": "mask_edit_text",
-        "mask": "0#########",
-        "mask_hint": "714000000",
-        "allowed_chars": "0123456789",
+        "type": "edit_text",
         "hint": "Primary caregiver phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"
         },
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid phone number"
-        },
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Number must be 10 digits and must start with 06 or 07."
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please  caregiver contact."
         },
         "relevance": {
           "rules-engine": {

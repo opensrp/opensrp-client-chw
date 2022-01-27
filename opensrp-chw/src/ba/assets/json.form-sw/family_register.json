@@ -371,7 +371,9 @@
         "v_required": {
           "value": true,
           "err": "Tafadhali weka umri"
-        }
+        },
+        "v_min.err": "Umri lazima uwe sawa au zaidi ya 15",
+        "v_max.err": "Umri lazima uwe sawa au chini ya 120"
       },
       {
         "key": "sex",
@@ -444,10 +446,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "phone_number",
-        "type": "mask_edit_text",
-        "mask": "0#########",
-        "mask_hint": "714000000",
-        "allowed_chars": "0123456789",
+        "type": "edit_text",
         "hint": "Numbari ya simu",
         "v_numeric": {
           "value": "true",
@@ -456,11 +455,6 @@
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
-        },
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err":  "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         }
       },
       {
@@ -927,7 +921,7 @@
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         }
       },
