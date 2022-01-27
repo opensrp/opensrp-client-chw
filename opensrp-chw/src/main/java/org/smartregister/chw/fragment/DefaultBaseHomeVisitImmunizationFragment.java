@@ -149,14 +149,17 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
             View vaccinationName = inflater.inflate(R.layout.custom_vaccine_name_check, null);
             TextView vaccineView = vaccinationName.findViewById(R.id.vaccine);
+            vaccineView.setId(View.generateViewId());
             CheckBox checkBox = vaccinationName.findViewById(R.id.select);
+            checkBox.setId(View.generateViewId());
+
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             final VaccineView view = new VaccineView(vaccineWrapper.getName(), null, checkBox);
 
             String name = (vaccineWrapper.getVaccine() != null) ? vaccine.display() : vaccineWrapper.getName();
             String translated_name = NCUtils.getStringResourceByName(name.toLowerCase().replace(" ", "_"), getActivity());
             vaccineView.setText(translated_name);
-            if (!vaccinesDefaultChecked && details == null) {
+            if (!vaccinesDefaultChecked) {
                 setCheckBoxState(checkBox, false);
             }else {
                 setCheckBoxState(checkBox, true);
@@ -282,7 +285,10 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
             View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
             TextView question = layout.findViewById(R.id.vaccines_given_when_title_question);
+            question.setId(View.generateViewId());
             DatePicker datePicker = layout.findViewById(R.id.earlier_date_picker);
+            datePicker.setId(View.generateViewId());
+
             setDatePickerTheme(datePicker);
             String translatedVaccineName = NCUtils.getStringResourceByName(vaccineView.vaccineName.toLowerCase().replace(" ", "_"), getActivity());
             question.setText(getString(R.string.when_vaccine, translatedVaccineName));
