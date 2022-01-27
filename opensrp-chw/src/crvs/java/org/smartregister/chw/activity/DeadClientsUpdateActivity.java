@@ -163,11 +163,11 @@ public class DeadClientsUpdateActivity extends CoreFamilyRegisterActivity {
             String deathNotificationDone = "";
             String officialId = "";
             if (hasCertificate.equalsIgnoreCase(CrvsConstants.YES)) {
-                issueDate = death_certificate_issue_date.getString("value");
-                deathCertificationNumber = death_certificate_number.getString("value");
-                officialId = official_id.getString("value");
+                issueDate = death_certificate_issue_date.has("value") ? death_certificate_issue_date.getString("value") : "";
+                deathCertificationNumber = death_certificate_number.has("value") ? death_certificate_number.getString("value") : "";
+                officialId = official_id.has("value") ? official_id.getString("value") : "";
             } else {
-                deathNotificationDone = death_notification_done.getString("value");
+                deathNotificationDone = death_notification_done.has("value") ? death_notification_done.getString("value") : "";
             }
             String clientType = getIntent().getStringExtra(CLIENT_TYPE);
             if (clientType != null) {
