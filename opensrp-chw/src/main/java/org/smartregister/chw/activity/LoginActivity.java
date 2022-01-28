@@ -71,7 +71,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     private void pinLoginAttempt() {
         // if the user has pin
-        if(adminLogin == null){
+        if (adminLogin == null) {
             if (mLoginPresenter.isUserLoggedOut()) {
                 if (pinLogger.isPinSet()) {
                     Intent intent = new Intent(this, PinLoginActivity.class);
@@ -119,7 +119,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean hasPermissions(){
+    public boolean hasPermissions() {
         return PermissionUtils.isPermissionGranted(this
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , CoreConstants.RQ_CODE.STORAGE_PERMISIONS);
@@ -209,6 +209,11 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             WeightForHeightIntentService.startParseWFHZScores(this);
             allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
         }
+    }
+
+    @Override
+    public boolean isAppVersionAllowed() {
+        return true;
     }
 
 }
