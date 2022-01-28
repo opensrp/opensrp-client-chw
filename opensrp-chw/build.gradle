@@ -164,6 +164,7 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "boolean", "LOG_CRASHLYTICS", "true"
         }
 
         debug {
@@ -182,7 +183,13 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "boolean", "LOG_CRASHLYTICS", "false"
             testCoverageEnabled true
+        }
+
+        preview {
+            initWith debug
+            buildConfigField "boolean", "LOG_CRASHLYTICS", "true"
         }
     }
 
@@ -338,8 +345,8 @@ android {
             applicationIdSuffix ".lmh"
             versionCode 2
             versionName "1.1.2"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '100000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50000'
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://lmh-liberia-preview.smartregister.org/opensrp/"'

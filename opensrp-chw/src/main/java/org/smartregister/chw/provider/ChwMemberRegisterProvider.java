@@ -1,5 +1,7 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -13,6 +15,7 @@ import android.widget.RelativeLayout;
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.dao.ChildDao;
@@ -23,6 +26,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.util.ChildUtils;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.UpcomingServicesUtil;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -41,10 +45,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.getDuration;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -142,7 +145,17 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
             attachNextArrowOnclickListener(nextArrow, client);
         }
 
-        updateDueColumn(viewHolder, baseEntityId);
+        if (ChwApplication.getApplicationFlavor().checkDueStatusFromUpcomingServices()) {
+            MemberObject memberObject = new MemberObject(pc);
+            UpcomingServicesUtil.fetchUpcomingDueServicesState(memberObject, context, new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    updateDueColumn(viewHolder, s);
+                }
+            });
+        } else {
+            updateDueColumn(viewHolder, getDueState(baseEntityId));
+        }
 
     }
 
@@ -180,9 +193,9 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         }
     }
 
-    private void updateDueColumn(RegisterViewHolder viewHolder, String memberBaseEntityId) {
+
+    private void updateDueColumn(RegisterViewHolder viewHolder, String dueState) {
         viewHolder.statusLayout.setVisibility(View.VISIBLE);
-        String dueState = getDueState(memberBaseEntityId);
 
         try {
             if (dueState != null) {

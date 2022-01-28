@@ -49,7 +49,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasDefaultDueFilterForChildClient() {
-        return true;
+        return false;
     }
 
     @Override
@@ -242,5 +242,9 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean vaccinesDefaultChecked() { return false; }
 
+    @Override
+    public boolean checkDueStatusFromUpcomingServices() {
+        return true;
+    }
 }
 

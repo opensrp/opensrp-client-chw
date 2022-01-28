@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AlertDialog;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.pinlogin.PinLoginUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,7 +49,7 @@ public class NavigationMenuFlv extends DefaultNavigationMenuFlv {
     public AlertDialog doLogOutDialog(Activity activity) {
         AlertDialog dialog =  new AlertDialog.Builder(activity)
                 .setTitle("Log Out?")
-                .setMessage("You will be returned to the PIN entry screen.")
+                .setMessage("You will be returned to the " + (PinLoginUtil.getPinLogger().enabledPin() ? "PIN entry screen." : "Log in screen."))
                 .create();
         dialog.setOnShowListener(dialog1 -> {
             Button positiveButton = ((AlertDialog) dialog1)

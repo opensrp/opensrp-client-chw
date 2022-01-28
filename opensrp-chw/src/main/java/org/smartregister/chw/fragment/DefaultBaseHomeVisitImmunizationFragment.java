@@ -31,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -149,17 +150,22 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
             View vaccinationName = inflater.inflate(R.layout.custom_vaccine_name_check, null);
             TextView vaccineView = vaccinationName.findViewById(R.id.vaccine);
+            vaccineView.setId(View.generateViewId());
             CheckBox checkBox = vaccinationName.findViewById(R.id.select);
-            setCheckBoxState(checkBox, true);
+            checkBox.setId(View.generateViewId());
+
             VaccineRepo.Vaccine vaccine = vaccineWrapper.getVaccine();
             final VaccineView view = new VaccineView(vaccineWrapper.getName(), null, checkBox);
 
             String name = (vaccineWrapper.getVaccine() != null) ? vaccine.display() : vaccineWrapper.getName();
             String translated_name = NCUtils.getStringResourceByName(name.toLowerCase().replace(" ", "_"), getActivity());
             vaccineView.setText(translated_name);
-            if (!vaccinesDefaultChecked && details == null)
+            if (!vaccinesDefaultChecked) {
                 setCheckBoxState(checkBox, false);
-
+            }else {
+                setCheckBoxState(checkBox, true);
+            }
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> Timber.d("%s - checked: %s", translated_name, isChecked));
             checkBox.setOnClickListener(v -> onVaccineCheckBoxStateChange(checkBox.isChecked()));
 
             vaccinationNameLayout.addView(vaccinationName);
@@ -261,7 +267,7 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
         // create a number of date piker views with the injected heading
         singleVaccineAddView.removeAllViews();
-        generateDatePickerViews();
+        generateDatePickerViews(vaccineViews);
         redrawView();
     }
 
@@ -273,14 +279,17 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
         // no-op but may be extended in child fragments to set date picker theme
     }
 
-    private void generateDatePickerViews() {
+    private void generateDatePickerViews(List<VaccineView> vaccines) {
         int x = 0;
-        while (vaccineViews.size() > x) {
-            VaccineView vaccineView = vaccineViews.get(x);
+        while (vaccines.size() > x) {
+            VaccineView vaccineView = vaccines.get(x);
 
             View layout = inflater.inflate(R.layout.custom_single_vaccine_view, null);
             TextView question = layout.findViewById(R.id.vaccines_given_when_title_question);
+            question.setId(View.generateViewId());
             DatePicker datePicker = layout.findViewById(R.id.earlier_date_picker);
+            datePicker.setId(View.generateViewId());
+
             setDatePickerTheme(datePicker);
             String translatedVaccineName = NCUtils.getStringResourceByName(vaccineView.vaccineName.toLowerCase().replace(" ", "_"), getActivity());
             question.setText(getString(R.string.when_vaccine, translatedVaccineName));
@@ -422,12 +431,25 @@ public class DefaultBaseHomeVisitImmunizationFragment extends BaseHomeVisitFragm
 
     @Override
     public void updateSelectedVaccines(Map<String, String> selectedVaccines, boolean variedMode) {
-        if (variedMode)
-            generateDatePickerViews();
-
         Map<String, VaccineView> lookup = new HashMap<>();
         for (VaccineView vaccineView : vaccineViews) {
             lookup.put(NCUtils.removeSpaces(vaccineView.vaccineName), vaccineView);
+        }
+
+        if (variedMode) {
+            List<VaccineView> selected = new ArrayList<>();
+            for (Map.Entry<String, VaccineView> entry : lookup.entrySet()){
+                String key = entry.getKey();
+                VaccineView vaccineView = entry.getValue();
+                if (selectedVaccines.containsKey(key)
+                        && selectedVaccines.get(key) != null
+                        &&!selectedVaccines.get(key).equalsIgnoreCase(Constants.HOME_VISIT.VACCINE_NOT_GIVEN)){
+                    selected.add(vaccineView);
+                }
+            }
+            Collections.sort(selected, (o1, o2) -> o1.vaccineName.compareTo(o2.vaccineName));
+
+            generateDatePickerViews(selected);
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
