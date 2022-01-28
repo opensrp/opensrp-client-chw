@@ -54,7 +54,7 @@
     }
   },
   "step1": {
-    "title": "Family details",
+    "title": "Maelezo ya familia",
     "next": "step2",
     "fields": [
       {
@@ -186,7 +186,7 @@
     ]
   },
   "step2": {
-    "title": "Family head",
+    "title": "Mkuu wa familia",
     "fields": [
       {
         "key": "unique_id",
@@ -286,7 +286,7 @@
         "hint": "Tarehe ya kuzaliwa (DOB)",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "Umri"
         },
         "min_date": "today-120y",
         "max_date": "today-15y",
@@ -381,7 +381,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "jinsi",
+        "hint": "Jinsia",
         "values": [
           "Mwanaume",
           "Mwanamke"

@@ -54,7 +54,7 @@
     }
   },
   "step1": {
-    "title": "Client details",
+    "title": "Maelezo ya mteja",
     "fields": [
       {
         "key": "unique_id",

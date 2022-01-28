@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC {0} health facility visit",
+    "title": "Ziara ya {0} kituoni",
     "fields": [
       {
         "key": "anc_hf_visit",

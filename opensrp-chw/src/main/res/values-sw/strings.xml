@@ -240,7 +240,7 @@
     <string name="malaria_follow_up">Ufuatiliaji wa malaria</string>
     <string name="refer_to_facilty">Toa rufaa kwenda kituo cha kutolea huduma za afya</string>
 
-    <string name="health_facility_visit_num">Hudhurio la kliniki ya wajawazito {0} katika kituo cha kutolea huduma za afya </string>
+    <string name="health_facility_visit_num">Hudhurio la {0} katika kliniki ya wajawazito katika kituo cha kutolea huduma za afya </string>
     <string name="tt_dose">PEPOPUNDA {0}</string>
     <string name="iptp_sp_dose">IPTp-SP dose {0}</string>
 
@@ -400,7 +400,7 @@
     <string name="client_registration" >Usajili wa mteja</string>
     <string name="error_opening_profile">Kosa wakati wa kufungua profile</string>
     <string name="location_details">Taarifa za Mahali</string>
-    <string name="update_client_registration" >Update taarifa za mteja</string>
+    <string name="update_client_registration" >Hariri taarifa za mteja</string>
 
     <!---Anc Home Visit Strings -->
     <string name="anc_home_visit_pregnancy_risk">Hatari ya ujauzito</string>

@@ -54,7 +54,7 @@
     }
   },
   "step1": {
-    "title": "Location details",
+    "title": "Maelezo ya eneo",
     "next": "step2",
     "fields": [
       {
@@ -180,13 +180,13 @@
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Tafadhali chaguwa kijiji au mtaa"
+          "err": "Tafadhali chagua kijiji au mtaa"
         }
       }
     ]
   },
   "step2": {
-    "title": "Client details",
+    "title": "Maelezo ya mteja",
     "fields": [
       {
         "key": "unique_id",
@@ -289,7 +289,7 @@
         "hint": "Tarehe ya kuzaliwa",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "Umri"
         },
         "min_date": "today-120y",
         "max_date": "today",
@@ -382,7 +382,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "jinsia",
+        "hint": "Jinsia",
         "values": [
           "kiume",
           "kike"
@@ -393,7 +393,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chaguwa jinsia"
+          "err": "Tafadhali chagua jinsia"
         }
       },
       {

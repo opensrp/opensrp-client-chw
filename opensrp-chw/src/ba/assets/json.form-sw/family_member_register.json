@@ -274,7 +274,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "jinsi",
+        "hint": "Jinsia",
         "values": [
           "Mwanaume",
           "Mwanamke"
@@ -296,8 +296,8 @@
         "type": "spinner",
         "hint": "Hali ya Ndoa ya Mteja?",
         "values": [
-          "Hajaolowe",
-          "Ameolewa",
+          "Hajaoa/Hajaolewa",
+          "Ameoa/Ameolewa",
           "Wameachwa",
           "Ndoa ya mke mmoja",
           "Ndoa za wake wengi",
