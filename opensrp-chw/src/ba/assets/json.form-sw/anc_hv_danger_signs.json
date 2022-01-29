@@ -127,7 +127,7 @@
           },
           {
             "key": "chk_early_labour",
-            "text": "Maumivu ya kuzaa mapema kabla ya miezi 9",
+            "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_early_labour"
@@ -198,8 +198,8 @@
         "openmrs_entity_id": "danger_signs_counseling",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "Did the mother receive counselling",
-        "label_info_text": "Did the mother receive counselling on danger signs at the health facility recently?",
+        "label_info_title": "Je, mama amepokea ushauri?",
+        "label_info_text": "Je, mama alipokea ushauri nasaha kuhusu dalili za hatari katika kituo cha afya hivi karibuni?",
         "hint": "Je, mama alipokea ushauri nasaha kuhusu dalili za hatari katika kituo cha afya hivi karibuni?",
         "values": [
           "Ndiyo",

@@ -55,13 +55,13 @@
   },
   "steps": [
     {
-      "title": "Index Client Contact Followup",
+      "title": "Ufuatiliaji wa mshirika wa kingono",
       "fields": [
         {
           "name": "has_the_contact_client_been_found",
           "type": "radio_group",
           "properties": {
-            "text": "Have you found the contact client?"
+            "text": "Je, umefanikiwa kumpata mshirika wa kingono?"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -71,7 +71,7 @@
           "options": [
             {
               "name": "yes",
-              "text": "Yes",
+              "text": "Ndio",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "yes",
@@ -80,7 +80,7 @@
             },
             {
               "name": "no",
-              "text": "No",
+              "text": "Hapana",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "no",
@@ -88,7 +88,7 @@
               }
             }
           ],
-          "required_status": "yes:Please select the answer",
+          "required_status": "yes:Tafadhali chagua jibu moja wapo",
           "dependent_calculations": [
             "client_followed_up_by_chw"
           ]
@@ -97,7 +97,7 @@
           "name": "has_the_client_agreed_to_be_tested",
           "type": "radio_group",
           "properties": {
-            "text": "Has the client agreed to be tested for HIV?"
+            "text": "Je, mteja huyu amekubali kupimwa VVU?"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -107,7 +107,7 @@
           "options": [
             {
               "name": "yes",
-              "text": "Yes",
+              "text": "Ndio",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "yes",
@@ -116,7 +116,7 @@
             },
             {
               "name": "no",
-              "text": "No",
+              "text": "Hapana",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "no",
@@ -124,14 +124,14 @@
               }
             }
           ],
-          "required_status": "yes:Please select whether the client has agreed to be tested for HIV",
+          "required_status": "yes:Tafadhali chagua jibu moja wapo",
           "subjects": "has_the_contact_client_been_found:map"
         },
         {
           "name": "place_where_test_will_be_conducted",
           "type": "radio_group",
           "properties": {
-            "text": "Where has the client agreed to have the test?"
+            "text": "Je, ni sehemu gani mteja huyu amekubali kwenda kupimwa VVU?"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -141,7 +141,7 @@
           "options": [
             {
               "name": "facility",
-              "text": "At the Health Facility",
+              "text": "Kwenye kituo cha kutolea huduma za afya",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "facility",
@@ -150,7 +150,7 @@
             },
             {
               "name": "community",
-              "text": "At the community",
+              "text": "Kwenye ngazi ya jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "community",
@@ -158,7 +158,7 @@
               }
             }
           ],
-          "required_status": "yes:Please select the answer",
+          "required_status": "yes:Tafadhali chagua jibu moja wapo",
           "subjects": "has_the_contact_client_been_found:map, has_the_client_agreed_to_be_tested:map"
         },
         {
@@ -167,8 +167,8 @@
           "properties": {
             "notification_type": "info",
             "dismissible": "no",
-            "title": "Client should be referred to Hospital",
-            "text": "The client should be referred to the Hospital for HIV testing.\nGive the client a referral",
+            "title": "Mteja anatakiwa apewe rufaa kwenda kituoni",
+            "text": "Mteja anatikwa apewe rufaa ya kwenda kituoni kwa ajili ya kupima VVU \nTafadhali mpe rufaa",
             "background_color": "#f50424",
             "text_color": "#FFFFFF"
           },
@@ -178,7 +178,7 @@
           "name": "chw_comment",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Remarks/Comments"
+            "hint": "Maoni"
           },
           "meta_data": {
             "openmrs_entity": "concept",

@@ -60,47 +60,29 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Tatizo / hali ya afya ya mteja."
+            "text": "Chagua tatizo au hali inayoendana na mteja"
           },
           "meta_data": {
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
-              "name": "frequent_fever",
-              "text": "Homa za mara kwa mara",
+              "name": "pain",
+              "text": "Maumivu",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "frequent_fever",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "pain",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "weight_loss",
-              "text": "Kupungua uzito",
+              "name": "coughing",
+              "text": "Kukohoa",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "weight_loss",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_with_a_spouse_with_hiv",
-              "text": "Anaishi na mwenza mwenye VVU",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_in_a_risky_area",
-              "text": "Eneo hatarishi",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_in_a_risky_area",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "coughing",
                 "openmrs_entity_parent": ""
               }
             },
@@ -114,7 +96,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja hali ya mteja / shida",
+          "required_status": "yes:Tafadhali bainisha tatizo la mteja",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -126,7 +108,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Dalili nyingine",
+            "hint": "Jaza dalili nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -134,21 +116,39 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Tafadhali jaza dalili nyingine",
+          "required_status": "true:Tafadhali bainisha dalili nyingine",
           "subjects": "problem:map"
         },
         {
           "name": "service_before_referral",
           "type": "multi_choice_checkbox",
-          "meta_data": {
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "service_before_referral",
-          "openmrs_entity_parent": ""
-        },
           "properties": {
-            "text": "Huduma aliyopewa kabla ya rufaa."
+            "text": "Matibabu yaliyotolewa kabla ya rufaa"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "service_before_referral",
+            "openmrs_entity_parent": ""
           },
           "options": [
+            {
+              "name": "cotrimoxazole",
+              "text": "Cotrimoxazole",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "cotrimoxazole",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "aspirin",
+              "text": "Aspirini",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "aspirin",
+                "openmrs_entity_parent": ""
+              }
+            },
             {
               "name": "Other_treatment",
               "text": "Matibabu mengine",
@@ -160,22 +160,22 @@
             },
             {
               "name": "none",
-              "text": "Hajapewa matibabu yoyote",
+              "text": "Hapana",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "none",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
+          "required_status": "yes:Tafadhali bainisha matibabu yaliyotolewa kabla ya rufaa"
         },
         {
           "name": "service_before_referral_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Matibabu mengine",
+            "hint": "Jaza matibabu mengine",
             "type": "name"
           },
           "meta_data": {
@@ -183,7 +183,7 @@
             "openmrs_entity_id": "service_before_referral_other",
             "openmrs_entity_parent": "service_before_referral"
           },
-          "required_status": "true:Tafadhali taja matibabu mengine",
+          "required_status": "true:Tafadhali bainisha matibabu mengine",
           "subjects": "service_before_referral:map"
         },
         {
@@ -195,17 +195,17 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Chagua Kituo cha Afya",
-            "searchable": "Chagua Kituo cha Afya"
+            "text": "Chagua kituo cha rufaa",
+            "searchable": "Chagua kituo cha rufaa"
           },
           "options": [],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali chagua kituo cha rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Tarehe ya kuhudhuria hospitali",
+            "hint": "Tafadhali chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -215,7 +215,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
         }
       ]
     }

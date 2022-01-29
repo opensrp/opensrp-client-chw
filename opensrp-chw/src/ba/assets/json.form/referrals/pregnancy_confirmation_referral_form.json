@@ -54,13 +54,13 @@
   },
   "steps": [
     {
-      "title": "Pregnancy Confirmation Referral",
+      "title": "Rufaa kwa ajili ya kuhakiki uja-uzito",
       "fields": [
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick condition/problem associated with the client."
+            "text": "Chagua tatizo/hali aliyonayo mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -70,7 +70,7 @@
           "options": [
             {
               "name": "loss_of_menstrual_period",
-              "text": "Loss of Menstrual Period",
+              "text": "Amepoteza siku zake za hedhi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "loss_of_menstrual_period",
@@ -79,7 +79,7 @@
             },
             {
               "name": "vomiting",
-              "text": "Vomiting",
+              "text": "Anatapika",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "vomiting",
@@ -88,7 +88,7 @@
             },
             {
               "name": "fever",
-              "text": "Fever",
+              "text": "Homa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "fever",
@@ -97,7 +97,7 @@
             },
             {
               "name": "severe_headache",
-              "text": "Severe Headache",
+              "text": "Maumivu makali ya kichwa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "severe_headache",
@@ -106,7 +106,7 @@
             },
             {
               "name": "nausea",
-              "text": "Nausea",
+              "text": "Kichefuchefu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "nausea",
@@ -115,7 +115,7 @@
             },
             {
               "name": "feeling_lightheaded_or_dizzy",
-              "text": "Feeling lightheaded or dizzy",
+              "text": "Kizunguzungu",
               "meta_data": {
                 "openmrs_entity": "conceptc",
                 "openmrs_entity_id": "feeling_lightheaded_or_dizzy",
@@ -124,7 +124,7 @@
             },
             {
               "name": "frequent_urination",
-              "text": "Frequent urination",
+              "text": "Kukojoa mara kwa mara",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "frequent_urination",
@@ -133,7 +133,7 @@
             },
             {
               "name": "painful_breasts",
-              "text": "Painful breasts",
+              "text": "Maumivu ya matiti",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "painful_breasts",
@@ -142,7 +142,7 @@
             },
             {
               "name": "other_symptoms",
-              "text": "Other symptoms",
+              "text": "Dalili nyingine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_symptoms",
@@ -151,7 +151,7 @@
             },
             {
               "name": "none",
-              "text": "None",
+              "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -160,7 +160,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify reason for Pregnancy Confirmation referral",
+          "required_status": "yes:Tafadhali bainisha sababu za rufaa ya kufanya uhakiki wa uja-uzito",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -178,10 +178,10 @@
             "openmrs_entity_parent": "problem"
           },
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Dalili nyingine",
             "type": "name"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Tafadhali bainisha dalili nyingine",
           "subjects": "problem:map"
         },
         {
@@ -193,17 +193,17 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility",
-            "searchable": "Choose referral facility"
+            "text": "Chagua kituo cha rufaa",
+            "searchable": "Chagua kituo cha rufaa"
           },
           "options": [],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali chagua kituo cha rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the appointment date",
+            "hint": "Chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -213,7 +213,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date"
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
         }
       ]
     }

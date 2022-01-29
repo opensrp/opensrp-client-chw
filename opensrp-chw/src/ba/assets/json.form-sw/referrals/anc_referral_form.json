@@ -54,13 +54,13 @@
   },
   "steps": [
     {
-      "title": "Rufaa ya mama mjamzito",
+      "title": "Fomu ya rufaa ya mama mjamzito",
       "fields": [
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Tatizo / hali ya afya ya mteja"
+            "text": "Chagua tatizo/hali aliyonayo mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -79,7 +79,7 @@
             },
             {
               "name": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
-              "text": "Kutoka uchafu / majimaji ukeni yenye harufu mbaya",
+              "text": "Kutokwa na majimaji ukeni yenye rangirangi na harufu mbaya",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
@@ -88,7 +88,7 @@
             },
             {
               "name": "High_blood_pressure",
-              "text": "Shinikizo la damue",
+              "text": "Shinikizo la damu",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "High_blood_pressure",
@@ -115,7 +115,7 @@
             },
             {
               "name": "Convulsions",
-              "text": "Degedege / Mtukutiko wa mwili",
+              "text": "Degedege",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Convulsions",
@@ -124,7 +124,7 @@
             },
             {
               "name": "No_movement_unusual_movement_for_a_child_in_the_womb",
-              "text": "Kutocheza / kucheza kusiko kwa kawaida kwa mtoto aliye tumboni",
+              "text": "Hakuna uchezaji / uchezaji usiyo wa kawaida kwa mtoto tumboni",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "No_movement_unusual_movement_for_a_child_in_the_womb",
@@ -151,7 +151,7 @@
             },
             {
               "name": "A_severe_headache_dizziness",
-              "text": "Maumivu makali ya kichwa / kizunguzungu",
+              "text": "Maumivu makali ya kichwa/kizunguzungu",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "A_severe_headache_dizziness",
@@ -160,7 +160,7 @@
             },
             {
               "name": "Swelling_of_the_face_andor_hands",
-              "text": "Kuvimba uso na / au mikono",
+              "text": "Kuvimba uso na/au mikono",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Swelling_of_the_face_andor_hands",
@@ -214,7 +214,7 @@
             },
             {
               "name": "HIV_care_and_support_services",
-              "text": "Huduma za wateja / wagonjwa wanaoishi na VVU",
+              "text": "Huduma za wateja/wagonjwa wanaoishi na VVU",
               "metadata": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "HIV_care_and_support_services",
@@ -285,15 +285,6 @@
               }
             },
             {
-              "name": "Pregnancy_confirmation",
-              "text": "Kuhakiki uja-uzito",
-              "metadata": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "Pregnancy_confirmation",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "Other_symptoms",
               "text": "Dalili nyingine",
               "metadata": {
@@ -303,7 +294,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja sababu ya rufaa ya mama mjamzito",
+          "required_status": "yes:Tafadhali bainishi sababu za rufaa kwenda kliniki ya mjamzito",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -322,7 +313,7 @@
           "properties": {
             "hint": "Dalili nyingine"
           },
-          "required_status": "true:Tafadhali taja dalili zingine",
+          "required_status": "true:Tafadhali bainisha dalili nyingine",
           "subjects": "problem:map"
         },
         {
@@ -334,7 +325,7 @@
           },
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma aliyopewa kabla ya rufaa."
+            "text": "Matibabu aliyopewa kabla ya rufaa"
           },
           "options": [
             {
@@ -375,7 +366,7 @@
               }
             }
           ],
-          "required_status": "True:Huduma aliyopewa kabla ya rufaa ni lazima"
+          "required_status": "True:Matibabu aliyopewa kabla ya rufaa ni lazima"
         },
         {
           "name": "service_before_referral_other",
@@ -388,7 +379,7 @@
           "properties": {
             "hint": "Matibabu mengine"
           },
-          "required_status": "true:Tafadhali taja matibabu mengine",
+          "required_status": "true:Tafadhali jaza matibabu mengine",
           "subjects": "service_before_referral:map"
         },
         {
@@ -400,22 +391,22 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Chagua Kituo cha Afya",
-            "searchable": "Chagua Kituo cha Afya"
+            "text": "Chagua Kituo cha rufaa",
+            "searchable": "Chagua Kituo cha rufaa"
           },
           "options": [
             {
               "name": "none",
-              "text": "Chagua Kituo cha Afya"
+              "text": "Chagua Kituo cha rufaa"
             }
           ],
-          "required_status": "yes:Tafadhali chagua kituo cha Afya cha kutuma rufaa"
+          "required_status": "yes:Tafadhali chagua kituo cha rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Tarehe ya kuhudhuria hospitali",
+            "hint": "Chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -425,7 +416,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
         }
       ]
     }
