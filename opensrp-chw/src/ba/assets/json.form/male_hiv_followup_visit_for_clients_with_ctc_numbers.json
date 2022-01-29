@@ -626,7 +626,7 @@
           "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "HIV services provided by CHW at the community"
+            "text": "CBHS services provided by CHW at the community"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -698,11 +698,11 @@
               }
             },
             {
-              "name": "other_referrals",
-              "text": "Other Referrals",
+              "name": "other_hiv_services",
+              "text": "Other CBHS services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "other_referrals",
+                "openmrs_entity_id": "other_hiv_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -724,7 +724,7 @@
           "name": "hiv_services_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other HIV Services Provided",
+            "hint": "Other CBHS Services Provided",
             "type": "name"
           },
           "meta_data": {
@@ -810,7 +810,7 @@
           "name": "referrals_issued_to_other_services_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other HIV Services Provided",
+            "hint": "Other Referral Services Provided",
             "type": "name"
           },
           "meta_data": {

@@ -143,7 +143,7 @@
             },
             {
               "name": "completed_and_qualified_from_the_services ",
-              "text": "Amefuzu huduma",
+              "text": "Amemaliza huduma",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "completed_and_qualified_from_the_services",
@@ -439,7 +439,7 @@
             },
             {
               "name": "truck_drivers ",
-              "text": "Madreva wa masafa marefu",
+              "text": "Madereva wa masafa marefu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "truck_drivers",
@@ -454,7 +454,7 @@
           "name": "supplies_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Vifaa vilizotolewa"
+            "text": "Vifaa vilivyotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -482,7 +482,7 @@
             },
             {
               "name": "mosquito_nets",
-              "text": "chandarua",
+              "text": "Chandarua",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mosquito_nets",
@@ -509,7 +509,7 @@
             },
             {
               "name": "other_supplies",
-              "text": "Other supplies",
+              "text": "Vifaa vingine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_supplies",
@@ -518,7 +518,7 @@
             },
             {
               "name": "none",
-              "text": "None",
+              "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -549,7 +549,7 @@
           "name": "medicine_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Medicines provided"
+            "text": "Dawa zilizotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -568,7 +568,7 @@
             },
             {
               "name": "aspirin",
-              "text": "Aspirin",
+              "text": "Aspirini",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "aspirin",
@@ -586,7 +586,7 @@
             },
             {
               "name": "none",
-              "text": "None",
+              "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
@@ -602,7 +602,7 @@
           "name": "medicine_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other Medicine",
+            "hint": "Dawa nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -617,7 +617,7 @@
           "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma zilizotolewa (Huduma za UKIMWI katika jamii ikiwemo ACUK) "
+            "text": "Huduma za UKIMWI zilizotolewa na Mtoa huduma wa afya ngazi ya jamii"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -627,7 +627,7 @@
           "options": [
             {
               "name": "nutrition_counselling",
-              "text": "ushauri wa lishe",
+              "text": "Ushauri wa lishe",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "nutrition_counselling",
@@ -636,7 +636,7 @@
             },
             {
               "name": "hiv_infection_education",
-              "text": "Elimu kuhusu maambukizi",
+              "text": "Elimu kuhusu maambukizi ya VVU",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "hiv_infection_education",
@@ -725,6 +725,178 @@
           },
           "required_status": "true:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii zilizotolewa",
           "subjects": "hiv_services_provided:map"
+        },
+        {
+          "name": "referrals_issued_to_other_services",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Chagua rufaa aliyopewa mteja kwa huduma nyingine"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_issued_to_other_services"
+          },
+          "options": [
+            {
+              "name": "legal_services",
+              "text": "Huduma ya kisheria",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "legal_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "support_groups",
+              "text": "Msaada wa kisaikolojia kutoka kwenye makundi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "support_groups",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ovc_services",
+              "text": "Huduma za watoto yatima na wanaoishi kwenye mazingira magumu",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "ovc_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "elderly_centers",
+              "text": "Vituo vya wazee",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "elderly_centers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_referrals",
+              "text": "Rufaa nyingine",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "other_referrals",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "none",
+              "text": "Hakuna",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify the referrals issued",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "referrals_issued_to_other_services_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Rufaa nyingine zilizotolewa",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_issued_to_other_services_other",
+            "openmrs_entity_parent": "referrals_issued_to_other_services"
+          },
+          "required_status": "true:Please specify other Referrals Issued",
+          "subjects": "referrals_issued_to_other_services:map"
+        },
+        {
+          "name": "referrals_to_other_services_completed",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Chagua rufaa kwa huduma nyingine iliyokamilishwa na mteja"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_to_other_services_completed"
+          },
+          "options": [
+            {
+              "name": "legal_services",
+              "text": "Huduma ya kisheria",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "legal_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "support_groups",
+              "text": "Msaada wa kisaikolojia kutoka kwenye makundi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "support_groups",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "ovc_services",
+              "text": "Huduma za watoto yatima na wanaoishi kwenye mazingira magumu",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "ovc_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "elderly_centers",
+              "text": "Vituo vya wazee",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "elderly_centers",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_referrals",
+              "text": "Rufaa nyingine",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "other_referrals",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "none",
+              "text": "Hakuna",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify the referrals completed",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "referrals_to_other_services_completed_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Rufaa nyingine zilizokamilishwa na mteja",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referrals_to_other_services_completed_other",
+            "openmrs_entity_parent": "referrals_to_other_services_completed"
+          },
+          "required_status": "true:Please specify other Referrals Completed",
+          "subjects": "referrals_to_other_services_completed:map"
         },
         {
           "name": "state_of_therapy",
