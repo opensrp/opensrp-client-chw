@@ -404,8 +404,8 @@
         "type": "spinner",
         "hint": "Hali ya ndoa ya mteja",
         "values": [
-          "Hajaolewa",
-          "Ameolewa",
+          "Hajaoa/Hajaolewa",
+          "Ameoa/Ameolewa",
           "Ameachwa",
           "Ndoa ya mke/mume moja",
           "Mitala",
@@ -494,14 +494,14 @@
           },
           {
             "key": "chk_passport",
-            "text": "Pasipoti",
+            "text": "Hati ya kusafiria",
             "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_passport"
           },
           {
             "key": "chk_none",
-            "text": "Nakuna",
+            "text": "Hakuna",
             "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
@@ -1287,7 +1287,7 @@
           },
           {
             "key": "tuberculosis",
-            "text": "Kifuwa Kikuu",
+            "text": "Kifua Kikuu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
@@ -1380,7 +1380,7 @@
           },
           {
             "key": "tuberculosis",
-            "text": "Kifuwakikuu",
+            "text": "Kifua kikuu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
@@ -1487,7 +1487,7 @@
           },
           {
             "key": "tuberculosis",
-            "text": "Kifuwa kikuu",
+            "text": "Kifua kikuu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
