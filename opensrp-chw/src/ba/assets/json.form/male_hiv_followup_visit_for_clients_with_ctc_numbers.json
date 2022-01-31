@@ -243,8 +243,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -320,8 +320,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -360,8 +360,8 @@
               "name": "na",
               "text": "Not Applicable",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
                 "openmrs_entity_parent": ""
               }
             },
@@ -530,8 +530,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -598,8 +598,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -711,8 +711,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -797,8 +797,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -883,8 +883,8 @@
               "text": "None",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }

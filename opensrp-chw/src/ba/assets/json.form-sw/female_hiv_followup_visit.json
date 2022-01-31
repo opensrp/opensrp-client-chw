@@ -243,8 +243,8 @@
               "text": "hana tatizo",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -320,8 +320,8 @@
               "text": "hana tatizo",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -360,8 +360,8 @@
               "name": "none",
               "text": "Haihusiki",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             },
@@ -521,8 +521,8 @@
               "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -589,8 +589,8 @@
               "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -702,8 +702,8 @@
               "text": "Hamna huduma iliyotolewa",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -788,8 +788,8 @@
               "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -874,8 +874,8 @@
               "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
@@ -941,8 +941,8 @@
               "name": "none",
               "text": "Haihusiki",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }
