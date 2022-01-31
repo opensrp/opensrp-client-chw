@@ -85,7 +85,7 @@
           },
           {
             "key": "chk_blurred_vision",
-            "text": "Uoni hafifu",
+            "text": "Kutoona vizuri",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_blurred_vision"

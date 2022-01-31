@@ -56,7 +56,7 @@
         "openmrs_entity_id": "fam_llin",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mwanamke ana chandarua chenye dawa ya muda mrefu (LLIN)?",
+        "hint": "Je, Mwanamke ana chandarua chenye dawa ya muda mrefu (LLIN)?",
         "values": [
           "Ndiyo ",
           "Hapana"
@@ -71,7 +71,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali chagua moja"
         }
       },
       {
@@ -96,7 +96,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "step1:fam_llin": {
@@ -143,7 +143,7 @@
         "openmrs_entity_id": "malaria_sp",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mteja ametumia dawa ya kuzuia malaria (SP)?",
+        "hint": "Je, mteja ametumia dawa ya kuzuia Malaria (SP)?",
         "values": [
           "Ndiyo ",
           "Hapana"

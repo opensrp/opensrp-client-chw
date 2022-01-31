@@ -99,14 +99,14 @@
           },
           {
             "key": "chk_pmtct_for_mother",
-            "text": "6. PMTCT kwa ajili ya mama",
+            "text": "6. PMTCT kwa ajili ya Mama",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pmtct_for_mother"
           },
           {
             "key": "chk_preventing_malaria",
-            "text": "7. Kuzuia malaria kwa ajili ya wamama wajawazito",
+            "text": "7. Kuzuia Malaria kwa ajili ya wamama wajawazito",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_preventing_malaria"
