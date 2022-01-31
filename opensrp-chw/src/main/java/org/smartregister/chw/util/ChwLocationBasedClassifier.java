@@ -62,7 +62,7 @@ public class ChwLocationBasedClassifier implements P2PClassifier<JSONObject> {
     private boolean isChildLocation(String locationID) {
         if (locationId == null) {
             AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
-            locationId = allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM());
+            locationId = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
         }
         return isLocationEncompassing(locationId, locationID);
     }
