@@ -29,17 +29,18 @@ public class DangerSignsAction extends HomeVisitActionHelper {
 
     @Override
     public String evaluateSubTitle() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), signs_present));
-        stringBuilder.append("\n");
-        stringBuilder.append(MessageFormat.format("{0} {1}",
-                context.getString(R.string.danger_signs_counselling),
-                (counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
-        ));
+        if (signs_present != null && counseling != null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.anc_home_visit_danger_signs), signs_present));
+            stringBuilder.append("\n");
+            stringBuilder.append(MessageFormat.format("{0} {1}",
+                    context.getString(R.string.danger_signs_counselling),
+                    (counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
+            ));
 
-        if (counseling.equalsIgnoreCase("Yes") || counseling.equalsIgnoreCase("No"))
-            return stringBuilder.toString();
-
+            if (counseling.equalsIgnoreCase("Yes") || counseling.equalsIgnoreCase("No"))
+                return stringBuilder.toString();
+        }
         return null;
     }
 

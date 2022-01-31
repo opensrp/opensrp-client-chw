@@ -96,6 +96,9 @@ public class ObservationAction implements BaseAncHomeVisitAction.AncHomeVisitAct
 
     @Override
     public String evaluateSubTitle() {
+        if (action_taken == null && illnessDate == null) {
+            return null;
+        }
 
         String translated_action_taken = "";
         if ("Managed".equalsIgnoreCase(action_taken)) {
