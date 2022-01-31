@@ -672,7 +672,7 @@
           "Mfuko wa Taifa wa Bima ya Afya",
           "Tiba Kwa Kadi (TIKA)",
           "Huduma ya Afya ya AAR",
-          "Mikakati ya Bima",
+          "Bima ya afya ya Strategies",
           "Milvik Tanzania Ltd (BIMA Mkononi)",
           "Bima ya afya ya Britam",
           "Bima ya afya ya Jubilee",
@@ -1032,7 +1032,7 @@
           },
           {
             "key": "chk_chw",
-            "text": "Muhudumu wa afya ngazi ya jamii(WAJA)",
+            "text": "Muhudumu wa afya ngazi ya jamii (WAJA)",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_chw"
@@ -1241,7 +1241,7 @@
         "options": [
           {
             "key": "hiv_aids_transmission",
-            "text": "maambukizi ya VVU/UKIMWI",
+            "text": "Maambukizi ya VVU/UKIMWI",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
