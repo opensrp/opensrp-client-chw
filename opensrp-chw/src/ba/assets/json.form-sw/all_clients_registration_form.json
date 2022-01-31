@@ -382,10 +382,10 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "Jinsia",
+        "hint": "Jinsi",
         "values": [
-          "kiume",
-          "kike"
+          "Me",
+          "Ke"
         ],
         "keys": [
           "Male",
@@ -393,7 +393,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua jinsia"
+          "err": "Tafadhali chagua jinsi"
         }
       },
       {
@@ -410,7 +410,7 @@
           "Ndoa ya mke/mume moja",
           "Mitala",
           "Mjane",
-          "Kuishi pamoja"
+          "Kuishi pamoja bila ndoa"
         ],
         "keys": [
           "Single",
@@ -560,11 +560,11 @@
         "mask": "T-####-####-###-#",
         "mask_hint": "123456789123",
         "allowed_chars": "0123456789",
-        "hint": "Nambari ya usajili ya mpiga kura k.m T-1234-5678-912-3",
+        "hint": "Nambari ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
         "edit_type": "number",
         "v_regex": {
           "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
-          "err": "Nambari ya usajili wa mpiga kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
+          "err": "Nambari ya kitambulisho cha mpiga kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
         },
         "v_max_length": {
           "value": "17",
@@ -674,10 +674,10 @@
           "Huduma ya Afya ya AAR",
           "Mikakati ya Bima",
           "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
+          "Bima ya afya ya Britam",
+          "Bima ya afya ya Jubilee",
+          "Bima ya afya ya Resolutions",
+          "Bima ya afya ya Reliance",
           "Nyingine",
           "Hakuna"
         ],
@@ -974,10 +974,6 @@
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali wasiliana na mlezi."
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -1015,7 +1011,7 @@
           },
           {
             "key": "chk_nurse",
-            "text": "Muguzi",
+            "text": "Muuguzi",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_nurse"
@@ -1064,7 +1060,7 @@
           },
           {
             "key": "chk_hbc",
-            "text": "Watoa huduma kwa wagonj majumbaniwa",
+            "text": "Watoa huduma kwa wagonjwa majumbani",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hbc"
@@ -1373,7 +1369,7 @@
           },
           {
             "key": "cancer",
-            "text": "saratani",
+            "text": "Saratani",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
