@@ -2492,7 +2492,7 @@
           "column_name": "rch_number",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "rch_number"
           }
         },
@@ -2593,7 +2593,7 @@
           "column_name": "rch_number",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "rch_number"
           }
         },
