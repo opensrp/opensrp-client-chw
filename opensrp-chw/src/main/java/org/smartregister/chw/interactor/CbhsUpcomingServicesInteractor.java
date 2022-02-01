@@ -14,7 +14,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.HomeVisitUtil;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.domain.HivAlertObject;
-import org.smartregister.chw.tb.util.Constants;
+import org.smartregister.chw.hiv.util.Constants;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

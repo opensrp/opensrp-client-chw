@@ -468,7 +468,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
 
-        flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+     //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }
 
@@ -542,7 +542,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     public interface Flavor {
-        void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+       // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 }
 
