@@ -157,6 +157,83 @@
           ]
         },
         {
+          "name": "client_hiv_status_after_testing",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_hiv_status_after_testing",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Client's HIV status after testing",
+            "text": "Hali ya maambukizi ya VVU baada ya kipimo"
+          },
+          "options": [
+            {
+              "name": "na",
+              "text": "Haitambuliki",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "unknown",
+              "text": "Haijulikani",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "unknown",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "positive",
+              "text": "Chanya",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "positive",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "negative",
+              "text": "Hasi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "negative",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali chagua moja",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "ctc_number",
+          "type": "masked_edit_text",
+          "properties": {
+            "hint": "Namba ya CTC mfano: 12-34-5678-912345",
+            "type": "Namba ya CTC mfano: 12-34-5678-912345",
+            "mask": "##-##-####-######",
+            "mask_hint": "12345678912345",
+            "allowed_chars": "0123456789"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX-XX-XX-XXX)."
+            }
+          ],
+          "required_status": "yes:Tafadhali jaza namba ya CTC",
+          "subjects": "client_hiv_status_after_testing:text"
+        },
+        {
           "name": "client_condition",
           "type": "spinner",
           "meta_data": {

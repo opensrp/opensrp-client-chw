@@ -210,10 +210,13 @@
         },
         {
           "name": "ctc_number",
-          "type": "text_input_edit_text",
+          "type": "masked_edit_text",
           "properties": {
             "hint": "CTC Number",
-            "type": "Clinic of Treatment and Care registration number (CTC Number)"
+            "type": "Clinic of Treatment and Care registration number (CTC Number)",
+            "mask": "##-##-####-######",
+            "mask_hint": "12345678912345",
+            "allowed_chars": "0123456789"
           },
           "meta_data": {
             "openmrs_entity": "concept",
