@@ -451,6 +451,13 @@
             "creates_case": [
               "ec_hiv_index_contact_community_followup"
             ]
+          },
+          {
+            "field":"eventType",
+            "field_value": "Pregnancy Unconfirmed",
+            "closes_case": [
+              "ec_anc_register"
+            ]
           }
         ]
       }
