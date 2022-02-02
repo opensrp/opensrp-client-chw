@@ -217,6 +217,21 @@
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
         }
+      },
+      {
+        "key": "prompt_for_danger_signs",
+        "type": "toaster_notes",
+        "text": "Tafadhali mpatie mteja ushauri juu ya dalili za hatari za kipindi cha ujauzito",
+        "openmrs_entity_id": "prompt_for_danger_signs",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:danger_signs_counseling": {
+            "type": "String",
+            "ex": "equalTo(.,\"No\")"
+          }
+        }
       }
     ]
   }

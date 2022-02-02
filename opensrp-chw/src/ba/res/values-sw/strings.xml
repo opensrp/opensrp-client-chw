@@ -7,10 +7,10 @@
     <string name="hiv_referral">Kliniki ya Tiba na matunzo (CTC)</string>
     <string name="hts_referral">Ushauri nasaha na kupima</string>
     <string name="tb_referral">Kliniki ya TB</string>
-    <string name="gbv_referral">Huduma ya kuzui ukatili wa kijinsia (dawati la jinsia)</string>
-    <string name="child_gbv_referral">Huduma ya kuzui ukatili wa kijinsia (dawati la jinsia)</string>
+    <string name="gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
+    <string name="child_gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
     <string name="created">Imeumbwa: %s</string>
-    <string name="menu_hiv">UWANYU</string>
+    <string name="menu_hiv">UWANYU (CBHS)</string>
     <string name="hiv_return_to_previous_page">Rudi kwenye wateja wa UWANYU</string>
     <string name="hiv_clients">Wateja wa UWANYU</string>
     <string name="any_changes_you_make">Mabadiliko uliyoyafanya yatafutika</string>
