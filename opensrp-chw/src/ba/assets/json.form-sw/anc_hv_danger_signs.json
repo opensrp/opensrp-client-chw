@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "danger_signs_present",
         "type": "check_box",
-        "label": "Je, mama ana dalili zozote za hatari?",
+        "label": "Je, Mama ana dalili zozote za hatari?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

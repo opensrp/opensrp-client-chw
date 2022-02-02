@@ -56,7 +56,7 @@
         "openmrs_entity_id": "nutrition_status",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, hali ya lishe ya mama ikoje?",
+        "hint": "Je, hali ya lishe ya Mama ikoje?",
         "values": [
           "Kawaida/Kijani",
           "Wastani/Njano",

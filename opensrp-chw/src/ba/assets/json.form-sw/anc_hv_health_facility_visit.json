@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Ziara ya {0} kituoni",
+    "title": "Hudhurio la {0} Kituo cha Afya",
     "fields": [
       {
         "key": "anc_hf_visit",
@@ -73,7 +73,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali chagua jibu moja"
         }
       },
       {
@@ -84,7 +84,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "ANC visit date",
-        "hint": "Tarehe ya ziara ya ANC",
+        "hint": "Tarehe ya hudhurio ya ANC",
         "expanded": false,
         "min_date": "today-10y",
         "max_date": "today",

@@ -62,7 +62,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "last_menstrual_period",
         "type": "date_picker",
-        "hint": "Kipindi cha Mwisho cha Hedhi iliyo ya Kawaida (LNMP)",
+        "hint": "Kipindi cha mwisho cha kuona alichoona hedhi yake (LNMP)",
         "label_info_title": "LNMP",
         "label_info_text": "LNMP = siku ya kwanza ya Kipindi cha Mwisho cha Kawaida cha Hedhi. Ikiwa tarehe kamili haijulikani, lakini kipindi cha mwezi kinajulikana, tumia siku ya 5 kuainisha mwanzo wa mwezi, siku ya 15 kuainisha katikati ya mwezi, na siku ya 25 kuainisha mwisho wa mwezi.",
         "expanded": false,
@@ -97,7 +97,7 @@
         "options": [
           {
             "key": "lmp_unknown",
-            "text": "Kipindi cha Mwisho cha Hedhi ya Kawadia isiyojulikana",
+            "text": "Kipindi cha mwisho cha hedhi hakijulikani",
             "text_size": "18px",
             "value": "false"
           }
@@ -218,7 +218,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "delivery_method",
         "type": "check_box",
-        "label": "Je, umejifungua mtoto/watoto wako kwa njia ya kawaida (kupitia uke) au kwa njia ya upasuaji?",
+        "label": "Je, umejifungua mtoto/watoto wako kwa njia ya kawaida au kwa njia ya upasuaji?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "relevance": {
@@ -231,7 +231,7 @@
         "options": [
           {
             "key": "chk_vaginally",
-            "text": "Njia ya kawaida (kupiitia uke)",
+            "text": "Njia ya kawaida",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_vaginally"
@@ -262,7 +262,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "delivery_method_one",
         "type": "native_radio",
-        "label": "Je, umejifungua mtoto/watoto wako kwa njia ya kawaida (kupitia uke) au kwa njia ya upasuaji?",
+        "label": "Je, umejifungua mtoto/watoto wako kwa njia ya kawaida au kwa njia ya upasuaji?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "relevance": {
@@ -275,7 +275,7 @@
         "options": [
           {
             "key": "chk_vaginally",
-            "text": "Njia ya kawaida (kupiitia uke)",
+            "text": "Njia ya kawaida",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_vaginally"
@@ -355,7 +355,7 @@
         "openmrs_entity_id": "person_assist",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mama ana mtu yeyote, mwenye umri wa miaka 18 au zaidi, ambaye angeweza kumsaidia wakati wa ujauzito wake?",
+        "hint": "Je, Mama ana mtu wa kumsaidia wakati wa ujauzito?",
         "v_required": {
           "value": "true",
           "err": "Tadhali chagua chaguo moja"
@@ -379,7 +379,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "name_person_assist",
         "type": "edit_text",
-        "hint": "Jina la mtu wa karibu/jamaa anayeishi naye na ana umri wa miaka 18 au zaidi",
+        "hint": "Jina la msaidizi wa mjamzito",
         "edit_type": "name",
         "relevance": {
           "rules-engine": {

@@ -17,5 +17,6 @@
     <string name="record_hiv_followup">Rekodi ziara ya ufuatiliaji wa UWANYU</string>
     <string name="action_received_hiv_followup_referrals">Ufuatiliaji</string>
     <string name="fill_followup_form">Jaza fomu ya ufuatiliaji</string>
+    <string name="location_info">Taarifa za Kimaeneo</string>
 
 </resources>

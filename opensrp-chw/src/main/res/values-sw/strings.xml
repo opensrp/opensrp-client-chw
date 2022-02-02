@@ -179,11 +179,11 @@
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>
-    <string name="anc_home_visit_facility_visit">Hudhurio la kliniki ya wajawazito {0}  katika kituo cha kutolea huduma za afya</string>
+    <string name="anc_home_visit_facility_visit">Hudhurio la {0} la kliniki ya wajawazito katika kituo cha kutolea huduma za afya</string>
     <string name="anc_home_visit_family_planning">Uzazi wa Mpango</string>
     <string name="anc_home_visit_nutrition_status">Hali ya lishe</string>
     <string name="anc_home_visit_counselling_task">Ushauri</string>
-    <string name="anc_home_visit_malaria_prevention">Kinga dhidi ya malaria</string>
+    <string name="anc_home_visit_malaria_prevention">Kinga dhidi ya Malaria</string>
     <string name="anc_home_visit_observations_n_illnes">Uchunguzi na ugonjwa</string>
     <string name="anc_home_visit_remarks_and_comments">Maoni</string>
 
@@ -397,7 +397,7 @@
     <string name="tb_referral">Kliniki ya Tiba ya Kifua kikuu</string>
     <string name="gbv_referral">Rufaa ya ukatili wa kijinsia</string>
     <string name="child_gbv_referral">Rufaa ya ukatili wa kijinsia kwa mtoto</string>
-    <string name="client_registration" >Usajili wa mteja</string>
+    <string name="client_registration" >Usajili wa Mteja</string>
     <string name="error_opening_profile">Kosa wakati wa kufungua profile</string>
     <string name="location_details">Taarifa za Mahali</string>
     <string name="update_client_registration" >Hariri taarifa za mteja</string>

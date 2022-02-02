@@ -301,7 +301,7 @@
         },
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
+          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         }
       },
       {
@@ -406,11 +406,11 @@
         "mask": "T-####-####-###-#",
         "mask_hint": "123456789123",
         "allowed_chars": "0123456789",
-        "hint": "Nambari ya kitambulisho cha mpiga kura",
+        "hint": "Namba ya kitambulisho cha mpiga kura",
         "edit_type": "number",
         "v_regex": {
           "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
-          "err": "Nambari ya kitambulisho cha kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
+          "err": "Namba ya kitambulisho cha kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
         },
         "v_max_length": {
           "value": "17",
@@ -818,7 +818,7 @@
         },
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
+          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         },
         "relevance": {
           "rules-engine": {

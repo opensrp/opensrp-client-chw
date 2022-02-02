@@ -105,7 +105,7 @@
           },
           {
             "key": "chk_paracetamol",
-            "text": "Panadol",
+            "text": "Panado",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_paracetamol"

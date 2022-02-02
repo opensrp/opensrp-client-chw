@@ -56,7 +56,7 @@
         "openmrs_entity_id": "fam_planning",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mama alishauriwa kuhusu mpango wa uzazi alipohudhuria kliniki?",
+        "hint": "Je, Mama alishauriwa kuhusu Uzazi wa Mpango alipohudhuria kliniki?",
         "values": [
           "Ndiyo",
           "Hapana"
