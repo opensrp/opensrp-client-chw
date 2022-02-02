@@ -346,7 +346,7 @@
     <string name="storage_permissions_message">App inahitaji ruhusa hiyo kuorodhesha video za mwongozo. \ n Bila ruhusa hiyo huwezi kutazama video zozote za mwongozo</string>
 
     <!--Referral -->
-    <string name="referral_reason">Sababu ya rufaa</string>
+    <string name="referral_reason">Sababu za Rufaa</string>
     <string name="open_referral_form">Fungua rufaa ya %s</string>
     <string name="sick_child">Mtoto mgonjwa</string>
     <string name="family_planning_referral">Uzazi wa mpango</string>
@@ -359,7 +359,7 @@
     <string name="jobs_aid_failed_download">Video ya vitendea kazi \"%s\" imefeli kupakua</string>
 
     <!--ANC Family Planning Ba-->
-    <string name="family_planning_done">\"Ushauri juu ya uzazi wa mpango kituoni umefanyika</string>
+    <string name="family_planning_done">Ushauri juu ya uzazi wa mpango kituoni umefanyika</string>
     <string name="family_planning_not_done">Ushauri juu ya uzazi wa mpango kituoni haujafanyika</string>
 
     <!-- Medical history -->
@@ -410,4 +410,13 @@
     <string name="select_communities">Chagua jamii</string>
 
     <string name="created">Imeumbwa: %s</string>
+    <string name="anc_health_facility_counselling_subtitle">Ushauri katika Kituo cha Afya</string>
+    <string name="anc_nutrition_status_normal">Kawaida/Kijani</string>
+    <string name="anc_nutrition_status_moderate">Wastani/Njano</string>
+    <string name="anc_nutrition_status_severe">Mbaya/Nyekundu</string>
+    <string name="pregnancy_confirmation_referral">Rufaa Kwa Ajili ya Kuhakiki Ujauzito</string>
+    <string name="anc_malaria_field_yes">Ndio</string>
+    <string name="anc_malaria_field_no">Hapana</string>
+    <string name="anc_malaria_net_condition_good">Nzuri</string>
+    <string name="anc_malaria_net_condition_bad">Mbaya</string>
 </resources>

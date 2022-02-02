@@ -227,9 +227,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            return MessageFormat.format("Danger signs: {0}", danger_signs_present) +
+            return MessageFormat.format(context.getString(R.string.anc_home_visit_danger_signs) + ": " + "{0}", danger_signs_present) +
                     "\n" +
-                    MessageFormat.format("Health facility counselling {0}",
+                    MessageFormat.format( context.getString(R.string.anc_health_facility_counselling_subtitle) + " " + "{0}",
                             (danger_signs_counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
                     );
         }
@@ -404,7 +404,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                nutrition_status = JsonFormUtils.getValue(jsonObject, "nutrition_status").toLowerCase();
+                nutrition_status = JsonFormUtils.getValue(jsonObject, "nutrition_status");
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -427,7 +427,12 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            return MessageFormat.format("{0}: {1}", context.getString(R.string.nutrition_status), StringUtils.capitalize(nutrition_status));
+            if (nutrition_status.equalsIgnoreCase("Normal"))
+                return MessageFormat.format(context.getString(R.string.nutrition_status) + ": " + "{0}", context.getString(R.string.anc_nutrition_status_normal));
+            else if (nutrition_status.equalsIgnoreCase("Moderate"))
+                return MessageFormat.format(context.getString(R.string.nutrition_status) + ": " + "{0}", context.getString(R.string.anc_nutrition_status_normal));
+            else
+                return MessageFormat.format(context.getString(R.string.nutrition_status) + ": " + "{0}", context.getString(R.string.anc_nutrition_status_severe));
         }
 
         @Override
@@ -549,17 +554,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            StringBuilder stringBuilder = new StringBuilder();
-            if (fam_llin.equalsIgnoreCase("No")) {
-                stringBuilder.append(MessageFormat.format("{0}: {1}\n", context.getString(R.string.uses_net), StringUtils.capitalize(fam_llin.trim().toLowerCase())));
-            } else {
-
-                stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.uses_net), StringUtils.capitalize(fam_llin.trim().toLowerCase())));
-                stringBuilder.append(MessageFormat.format("{0}: {1} · ", context.getString(R.string.slept_under_net), StringUtils.capitalize(llin_2days.trim().toLowerCase())));
-                stringBuilder.append(MessageFormat.format("{0}: {1}", context.getString(R.string.net_condition), StringUtils.capitalize(llin_condition.trim().toLowerCase())));
-            }
-
-            return stringBuilder.toString();
+            if (fam_llin.equalsIgnoreCase("No"))
+                return MessageFormat.format(context.getString(R.string.uses_net) + ": " + "{0}", context.getString(R.string.anc_malaria_field_no));
+            else
+                return MessageFormat.format(context.getString(R.string.uses_net) + ": " + "{0}",
+            (fam_llin.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no)) 
+                    + "\n" +  MessageFormat.format(context.getString(R.string.slept_under_net) + ": " + "{0}",
+                (llin_2days.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no))
+                            + "\n" +  MessageFormat.format(context.getString(R.string.net_condition) + ": " + "{0}",
+                                            (llin_condition.equalsIgnoreCase("Good") ? context.getString(R.string.anc_malaria_net_condition_good) : context.getString(R.string.anc_malaria_net_condition_bad)))));
         }
 
         @Override
