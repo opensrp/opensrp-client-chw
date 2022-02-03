@@ -514,31 +514,10 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
+        "label": "{{family_register.step2.nationality.label}}",
         "hint": "{{family_register.step2.nationality.hint}}",
-        "values": [
-          "{{family_register.step2.nationality.values[0]}}",
-          "{{family_register.step2.nationality.values[1]}}",
-          "{{family_register.step2.nationality.values[2]}}",
-          "{{family_register.step2.nationality.values[3]}}",
-          "{{family_register.step2.nationality.values[4]}}"
-        ],
-        "keys": [
-          "Togo",
-          "RDC",
-          "Guinée",
-          "Libéria",
-          "Autre"
-        ],
-        "openmrs_choice_ids": {
-          "Togo": "togo_id_openmrs",
-          "DRC": "drc_id_openmrs",
-          "Guinea": "guinea_id_openmrs",
-          "Liberia": "liberia_id_openmrs",
-          "Other": "other_id_openmrs"
-        }
-      }
+        "type": "edit_text"
+      },
     ]
   },
   "properties_file_name": "family_register"

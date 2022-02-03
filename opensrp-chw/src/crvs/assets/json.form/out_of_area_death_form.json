@@ -314,34 +314,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "nationality",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
+        "label": "{{out_of_area_death_form.step1.nationality.label}}",
         "hint": "{{out_of_area_death_form.step1.nationality.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{out_of_area_death_form.step1.nationality.v_required.err}}"
-        },
-        "values": [
-          "{{out_of_area_death_form.step1.nationality.values[0]}}",
-          "{{out_of_area_death_form.step1.nationality.values[1]}}",
-          "{{out_of_area_death_form.step1.nationality.values[2]}}",
-          "{{out_of_area_death_form.step1.nationality.values[3]}}",
-          "{{out_of_area_death_form.step1.nationality.values[4]}}"
-        ],
-        "keys": [
-          "Togo",
-          "DRC",
-          "Guinea",
-          "Liberia",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Togo": "togo_id_openmrs",
-          "DRC": "drc_id_openmrs",
-          "Guinea": "guinea_id_openmrs",
-          "Liberia": "liberia_id_openmrs",
-          "Other": "other_id_openmrs"
-        }
+        "type": "edit_text"
       },
       {
         "key": "marital_status",
