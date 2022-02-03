@@ -21,9 +21,6 @@ public class FamilyTableDatabaseMigrationUtils extends AbstractDao {
             db.rawExecSQL(buildUpdateQueryForFamilyTableWithBaseEntityIds(jsonLists));
     }
 
-    private static String getDemo() {
-        return "UPDATE ec_family SET provider_id = (case when base_entity_id = '047e55ec-3710-49bf-8fbd-aa620c687dd8' then 'demo' when base_entity_id = 'fc0d4818-5040-47d4-8077-d7f4c3e021b8' then 'demo1' end)";
-    }
 
     public static String buildUpdateQueryForFamilyTableWithBaseEntityIds(ArrayList<String> jsonLists) {
         StringBuilder queryBuilder = new StringBuilder();

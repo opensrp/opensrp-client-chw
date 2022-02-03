@@ -434,7 +434,7 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_family ADD COLUMN provider_id VARCHAR;");
             FamilyTableDatabaseMigrationUtils.fillFamilyTableWithProviderIds(db);
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion6");
+            Timber.e(e, "upgradeToVersion22");
         }
     }
 }
