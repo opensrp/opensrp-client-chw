@@ -393,15 +393,6 @@
               }
             },
             {
-              "name": "fisherman",
-              "text": "Wavuvi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "people_who_inject_drugs",
               "text": "Wajidunga",
               "meta_data": {
@@ -416,15 +407,6 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "sex_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "wood_workers",
-              "text": "Wapasua mbao",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "wood_workers",
                 "openmrs_entity_parent": ""
               }
             },

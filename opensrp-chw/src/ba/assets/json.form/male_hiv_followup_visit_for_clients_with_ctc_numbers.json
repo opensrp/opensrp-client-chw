@@ -411,15 +411,6 @@
               }
             },
             {
-              "name": "sex_workers",
-              "text": "Sex workers",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sex_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "wood_workers",
               "text": "Lumberman",
               "meta_data": {

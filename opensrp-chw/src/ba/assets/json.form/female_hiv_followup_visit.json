@@ -469,15 +469,6 @@
               }
             },
             {
-              "name": "fisherman",
-              "text": "Fisherman",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "fisherman",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "people_who_inject_drugs",
               "text": "People Who Inject Drugs (PWID)",
               "meta_data": {
@@ -492,15 +483,6 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "sex_workers",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "wood_workers",
-              "text": "Lumberman",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "wood_workers",
                 "openmrs_entity_parent": ""
               }
             },
