@@ -151,7 +151,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua hali ya ufwatiliaji",
+          "required_status": "yes:Tafadhali chagua hali ya ufuatiliaji",
           "dependent_calculations": [
             "hiv_followup_visit_date"
           ]
@@ -208,7 +208,7 @@
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "health_problem"
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
@@ -222,7 +222,7 @@
             },
             {
               "name": "coughing",
-              "text": "kukohoa",
+              "text": "Kukohoa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "coughing",
@@ -240,7 +240,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "Hana tatizo",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -317,7 +317,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "Hana tatizo",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -357,11 +357,11 @@
           },
           "options": [
             {
-              "name": "none",
+              "name": "na",
               "text": "Haihusiki",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "none",
+                "openmrs_entity_id": "na",
                 "openmrs_entity_parent": ""
               }
             },
@@ -481,20 +481,20 @@
               }
             },
             {
-              "name": "bed_sheets",
-              "text": "Mashuka",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "bed_sheets",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "mosquito_nets",
               "text": "Chandarua",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mosquito_nets",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "bed_sheets",
+              "text": "Mashuka",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "bed_sheets",
                 "openmrs_entity_parent": ""
               }
             },
@@ -699,7 +699,7 @@
             },
             {
               "name": "other_hiv_services",
-              "text": "Huduma nyingnie za UKIMWI katika jamii",
+              "text": "Huduma nyingine za UKIMWI katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_hiv_services",
@@ -920,20 +920,20 @@
           },
           "options": [
             {
+              "name": "registered_but_not_began_medication",
+              "text": "Ameandikishwa CTC/PMTCT lakini hajaanza ARV",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "registered_but_not_began_medication",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "registered_and_uses_medication",
               "text": "Ameandikishwa CTC/PMTCT na anatumia ARV",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_and_uses_medication",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "not_registered_in_ctc_clinic",
-              "text": "Hajaandikishwa CTC/PMTCT",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "not_registered_in_ctc_clinic",
                 "openmrs_entity_parent": ""
               }
             }

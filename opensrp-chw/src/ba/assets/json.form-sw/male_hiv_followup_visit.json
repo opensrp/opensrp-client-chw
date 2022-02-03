@@ -142,7 +142,7 @@
               }
             },
             {
-              "name": "completed_and_qualified_from_the_services ",
+              "name": "completed_and_qualified_from_the_services",
               "text": "Amemaliza huduma",
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -165,7 +165,6 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Client's HIV status after testing",
             "text": "Hali ya maambukizi ya VVU baada ya kipimo"
           },
           "options": [
@@ -285,7 +284,7 @@
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "health_problem"
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
@@ -317,7 +316,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "Hana tatizo",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -394,7 +393,7 @@
             },
             {
               "name": "none",
-              "text": "hana tatizo",
+              "text": "Hana tatizo",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
@@ -434,11 +433,11 @@
           },
           "options": [
             {
-              "name": "none",
+              "name": "na",
               "text": "Haihusiki",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "none",
+                "openmrs_entity_id": "na",
                 "openmrs_entity_parent": ""
               }
             },
@@ -558,20 +557,20 @@
               }
             },
             {
-              "name": "bed_sheets",
-              "text": "Mashuka",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "bed_sheets",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "mosquito_nets",
               "text": "Chandarua",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "mosquito_nets",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "bed_sheets",
+              "text": "Mashuka",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "bed_sheets",
                 "openmrs_entity_parent": ""
               }
             },
@@ -613,7 +612,7 @@
               }
             }
           ],
-          "required_status": "yes:Please choose supplies given",
+          "required_status": "yes:Tafadhali chagua kifaa/vifaa vilivyotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -776,7 +775,7 @@
             },
             {
               "name": "other_hiv_services",
-              "text": "Huduma nyingnie za UKIMWI katika jamii",
+              "text": "Huduma nyingine za UKIMWI katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_hiv_services",
@@ -997,6 +996,15 @@
           },
           "options": [
             {
+              "name": "na",
+              "text": "Haihusiki",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "registered_but_not_began_medication",
               "text": "Ameandikishwa CTC/PMTCT lakini hajaanza ARV",
               "meta_data": {
@@ -1020,15 +1028,6 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "not_registered_in_ctc_clinic",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "none",
-              "text": "Haihusiki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               }
             }

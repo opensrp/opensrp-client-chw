@@ -120,7 +120,6 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya maabukizo ya vvu wakati wa kuandikisha",
           "dependent_calculations": [
             "hiv_registration_date"
           ]
