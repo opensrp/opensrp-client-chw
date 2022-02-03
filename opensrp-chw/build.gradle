@@ -307,7 +307,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '10'
             buildConfigField "int", "MAX_READ_TIMEOUT", '10'
-            buildConfigField "int", "DATABASE_VERSION", '21'
+            buildConfigField "int", "DATABASE_VERSION", '22'
         }
         liberia {
             dimension = 'baseDimension'
