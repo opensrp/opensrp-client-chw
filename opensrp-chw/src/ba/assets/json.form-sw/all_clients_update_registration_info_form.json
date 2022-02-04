@@ -54,7 +54,7 @@
     }
   },
   "step1": {
-    "title": "Client details",
+    "title": "Maelezo ya mteja",
     "fields": [
       {
         "key": "unique_id",
@@ -228,10 +228,10 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "Jinsia",
+        "hint": "Jinsi",
         "values": [
-          "Kiume",
-          "Kike"
+          "Me",
+          "Ke"
         ],
         "keys": [
           "Male",
@@ -256,7 +256,7 @@
           "Ndoa ya mke mmoja",
           "Ndoa ya wake wengi",
           "Amefiwa na mwenza",
-          "Kuishi pamoja"
+          "Kuishi pamoja bila ndoa"
         ],
         "keys": [
           "Single",
@@ -301,7 +301,7 @@
         },
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
+          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         }
       },
       {
@@ -406,11 +406,11 @@
         "mask": "T-####-####-###-#",
         "mask_hint": "123456789123",
         "allowed_chars": "0123456789",
-        "hint": "Kitambulisho cha usajili wa mpiga kura",
+        "hint": "Namba ya kitambulisho cha mpiga kura",
         "edit_type": "number",
         "v_regex": {
           "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
-          "err": "Namba ya usajili wa mpiga kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
+          "err": "Namba ya kitambulisho cha kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
         },
         "v_max_length": {
           "value": "17",
@@ -520,10 +520,10 @@
           "AAR Healthcare",
           "Strategies Insurance",
           "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Britam Insurance Tanzania",
-          "Jubilee Insurance",
-          "Resolutions Insurance",
-          "Reliance Insurance",
+          "Bima ya afya Britam",
+          "Bima ya afya Jubilee",
+          "Bima ya afya Resolutions",
+          "Bima ya afya Reliance",
           "Nyingine",
           "Hakuna"
         ],
@@ -818,7 +818,7 @@
         },
         "v_regex": {
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Nambari lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
+          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         },
         "relevance": {
           "rules-engine": {
@@ -850,7 +850,7 @@
           },
           {
             "key": "chk_cs",
-            "text": "Mtumishi wa Umma",
+            "text": "Mtumishi wa Serikali",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cs"
@@ -871,14 +871,14 @@
           },
           {
             "key": "chk_th",
-            "text": "Mganga wa Kienyeji",
+            "text": "Mganga wa tiba asili",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_th"
           },
           {
             "key": "chk_chw",
-            "text": "Mhudumu wa Afya ya Jamii (MJA)",
+            "text": "Muhudumu wa afya ngazi ya jamii(WAJA)",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_chw"
@@ -892,35 +892,35 @@
           },
           {
             "key": "chk_chmis",
-            "text": "HMIS ngazi ya Jamii",
+            "text": "Wakusanyaji takrimu za afya ngazi ya jamii",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_chmis"
           },
           {
             "key": "chk_cbd",
-            "text": "Msambazaji wa Jamii",
+            "text": "Msambazaji wa dawa na vifaa vya uzazi wa mpango ngazi ya Jamii",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cbd"
           },
           {
             "key": "chk_hbc",
-            "text": "Mlezi wa Nyumbani",
+            "text": "Watoa huduma kwa wagonjwa majumbani",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hbc"
           },
           {
             "key": "chk_cimmci",
-            "text": "IMCI wa Jamii",
+            "text": "Watoa huduma za udhibiti wa magonjwa ya watoto ngazi ya jamii",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cimmci"
           },
           {
             "key": "chk_other",
-            "text": "Nyingine",
+            "text": "Nyinginezo",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"

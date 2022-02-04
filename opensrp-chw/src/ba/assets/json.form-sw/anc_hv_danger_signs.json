@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC Registration",
+    "title": "Dalili za hatari",
     "fields": [
       {
         "key": "danger_signs_present",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "danger_signs_present",
         "type": "check_box",
-        "label": "Je, mama ana dalili zozote za hatari?",
+        "label": "Je, Mama ana dalili zozote za hatari?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -85,7 +85,7 @@
           },
           {
             "key": "chk_blurred_vision",
-            "text": "Uoni hafifu",
+            "text": "Kutoona vizuri",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_blurred_vision"
@@ -127,7 +127,7 @@
           },
           {
             "key": "chk_early_labour",
-            "text": "Maumivu ya kuzaa mapema kabla ya miezi 9",
+            "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_early_labour"
@@ -198,8 +198,8 @@
         "openmrs_entity_id": "danger_signs_counseling",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "label_info_title": "Did the mother receive counselling",
-        "label_info_text": "Did the mother receive counselling on danger signs at the health facility recently?",
+        "label_info_title": "Je, mama amepokea ushauri?",
+        "label_info_text": "Je, mama alipokea ushauri nasaha kuhusu dalili za hatari katika kituo cha afya hivi karibuni?",
         "hint": "Je, mama alipokea ushauri nasaha kuhusu dalili za hatari katika kituo cha afya hivi karibuni?",
         "values": [
           "Ndiyo",
@@ -216,6 +216,21 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "prompt_for_danger_signs",
+        "type": "toaster_notes",
+        "text": "Tafadhali mpatie mteja ushauri juu ya dalili za hatari za kipindi cha ujauzito",
+        "openmrs_entity_id": "prompt_for_danger_signs",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:danger_signs_counseling": {
+            "type": "String",
+            "ex": "equalTo(.,\"No\")"
+          }
         }
       }
     ]

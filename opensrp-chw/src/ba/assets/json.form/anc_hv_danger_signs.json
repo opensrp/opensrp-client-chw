@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC Registration",
+    "title": "Danger signs",
     "fields": [
       {
         "key": "danger_signs_present",
@@ -216,6 +216,21 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option"
+        }
+      },
+      {
+        "key": "prompt_for_danger_signs",
+        "type": "toaster_notes",
+        "text": "Please provide the client counselling on ANC danger signs",
+        "openmrs_entity_id": "prompt_for_danger_signs",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:danger_signs_counseling": {
+            "type": "String",
+            "ex": "equalTo(.,\"No\")"
+          }
         }
       }
     ]

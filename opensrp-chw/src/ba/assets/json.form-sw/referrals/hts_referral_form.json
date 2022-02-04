@@ -3,7 +3,7 @@
   "encounter_type": "Referral Registration",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/gbv_referral_form_rules.yml",
+  "rules_file": "rule/general_neat_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -54,69 +54,53 @@
   },
   "steps": [
     {
-      "title": "Rufaa kwenda kwenye huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)",
+      "title": "Fomu ya Rufaa Kwa Ajili ya Huduma ya Upimaji wa VVU",
       "fields": [
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua tatizo/hali aliyonayo mteja."
+            "text": "Chagua tatizo au hali inayoendana na mteja"
           },
           "meta_data": {
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_id": "problem"
           },
           "options": [
             {
-              "name": "has_moved_out_from_home",
-              "text": "Amehama nyumbani",
+              "name": "frequent_fever",
+              "text": "Homa za mara kwa mara",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "has_moved_out_from_home",
+                "openmrs_entity_id": "frequent_fever",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "ulcers_and_scars",
-              "text": "Vidonda na makovu",
+              "name": "weight_loss",
+              "text": "Kupoteza uzito",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "ulcers_and_scars",
+                "openmrs_entity_id": "weight_loss",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "is_weak",
-              "text": "Amedhoofika",
+              "name": "living_with_a_spouse_with_hiv",
+              "text": "Anaishi na mwenza mwenye VVU",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "is_weak",
+                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "needs_more_services",
-              "text": "Anahitaji huduma zaidi",
+              "name": "living_in_a_risky_area",
+              "text": "Maeneo hatarishi kwa maambukizi ya VVU",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "needs_more_services",
-                "openmrs_entity_parent": ""
-              }
-            },{
-              "name": "has_great_level_of_stress_and_fear",
-              "text": "Sonona (msongo wa mawazo)/ kuwa na woga mkuu",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "has_great_level_of_stress_and_fear",
-                "openmrs_entity_parent": ""
-              }
-            },{
-              "name": "threatened_to_be_killed",
-              "text": "Kutishiwa kuuawa",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "threatened_to_be_killed",
+                "openmrs_entity_id": "living_in_a_risky_area",
                 "openmrs_entity_parent": ""
               }
             },
@@ -130,7 +114,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali bainisha tatizo/hali ya mteja",
+          "required_status": "yes:Tafadhali chagua dalili nyingine",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -150,7 +134,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Tafadhali jaza dalili nyingine",
+          "required_status": "true:Tafadhali chagua dalili nyingine",
           "subjects": "problem:map"
         },
         {
@@ -172,7 +156,7 @@
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Tarehe ya miadi",
+            "hint": "Tafadhali chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"

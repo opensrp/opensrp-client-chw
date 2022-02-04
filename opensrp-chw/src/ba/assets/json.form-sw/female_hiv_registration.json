@@ -1,7 +1,7 @@
 {
   "form": "HIV Registration form",
   "count": "1",
-  "encounter_type": "HIV Registration",
+  "encounter_type": "CBHS Registration",
   "entity_id": "",
   "relational_id": "",
   "rules_file": "rule/hiv_registration_form_rules.yml",
@@ -120,7 +120,6 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya maabukizo ya vvu wakati wa kuandikisha",
           "dependent_calculations": [
             "hiv_registration_date"
           ]

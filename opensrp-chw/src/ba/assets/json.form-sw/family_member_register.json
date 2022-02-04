@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Add Family Member",
+    "title": "Sajili mwanafamilia",
     "fields": [
       {
         "key": "unique_id",
@@ -109,7 +109,7 @@
         "options": [
           {
             "key": "same_as_fam_name",
-            "text": "Jina la ukoo sawa na jina la ukoo",
+            "text": "Jina la ukoo sawa na jina la familia",
             "text_size": "18px",
             "value": "false"
           }
@@ -274,10 +274,10 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "jinsi",
+        "hint": "Jinsi",
         "values": [
-          "Mwanaume",
-          "Mwanamke"
+          "Me",
+          "Ke"
         ],
         "keys": [
           "Male",
@@ -296,13 +296,13 @@
         "type": "spinner",
         "hint": "Hali ya Ndoa ya Mteja?",
         "values": [
-          "Hajaolowe",
-          "Ameolewa",
+          "Hajaoa/Hajaolewa",
+          "Ameoa/Ameolewa",
           "Wameachwa",
           "Ndoa ya mke mmoja",
           "Ndoa za wake wengi",
           "Mjane",
-          "Kuishi pamoja"
+          "Kuishi pamoja bila ndoa"
         ],
         "keys": [
           "Single",
@@ -340,7 +340,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
-        "hint": "Nambari ya simu",
+        "hint": "Namba ya simu",
         "v_numeric": {
           "value": "true",
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"
@@ -452,11 +452,11 @@
         "mask": "T-####-####-###-#",
         "mask_hint": "123456789123",
         "allowed_chars": "0123456789",
-        "hint": "Nambari ya usajili ya mpiga kura k.m T-1234-5678-912-3",
+        "hint": "Nambari ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
         "edit_type": "number",
         "v_regex": {
           "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
-          "err": "Nambari ya usajili wa mpiga kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
+          "err": "Nambari ya kitambulosho cha mpiga kura inapaswa kuwa ya umbizo (T-XXXX-XXXX-XXX-X)"
         },
         "v_max_length": {
           "value": "17",
@@ -566,10 +566,10 @@
           "Huduma ya Afya ya AAR",
           "Strategies Insurance",
           "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Bima ya Britam Tanzania",
-          "Bima ya Jubilee",
-          "Resolutions Insurance",
-          "Reliance Insurance",
+          "Bima ya afya ya Britam",
+          "Bima ya afya ya Jubilee",
+          "Bima ya afya ya Resolutions",
+          "Bima ya afya ya Reliance",
           "Nyingine",
           "Hakuna"
         ],
@@ -834,7 +834,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_phone_number",
         "type": "edit_text",
-        "hint": "Nambari nyingine ya simu",
+        "hint": "Namba nyingine ya simu",
         "v_numeric": {
           "value": "true",
           "err": "Nambari lazima iwe jumla ya tarakimu 10 kwa urefu"

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Family planning",
+    "title": "Uzazi wa mpango",
     "fields": [
       {
         "key": "fam_planning",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "fam_planning",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mama alishauriwa kuhusu mpango wa uzazi ulimpotembelea kwa ajili ya ziara ya afya?",
+        "hint": "Je, Mama alishauriwa kuhusu Uzazi wa Mpango alipohudhuria kliniki?",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -72,6 +72,21 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "prompt_for_family_planning",
+        "type": "toaster_notes",
+        "text": "Tafadhali mpatie mteja ushauri juu ya Uzazi wa Mpango",
+        "openmrs_entity_id": "prompt_for_family_planning",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:fam_planning": {
+            "type": "String",
+            "ex": "equalTo(.,\"No\")"
+          }
         }
       }
     ]

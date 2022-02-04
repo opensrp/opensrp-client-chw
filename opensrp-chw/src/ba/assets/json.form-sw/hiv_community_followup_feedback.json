@@ -55,13 +55,13 @@
   },
   "steps": [
     {
-      "title": "Fomu ya mrejesho wa ufwatiliaji wa mteja wenye HIV",
+      "title": "Fomu ya mrejesho wa ufuatiliaji wa mteja mwenye VVU",
       "fields": [
         {
           "name": "followup_status",
           "type": "spinner",
           "properties": {
-            "text": "Followup Feedback"
+            "text": "Maoni kuhusu ziara ya ufuatiliaji"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -125,7 +125,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Anaendelea na huduma akitokea mahali pengine",
+              "text": "Anaendelea na huduma kutoka sehemu nyingine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
@@ -137,6 +137,47 @@
           "dependent_calculations": [
             "hiv_community_followup_visit_date"
           ]
+        },
+        {
+          "name": "client_moved_location",
+          "type": "spinner",
+          "properties": {
+            "text": "Chagua jina la kituo alipohamia",
+            "searchable": "Chagua jina la kituo alipohamia"
+          },
+          "options": [
+            {
+              "name": "Other",
+              "text": "Nyingine",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "Other",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_moved_location",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Tafadhali chagua jina la kituo alipohamia",
+          "subjects": "followup_status:text"
+        },
+        {
+          "name": "client_moved_location_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Jaza jina la eneo alipohamia",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_moved_location",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Tafadhali jaza jina la eneo alipohamia",
+          "subjects": "client_moved_location:text"
         }
       ]
     }

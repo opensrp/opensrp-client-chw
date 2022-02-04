@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness",
+    "title": "Uchunguzi na magonjwa",
     "fields": [
       {
         "key": "date_of_illness",
@@ -105,7 +105,7 @@
           },
           {
             "key": "chk_paracetamol",
-            "text": "Panadol",
+            "text": "Panado",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_paracetamol"

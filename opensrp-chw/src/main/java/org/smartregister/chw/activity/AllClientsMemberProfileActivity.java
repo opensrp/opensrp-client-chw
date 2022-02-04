@@ -45,7 +45,8 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         menu.findItem(R.id.action_location_info).setVisible(true);
         menu.findItem(R.id.action_cbhs_registration).setVisible(true);
-        menu.findItem(R.id.action_tb_registration).setVisible(true);
+        menu.findItem(R.id.action_tb_registration).setVisible(false);
+        menu.findItem(R.id.action_fp_initiation).setVisible(false);
         if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);

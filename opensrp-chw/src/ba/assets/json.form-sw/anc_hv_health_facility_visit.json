@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC {0} health facility visit",
+    "title": "Hudhurio la {0} Kituo cha Afya",
     "fields": [
       {
         "key": "anc_hf_visit",
@@ -55,10 +55,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
-        "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
-        "label_info_text": "Did the woman attend her ANC visit at the health facility?",
+        "label_info_title": "Je, Mwanamke huyu amehudhuria kliniki ya wajawazito mara {0} ?",
+        "label_info_text": "Je, Mwanamke huyu amehudhuria kliniki ya wajawazito?",
         "type": "spinner",
-        "hint": "Je, mwanamke huyo alihudhuria ziara yake ya ANC {0} katika kituo cha afya? Tarehe ya kukamilisha ziara: {1}",
+        "hint": "Je, Mwanamke huyu amehudhuria kliniki ya wajawazito mara {0} ? Tarehe ya kukamilisha hudhurio: {1}",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -73,7 +73,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali chagua jibu moja"
         }
       },
       {
@@ -84,7 +84,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "ANC visit date",
-        "hint": "Tarehe ya ziara ya ANC",
+        "hint": "Tarehe ya hudhurio ya ANC",
         "expanded": false,
         "min_date": "today-10y",
         "max_date": "today",

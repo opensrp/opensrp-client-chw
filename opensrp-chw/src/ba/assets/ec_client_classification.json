@@ -332,14 +332,16 @@
             "field": "eventType",
             "field_value": "Update CBHS Registration",
             "creates_case": [
-              "ec_hiv_register"
+              "ec_hiv_register",
+              "ec_cbhs_register"
             ]
           },
           {
             "field": "eventType",
             "field_value": "CBHS Followup",
             "creates_case": [
-              "ec_hiv_register"
+              "ec_hiv_register",
+              "ec_cbhs_register"
             ]
           },
           {
@@ -448,6 +450,13 @@
             "field_value": "HIV Index Contact Community Followup Notification Dismissal",
             "creates_case": [
               "ec_hiv_index_contact_community_followup"
+            ]
+          },
+          {
+            "field":"eventType",
+            "field_value": "Pregnancy Unconfirmed",
+            "closes_case": [
+              "ec_anc_register"
             ]
           }
         ]

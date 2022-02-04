@@ -187,6 +187,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         menu.findItem(R.id.anc_danger_signs_outcome).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(false);
+        menu.findItem(R.id.action_anc_registration).setVisible(false);
         return true;
     }
 

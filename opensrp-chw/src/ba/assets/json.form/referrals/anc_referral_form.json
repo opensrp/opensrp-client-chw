@@ -285,15 +285,6 @@
               }
             },
             {
-              "name": "Pregnancy_confirmation",
-              "text": "Pregnancy confirmation",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "Pregnancy_confirmation",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "Other_symptoms",
               "text": "Other symptoms",
               "meta_data": {

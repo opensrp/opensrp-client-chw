@@ -77,8 +77,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (!ChwApplication.getApplicationFlavor().hasTB()) {
             menu.findItem(R.id.action_tb_registration).setVisible(false);
         } else {
-            flavor.updateTbMenuItems(baseEntityId, menu);
+            //flavor.updateTbMenuItems(baseEntityId, menu);
+            //will update when the TB module is complete
         }
+        menu.findItem(R.id.action_fp_initiation).setVisible(false);
         return true;
     }
 

@@ -164,6 +164,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     }
 
     @Override
+    public void goToAncProfileActivity(CommonPersonObjectClient patient, Bundle bundle) {
+        AncMemberProfileActivity.startMe(this,patient.getCaseId());
+    }
+
+    @Override
     protected Class<? extends BasePncMemberProfileActivity> getPncMemberProfileActivityClass() {
         return PncMemberProfileActivity.class;
     }

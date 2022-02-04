@@ -409,7 +409,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
                 if (org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge(client, 15, 49)) {
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
-                            CoreConstants.JSON_FORM.getAncReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
+                            org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
 
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
                             CoreConstants.JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
@@ -468,7 +468,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
 
-        flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+     //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }
 
@@ -542,7 +542,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     public interface Flavor {
-        void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+       // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 }
 
