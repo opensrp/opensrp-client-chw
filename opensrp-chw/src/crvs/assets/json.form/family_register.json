@@ -517,7 +517,7 @@
         "label": "{{family_register.step2.nationality.label}}",
         "hint": "{{family_register.step2.nationality.hint}}",
         "type": "edit_text"
-      },
+      }
     ]
   },
   "properties_file_name": "family_register"
