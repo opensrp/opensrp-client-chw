@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_registration"
+        android:enabled="true"
+        android:orderInCategory="100"
+        android:title="@string/registration_info"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_hiv_outcome"
+        android:enabled="true"
+        android:orderInCategory="200"
+        android:title="@string/hiv_problem_outcome"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_issue_hiv_community_followup_referral"
+        android:enabled="true"
+        android:orderInCategory="300"
+        android:title="@string/hiv_community_followup_referral"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_tb_registration"
+        android:enabled="true"
+        android:visible="false"
+        android:title="@string/tb_registration"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_anc_registration"
+        android:enabled="true"
+        android:visible="false"
+        android:title="@string/anc_registration"
+        app:showAsAction="never" />
+
+
+</menu>
