@@ -45,14 +45,14 @@ actions:
 name: step1_pregnant_died
 description: pregnant_died
 priority: 1
-condition: "step1_deceased_pregnant.equals('Yes') && step1_sex.equals('Female')"
+condition: "step1_deceased_pregnant.equals('Yes') && step1_hiddengender.equals('Female')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_deceased_pregnant
 description: deceased_pregnant
 priority: 1
-condition: "step1_sex=='Female' && ((step1_dob != '' && (helper.formatDate(step1_dob,'y') > 14 && helper.formatDate(step1_dob,'y') < 50)) || (step1_age != '' && (step1_age > 14 && step1_age < 50)))"
+condition: "step1_hiddengender=='Female' && ((step1_dob != '' && (helper.formatDate(step1_dob,'y') > 14 && helper.formatDate(step1_dob,'y') < 50)) || (step1_age != '' && (step1_age > 14 && step1_age < 50)))"
 actions:
   - "isRelevant = true"
 ---
