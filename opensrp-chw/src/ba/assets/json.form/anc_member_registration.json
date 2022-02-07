@@ -340,8 +340,8 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
+          "err": "Number must be 10 digits and must start with 06 or 07."
         },
         "v_required": {
           "value": false
@@ -387,6 +387,10 @@
             }
           }
         },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
+        },
         "v_required": {
           "value": "true",
           "err": "Please enter the person's name"
@@ -414,8 +418,8 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Number must be 10 digits and must start with 0."
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
+          "err": "Number must be 10 digits and must start with 06 or 07."
         }
       }
     ]
