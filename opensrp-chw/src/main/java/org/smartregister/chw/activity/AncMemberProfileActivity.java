@@ -11,8 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -41,6 +44,7 @@ import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.AncMemberProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -178,6 +182,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName(), memberObject.getLastMenstrualPeriod());
             return true;
         }
+        if(itemId == R.id.action_cbhs_registration){
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+            final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+            startCBHSRegister(commonPersonObject);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -188,6 +199,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(false);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
+        UtilsFlv.updateHivMenuItems(baseEntityID,menu);
         return true;
     }
 
@@ -378,6 +390,21 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
 
+    protected void startCBHSRegister(CommonPersonObject commonPersonObject) {
+        String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+        String formName;
+        if (gender.equalsIgnoreCase("male")) {
+            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+        } else {
+            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+        }
+
+        try {
+            HivRegisterActivity.startHIVFormActivity(AncMemberProfileActivity.this, baseEntityID, formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
     @Override
     public void openFamilyLocation() {
         Intent intent = new Intent(this, AncMemberMapActivity.class);
