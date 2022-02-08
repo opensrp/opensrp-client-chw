@@ -2,14 +2,8 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -30,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS;
@@ -50,6 +47,7 @@ public class ClientReferralActivity extends SecuredActivity implements ClientRef
         referralTypeAdapter.setOnClickListener(this);
         setUpView();
     }
+
     private void mapEncounterTypeToTable() {
         encounterTypeToTableMap.put(Constants.EncounterType.SICK_CHILD, CoreConstants.TABLE_NAME.CHILD_REFERRAL);
         encounterTypeToTableMap.put(Constants.EncounterType.PNC_REFERRAL, CoreConstants.TABLE_NAME.PNC_REFERRAL);
