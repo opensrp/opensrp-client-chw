@@ -24,6 +24,7 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
+import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS;
 
-public class ClientReferralActivity extends AppCompatActivity implements ClientReferralContract.View, View.OnClickListener {
+public class ClientReferralActivity extends SecuredActivity implements ClientReferralContract.View, View.OnClickListener {
 
     private ReferralTypeAdapter referralTypeAdapter;
     private FormUtils formUtils;
@@ -41,8 +42,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     private Map<String, String> encounterTypeToTableMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreation() {
         setContentView(R.layout.activity_client_referral);
         referralTypeAdapter = new ReferralTypeAdapter();
         encounterTypeToTableMap = new HashMap<>();
@@ -50,7 +50,6 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
         referralTypeAdapter.setOnClickListener(this);
         setUpView();
     }
-
     private void mapEncounterTypeToTable() {
         encounterTypeToTableMap.put(Constants.EncounterType.SICK_CHILD, CoreConstants.TABLE_NAME.CHILD_REFERRAL);
         encounterTypeToTableMap.put(Constants.EncounterType.PNC_REFERRAL, CoreConstants.TABLE_NAME.PNC_REFERRAL);
@@ -133,8 +132,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
         referralTypeAdapter.canStart = true;
     }
 
