@@ -6,7 +6,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/detail_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/pagination_bar_height"
+        android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@color/opensrp_primary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -50,8 +50,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:paddingTop="@dimen/btn_padding_top"
-                android:paddingBottom="@dimen/btn_padding_bottom"
                 android:layout_marginEnd="@dimen/btn_margin_right"
                 android:text="@string/save"
                 android:textAllCaps="true"
