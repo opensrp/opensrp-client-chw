@@ -330,12 +330,13 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
-        if (!PinLoginUtil.getPinLogger().enabledPin()) {
-            context.userService().logoutSession();
-        } else {
+        if (PinLoginUtil.getPinLogger().enabledPin()
+                && !context.allSharedPreferences().fetchForceRemoteLogin(getUsername())) {
             Intent intent1 = new Intent(ChwApplication.this, PinLoginActivity.class);
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             getApplicationContext().startActivity(intent1);
+        } else {
+            context.userService().logoutSession();
         }
     }
 

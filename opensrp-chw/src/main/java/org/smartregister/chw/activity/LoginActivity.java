@@ -59,7 +59,10 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         super.onResume();
         mLoginPresenter.processViewCustomizations();
 
-        if (hasPinLogin()) {
+        org.smartregister.Context context = mLoginPresenter.getOpenSRPContext();
+        String username = context.userService().getAllSharedPreferences().fetchRegisteredANM();
+        if (hasPinLogin()
+                && !context.allSharedPreferences().fetchForceRemoteLogin(username)) {
             pinLoginAttempt();
             return;
         }

@@ -20,7 +20,6 @@ public class PinLoggerInteractor implements PinLoginContract.Interactor {
         eventListener.onEvent("Attempting to authenticate");
         // Compare stored password hash with provided password hash
         boolean isAuthenticated = getUserService().isUserInValidGroup(userName, password.toCharArray());
-        ;
         if (!isAuthenticated) {
             eventListener.onEvent("User authentication failed");
             eventListener.onError(new Exception("Authentication failed"));
