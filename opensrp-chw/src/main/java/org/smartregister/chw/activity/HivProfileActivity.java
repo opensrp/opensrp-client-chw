@@ -25,6 +25,7 @@ import org.smartregister.chw.core.activity.CoreHivProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
+import org.smartregister.chw.core.dao.AncDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.task.RunnableTask;
@@ -55,6 +56,7 @@ import org.smartregister.repository.LocationRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
@@ -398,26 +400,16 @@ public class HivProfileActivity extends CoreHivProfileActivity
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
                     CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
-
-            if (getHivMemberObject().getGender().equalsIgnoreCase("Female")) {
-                //Obtaining the clients CommonPersonObjectClient used for checking is the client is Of Reproductive Age
-                CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
-
-                final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(getHivMemberObject().getBaseEntityId());
-                final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
-                client.setColumnmaps(commonPersonObject.getColumnmaps());
-
-                if (org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge(client, 15, 49)) {
-                    referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
-                            org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
-
-                    referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
-                            CoreConstants.JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
+            if(isClientEligibleForAnc(getHivMemberObject())){
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
+                        org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
+                        CoreConstants.JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
+                if(!AncDao.isANCMember(getHivMemberObject().getBaseEntityId())){
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation),
                             CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(),CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
                 }
             }
-
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
                     CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
@@ -467,6 +459,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
+        menu.findItem(R.id.action_anc_registration).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !AncDao.isANCMember(getHivMemberObject().getBaseEntityId()));
 
      //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
@@ -479,6 +472,10 @@ public class HivProfileActivity extends CoreHivProfileActivity
             startTbRegister();
             return true;
         }
+        if (itemId == R.id.action_anc_registration){
+            startAncRegister();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -488,6 +485,11 @@ public class HivProfileActivity extends CoreHivProfileActivity
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+    protected void startAncRegister() {
+        AncRegisterActivity.startAncRegistrationActivity(HivProfileActivity.this, Objects.requireNonNull(getHivMemberObject()).getBaseEntityId() , getHivMemberObject().getPhoneNumber(),
+                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName());
     }
 
     /**
@@ -539,6 +541,20 @@ public class HivProfileActivity extends CoreHivProfileActivity
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         this.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
+    }
+
+    protected boolean isClientEligibleForAnc(HivMemberObject hivMemberObject){
+        if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
+            //Obtaining the clients CommonPersonObjectClient used for checking is the client is Of Reproductive Age
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+            final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(hivMemberObject.getBaseEntityId());
+            final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+            client.setColumnmaps(commonPersonObject.getColumnmaps());
+
+            return org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge(client, 15, 49);
+        }
+        return false;
     }
 
     public interface Flavor {
