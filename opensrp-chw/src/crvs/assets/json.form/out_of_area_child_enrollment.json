@@ -758,6 +758,13 @@
         "expanded": false,
         "min_date": "today-5y",
         "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "{{out_of_area_child_enrollment.step1.birth_cert_issue_date..constraints.err}}"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
