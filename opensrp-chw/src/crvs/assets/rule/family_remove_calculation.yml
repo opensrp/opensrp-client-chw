@@ -5,3 +5,16 @@ priority: 1
 condition: "step1_date_died != '' && step1_dob != ''"
 actions:
   - "calculation =  helper.getDuration(step1_date_died , step1_dob)"
+---
+name: step1_age_at_death_calculation
+description: Calculated age_at_death
+priority: 1
+condition: "step1_date_died != '' && step1_dob != ''"
+actions:
+  - "def getDate(dateFormat) {
+              import java.text.DateFormat;
+              import java.text.ParseException;
+              import java.text.SimpleDateFormat;
+              return new SimpleDateFormat('dd-MM-yyyy').format(new SimpleDateFormat('dd MMM yyyy').parse(dateFormat));
+          }"
+  - "calculation = helper.getDifferenceDays(getDate(step1_date_died),step1_dob) / 365.25"
