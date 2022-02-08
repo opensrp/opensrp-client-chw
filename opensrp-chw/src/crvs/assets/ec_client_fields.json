@@ -842,6 +842,14 @@
           }
         },
         {
+          "column_name": "birth_registration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birthRegistration"
+          }
+        },
+        {
           "column_name": "birth_notification",
           "type": "Event",
           "json_mapping": {
@@ -850,11 +858,27 @@
           }
         },
         {
-          "column_name": "birth_registration",
+          "column_name": "system_birth_notification",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "birthRegistration"
+            "concept": "systemBirthNotification"
+          }
+        },
+        {
+          "column_name": "birth_reg_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birthRegType"
+          }
+        },
+        {
+          "column_name": "informant_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantReason"
           }
         }
       ]
