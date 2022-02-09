@@ -238,7 +238,8 @@
     <string name="care_stim_skill">Caregiver stimulation skills:</string>
     <string name="early_learning">Programu ya kujifunza mapema</string>
     <string name="malaria_follow_up">Ufuatiliaji wa malaria</string>
-    <string name="refer_to_facilty">Toa rufaa kwenda kituo cha kutolea huduma za afya</string>
+    <string name="refer_to_facilty">Toa rufaa kwenda Kituo cha kutolea huduma za Afya</string>
+    <string name="refer_to_facility">Rufaa kwenda Kituo cha kutolea huduma za Afya</string>
 
     <string name="health_facility_visit_num">Hudhurio la {0} katika kliniki ya wajawazito katika kituo cha kutolea huduma za afya </string>
     <string name="tt_dose">PEPOPUNDA {0}</string>
@@ -346,7 +347,7 @@
     <string name="storage_permissions_message">App inahitaji ruhusa hiyo kuorodhesha video za mwongozo. \ n Bila ruhusa hiyo huwezi kutazama video zozote za mwongozo</string>
 
     <!--Referral -->
-    <string name="referral_reason">Sababu za Rufaa</string>
+    <string name="referral_reason">Sababu za Kumpatia Mteja Rufaa kwenda kituo cha kutolea huduma za Afya</string>
     <string name="open_referral_form">Fungua rufaa ya %s</string>
     <string name="sick_child">Mtoto mgonjwa</string>
     <string name="family_planning_referral">Uzazi wa mpango</string>
