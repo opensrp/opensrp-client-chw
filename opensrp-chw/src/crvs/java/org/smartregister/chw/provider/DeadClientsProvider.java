@@ -88,9 +88,9 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
                     String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
                     String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
                     String gender = "";
-                    if (gender_key.equalsIgnoreCase("Male")) {
+                    if (gender_key.equalsIgnoreCase("Male") || gender_key.equalsIgnoreCase("Masculin")) {
                         gender = context.getString(org.smartregister.chw.core.R.string.male);
-                    } else if (gender_key.equalsIgnoreCase("Female")) {
+                    } else if (gender_key.equalsIgnoreCase("Female") || gender_key.equalsIgnoreCase("Feminin")) {
                         gender = context.getString(org.smartregister.chw.core.R.string.female);
                     }
                     fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
@@ -104,9 +104,9 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
                     String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
                     String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
                     String gender = "";
-                    if (gender_key.equalsIgnoreCase("Male")) {
+                    if (gender_key.equalsIgnoreCase("Male") || gender_key.equalsIgnoreCase("Masculin")) {
                         gender = context.getString(org.smartregister.chw.core.R.string.male);
-                    } else if (gender_key.equalsIgnoreCase("Female")) {
+                    } else if (gender_key.equalsIgnoreCase("Female") || gender_key.equalsIgnoreCase("Feminin")) {
                         gender = context.getString(org.smartregister.chw.core.R.string.female);
                     }
                     fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
@@ -121,9 +121,9 @@ public class DeadClientsProvider extends CoreDeadClientsProvider {
                     String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
                     String gender_key = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
                     String gender = "";
-                    if (gender_key.equalsIgnoreCase("Male")) {
+                    if (gender_key.equalsIgnoreCase("Male") || gender_key.equalsIgnoreCase("Masculin")) {
                         gender = context.getString(org.smartregister.chw.core.R.string.male);
-                    } else if (gender_key.equalsIgnoreCase("Female")) {
+                    } else if (gender_key.equalsIgnoreCase("Female") || gender_key.equalsIgnoreCase("Feminin")) {
                         gender = context.getString(org.smartregister.chw.core.R.string.female);
                     }
                     fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.OutOfAreaFragment;
@@ -58,7 +59,7 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
             JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString("out_of_area_child_enrollment", this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), "Out Of Area Child Registration");
             try {
                 assert form != null;
-                JsonFormUtilsFlv.startFormActivity(this, form, "Out of area child");
+                JsonFormUtilsFlv.startFormActivity(this, form, getResources().getString(R.string.out_of_area_form));
             } catch (Exception e) {
                 Timber.e(e);
             }

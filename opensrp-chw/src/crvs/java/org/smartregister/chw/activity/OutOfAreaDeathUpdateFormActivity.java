@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
@@ -58,7 +59,7 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
             JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString(CrvsConstants.OUT_OF_AREA_DEATH_FORM, this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE);
             try {
                 assert form != null;
-                JsonFormUtilsFlv.startFormActivity(this, form, CrvsConstants.OUT_OF_AREA_DEATH_HEADING);
+                JsonFormUtilsFlv.startFormActivity(this, form, getResources().getString(R.string.out_of_area_form));
             } catch (Exception e) {
                 Timber.e(e);
             }

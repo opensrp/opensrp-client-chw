@@ -1,5 +1,14 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
+import static org.smartregister.chw.util.CrvsConstants.NOTIFICATION_DONE;
+import static org.smartregister.chw.util.CrvsConstants.REGISTRATION_DONE;
+import static org.smartregister.chw.util.CrvsConstants.YES;
+import static org.smartregister.chw.util.Utils.getClientName;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
@@ -20,15 +29,6 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
-
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
-import static org.smartregister.chw.util.CrvsConstants.NOTIFICATION_DONE;
-import static org.smartregister.chw.util.CrvsConstants.REGISTRATION_DONE;
-import static org.smartregister.chw.util.CrvsConstants.YES;
-import static org.smartregister.chw.util.Utils.getClientName;
 
 /**
  * Created by keyman on 13/11/2018.
@@ -115,6 +115,13 @@ public class BirthNotificationProvider extends CoreChildRegisterProvider {
     public void setAddressAndGender(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
         String gender = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.GENDER, true);
+
+        if (gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Masculin") ) {
+            gender = context.getString(org.smartregister.chw.core.R.string.male);
+        } else if (gender.equalsIgnoreCase("Female") || gender.equalsIgnoreCase("Feminin")) {
+            gender = context.getString(org.smartregister.chw.core.R.string.female);
+        }
+
         fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
 
         String registration = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);

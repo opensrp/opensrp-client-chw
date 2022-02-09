@@ -9,7 +9,6 @@ public class CrvsConstants {
     public static String USER_TYPE = "userType";
     public static String USER = "User";
     public static String AGENT = "Agent";
-    public static String OUT_OF_AREA_FORM = "Out of area form";
     public static String OUT_OF_AREA_ENCOUNTER_TYPE = "Out Of Area Child Registration";
     public static String OUT_OF_AREA_DEATH_ENCOUNTER_TYPE = "Out Of Area Death Registration";
     public static String DEATH_FORM = "Death certificate form";

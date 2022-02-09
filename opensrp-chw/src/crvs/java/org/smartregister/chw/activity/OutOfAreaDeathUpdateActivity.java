@@ -4,7 +4,6 @@ import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
 import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_FORM;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_FORM;
 import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
 
 import android.app.Activity;
@@ -14,6 +13,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -64,7 +64,7 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
             Map<String, String> valueMap = new HashMap<>();
             valueMap.put(UNIQUE_ID, openSRPId.replace("-", "")+OUT_OF_AREA_DEATH);
             CoreJsonFormUtils.populateJsonForm(formJsonObject, valueMap);
-            JsonFormUtilsFlv.startFormActivity(OutOfAreaDeathUpdateActivity.this, formJsonObject, OUT_OF_AREA_FORM);
+            JsonFormUtilsFlv.startFormActivity(OutOfAreaDeathUpdateActivity.this, formJsonObject, getResources().getString(R.string.out_of_area_form));
         } catch (Exception e) {
             Timber.e(e);
         }

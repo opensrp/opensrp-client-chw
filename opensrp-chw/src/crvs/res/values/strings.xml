@@ -11,6 +11,7 @@
     <string name="update_status" tools:ignore="MissingTranslation">Update Status</string>
     <string name="update_details" tools:ignore="MissingTranslation">Update Details</string>
     <string name="certified" tools:ignore="MissingTranslation">Certified</string>
+    <string name="out_of_area_form" tools:ignore="MissingTranslation">Out of area form</string>
 
     <!-- Sync status progress bar -->
     <string name="device_data_synced">Device data synced</string>
