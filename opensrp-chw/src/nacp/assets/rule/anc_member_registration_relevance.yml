@@ -50,3 +50,11 @@ priority: 1
 condition: "step1_no_prev_preg >= 1"
 actions:
   - "isRelevant = true"
+
+---
+name: step1_edd_note
+description: edd note relevance
+priority: 1
+condition: "!step1_last_menstrual_period_unknown.contains('lmp_unknown')"
+actions:
+  - "isRelevant = true"
