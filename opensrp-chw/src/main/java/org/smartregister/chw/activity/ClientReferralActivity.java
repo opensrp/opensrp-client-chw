@@ -2,14 +2,8 @@ package org.smartregister.chw.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -24,16 +18,20 @@ import org.smartregister.chw.util.Constants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.util.FormUtils;
+import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.Constants.REFERRAL_TASK_FOCUS;
 
-public class ClientReferralActivity extends AppCompatActivity implements ClientReferralContract.View, View.OnClickListener {
+public class ClientReferralActivity extends SecuredActivity implements ClientReferralContract.View, View.OnClickListener {
 
     private ReferralTypeAdapter referralTypeAdapter;
     private FormUtils formUtils;
@@ -41,8 +39,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     private Map<String, String> encounterTypeToTableMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreation() {
         setContentView(R.layout.activity_client_referral);
         referralTypeAdapter = new ReferralTypeAdapter();
         encounterTypeToTableMap = new HashMap<>();
@@ -133,8 +130,7 @@ public class ClientReferralActivity extends AppCompatActivity implements ClientR
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResumption() {
         referralTypeAdapter.canStart = true;
     }
 
