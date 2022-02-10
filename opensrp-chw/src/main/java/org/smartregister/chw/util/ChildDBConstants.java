@@ -34,4 +34,13 @@ public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBCo
         }
         return tableName.concat(".").concat(columnName);
     }
+
+
+    public static final class KEY {
+        public static final String BIRTH_REGISTRATION = "birth_registration";
+        public static final String BIRTH_NOTIFICATION = "birth_notification";
+        public static final String SYSTEM_BIRTH_NOTIFICATION = "system_birth_notification";
+        public static final String BIRTH_REG_TYPE = "birth_reg_type";
+        public static final String INFORMANT_REASON = "informant_reason";
+    }
 }

@@ -17,7 +17,7 @@ public class CrvsConstants {
     public static String BIRTH_CERT_NUM = "birth_cert_num";
     public static String DEATH_CERTIFICATE_ISSUE_DATE = "death_certificate_issue_date";
     public static String DEATH_NOTIFICATION_DONE = "death_notification_done";
-    public static String DEATH_CERTIFICATE_NUMBER = "death_certificate_number";
+    public static String  DEATH_CERTIFICATE_NUMBER = "death_certificate_number";
     public static String OFFICIAL_ID = "official_id";
     public static String BIRTH_CERT = "birth_cert";
     public static String STILL_BORN_DEATH = "still_born_death";

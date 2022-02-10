@@ -111,7 +111,6 @@
         }
       ]
     },
-
     {
       "name": "ec_family_member",
       "columns": [
@@ -309,7 +308,8 @@
             "field": "obs.fieldCode",
             "concept": "deathCertificationNumber"
           }
-        },  {
+        },
+        {
           "column_name": "official_id",
           "type": "Event",
           "json_mapping": {
@@ -327,7 +327,6 @@
         }
       ]
     },
-
     {
       "name": "ec_child",
       "columns": [
@@ -510,6 +509,14 @@
           }
         },
         {
+          "column_name": "system_birth_notification",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "systemBirthNotification"
+          }
+        },
+        {
           "column_name": "birth_notification",
           "type": "Event",
           "json_mapping": {
@@ -588,17 +595,33 @@
             "field": "obs.fieldCode",
             "concept": "deathCertificationNumber"
           }
-        },  {
+        },
+        {
           "column_name": "official_id",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "officialId"
           }
+        },
+        {
+          "column_name": "birth_reg_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "birthRegType"
+          }
+        },
+        {
+          "column_name": "informant_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantReason"
+          }
         }
       ]
     },
-
     {
       "name": "ec_out_of_area_child",
       "columns": [
@@ -826,22 +849,6 @@
           }
         },
         {
-          "column_name": "birth_cert_issue_date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "birth_cert_num",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
           "column_name": "birth_registration",
           "type": "Event",
           "json_mapping": {
@@ -855,6 +862,22 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "165405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert_issue_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "birth_cert_num",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -883,7 +906,6 @@
         }
       ]
     },
-
     {
       "name": "ec_out_of_area_death",
       "columns": [
@@ -1202,7 +1224,6 @@
         }
       ]
     },
-
     {
       "name": "ec_child_activity",
       "columns": [
@@ -1273,7 +1294,6 @@
         }
       ]
     },
-
     {
       "name": "ec_anc_register",
       "columns": [
@@ -1413,7 +1433,6 @@
         }
       ]
     },
-
     {
       "name": "ec_pregnancy_outcome",
       "columns": [
@@ -1527,7 +1546,8 @@
             "field": "obs.fieldCode",
             "concept": "deathCertificationNumber"
           }
-        },  {
+        },
+        {
           "column_name": "official_id",
           "type": "Event",
           "json_mapping": {
@@ -1537,7 +1557,6 @@
         }
       ]
     },
-
     {
       "name": "ec_anc_log",
       "columns": [

@@ -1,13 +1,30 @@
 package org.smartregister.chw.task;
 
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT_NUM;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
+import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
+import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
+import static org.smartregister.chw.util.CrvsConstants.DOB;
+import static org.smartregister.chw.util.CrvsConstants.YES;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.json.JSONObject;
@@ -27,20 +44,13 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Constants;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+
 import timber.log.Timber;
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT_NUM;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
-import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.DOB;
-import static org.smartregister.chw.util.CrvsConstants.YES;
 
 public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, Void> {
     public final Context context;
@@ -103,15 +113,22 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
     protected void onPostExecute(Void param) {
         if (pc != null) {
             viewHolder.dueButton.setVisibility(View.VISIBLE);
-            String birth_cert = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT, true);
-            String birth_notification = Utils.getValue(pc.getColumnmaps(), BIRTH_NOTIFICATION, true);
-            String birth_registration = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);
+
+            String birthCert = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT, true);
+            String birthRegistration = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);
+            String birthNotification = Utils.getValue(pc.getColumnmaps(), BIRTH_NOTIFICATION, true);
+            String birthCertIssueDate = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT_ISSUE_DATE, true);
+            String birthCertNum = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT_NUMBER, true);
+            String systemBirthNotification = Utils.getValue(pc.getColumnmaps(), SYSTEM_BIRTH_NOTIFICATION, true);
+            String birthRegType = Utils.getValue(pc.getColumnmaps(), BIRTH_REG_TYPE, true);
+            String informantReason = Utils.getValue(pc.getColumnmaps(), INFORMANT_REASON, true);
+
             String dob = Utils.getValue(pc.getColumnmaps(), DOB, true);
             try {
-                if (birth_cert.trim().equalsIgnoreCase(YES)) {
+                if (birthCert.trim().equalsIgnoreCase(YES)) {
                     setReceivedButtonColor(context, viewHolder.dueButton);
                 } else {
-                    if (birth_notification.trim().equalsIgnoreCase(YES) || birth_registration.trim().equalsIgnoreCase(YES)) {
+                    if (birthNotification.trim().equalsIgnoreCase(YES) || birthRegistration.trim().equalsIgnoreCase(YES)) {
                         setStatusUpdated(context, viewHolder.dueButton);
                     } else {
                         setUpdateStatusButtonColor(context, viewHolder.dueButton);
@@ -131,11 +148,14 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
                 intent.putExtra(org.smartregister.chw.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.util.Constants.ACTION.START_REGISTRATION);
                 intent.putExtra(DBConstants.KEY.BASE_ENTITY_ID, entityId);
                 intent.putExtra(CLIENT_TYPE, clienttype);
-                intent.putExtra(BIRTH_CERT, birth_cert);
-                intent.putExtra(BIRTH_CERTIFICATE_ISSUE_DATE, birth_cert_issue_date);
-                intent.putExtra(BIRTH_CERT_NUM, birth_cert_num);
-                intent.putExtra(BIRTH_NOTIFICATION, birth_notification);
-                intent.putExtra(BIRTH_REGISTRATION, birth_registration);
+                intent.putExtra(BIRTH_CERT, birthCert);
+                intent.putExtra(BIRTH_REGISTRATION, birthRegistration);
+                intent.putExtra(BIRTH_NOTIFICATION, birthNotification);
+                intent.putExtra(BIRTH_CERT_ISSUE_DATE, birthCertIssueDate);
+                intent.putExtra(BIRTH_CERT_NUMBER, birthCertNum);
+                intent.putExtra(SYSTEM_BIRTH_NOTIFICATION, systemBirthNotification);
+                intent.putExtra(BIRTH_REG_TYPE, birthRegType);
+                intent.putExtra(INFORMANT_REASON, informantReason);
                 intent.putExtra(DOB, dob);
                 context.startActivity(intent);
             });

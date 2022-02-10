@@ -58,8 +58,6 @@ public class BirthNotificationProvider extends CoreChildRegisterProvider {
         if (visibleColumns.isEmpty()) {
             populatePatientColumn(pc, client, viewHolder);
             populateLastColumn(pc, viewHolder);
-
-            return;
         }
     }
 
