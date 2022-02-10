@@ -1,0 +1,34 @@
+name: one
+description: after two days
+priority: 1
+condition: "pncVisitAlertRule.isValid(0,10000,3)"
+actions:
+  - "pncVisitAlertRule.setVisitID('1')"
+---
+name: three
+description: after three days
+priority: 1
+condition: "pncVisitAlertRule.isValid(3,4,8)"
+actions:
+  - "pncVisitAlertRule.setVisitID('3')"
+---
+name: eight
+description: after eight days
+priority: 1
+condition: "pncVisitAlertRule.isValid(8,9,21)"
+actions:
+  - "pncVisitAlertRule.setVisitID('8')"
+---
+name: twenty_one
+description: after twenty one days
+priority: 1
+condition: "pncVisitAlertRule.isValid(21,22,35)"
+actions:
+  - "pncVisitAlertRule.setVisitID('21 - 27')"
+---
+name: thrity_five
+description: after thrity five days
+priority: 1
+condition: "pncVisitAlertRule.isValid(35,36,42)"
+actions:
+  - "pncVisitAlertRule.setVisitID('35 - 41')"

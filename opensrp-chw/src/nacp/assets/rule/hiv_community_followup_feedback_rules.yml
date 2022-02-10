@@ -1,0 +1,22 @@
+---
+name: "hiv_community_followup_visit_date_calculation"
+description: "calculating the hiv followup visit date"
+priority: 1
+condition: "true"
+actions:
+  - "hiv_community_followup_visit_date_calculation = System.currentTimeMillis()"
+---
+name: "client_moved_location_visibility"
+description: "client_moved_location visibility"
+priority: 1
+condition: "followup_status.value == 'Client has relocated to another location' || followup_status.value == 'Amehamishiwa mahali pengine' || followup_status.value == 'Client continues with clinic from elsewhere' || followup_status.value == 'Anaendelea na huduma kutoka sehemu nyingine'"
+actions:
+  - "client_moved_location_visibility = true"
+---
+name: "client_moved_location_other_visibility"
+description: "client_moved_location visibility"
+priority: 1
+condition: "client_moved_location.value == 'Other' && (followup_status.value == 'Client has relocated to another location' || followup_status.value == 'Amehamishiwa mahali pengine') || client_moved_location.value == 'Other' && (followup_status.value == 'Client continues with clinic from elsewhere' || followup_status.value == 'Anaendelea na huduma kutoka sehemu nyingine')"
+actions:
+  - "client_moved_location_other_visibility = true"
+

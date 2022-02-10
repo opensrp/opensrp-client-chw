@@ -1,0 +1,421 @@
+{
+  "count": "1",
+  "encounter_type": "ANC Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "ANC referral form",
+    "fields": [
+      {
+        "key": "chw_referral_hf_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1759AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "problem_hf_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Hali ya mteja / tatizo",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "Vaginal_bleeding",
+            "text": "Kutokwa na damu ukeni",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
+            "text": "Kutokwa na majimaji yenye rangirangi na harufu mbaya",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "High_blood_pressure",
+            "text": "Shinikizo la damu",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_abdominal_pain",
+            "text": "Maumivu makali ya tumbo",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Severe_anaemia",
+            "text": "upungufu mkali wa damu",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Convulsions",
+            "text": "Degedege",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "No_movement_unusual_movement_for_a_child_in_the_womb",
+            "text": "Hamna uchezaji / uchezaji usiyo wa kawaida kwa mtoto tumboni",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Pregnancy_pains_before_9_months",
+            "text": "Maumivu ya ujauzito kabla ya miezi 9",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "153316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Early_age_pregnancy_below_18_years",
+            "text": "Mimba ya umri mdogo (chini ya miaka 18)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "163119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "A_severe_headache_dizziness",
+            "text": "Maumivu makali ya kichwa / kizunguzungu",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Swelling_of_the_face_andor_hands",
+            "text": "Kuvimba kwa uso na/au mikono",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Fever",
+            "text": "Homa",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Shivering_trembling",
+            "text": "Kutetemeka",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "158359AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Nausea_and_Vomiting",
+            "text": "Kichefuchefu na kutapika",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "133473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Water_sack_broke_before_contractions",
+            "text": "Maji ya uzazi kupasuka kabla ya mikazo",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "129211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Cord_prolapse",
+            "text": "Kutokwa kwa kamba ya uzazi nje ya uke",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "128419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "HIV_care_and_support_services",
+            "text": "Huduma za matunzo na usaidizi wa VVU",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Family_planning_services",
+            "text": "Huduma za uzazi wa mpango",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "PMTCT_for_mothers",
+            "text": "PMTCT kwa akina mama",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Fistula",
+            "text": "Fistula",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "160854AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Difficultly_breathing",
+            "text": "Kupumua kwa shida",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Breast_engorgement",
+            "text": "Kuvimba kwa matiti",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Blurred_vision",
+            "text": "Uoni hafifu",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Perineum_tear",
+            "text": "Kupasuka kwa msamba",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Pregnancy_confirmation",
+            "text": "Kuthibitisha ujauzito",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "152305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Other_symptoms",
+            "text": "Dalili zingine",
+            "value": false,
+            "ignore": true,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali bainisha sababu ya rufaa ya ANC"
+        }
+      },
+      {
+        "key": "problem_hf_anc_other",
+        "type": "edit_text",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "edit_type": "name",
+        "hint": "Dalili zingine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali bainisha dalili nyingine"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "service_before_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "is_problem": false,
+        "label": "Usimamizi wa kabla ya kutoa rufaa uliopewa",
+        "label_text_style": "bold",
+        "exclusive": [
+          "None"
+        ],
+        "options": [
+          {
+            "key": "ORS",
+            "text": "ORS",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Panadol",
+            "text": "Panadol",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "Other_treatment",
+            "text": "Matibabu mengine",
+            "value": false,
+            "ignore": true,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "None",
+            "text": "HaKuna",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Sehemu ya usimamizi kabla ya ktutoa rufaa inahitajika"
+        }
+      },
+      {
+        "key": "service_before_anc_other",
+        "type": "edit_text",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "",
+        "is_problem": false,
+        "edit_type": "name",
+        "hint": "Other treatment",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify other treatment"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_date_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_time_anc",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "is_problem": false,
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_referral_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

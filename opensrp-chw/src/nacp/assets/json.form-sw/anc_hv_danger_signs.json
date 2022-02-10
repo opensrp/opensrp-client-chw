@@ -1,0 +1,238 @@
+{
+  "count": "1",
+  "encounter_type": "Home Visit - Danger signs",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Dalili za hatari",
+    "fields": [
+      {
+        "key": "danger_signs_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "danger_signs_present",
+        "type": "check_box",
+        "label": "Je, Mama ana dalili zozote za hatari?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_fever",
+            "text": "Homa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fever"
+          },
+          {
+            "key": "chk_bleeding_vaginally",
+            "text": "Kutokwa na damu ukeni",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_bleeding_vaginally"
+          },
+          {
+            "key": "chk_server_headache",
+            "text": "Maumivu makali ya kichwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_server_headache"
+          },
+          {
+            "key": "chk_blurred_vision",
+            "text": "Kutoona vizuri",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_blurred_vision"
+          },
+          {
+            "key": "chk_convulsions",
+            "text": "Degedege",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_convulsions"
+          },
+          {
+            "key": "chk_difficulty_breathing",
+            "text": "Kupumua kwa shida",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_difficulty_breathing"
+          },
+          {
+            "key": "chk_severe_abdominal_pain",
+            "text": "Maumivu makali ya tumbo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_severe_abdominal_pain"
+          },
+          {
+            "key": "chk_loss_consciousness",
+            "text": "Kupoteza fahamu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_loss_consciousness"
+          },
+          {
+            "key": "chk_swelling",
+            "text": "Kuvimba kwa uso na/au mikono",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_swelling"
+          },
+          {
+            "key": "chk_early_labour",
+            "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_early_labour"
+          },
+          {
+            "key": "chk_vaginal_discharge",
+            "text": "Kutokwa na majimaji ukeni yenye rangirangi na harufu mbaya",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vaginal_discharge"
+          },
+          {
+            "key": "chk_unusual_movement",
+            "text": "Hakuna uchezaji / uchezaji usiyo wa kawaida kwa mtoto tumboni",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unusual_movement"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau mojawapo"
+        }
+      },
+      {
+        "key": "danger_signs_present_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Dalili ya hatari! Apewe rufaa kwenda kwenye kituo cha afya haraka.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_fever",
+                  "chk_bleeding_vaginally",
+                  "chk_server_headache",
+                  "chk_blurred_vision",
+                  "chk_convulsions",
+                  "chk_difficulty_breathing",
+                  "chk_severe_abdominal_pain",
+                  "chk_loss_consciousness",
+                  "chk_swelling",
+                  "chk_early_labour",
+                  "chk_vaginal_discharge",
+                  "chk_unusual_movement"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "danger_signs_counseling",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "danger_signs_counseling",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "Je, mama amepokea ushauri?",
+        "label_info_text": "Je, mama alipokea ushauri nasaha kuhusu dalili za hatari katika kituo cha afya hivi karibuni?",
+        "hint": "Je, mama alipokea ushauri nasaha kuhusu dalili za hatari katika kituo cha afya hivi karibuni?",
+        "values": [
+          "Ndiyo",
+          "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "prompt_for_danger_signs",
+        "type": "toaster_notes",
+        "text": "Tafadhali mpatie mteja ushauri juu ya dalili za hatari za kipindi cha ujauzito",
+        "openmrs_entity_id": "prompt_for_danger_signs",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:danger_signs_counseling": {
+            "type": "String",
+            "ex": "equalTo(.,\"No\")"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+---
+name: step3_fp_start_date
+description: calculate fp start date
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step2_fp_method_accepted == 'Male sterilization' ? fp_start_male_ster : step1_fp_reg_date"
