@@ -369,7 +369,7 @@
     <string name="device_data_not_synced">Données de l\'appareil non synchronisées</string>
     <string name="progressBarLabel">Synchronisation %s : %d%% </string>
 
-    <string name="update_status">État de mise à jour</string>
+    <string name="update_status">Mettre à jour</string>
     <string name="certificate_received">Certificat reçu</string>
     <string name="certificate_not_received">Certificat non reçu</string>
     <string name="certified">Certifié</string>
