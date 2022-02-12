@@ -171,6 +171,23 @@ android {
 
     flavorDimensions 'baseDimension'
     productFlavors {
+        nacp {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".nacp"
+            versionCode 9
+            versionName "1.0.9"
+            buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
+            buildConfigField "String", 'opensrp_url_debug', '"http://50.116.15.4:8082/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "Facility", "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "Facility", "Health Facility", "Village", "Village Sublocations"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
+            buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
+
+            buildConfigField "int", "DATABASE_VERSION", '24'
+        }
         ba {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
@@ -178,8 +195,7 @@ android {
             versionName "1.0.9"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
-            buildConfigField "String", 'opensrp_url_debug', '"http://50.116.15.4:8082/opensrp/"'
-//            buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://ba-unified-stage.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Ward" , "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "Facility", "Health Facility", "Village", "Village Sublocations"}'

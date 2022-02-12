@@ -1,0 +1,1087 @@
+{
+  "count": "1",
+  "encounter_type": "Family Member Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Add Family Member",
+    "fields": [
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "type": "edit_text",
+        "read_only": true,
+        "hint": "WAJA ID",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the UNIQUE ID"
+        }
+      },
+      {
+        "key": "surname",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Surname",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the surname"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "same_as_fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "check_box",
+        "label": "",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "same_as_fam_name",
+            "text": "Surname same as family name",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "hidden": "true"
+      },
+      {
+        "key": "surname_calculation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "hidden",
+        "hint": "Surname as Family name",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-member-calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "First name",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the first name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
+        }
+      },
+      {
+        "key": "middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "middle_name",
+        "type": "edit_text",
+        "hint": "Middle name",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the middle name"
+        }
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Date of birth (DOB)",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-5y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "age_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_register_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "type": "check_box",
+        "label": "",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "DOB unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ],
+        "relevance": {
+          "step1:dob": {
+            "type": "string",
+            "ex": "equalTo(.,\"\")"
+          }
+        }
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "Age",
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Must be a rounded number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid age"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "Age must be equal or greater than 5"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid age"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Age must be equal or less than 120"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the age"
+        }
+      },
+      {
+        "key": "sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sex",
+        "values": [
+          "Male",
+          "Female"
+        ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the sex"
+        }
+      },
+      {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "marital_status",
+        "type": "spinner",
+        "hint": "Client's Marital Status?",
+        "values": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "keys": [
+          "Single",
+          "Married",
+          "Divorced",
+          "Monogamy",
+          "Polygamy",
+          "Widowed",
+          "Cohabitation"
+        ],
+        "openmrs_choice_ids": {
+          "Single": "Single",
+          "Married": "Married",
+          "Divorced": "Divorced",
+          "Monogamy": "Monogamy",
+          "Polygamy": "Polygamy",
+          "Widowed": "Widowed",
+          "Cohabitation": "Cohabitation"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "phone_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "phone_number",
+        "type": "edit_text",
+        "hint": "Phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
+          "err": "Number must be 10 digits and must start with 06 or 07."
+        }
+      },
+      {
+        "key": "id_avail",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "id_avail",
+        "type": "check_box",
+        "label": "Do you have any of the following IDs?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_national_id",
+            "text": "National ID",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_national_id"
+          },
+          {
+            "key": "chk_voters_id",
+            "text": "Voter's registration ID",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_voters_id"
+          },
+          {
+            "key": "chk_drivers_license",
+            "text": "Driver's license",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_drivers_license"
+          },
+          {
+            "key": "chk_passport",
+            "text": "Passport",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_passport"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "national_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "National_ID",
+        "type": "mask_edit_text",
+        "mask": "########-#####-#####-##",
+        "mask_hint": "12345678912345678912",
+        "allowed_chars": "0123456789",
+        "hint": "National ID number e.g 12345678-91234-56789-12",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "^\\d{8}-\\d{5}-\\d{5}-\\d{2}$",
+          "err": "National ID number should be of the format (XXXXXXXX-XXXXX-XXXXX-XX)"
+        },
+        "v_max_length": {
+          "value": "23",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid national ID number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid national ID"
+        },
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_national_id"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "voter_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Voter_Registration_Number",
+        "type": "mask_edit_text",
+        "mask": "T-####-####-###-#",
+        "mask_hint": "123456789123",
+        "allowed_chars": "0123456789",
+        "hint": "Voter's registration number e.g T-1234-5678-912-3",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "^T-\\d{4}-\\d{4}-\\d{3}-\\d{1}$",
+          "err": "Voter's registration number should be of the format (T-XXXX-XXXX-XXX-X)"
+        },
+        "v_max_length": {
+          "value": "17",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid voter's registration number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid voters registration number"
+        },
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_voters_id"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "driver_license",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Driver_License_Number",
+        "type": "mask_edit_text",
+        "mask": "##########",
+        "mask_hint": "1234567891",
+        "allowed_chars": "0123456789",
+        "hint": "Driver's license number e.g 1234567891",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "^([0-9]{10})",
+          "err": "Driver's license number should be of the format (XXXXXXXXXX)"
+        },
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid driver's license number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid driver's license number"
+        },
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_drivers_license"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "passport",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Passport_Number",
+        "type": "mask_edit_text",
+        "mask": "TAE-######",
+        "mask_hint": "123456",
+        "allowed_chars": "0123456789",
+        "hint": "Passport number e.g TAE-123456",
+        "edit_type": "number",
+        "v_regex": {
+          "value": "^TAE-\\d{6}$",
+          "err": "Passport Number should be in the format (TAE-XXXXXX)"
+        },
+        "v_max_length": {
+          "value": "10",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid passport number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid passport number"
+        },
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_passport"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "insurance_provider",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Health_Insurance_Type",
+        "type": "spinner",
+        "hint": "Health insurance provider",
+        "values": [
+          "Community Health Fund (CHF)/(iCHF)",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "National Health Insurance Fund (NHIF)",
+          "Tiba Kwa Kadi (TIKA)",
+          "AAR Healthcare",
+          "Strategies Insurance",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
+          "Britam Insurance Tanzania",
+          "Jubilee Insurance",
+          "Resolutions Insurance",
+          "Reliance Insurance",
+          "Other",
+          "None"
+        ],
+        "keys": [
+          "Community Health Fund (CHF)",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)",
+          "National Health Insurance Fund (NHIF)",
+          "Tiba Kwa Kadi (TIKA)",
+          "AAR Healthcare",
+          "Strategies Insurance",
+          "Milvik Tanzania Ltd (BIMA Mkononi)",
+          "Britam Insurance Tanzania",
+          "Jubilee Insurance",
+          "Resolutions Insurance",
+          "Reliance Insurance",
+          "Other",
+          "None"
+        ],
+        "openmrs_choice_ids": {
+          "Community Health Fund (CHF)": "Community_Health_Fund",
+          "National Social Security Fund - Social Health Insurance Benefit (SHIB)": "National_Social_Security_Fund",
+          "National Health Insurance Fund (NHIF)": "National_Health_Insurance_Fund",
+          "Tiba Kwa Kadi (TIKA)": "Tiba_kwa_Kadi",
+          "AAR Healthcare": "AAR_Healthcare",
+          "AAR Strategies Insurance": "Strategies_Insurance",
+          "Milvik Tanzania Ltd (BIMA Mkononi)": "BIMA_Mkononi",
+          "Britam Insurance Tanzania": "Britam_Insurance_Tanzania",
+          "Jubilee Insurance": "Jubilee_Insurance",
+          "Resolutions Insurance": "Resolutions_Insurance",
+          "Reliance Insurance": "Reliance_Insurance",
+          "Other": "Other_Health_Insurance_Type",
+          "None": "No_Health_Insurance"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the insurance provider"
+        }
+      },
+      {
+        "key": "insurance_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Other_Health_Insurance_Type",
+        "type": "edit_text",
+        "hint": "Other health insurance provider",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the insurance provider"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "insurance_provider_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Health_Insurance_Number",
+        "type": "edit_text",
+        "hint": "Health insurance provider number",
+        "v_required": {
+          "value": "true",
+          "err": "Please add the health insurance provider iD Number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "wra",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_register_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mra",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_register_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "preg_1yr",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "preg_1yr",
+        "type": "spinner",
+        "hint": "Has the woman delivered in the last 1 year?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select if the woman has delivered in the last 1 year"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "disabilities",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "disabilities",
+        "type": "spinner",
+        "hint": "Physical disabilities",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "Yes",
+          "No": "No"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "type_of_disability",
+        "openmrs_entity_parent": "disabilities",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_disability",
+        "type": "check_box",
+        "label": "Type of physical disabilities",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "physical_impairments",
+            "text": "Mobility and Physical Impairments",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "physical_impairments"
+          },
+          {
+            "key": "spinal_cord_disability",
+            "text": "Spinal Cord Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "spinal_cord_disability"
+          },
+          {
+            "key": "brain_disability",
+            "text": "Head Injuries - Brain Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "brain_disability"
+          },
+          {
+            "key": "vision_disability",
+            "text": "Vision Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "vision_disability"
+          },
+          {
+            "key": "hearing_disability",
+            "text": "Hearing Disability",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hearing_disability"
+          },
+          {
+            "key": "learning_disabilities",
+            "text": "Cognitive or Learning Disabilities",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "learning_disabilities"
+          },
+          {
+            "key": "psychological_disorders",
+            "text": "Psychological Disorders",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "psychological_disorders"
+          },
+          {
+            "key": "invisible_disabilities",
+            "text": "Invisible Disabilities",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "invisible_disabilities"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please enter type of disability"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "is_primary_caregiver",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Is primary caregiver?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "other_phone_number",
+        "openmrs_entity_parent": "phone_number",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_phone_number",
+        "type": "edit_text",
+        "hint": "Other phone number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Number must be a total of 10 digits in length"
+        },
+        "v_regex": {
+          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
+          "err": "Number must be 10 digits and must start with 06 or 07."
+        }
+      },
+      {
+        "key": "service_provider",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider",
+        "type": "check_box",
+        "label": "Occupation of the family member",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_farmer",
+            "text": "Farmer",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_cs",
+            "text": "Civil Servant",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_cs"
+          },
+          {
+            "key": "chk_nurse",
+            "text": "Nurse",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_nurse"
+          },
+          {
+            "key": "chk_teacher",
+            "text": "Teacher",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_teacher"
+          },
+          {
+            "key": "chk_th",
+            "text": "Traditional Healer",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_th"
+          },
+          {
+            "key": "chk_chw",
+            "text": "Community Health Worker (CHW)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_chw"
+          },
+          {
+            "key": "chk_tba",
+            "text": "Traditional Birth Attendant",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_tba"
+          },
+          {
+            "key": "chk_chmis",
+            "text": "Community HMIS (cHMIS)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_chmis"
+          },
+          {
+            "key": "chk_cbd",
+            "text": "Community Based Distributor",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_cbd"
+          },
+          {
+            "key": "chk_hbc",
+            "text": "Home Based Care (HBC)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hbc"
+          },
+          {
+            "key": "chk_cimmci",
+            "text": "Community IMCI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_cimmci"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "service_provider_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "service_provider_other",
+        "type": "edit_text",
+        "hint": "Mention other Occupation",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the occupation"
+        },
+        "relevance": {
+          "step1:service_provider": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "leader",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Community_Leader",
+        "type": "check_box",
+        "label": "Any leadership role in the community?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_religious",
+            "text": "Religious leader",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Religious_Leader"
+          },
+          {
+            "key": "chk_traditional",
+            "text": "Traditional leader",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Traditional_leader"
+          },
+          {
+            "key": "chk_political",
+            "text": "Political leader",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Political_leader"
+          },
+          {
+            "key": "chk_influential",
+            "text": "Influential leader",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Influential_Leader"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Other_Community_Leader_Type"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "Not_a_Community_Leader"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_member_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "leader_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Other_Community_Leader_Type_Name",
+        "type": "edit_text",
+        "hint": "Mention other role in the community",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify role"
+        },
+        "relevance": {
+          "step1:leader": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

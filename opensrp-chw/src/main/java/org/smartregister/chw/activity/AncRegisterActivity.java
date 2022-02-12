@@ -50,6 +50,7 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_register);
     }
 
     @Override

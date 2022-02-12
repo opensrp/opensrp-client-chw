@@ -1,0 +1,199 @@
+---
+name: step1_other_reason_fp_chw
+description: Other reason fp stop
+priority: 1
+condition: "step1_reason_stop_fp_chw =='others'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step1_side_effects_fp
+description: side effects fp
+priority: 1
+condition: "step1_reason_stop_fp_chw =='side_effects'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_fp_method_chosen
+description: fp method chosen when changed
+priority: 1
+condition: "step1_reason_stop_fp_chw =='decided_to_change_method'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_pill
+description: pill
+priority: 1
+condition: "step1_reason_stop_fp_chw =='decided_to_change_method'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_user_toaster_info
+description: Oral Contraception List
+priority: 1
+condition: "step2_pill == 'yes'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_breast_lump
+description: breast lumps
+priority: 1
+condition: "step2_pill == 'yes'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_abnormal_vaginal
+description: abnormal vaginal
+priority: 1
+condition: "step2_pill == 'yes'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_pregnant
+description: pregnant
+priority: 1
+condition: "step2_pill == 'yes'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_difficultly_breathing
+description: difficultly breathing
+priority: 1
+condition: "step2_pill == 'yes' && step1_age < 35"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_headaches
+description: headaches
+priority: 1
+condition: "step2_pill == 'yes' && step1_age < 35"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_frequent_urge
+description: frequent urge
+priority: 1
+condition: "step2_pill == 'yes' && step1_age < 35"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_falling_loss_unconsciousness
+description: falling loss unconsciousness
+priority: 1
+condition: "step2_pill == 'yes' && step1_age < 35"
+actions:
+  - "isRelevant = true"
+
+---
+name: step2_breastfeed
+description: breastfeed
+priority: 1
+condition: "step2_pill == 'yes'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_no_condoms
+description: no. condoms
+priority: 1
+condition: "step2_fp_method_chosen == 'Male condom' || step2_fp_method_chosen == 'Female condom'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_no_pillcycles
+description: no. illcycles
+priority: 1
+condition: "step2_fp_method_chosen == 'COC' || step2_fp_method_chosen == 'POP'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_counselling_use
+description: counselling of use given
+priority: 1
+condition: "step2_fp_method_chosen == 'Male condom' || step2_fp_method_chosen == 'Female condom' || step2_fp_method_chosen == 'Standard day method'  || step2_fp_method_chosen == 'COC' || step2_fp_method_chosen == 'POP' || step2_fp_method_chosen == 'Emergency contraceptive' "
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_injectable
+description: fp start injectable date
+priority: 1
+condition: "step2_fp_method_chosen == 'Injectable'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_cocpop
+description: fp start cocpop date
+priority: 1
+condition: "step2_fp_method_chosen == 'COC' || step2_fp_method_chosen == 'POP'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_next_injection_due_date
+description: fp next injectable date
+priority: 1
+condition: "step2_fp_method_chosen == 'Injectable'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_iucd
+description: fp start iucd date
+priority: 1
+condition: "step2_fp_method_chosen == 'IUCD'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_implant_nxt
+description: fp start implant_nxt date
+priority: 1
+condition: "step2_fp_method_chosen == 'Implanon - NXT'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_implant_jad
+description: fp start jad date
+priority: 1
+condition: "step2_fp_method_chosen == 'Jadelle'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_female_ster
+description: fp female_ster date
+priority: 1
+condition: "step2_fp_method_chosen == 'Female sterilization'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_start_male_ster
+description: fp male_ster date
+priority: 1
+condition: "step2_fp_method_chosen == 'Male sterilization'"
+actions:
+  - "isRelevant = true"
+
+---
+name: step3_fp_male_ster_note
+description: fp male_ster date note
+priority: 1
+condition: "step2_fp_method_chosen == 'Male sterilization'"
+actions:
+  - "isRelevant = true"

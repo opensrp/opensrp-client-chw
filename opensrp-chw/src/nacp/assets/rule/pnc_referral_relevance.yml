@@ -1,0 +1,14 @@
+---
+name: step1_problem_hf_pnc_other
+description: Calculated age_at_death
+priority: 1
+condition: "!step1_problem_hf_pnc.isEmpty() && step1_problem_hf_pnc.contains('Other_symptom')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_service_before_pnc_other
+description: Service
+priority: 1
+condition: "!step1_service_before_pnc.isEmpty() && step1_service_before_pnc.contains('Other_treatment')"
+actions:
+  - "isRelevant = true"

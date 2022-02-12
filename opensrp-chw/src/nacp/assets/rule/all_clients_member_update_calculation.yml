@@ -1,0 +1,21 @@
+---
+name: step1_age_calculated
+description: Age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (!step1_dob_unknown.isEmpty() && step1_dob_unknown.contains('dob_unknown')) ? step1_age : helper.getDifferenceDays(step1_dob) / 365.25"
+---
+name: step1_wra
+description: wra calculation
+priority: 1
+condition: "step1_sex == 'Female' && (step1_age_calculated >= 10 && step1_age_calculated <= 49)"
+actions:
+  - "calculation = 1"
+---
+name: step1_reasons_for_registration
+description: set reasons for registration
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ((step1_dob != '' && helper.formatDate(step1_dob,'y') < 15) || (step1_age != '' && step1_age < 15)) ? step1_reasons_for_registration_under_15 : (step1_sex.equalsIgnoreCase('Female') ? step1_reasons_for_registration_female_15 : step1_reasons_for_registration_male_15)"
