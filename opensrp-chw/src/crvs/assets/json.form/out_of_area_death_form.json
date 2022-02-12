@@ -809,10 +809,10 @@
           "{{out_of_area_death_form.step1.informant_relationship.values[3]}}"
         ],
         "keys": [
-          "Frère et sœur",
-          "Conjointe",
-          "Parente",
-          "Autre"
+          "Sibling",
+          "Spouse",
+          "Parent",
+          "Other"
         ],
         "openmrs_choice_ids": {
           "Sibling": "sibling_id_openmrs",
