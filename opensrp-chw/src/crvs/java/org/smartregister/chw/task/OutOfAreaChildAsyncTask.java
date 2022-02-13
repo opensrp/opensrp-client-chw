@@ -151,7 +151,7 @@ public class OutOfAreaChildAsyncTask extends AsyncTask<Void, Void, Void> {
     }
 
     public void setReceivedButtonColor(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received));
+        dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received_green));
         dueButton.setText(context.getString(R.string.certificate_received));
         dueButton.setBackgroundResource(0);
     }

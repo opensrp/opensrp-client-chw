@@ -2,6 +2,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
@@ -256,7 +257,7 @@ android {
             applicationIdSuffix ".crvs"
             versionCode 1
             versionName "1.0.0"
-            buildConfigField "String", 'opensrp_url', '"https://crvs-cd.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"https://crvs.labs.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"' // TODO: To be updated to point to a CRVS S3 Bucket
             buildConfigField "String", 'opensrp_url_debug', '"https://crvs.labs.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
@@ -363,7 +364,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.4-crvs-alpha-3-SNAPSHOT@aar') {
+    api(project(':opensrp-chw-core')) {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

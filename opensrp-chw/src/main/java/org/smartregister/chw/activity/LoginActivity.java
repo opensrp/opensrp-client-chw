@@ -178,7 +178,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             startActivity(intent);
         }else {
             Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
-                    ChildRegisterActivity.class : BirthNotificationRegisterActivity.class);
+                    ChildRegisterActivity.class : BirthCertificationRegisterActivity.class);
             intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         }

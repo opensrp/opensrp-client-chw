@@ -1,4 +1,4 @@
 include ':opensrp-chw'
 
-//include ':opensrp-chw-core'
-//project(":opensrp-chw-core").projectDir = new File("../opensrp-client-chw-core/opensrp-chw-core")
+include ':opensrp-chw-core'
+project(":opensrp-chw-core").projectDir = new File("../opensrp-client-chw-core/opensrp-chw-core")
