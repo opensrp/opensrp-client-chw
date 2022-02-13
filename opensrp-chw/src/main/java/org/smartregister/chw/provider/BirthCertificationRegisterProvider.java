@@ -2,6 +2,7 @@ package org.smartregister.chw.provider;
 
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
+import static org.smartregister.chw.util.CrvsConstants.NO;
 import static org.smartregister.chw.util.CrvsConstants.YES;
 
 import android.content.Context;
@@ -29,7 +30,7 @@ public class BirthCertificationRegisterProvider extends CoreCertificationRegiste
     private View.OnClickListener onClickListener;
 
     private Context context;
-    private CommonRepository commonRepository; // Todo -> Remove?
+    private CommonRepository commonRepository; // Todo -> Remove
 
     public BirthCertificationRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, visibleColumns, onClickListener, paginationClickListener);
@@ -56,11 +57,12 @@ public class BirthCertificationRegisterProvider extends CoreCertificationRegiste
             String birthRegistrationDone = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);
             if (YES.equalsIgnoreCase(certificateReceived) || YES.equalsIgnoreCase(birthRegistrationDone)) {
                 setReceivedButtonColor(context, viewHolderDueBtn);
+            } else if (NO.equalsIgnoreCase(certificateReceived) || NO.equalsIgnoreCase(birthRegistrationDone)) {
+                setNotReceivedButtonColor(context, viewHolderDueBtn);
             } else {
                 setUpdateStatusButtonColor(context, viewHolderDueBtn);
             }
-        }
-        else {
+        } else {
             viewHolderDueBtn.setVisibility(View.GONE);
         }
     }

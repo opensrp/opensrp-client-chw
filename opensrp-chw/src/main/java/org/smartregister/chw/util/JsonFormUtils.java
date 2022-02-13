@@ -293,6 +293,7 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         return "";
     }
 
+    // Todo -> Move to CHW-CORE
     public static JSONObject getJson(Context context, String formName, String baseEntityID) throws Exception {
         String locationId = ChwApplication.getInstance().getContext().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
         JSONObject jsonObject = new JSONObject(getTranslatedString(FormUtils.getInstance(context).getFormJson(formName).toString(), context));

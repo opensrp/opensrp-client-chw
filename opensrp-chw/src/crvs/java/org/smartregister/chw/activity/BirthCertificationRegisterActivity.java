@@ -1,9 +1,10 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
+import static org.smartregister.chw.anc.util.Constants.TABLES.EC_CHILD;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
+import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATION_CHANGED;
@@ -12,14 +13,11 @@ import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
 import static org.smartregister.chw.util.CrvsConstants.MIN_DATE;
-import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 import android.content.Intent;
 import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.util.Constants;
@@ -27,7 +25,6 @@ import org.smartregister.chw.core.activity.CoreCertificationRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.fragment.BirthCertificationRegisterFragment;
 import org.smartregister.chw.util.DateUtils;
 import org.smartregister.family.util.JsonFormUtils;
@@ -69,16 +66,16 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
 
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
-        super.onActivityResultExtended(requestCode, resultCode, data);
         if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 JSONObject form = new JSONObject(jsonString);
-                String baseEntityId = form.optString(Constants.JSON_FORM_EXTRA.ENTITY_TYPE);
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-                if (encounter_type.equalsIgnoreCase("")) {
-                    // Todo -> Generate "update" event
+                if (org.smartregister.chw.util.Constants.EncounterType.BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)
+                        || org.smartregister.chw.util.Constants.EncounterType.UPDATE_BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)
+                ) {
+                    presenter().saveForm(jsonString, EC_CHILD); // Todo -> Get correct table
                 }
             } catch (Exception e) {
                 Timber.e(e);
@@ -89,24 +86,27 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
     @Override
     public void startUpdateFormActivity() {
         try {
-            JSONObject formJsonObject = getFormUtils().getFormJson(BIRTH_CERTIFICATION_CHANGED);
             String birthCert = getIntent().getStringExtra(BIRTH_CERT);
+            String baseEntityId = getIntent().getStringExtra(BASE_ENTITY_ID);
 
             if (birthCert == null) {
                 birthCert = "";
             }
 
-            if (StringUtils.isNotBlank(birthCert))
-                prepopulateCertificationForm(formJsonObject);
-
-            startFormActivity(formJsonObject);
+            if (StringUtils.isNotBlank(birthCert)) {
+                startEditCertificationForm(baseEntityId);
+            } else {
+                presenter().startCertificationForm(BIRTH_CERTIFICATION_CHANGED, baseEntityId);
+            }
 
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
-    private void prepopulateCertificationForm(JSONObject formJsonObject) throws JSONException {
+    @Override
+    public void startEditCertificationForm(String baseEntityId) throws Exception {
+
         Map<String, String> valueMap = new HashMap<>();
         valueMap.put(BIRTH_CERT, getIntent().getStringExtra(BIRTH_CERT));
         valueMap.put(BIRTH_REGISTRATION, getIntent().getStringExtra(BIRTH_REGISTRATION));
@@ -116,16 +116,9 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
         valueMap.put(SYSTEM_BIRTH_NOTIFICATION, getIntent().getStringExtra(SYSTEM_BIRTH_NOTIFICATION));
         valueMap.put(BIRTH_REG_TYPE, getIntent().getStringExtra(BIRTH_REG_TYPE));
         valueMap.put(INFORMANT_REASON, getIntent().getStringExtra(INFORMANT_REASON));
-        try {
-            JSONObject stepOne = formJsonObject.getJSONObject(JsonFormUtils.STEP1);
-            JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-            JSONObject min_date = getFieldJSONObject(jsonArray, BIRTH_CERTIFICATE_ISSUE_DATE);
-            assert min_date != null;
-            min_date.put(MIN_DATE, DateUtils.changeDateFormat(Objects.requireNonNull(getIntent().getStringExtra(DOB))));
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-        CoreJsonFormUtils.populateJsonForm(formJsonObject, valueMap);
+        valueMap.put(MIN_DATE, DateUtils.changeDateFormat(Objects.requireNonNull(getIntent().getStringExtra(DOB))));
+
+        presenter().startEditCertForm(BIRTH_CERTIFICATION_CHANGED, CoreConstants.EventType.UPDATE_BIRTH_CERTIFICATION, baseEntityId, valueMap);
     }
 
     @Override
@@ -136,5 +129,10 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
     @Override
     public String getFormTitle() {
         return getString(R.string.birth_certification);
+    }
+
+    @Override
+    public Class<? extends CoreCertificationRegisterActivity> getActivityClass() {
+        return BirthCertificationRegisterActivity.class;
     }
 }

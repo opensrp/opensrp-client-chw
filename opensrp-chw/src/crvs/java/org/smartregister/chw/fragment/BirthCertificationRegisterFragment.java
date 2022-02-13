@@ -14,6 +14,7 @@ import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.BirthCertificationRegisterActivity;
