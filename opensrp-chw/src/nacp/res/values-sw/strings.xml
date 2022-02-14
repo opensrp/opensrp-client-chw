@@ -14,10 +14,16 @@
     <string name="hiv_return_to_previous_page">Rudi kwenye wateja wa UWANYU</string>
     <string name="hiv_clients">Wateja wa UWANYU</string>
     <string name="any_changes_you_make">Mabadiliko uliyoyafanya yatafutika</string>
-    <string name="record_hiv_followup">Rekodi ziara ya ufuatiliaji wa UWANYU</string>
+    <string name="record_hiv_followup">Rekodi za ufuatiliaji unaofanywa na UWANYU</string>
     <string name="action_received_hiv_followup_referrals">Ufuatiliaji</string>
     <string name="fill_followup_form">Jaza fomu ya ufuatiliaji</string>
     <string name="location_info">Taarifa za Kimaeneo</string>
     <string name="menu_independent">Huru</string>
+    <string name="hiv_on">siku ya</string>
+    <string name="hiv_client_registered_text">Mteja amesajiliwa %s %s</string>
+    <string name="days_until_due">Siku %1$s mpaka kufikia muda</string>
+    <string name="cbhs_follow_up_visit">Ziara inayofuata ya ufuatiliaji wa </string>
+    <string name="hiv_follow_up_visit">Ufuatiliaji wa VVU</string>
+    <string name="hiv_service_due"><![CDATA[%1$s <font color=#000000>UWANYU (%2$s)</font></b>]]></string>
 
 </resources>
