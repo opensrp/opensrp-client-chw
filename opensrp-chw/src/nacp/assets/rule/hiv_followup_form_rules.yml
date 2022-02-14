@@ -16,7 +16,7 @@ actions:
 name: "ctc_number_visibility"
 description: "ctc_number visibility"
 priority: 1
-condition: "client_hiv_status_after_testing.value == 'Positive' || client_hiv_status_after_testing.value == 'Chanya'"
+condition: "(registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.') && (client_hiv_status_after_testing.value == 'Positive' || client_hiv_status_after_testing.value == 'Chanya')"
 actions:
   - "ctc_number_visibility =  true"
 ---

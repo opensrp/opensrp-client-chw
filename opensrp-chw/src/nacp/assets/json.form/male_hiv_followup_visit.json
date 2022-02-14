@@ -230,7 +230,7 @@
             }
           ],
           "required_status": "yes:Please specify client's CTC Number",
-          "subjects": "client_hiv_status_after_testing:text"
+          "subjects": "client_hiv_status_after_testing:text, registration_or_followup_status:map"
         },
         {
           "name": "client_condition",
