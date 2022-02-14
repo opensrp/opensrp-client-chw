@@ -50,11 +50,6 @@ public class ChwAllClientRegisterPresenter extends CoreAllClientsRegisterPresent
         if (getView() != null) {
             getView().refreshList(FetchStatus.fetched);
             getView().hideProgressDialog();
-            NavigationMenu navigationMenu = NavigationMenu.getInstance((Activity) viewReference.get(),
-                    null, null);
-            if (navigationMenu != null) {
-                navigationMenu.refreshCount();
-            }
         }
     }
 
