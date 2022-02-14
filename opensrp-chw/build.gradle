@@ -174,8 +174,8 @@ android {
         nacp {
             dimension = 'baseDimension'
             applicationIdSuffix ".nacp"
-            versionCode 9
-            versionName "1.0.9"
+            versionCode 1
+            versionName "1.0.1"
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://50.116.15.4:8082/opensrp/"'
@@ -306,6 +306,16 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    bundle {
+        language {
+            // Specifies that the app bundle should not support
+            // configuration APKs for language resources. These
+            // resources are instead packaged with each base and
+            // dynamic feature APK.
+            enableSplit = false
+        }
     }
 }
 
