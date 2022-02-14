@@ -324,6 +324,78 @@
             "field": "obs.fieldCode",
             "formSubmissionField": "deathNotificationDone"
           }
+        },
+        {
+          "column_name": "informant_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantName"
+          }
+        },
+        {
+          "column_name": "informant_relationship",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantRelationship"
+          }
+        },
+        {
+          "column_name": "informant_address",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantAddress"
+          }
+        },
+        {
+          "column_name": "informant_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantPhone"
+          }
+        },
+        {
+          "column_name": "official_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialName"
+          }
+        },
+        {
+          "column_name": "official_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialId"
+          }
+        },
+        {
+          "column_name": "official_position",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialPosition"
+          }
+        },
+        {
+          "column_name": "official_address",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialAddress"
+          }
+        },
+        {
+          "column_name": "official_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialNumber"
+          }
         }
       ]
     },
@@ -618,6 +690,78 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "informantReason"
+          }
+        },
+        {
+          "column_name": "informant_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantName"
+          }
+        },
+        {
+          "column_name": "informant_relationship",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantRelationship"
+          }
+        },
+        {
+          "column_name": "informant_address",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantAddress"
+          }
+        },
+        {
+          "column_name": "informant_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "informantPhone"
+          }
+        },
+        {
+          "column_name": "official_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialName"
+          }
+        },
+        {
+          "column_name": "official_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialId"
+          }
+        },
+        {
+          "column_name": "official_position",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialPosition"
+          }
+        },
+        {
+          "column_name": "official_address",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialAddress"
+          }
+        },
+        {
+          "column_name": "official_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "officialNumber"
           }
         }
       ]
