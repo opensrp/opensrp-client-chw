@@ -21,7 +21,7 @@ public class BirthCertificationRegisterFragmentPresenter extends CoreCertificati
 
     @Override
     public String getDueCondition() {
-        return " and birth_cert = ''";
+        return " and birth_cert = 'Yes'";
     }
 
     @Override
@@ -62,7 +62,7 @@ public class BirthCertificationRegisterFragmentPresenter extends CoreCertificati
 
     @Override
     public String getDueFilterCondition() {
-        return " and birth_cert = ''";
+        return " and birth_cert = 'Yes'";
     }
 
     @Override
