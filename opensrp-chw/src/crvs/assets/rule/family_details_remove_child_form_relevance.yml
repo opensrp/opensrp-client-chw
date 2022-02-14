@@ -9,14 +9,14 @@ actions:
 name: step1_medically_treated
 description: medically_treated
 priority: 1
-condition: "!step1_death_place.equals('Health Facility')"
+condition: "!step1_death_place.equals('Health Facility') && step1_remove_reason.equals('Died')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_know_death_cause
 description: know_death_cause
 priority: 1
-condition: "!step1_death_place.equals('Health Facility')"
+condition: "!step1_death_place.equals('Health Facility') && step1_remove_reason.equals('Died')"
 actions:
   - "isRelevant = true"
 ---
@@ -24,21 +24,21 @@ actions:
 name: step1_physician_name
 description: physician_name
 priority: 1
-condition: "step1_death_place.equals('Health Facility') || step1_mccd_conducted.equals('Yes')"
+condition: "step1_death_place.equals('Health Facility') || step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_physician_position
 description: physician_position
 priority: 1
-condition: "step1_death_place.equals('Health Facility') || step1_mccd_conducted.equals('Yes')"
+condition: "step1_death_place.equals('Health Facility') || step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_death_cause
 description: death_cause
 priority: 1
-condition: "step1_know_death_cause.equals('Yes') || step1_mccd_conducted.equals('Yes')"
+condition: "step1_know_death_cause.equals('Yes') || step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died') "
 actions:
   - "isRelevant = true"
 ---
