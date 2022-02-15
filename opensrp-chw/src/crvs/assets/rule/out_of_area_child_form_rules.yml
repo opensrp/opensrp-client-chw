@@ -89,4 +89,3 @@ priority: 1
 condition: "step1_birth_reg_type == 'Informant Only'"
 actions:
   - "isRelevant = true"
----
