@@ -7,8 +7,6 @@ import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT_NUM;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
 import static org.smartregister.chw.util.CrvsConstants.CLIENT_TYPE;
@@ -140,14 +138,12 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
             }
             viewHolder.dueButton.setOnClickListener(view -> {
                 String entityId = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true);
-                String birth_cert_issue_date = Utils.getValue(pc.getColumnmaps(), BIRTH_CERTIFICATE_ISSUE_DATE, true);
-                String birth_cert_num = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT_NUM, true);
-                String clienttype = Utils.getValue(pc.getColumnmaps(), CLIENT_TYPE, true);
+                String clientType = Utils.getValue(pc.getColumnmaps(), CLIENT_TYPE, true);
 
                 Intent intent = new Intent(context, BirthNotificationUpdateActivity.class);
                 intent.putExtra(org.smartregister.chw.util.Constants.ACTIVITY_PAYLOAD.ACTION, org.smartregister.chw.util.Constants.ACTION.START_REGISTRATION);
                 intent.putExtra(DBConstants.KEY.BASE_ENTITY_ID, entityId);
-                intent.putExtra(CLIENT_TYPE, clienttype);
+                intent.putExtra(CLIENT_TYPE, clientType);
                 intent.putExtra(BIRTH_CERT, birthCert);
                 intent.putExtra(BIRTH_REGISTRATION, birthRegistration);
                 intent.putExtra(BIRTH_NOTIFICATION, birthNotification);
