@@ -394,6 +394,14 @@
         "v_numeric": {
           "value": "true",
           "err": "{{out_of_area_child_enrollment.step1.birth_weight.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "500",
+          "err": "{{out_of_area_child_enrollment.step1.birth_weight.v_min.err}}"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "{{out_of_area_child_enrollment.step1.birth_weight.v_max.err}}"
         }
       },
       {
