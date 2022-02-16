@@ -246,9 +246,9 @@
           "Other"
         ],
         "openmrs_choice_ids": {
+          "Health Facility": "health_facility_id_openmrs",
           "Home": "home_id_openmrs",
           "Place of work": "place_of_work_id_openmrs",
-          "Health Facility": "health_facility_id_openmrs",
           "Other": "other_id_openmrs"
         },
         "relevance": {
@@ -627,7 +627,13 @@
         "values": [
           "{{family_details_remove_member.step1.received_death_certificate.values[0]}}",
           "{{family_details_remove_member.step1.received_death_certificate.values[1]}}"
-        ]
+        ],
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
       },
       {
         "key": "death_certificate_issue_date",

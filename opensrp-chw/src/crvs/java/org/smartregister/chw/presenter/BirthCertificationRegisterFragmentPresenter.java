@@ -100,14 +100,17 @@ public class BirthCertificationRegisterFragmentPresenter extends CoreCertificati
         getView().filterandSortInInitializeQueries();
     }
 
+    @Override
     public String getCountSelectString(String condition) {
         return model.countSelect(CoreConstants.TABLE_NAME.CHILD, condition, CoreConstants.TABLE_NAME.FAMILY_MEMBER);
     }
 
+    @Override
     public String getMainSelectString(String condition) {
         return model.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, condition);
     }
 
+    @Override
     public String getOutOfCatchmentSelectString(String condition) {
         return ((BirthCertificationRegisterFragmentModel) model).outOfAreaSelect(condition);
     }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CrvsDBUtils {
 
-    public static String[] mainColumns(String tableName, String familyTable, String familyMemberTable) {
+    public static String[] mainBirthCertificationColumns(String tableName, String familyTable, String familyMemberTable) {
         ArrayList<String> columnList = new ArrayList<>();
         columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
@@ -51,7 +51,7 @@ public class CrvsDBUtils {
     }
 
     // Union select columns for out of area children
-    public static String[] outOfAreaMainColumns(String tableName) {
+    public static String[] outOfAreaBirthCertificationMainColumns(String tableName) {
         ArrayList<String> columnList = new ArrayList<>();
         columnList.add("'' as " + org.smartregister.chw.core.utils.ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);

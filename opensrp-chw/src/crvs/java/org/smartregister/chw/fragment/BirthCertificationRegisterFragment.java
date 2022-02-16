@@ -38,7 +38,7 @@ public class BirthCertificationRegisterFragment extends CoreCertificationRegiste
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        BirthCertificationRegisterProvider provider = new BirthCertificationRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        BirthCertificationRegisterProvider provider = new BirthCertificationRegisterProvider(getActivity(), visibleColumns, registerActionHandler, paginationViewHandler);
         clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);

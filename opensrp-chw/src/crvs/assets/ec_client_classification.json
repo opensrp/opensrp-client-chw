@@ -91,7 +91,16 @@
             "field": "eventType",
             "field_value": "Birth Certification",
             "creates_case": [
-              "ec_child"
+              "ec_child",
+              "ec_out_of_area_child"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Update Birth Certification",
+            "creates_case": [
+              "ec_child",
+              "ec_out_of_area_child"
             ]
           },
           {

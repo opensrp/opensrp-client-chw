@@ -25,8 +25,6 @@ public class CrvsConstants {
     public static String BIRTH_REGISTRATION = "birth_registration";
     public static String MIN_DATE = "min_date";
     public static String DOB = "dob";
-    public static String CLIENT_TYPE = "clienttype";
-
     public static String RECEIVED_DEATH_CERTIFICATE = "received_death_certificate";
     public static String BASE_ENTITY_ID = "base_entity_id";
     public static String UNIQUE_ID = "unique_id";
@@ -56,7 +54,6 @@ public class CrvsConstants {
     public static String FATHER_HIGHEST_EDU_LEVEL = "father_highest_edu_level";
 
     // Forms
-    public static String DEATH_MEMBER_FORM = "death_member_form";
     public static String OUT_OF_AREA_CHILD_FORM = "out_of_area_child_enrollment";
     public static String OUT_OF_AREA_DEATH_FORM = "out_of_area_death_form";
     public static String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";

@@ -30,14 +30,12 @@ public class BirthCertificationRegisterProvider extends CoreCertificationRegiste
     private View.OnClickListener onClickListener;
 
     private Context context;
-    private CommonRepository commonRepository; // Todo -> Remove
 
-    public BirthCertificationRegisterProvider(Context context, CommonRepository commonRepository, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
+    public BirthCertificationRegisterProvider(Context context, Set visibleColumns, View.OnClickListener onClickListener, View.OnClickListener paginationClickListener) {
         super(context, visibleColumns, onClickListener, paginationClickListener);
         this.visibleColumns = visibleColumns;
         this.onClickListener = onClickListener;
         this.context = context;
-        this.commonRepository = commonRepository;
     }
 
     @Override

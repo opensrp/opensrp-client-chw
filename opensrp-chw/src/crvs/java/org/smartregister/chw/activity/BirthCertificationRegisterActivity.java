@@ -1,6 +1,6 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.anc.util.Constants.TABLES.EC_CHILD;
+import static org.smartregister.AllConstants.CLIENT_TYPE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
@@ -75,7 +75,7 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
                 if (org.smartregister.chw.util.Constants.EncounterType.BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)
                         || org.smartregister.chw.util.Constants.EncounterType.UPDATE_BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)
                 ) {
-                    presenter().saveForm(jsonString, EC_CHILD); // Todo -> Get correct table
+                    presenter().saveForm(jsonString, getIntent().getStringExtra(CLIENT_TYPE));
                 }
             } catch (Exception e) {
                 Timber.e(e);
@@ -96,7 +96,7 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
             if (StringUtils.isNotBlank(birthCert)) {
                 startEditCertificationForm(baseEntityId);
             } else {
-                presenter().startCertificationForm(BIRTH_CERTIFICATION_CHANGED, baseEntityId);
+                presenter().startCertificationForm(CoreConstants.JSON_FORM.getBirthCertificationChangedForm(), baseEntityId);
             }
 
         } catch (Exception e) {

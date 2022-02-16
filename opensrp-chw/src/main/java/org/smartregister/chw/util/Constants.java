@@ -30,6 +30,8 @@ public class Constants extends CoreConstants {
         public static final String PNC_CHILD_REGISTRATION = "PNC Child Registration";
         public static final String BIRTH_CERTIFICATION = "Birth Certification";
         public static final String UPDATE_BIRTH_CERTIFICATION = "Update Birth Certification";
+        public static final String DEATH_CERTIFICATION = "Death Certification";
+        public static final String UPDATE_DEATH_CERTIFICATION = "Update Death Certification";
     }
 
     public static class ChildIllnessViewType {
