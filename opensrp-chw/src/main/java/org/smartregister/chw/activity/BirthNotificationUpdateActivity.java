@@ -21,6 +21,7 @@ import static org.smartregister.util.JsonFormUtils.fields;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -144,11 +145,8 @@ public class BirthNotificationUpdateActivity extends CoreFamilyRegisterActivity 
 
                 if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.BIRTH_CERTIFICATION)) {
 
-                    AllCommonsRepository allCommonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository("ec_child");
                     //Update ec_child table
-                    if (allCommonsRepository != null) {
-                        updateBirthCertificate(allCommonsRepository, form);
-                    }
+                    updateBirthCertificate(form);
                 }
             } catch (Exception e) {
                 Timber.e(e);
@@ -157,20 +155,9 @@ public class BirthNotificationUpdateActivity extends CoreFamilyRegisterActivity 
         }
     }
 
-    private void updateBirthCertificate(AllCommonsRepository allCommonsRepository, JSONObject jsonObject) {
+    private void updateBirthCertificate(JSONObject jsonObject) {
         String client_type = getIntent().getStringExtra(CLIENT_TYPE);
         try {
-            JSONArray field = fields(jsonObject);
-            String birthCert = getFieldJSONObjectValue(field, BIRTH_CERT);
-            String birthRegistration = getFieldJSONObjectValue(field, BIRTH_REGISTRATION);
-            String birthNotification = getFieldJSONObjectValue(field, BIRTH_NOTIFICATION);
-            String birthCertIssueDate = getFieldJSONObjectValue(field, BIRTH_CERT_ISSUE_DATE);
-            String birthCertNum = getFieldJSONObjectValue(field, BIRTH_CERT_NUMBER);
-            String systemBirthNotification = getFieldJSONObjectValue(field, SYSTEM_BIRTH_NOTIFICATION);
-            String birthRegType = getFieldJSONObjectValue(field, BIRTH_REG_TYPE);
-            String informantReason = getFieldJSONObjectValue(field, INFORMANT_REASON);
-
-
             String tableName;
             if (client_type == null) return;
             if (client_type.equalsIgnoreCase(BIRTH_CLIENT_TYPE)) {
@@ -179,12 +166,21 @@ public class BirthNotificationUpdateActivity extends CoreFamilyRegisterActivity 
                 tableName = CrvsConstants.TABLE_OUT_OF_AREA_CHILD;
             }
 
-            String sql = "UPDATE " + tableName + " SET birth_cert = ?, birth_registration = ?, birth_notification = ?, birth_cert_issue_date = ?,  " +
-                    "birth_cert_num = ?, system_birth_notification = ?, birth_reg_type = ?, informant_reason = ? WHERE id = ?";
-            String[] selectionArgs = {birthCert, birthRegistration, birthNotification, birthCertIssueDate,
-                    birthCertNum, systemBirthNotification, birthRegType, informantReason,
-                    getIntent().getStringExtra(DBConstants.KEY.BASE_ENTITY_ID)};
-            allCommonsRepository.customQuery(sql, selectionArgs, tableName);
+            AllCommonsRepository allCommonsRepository = CoreChwApplication.getInstance().getAllCommonsRepository(tableName);
+            if (allCommonsRepository != null) {
+                ContentValues values = new ContentValues();
+
+                JSONArray field = fields(jsonObject);
+                values.put(BIRTH_CERT, getFieldJSONObjectValue(field, BIRTH_CERT));
+                values.put(BIRTH_REGISTRATION, getFieldJSONObjectValue(field, BIRTH_REGISTRATION));
+                values.put(BIRTH_NOTIFICATION, getFieldJSONObjectValue(field, BIRTH_NOTIFICATION));
+                values.put(BIRTH_CERT_ISSUE_DATE, getFieldJSONObjectValue(field, BIRTH_CERT_ISSUE_DATE));
+                values.put(BIRTH_CERT_NUMBER, getFieldJSONObjectValue(field, BIRTH_CERT_NUMBER));
+                values.put(SYSTEM_BIRTH_NOTIFICATION, getFieldJSONObjectValue(field, SYSTEM_BIRTH_NOTIFICATION));
+                values.put(BIRTH_REG_TYPE, getFieldJSONObjectValue(field, BIRTH_REG_TYPE));
+                values.put(INFORMANT_REASON, getFieldJSONObjectValue(field, INFORMANT_REASON));
+                allCommonsRepository.update(tableName, values, getIntent().getStringExtra(DBConstants.KEY.BASE_ENTITY_ID));
+            }
 
             startActivity(new Intent(this, BirthNotificationRegisterActivity.class));
             finish();
