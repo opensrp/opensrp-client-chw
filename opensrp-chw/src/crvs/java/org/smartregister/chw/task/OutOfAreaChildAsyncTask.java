@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.json.JSONObject;
@@ -30,6 +32,7 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.utils.OpdConstants;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
@@ -153,7 +156,7 @@ public class OutOfAreaChildAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public void setReceivedButtonColor(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received_green));
-        dueButton.setText(context.getString(R.string.certificate_received));
+        dueButton.setText(context.getString(R.string.birth_certificate_received));
         dueButton.setBackgroundResource(0);
     }
 
