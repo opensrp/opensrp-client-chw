@@ -37,6 +37,14 @@ public class Constants extends CoreConstants {
     public static String MARITAL_STATUS = "marital_status";
     public static String DATE_DIED = "date_died";
     public static String DEATH_CERTIFICATE_NUMBER = "death_certificate_number";
+    public static String INFORMANT_NAME = "informant_name";
+    public static String INFORMANT_RELATIONSHIP = "informant_relationship";
+    public static String INFORMANT_ADDRESS = "informant_address";
+    public static String INFORMANT_PHONE = "informant_phone";
+    public static String OFFICIAL_NAME = "official_name";
+    public static String OFFICIAL_POSITION = "official_position";
+    public static String OFFICIAL_ADDRESS = "official_address";
+    public static String OFFICIAL_NUMBER = "official_number";
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 

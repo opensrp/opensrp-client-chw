@@ -6,6 +6,14 @@ import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMO
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_NUMBER;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.INFORMANT_ADDRESS;
+import static org.smartregister.chw.util.Constants.INFORMANT_NAME;
+import static org.smartregister.chw.util.Constants.INFORMANT_PHONE;
+import static org.smartregister.chw.util.Constants.INFORMANT_RELATIONSHIP;
+import static org.smartregister.chw.util.Constants.OFFICIAL_ADDRESS;
+import static org.smartregister.chw.util.Constants.OFFICIAL_NAME;
+import static org.smartregister.chw.util.Constants.OFFICIAL_NUMBER;
+import static org.smartregister.chw.util.Constants.OFFICIAL_POSITION;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
 import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_ID;
 
@@ -67,13 +75,22 @@ public class DeathCertificationRegisterFragment extends CoreCertificationRegiste
 
         Intent intent = new Intent(getActivity(), DeathCertificationRegisterActivity.class);
         intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.ACTION, START_DEATH_CERTIFICATION_UPDATE);
+        intent.putExtra(DOB, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
         intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
         intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, true));
         intent.putExtra(RECEIVED_DEATH_CERTIFICATE, Utils.getValue(client.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false));
         intent.putExtra(DEATH_CERTIFICATE_ISSUE_DATE, Utils.getValue(client.getColumnmaps(), DEATH_CERTIFICATE_ISSUE_DATE, false));
         intent.putExtra(DEATH_CERTIFICATE_NUMBER, Utils.getValue(client.getColumnmaps(), DEATH_CERTIFICATE_NUMBER, false));
         intent.putExtra(OFFICIAL_ID, Utils.getValue(client.getColumnmaps(), OFFICIAL_ID, false));
-        intent.putExtra(DOB, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
+        intent.putExtra(INFORMANT_NAME, Utils.getValue(client.getColumnmaps(), INFORMANT_NAME, false));
+        intent.putExtra(INFORMANT_RELATIONSHIP, Utils.getValue(client.getColumnmaps(), INFORMANT_RELATIONSHIP, false));
+        intent.putExtra(INFORMANT_ADDRESS, Utils.getValue(client.getColumnmaps(), INFORMANT_ADDRESS, false));
+        intent.putExtra(INFORMANT_PHONE, Utils.getValue(client.getColumnmaps(), INFORMANT_PHONE, false));
+        intent.putExtra(OFFICIAL_NAME, Utils.getValue(client.getColumnmaps(), OFFICIAL_NAME, false));
+        intent.putExtra(OFFICIAL_ID, Utils.getValue(client.getColumnmaps(), OFFICIAL_ID, false));
+        intent.putExtra(OFFICIAL_POSITION, Utils.getValue(client.getColumnmaps(), OFFICIAL_POSITION, false));
+        intent.putExtra(OFFICIAL_ADDRESS, Utils.getValue(client.getColumnmaps(), OFFICIAL_ADDRESS, false));
+        intent.putExtra(OFFICIAL_NUMBER, Utils.getValue(client.getColumnmaps(), OFFICIAL_NUMBER, false));
 
         return intent;
     }
