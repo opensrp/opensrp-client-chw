@@ -146,7 +146,6 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "edit_type": "name",
         "hint": "Landmark/Description of house location",
         "v_required": {
           "value": true,
