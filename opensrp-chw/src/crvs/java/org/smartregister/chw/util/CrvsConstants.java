@@ -31,6 +31,16 @@ public class CrvsConstants {
     public static String BIRTH_CLIENT_TYPE = "birth";
     public static String OUT_OF_AREA_CLIENT_TYPE = "outOfArea";
     public static String RECEIVED_DEATH_CERTIFICATE = "received_death_certificate";
+
+    public static String INFORMANT_NAME = "informant_name";
+    public static String INFORMANT_RELATIONSHIP = "informant_relationship";
+    public static String INFORMANT_ADDRESS = "informant_address";
+    public static String INFORMANT_PHONE = "informant_phone";
+    public static String OFFICIAL_NAME = "official_name";
+    public static String OFFICIAL_POSITION = "official_position";
+    public static String OFFICIAL_ADDRESS = "official_address";
+    public static String OFFICIAL_NUMBER = "official_number";
+
     public static String BASE_ENTITY_ID = "base_entity_id";
     public static String UNIQUE_ID = "unique_id";
     public static String REMOVE_FAMILY_MEMBER = "Remove Family Member";

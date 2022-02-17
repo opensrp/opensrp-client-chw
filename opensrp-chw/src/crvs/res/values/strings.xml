@@ -5,12 +5,14 @@
     <string name="dead_clients" tools:ignore="MissingTranslation">Dead Clients</string>
     <string name="birth_certification">Birth certification</string>
     <string name="birth_notification" tools:ignore="MissingTranslation">Birth Notification</string>
-    <string name="certificate_received" tools:ignore="MissingTranslation">Certificate received</string>
+    <string name="birth_certificate_received" tools:ignore="MissingTranslation">Certificate received</string>
+    <string name="death_certificate_received" tools:ignore="MissingTranslation">Certificate received</string>
     <string name="certificate_not_received" tools:ignore="MissingTranslation">Certificate not received</string>
     <string name="status_updated" tools:ignore="MissingTranslation">Status updated</string>
     <string name="update_status" tools:ignore="MissingTranslation">Update Status</string>
     <string name="update_details" tools:ignore="MissingTranslation">Update Details</string>
-    <string name="certified" tools:ignore="MissingTranslation">Certified</string>
+    <string name="birth_summary_toggle" tools:ignore="MissingTranslation">Certified</string>
+    <string name="death_summary_toggle" tools:ignore="MissingTranslation">Certified</string>
     <string name="out_of_area_form" tools:ignore="MissingTranslation">Out of area form</string>
 
     <!-- Sync status progress bar -->

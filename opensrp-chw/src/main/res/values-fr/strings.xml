@@ -370,8 +370,10 @@
     <string name="progressBarLabel">Synchronisation %s : %d%% </string>
 
     <string name="update_status">Mettre à jour</string>
-    <string name="certificate_received">Certificat reçu</string>
+    <string name="birth_certificate_received">Acte reçu</string>
+    <string name="death_certificate_received">Acte reçu</string>
     <string name="certificate_not_received">Certificat non reçu</string>
-    <string name="certified">Acte reçu</string>
+    <string name="birth_summary_toggle">Acte reçu</string>
+    <string name="death_summary_toggle">Cert. reçu</string>
     <string name="out_of_area_form">Hors zone</string>
 </resources>

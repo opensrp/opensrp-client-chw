@@ -169,7 +169,7 @@ public class UpdateBirthNotificationLastAsyncTask extends AsyncTask<Void, Void, 
 
     public void setReceivedButtonColor(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received));
-        dueButton.setText(context.getString(R.string.certificate_received));
+        dueButton.setText(context.getString(R.string.birth_certificate_received));
         dueButton.setBackgroundResource(0);
     }
 

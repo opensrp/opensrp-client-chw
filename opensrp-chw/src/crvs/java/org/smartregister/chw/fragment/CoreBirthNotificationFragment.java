@@ -241,7 +241,7 @@ public class CoreBirthNotificationFragment extends BaseChwRegisterFragment imple
         super.setupViews(view);
         this.view = view;
         dueOnlyFilter = view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view);
-        dueOnlyFilter.setText(getResources().getString(R.string.certified));
+        dueOnlyFilter.setText(getResources().getString(R.string.birth_summary_toggle));
         dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
         dueOnlyLayout.setVisibility(View.VISIBLE);
         dueOnlyLayout.setOnClickListener(registerActionHandler);

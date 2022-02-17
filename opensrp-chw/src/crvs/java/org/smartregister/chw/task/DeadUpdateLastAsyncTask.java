@@ -6,8 +6,16 @@ import static org.smartregister.chw.util.CrvsConstants.DEATH_CERTIFICATE_ISSUE_D
 import static org.smartregister.chw.util.CrvsConstants.DEATH_CERTIFICATE_NUMBER;
 import static org.smartregister.chw.util.CrvsConstants.DEATH_NOTIFICATION_DONE;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
+import static org.smartregister.chw.util.CrvsConstants.INFORMANT_ADDRESS;
+import static org.smartregister.chw.util.CrvsConstants.INFORMANT_NAME;
+import static org.smartregister.chw.util.CrvsConstants.INFORMANT_PHONE;
+import static org.smartregister.chw.util.CrvsConstants.INFORMANT_RELATIONSHIP;
 import static org.smartregister.chw.util.CrvsConstants.NO;
+import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_ADDRESS;
 import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_ID;
+import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_NAME;
+import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_NUMBER;
+import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_POSITION;
 import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.util.CrvsConstants.YES;
 
@@ -27,7 +35,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 
 import java.text.SimpleDateFormat;
@@ -54,9 +61,9 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     public Void doInBackground(Void... params) {
         /*if (baseEntityId != null) {
-//            commonPersonObject = commonRepository.findByBaseEntityId(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+//            commonPersonObject = commonRepository.findByBaseEntityId(Utils.getValue(baseEntityId.getColumnmaps(), BASE_ENTITY_ID, false));
 
-            Map<String, VisitSummary> map = VisitDao.getVisitSummary(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+            Map<String, VisitSummary> map = VisitDao.getVisitSummary(Utils.getValue(baseEntityId.getColumnmaps(), BASE_ENTITY_ID, false));
             if (map != null) {
                 VisitSummary notDoneSummary = map.get(CoreConstants.EventType.CHILD_VISIT_NOT_DONE);
                 VisitSummary lastVisitSummary = map.get(CoreConstants.EventType.CHILD_HOME_VISIT);
@@ -79,7 +86,7 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
                     visitNot = notDoneSummary.getVisitDate().getTime();
 
                 try {
-                    String dobString = getDuration(Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.DOB, false));
+                    String dobString = getDuration(Utils.getValue(baseEntityId.getColumnmaps(), DOB, false));
                     childVisit = CoreChildUtils.getChildVisitStatus(context, rules, dobString, lastVisit, visitNot, dateCreated);
                 } catch (Exception e) {
                     childVisit = null;
@@ -110,25 +117,24 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
             e.printStackTrace();
         }
         viewHolder.dueButton.setOnClickListener(view -> {
-            String entityId = Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
-            String death_certificate = Utils.getValue(baseEntityId.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false);
-            String client_type = Utils.getValue(baseEntityId.getColumnmaps(), CLIENT_TYPE, false);
-            String death_cert_issue_date = Utils.getValue(baseEntityId.getColumnmaps(), DEATH_CERTIFICATE_ISSUE_DATE, false);
-            String death_notification_done = Utils.getValue(baseEntityId.getColumnmaps(), DEATH_NOTIFICATION_DONE, false);
-            String death_certificate_number = Utils.getValue(baseEntityId.getColumnmaps(), DEATH_CERTIFICATE_NUMBER, false);
-            String official_id = Utils.getValue(baseEntityId.getColumnmaps(), OFFICIAL_ID, false);
-            String dob = Utils.getValue(baseEntityId.getColumnmaps(), DBConstants.KEY.DOB, false);
-
             Intent intent = new Intent(context, DeadClientsUpdateActivity.class);
             intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTION.START_REGISTRATION);
-            intent.putExtra(BASE_ENTITY_ID, entityId);
-            intent.putExtra(RECEIVED_DEATH_CERTIFICATE, death_certificate);
-            intent.putExtra(CLIENT_TYPE, client_type);
-            intent.putExtra(DEATH_CERTIFICATE_ISSUE_DATE, death_cert_issue_date);
-            intent.putExtra(DEATH_NOTIFICATION_DONE, death_notification_done);
-            intent.putExtra(DEATH_CERTIFICATE_NUMBER, death_certificate_number);
-            intent.putExtra(OFFICIAL_ID, official_id);
-            intent.putExtra(DOB, dob);
+            intent.putExtra(BASE_ENTITY_ID, Utils.getValue(baseEntityId.getColumnmaps(), BASE_ENTITY_ID, false));
+            intent.putExtra(CLIENT_TYPE, Utils.getValue(baseEntityId.getColumnmaps(), CLIENT_TYPE, false));
+            intent.putExtra(DOB, Utils.getValue(baseEntityId.getColumnmaps(), DOB, false));
+            intent.putExtra(RECEIVED_DEATH_CERTIFICATE, Utils.getValue(baseEntityId.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false));
+            intent.putExtra(DEATH_CERTIFICATE_ISSUE_DATE, Utils.getValue(baseEntityId.getColumnmaps(), DEATH_CERTIFICATE_ISSUE_DATE, false));
+            intent.putExtra(DEATH_CERTIFICATE_NUMBER, Utils.getValue(baseEntityId.getColumnmaps(), DEATH_CERTIFICATE_NUMBER, false));
+            intent.putExtra(DEATH_NOTIFICATION_DONE, Utils.getValue(baseEntityId.getColumnmaps(), DEATH_NOTIFICATION_DONE, false));
+            intent.putExtra(INFORMANT_NAME, Utils.getValue(baseEntityId.getColumnmaps(), INFORMANT_NAME, false));
+            intent.putExtra(INFORMANT_RELATIONSHIP, Utils.getValue(baseEntityId.getColumnmaps(), INFORMANT_RELATIONSHIP, false));
+            intent.putExtra(INFORMANT_ADDRESS, Utils.getValue(baseEntityId.getColumnmaps(), INFORMANT_ADDRESS, false));
+            intent.putExtra(INFORMANT_PHONE, Utils.getValue(baseEntityId.getColumnmaps(), INFORMANT_PHONE, false));
+            intent.putExtra(OFFICIAL_NAME, Utils.getValue(baseEntityId.getColumnmaps(), OFFICIAL_NAME, false));
+            intent.putExtra(OFFICIAL_ID, Utils.getValue(baseEntityId.getColumnmaps(), OFFICIAL_ID, false));
+            intent.putExtra(OFFICIAL_POSITION, Utils.getValue(baseEntityId.getColumnmaps(), OFFICIAL_POSITION, false));
+            intent.putExtra(OFFICIAL_ADDRESS, Utils.getValue(baseEntityId.getColumnmaps(), OFFICIAL_ADDRESS, false));
+            intent.putExtra(OFFICIAL_NUMBER, Utils.getValue(baseEntityId.getColumnmaps(), OFFICIAL_NUMBER, false));
             context.startActivity(intent);
         });
 
@@ -142,7 +148,7 @@ public class DeadUpdateLastAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public void setReceivedButtonColor(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received));
-        dueButton.setText(context.getString(R.string.certificate_received));
+        dueButton.setText(context.getString(R.string.death_certificate_received));
         dueButton.setBackgroundResource(0);
     }
 

@@ -1,13 +1,21 @@
 package org.smartregister.chw.task;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.CrvsConstants.NO;
+import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
+import static org.smartregister.chw.util.CrvsConstants.YES;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.jeasy.rules.api.Rules;
 import org.json.JSONObject;
@@ -30,17 +38,13 @@ import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.utils.OpdConstants;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
 import timber.log.Timber;
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.CrvsConstants.NO;
-import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
-import static org.smartregister.chw.util.CrvsConstants.YES;
 
 public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
     public final Context context;
@@ -152,7 +156,7 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public void setReceivedButtonColor(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received));
-        dueButton.setText(context.getString(R.string.certificate_received));
+        dueButton.setText(context.getString(R.string.death_certificate_received));
         dueButton.setBackgroundResource(0);
     }
 
