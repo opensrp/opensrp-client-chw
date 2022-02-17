@@ -1,6 +1,8 @@
 package org.smartregister.chw.model;
 
-import androidx.annotation.Nullable;
+import android.content.Context;
+
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -14,6 +16,7 @@ import org.smartregister.opd.utils.OpdUtils;
 
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.FormUtils.fields;
@@ -25,11 +28,23 @@ import static org.smartregister.util.JsonFormUtils.STEP1;
 
 public class ChwAllClientsRegisterModel extends OpdRegisterActivityModel {
 
+    Context context;
+
+    public ChwAllClientsRegisterModel(Context context) {
+        this.context = context;
+    }
+
     @Nullable
     @Override
     public JSONObject getFormAsJson(String formName, String entityId, String currentLocationId) {
         try {
-            JSONObject form = OpdUtils.getJsonFormToJsonObject(formName);
+            JSONObject form;
+            if (context != null) {
+                form = (new FormUtils()).getFormJsonFromRepositoryOrAssets(context, formName);
+            } else {
+                form = OpdUtils.getJsonFormToJsonObject(formName);
+            }
+
             if (form == null) {
                 return null;
             }
