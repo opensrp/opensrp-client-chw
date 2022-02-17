@@ -93,6 +93,6 @@ public class AllClientsRegisterActivity extends CoreAllClientsRegisterActivity {
     }
 
     public OpdRegisterActivityContract.Model createActivityModel() {
-        return new ChwAllClientsRegisterModel();
+        return new ChwAllClientsRegisterModel(this);
     }
 }
