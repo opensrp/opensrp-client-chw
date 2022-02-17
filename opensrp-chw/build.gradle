@@ -109,7 +109,7 @@ android {
             buildConfigField "int", "SCHEDULE_SERVICE_MINUTES", '720'
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
-            buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "true"
         }
 
         debug {
@@ -176,7 +176,7 @@ android {
             applicationIdSuffix ".nacp"
             versionCode 1
             versionName "1.0.1"
-            buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url', '"http://50.116.15.4:8082/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://50.116.15.4:8082/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country","Region","District","Ward" , "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
