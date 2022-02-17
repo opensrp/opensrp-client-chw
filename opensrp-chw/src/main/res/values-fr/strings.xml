@@ -372,6 +372,6 @@
     <string name="update_status">Mettre à jour</string>
     <string name="certificate_received">Certificat reçu</string>
     <string name="certificate_not_received">Certificat non reçu</string>
-    <string name="certified">Certifié</string>
+    <string name="certified">Acte reçu</string>
     <string name="out_of_area_form">Hors zone</string>
 </resources>
