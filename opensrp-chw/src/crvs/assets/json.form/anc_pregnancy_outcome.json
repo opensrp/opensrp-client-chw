@@ -547,10 +547,9 @@
         "hint": "{{anc_pregnancy_outcome.step1.del_attendant_other.hint}}",
         "edit_type": "name",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-dynamic": "anc_pregnancy_outcome_relevance.yml"
-            }
+          "step1:del_attendant": {
+            "type": "string",
+            "ex": "equalTo(., \"Other\")"
           }
         }
       },

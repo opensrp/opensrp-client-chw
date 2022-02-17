@@ -105,6 +105,24 @@
           },
           {
             "field": "eventType",
+            "field_value": "Death Certification",
+            "creates_case": [
+              "ec_family_member",
+              "ec_child",
+              "ec_out_of_area_death"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Update Death Certification",
+            "creates_case": [
+              "ec_family_member",
+              "ec_child",
+              "ec_out_of_area_death"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Observations Illness",
             "creates_case": [
               "ec_child"

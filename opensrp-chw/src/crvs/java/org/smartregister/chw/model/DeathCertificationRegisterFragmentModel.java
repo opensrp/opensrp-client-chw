@@ -113,20 +113,20 @@ public class DeathCertificationRegisterFragmentModel extends CoreCertificationRe
         }
 
         if (isDueActive) {
-            removedFamilyMembersBuilder.addCondition(" and " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +getDueCondition());
-            removedChildrenBuilder.addCondition(" and " + EC_CHILD + "." +getDueCondition());
-            stillBirthsBuilder.addCondition(" and " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." +getDueCondition());
+            removedFamilyMembersBuilder.addCondition(" and " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + getDueCondition());
+            removedChildrenBuilder.addCondition(" and " + EC_CHILD + "." + getDueCondition());
+            stillBirthsBuilder.addCondition(" and " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + getDueCondition());
             if (StringUtils.isBlank(filters)) {
                 outOfAreaBuilder.mainCondition(EC_OUT_OF_AREA_DEATH + ".received_death_certificate = 'Yes'");
             } else {
-                outOfAreaBuilder.addCondition(" and " + EC_OUT_OF_AREA_DEATH + "." +getDueCondition());
+                outOfAreaBuilder.addCondition(" and " + EC_OUT_OF_AREA_DEATH + "." + getDueCondition());
             }
         }
         removedFamilyMembersBuilder.customJoin("UNION " + removedChildrenBuilder.toString());
         removedFamilyMembersBuilder.customJoin("UNION " + stillBirthsBuilder.toString());
         removedFamilyMembersBuilder.customJoin("UNION " + outOfAreaBuilder.toString());
 
-        return removedFamilyMembersBuilder.addCondition(SortQueries);
+        return removedFamilyMembersBuilder.orderbyCondition(SortQueries);
     }
 
     public String getDueCondition() {
@@ -167,7 +167,7 @@ public class DeathCertificationRegisterFragmentModel extends CoreCertificationRe
         StringBuilder customFilter = new StringBuilder();
         if (StringUtils.isNotBlank(filters)) {
             customFilter.append(" ( ");
-            customFilter.append(MessageFormat.format(" {0}.{1} like ''%{2}%'' ",  CoreConstants.TABLE_NAME.EC_OUT_OF_AREA_DEATH, CoreConstants.DB_CONSTANTS.NAME, filters));
+            customFilter.append(MessageFormat.format(" {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.EC_OUT_OF_AREA_DEATH, CoreConstants.DB_CONSTANTS.NAME, filters));
             customFilter.append(MessageFormat.format(" or {0}.{1} like ''%{2}%'' ", CoreConstants.TABLE_NAME.EC_OUT_OF_AREA_DEATH, org.smartregister.chw.anc.util.DBConstants.KEY.UNIQUE_ID, filters));
 
             customFilter.append(" ) ");

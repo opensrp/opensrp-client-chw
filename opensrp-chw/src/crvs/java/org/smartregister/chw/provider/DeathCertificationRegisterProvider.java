@@ -1,10 +1,10 @@
 package org.smartregister.chw.provider;
 
 import static org.smartregister.AllConstants.CLIENT_TYPE;
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.Constants.PRENANCY_OUTCOME;
 import static org.smartregister.chw.util.CrvsConstants.NO;
-import static org.smartregister.chw.util.CrvsConstants.PREG_OUTCOME;
-import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.util.CrvsConstants.YES;
 import static org.smartregister.chw.util.Utils.getClientName;
 
@@ -63,7 +63,7 @@ public class DeathCertificationRegisterProvider extends CoreCertificationRegiste
             String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
             String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
             String lastName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.LAST_NAME, true);
-            String stillBirth = Utils.getValue(pc.getColumnmaps(), PREG_OUTCOME, true);
+            String stillBirth = Utils.getValue(pc.getColumnmaps(), PRENANCY_OUTCOME, true);
             String clientType = Utils.getValue(pc.getColumnmaps(), CLIENT_TYPE, false);
             String childName = getClientName(firstName, middleName, lastName);
 

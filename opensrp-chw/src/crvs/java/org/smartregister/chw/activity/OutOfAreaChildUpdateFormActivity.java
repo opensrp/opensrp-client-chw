@@ -1,7 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getOutOfAreaChildForm;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.OutOfAreaFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -56,7 +58,7 @@ public class OutOfAreaChildUpdateFormActivity extends OutOfAreaChildActivity {
     public void startAncDangerSignsOutcomeForm() {
 
         try {
-            JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString("out_of_area_child_enrollment", this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), "Out Of Area Child Registration");
+            JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString(getOutOfAreaChildForm(), this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), Constants.EncounterType.OUT_OF_AREA_CHILD_REGISTRATION);
             try {
                 assert form != null;
                 JsonFormUtilsFlv.startFormActivity(this, form, getResources().getString(R.string.out_of_area_form));

@@ -1,7 +1,7 @@
 package org.smartregister.chw.provider;
 
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REGISTRATION;
 import static org.smartregister.chw.util.CrvsConstants.NO;
 import static org.smartregister.chw.util.CrvsConstants.YES;
 
@@ -13,7 +13,6 @@ import android.widget.Button;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreCertificationRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 

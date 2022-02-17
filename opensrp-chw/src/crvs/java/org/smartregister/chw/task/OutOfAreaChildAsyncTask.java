@@ -36,10 +36,11 @@ import java.util.Map;
 import java.util.Objects;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.NO;
-import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.util.CrvsConstants.YES;
 
 public class OutOfAreaChildAsyncTask extends AsyncTask<Void, Void, Void> {

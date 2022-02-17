@@ -2,12 +2,12 @@ package org.smartregister.chw.fragment;
 
 import static org.smartregister.AllConstants.CLIENT_TYPE;
 import static org.smartregister.chw.core.utils.CoreConstants.ACTION.START_DEATH_CERTIFICATION_UPDATE;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.CrvsConstants.DEATH_CERTIFICATE_ISSUE_DATE;
-import static org.smartregister.chw.util.CrvsConstants.DEATH_CERTIFICATE_NUMBER;
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_ISSUE_DATE;
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_NUMBER;
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.RECEIVED_DEATH_CERTIFICATE;
+import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
 import static org.smartregister.chw.util.CrvsConstants.OFFICIAL_ID;
-import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,12 +21,10 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.DeathCertificationRegisterActivity;
 import org.smartregister.chw.core.fragment.CoreCertificationRegisterFragment;
-import org.smartregister.chw.core.presenter.CoreCertificationRegisterFragmentPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.DeathCertificationRegisterFragmentModel;
 import org.smartregister.chw.presenter.DeathCertificationRegisterFragmentPresenter;
 import org.smartregister.chw.provider.DeathCertificationRegisterProvider;
-import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -124,7 +122,7 @@ public class DeathCertificationRegisterFragment extends CoreCertificationRegiste
 
         try {
             query = ((DeathCertificationRegisterFragmentPresenter) presenter()).
-                    getCustomSelectString(getMainCondition(), filters, Sortqueries, dueFilterActive);
+                    getCustomSelectString(getMainCondition(), filters, presenter().getOutOfCatchmentSortQueries(), dueFilterActive);
         } catch (SQLException e) {
             Timber.e(e);
         }
@@ -138,7 +136,7 @@ public class DeathCertificationRegisterFragment extends CoreCertificationRegiste
 
         try {
             query = ((DeathCertificationRegisterFragmentPresenter) presenter()).
-                    getCustomSelectString(getMainCondition(), filters, Sortqueries, dueFilterActive);
+                    getCustomSelectString(getMainCondition(), filters, presenter().getDefaultSortQuery(), dueFilterActive);
 
         } catch (SQLException e) {
             Timber.e(e);

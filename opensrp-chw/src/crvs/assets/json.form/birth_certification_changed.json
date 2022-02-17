@@ -230,6 +230,10 @@
           "Mother Only",
           "Father Only"
         ],
+        "v_required": {
+          "value": true,
+          "err": "{{birth_certification_changed.step1.birth_reg_type.v_required.err}}"
+        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {

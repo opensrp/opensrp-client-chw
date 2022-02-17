@@ -1,20 +1,18 @@
 package org.smartregister.chw.fragment;
 
 import static org.smartregister.AllConstants.CLIENT_TYPE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
 import static org.smartregister.chw.core.utils.CoreConstants.ACTION.START_BIRTH_CERTIFICATION_UPDATE;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REGISTRATION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT_NUM;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.BirthCertificationRegisterActivity;
@@ -67,11 +65,11 @@ public class BirthCertificationRegisterFragment extends CoreCertificationRegiste
         intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.ACTION, START_BIRTH_CERTIFICATION_UPDATE);
         intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
         intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, true));
-        intent.putExtra(BIRTH_CERT, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT, true));
+        intent.putExtra(BIRTH_CERT, Utils.getValue(client.getColumnmaps(), BIRTH_CERT, true));
         intent.putExtra(BIRTH_REGISTRATION, Utils.getValue(client.getColumnmaps(), BIRTH_REGISTRATION, true));
         intent.putExtra(BIRTH_NOTIFICATION, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION, true));
         intent.putExtra(BIRTH_CERTIFICATE_ISSUE_DATE, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_ISSUE_DATE, true));
-        intent.putExtra(BIRTH_CERT_NUM, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, true));
+        intent.putExtra(ChildDBConstants.KEY.BIRTH_CERT_NUMBER, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NUMBER, true));
         intent.putExtra(SYSTEM_BIRTH_NOTIFICATION, Utils.getValue(client.getColumnmaps(), SYSTEM_BIRTH_NOTIFICATION, true));
         intent.putExtra(BIRTH_REG_TYPE, Utils.getValue(client.getColumnmaps(), BIRTH_REG_TYPE, true));
         intent.putExtra(INFORMANT_REASON, Utils.getValue(client.getColumnmaps(), INFORMANT_REASON, true));

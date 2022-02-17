@@ -1,18 +1,18 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.AllConstants.CLIENT_TYPE;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT;
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER;
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID;
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getBirthCertificationChangedForm;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_NOTIFICATION;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REGISTRATION;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
 import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT;
 import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATE_ISSUE_DATE;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERTIFICATION_CHANGED;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_CERT_NUM;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_NOTIFICATION;
-import static org.smartregister.chw.util.CrvsConstants.BIRTH_REGISTRATION;
 import static org.smartregister.chw.util.CrvsConstants.DOB;
-import static org.smartregister.chw.util.CrvsConstants.MIN_DATE;
+import static org.smartregister.client.utils.constants.JsonFormConstants.MIN_DATE;
 
 import android.content.Intent;
 import android.view.View;
@@ -96,7 +96,7 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
             if (StringUtils.isNotBlank(birthCert)) {
                 startEditCertificationForm(baseEntityId);
             } else {
-                presenter().startCertificationForm(CoreConstants.JSON_FORM.getBirthCertificationChangedForm(), baseEntityId);
+                presenter().startCertificationForm(getBirthCertificationChangedForm(), baseEntityId);
             }
 
         } catch (Exception e) {
@@ -112,13 +112,13 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
         valueMap.put(BIRTH_REGISTRATION, getIntent().getStringExtra(BIRTH_REGISTRATION));
         valueMap.put(BIRTH_NOTIFICATION, getIntent().getStringExtra(ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION));
         valueMap.put(BIRTH_CERTIFICATE_ISSUE_DATE, getIntent().getStringExtra(BIRTH_CERTIFICATE_ISSUE_DATE));
-        valueMap.put(BIRTH_CERT_NUM, getIntent().getStringExtra(ChildDBConstants.KEY.BIRTH_CERT_NUMBER));
+        valueMap.put(BIRTH_CERT_NUMBER, getIntent().getStringExtra(BIRTH_CERT_NUMBER));
         valueMap.put(SYSTEM_BIRTH_NOTIFICATION, getIntent().getStringExtra(SYSTEM_BIRTH_NOTIFICATION));
         valueMap.put(BIRTH_REG_TYPE, getIntent().getStringExtra(BIRTH_REG_TYPE));
         valueMap.put(INFORMANT_REASON, getIntent().getStringExtra(INFORMANT_REASON));
         valueMap.put(MIN_DATE, DateUtils.changeDateFormat(Objects.requireNonNull(getIntent().getStringExtra(DOB))));
 
-        presenter().startEditCertForm(BIRTH_CERTIFICATION_CHANGED, CoreConstants.EventType.UPDATE_BIRTH_CERTIFICATION, baseEntityId, valueMap);
+        presenter().startEditCertForm(getBirthCertificationChangedForm(), CoreConstants.EventType.UPDATE_BIRTH_CERTIFICATION, baseEntityId, valueMap);
     }
 
     @Override

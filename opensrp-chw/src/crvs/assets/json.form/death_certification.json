@@ -122,6 +122,10 @@
           "value": "true",
           "err": "{{death_member_form.step1.death_certificate_number.v_numeric.err}}"
         },
+        "v_required": {
+          "value": "true",
+          "err": "{{death_member_form.step1.mandatory_field.v_required.err}}"
+        },
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",
@@ -149,6 +153,10 @@
           "Yes": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        "v_required": {
+          "value": "true",
+          "err": "{{death_member_form.step1.mandatory_field.v_required.err}}"
+        },
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",
@@ -171,7 +179,11 @@
         "openmrs_entity_id": "",
         "label": "{{death_member_form.step1.informant_name.label}}",
         "hint": "{{death_member_form.step1.informant_name.hint}}",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{death_member_form.step1.mandatory_field.v_required.err}}"
+        }
       },
       {
         "key": "informant_relationship",
@@ -198,6 +210,10 @@
           "Spouse": "spouse_id_openmrs",
           "Parent": "parent_id_openmrs",
           "Other": "other_id_openmrs"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{death_member_form.step1.mandatory_field.v_required.err}}"
         }
       },
       {
@@ -237,7 +253,11 @@
         "openmrs_entity_id": "",
         "label": "{{death_member_form.step1.official_name.label}}",
         "hint": "{{death_member_form.step1.official_name.hint}}",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{death_member_form.step1.mandatory_field.v_required.err}}"
+        }
       },
       {
         "key": "official_id",
@@ -255,7 +275,11 @@
         "openmrs_entity_id": "",
         "label": "{{death_member_form.step1.official_position.label}}",
         "hint": "{{death_member_form.step1.official_position.hint}}",
-        "type": "edit_text"
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "{{death_member_form.step1.mandatory_field.v_required.err}}"
+        }
       },
       {
         "key": "official_address",
