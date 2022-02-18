@@ -2,6 +2,8 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.AllConstants.CLIENT_TYPE;
 import static org.smartregister.chw.core.utils.CoreConstants.DOB;
+import static org.smartregister.chw.core.utils.CoreConstants.EventType.DEATH_CERTIFICATION;
+import static org.smartregister.chw.core.utils.CoreConstants.EventType.UPDATE_DEATH_CERTIFICATION;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_ISSUE_DATE;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_NUMBER;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_NOTIFICATION_DONE;
@@ -28,9 +30,7 @@ import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreCertificationRegisterActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.DeathCertificationRegisterFragment;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
-import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -65,8 +65,8 @@ public class DeathCertificationRegisterActivity extends CoreCertificationRegiste
                 JSONObject form = new JSONObject(jsonString);
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-                if (org.smartregister.chw.util.Constants.EncounterType.REMOVE_FAMILY_MEMBER.equalsIgnoreCase(encounter_type)
-                        || org.smartregister.chw.util.Constants.EncounterType.UPDATE_REMOVE_FAMILY_MEMBER.equalsIgnoreCase(encounter_type)
+                if (DEATH_CERTIFICATION.equalsIgnoreCase(encounter_type)
+                        || UPDATE_DEATH_CERTIFICATION.equalsIgnoreCase(encounter_type)
                 ) {
                     presenter().saveForm(jsonString, getIntent().getStringExtra(CLIENT_TYPE));
                 }
@@ -121,7 +121,7 @@ public class DeathCertificationRegisterActivity extends CoreCertificationRegiste
         valueMap.put(OFFICIAL_ADDRESS, getIntent().getStringExtra(OFFICIAL_ADDRESS));
         valueMap.put(OFFICIAL_NUMBER, getIntent().getStringExtra(OFFICIAL_NUMBER));
 
-        presenter().startEditCertForm(CoreConstants.JSON_FORM.getDeathRegistrationForm(), CoreConstants.EventType.UPDATE_REMOVE_FAMILY_MEMBER, baseEntityId, valueMap);
+        presenter().startEditCertForm(CoreConstants.JSON_FORM.getDeathRegistrationForm(), UPDATE_DEATH_CERTIFICATION, baseEntityId, valueMap);
 
     }
 

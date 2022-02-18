@@ -38,6 +38,7 @@ public class CrvsDBUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
         columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_REG_TYPE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_REGISTRATION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.INFORMANT_REASON);
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_DATE);
@@ -78,6 +79,7 @@ public class CrvsDBUtils {
         columnList.add(tableName + "." + org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NUMBER);
         columnList.add(tableName + "." + org.smartregister.chw.core.utils.ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_REG_TYPE);
+        columnList.add(tableName + "." + ChildDBConstants.KEY.BIRTH_REGISTRATION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.INFORMANT_REASON);
         columnList.add("'' as " + org.smartregister.chw.core.utils.ChildDBConstants.KEY.ILLNESS_DATE);

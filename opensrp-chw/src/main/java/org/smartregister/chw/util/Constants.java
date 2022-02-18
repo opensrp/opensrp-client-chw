@@ -68,7 +68,6 @@ public class Constants extends CoreConstants {
         public static final String BIRTH_CERTIFICATION = "Birth Certification";
         public static final String UPDATE_BIRTH_CERTIFICATION = "Update Birth Certification";
         public static final String REMOVE_FAMILY_MEMBER = "Remove Family Member";
-        public static final String UPDATE_REMOVE_FAMILY_MEMBER = "Update Remove Family Member";
         public static final String OUT_OF_AREA_CHILD_REGISTRATION = "Out Of Area Child Registration";
         public static final String OUT_OF_AREA_DEATH_REGISTRATION = "Out Of Area Death Registration";
     }
