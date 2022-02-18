@@ -36,6 +36,7 @@ import org.smartregister.chw.provider.DeathCertificationRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -76,8 +77,8 @@ public class DeathCertificationRegisterFragment extends CoreCertificationRegiste
         Intent intent = new Intent(getActivity(), DeathCertificationRegisterActivity.class);
         intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.ACTION, START_DEATH_CERTIFICATION_UPDATE);
         intent.putExtra(DOB, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, true));
-        intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
-        intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, true));
+        intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+        intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, false));
         intent.putExtra(RECEIVED_DEATH_CERTIFICATE, Utils.getValue(client.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false));
         intent.putExtra(DEATH_CERTIFICATE_ISSUE_DATE, Utils.getValue(client.getColumnmaps(), DEATH_CERTIFICATE_ISSUE_DATE, false));
         intent.putExtra(DEATH_CERTIFICATE_NUMBER, Utils.getValue(client.getColumnmaps(), DEATH_CERTIFICATE_NUMBER, false));
@@ -153,7 +154,9 @@ public class DeathCertificationRegisterFragment extends CoreCertificationRegiste
 
         try {
             query = ((DeathCertificationRegisterFragmentPresenter) presenter()).
-                    getCustomSelectString(getMainCondition(), filters, presenter().getDefaultSortQuery(), dueFilterActive);
+                    getCustomSelectString(getMainCondition(), filters, presenter().getOutOfCatchmentSortQueries(), dueFilterActive);
+            SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder(query);
+            return queryBuilder.addlimitandOffset(queryBuilder.toString(), clientAdapter.getCurrentlimit(), clientAdapter.getCurrentoffset());
 
         } catch (SQLException e) {
             Timber.e(e);

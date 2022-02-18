@@ -72,9 +72,7 @@ public class BirthCertificationRegisterActivity extends CoreCertificationRegiste
                 JSONObject form = new JSONObject(jsonString);
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
-                if (org.smartregister.chw.util.Constants.EncounterType.BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)
-                        || org.smartregister.chw.util.Constants.EncounterType.UPDATE_BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)
-                ) {
+                if (CoreConstants.EncounterType.UPDATE_BIRTH_CERTIFICATION.equalsIgnoreCase(encounter_type)) {
                     presenter().saveForm(jsonString, getIntent().getStringExtra(CLIENT_TYPE));
                 }
             } catch (Exception e) {

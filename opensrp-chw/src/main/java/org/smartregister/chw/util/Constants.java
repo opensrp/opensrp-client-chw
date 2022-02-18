@@ -14,9 +14,7 @@ public class Constants extends CoreConstants {
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
     public static String HAS_DEATH_CERTIFICATE = "received_death_certificate";
-    public static String OFFICIAL_ID = "official_id";
     public static String STILL_BORN_DEATH = "still_born_death";
-    public static String BIRTH_CERTIFICATE_ISSUE_DATE = "birth_cert_issue_date";
     public static String DEATH_PLACE = "death_place";
     public static String FATHER_NAME = "father_name";
     public static String FATHER_BIRTH_PLACE = "father_birth_place";
@@ -36,15 +34,6 @@ public class Constants extends CoreConstants {
     public static String NATIONAL_ID = "national_id";
     public static String MARITAL_STATUS = "marital_status";
     public static String DATE_DIED = "date_died";
-    public static String DEATH_CERTIFICATE_NUMBER = "death_certificate_number";
-    public static String INFORMANT_NAME = "informant_name";
-    public static String INFORMANT_RELATIONSHIP = "informant_relationship";
-    public static String INFORMANT_ADDRESS = "informant_address";
-    public static String INFORMANT_PHONE = "informant_phone";
-    public static String OFFICIAL_NAME = "official_name";
-    public static String OFFICIAL_POSITION = "official_position";
-    public static String OFFICIAL_ADDRESS = "official_address";
-    public static String OFFICIAL_NUMBER = "official_number";
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
@@ -65,9 +54,6 @@ public class Constants extends CoreConstants {
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PNC_CHILD_REGISTRATION = "PNC Child Registration";
-        public static final String BIRTH_CERTIFICATION = "Birth Certification";
-        public static final String UPDATE_BIRTH_CERTIFICATION = "Update Birth Certification";
-        public static final String REMOVE_FAMILY_MEMBER = "Remove Family Member";
         public static final String OUT_OF_AREA_CHILD_REGISTRATION = "Out Of Area Child Registration";
         public static final String OUT_OF_AREA_DEATH_REGISTRATION = "Out Of Area Death Registration";
     }

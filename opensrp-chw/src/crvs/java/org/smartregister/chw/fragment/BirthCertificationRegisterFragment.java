@@ -63,8 +63,8 @@ public class BirthCertificationRegisterFragment extends CoreCertificationRegiste
 
         Intent intent = new Intent(getActivity(), BirthCertificationRegisterActivity.class);
         intent.putExtra(CoreConstants.ACTIVITY_PAYLOAD.ACTION, START_BIRTH_CERTIFICATION_UPDATE);
-        intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, true));
-        intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, true));
+        intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
+        intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, false));
         intent.putExtra(BIRTH_CERT, Utils.getValue(client.getColumnmaps(), BIRTH_CERT, true));
         intent.putExtra(BIRTH_REGISTRATION, Utils.getValue(client.getColumnmaps(), BIRTH_REGISTRATION, true));
         intent.putExtra(BIRTH_NOTIFICATION, Utils.getValue(client.getColumnmaps(), ChildDBConstants.KEY.BIRTH_CERT_NOTIFIICATION, true));
