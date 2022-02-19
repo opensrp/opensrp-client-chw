@@ -367,7 +367,7 @@ android {
 }
 
 dependencies {
-    api(project(':opensrp-chw-core')) {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.5-crvs-alpha-1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -375,19 +375,7 @@ dependencies {
         exclude group: 'androidx.constraintlayout', module: 'constraintlayout'
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.rengwuxian.materialedittext', module: 'library'
-        exclude group: 'org.smartregister', module: 'opensrp-client-chw-anc'
         exclude group: 'stax', module: 'stax-api'
-    }
-
-    api(project(':opensrp-chw-anc')) {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
-        exclude group: 'org.smartregister', module: 'opensrp-client-family'
-        exclude group: 'id.zelory', module: 'compressor'
     }
 
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:5.1.0'
