@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.view.View;
 import android.widget.Button;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.core.provider.CoreCertificationRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -62,6 +63,18 @@ public class BirthCertificationRegisterProvider extends CoreCertificationRegiste
         } else {
             viewHolderDueBtn.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void setReceivedButtonColor(Context context, Button dueButton) {
+        updateButton(dueButton, context.getString(R.string.birth_certificate_received),
+                context.getResources().getColor(R.color.certificate_received_green), 0);
+    }
+
+    @Override
+    public void setNotReceivedButtonColor(Context context, Button dueButton) {
+        updateButton(dueButton, context.getString(org.smartregister.chw.core.R.string.birth_certificate_not_received),
+                context.getResources().getColor(org.smartregister.chw.core.R.color.black), 0);
     }
 
 }

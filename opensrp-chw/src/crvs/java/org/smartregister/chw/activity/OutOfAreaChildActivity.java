@@ -117,11 +117,11 @@ public class OutOfAreaChildActivity extends BaseRegisterActivity implements Core
                 String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
                 assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
-                String baseEnityId = form.optString(Constants.JSON_FORM_EXTRA.ENTITY_TYPE);
+                String entityId = form.optString(Constants.JSON_FORM_EXTRA.ENTITY_TYPE);
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
                 if (encounter_type.equalsIgnoreCase(CoreConstants.EventType.CHILD_HOME_VISIT))
-                    ChwScheduleTaskExecutor.getInstance().execute(baseEnityId, CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+                    ChwScheduleTaskExecutor.getInstance().execute(entityId, CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
             } catch (Exception e) {
                 Timber.e(e);
             }

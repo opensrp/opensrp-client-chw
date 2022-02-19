@@ -3,7 +3,7 @@
     <string name="login_title">CRVS Login</string>
     <string name="nav_logo" tools:ignore="MissingTranslation">CRVS App</string>
     <string name="dead_clients" tools:ignore="MissingTranslation">Dead Clients</string>
-    <string name="birth_certification">Birth Certification</string>
+    <string name="birth_certification">Birth certification</string>
     <string name="birth_notification" tools:ignore="MissingTranslation">Birth Notification</string>
     <string name="certified" tools:ignore="MissingTranslation">Certified</string>
     <string name="out_of_area_form" tools:ignore="MissingTranslation">Out of area form</string>

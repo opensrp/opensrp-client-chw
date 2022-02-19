@@ -43,6 +43,13 @@ public class BirthCertificationRegisterFragment extends CoreCertificationRegiste
     }
 
     @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        dueOnlyFilter = view.findViewById(org.smartregister.chw.core.R.id.due_only_text_view);
+        dueOnlyFilter.setText(getResources().getString(R.string.birth_summary_toggle));
+    }
+
+    @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
             return;

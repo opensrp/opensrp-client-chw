@@ -28,7 +28,7 @@ public class Constants extends CoreConstants {
     public static String FATHER_HIGHEST_EDU_LEVEL = "father_highest_edu_level";
     public static String UNIQUE_ID = "unique_id";
     public static String BASE_ENTITY_ID = "base_entity_id";
-    public static String EC_CLIENT_CLASSIFICATION = "base_entity_id";
+    public static String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";
     public static String NATIONALITY = "nationality";
     public static String REMOVE_REASON = "remove_reason";
     public static String NATIONAL_ID = "national_id";
