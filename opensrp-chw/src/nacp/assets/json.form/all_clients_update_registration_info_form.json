@@ -798,6 +798,10 @@
         "openmrs_entity_id": "Primary_Caregiver_Name",
         "type": "edit_text",
         "hint": "Name of caregiver",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Please enter a valid name"
+        },
         "v_required": {
           "value": "true",
           "err": "Please specify the name of the caregiver."

@@ -65,6 +65,7 @@
             "type": "Namba ya HUWANYU mfano: 1234/56/78/912",
             "mask": "####/##/##/###",
             "mask_hint": "12345678912",
+            "input_type": "number",
             "allowed_chars": "0123456789"
           },
           "meta_data": {
@@ -132,6 +133,7 @@
             "type": "Namba ya CTC mfano: 12-34-5678-912345",
             "mask": "##-##-####-######",
             "mask_hint": "12345678912345",
+            "input_type": "number",
             "allowed_chars": "0123456789"
           },
           "meta_data": {

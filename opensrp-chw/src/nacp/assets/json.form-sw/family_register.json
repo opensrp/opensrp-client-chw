@@ -146,7 +146,6 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "edit_type": "name",
         "hint": "Alama/Maelezo ya eneo la nyumba",
         "v_required": {
           "value": true,
