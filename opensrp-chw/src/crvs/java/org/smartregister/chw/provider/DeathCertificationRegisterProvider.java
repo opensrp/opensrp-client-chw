@@ -108,9 +108,10 @@ public class DeathCertificationRegisterProvider extends CoreCertificationRegiste
                     fillValue(viewHolder.textViewAddressGender, address + " \u00B7 " + gender);
                     break;
                 }
-                case CoreConstants.TABLE_NAME.OUT_OF_AREA_DEATH: {
+                case CoreConstants.TABLE_NAME.EC_OUT_OF_AREA_DEATH: {
                     viewHolder.textViewChildName.setVisibility(View.GONE);
                     viewHolder.textViewChildAge.setVisibility(View.GONE);
+
                     String age = WordUtils.capitalize(Utils.getTranslatedDate(dobString, context));
                     String personName = firstName;
                     fillValue(viewHolder.textViewParentName, WordUtils.capitalize(personName) + ", " + age);
@@ -163,6 +164,6 @@ public class DeathCertificationRegisterProvider extends CoreCertificationRegiste
     @Override
     public void setNotReceivedButtonColor(Context context, Button dueButton) {
         updateButton(dueButton, context.getString(org.smartregister.chw.core.R.string.death_certificate_not_received),
-                context.getResources().getColor(org.smartregister.chw.core.R.color.black), 0);
+                context.getResources().getColor(org.smartregister.chw.core.R.color.certificate_not_received_red), 0);
     }
 }

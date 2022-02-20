@@ -53,9 +53,9 @@ public class BirthCertificationRegisterProvider extends CoreCertificationRegiste
             viewHolder.dueButton.setVisibility(View.VISIBLE);
             String certificateReceived = Utils.getValue(pc.getColumnmaps(), BIRTH_CERT, true);
             String birthRegistrationDone = Utils.getValue(pc.getColumnmaps(), BIRTH_REGISTRATION, true);
-            if (YES.equalsIgnoreCase(certificateReceived) || YES.equalsIgnoreCase(birthRegistrationDone)) {
+            if (YES.equalsIgnoreCase(certificateReceived)) {
                 setReceivedButtonColor(context, viewHolderDueBtn);
-            } else if (NO.equalsIgnoreCase(certificateReceived) || NO.equalsIgnoreCase(birthRegistrationDone)) {
+            } else if (NO.equalsIgnoreCase(certificateReceived)) {
                 setNotReceivedButtonColor(context, viewHolderDueBtn);
             } else {
                 setUpdateStatusButtonColor(context, viewHolderDueBtn);
@@ -74,7 +74,7 @@ public class BirthCertificationRegisterProvider extends CoreCertificationRegiste
     @Override
     public void setNotReceivedButtonColor(Context context, Button dueButton) {
         updateButton(dueButton, context.getString(org.smartregister.chw.core.R.string.birth_certificate_not_received),
-                context.getResources().getColor(org.smartregister.chw.core.R.color.black), 0);
+                context.getResources().getColor(org.smartregister.chw.core.R.color.certificate_not_received_red), 0);
     }
 
 }

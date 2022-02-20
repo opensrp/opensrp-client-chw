@@ -67,12 +67,12 @@ public class BirthCertificationRegisterFragmentPresenter extends CoreCertificati
 
     @Override
     public String getMainCondition() {
-        return super.getMainCondition();
+        return String.format(" %s.%s is null AND %s", CoreConstants.TABLE_NAME.CHILD, DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeOnlyLimitFilter());
     }
 
     @Override
     public String getMainCondition(String tableName) {
-        return super.getMainCondition(tableName);
+        return String.format(" %s is null AND %s", tableName + "." + DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeOnlyLimitFilter());
     }
 
     public String getOutOfCatchmentMainCondition() {

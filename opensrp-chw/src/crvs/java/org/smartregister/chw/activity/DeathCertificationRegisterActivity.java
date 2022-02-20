@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import static org.smartregister.AllConstants.CLIENT_TYPE;
+import static org.smartregister.chw.anc.util.Constants.TABLES.PREGNANCY_OUTCOME;
 import static org.smartregister.chw.core.utils.CoreConstants.DOB;
 import static org.smartregister.chw.core.utils.CoreConstants.EventType.UPDATE_DEATH_CERTIFICATION;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_ISSUE_DATE;
@@ -65,7 +66,11 @@ public class DeathCertificationRegisterActivity extends CoreCertificationRegiste
                 String encounter_type = form.optString(Constants.JSON_FORM_EXTRA.ENCOUNTER_TYPE);
 
                 if (UPDATE_DEATH_CERTIFICATION.equalsIgnoreCase(encounter_type)) {
-                    presenter().saveForm(jsonString, getIntent().getStringExtra(CLIENT_TYPE));
+                    String clientType = getIntent().getStringExtra(CLIENT_TYPE);
+                    if (PREGNANCY_OUTCOME.equals(clientType)) {
+                        clientType = CoreConstants.TABLE_NAME.FAMILY_MEMBER;
+                    }
+                    presenter().saveForm(jsonString, clientType);
                 }
             } catch (Exception e) {
                 Timber.e(e);
