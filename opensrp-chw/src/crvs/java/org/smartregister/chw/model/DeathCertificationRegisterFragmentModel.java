@@ -116,7 +116,7 @@ public class DeathCertificationRegisterFragmentModel extends CoreCertificationRe
         }
         removedFamilyMembersBuilder.customJoin("UNION " + removedChildrenBuilder.toString());
         removedFamilyMembersBuilder.customJoin("UNION " + stillBirthsBuilder.toString());
-        removedFamilyMembersBuilder.customJoin("UNION " + outOfAreaBuilder.orderbyCondition(SortQueries));
+        removedFamilyMembersBuilder.customJoin("UNION " + outOfAreaBuilder.toString());
 
         return removedFamilyMembersBuilder.orderbyCondition(SortQueries);
     }
