@@ -3,9 +3,12 @@ package org.smartregister.chw.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.fragment.app.Fragment;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.chw.anc.util.Constants;
@@ -13,7 +16,6 @@ import org.smartregister.chw.contract.CoreOutOfAreaDeathRegisterContract;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fragment.CoreDeadClientsFragment;
 import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
 import org.smartregister.chw.model.CoreOutOfAreaDeathRegisterModel;
 import org.smartregister.chw.presenter.CoreOutOfAreaDeathRegisterPresenter;
@@ -23,10 +25,12 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import timber.log.Timber;
 
 public class OutOfAreaDeathActivity extends BaseRegisterActivity implements CoreOutOfAreaDeathRegisterContract.View {
@@ -80,7 +84,7 @@ public class OutOfAreaDeathActivity extends BaseRegisterActivity implements Core
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
         try {
-            if (mBaseFragment instanceof CoreDeadClientsFragment) {
+            if (mBaseFragment instanceof OutOfAreaDeathFragment) {
                 String locationId = Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
                 presenter().startForm(formName, entityId, metaData, locationId, "");
             }

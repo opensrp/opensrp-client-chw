@@ -1,11 +1,5 @@
 package org.smartregister.chw.task;
 
-import static org.smartregister.chw.core.utils.Utils.getDuration;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
-import static org.smartregister.chw.util.CrvsConstants.NO;
-import static org.smartregister.chw.util.CrvsConstants.RECEIVED_DEATH_CERTIFICATE;
-import static org.smartregister.chw.util.CrvsConstants.YES;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +39,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.RECEIVED_DEATH_CERTIFICATE;
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.CrvsConstants.NO;
+import static org.smartregister.chw.util.CrvsConstants.YES;
 
 public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
     public final Context context;
@@ -150,12 +150,12 @@ public class OutOfAreaDeathAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public void setNotReceivedButtonColor(Context context, Button dueButton) {
         dueButton.setTextColor(context.getResources().getColor(R.color.black));
-        dueButton.setText(context.getString(R.string.certificate_not_received));
+        dueButton.setText(context.getString(R.string.death_certificate_not_received));
         dueButton.setBackgroundResource(0);
     }
 
     public void setReceivedButtonColor(Context context, Button dueButton) {
-        dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received));
+        dueButton.setTextColor(context.getResources().getColor(R.color.certificate_received_green));
         dueButton.setText(context.getString(R.string.death_certificate_received));
         dueButton.setBackgroundResource(0);
     }

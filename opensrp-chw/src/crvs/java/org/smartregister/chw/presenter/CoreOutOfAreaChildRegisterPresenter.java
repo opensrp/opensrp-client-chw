@@ -1,7 +1,5 @@
 package org.smartregister.chw.presenter;
 
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +19,7 @@ import org.smartregister.chw.activity.OutOfAreaChildUpdateActivity;
 import org.smartregister.chw.contract.CoreOutOfAreaChildRegisterContract;
 import org.smartregister.chw.core.presenter.CoreChildRegisterPresenter;
 import org.smartregister.chw.interactor.CoreOutOfAreaChildRegisterInteractor;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -127,7 +126,7 @@ public class CoreOutOfAreaChildRegisterPresenter implements CoreOutOfAreaChildRe
             if (getView() != null)
                 getView().showProgressDialog(org.smartregister.chw.core.R.string.saving_dialog_title);
             JSONObject form = new JSONObject(jsonString);
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OUT_OF_AREA_ENCOUNTER_TYPE)) {
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EncounterType.OUT_OF_AREA_CHILD_REGISTRATION)) {
 
                 Pair<Client, Event> clientEventPair = model.processRegistration(jsonString);
                 if (clientEventPair == null) {

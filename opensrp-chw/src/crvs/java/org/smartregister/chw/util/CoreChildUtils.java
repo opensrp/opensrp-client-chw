@@ -1,5 +1,9 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.core.utils.CoreConstants.DOB_UNKNOWN;
+import static org.smartregister.chw.core.utils.CoreConstants.OTHER_NAME;
+import static org.smartregister.chw.core.utils.CoreConstants.SURNAME;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -36,13 +40,13 @@ public abstract class CoreChildUtils {
         columnList.add(tableName + "." + DBConstants.KEY.RELATIONAL_ID + " as " + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
-        columnList.add(tableName + "." + CrvsConstants.SURNAME);
+        columnList.add(tableName + "." + SURNAME);
         columnList.add(tableName + "." + DBConstants.KEY.FIRST_NAME);
         columnList.add(tableName + "." + DBConstants.KEY.MIDDLE_NAME);
         columnList.add(tableName + "." + DBConstants.KEY.DOB);
-        columnList.add(tableName + "." + CrvsConstants.DOB_UNKNOWN);
+        columnList.add(tableName + "." + DOB_UNKNOWN);
         columnList.add(tableName + "." + DBConstants.KEY.GENDER);
-        columnList.add(tableName + "." + CrvsConstants.MOTHER_NAME);
+        columnList.add(tableName + "." + OTHER_NAME);
         columnList.add(tableName + "." + CrvsConstants.FATHER_NAME);
         columnList.add(tableName + "." + CrvsConstants.FATHER_BIRTH_PLACE);
         columnList.add(tableName + "." + CrvsConstants.MOTHER_MARITAL_STATUS);

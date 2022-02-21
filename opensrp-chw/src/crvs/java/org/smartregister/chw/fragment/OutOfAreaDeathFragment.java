@@ -1,6 +1,7 @@
 package org.smartregister.chw.fragment;
 
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+
+import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
 
 import android.content.Intent;
 import android.database.Cursor;

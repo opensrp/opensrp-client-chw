@@ -1,9 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getOutOfAreaDeathForm;
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_FORM;
+import static org.smartregister.chw.util.Constants.Postfixes.OUT_OF_AREA_DEATH;
 import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
 
 import android.app.Activity;
@@ -20,6 +19,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -59,10 +59,10 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
 
     public void startAncDangerSignsOutcomeForm() {
         try {
-            JSONObject formJsonObject = getFormUtils().getFormJson(OUT_OF_AREA_DEATH_FORM);
+            JSONObject formJsonObject = getFormUtils().getFormJson(getOutOfAreaDeathForm());
             String openSRPId = AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId();
             Map<String, String> valueMap = new HashMap<>();
-            valueMap.put(UNIQUE_ID, openSRPId.replace("-", "")+OUT_OF_AREA_DEATH);
+            valueMap.put(UNIQUE_ID, openSRPId.replace("-", "") + OUT_OF_AREA_DEATH);
             CoreJsonFormUtils.populateJsonForm(formJsonObject, valueMap);
             JsonFormUtilsFlv.startFormActivity(OutOfAreaDeathUpdateActivity.this, formJsonObject, getResources().getString(R.string.out_of_area_form));
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
                 assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
 
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OUT_OF_AREA_DEATH_ENCOUNTER_TYPE)
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EncounterType.OUT_OF_AREA_DEATH_REGISTRATION)
                 ) {
                     presenter().saveOutOfAreaDeathForm(jsonString, false);
                 }
@@ -97,8 +97,8 @@ public class OutOfAreaDeathUpdateActivity extends OutOfAreaDeathActivity {
                 Timber.e(e);
             }
 
-        }else {
-            Utils.launchAndClearOldInstanceOfActivity(this,OutOfAreaDeathActivity.class);
+        } else {
+            Utils.launchAndClearOldInstanceOfActivity(this, OutOfAreaDeathActivity.class);
         }
     }
 }

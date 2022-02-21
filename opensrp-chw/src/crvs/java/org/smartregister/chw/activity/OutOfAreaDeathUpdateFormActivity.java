@@ -1,7 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getOutOfAreaDeathForm;
 import static org.smartregister.chw.core.utils.CoreReferralUtils.getCommonRepository;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +16,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.fragment.OutOfAreaDeathFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
-import org.smartregister.chw.util.CrvsConstants;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -56,7 +57,7 @@ public class OutOfAreaDeathUpdateFormActivity extends OutOfAreaDeathActivity {
     public void startAncDangerSignsOutcomeForm() {
 
         try {
-            JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString(CrvsConstants.OUT_OF_AREA_DEATH_FORM, this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE);
+            JSONObject form = JsonFormUtilsFlv.getAutoPopulatedJsonEditFormString(getOutOfAreaDeathForm(), this, getFamilyRegistrationDetails(Objects.requireNonNull(getIntent().getStringExtra(BASE_ENTITY_ID)).toLowerCase()), Constants.EncounterType.OUT_OF_AREA_DEATH_REGISTRATION);
             try {
                 assert form != null;
                 JsonFormUtilsFlv.startFormActivity(this, form, getResources().getString(R.string.out_of_area_form));

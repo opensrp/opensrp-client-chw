@@ -10,9 +10,30 @@ public class Constants extends CoreConstants {
     public static final String DB_VERSION = "db_version";
     public static final String MALARIA_REFERRAL_FORM = "malaria_referral_form";
     public static final String ALL_CLIENT_REGISTRATION_FORM = "all_clients_registration_form";
-    public static String pregnancyOutcome = "preg_outcome";
+    public static String PRENANCY_OUTCOME = "preg_outcome";
     public static String FAMILY_MEMBER_LOCATION_TABLE = "ec_family_member_location";
     public static String CHILD_OVER_5 = "child_over_5";
+    public static String HAS_DEATH_CERTIFICATE = "received_death_certificate";
+    public static String STILL_BORN_DEATH = "still_born_death";
+    public static String DEATH_PLACE = "death_place";
+    public static String FATHER_NAME = "father_name";
+    public static String FATHER_BIRTH_PLACE = "father_birth_place";
+    public static String MOTHER_MARITAL_STATUS = "mother_marital_status";
+    public static String BIRTH_PLACE_TYPE = "birth_place_type";
+    public static String DEL_ATTENDANT = "del_attendant";
+    public static String DEL_MODE = "del_mode";
+    public static String TYPE_OF_PREGNANCY = "type_of_pregnancy";
+    public static String MOTHER_HIGHEST_EDU_LEVEL = "mother_highest_edu_level";
+    public static String FATHER_MARITAL_STATUS = "father_marital_status";
+    public static String FATHER_HIGHEST_EDU_LEVEL = "father_highest_edu_level";
+    public static String UNIQUE_ID = "unique_id";
+    public static String BASE_ENTITY_ID = "base_entity_id";
+    public static String EC_CLIENT_CLASSIFICATION = "ec_client_classification.json";
+    public static String NATIONALITY = "nationality";
+    public static String REMOVE_REASON = "remove_reason";
+    public static String NATIONAL_ID = "national_id";
+    public static String MARITAL_STATUS = "marital_status";
+    public static String DATE_DIED = "date_died";
 
     public enum FamilyRegisterOptionsUtil {Miscarriage, Other}
 
@@ -23,11 +44,18 @@ public class Constants extends CoreConstants {
 
     }
 
+    public static class Postfixes {
+        public static String OUT_OF_AREA_BIRTH = "_outOfAreaBirth";
+        public static String OUT_OF_AREA_DEATH = "_outOfAreaDeath";
+    }
+
     public static class EncounterType {
         public static final String SICK_CHILD = "Sick Child Referral";
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PNC_CHILD_REGISTRATION = "PNC Child Registration";
+        public static final String OUT_OF_AREA_CHILD_REGISTRATION = "Out Of Area Child Registration";
+        public static final String OUT_OF_AREA_DEATH_REGISTRATION = "Out Of Area Death Registration";
     }
 
     public static class ChildIllnessViewType {

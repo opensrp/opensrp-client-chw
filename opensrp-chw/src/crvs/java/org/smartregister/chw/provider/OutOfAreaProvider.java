@@ -13,7 +13,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.holders.FooterViewHolder;
 import org.smartregister.chw.core.holders.RegisterViewHolder;
 import org.smartregister.chw.task.OutOfAreaChildAsyncTask;
-import org.smartregister.chw.util.CrvsConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
@@ -27,6 +26,8 @@ import org.smartregister.view.dialog.SortOption;
 import org.smartregister.view.viewholder.OnClickFormLauncher;
 import java.text.MessageFormat;
 import java.util.Set;
+
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.MOTHER_NAME;
 import static org.smartregister.chw.core.utils.Utils.getDuration;
 import static org.smartregister.chw.util.Utils.getClientName;
 
@@ -122,7 +123,7 @@ public class OutOfAreaProvider implements RecyclerViewProvider<RegisterViewHolde
 
     protected void populatePatientColumn(CommonPersonObjectClient pc, RegisterViewHolder viewHolder) {
         try{
-            String motherName = Utils.getValue(pc.getColumnmaps(), CrvsConstants.MOTHER_NAME, true);
+            String motherName = Utils.getValue(pc.getColumnmaps(), MOTHER_NAME, true);
             String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + motherName;
             fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
             String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);

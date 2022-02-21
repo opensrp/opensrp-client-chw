@@ -1,5 +1,14 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.core.utils.CoreConstants.DB_CONSTANTS.NAME;
+import static org.smartregister.chw.util.Constants.DATE_DIED;
+import static org.smartregister.chw.util.Constants.DEATH_CERTIFICATE_NUMBER;
+import static org.smartregister.chw.util.Constants.DEATH_PLACE;
+import static org.smartregister.chw.util.Constants.MARITAL_STATUS;
+import static org.smartregister.chw.util.Constants.NATIONALITY;
+import static org.smartregister.chw.util.Constants.NATIONAL_ID;
+import static org.smartregister.chw.util.Constants.REMOVE_REASON;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
@@ -37,16 +46,16 @@ public abstract class OutOfAreaDeathUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.RELATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.BASE_ENTITY_ID);
         columnList.add(tableName + "." + DBConstants.KEY.UNIQUE_ID);
-        columnList.add(tableName + "." + CrvsConstants.NAME);
-        columnList.add(tableName + "." + CrvsConstants.NATIONAL_ID);
+        columnList.add(tableName + "." + NAME);
+        columnList.add(tableName + "." + NATIONAL_ID);
         columnList.add(tableName + "." + DBConstants.KEY.DOB);
-        columnList.add(tableName + "." + CrvsConstants.REMOVE_REASON);
-        columnList.add(tableName + "." + "date_died");
-        columnList.add(tableName + "." + CrvsConstants.DEATH_PLACE);
-        columnList.add(tableName + "." + CrvsConstants.NATIONALITY);
-        columnList.add(tableName + "." + CrvsConstants.MARITAL_STATUS);
+        columnList.add(tableName + "." + REMOVE_REASON);
+        columnList.add(tableName + "." + DATE_DIED);
+        columnList.add(tableName + "." + DEATH_PLACE);
+        columnList.add(tableName + "." + NATIONALITY);
+        columnList.add(tableName + "." + MARITAL_STATUS);
         columnList.add(tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH);
-        columnList.add(tableName + "." + CrvsConstants.DEATH_CERTIFICATE_NUMBER);
+        columnList.add(tableName + "." + DEATH_CERTIFICATE_NUMBER);
         return columnList.toArray(new String[columnList.size()]);
     }
 

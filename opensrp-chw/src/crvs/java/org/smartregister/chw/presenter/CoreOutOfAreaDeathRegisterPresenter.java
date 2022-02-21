@@ -1,7 +1,5 @@
 package org.smartregister.chw.presenter;
 
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_DEATH_ENCOUNTER_TYPE;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +19,7 @@ import org.smartregister.chw.activity.OutOfAreaDeathUpdateActivity;
 import org.smartregister.chw.contract.CoreOutOfAreaDeathRegisterContract;
 import org.smartregister.chw.core.presenter.CoreChildRegisterPresenter;
 import org.smartregister.chw.interactor.CoreOutOfAreaDeathRegisterInteractor;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -128,7 +127,7 @@ public class CoreOutOfAreaDeathRegisterPresenter implements CoreOutOfAreaDeathRe
             if (getView() != null)
                 getView().showProgressDialog(org.smartregister.chw.core.R.string.saving_dialog_title);
             JSONObject form = new JSONObject(jsonString);
-            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OUT_OF_AREA_DEATH_ENCOUNTER_TYPE)) {
+            if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EncounterType.OUT_OF_AREA_DEATH_REGISTRATION)) {
 
                 Pair<Client, Event> fevent = model.processRegistration(jsonString);
                 if (fevent == null) {

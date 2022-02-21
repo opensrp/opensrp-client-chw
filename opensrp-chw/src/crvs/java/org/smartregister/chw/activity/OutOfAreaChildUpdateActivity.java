@@ -1,10 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.getOutOfAreaChildForm;
 import static org.smartregister.chw.core.utils.FormUtils.getFormUtils;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_BIRTH;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_CHILD_FORM;
-import static org.smartregister.chw.util.CrvsConstants.OUT_OF_AREA_ENCOUNTER_TYPE;
-import static org.smartregister.chw.util.CrvsConstants.UNIQUE_ID;
+import static org.smartregister.chw.util.Constants.Postfixes.OUT_OF_AREA_BIRTH;
+import static org.smartregister.chw.util.Constants.UNIQUE_ID;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.fragment.OutOfAreaFragment;
 import org.smartregister.chw.listener.ChwBottomNavigationListener;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtilsFlv;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -61,7 +61,7 @@ public class OutOfAreaChildUpdateActivity extends OutOfAreaChildActivity {
     public void startAncDangerSignsOutcomeForm() {
 
         try {
-            JSONObject formJsonObject = getFormUtils().getFormJson(OUT_OF_AREA_CHILD_FORM);
+            JSONObject formJsonObject = getFormUtils().getFormJson(getOutOfAreaChildForm());
             String openSRPId = AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId();
             Map<String, String> valueMap = new HashMap<>();
             valueMap.put(UNIQUE_ID, openSRPId.replace("-", "") + OUT_OF_AREA_BIRTH);
@@ -90,7 +90,7 @@ public class OutOfAreaChildUpdateActivity extends OutOfAreaChildActivity {
                 assert jsonString != null;
                 JSONObject form = new JSONObject(jsonString);
 
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OUT_OF_AREA_ENCOUNTER_TYPE)
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Constants.EncounterType.OUT_OF_AREA_CHILD_REGISTRATION)
                 ) {
                     presenter().saveOutOfAreaForm(jsonString, false);
                 }
@@ -100,7 +100,7 @@ public class OutOfAreaChildUpdateActivity extends OutOfAreaChildActivity {
             }
 
         } else {
-            Utils.launchAndClearOldInstanceOfActivity(this,OutOfAreaChildActivity.class);
+            Utils.launchAndClearOldInstanceOfActivity(this, OutOfAreaChildActivity.class);
         }
     }
 

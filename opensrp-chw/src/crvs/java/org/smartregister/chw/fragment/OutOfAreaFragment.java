@@ -1,5 +1,7 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,7 +33,6 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.HashMap;
 import java.util.Set;
 import timber.log.Timber;
-import static org.smartregister.chw.util.CrvsConstants.BASE_ENTITY_ID;
 
 public class OutOfAreaFragment extends BaseChwRegisterFragment implements CoreChildRegisterFragmentContract.View {
 

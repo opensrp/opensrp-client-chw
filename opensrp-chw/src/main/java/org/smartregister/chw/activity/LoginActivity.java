@@ -1,13 +1,17 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.CrvsConstants.USER_TYPE;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.smartregister.chw.R;
@@ -38,18 +42,29 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.util.CrvsConstants.USER_TYPE;
-
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
     public static final String TAG = BaseLoginActivity.class.getCanonicalName();
     private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
+    private Flavor flavor = new LoginActivityFlv();
 
     private PinLogger pinLogger = PinLoginUtil.getPinLogger();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void renderBuildInfo() {
+        TextView application_version = findViewById(R.id.login_build_text_view);
+        if (application_version != null) {
+            try {
+                flavor.setAppVersionDetails(application_version, this);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -115,7 +130,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean hasPermissions(){
+    public boolean hasPermissions() {
         return PermissionUtils.isPermissionGranted(this
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , CoreConstants.RQ_CODE.STORAGE_PERMISIONS);
@@ -176,9 +191,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
                     ChildRegisterActivity.class : FamilyRegisterActivity.class);
             intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
-        }else {
+        } else {
             Intent intent = new Intent(this, ChwApplication.getApplicationFlavor().launchChildClientsAtLogin() ?
-                    ChildRegisterActivity.class : BirthNotificationRegisterActivity.class);
+                    ChildRegisterActivity.class : BirthCertificationRegisterActivity.class);
             intent.putExtra(Constants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         }
@@ -213,6 +228,10 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             WeightForHeightIntentService.startParseWFHZScores(this);
             allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
         }
+    }
+
+    public interface Flavor {
+        void setAppVersionDetails(TextView appVersionDetails, Context context) throws PackageManager.NameNotFoundException;
     }
 
 }
