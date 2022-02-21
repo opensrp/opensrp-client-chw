@@ -158,7 +158,7 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
-            buildConfigField "String", "SERVER_ENV", "\"prod\""
+            buildConfigField "String", "SERVER_ENV", "\"stage\""
         }
 
         debug {
@@ -367,7 +367,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.5-crvs-alpha-2-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.5-crvs-alpha-3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
