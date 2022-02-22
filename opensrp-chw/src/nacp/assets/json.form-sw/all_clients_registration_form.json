@@ -492,13 +492,6 @@
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
-            "key": "chk_passport",
-            "text": "Hati ya kusafiria",
-            "value": false,
-            "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_passport"
-          },
-          {
             "key": "chk_none",
             "text": "Hakuna",
             "value": false,
@@ -616,42 +609,6 @@
               {
                 "or": [
                   "chk_drivers_license"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "passport",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Passport_Number",
-        "type": "mask_edit_text",
-        "mask": "TAE-######",
-        "mask_hint": "123456",
-        "allowed_chars": "0123456789",
-        "hint": "Namba ya hati ya kusafiria",
-        "v_regex": {
-          "value": "^TAE-\\d{6}$",
-          "err": "Namba ya Pasipoti inapaswa kuwa katika muundo (TAE-XXXXXX)"
-        },
-        "edit_type": "number",
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err":  "Tafadhali weka namba sahihi"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Tafadhali weka namba sahihi"
-        },
-        "relevance": {
-          "step2:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_passport"
                 ]
               }
             ]
@@ -990,104 +947,38 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_provider",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Kazi ya Mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
+          {
+            "key": "chk_self_employed",
+            "text": "Amejiajiri",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_self_employed"
+          },
+          {
+            "key": "chk_employed",
+            "text": "Ameajiriwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_employed"
+          },
+          {
+            "key": "chk_unemployed",
+            "text": "Hajaajiriwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unemployed"
+          },
           {
             "key": "chk_farmer",
             "text": "Mkulima",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
-          },
-          {
-            "key": "chk_cs",
-            "text": "Mtumishi wa Serikali",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cs"
-          },
-          {
-            "key": "chk_nurse",
-            "text": "Muuguzi",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_nurse"
-          },
-          {
-            "key": "chk_teacher",
-            "text": "Mwalimu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_teacher"
-          },
-          {
-            "key": "chk_th",
-            "text": "Mganga wa tiba asili",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_th"
-          },
-          {
-            "key": "chk_chw",
-            "text": "Muhudumu wa afya ngazi ya jamii (WAJA)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_chw"
-          },
-          {
-            "key": "chk_tba",
-            "text": "Mkunga wa Jadi",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_tba"
-          },
-          {
-            "key": "chk_chmis",
-            "text": "Wakusanyaji takrimu za afya ngazi ya jamii",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_chmis"
-          },
-          {
-            "key": "chk_cbd",
-            "text": "Msambazaji wa dawa na vifaa vya uzazi wa mpango ngazi ya Jamii ",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cbd"
-          },
-          {
-            "key": "chk_hbc",
-            "text": "Watoa huduma kwa wagonjwa majumbani",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_hbc"
-          },
-          {
-            "key": "chk_cimmci",
-            "text": "Watoa huduma za udhibiti wa magonjwa ya watoto ngazi ya jamii",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cimmci"
-          },
-          {
-            "key": "chk_other",
-            "text": "Nyinginezo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_other"
-          },
-          {
-            "key": "chk_none",
-            "text": "Hakuna ",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
@@ -1099,30 +990,6 @@
             "ex-rules": {
               "rules-file": "all_clients_member_relevance.yml"
             }
-          }
-        }
-      },
-      {
-        "key": "service_provider_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider_other",
-        "type": "edit_text",
-        "hint": "Taja Kazi nyingine",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali taja kazi"
-        },
-        "relevance": {
-          "step2:service_provider": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_other"
-                ]
-              }
-            ]
           }
         }
       },

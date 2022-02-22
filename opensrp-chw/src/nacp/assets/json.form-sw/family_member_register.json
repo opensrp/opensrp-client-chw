@@ -385,13 +385,6 @@
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
-            "key": "chk_passport",
-            "text": "Pasipoti",
-            "value": false,
-            "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_passport"
-          },
-          {
             "key": "chk_none",
             "text": "Hakuna",
             "value": false,
@@ -509,42 +502,6 @@
               {
                 "or": [
                   "chk_drivers_license"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "passport",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Passport_Number",
-        "type": "mask_edit_text",
-        "mask": "TAE-######",
-        "mask_hint": "123456",
-        "allowed_chars": "0123456789",
-        "hint": "Nambari ya pasipoti",
-        "edit_type": "number",
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err":  "Tafadhali weka namba sahihi"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Tafadhali weka namba sahihi"
-        },
-        "v_regex": {
-          "value": "^TAE-\\d{6}$",
-          "err": "Nambari ya Pasipoti inapaswa kuwa katika muundo (TAE-XXXXXX)"
-        },
-        "relevance": {
-          "step1:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_passport"
                 ]
               }
             ]
@@ -849,104 +806,38 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_provider",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Kazi ya mwanafamilia",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
           {
+            "key": "chk_self_employed",
+            "text": "Amejiajiri",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_self_employed"
+          },
+          {
+            "key": "chk_employed",
+            "text": "Ameajiriwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_employed"
+          },
+          {
+            "key": "chk_unemployed",
+            "text": "Hajaajiriwa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unemployed"
+          },
+          {
             "key": "chk_farmer",
-            "text": "Farmer",
+            "text": "Mkulima",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
-          },
-          {
-            "key": "chk_cs",
-            "text": "Mtumishi wa Serikali",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cs"
-          },
-          {
-            "key": "chk_nurse",
-            "text": "Muuguzi",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_nurse"
-          },
-          {
-            "key": "chk_teacher",
-            "text": "Mwalimu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_teacher"
-          },
-          {
-            "key": "chk_th",
-            "text": "Mganga wa Kienyeji",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_th"
-          },
-          {
-            "key": "chk_chw",
-            "text": "Mhudumu wa Afya ya Jamii (CHW)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_chw"
-          },
-          {
-            "key": "chk_tba",
-            "text": "Mkunga wa Jadi",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_tba"
-          },
-          {
-            "key": "chk_chmis",
-            "text": "Mkusanya takrimu za afya ngazi ya jami",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_chmis"
-          },
-          {
-            "key": "chk_cbd",
-            "text": "Msambazaji wa vifaa vya uzazi wa mpango ngazi ja jami",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cbd"
-          },
-          {
-            "key": "chk_hbc",
-            "text": "Utunzaji wa Nyumbani (HBC)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_hbc"
-          },
-          {
-            "key": "chk_cimmci",
-            "text": "Watoa huduma huduma za kuzuia magonjwa ya watoto kwa uwiano ngazi ya jamii",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cimmci"
-          },
-          {
-            "key": "chk_other",
-            "text": "Nyinginezo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_other"
-          },
-          {
-            "key": "chk_none",
-            "text": "Hakuna",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
