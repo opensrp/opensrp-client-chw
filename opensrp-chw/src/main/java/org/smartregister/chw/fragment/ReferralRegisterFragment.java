@@ -6,10 +6,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
-
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
@@ -20,7 +16,6 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.QueryBuilder;
 import org.smartregister.chw.model.ReferralRegisterFragmentModel;
 import org.smartregister.chw.presenter.ReferralRegisterFragmentPresenter;
-import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
 import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.fragment.BaseReferralRegisterFragment;
 import org.smartregister.chw.referral.provider.ReferralRegisterProvider;
@@ -38,6 +33,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import timber.log.Timber;
 
 public class ReferralRegisterFragment extends BaseReferralRegisterFragment {

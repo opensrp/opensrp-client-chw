@@ -5,15 +5,13 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
 import org.smartregister.chw.dao.ReferralDao;
-import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
+import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Task;
@@ -23,18 +21,19 @@ import timber.log.Timber;
 
 public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity {
     private CommonPersonObjectClient client;
+
     @Override
     protected void onCreation() {
         super.onCreation();
         String taskId = ReferralDao.getTaskIdByReasonReference(getMemberObject().getBaseEntityId());
         Task task = ChwApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
-        if(!task.getBusinessStatus().equalsIgnoreCase("Complete")){
+        if (!task.getBusinessStatus().equalsIgnoreCase("Complete")) {
             createCancelReferral(task);
         }
 
     }
 
-    public static void startChwReferralDetailsViewActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client){
+    public static void startChwReferralDetailsViewActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {
         Intent intent = new Intent(activity, ChwReferralDetailsViewActivity.class);
         intent.putExtra(Constants.ReferralMemberObject.MEMBER_OBJECT, memberObject);
         activity.startActivity(intent);
@@ -46,6 +45,9 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
         CustomFontTextView markAsDone = findViewById(R.id.mark_ask_done);
         markAsDone.setText(R.string.cancel_referral);
+
+        View viewReferralRow = findViewById(R.id.view_referal_row);
+        viewReferralRow.setVisibility(View.GONE);
 
         markAsDone.setOnClickListener(view -> {
             closeReferralDialog(task);
@@ -69,7 +71,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
         builder.setPositiveButton(this.getString(R.string.cancel_referral), (dialog, id) -> {
             try {
-               cancelReferral(task);
+                cancelReferral(task);
                 finish();
             } catch (Exception e) {
                 Timber.e(e, "ReferralTaskViewActivity --> closeReferralDialog");

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -25,6 +23,7 @@ import org.smartregister.listener.BottomNavigationListener;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.CoreConstants.ENTITY_ID;
