@@ -22,7 +22,8 @@ public class ReferralRegisterFragmentPresenter extends BaseReferralRegisterFragm
     @NotNull
     public String getMainCondition() {
         return " " + Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.Key.DATE_REMOVED + " is null " +
-                "AND " + Tables.REFERRAL + "." + DBConstants.Key.REFERRAL_TYPE + " = '" + ReferralType.COMMUNITY_TO_FACILITY_REFERRAL + "' ";
+                "AND " + Tables.REFERRAL + "." + DBConstants.Key.REFERRAL_TYPE + " = '" + ReferralType.COMMUNITY_TO_FACILITY_REFERRAL + "' " +
+                "AND " + CoreConstants.TABLE_NAME.TASK + "." + ChwDBConstants.TaskTable.BUSINESS_STATUS + " <> '" + CoreConstants.BUSINESS_STATUS.CANCELLED + "' ";
 
     }
 

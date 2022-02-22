@@ -13,6 +13,7 @@ import androidx.loader.content.Loader;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.ChwReferralDetailsViewActivity;
 import org.smartregister.chw.activity.MalariaFollowUpVisitActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -155,7 +156,7 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        ReferralDetailsViewActivity.startReferralDetailsViewActivity(getActivity(), new MemberObject(client));
+        ChwReferralDetailsViewActivity.startChwReferralDetailsViewActivity(getActivity(), new MemberObject(client), client);
     }
 
     @Override
