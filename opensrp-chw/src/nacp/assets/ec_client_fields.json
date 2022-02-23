@@ -3192,6 +3192,14 @@
           }
         },
         {
+          "column_name": "confirmation_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnancy_confirmation_status"
+          }
+        },
+        {
           "column_name": "date_marked_as_done",
           "type": "Event",
           "json_mapping": {
