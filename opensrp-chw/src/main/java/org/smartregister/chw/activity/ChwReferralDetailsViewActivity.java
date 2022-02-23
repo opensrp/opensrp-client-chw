@@ -20,7 +20,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 import timber.log.Timber;
 
 public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity {
-    private CommonPersonObjectClient client;
+
 
     @Override
     protected void onCreation() {
