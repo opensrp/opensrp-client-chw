@@ -29,9 +29,13 @@ public class DeathCertificationRegisterFragmentModel extends CoreCertificationRe
         removedFamilyMembersBuilder.customJoin("UNION " + removedChildrenBuilder.mainCondition(mainCondition));
         removedFamilyMembersBuilder.customJoin("UNION " + stillBirthsBuilder.mainCondition(mainCondition));
         removedFamilyMembersBuilder.customJoin("UNION " + outOfAreaBuilder.mainCondition(mainCondition));
-
+        removedFamilyMembersBuilder.customJoin(getOrderByQueryString());
 
         return removedFamilyMembersBuilder.toString();
+    }
+
+    private String getOrderByQueryString() {
+        return " ORDER BY last_interacted_with DESC";
     }
 
     public String getRemovedFamilyMembersQueryString() {
@@ -114,9 +118,9 @@ public class DeathCertificationRegisterFragmentModel extends CoreCertificationRe
                 outOfAreaBuilder.addCondition(" and " + EC_OUT_OF_AREA_DEATH + "." + getDueCondition());
             }
         }
-        removedFamilyMembersBuilder.customJoin("UNION " + removedChildrenBuilder.toString());
-        removedFamilyMembersBuilder.customJoin("UNION " + stillBirthsBuilder.toString());
-        removedFamilyMembersBuilder.customJoin("UNION " + outOfAreaBuilder.toString());
+        removedFamilyMembersBuilder.customJoin("UNION " + removedChildrenBuilder);
+        removedFamilyMembersBuilder.customJoin("UNION " + stillBirthsBuilder);
+        removedFamilyMembersBuilder.customJoin("UNION " + outOfAreaBuilder);
 
         return removedFamilyMembersBuilder.orderbyCondition(SortQueries);
     }
