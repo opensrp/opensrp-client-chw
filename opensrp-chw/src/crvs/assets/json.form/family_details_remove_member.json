@@ -128,7 +128,7 @@
         "label": "{{family_details_remove_member.step1.date_moved.label}}",
         "hint": "{{family_details_remove_member.step1.date_moved.hint}}",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -645,7 +645,7 @@
         "label": "{{family_details_remove_member.step1.death_certificate_issue_date.label}}",
         "hint": "{{family_details_remove_member.step1.death_certificate_issue_date.hint}}",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-120y",
         "max_date": "today",
         "relevance": {
           "step1:received_death_certificate": {

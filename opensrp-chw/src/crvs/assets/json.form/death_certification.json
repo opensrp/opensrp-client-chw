@@ -97,7 +97,7 @@
         "label": "{{death_certification.step1.death_certificate_issue_date.label}}",
         "hint": "{{death_certification.step1.death_certificate_issue_date.hint}}",
         "expanded": false,
-        "min_date": "",
+        "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",

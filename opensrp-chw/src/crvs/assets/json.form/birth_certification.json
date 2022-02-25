@@ -115,7 +115,7 @@
         "hint": "{{birth_certification.step1.birth_cert_issue_date.hint}}",
         "expanded": false,
         "max_date": "today",
-        "min_date": "",
+        "min_date": "today-120y",
         "v_required": {
           "value": "true",
           "err": "{{birth_certification.step1.birth_cert_issue_date.v_required.err}}"
