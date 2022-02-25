@@ -396,6 +396,30 @@
             "field": "obs.fieldCode",
             "concept": "officialNumber"
           }
+        },
+        {
+          "column_name": "death_place",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathPlace"
+          }
+        },
+        {
+          "column_name": "know_death_cause",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "knowDeathCause"
+          }
+        },
+        {
+          "column_name": "death_manner",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathManner"
+          }
         }
       ]
     },
