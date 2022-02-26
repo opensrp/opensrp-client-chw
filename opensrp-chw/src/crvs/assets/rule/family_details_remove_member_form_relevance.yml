@@ -24,14 +24,14 @@ actions:
 name: step1_physician_name
 description: physician_name
 priority: 1
-condition: "step1_death_place.equals('Health Facility') || step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
+condition: "step1_death_place.equals('Health Facility') && step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_physician_position
 description: physician_position
 priority: 1
-condition: "step1_death_place.equals('Health Facility') || step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
+condition: "step1_death_place.equals('Health Facility') && step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
 actions:
   - "isRelevant = true"
 ---
