@@ -4,6 +4,7 @@ import static org.smartregister.AllConstants.CLIENT_TYPE;
 import static org.smartregister.chw.core.utils.CoreConstants.ACTION.START_DEATH_CERTIFICATION_UPDATE;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_ISSUE_DATE;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_CERTIFICATE_NUMBER;
+import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.DEATH_NOTIFICATION_DONE;
 import static org.smartregister.chw.core.utils.CoreConstants.FORM_CONSTANTS.REMOVE_MEMBER_FORM.RECEIVED_DEATH_CERTIFICATE;
 import static org.smartregister.chw.util.Constants.BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.INFORMANT_ADDRESS;
@@ -87,6 +88,7 @@ public class DeathCertificationRegisterFragment extends CoreCertificationRegiste
         intent.putExtra(BASE_ENTITY_ID, Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false));
         intent.putExtra(CLIENT_TYPE, Utils.getValue(client.getColumnmaps(), CLIENT_TYPE, false));
         intent.putExtra(RECEIVED_DEATH_CERTIFICATE, Utils.getValue(client.getColumnmaps(), RECEIVED_DEATH_CERTIFICATE, false));
+        intent.putExtra(DEATH_NOTIFICATION_DONE, Utils.getValue(client.getColumnmaps(), DEATH_NOTIFICATION_DONE, false));
         intent.putExtra(DEATH_CERTIFICATE_ISSUE_DATE, Utils.getValue(client.getColumnmaps(), DEATH_CERTIFICATE_ISSUE_DATE, false));
         intent.putExtra(DEATH_CERTIFICATE_NUMBER, Utils.getValue(client.getColumnmaps(), DEATH_CERTIFICATE_NUMBER, false));
         intent.putExtra(OFFICIAL_ID, Utils.getValue(client.getColumnmaps(), OFFICIAL_ID, false));
