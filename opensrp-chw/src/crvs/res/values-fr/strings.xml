@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CRVS</string>
+    <string name="app_name">Etat Civil</string>
     <string name="login_title">CRVS Login</string>
-    <string name="nav_logo">CRVS App</string>
+    <string name="nav_logo">Etat Civil</string>
     <string name="app_version_with_env">App Version: %1$s (built on %2$s | ENV: %3$s)</string>
 
     <!-- Sync status progress bar -->
