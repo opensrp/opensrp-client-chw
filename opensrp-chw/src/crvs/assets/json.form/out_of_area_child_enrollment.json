@@ -1,0 +1,957 @@
+{
+  "count": "1",
+  "encounter_type": "Out Of Area Child Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "{{out_of_area_child_enrollment.step1.title}}",
+    "fields": [
+      {
+        "key": "photo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "choose_image",
+        "uploadButtonText": "{{out_of_area_child_enrollment.step1.photo.uploadButtonText}}"
+      },
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "hidden": "false",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.unique_id.hint}}",
+        "read_only": "true",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.unique_id.v_numeric.err}}"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.unique_id.v_required.err}}"
+        }
+      },
+      {
+        "key": "surname",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "surname",
+        "openmrs_data_type": "text",
+        "look_up": "true",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.surname.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.surname.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "{{out_of_area_child_enrollment.step1.surname.v_regex.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "same_as_fam_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "hidden": "true",
+        "type": "check_box",
+        "label": "{{out_of_area_child_enrollment.step1.same_as_fam_name.label}}",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "same_as_fam_name",
+            "text": "{{out_of_area_child_enrollment.step1.same_as_fam_name.options.same_as_fam_name.text}}",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "first_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "expanded": false,
+        "hint": "{{out_of_area_child_enrollment.step1.first_name.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.first_name.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "{{out_of_area_child_enrollment.step1.first_name.v_regex.err}}"
+        }
+      },
+      {
+        "key": "middle_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "middle_name",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "expanded": false,
+        "hint": "{{out_of_area_child_enrollment.step1.middle_name.hint}}",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "{{out_of_area_child_enrollment.step1.middle_name.v_regex.err}}"
+        }
+      },
+      {
+        "key": "dob",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "{{out_of_area_child_enrollment.step1.dob.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{out_of_area_child_enrollment.step1.dob.duration.label}}"
+        },
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.dob.v_required.err}}"
+        }
+      },
+      {
+        "key": "dob_estimated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "{{out_of_area_child_enrollment.step1.dob_estimated.label}}",
+        "options": [
+          {
+            "key": "dob_estimated",
+            "text": "{{out_of_area_child_enrollment.step1.dob_estimated.options.dob_estimated.text}}",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "ageMessage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "text": "{{out_of_area_child_enrollment.step1.ageMessage.text}}"
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "spacer",
+        "read_only": "true",
+        "hint": "{{out_of_area_child_enrollment.step1.age.hint}}"
+      },
+      {
+        "key": "gender",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.gender.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.gender.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.gender.values[1]}}"
+        ],
+        "keys": [
+          "Masculin",
+          "Feminin"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.gender.v_required.err}}"
+        }
+      },
+      {
+        "key": "birth_place_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthPlaceType",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_place_type.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.birth_place_type.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.birth_place_type.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.birth_place_type.values[2]}}"
+        ],
+        "keys": [
+          "Home",
+          "Health facility",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Hospital": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.birth_place_type.v_required.err}}"
+        }
+      },
+      {
+        "key": "birth_place_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthPlaceName",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_place_name.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.birth_place_name.v_required.err}}"
+        }
+      },
+      {
+        "key": "no_children",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "{{out_of_area_child_enrollment.step1.no_children.reference_edit_text_hint}}",
+        "repeating_group_label": "Détails sur le bébé #",
+        "repeating_group_max": "10",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "hint": "{{out_of_area_child_enrollment.step1.no_children.hint}}",
+        "openmrs_entity_id": "",
+        "v_numeric_integer": {
+          "value": "true"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{out_of_area_child_enrollment.step1.no_children.v_required.err}}"
+        }
+      },
+      {
+        "key": "del_attendant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delAttendant",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.del_attendant.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.del_attendant.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.del_attendant.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.del_attendant.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.del_attendant.values[3]}}"
+        ],
+        "keys": [
+          "Doctor",
+          "Nurse",
+          "Midwife",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Doctor": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Nurse": "openmrs_choice_ids_birth_nurse",
+          "Midwife": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "openmrs_choice_ids_birth_other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.del_attendant.v_required.err}}"
+        }
+      },
+      {
+        "key": "del_mode",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delMode",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.del_mode.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.del_mode.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.del_mode.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.del_mode.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.del_mode.values[3]}}",
+          "{{out_of_area_child_enrollment.step1.del_mode.values[4]}}"
+        ],
+        "keys": [
+          "Césarienne",
+          "Forceps",
+          "Accouchement normal",
+          "Ventouse",
+          "Inconnu"
+        ],
+        "openmrs_choice_ids": {
+          "C-Section": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Forceps": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Normal delivery": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Vacuum": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.del_mode.v_required.err}}"
+        }
+      },
+      {
+        "key": "type_of_pregnancy",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "typeOfPregnancy",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.type_of_pregnancy.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.type_of_pregnancy.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.type_of_pregnancy.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.type_of_pregnancy.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.type_of_pregnancy.values[3]}}",
+          "{{out_of_area_child_enrollment.step1.type_of_pregnancy.values[4]}}"
+        ],
+        "openmrs_choice_ids": {
+          "Singleton": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Twin": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Triplet": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.type_of_pregnancy.v_required.err}}"
+        }
+      },
+      {
+        "key": "birth_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "{{out_of_area_child_enrollment.step1.birth_weight.label}}",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_weight.hint}}",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.birth_weight.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "500",
+          "err": "{{out_of_area_child_enrollment.step1.birth_weight.v_min.err}}"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "{{out_of_area_child_enrollment.step1.birth_weight.v_max.err}}"
+        }
+      },
+      {
+        "key": "mother_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherName",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_name.hint}}",
+        "look_up": "true",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.mother_name.v_required.err}}"
+        }
+      },
+      {
+        "key": "mother_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherId",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_id.hint}}",
+        "edit_type": "name"
+      },
+      {
+        "key": "mother_dob_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherBirthDate",
+        "type": "date_picker",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_dob_entered.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{out_of_area_child_enrollment.step1.mother_dob_entered.duration.label}}"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-10y",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.mother_dob_entered.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mother_dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "label": "{{out_of_area_child_enrollment.step1.mother_dob_unknown.label}}",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "{{out_of_area_child_enrollment.step1.mother_dob_unknown.options.dob_unknown.text}}",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "mother_age_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_age_entered.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.mother_age_entered.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "{{out_of_area_child_enrollment.step1.mother_age_entered.v_min.err}}"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "{{out_of_area_child_enrollment.step1.mother_age_entered.v_max.err}}"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{out_of_area_child_enrollment.step1.mother_age_entered.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mother_marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_marital_status.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.mother_marital_status.v_required.err}}"
+        },
+        "values": [
+          "{{out_of_area_child_enrollment.step1.mother_marital_status.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.mother_marital_status.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.mother_marital_status.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.mother_marital_status.values[3]}}"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "mother_highest_edu_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_highest_edu_level.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.mother_highest_edu_level.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.mother_highest_edu_level.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.mother_highest_edu_level.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.mother_highest_edu_level.values[3]}}",
+          "{{out_of_area_child_enrollment.step1.mother_highest_edu_level.values[4]}}"
+        ],
+        "keys": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
+        ],
+        "openmrs_choice_ids": {
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy": "",
+          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "mother_usual_residence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherUsualResidence",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_usual_residence.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.mother_usual_residence.v_required.err}}"
+        }
+      },
+      {
+        "key": "mother_birth_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherBirthPlace",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.mother_birth_place.hint}}",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.mother_birth_place.v_required.err}}"
+        }
+      },
+      {
+        "key": "father_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherName",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.father_name.hint}}",
+        "edit_type": "name"
+      },
+      {
+        "key": "father_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherId",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.father_id.hint}}",
+        "edit_type": "name"
+      },
+      {
+        "key": "father_dob_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherBirthDate",
+        "type": "date_picker",
+        "hint": "{{out_of_area_child_enrollment.step1.father_dob_entered.hint}}",
+        "expanded": false,
+        "duration": {
+          "label": "{{out_of_area_child_enrollment.step1.father_dob_entered.duration.label}}"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-10y",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "father_dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "{{out_of_area_child_enrollment.step1.father_dob_unknown.options.dob_unknown.text}}",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "father_age_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.father_age_entered.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.father_age_entered.v_numeric.err}}"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "{{out_of_area_child_enrollment.step1.father_age_entered.v_min.err}}"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "{{out_of_area_child_enrollment.step1.father_age_entered.v_max.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "father_marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.father_marital_status.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.father_marital_status.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.father_marital_status.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.father_marital_status.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.father_marital_status.values[3]}}"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "father_highest_edu_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.father_highest_edu_level.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.father_highest_edu_level.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.father_highest_edu_level.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.father_highest_edu_level.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.father_highest_edu_level.values[3]}}",
+          "{{out_of_area_child_enrollment.step1.father_highest_edu_level.values[4]}}"
+        ],
+        "keys": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
+        ],
+        "openmrs_choice_ids": {
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Literacy": "",
+          "Primary": "1713AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Secondary": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "University": "159785AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "father_birth_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherBirthPlace",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.father_birth_place.hint}}",
+        "look_up": "true",
+        "edit_type": "name"
+      },
+      {
+        "key": "birth_cert",
+        "openmrs_entity_parent": "Concept - Birth certificate obtained",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_cert.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.birth_cert.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.birth_cert.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
+        "key": "birth_cert_issue_date",
+        "openmrs_entity_parent": "Concept - Date of issue of birth certificate",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_cert_issue_date.hint}}",
+        "expanded": false,
+        "min_date": "today-5y",
+        "max_date": "today",
+        "constraints": [
+          {
+            "type": "date",
+            "ex": "greaterThanEqualTo(., step1:dob)",
+            "err": "{{out_of_area_child_enrollment.step1.birth_cert_issue_date..constraints.err}}"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_cert_num",
+        "openmrs_entity_parent": "Concept - Birth certificate number",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_cert_num.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_child_enrollment.step1.birth_cert_num.v_numeric.err}}"
+        },
+        "v_regex": {
+          "value": "([0-9]{1,15})|\\s*",
+          "err": "{{out_of_area_child_enrollment.step1.birth_cert_num.v_regex.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_registration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthRegistration",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_registration.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.birth_registration.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.birth_registration.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_registration_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthRegistrationNote",
+        "type": "label",
+        "text": "{{out_of_area_child_enrollment.step1.birth_registration_note.text}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_notification",
+        "openmrs_entity_parent": "Concept - Birth notification",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_notification.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.birth_notification.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.birth_notification.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "system_birth_notification",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "systemBirthNotification",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.system_birth_notification.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.system_birth_notification.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.system_birth_notification.values[1]}}"
+        ],
+        "keys": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_reg_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthRegType",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "{{out_of_area_child_enrollment.step1.birth_reg_type.hint}}",
+        "values": [
+          "{{out_of_area_child_enrollment.step1.birth_reg_type.values[0]}}",
+          "{{out_of_area_child_enrollment.step1.birth_reg_type.values[1]}}",
+          "{{out_of_area_child_enrollment.step1.birth_reg_type.values[2]}}",
+          "{{out_of_area_child_enrollment.step1.birth_reg_type.values[3]}}",
+          "{{out_of_area_child_enrollment.step1.birth_reg_type.values[4]}}"
+        ],
+        "keys": [
+          "Both Parents",
+          "Self",
+          "Informant Only",
+          "Mother Only",
+          "Father Only"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "informant_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "informantReason",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "{{birth_certification_changed.step1.informant_reason.hint}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "out_of_area_child_form_rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "properties_file_name": "out_of_area_child_enrollment"
+}

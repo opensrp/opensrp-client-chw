@@ -14,16 +14,12 @@ import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.activity.BaseRegisterActivity;
-
 import java.util.Set;
-
 import timber.log.Timber;
-
 import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
 
-    @Override
     protected void onViewClicked(android.view.View view) {
         super.onViewClicked(view);
         if (view.getTag() instanceof CommonPersonObjectClient

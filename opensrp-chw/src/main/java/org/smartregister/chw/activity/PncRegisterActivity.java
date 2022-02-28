@@ -1,10 +1,8 @@
 package org.smartregister.chw.activity;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import org.apache.commons.lang3.EnumUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,9 +17,7 @@ import org.smartregister.chw.fragment.PncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
 import java.util.Date;
-
 import timber.log.Timber;
 
 public class PncRegisterActivity extends CorePncRegisterActivity {
@@ -92,7 +88,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
 
                 if (CoreConstants.EventType.PREGNANCY_OUTCOME.equals(encounter_type)) {
                     JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
-                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, org.smartregister.chw.util.Constants.pregnancyOutcome).optString(JsonFormUtils.VALUE);
+                    String pregnancyOutcome = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, org.smartregister.chw.util.Constants.PRENANCY_OUTCOME).optString(JsonFormUtils.VALUE);
                     if (EnumUtils.isValidEnum(org.smartregister.chw.util.Constants.FamilyRegisterOptionsUtil.class, pregnancyOutcome)) {
                         startRegisterActivity(FamilyRegisterActivity.class);
                         this.finish();

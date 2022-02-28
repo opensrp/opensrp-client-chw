@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="MissingTranslation">Etat Civil</string>
+    <string name="login_title">CRVS Login</string>
+    <string name="nav_logo" tools:ignore="MissingTranslation">Etat Civil</string>
+    <string name="dead_clients" tools:ignore="MissingTranslation">Dead Clients</string>
+    <string name="birth_certification">Birth certification</string>
+    <string name="birth_notification" tools:ignore="MissingTranslation">Birth Notification</string>
+    <string name="certified" tools:ignore="MissingTranslation">Certified</string>
+    <string name="out_of_area_form" tools:ignore="MissingTranslation">Out of area form</string>
+    <string name="app_version_with_env">App Version: %1$s (built on %2$s | ENV: %3$s)</string>
+
+
+    <!-- Sync status progress bar -->
+    <string name="device_data_synced">Device data synced</string>
+    <string name="device_data_not_synced">Device data not synced</string>
+    <string name="progressBarLabel">Syncing %s : %d%% </string>
+
+</resources>

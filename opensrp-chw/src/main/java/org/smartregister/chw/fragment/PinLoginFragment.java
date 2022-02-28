@@ -13,11 +13,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
-
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.PinLoginActivity;
@@ -27,12 +25,8 @@ import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.pinlogin.PinLogger;
 import org.smartregister.chw.presenter.PinLoginPresenter;
 import org.smartregister.util.Utils;
-
 import timber.log.Timber;
 
-/**
- * @author rkodev
- */
 public class PinLoginFragment extends Fragment implements View.OnClickListener, PinLoginContract.View {
 
     public static final String TAG = "PinLoginFragment";

@@ -1,5 +1,11 @@
 package org.smartregister.chw.util;
 
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_NOTIFICATION;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REGISTRATION;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.BIRTH_REG_TYPE;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.INFORMANT_REASON;
+import static org.smartregister.chw.util.ChildDBConstants.KEY.SYSTEM_BIRTH_NOTIFICATION;
+
 import android.content.Context;
 
 import com.google.gson.reflect.TypeToken;
@@ -71,10 +77,13 @@ public class ChildUtils extends CoreChildUtils {
         columnList.add(tableName + "." + ChildDBConstants.KEY.DATE_CREATED);
         columnList.add(tableName + "." + ChildDBConstants.KEY.ILLNESS_ACTION);
         columnList.add(tableName + "." + ChildDBConstants.KEY.VACCINE_CARD);
+        columnList.add(tableName + "." + BIRTH_REGISTRATION);
+        columnList.add(tableName + "." + BIRTH_NOTIFICATION);
+        columnList.add(tableName + "." + SYSTEM_BIRTH_NOTIFICATION);
+        columnList.add(tableName + "." + BIRTH_REG_TYPE);
+        columnList.add(tableName + "." + INFORMANT_REASON);
 
         return columnList.toArray(new String[columnList.size()]);
-
-
     }
 
     public static ServiceTask createServiceTaskFromEvent(String taskType, String details, String title, String formSubmissionId) {

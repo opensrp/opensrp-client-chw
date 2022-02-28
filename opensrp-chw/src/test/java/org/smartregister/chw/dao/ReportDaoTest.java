@@ -3,12 +3,19 @@ package org.smartregister.chw.dao;
 import net.sqlcipher.MatrixCursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.smartregister.chw.domain.EligibleChild;
+import org.smartregister.immunization.domain.Vaccine;
+import org.smartregister.repository.Repository;
+
+import java.util.ArrayList;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.repository.Repository;
 

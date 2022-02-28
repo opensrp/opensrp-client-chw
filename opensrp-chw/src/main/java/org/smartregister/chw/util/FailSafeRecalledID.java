@@ -13,8 +13,6 @@ import java.util.UUID;
 
 public class FailSafeRecalledID implements RecalledIdentifier {
 
-    private static final String FAIL_SAFE_ID = "P2P_FAIL_SAFE_ID";
-
     @NonNull
     @Override
     public String getUniqueID(Context context) {
@@ -25,11 +23,11 @@ public class FailSafeRecalledID implements RecalledIdentifier {
             SharedPreferences sharedPreferences =
                     context.getSharedPreferences(Constants.Prefs.NAME, Context.MODE_PRIVATE);
 
-            uniqueAddress = sharedPreferences.getString(FAIL_SAFE_ID, null);
+            uniqueAddress = sharedPreferences.getString("P2P_FAIL_SAFE_ID", null);
 
             if (uniqueAddress == null) {
                 uniqueAddress = UUID.randomUUID().toString();
-                sharedPreferences.edit().putString(FAIL_SAFE_ID, uniqueAddress).apply();
+                sharedPreferences.edit().putString("P2P_FAIL_SAFE_ID", uniqueAddress).apply();
             }
         }
         return uniqueAddress;

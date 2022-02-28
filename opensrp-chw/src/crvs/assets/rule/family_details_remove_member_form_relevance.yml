@@ -1,0 +1,85 @@
+---
+name: step1_mccd_conducted
+description: mccd_conducted
+priority: 1
+condition: "step1_death_place.equals('Health Facility')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_medically_treated
+description: medically_treated
+priority: 1
+condition: "!step1_death_place.equals('Health Facility') && step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_know_death_cause
+description: know_death_cause
+priority: 1
+condition: "!step1_death_place.equals('Health Facility') && step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+
+name: step1_physician_name
+description: physician_name
+priority: 1
+condition: "step1_death_place.equals('Health Facility') && step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_physician_position
+description: physician_position
+priority: 1
+condition: "step1_death_place.equals('Health Facility') && step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_death_cause
+description: death_cause
+priority: 1
+condition: "step1_know_death_cause.equals('Yes') || step1_mccd_conducted.equals('Yes') && step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pregnant_died
+description: pregnant_died
+priority: 1
+condition: "step1_deceased_pregnant.equals('Yes') && step1_hiddengender.equals('Female')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_deceased_pregnant
+description: deceased_pregnant
+priority: 1
+condition: "step1_hiddengender=='Female' && step1_remove_reason.equals('Died') && ((step1_dob != '' && (helper.formatDate(step1_dob,'y') > 14 && helper.formatDate(step1_dob,'y') < 50)) || (step1_age != '' && (step1_age > 14 && step1_age < 50)))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_still_born_death
+description: still_born_death
+priority: 1
+condition: "step1_remove_reason.equals('Died') && (step1_dob != '' && (helper.formatDate(step1_dob,'d') >= 0 && helper.formatDate(step1_dob,'d') < 27))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_date_died
+description: date_died
+priority: 1
+condition: "step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_age_at_death
+description: age_at_death
+priority: 1
+condition: "step1_remove_reason.equals('Died')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_marital_status
+description: age_at_death
+priority: 1
+condition: "step1_remove_reason.equals('Died') && step1_age_at_death_calculation > 14"
+actions:
+  - "isRelevant = true"

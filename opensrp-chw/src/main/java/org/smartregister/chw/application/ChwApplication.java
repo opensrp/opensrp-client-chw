@@ -6,14 +6,12 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.evernote.android.job.JobManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -27,12 +25,16 @@ import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
+import org.smartregister.chw.activity.BirthCertificationRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
+import org.smartregister.chw.activity.DeathCertificationRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.OutOfAreaChildActivity;
+import org.smartregister.chw.activity.OutOfAreaDeathActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
@@ -186,7 +188,6 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
                 getRegisteredActivities(), flavor.hasP2P());
 
-
         initializeLibraries();
 
         // init json helper
@@ -209,6 +210,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
         if (language.equals(Locale.FRENCH.getLanguage())) {
             saveLanguage(Locale.FRENCH.getLanguage());
+        }else if (language.equals(Locale.ENGLISH.getLanguage())) {
+            saveLanguage(Locale.ENGLISH.getLanguage());
         }
 
         // create a folder for guidebooks
@@ -357,6 +360,10 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CHILD_REGISTER_ACTIVITY, ChildRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PNC_REGISTER_ACTIVITY, PncRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MALARIA_REGISTER_ACTIVITY, MalariaRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.BNOTIFICATION_REGISTER_ACTIVITY, BirthCertificationRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.DEATH_NOTIFICATION_REGISTER_ACTIVITY, DeathCertificationRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.OUT_OF_AREA_REGISTER_ACTIVITY, OutOfAreaChildActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.OUT_OF_AREA_DEATH_ACTIVITY, OutOfAreaDeathActivity.class);
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REFERRALS_REGISTER_ACTIVITY, ReferralRegisterActivity.class);
         }

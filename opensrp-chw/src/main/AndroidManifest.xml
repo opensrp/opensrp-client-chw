@@ -90,6 +90,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.OutOfAreaDeathUpdateFormActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OutOfAreaChildUpdateFormActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OutOfAreaChildUpdateActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OutOfAreaDeathUpdateActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.FamilyProfileActivity"
             android:label="@string/title_family_detail"
             android:parentActivityName=".activity.FamilyRegisterActivity"
@@ -116,6 +136,18 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".activity.ChildRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.DeathCertificationRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OutOfAreaChildActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OutOfAreaDeathActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BirthCertificationRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.UpcomingServicesActivity"

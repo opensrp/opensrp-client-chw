@@ -1,0 +1,91 @@
+---
+name: step1_surname
+description: surname relevance
+priority: 1
+condition: "!step1_same_as_fam_name.contains('same_as_fam_name')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_mother_dob_entered
+description: mother_dob_entered relevance
+priority: 1
+condition: "!step1_mother_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_mother_age_entered
+description: mother_age_entered relevance
+priority: 1
+condition: "step1_mother_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_father_dob_entered
+description: father_dob_entered relevance
+priority: 1
+condition: "!step1_father_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_father_age_entered
+description: father_age_entered relevance
+priority: 1
+condition: "step1_father_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_cert_issue_date
+description: birth certification issue date
+priority: 1
+condition: "step1_birth_cert == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_cert_num
+description: birth certification number
+priority: 1
+condition: "step1_birth_cert == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_registration
+description: birth_registration
+priority: 1
+condition: "step1_birth_cert == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_registration_note
+description: Birth Notification Note
+priority: 1
+condition: "step1_birth_registration == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_notification
+description: Birth Notification
+priority: 1
+condition: "step1_birth_registration == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_system_birth_notification
+description: System Birth Notification
+priority: 1
+condition: "step1_birth_notification == 'No'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_reg_type
+description: Birth Registration Type
+priority: 1
+condition: "step1_birth_cert == 'Yes' || step1_system_birth_notification == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_informant_reason
+description: Informant Reason
+priority: 1
+condition: "step1_birth_reg_type == 'Informant Only'"
+actions:
+  - "isRelevant = true"

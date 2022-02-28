@@ -1,6 +1,7 @@
 package org.smartregister.chw.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -145,4 +146,20 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
         } else return str;
     }
 
+    public static String getClientName(String firstName, String middleName) {
+        String trimFirstName = firstName.trim();
+        String trimMiddleName = middleName.trim();
+        if (ChwApplication.getApplicationFlavor().hasSurname()) {
+            return getName(trimFirstName, trimMiddleName);
+        } else {
+            return Utils.getName(trimFirstName, trimMiddleName);
+        }
+    }
+
+    public static void launchAndClearOldInstanceOfActivity(Context context, Class<? extends Activity> activityClass) {
+        Intent intent = new Intent(new Intent(context, activityClass));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        ((Activity) context).finish();
+    }
 }

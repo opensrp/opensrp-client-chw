@@ -357,11 +357,23 @@
     <string name="delivery_kit">Kit d\'accouchement</string>
     <string name="family_profile_title">Ménage %1$s</string>
     <string name="family_profile_title_with_firstname">Ménage %1$s %2$s</string>
-    <string name="tutorials">Tutoriel</string>
-    <string name="counseling">Conseil</string>
+    <string name="tutorials">Tutoriels</string>
+    <string name="counseling">Conseils</string>
 
     <string name="unauthorized_group">Ce compte n\'est pas autorisé à accéder à cet appareil</string>
     <!-- warning -->
     <string name="any_changes_you_make">Toutes les modifications que vous avez apportées seront perdues</string>
 
+    <!-- Sync status progress bar -->
+    <string name="device_data_synced">Données de l’appareil synchronisées</string>
+    <string name="device_data_not_synced">Données de l\'appareil non synchronisées</string>
+    <string name="progressBarLabel">Synchronisation %s : %d%% </string>
+
+    <string name="update_status">Mettre à jour</string>
+    <string name="birth_certificate_received">Acte reçu</string>
+    <string name="death_certificate_received">Acte reçu</string>
+    <string name="certificate_not_received">Certificat non reçu</string>
+    <string name="birth_summary_toggle">Acte reçu</string>
+    <string name="death_summary_toggle">Cert. reçu</string>
+    <string name="out_of_area_form">Hors zone</string>
 </resources>

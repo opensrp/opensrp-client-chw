@@ -20,4 +20,3 @@ public class FamilyRemoveMemberModel extends CoreFamilyRemoveMemberModel {
         return ((dob != null && getDiffYears(dob, new Date()) >= 5) ? CoreConstants.JSON_FORM.getFamilyDetailsRemoveMember() : CoreConstants.JSON_FORM.getFamilyDetailsRemoveChild());
     }
 }
-

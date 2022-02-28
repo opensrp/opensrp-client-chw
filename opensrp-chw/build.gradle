@@ -2,6 +2,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
@@ -42,7 +43,7 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
@@ -157,6 +158,7 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "String", "SERVER_ENV", "\"prod\""
         }
 
         debug {
@@ -175,6 +177,7 @@ android {
             buildConfigField "int", "STOCK_USAGE_REPORT_MINUTES", '1440'
             buildConfigField "boolean", "USE_UNIFIED_REFERRAL_APPROACH", "true"
             buildConfigField "boolean", "BUILD_FOR_BORESHA_AFYA_SOUTH", "false"
+            buildConfigField "String", "SERVER_ENV",  "\"stage\""
             testCoverageEnabled true
         }
     }
@@ -250,6 +253,21 @@ android {
             buildConfigField "int", "DATABASE_VERSION", '15'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
+        }
+        crvs {
+            dimension = 'baseDimension'
+            applicationIdSuffix ".crvs"
+            versionCode 1
+            versionName "1.0.0"
+            buildConfigField "String", 'opensrp_url', '"https://crvs-cd.smartregister.org/opensrp/"'
+            buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/togo/"' // TODO: To be updated to point to a CRVS S3 Bucket
+            buildConfigField "String", 'opensrp_url_debug', '"https://crvs.labs.smartregister.org/opensrp/"'
+            buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "Province" , "Health District","Health Facility","Village","Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
+            buildConfigField "String", 'DEFAULT_LOCATION', '"CHA"'
+            buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
+            buildConfigField "int", "DATABASE_VERSION", '6'
         }
         drc {
             resConfigs "en", "fr"
@@ -348,7 +366,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.6-crvs-alpha-2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
@@ -381,7 +399,7 @@ dependencies {
 
     //For viewing PDFs in the app
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
-
+    implementation 'com.google.android.gms:play-services-vision-common:17.0.2'
     implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
 
     testImplementation "org.koin:koin-test:2.0.1"

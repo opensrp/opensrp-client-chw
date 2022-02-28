@@ -1,8 +1,13 @@
 package org.smartregister.chw.interactor;
 
 import org.smartregister.chw.contract.LoginJobScheduler;
+import org.smartregister.domain.LoginResponse;
 import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
+
+import static org.smartregister.chw.util.CrvsConstants.AGENT;
+import static org.smartregister.chw.util.CrvsConstants.USER;
+import static org.smartregister.chw.util.CrvsConstants.USER_TYPE;
 
 
 /***
@@ -18,6 +23,21 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     public LoginInteractor(BaseLoginContract.Presenter loginPresenter) {
         super(loginPresenter);
+    }
+
+    @Override
+    protected void processServerSettings(LoginResponse loginResponse) {
+        super.processServerSettings(loginResponse);
+        int size = loginResponse.payload().user.getRoles().size();
+
+        for (int i=0; i<size; i++){
+            if(loginResponse.payload().user.getRoles().get(i).equals("ROLE_CRVS_AGENT")){
+                getSharedPreferences().savePreference(USER_TYPE, AGENT);
+                break;
+            }else{
+                getSharedPreferences().savePreference(USER_TYPE, USER);
+            }
+        }
     }
 
     @Override

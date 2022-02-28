@@ -28,6 +28,12 @@ public interface RepositoryUtils {
     String _ID = "_id";
 
     String ADD_MISSING_REPORTING_COLUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
+    String ADD_DEATH_RECEIVE_COLUMN_TO_ECCHILD = "ALTER TABLE ec_child ADD received_death_certificate VARCHAR;";
+    String ADD_DEATH_CERT_DATE_TO_ECCHILD = "ALTER TABLE ec_child ADD death_certificate_issue_date VARCHAR;";
+    String ADD_DEATH_RECEIVE_COLUMNS_TO_FAMILY_MEMBER = "ALTER TABLE ec_family_member ADD received_death_certificate VARCHAR;";
+    String ADD_DEATH_CERT_DATE_TO_FAMILY_MEMBER = "ALTER TABLE ec_family_member ADD death_certificate_issue_date VARCHAR;";
+    String ADD_BIRTH_REG_TO_CHILD = "ALTER TABLE ec_child ADD birth_registration VARCHAR;";
+
     String FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION = "ALTER TABLE 'ec_family_member' ADD COLUMN reasons_for_registration TEXT NULL;";
     String EC_REFERRAL_ADD_FP_METHOD_COLUMN = "ALTER TABLE 'ec_referral' ADD COLUMN fp_method_accepted_referral TEXT NULL;";
 
