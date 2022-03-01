@@ -74,14 +74,6 @@ actions:
   - "isRelevant = true"
 
 ---
-name: step2_passport
-description: passport relevance
-priority: 1
-condition: "step2_id_avail.equals('Passport')"
-actions:
-  - "isRelevant = true"
-
----
 name: step2_insurance_provider_other
 description: insurance_provider_other relevance
 priority: 1

@@ -336,26 +336,6 @@
         }
       },
       {
-        "key": "phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "phone_number",
-        "type": "edit_text",
-        "hint": "Namba ya simu",
-        "v_numeric": {
-          "value": "true",
-          "err": "Namba lazima iwe na jumla ya tarakimu 10 kwa urefu"
-        },
-        "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Namba lazima iwe na tarakimu 10 na ianze na 0"
-        },
-        "v_required": {
-          "value": false,
-          "err": "Haijafafanuliwa"
-        }
-      },
-      {
         "key": "person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

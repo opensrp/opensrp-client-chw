@@ -390,13 +390,6 @@
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
-            "key": "chk_passport",
-            "text": "Passport",
-            "value": false,
-            "openmrs_entity": "person_attribute",
-            "openmrs_entity_id": "chk_passport"
-          },
-          {
             "key": "chk_none",
             "text": "None",
             "value": false,
@@ -514,42 +507,6 @@
               {
                 "or": [
                   "chk_drivers_license"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "passport",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Passport_Number",
-        "type": "mask_edit_text",
-        "mask": "TAE-######",
-        "mask_hint": "123456",
-        "allowed_chars": "0123456789",
-        "hint": "Passport number e.g TAE-123456",
-        "edit_type": "number",
-        "v_regex": {
-          "value": "^TAE-\\d{6}$",
-          "err": "Passport Number should be in the format (TAE-XXXXXX)"
-        },
-        "v_max_length": {
-          "value": "10",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid passport number"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter a valid passport number"
-        },
-        "relevance": {
-          "step1:id_avail": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_passport"
                 ]
               }
             ]
@@ -854,104 +811,38 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "service_provider",
-        "type": "check_box",
+        "type": "native_radio",
         "label": "Occupation of the family member",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
-        "exclusive": [
-          "chk_none"
-        ],
         "options": [
+          {
+            "key": "chk_self_employed",
+            "text": "Self-Employed",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_self_employed"
+          },
+          {
+            "key": "chk_employed",
+            "text": "Employed",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_employed"
+          },
+          {
+            "key": "chk_unemployed",
+            "text": "Unemployed",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_unemployed"
+          },
           {
             "key": "chk_farmer",
             "text": "Farmer",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
-          },
-          {
-            "key": "chk_cs",
-            "text": "Civil Servant",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cs"
-          },
-          {
-            "key": "chk_nurse",
-            "text": "Nurse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_nurse"
-          },
-          {
-            "key": "chk_teacher",
-            "text": "Teacher",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_teacher"
-          },
-          {
-            "key": "chk_th",
-            "text": "Traditional Healer",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_th"
-          },
-          {
-            "key": "chk_chw",
-            "text": "Community Health Worker (CHW)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_chw"
-          },
-          {
-            "key": "chk_tba",
-            "text": "Traditional Birth Attendant",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_tba"
-          },
-          {
-            "key": "chk_chmis",
-            "text": "Community HMIS (cHMIS)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_chmis"
-          },
-          {
-            "key": "chk_cbd",
-            "text": "Community Based Distributor",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cbd"
-          },
-          {
-            "key": "chk_hbc",
-            "text": "Home Based Care (HBC)",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_hbc"
-          },
-          {
-            "key": "chk_cimmci",
-            "text": "Community IMCI",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cimmci"
-          },
-          {
-            "key": "chk_other",
-            "text": "Other",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_other"
-          },
-          {
-            "key": "chk_none",
-            "text": "None",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
@@ -963,30 +854,6 @@
             "ex-rules": {
               "rules-file": "family_member_relevance.yml"
             }
-          }
-        }
-      },
-      {
-        "key": "service_provider_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider_other",
-        "type": "edit_text",
-        "hint": "Mention other Occupation",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the occupation"
-        },
-        "relevance": {
-          "step1:service_provider": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_other"
-                ]
-              }
-            ]
           }
         }
       },
