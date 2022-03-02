@@ -16,12 +16,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fragment.AncFollowupRegisterFragment;
+import org.smartregister.chw.fragment.AncPartnerFollowupRegisterFragment;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.SyncServiceJob;
-import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Date;
@@ -76,8 +75,8 @@ public class AncRegisterActivity extends CoreAncRegisterActivity implements Bott
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new AncFollowupRegisterFragment[]{
-                new AncFollowupRegisterFragment()};
+        return new AncPartnerFollowupRegisterFragment[]{
+                new AncPartnerFollowupRegisterFragment()};
     }
 
 

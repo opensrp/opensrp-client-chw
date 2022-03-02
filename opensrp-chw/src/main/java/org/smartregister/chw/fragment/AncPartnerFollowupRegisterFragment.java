@@ -15,7 +15,7 @@ import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
 import java.util.Set;
 
-public class AncFollowupRegisterFragment extends CoreAncRegisterFragment {
+public class AncPartnerFollowupRegisterFragment extends CoreAncRegisterFragment {
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
         ChwAncRegisterProvider provider = new AncFollowupRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
