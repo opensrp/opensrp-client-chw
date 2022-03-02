@@ -802,7 +802,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "comment_hiv_community_followup"
+            "concept": "anc_partner_followup_comment"
           }
         },
         {

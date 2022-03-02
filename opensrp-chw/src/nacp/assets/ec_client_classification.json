@@ -462,7 +462,7 @@
           {
             "field":"eventType",
             "field_value": "ANC Partner Community Followup Referral",
-            "closes_case": [
+            "creates_case": [
               "ec_anc_partner_community_followup"
             ]
           }
