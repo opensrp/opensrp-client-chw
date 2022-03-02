@@ -1,26 +1,34 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.CoreConstants.EventType.ANC_REGISTRATION;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.core.activity.CoreAncRegisterActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fragment.AncFollowupRegisterFragment;
 import org.smartregister.chw.fragment.AncRegisterFragment;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.util.Date;
 
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.CoreConstants.EventType.ANC_REGISTRATION;
-
-public class AncRegisterActivity extends CoreAncRegisterActivity {
+public class AncRegisterActivity extends CoreAncRegisterActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static void startAncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name) {
@@ -46,11 +54,12 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
 
     @Override
     protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
-        bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_register);
+        bottomNavigationView.getMenu().clear();
+
+        bottomNavigationView.inflateMenu(R.menu.anc_bottom_nav_menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -60,10 +69,17 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
 
     @Override
     public void switchToBaseFragment() {
-        Intent intent = new Intent(this, FamilyRegisterActivity.class);
+        Intent intent = new Intent(this, AncRegisterActivity.class);
         startActivity(intent);
         this.finish();
     }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new AncFollowupRegisterFragment[]{
+                new AncFollowupRegisterFragment()};
+    }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -87,5 +103,17 @@ public class AncRegisterActivity extends CoreAncRegisterActivity {
         } else {
             finish();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if(menuItem.getItemId() == R.id.action_anc){
+            switchToFragment(0);
+            return true;
+        } else if (menuItem.getItemId() == R.id.action_received_referrals){
+            switchToFragment(1);
+            return true;
+        }
+        return false;
     }
 }
