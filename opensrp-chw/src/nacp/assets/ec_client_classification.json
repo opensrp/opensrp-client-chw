@@ -458,6 +458,13 @@
             "closes_case": [
               "ec_anc_register"
             ]
+          },
+          {
+            "field":"eventType",
+            "field_value": "ANC Partner Community Followup Referral",
+            "closes_case": [
+              "ec_anc_partner_community_followup"
+            ]
           }
         ]
       }
