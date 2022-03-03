@@ -241,6 +241,13 @@
             ]
           }
         }
+      },
+      {
+        "key": "referral_form_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_form_id",
+        "type": "hidden"
       }
     ]
   }

@@ -117,7 +117,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         textview_record_visit.setOnClickListener(view -> {
             JSONObject formJsonObject = null;
             try {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getAncPartnerCommunityFollowupReferral());
+                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getAncPartnerCommunityFollowupFeedback());
                 startFormActivity(formJsonObject);
             } catch (JSONException e) {
                 e.printStackTrace();
