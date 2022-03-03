@@ -1,0 +1,126 @@
+---
+name: step2_dob
+description: dob relevance
+priority: 1
+condition: "!step2_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_dob_unknown
+description: dob unknown relevance
+priority: 1
+condition: "step2_dob.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step2_age
+description: age relevance
+priority: 1
+condition: "step2_dob_unknown.contains('dob_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_phone_number
+description: phone number relevance
+priority: 1
+condition: "step2_is_primary_caregiver == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_id_avail
+description: identity relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 18) || (step2_age != '' && step2_age >= 18)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_service_provider
+description: service_provider relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 18) || (step2_age != '' && step2_age >= 18)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_leader
+description: leader relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 18) || (step2_age != '' && step2_age >= 18)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_marital_status
+description: marital_status relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 14) || (step2_age != '' && step2_age >= 14)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_1yr
+description: pregnance 1yr relevance
+priority: 1
+condition: "step2_wra == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_insurance_provider_other
+description: insurance_provider_other relevance
+priority: 1
+condition: "!step2_insurance_provider.isEmpty() && step2_insurance_provider.equals('Other')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_insurance_provider_number
+descripltion: insurance number relevance
+priority: 1
+condition: "!step2_insurance_provider.isEmpty() && !step2_insurance_provider.contains('None')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_type_of_disability
+description: type_of_disability relevance
+priority: 1
+condition: "step2_disabilities.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_preg_1yr
+description: pregnance 1yr relevance
+priority: 1
+condition: "step2_wra == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step2_primary_caregiver_name
+description: ask primary caregiver name
+priority: 1
+condition: "step2_has_primary_caregiver == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_other_phone_number
+description: as primary caregiver phone number
+priority: 1
+condition: "step2_has_primary_caregiver == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_reasons_for_registration_male_15
+description: Show up if client is male and age 15 above
+priority: 1
+condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 15) || (step2_age != '' && step2_age >= 15)) && step2_sex.equals('Male') "
+actions:
+  - "isRelevant = true"
+---
+name: step2_reasons_for_registration_female_15
+description: Show up if client is female and age 15 above
+priority: 1
+condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 15) || (step2_age != '' && step2_age >= 15))&& step2_sex.equals('Female')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_reasons_for_registration_under_15
+description: Show up if client is below 15
+priority: 1
+condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') < 15) || (step2_age != '' && step2_age < 15))"
+actions:
+  - "isRelevant = true"

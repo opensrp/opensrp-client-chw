@@ -1,0 +1,49 @@
+---
+name: step2_age_calculated
+description: Age calculated
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (!step2_dob_unknown.isEmpty() && step2_dob_unknown.contains('dob_unknown')) ? step2_age : helper.getDifferenceDays(step2_dob) / 365.25"
+---
+name: step2_wra
+description: wra calculation
+priority: 1
+condition: "step2_sex == 'Female' && (step2_age_calculated >= 10 && step2_age_calculated <= 49)"
+actions:
+  - "calculation = 1"
+---
+name: step2_surname
+description: set surname as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_fam_name"
+---
+name: step2_first_name
+description: set surname as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_first_name"
+---
+name: step2_middle_name
+description: set surname as the one added in step one
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_middle_name"
+---
+name: step2_reasons_for_registration
+description: set reasons for registration
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ((step2_dob != '' && helper.formatDate(step2_dob,'y') < 15) || (step2_age != '' && step2_age < 15)) ? step2_reasons_for_registration_under_15 : step2_reasons_for_registration_male_15)"
+---
+name: step2_sex
+description: set sex as male by default
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'Male'"

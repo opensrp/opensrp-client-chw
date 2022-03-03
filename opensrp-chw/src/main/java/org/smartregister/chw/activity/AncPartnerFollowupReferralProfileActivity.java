@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import static android.view.View.GONE;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -111,6 +113,11 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
                 e.printStackTrace();
             }
         });
+
+        RelativeLayout partnerView = findViewById(R.id.rlPartnerView);
+        partnerView.setVisibility(View.VISIBLE);
+
+        partnerView.setOnClickListener(this);
     }
 
     @Override
@@ -315,6 +322,10 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
+        }else if(id == R.id.rlPartnerView){
+            Intent intent = new Intent(this, PartnerRegistrationActivity.class);
+            intent.putExtra(INTENT_BASE_ENTITY_ID, memberObject.getBaseEntityId());
+            startActivity(intent);
         }
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
