@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -50,6 +52,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
@@ -428,4 +431,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         Boolean hasEmergencyTransport();
     }
 
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        super.setFamilyStatus(status);
+        if (memberObject.getFamilyBaseEntityId().isEmpty()) {
+            rlFamilyServicesDue.setVisibility(View.GONE);
+        }
+    }
 }
