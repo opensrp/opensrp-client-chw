@@ -1,5 +1,9 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -50,6 +54,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.domain.Task;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
@@ -68,10 +73,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
@@ -428,4 +429,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         Boolean hasEmergencyTransport();
     }
 
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        super.setFamilyStatus(status);
+        if (memberObject.getFamilyBaseEntityId().isEmpty()) {
+            rlFamilyServicesDue.setVisibility(View.GONE);
+        }
+    }
 }
