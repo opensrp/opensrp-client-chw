@@ -5,7 +5,7 @@ import android.database.Cursor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
-import org.smartregister.chw.activity.AncMemberProfileActivity;
+import org.smartregister.chw.activity.AncPartnerFollowupReferralProfileActivity;
 import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.fragment.CoreAncRegisterFragment;
 import org.smartregister.chw.core.provider.ChwAncRegisterProvider;
@@ -40,7 +40,7 @@ public class AncPartnerFollowupRegisterFragment extends CoreAncRegisterFragment 
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        AncMemberProfileActivity.startMe(getActivity(), client.getCaseId());
+        AncPartnerFollowupReferralProfileActivity.startMe(getActivity(), client.getCaseId());
     }
 
     @Override

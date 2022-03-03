@@ -421,6 +421,7 @@
     <string name="cancel_referral_title">Cancel Referral?</string>
     <string name="cancel_referral_message">Referral will be closed and disappear from app.</string>
     <string name="exit">Exit</string>
+    <string name="record_followup_feedback">Record  Followup Feedback</string>
 
 
 </resources>

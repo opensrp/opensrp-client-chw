@@ -420,4 +420,5 @@
     <string name="anc_malaria_field_no">Hapana</string>
     <string name="anc_malaria_net_condition_good">Nzuri</string>
     <string name="anc_malaria_net_condition_bad">Mbaya</string>
+    <string name="record_followup_feedback">Record  Followup Feedback</string>
 </resources>
