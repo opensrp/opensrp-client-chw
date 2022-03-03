@@ -816,6 +816,48 @@
       ]
     },
     {
+      "name": "ec_anc_partner_community_feedback",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "partner_agree_attending_hf",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_agree_attending_hf"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_anc_log",
       "columns": [
         {

@@ -224,6 +224,12 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
                     ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                     showToast(this.getString(R.string.referral_submitted));
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.ANC_PARTNER_COMMUNITY_FOLLOWUP_FEEDBACK)){
+                    AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP_FEEDBACK);
+                    org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences,baseEvent);
+                    baseEvent.setBaseEntityId(baseEntityID);
+                    NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
                 }
 
             } catch (Exception e) {
