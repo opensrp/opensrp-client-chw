@@ -275,30 +275,18 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     }
 
     @Override
-    public boolean usesPregnancyRiskProfileLayout() {
-        return false;
-    }
-
-    public void openMedicalHistory() {
-        AncMedicalHistoryActivity.startMe(this, memberObject);
-    }
-
-    @Override
     public void openUpcomingService() {
-        AncUpcomingServicesActivity.startMe(this, memberObject);
+        Timber.i("openUpcomingService");
     }
 
     @Override
     public void openFamilyDueServices() {
-        Intent intent = new Intent(this, FamilyProfileActivity.class);
+        Timber.i("openFamilyDueServices");
+    }
 
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_BASE_ENTITY_ID, memberObject.getFamilyBaseEntityId());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_HEAD, memberObject.getFamilyHead());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.PRIMARY_CAREGIVER, memberObject.getPrimaryCareGiver());
-        intent.putExtra(org.smartregister.family.util.Constants.INTENT_KEY.FAMILY_NAME, memberObject.getFamilyName());
-
-        intent.putExtra(CoreConstants.INTENT_KEY.SERVICE_DUE, hasDueServices);
-        startActivity(intent);
+    @Override
+    public boolean usesPregnancyRiskProfileLayout() {
+        return false;
     }
 
     @Override
@@ -412,12 +400,6 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
-    public interface Flavor {
-        Boolean hasFamilyLocationRow();
-
-        Boolean hasEmergencyTransport();
-    }
-
     @Override
     public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
         this.rlUpcomingServices.setVisibility(GONE);
@@ -428,10 +410,4 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         this.rlFamilyServicesDue.setVisibility(GONE);
     }
 
-    @Override
-    protected void displayView() {
-        layoutRecordView.setVisibility(View.VISIBLE);
-        textViewAncVisitNot.setVisibility(GONE);
-        tvEdit.setVisibility(View.GONE);
-    }
 }
