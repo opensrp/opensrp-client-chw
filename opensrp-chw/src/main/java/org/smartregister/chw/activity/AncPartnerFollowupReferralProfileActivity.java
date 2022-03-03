@@ -244,12 +244,12 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
                     ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                     showToast(this.getString(R.string.referral_submitted));
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.ANC_PARTNER_COMMUNITY_FOLLOWUP_FEEDBACK)) {
-                    tagReferralFormId(jsonString, formSubmissionId);
                     AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
-                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP_FEEDBACK);
+                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences,tagReferralFormId(jsonString, formSubmissionId) , CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP_FEEDBACK);
                     org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
                     baseEvent.setBaseEntityId(baseEntityID);
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+                    setupViews();
                 }
 
             } catch (Exception e) {
@@ -263,12 +263,13 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         }
     }
 
-    private void tagReferralFormId(String jsonString, String formSubmissionId) throws JSONException {
+    private String tagReferralFormId(String jsonString, String formSubmissionId) throws JSONException {
         JSONObject  form = new JSONObject(jsonString);
         JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
         JSONObject referralFormId = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, ReferralFormId);
         assert referralFormId != null;
         referralFormId.put(JsonFormUtils.VALUE, formSubmissionId);
+        return form.toString();
     }
 
     @Override
