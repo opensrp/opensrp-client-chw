@@ -13,6 +13,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.AncPartnerFollowupRegisterFragmentModel;
 import org.smartregister.chw.presenter.ChwAncPartnerFollowupRegisterFragmentPresenter;
 import org.smartregister.chw.provider.AncFollowupRegisterProvider;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -40,7 +41,7 @@ public class AncPartnerFollowupRegisterFragment extends CoreAncRegisterFragment 
 
     @Override
     protected void openProfile(CommonPersonObjectClient client) {
-        AncPartnerFollowupReferralProfileActivity.startMe(getActivity(), client.getCaseId());
+        AncPartnerFollowupReferralProfileActivity.startMe(getActivity(), client.getCaseId(),client.getColumnmaps().get(Constants.PartnerRegistrationConstants.FormSubmissionId));
     }
 
     @Override

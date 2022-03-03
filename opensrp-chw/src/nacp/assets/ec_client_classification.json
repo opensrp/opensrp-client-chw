@@ -472,6 +472,13 @@
             "creates_case": [
               "ec_anc_partner_community_feedback"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Partner Registration",
+            "creates_case": [
+              "ec_anc_partner_community_feedback"
+            ]
           }
         ]
       }

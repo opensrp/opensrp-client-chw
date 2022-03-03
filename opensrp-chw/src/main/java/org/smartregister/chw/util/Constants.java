@@ -66,6 +66,9 @@ public class Constants extends CoreConstants {
         int NEW_PARTNER_REQUEST_CODE = 12345;
         String INTENT_BASE_ENTITY_ID = "BASE_ENTITY_ID";
         String PARTNER_BASE_ENTITY_ID = "partner_base_entity_id";
+        String FormSubmissionId = "formSubmissionId";
+        String INTENT_FORM_SUBMISSION_ID = "form_submission_id";
+        String ReferralFormId = "referral_form_id";
     }
 
     public static final class JsonForm{

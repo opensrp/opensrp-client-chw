@@ -848,11 +848,35 @@
           }
         },
         {
+          "column_name": "referral_form_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_form_id"
+          }
+        },
+        {
           "column_name": "partner_agree_attending_hf",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "partner_agree_attending_hf"
+          }
+        },
+        {
+          "column_name": "client_found",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "is_partner_found"
+          }
+        },
+        {
+          "column_name": "partner_base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "partner_base_entity_id"
           }
         }
       ]

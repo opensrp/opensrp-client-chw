@@ -1,11 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static android.view.View.GONE;
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -41,6 +35,7 @@ import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
+import org.smartregister.chw.dao.AncPartnerDao;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
@@ -73,15 +68,25 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+    private String formSubmissionId;
 
-    public static void startMe(Activity activity, String baseEntityID) {
+    public static void startMe(Activity activity, String baseEntityID, String formSubmissionId) {
         Intent intent = new Intent(activity, AncPartnerFollowupReferralProfileActivity.class);
         passToolbarTitle(activity, intent);
         intent.putExtra(Constants.ANC_MEMBER_OBJECTS.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(INTENT_FORM_SUBMISSION_ID, formSubmissionId);
         activity.startActivity(intent);
     }
 
@@ -95,15 +100,20 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         super.onCreate(savedInstanceState);
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
+        this.formSubmissionId = getIntent().getStringExtra(INTENT_FORM_SUBMISSION_ID);
     }
 
     @Override
     public void setupViews() {
         super.setupViews();
         layoutRecordView.setVisibility(View.VISIBLE);
+        if (AncPartnerDao.wasClientFound(formSubmissionId)) {
+            textview_record_visit.setVisibility(View.GONE);
+        }
         textViewAncVisitNot.setVisibility(GONE);
         tvEdit.setVisibility(View.GONE);
         textview_record_visit.setText(R.string.record_followup_feedback);
+        textview_record_visit.setBackgroundResource(org.smartregister.chw.core.R.drawable.record_btn_anc_selector);
         textview_record_visit.setOnClickListener(view -> {
             JSONObject formJsonObject = null;
             try {
@@ -115,7 +125,9 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         });
 
         RelativeLayout partnerView = findViewById(R.id.rlPartnerView);
-        partnerView.setVisibility(View.VISIBLE);
+        if(AncPartnerDao.wasClientFound(formSubmissionId) && AncPartnerDao.hasPartnerAgreeForRegistration(formSubmissionId) && !AncPartnerDao.isPartnerRegistered(formSubmissionId)){
+            partnerView.setVisibility(View.VISIBLE);
+        }
 
         partnerView.setOnClickListener(this);
     }
@@ -231,10 +243,11 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(CoreConstants.EventType.ANC_REFERRAL)) {
                     ancMemberProfilePresenter().createReferralEvent(Utils.getAllSharedPreferences(), jsonString);
                     showToast(this.getString(R.string.referral_submitted));
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.ANC_PARTNER_COMMUNITY_FOLLOWUP_FEEDBACK)){
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.ANC_PARTNER_COMMUNITY_FOLLOWUP_FEEDBACK)) {
+                    tagReferralFormId(jsonString, formSubmissionId);
                     AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
                     Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences, jsonString, CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP_FEEDBACK);
-                    org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences,baseEvent);
+                    org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
                     baseEvent.setBaseEntityId(baseEntityID);
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
                 }
@@ -248,6 +261,14 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.ANC_HOME_VISIT, new Date());
             finish();
         }
+    }
+
+    private void tagReferralFormId(String jsonString, String formSubmissionId) throws JSONException {
+        JSONObject  form = new JSONObject(jsonString);
+        JSONArray fields = org.smartregister.util.JsonFormUtils.fields(form);
+        JSONObject referralFormId = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, ReferralFormId);
+        assert referralFormId != null;
+        referralFormId.put(JsonFormUtils.VALUE, formSubmissionId);
     }
 
     @Override
@@ -322,7 +343,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
-        }else if(id == R.id.rlPartnerView){
+        } else if (id == R.id.rlPartnerView) {
             Intent intent = new Intent(this, PartnerRegistrationActivity.class);
             intent.putExtra(INTENT_BASE_ENTITY_ID, memberObject.getBaseEntityId());
             startActivity(intent);
