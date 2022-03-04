@@ -22,7 +22,7 @@ public class AncPartnerDao extends AbstractDao {
         return res.size() == 1;
     }
 
-    public static boolean hasPartnerAgreeForRegistration(String referralFormSubmissionId){
+    public static boolean hasPartnerAgreeForRegistration(String referralFormSubmissionId) {
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "partner_agree_attending_hf");
 
         String sql = String.format(
@@ -35,12 +35,13 @@ public class AncPartnerDao extends AbstractDao {
 
         List<String> res = readData(sql, dataMap);
 
-        if(res.size() > 0){
+        if (res.size() > 0) {
             return res.get(0).equalsIgnoreCase("yes");
         }
         return false;
     }
-    public static boolean isPartnerFollowedUp(String referralFormSubmissionId){
+
+    public static boolean isPartnerFollowedUp(String referralFormSubmissionId) {
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "client_found");
 
         String sql = String.format(

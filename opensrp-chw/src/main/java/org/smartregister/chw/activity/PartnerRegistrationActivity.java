@@ -33,7 +33,6 @@ import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.UniqueIdRepository;
-import org.smartregister.util.JsonFormUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ import timber.log.Timber;
 
 import static com.vijay.jsonwizard.utils.FormUtils.fields;
 import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
-
 import static org.smartregister.chw.anc.util.NCUtils.getClientProcessorForJava;
 import static org.smartregister.chw.anc.util.NCUtils.getSyncHelper;
 import static org.smartregister.chw.util.Constants.JsonForm.getPartnerRegistrationForm;
