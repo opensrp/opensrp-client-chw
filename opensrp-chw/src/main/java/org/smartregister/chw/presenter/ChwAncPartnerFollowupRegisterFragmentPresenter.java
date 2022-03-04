@@ -20,7 +20,14 @@ public class ChwAncPartnerFollowupRegisterFragmentPresenter extends AncRegisterF
     @Override
     public String getMainCondition() {
         return " " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
-                "AND " + CoreConstants.TABLE_NAME.ANC_MEMBER + "." + DBConstants.KEY.IS_CLOSED + " is 0 ";
+                "AND " + CoreConstants.TABLE_NAME.ANC_MEMBER + "." + DBConstants.KEY.IS_CLOSED + " is 0 " +
+                "AND " + CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP + "." + org.smartregister.chw.hiv.util.DBConstants.Key.BASE_ENTITY_ID + " NOT IN "+
+                "(SELECT referral_form_id" +
+                "   FROM ec_anc_partner_community_feedback" +
+                "   WHERE client_found = 'no'" +
+                "       or (client_found = 'yes'" +
+                "               and partner_agree_attending_hf is not null" +
+                "               and (partner_agree_attending_hf = 'no' or partner_base_entity_id is not null))) ";
     }
 
     @Override

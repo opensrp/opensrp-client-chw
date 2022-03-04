@@ -69,6 +69,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static android.view.View.GONE;
+import static org.smartregister.chw.core.utils.Utils.getRandomGeneratedId;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
@@ -80,7 +81,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
-    private String formSubmissionId;
+    private String referralFormSubmissionId;
 
     public static void startMe(Activity activity, String baseEntityID, String formSubmissionId) {
         Intent intent = new Intent(activity, AncPartnerFollowupReferralProfileActivity.class);
@@ -100,14 +101,14 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         super.onCreate(savedInstanceState);
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
-        this.formSubmissionId = getIntent().getStringExtra(INTENT_FORM_SUBMISSION_ID);
+        this.referralFormSubmissionId = getIntent().getStringExtra(INTENT_FORM_SUBMISSION_ID);
     }
 
     @Override
     public void setupViews() {
         super.setupViews();
         layoutRecordView.setVisibility(View.VISIBLE);
-        if (AncPartnerDao.wasClientFound(formSubmissionId)) {
+        if (AncPartnerDao.isPartnerFollowedUp(referralFormSubmissionId)) {
             textview_record_visit.setVisibility(View.GONE);
         }
         textViewAncVisitNot.setVisibility(GONE);
@@ -125,7 +126,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         });
 
         RelativeLayout partnerView = findViewById(R.id.rlPartnerView);
-        if(AncPartnerDao.wasClientFound(formSubmissionId) && AncPartnerDao.hasPartnerAgreeForRegistration(formSubmissionId) && !AncPartnerDao.isPartnerRegistered(formSubmissionId)){
+        if(AncPartnerDao.hasPartnerAgreeForRegistration(referralFormSubmissionId) && !AncPartnerDao.isPartnerRegistered(referralFormSubmissionId)){
             partnerView.setVisibility(View.VISIBLE);
         }
 
@@ -245,7 +246,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
                     showToast(this.getString(R.string.referral_submitted));
                 } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equalsIgnoreCase(CoreConstants.EventType.ANC_PARTNER_COMMUNITY_FOLLOWUP_FEEDBACK)) {
                     AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
-                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences,tagReferralFormId(jsonString, formSubmissionId) , CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP_FEEDBACK);
+                    Event baseEvent = org.smartregister.chw.anc.util.JsonFormUtils.processJsonForm(allSharedPreferences,tagReferralFormId(jsonString, referralFormSubmissionId) , CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP_FEEDBACK);
                     org.smartregister.chw.anc.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
                     baseEvent.setBaseEntityId(baseEntityID);
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
@@ -346,7 +347,8 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
         } else if (id == R.id.rlPartnerView) {
             Intent intent = new Intent(this, PartnerRegistrationActivity.class);
-            intent.putExtra(INTENT_BASE_ENTITY_ID, memberObject.getBaseEntityId());
+            intent.putExtra(INTENT_FORM_SUBMISSION_ID, AncPartnerDao.getFeedbackFormId(referralFormSubmissionId));
+            intent.putExtra(INTENT_BASE_ENTITY_ID, baseEntityID);
             startActivity(intent);
         }
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());

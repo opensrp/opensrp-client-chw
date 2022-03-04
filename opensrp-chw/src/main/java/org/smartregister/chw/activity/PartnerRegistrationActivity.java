@@ -52,6 +52,7 @@ import static org.smartregister.chw.anc.util.NCUtils.getSyncHelper;
 import static org.smartregister.chw.util.Constants.JsonForm.getPartnerRegistrationForm;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.EXISTING_PARTNER_REQUEST_CODE;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.NEW_PARTNER_REQUEST_CODE;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.PARTNER_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.PARTNER_REGISTRATION_EVENT;
@@ -64,12 +65,13 @@ import static org.smartregister.util.Utils.getAllSharedPreferences;
 public class PartnerRegistrationActivity extends SecuredActivity implements View.OnClickListener {
 
     private String clientBaseEntityId;
-
+    private String formSubmissionId;
 
     @Override
     protected void onCreation() {
         setContentView(R.layout.activity_partner_registration);
         this.clientBaseEntityId = getIntent().getStringExtra(INTENT_BASE_ENTITY_ID);
+        this.formSubmissionId = getIntent().getStringExtra(INTENT_FORM_SUBMISSION_ID);
         setupView();
     }
 
@@ -315,11 +317,12 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
 
     protected void savePartnerDetails(String partnerBaseEntityId, String clientBaseEntityId) {
         AllSharedPreferences sharedPreferences = getAllSharedPreferences();
+        //Switched baseEntityId and formSubmissionId to update on the correct referral sent
         Event baseEvent = (Event) new Event()
                 .withBaseEntityId(clientBaseEntityId)
                 .withEventDate(new Date())
                 .withEventType(PARTNER_REGISTRATION_EVENT)
-                .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                .withFormSubmissionId(formSubmissionId)
                 .withEntityType(CoreConstants.TABLE_NAME.ANC_MEMBER)
                 .withProviderId(sharedPreferences.fetchRegisteredANM())
                 .withLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
