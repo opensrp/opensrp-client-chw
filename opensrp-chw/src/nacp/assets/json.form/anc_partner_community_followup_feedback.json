@@ -230,6 +230,10 @@
         "type": "edit_text",
         "hint": "Other reason",
         "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter other reason(s)"
+        },
         "relevance": {
           "step1:reason_for_not_attending_hf": {
             "ex-checkbox": [
