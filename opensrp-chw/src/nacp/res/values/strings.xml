@@ -21,5 +21,13 @@
     <string name="hiv_clients">CBHS Clients</string>
     <string name="any_changes_you_make">Any Changes You Made Will Be Discarded</string>
     <string name="menu_independent">Independent</string>
+    <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
+
+    <string name="partner_registration_action_title">Partner Registration</string>
+    <string name="new_client">New Client</string>
+    <string name="existing_client">Existing Client</string>
+    <string name="all_male_clients">All Male Clients</string>
+    <string name="register_partner_dialog_title">Register this client as Partner?</string>
+    <string name="view_partner_prefile">View Partner Profile</string>
     <string name="back_to_pmtct">Back to PMTCT Clients</string>
 </resources>

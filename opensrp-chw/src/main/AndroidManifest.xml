@@ -35,6 +35,14 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".activity.AllMaleClientsActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.PartnerRegistrationActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
             android:name=".activity.FamilyPlanningMemberProfileActivity"
             android:label="@string/family_planning"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -52,6 +60,9 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.AncMemberProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AncPartnerFollowupReferralProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PncUpcomingServicesActivity"

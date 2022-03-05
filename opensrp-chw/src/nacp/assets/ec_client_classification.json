@@ -460,6 +460,27 @@
             ]
           },
           {
+            "field":"eventType",
+            "field_value": "ANC Partner Community Followup Referral",
+            "creates_case": [
+              "ec_anc_partner_community_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC Partner Community Followup Feedback",
+            "creates_case": [
+              "ec_anc_partner_community_feedback"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Partner Registration",
+            "creates_case": [
+              "ec_anc_partner_community_feedback"
+            ]
+          },
+          {
             "field": "eventType",
             "field_value": "PMTCT Community Followup",
             "creates_case": [

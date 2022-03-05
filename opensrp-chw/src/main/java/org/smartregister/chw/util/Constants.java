@@ -3,6 +3,9 @@ package org.smartregister.chw.util;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.assetManager;
+import static org.smartregister.chw.core.utils.CoreConstants.JSON_FORM.locale;
+
 public class Constants extends CoreConstants {
     public static final String REFERRAL_TASK_FOCUS = "referral_task_focus";
     public static final String REFERRAL_TYPES = "ReferralTypes";
@@ -57,7 +60,24 @@ public class Constants extends CoreConstants {
         }
 
     }
+    public interface PartnerRegistrationConstants {
+        String PARTNER_REGISTRATION_EVENT = "Partner Registration";
+        int EXISTING_PARTNER_REQUEST_CODE = 12344;
+        int NEW_PARTNER_REQUEST_CODE = 12345;
+        String INTENT_BASE_ENTITY_ID = "BASE_ENTITY_ID";
+        String PARTNER_BASE_ENTITY_ID = "partner_base_entity_id";
+        String FormSubmissionId = "formSubmissionId";
+        String INTENT_FORM_SUBMISSION_ID = "form_submission_id";
+        String ReferralFormId = "referral_form_id";
+    }
 
+    public static final class JsonForm{
+        private static final String PARTNER_REGISTRATION_FORM = "male_partner_registration_form";
+
+        public static String getPartnerRegistrationForm() {
+            return Utils.getLocalForm(PARTNER_REGISTRATION_FORM, locale, assetManager);
+        }
+    }
 
     public static final class Events {
         public static final String UPDATE_MALARIA_CONFIGURATION = "Update Malaria Confirmation";
