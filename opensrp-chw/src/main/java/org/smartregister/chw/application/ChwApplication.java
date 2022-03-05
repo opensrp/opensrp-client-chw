@@ -36,6 +36,7 @@ import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.PmtctRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
@@ -54,6 +55,7 @@ import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
+import org.smartregister.chw.pmtct.PmtctLibrary;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.provider.ChwAllClientsRegisterQueryProvider;
 import org.smartregister.chw.referral.ReferralLibrary;
@@ -264,6 +266,11 @@ public class ChwApplication extends CoreChwApplication {
             TbLibrary.getInstance().setDatabaseVersion(BuildConfig.DATABASE_VERSION);
         }
 
+        if(hasPmtct()) {
+            //Setup pmtct library
+            PmtctLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(ChwAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
@@ -353,6 +360,7 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PMTCT_REGISTER_ACTIVITY, PmtctRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -385,6 +393,11 @@ public class ChwApplication extends CoreChwApplication {
 
     public boolean hasTB() {
         return flavor.hasTB();
+    }
+
+
+    public boolean hasPmtct() {
+        return flavor.hasPmtct();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -462,6 +475,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasHIV();
 
         boolean hasTB();
+
+        boolean hasPmtct();
 
         boolean hasJobAidsDewormingGraph();
 

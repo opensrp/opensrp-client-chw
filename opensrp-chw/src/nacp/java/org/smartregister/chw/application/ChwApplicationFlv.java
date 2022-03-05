@@ -90,7 +90,12 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasTB() {
-     return true;
+        return true;
+    }
+
+    @Override
+    public boolean hasPmtct() {
+        return true;
     }
 
     @Override

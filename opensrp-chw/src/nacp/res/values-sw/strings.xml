@@ -28,4 +28,5 @@
     <string name="optional">Hiari</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
     <string name="partner_registration_action_title">Usajili wa Mwenza</string>
+    <string name="back_to_pmtct">Back to PMTCT Clients</string>
 </resources>

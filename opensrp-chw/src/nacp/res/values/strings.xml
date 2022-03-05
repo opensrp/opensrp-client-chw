@@ -29,4 +29,5 @@
     <string name="all_male_clients">All Male Clients</string>
     <string name="register_partner_dialog_title">Register this client as Partner?</string>
     <string name="view_partner_prefile">View Partner Profile</string>
+    <string name="back_to_pmtct">Back to PMTCT Clients</string>
 </resources>

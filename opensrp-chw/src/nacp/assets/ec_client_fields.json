@@ -3498,6 +3498,72 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_pmtct_community_followup",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "last_client_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "last_client_visit_date"
+          }
+        },
+        {
+          "column_name": "pmtct_community_referral_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "pmtct_community_referral_date"
+          }
+        },
+        {
+          "column_name": "comment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "comment_pmtct_community_followup"
+          }
+        },
+        {
+          "column_name": "reasons_for_issuing_community_referral",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "reasons_for_issuing_community_referral"
+          }
+        }
+      ]
     }
   ]
 }

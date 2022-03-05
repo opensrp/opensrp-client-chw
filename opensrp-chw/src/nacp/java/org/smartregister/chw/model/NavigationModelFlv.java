@@ -31,12 +31,11 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op10 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_clients, CoreConstants.DrawerMenu.ALL_CLIENTS, 0);
             NavigationOption op11 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hiv, CoreConstants.DrawerMenu.CBHS_CLIENTS, 0);
             NavigationOption op12 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hiv_index_contacts, CoreConstants.DrawerMenu.HIV_INDEX_CLIENTS, 0);
-            NavigationOption op13 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tb, CoreConstants.DrawerMenu.TB_CLIENTS, 0);
+            NavigationOption op13 = new NavigationOption(R.drawable.sidemenu_pmtct,R.drawable.sidemenu_pmtct_active,R.string.menu_pmtct,CoreConstants.DrawerMenu.PMTCT,0);
+            NavigationOption op14 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tb, CoreConstants.DrawerMenu.TB_CLIENTS, 0);
 
-
-            //Reordered the Items as requested by Ministry of Health National AIDS Control Program (NACP)
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op6, op8, op2, op7, op13, op9));
+                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5,op2,op13, op8,op9,op7,op6,op14));
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
