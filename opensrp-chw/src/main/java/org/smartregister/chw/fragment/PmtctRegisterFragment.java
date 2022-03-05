@@ -1,9 +1,8 @@
 package org.smartregister.chw.fragment;
 
-import org.smartregister.chw.core.fragment.CorePmtctRegisterFragment;
-import org.smartregister.chw.activity.PmtctProfileActivity;
 import org.smartregister.chw.activity.PmtctRegisterActivity;
-import org.smartregister.chw.core.provider.CorePmtctRegisterProvider;
+import org.smartregister.chw.activity.PmtctcDetailsActivity;
+import org.smartregister.chw.core.fragment.CorePmtctRegisterFragment;
 import org.smartregister.chw.model.PmtctRegisterFragmentModel;
 import org.smartregister.chw.presenter.PmtctRegisterFragmentPresenter;
 import org.smartregister.chw.provider.PmtctRegisterProvider;
@@ -33,7 +32,7 @@ public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
 
     @Override
     protected void openProfile(String baseEntityId) {
-       PmtctProfileActivity.startPmtctActivity(getActivity(), baseEntityId);
+        PmtctcDetailsActivity.startPmtctDetailsActivity(getActivity(), baseEntityId);
     }
 
     @Override
@@ -46,6 +45,6 @@ public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
 
     @Override
     protected void openFollowUpVisit(String baseEntityId) {
-      //  PmtctFollowUpVisitActivity.startPmtctFollowUpActivity(getActivity(),baseEntityId);
+        //  PmtctFollowUpVisitActivity.startPmtctFollowUpActivity(getActivity(),baseEntityId);
     }
 }
