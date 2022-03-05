@@ -26,4 +26,5 @@
     <string name="hiv_follow_up_visit">Ufuatiliaji wa VVU</string>
     <string name="hiv_service_due"><![CDATA[%1$s <font color=#000000>UWANYU (%2$s)</font></b>]]></string>
     <string name="optional">Hiari</string>
+    <string name="back_to_pmtct">Back to PMTCT Clients</string>
 </resources>

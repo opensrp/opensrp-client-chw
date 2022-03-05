@@ -453,10 +453,17 @@
             ]
           },
           {
-            "field":"eventType",
+            "field": "eventType",
             "field_value": "Pregnancy Unconfirmed",
             "closes_case": [
               "ec_anc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PMTCT Community Followup",
+            "creates_case": [
+              "ec_pmtct_community_followup"
             ]
           }
         ]
