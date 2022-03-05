@@ -47,4 +47,23 @@ public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
     protected void openFollowUpVisit(String baseEntityId) {
         //  PmtctFollowUpVisitActivity.startPmtctFollowUpActivity(getActivity(),baseEntityId);
     }
+
+    @Override
+    protected void refreshSyncProgressSpinner() {
+        if (isSyncing()) {
+            if (syncProgressBar != null) {
+                syncProgressBar.setVisibility(android.view.View.VISIBLE);
+            }
+            if (syncButton != null) {
+                syncButton.setVisibility(android.view.View.GONE);
+            }
+        } else {
+            if (syncProgressBar != null) {
+                syncProgressBar.setVisibility(android.view.View.GONE);
+            }
+            if (syncButton != null) {
+                syncButton.setVisibility(android.view.View.GONE);
+            }
+        }
+    }
 }
