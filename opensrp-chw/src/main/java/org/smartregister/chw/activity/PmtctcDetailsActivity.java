@@ -14,15 +14,27 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.appbar.AppBarLayout;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.PmtctReferralMemberObject;
+import org.smartregister.chw.referral.util.JsonFormConstants;
+import org.smartregister.chw.util.Constants;
+import org.smartregister.domain.Location;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class PmtctcDetailsActivity extends SecuredActivity implements View.OnClickListener {
     private CustomFontTextView clientName;
@@ -35,7 +47,7 @@ public class PmtctcDetailsActivity extends SecuredActivity implements View.OnCli
     private CustomFontTextView locationName;
     private CustomFontTextView markAsDone;
     private String baseEntityId;
-    private PmtctReferralMemberObject memberObject;
+    private static PmtctReferralMemberObject memberObject;
     public static final String PMTCT_MEMBER_OBJECT = "PMTCT_MEMBER_OBJECT";
 
     public static void startPmtctDetailsActivity(Activity activity, String baseEntityId) {
@@ -149,6 +161,51 @@ public class PmtctcDetailsActivity extends SecuredActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.mark_ask_done) {
+            JSONObject form = initializeHealthFacilitiesList(FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getPmtctCommunityFollowupFeedback()));
+            PmtctRegisterActivity.startPmtctFollowupFeedbackActivity(this, memberObject.getBaseEntityId(), form.toString(), baseEntityId);
+        }
+    }
 
+    private static JSONObject initializeHealthFacilitiesList(JSONObject form) {
+        LocationRepository locationRepository = new LocationRepository();
+        List<Location> locations = locationRepository.getAllLocations();
+        if (locations != null && form != null) {
+
+            try {
+                JSONArray fields = form.getJSONObject(Constants.JsonFormConstants.STEP1)
+                        .getJSONArray(JsonFormConstants.FIELDS);
+                JSONObject referralHealthFacilities = null;
+                for (int i = 0; i < fields.length(); i++) {
+                    if (fields.getJSONObject(i)
+                            .getString(JsonFormConstants.KEY).equals(Constants.JsonFormConstants.NAME_OF_HF)
+                    ) {
+                        referralHealthFacilities = fields.getJSONObject(i);
+                        break;
+                    }
+                }
+                ArrayList<String> healthFacilitiesOptions = new ArrayList<>();
+                ArrayList<String> healthFacilitiesIds = new ArrayList<>();
+                for (Location location : locations) {
+                    healthFacilitiesOptions.add(location.getProperties().getName());
+                    healthFacilitiesIds.add(location.getProperties().getUid());
+                }
+                healthFacilitiesOptions.add("Other");
+                healthFacilitiesIds.add("Other");
+
+                JSONObject openmrsChoiceIds = new JSONObject();
+                for (int i = 0; i < healthFacilitiesOptions.size(); i++) {
+                    openmrsChoiceIds.put(healthFacilitiesOptions.get(i), healthFacilitiesIds.get(i));
+                }
+                if (referralHealthFacilities != null) {
+                    referralHealthFacilities.put("values", new JSONArray(healthFacilitiesOptions));
+                    referralHealthFacilities.put("keys", new JSONArray(healthFacilitiesOptions));
+                    referralHealthFacilities.put("openmrs_choice_ids", openmrsChoiceIds);
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+        return form;
     }
 }

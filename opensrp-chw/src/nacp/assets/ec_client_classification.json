@@ -486,6 +486,13 @@
             "creates_case": [
               "ec_pmtct_community_followup"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PMTCT Community Followup Feedback",
+            "creates_case": [
+              "ec_pmtct_community_feedback"
+            ]
           }
         ]
       }

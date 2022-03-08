@@ -58,7 +58,7 @@ public class PmtctDao extends org.smartregister.chw.pmtct.dao.PmtctDao {
             memberObject.setPrimaryCareGiver(getCursorValue(cursor, "primary_caregiver"));
             memberObject.setFamilyName(getCursorValue(cursor, "family_name", ""));
             memberObject.setPhoneNumber(getCursorValue(cursor, "phone_number", ""));
-            memberObject.setBaseEntityId(getCursorValue(cursor, "base_entity_id", ""));
+            memberObject.setBaseEntityId(getCursorValue(cursor, "entity_id", ""));
             memberObject.setFamilyHead(getCursorValue(cursor, "family_head", ""));
             memberObject.setFamilyHeadPhoneNumber(getCursorValue(cursor, "pcg_phone_number", ""));
             memberObject.setFamilyHeadPhoneNumber(getCursorValue(cursor, "family_head_phone_number", ""));
