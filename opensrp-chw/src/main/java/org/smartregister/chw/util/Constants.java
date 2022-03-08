@@ -27,12 +27,15 @@ public class Constants extends CoreConstants {
     }
     public static class JsonFormConstants{
         public static String CLIENT_MOVED_LOCATION = "client_moved_location";
+        public static final String NAME_OF_HF = "name_of_hf";
+        public static final String STEP1 = "step1";
     }
 
     public static class EncounterType {
         public static final String SICK_CHILD = "Sick Child Referral";
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
+        public static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "PMTCT Community Followup Feedback";
     }
 
     public static class ChildIllnessViewType {
@@ -73,6 +76,11 @@ public class Constants extends CoreConstants {
 
     public static final class JsonForm{
         private static final String PARTNER_REGISTRATION_FORM = "male_partner_registration_form";
+        private static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "pmtct_community_followup_feedback";
+
+        public static String getPmtctCommunityFollowupFeedback() {
+            return PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK;
+        }
 
         public static String getPartnerRegistrationForm() {
             return Utils.getLocalForm(PARTNER_REGISTRATION_FORM, locale, assetManager);
@@ -82,5 +90,17 @@ public class Constants extends CoreConstants {
     public static final class Events {
         public static final String UPDATE_MALARIA_CONFIGURATION = "Update Malaria Confirmation";
         public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+    }
+
+    public static final class ActionList {
+        public static final String PMTCT_FOLLOWUP_FEEDBACK = "Pmtct_followup_action";
+    }
+
+    public static final class TableName {
+        public static final String PMTCT_COMMUNITY_FEEDBACK = "ec_pmtct_community_feedback";
+    }
+
+    public interface PmtctFollowupFeedbackConstants {
+        String referralFormId = "community_referral_form_id";
     }
 }
