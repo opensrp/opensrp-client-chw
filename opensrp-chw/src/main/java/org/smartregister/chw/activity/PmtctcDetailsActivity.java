@@ -23,7 +23,9 @@ import org.smartregister.chw.dao.PmtctDao;
 import org.smartregister.chw.domain.PmtctReferralMemberObject;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.Utils;
 import org.smartregister.domain.Location;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.LocationRepository;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
@@ -163,6 +165,13 @@ public class PmtctcDetailsActivity extends SecuredActivity implements View.OnCli
     public void onClick(View view) {
         if (view.getId() == R.id.mark_ask_done) {
             JSONObject form = initializeHealthFacilitiesList(FormUtils.getFormUtils().getFormJson(Constants.JsonForm.getPmtctCommunityFollowupFeedback()));
+            AllSharedPreferences preferences = Utils.getAllSharedPreferences();
+
+            try {
+                form.getJSONObject("global").put("chw_name", preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             PmtctRegisterActivity.startPmtctFollowupFeedbackActivity(this, memberObject.getBaseEntityId(), form.toString(), baseEntityId);
         }
     }

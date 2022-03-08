@@ -5,3 +5,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = helper.getDateToday()"
+---
+name: step1_chw_name
+description: chw name calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_chw_name"
