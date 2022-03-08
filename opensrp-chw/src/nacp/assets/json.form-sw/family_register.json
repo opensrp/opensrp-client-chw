@@ -402,11 +402,9 @@
         "type": "spinner",
         "hint": "Hali ya Ndoa ya Mteja?",
         "values": [
-          "Hajaolewa",
-          "Ameolewa",
-          "Ameachika",
-          "Ndoa ya mke au mume moja",
-          "Mitara",
+          "Hajaoa/Hajaolewa",
+          "Ameoa/Ameolewa",
+          "Ameachwa",
           "Mjane",
           "Kuishi pamoja bila ndoa"
         ],
@@ -414,8 +412,6 @@
           "Single",
           "Married",
           "Divorced",
-          "Monogamy",
-          "Polygamy",
           "Widowed",
           "Cohabitation"
         ],
@@ -423,8 +419,6 @@
           "Single": "Single",
           "Married": "Married",
           "Divorced": "Divorced",
-          "Monogamy": "Monogamy",
-          "Polygamy": "Polygamy",
           "Widowed": "Widowed",
           "Cohabitation": "Cohabitation"
         },

@@ -406,8 +406,6 @@
           "Hajaoa/Hajaolewa",
           "Ameoa/Ameolewa",
           "Ameachwa",
-          "Ndoa ya mke/mume moja",
-          "Mitala",
           "Mjane",
           "Kuishi pamoja bila ndoa"
         ],
@@ -415,8 +413,6 @@
           "Single",
           "Married",
           "Divorced",
-          "Monogamy",
-          "Polygamy",
           "Widowed",
           "Cohabitation"
         ],
@@ -424,8 +420,6 @@
           "Single": "Single",
           "Married": "Married",
           "Divorced": "Divorced",
-          "Monogamy": "Monogamy",
-          "Polygamy": "Polygamy",
           "Widowed": "Widowed",
           "Cohabitation": "Cohabitation"
         },

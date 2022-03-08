@@ -298,9 +298,7 @@
         "values": [
           "Hajaoa/Hajaolewa",
           "Ameoa/Ameolewa",
-          "Wameachwa",
-          "Ndoa ya mke mmoja",
-          "Ndoa za wake wengi",
+          "Ameachwa",
           "Mjane",
           "Kuishi pamoja bila ndoa"
         ],
@@ -308,8 +306,6 @@
           "Single",
           "Married",
           "Divorced",
-          "Monogamy",
-          "Polygamy",
           "Widowed",
           "Cohabitation"
         ],
@@ -317,8 +313,6 @@
           "Single": "Single",
           "Married": "Married",
           "Divorced": "Divorced",
-          "Monogamy": "Monogamy",
-          "Polygamy": "Polygamy",
           "Widowed": "Widowed",
           "Cohabitation": "Cohabitation"
         },
