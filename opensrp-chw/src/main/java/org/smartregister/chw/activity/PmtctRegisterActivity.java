@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CorePmtctRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.fragment.PmtctRegisterFragment;
 import org.smartregister.chw.pmtct.util.NCUtils;
@@ -80,7 +81,7 @@ public class PmtctRegisterActivity extends CorePmtctRegisterActivity {
                 String encounterType = form.getString(JsonFormUtils.ENCOUNTER_TYPE);
                 if (encounterType.equals(Constants.EncounterType.PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK)) {
                     AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
-                    Event baseEvent = org.smartregister.chw.pmtct.util.JsonFormUtils.processJsonForm(allSharedPreferences, tagReferralFormId(jsonString, referralFormSubmissionId), Constants.TableName.PMTCT_COMMUNITY_FEEDBACK);
+                    Event baseEvent = org.smartregister.chw.pmtct.util.JsonFormUtils.processJsonForm(allSharedPreferences, tagReferralFormId(jsonString, referralFormSubmissionId), CoreConstants.TABLE_NAME.PMTCT_COMMUNITY_FEEDBACK);
                     org.smartregister.chw.pmtct.util.JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
                     baseEvent.setBaseEntityId(baseEntityId);
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.pmtct.util.JsonFormUtils.gson.toJson(baseEvent)));

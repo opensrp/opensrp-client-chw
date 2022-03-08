@@ -4,7 +4,7 @@ description: pmtct community followup visit date calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = helper.getDateToday()"
+  - "calculation = System.currentTimeMillis()"
 ---
 name: step1_chw_name
 description: chw name calculation

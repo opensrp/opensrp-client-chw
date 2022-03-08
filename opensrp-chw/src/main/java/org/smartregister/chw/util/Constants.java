@@ -96,10 +96,6 @@ public class Constants extends CoreConstants {
         public static final String PMTCT_FOLLOWUP_FEEDBACK = "Pmtct_followup_action";
     }
 
-    public static final class TableName {
-        public static final String PMTCT_COMMUNITY_FEEDBACK = "ec_pmtct_community_feedback";
-    }
-
     public interface PmtctFollowupFeedbackConstants {
         String referralFormId = "community_referral_form_id";
     }
