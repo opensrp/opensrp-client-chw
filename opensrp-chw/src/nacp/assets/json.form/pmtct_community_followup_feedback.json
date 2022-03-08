@@ -1,0 +1,151 @@
+{
+  "count": "1",
+  "encounter_type": "PMTCT Community Followup Feedback",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "PMTCT Community Followup Feedback",
+    "fields": [
+      {
+        "key": "followup_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "followup_status",
+        "type": "spinner",
+        "hint": "Followup Feedback",
+        "values": [
+          "Continuing with services",
+          "Deceased",
+          "Client not found",
+          "Client has relocated to another location",
+          "Client has moved",
+          "Client has absconded",
+          "Client continues with clinic from elsewhere"
+        ],
+        "keys": [
+          "continuing_with_services",
+          "deceased",
+          "client_not_found",
+          "client_has_relocated_to_another_location",
+          "client_has_moved",
+          "client_has_absconded",
+          "client_continues_with_clinic_from_elsewhere"
+        ],
+        "openmrs_choice_ids": {
+          "continuing_with_services": "continuing_with_services",
+          "deceased": "deceased",
+          "client_not_found": "client_not_found",
+          "client_has_relocated_to_another_location": "client_has_relocated_to_another_location",
+          "client_has_moved": "client_has_moved",
+          "client_has_absconded": "client_has_absconded",
+          "client_continues_with_clinic_from_elsewhere": "client_continues_with_clinic_from_elsewhere"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "name_of_hf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "name_of_hf",
+        "type": "spinner",
+        "hint": "Choose moved to Facility",
+        "v_required": {
+          "value": true,
+          "err": "Please select the health facility"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_facility",
+        "type": "edit_text",
+        "hint": "Other Facility",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the other health facility"
+        },
+        "relevance": {
+          "step1:name_of_hf": {
+            "type": "String",
+            "ex": "equalTo(.,\"Other\")"
+          }
+        }
+      },
+      {
+        "key": "pmtct_community_followup_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pmtct_community_followup_visit_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "community_referral_form_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_referral_form_id",
+        "type": "hidden"
+      }
+    ]
+  }
+}

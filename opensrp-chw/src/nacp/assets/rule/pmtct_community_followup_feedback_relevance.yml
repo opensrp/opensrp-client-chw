@@ -1,0 +1,7 @@
+---
+name: step1_name_of_hf
+description: health facility option relevance
+priority: 1
+condition: "step1_followup_status.contains('client_has_relocated_to_another_location') || step1_followup_status.contains('client_continues_with_clinic_from_elsewhere')"
+actions:
+  - "isRelevant = true"

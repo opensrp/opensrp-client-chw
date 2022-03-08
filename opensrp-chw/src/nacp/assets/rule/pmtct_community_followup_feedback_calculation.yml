@@ -1,0 +1,7 @@
+---
+name: step1_pmtct_community_followup_visit_date
+description: pmtct community followup visit date calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getDateToday()"
