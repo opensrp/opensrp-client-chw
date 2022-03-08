@@ -360,7 +360,7 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
-        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PMTCT_REGISTER_ACTIVITY, PmtctRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PMTCT_FOLLOWUP_REGISTER_ACTIVITY, PmtctRegisterActivity.class);
         return registeredActivities;
     }
 

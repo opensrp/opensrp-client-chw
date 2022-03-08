@@ -12,7 +12,7 @@ public class PmtctRegisterFragmentPresenter extends BasePmtctRegisterFragmentPre
 
     @Override
     public String getMainCondition() {
-        return " ec_family_member.date_removed is null";
+        return " ec_family_member.date_removed is null AND ec_pmtct_community_followup.base_entity_id NOT IN (SELECT community_referral_form_id FROM ec_pmtct_community_feedback)";
     }
 
     @Override
