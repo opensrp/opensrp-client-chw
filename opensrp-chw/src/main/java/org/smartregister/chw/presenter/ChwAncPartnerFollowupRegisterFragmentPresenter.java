@@ -27,7 +27,8 @@ public class ChwAncPartnerFollowupRegisterFragmentPresenter extends AncRegisterF
                 "   WHERE client_found = 'no'" +
                 "       or (client_found = 'yes'" +
                 "               and partner_agree_attending_hf is not null" +
-                "               and (partner_agree_attending_hf = 'no' or partner_base_entity_id is not null))) ";
+                "               and (partner_agree_attending_hf = 'no' or " +
+                "      ec_anc_partner_community_feedback.base_entity_id in (select feedback_form_id from ec_anc_partners)))) ";
     }
 
     @Override
