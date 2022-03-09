@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.rey.material.widget.Button;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -125,11 +126,13 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         });
 
         RelativeLayout partnerView = findViewById(R.id.rlPartnerView);
+        Button registerBtn = findViewById(R.id.register_partner_btn);
         if (AncPartnerDao.hasPartnerAgreeForRegistration(referralFormSubmissionId) && !AncPartnerDao.isPartnerRegistered(referralFormSubmissionId)) {
             partnerView.setVisibility(View.VISIBLE);
         }
 
         partnerView.setOnClickListener(this);
+        registerBtn.setOnClickListener(this);
     }
 
     @Override
@@ -344,7 +347,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
-        } else if (id == R.id.rlPartnerView) {
+        } else if (id == R.id.rlPartnerView ||id == R.id.register_partner_btn) {
             Intent intent = new Intent(this, PartnerRegistrationActivity.class);
             intent.putExtra(INTENT_FORM_SUBMISSION_ID, AncPartnerDao.getFeedbackFormId(referralFormSubmissionId));
             intent.putExtra(INTENT_BASE_ENTITY_ID, baseEntityID);

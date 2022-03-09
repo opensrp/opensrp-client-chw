@@ -49,6 +49,7 @@ import static org.smartregister.chw.anc.util.NCUtils.getClientProcessorForJava;
 import static org.smartregister.chw.anc.util.NCUtils.getSyncHelper;
 import static org.smartregister.chw.util.Constants.JsonForm.getPartnerRegistrationForm;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.EXISTING_PARTNER_REQUEST_CODE;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.FEEDBACK_FORM_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.NEW_PARTNER_REQUEST_CODE;
@@ -58,6 +59,7 @@ import static org.smartregister.chw.util.JsonFormUtils.METADATA;
 import static org.smartregister.family.util.JsonFormUtils.STEP2;
 import static org.smartregister.util.JsonFormUtils.ENCOUNTER_LOCATION;
 import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 public class PartnerRegistrationActivity extends SecuredActivity implements View.OnClickListener {
@@ -320,7 +322,7 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
                 .withBaseEntityId(clientBaseEntityId)
                 .withEventDate(new Date())
                 .withEventType(PARTNER_REGISTRATION_EVENT)
-                .withFormSubmissionId(formSubmissionId)
+                .withFormSubmissionId(generateRandomUUIDString())
                 .withEntityType(CoreConstants.TABLE_NAME.ANC_MEMBER)
                 .withProviderId(sharedPreferences.fetchRegisteredANM())
                 .withLocationId(sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM()))
@@ -339,6 +341,14 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
                         .withFieldDataType("text")
                         .withParentCode("")
                         .withHumanReadableValues(new ArrayList<>()));
+        baseEvent.addObs((new Obs())
+                .withFormSubmissionField(FEEDBACK_FORM_ID)
+                .withValue(formSubmissionId)
+                .withFieldCode(FEEDBACK_FORM_ID)
+                .withFieldType("formsubmissionField")
+                .withFieldDataType("text")
+                .withParentCode("")
+                .withHumanReadableValues(new ArrayList<>()));
         // tag docs
         org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), baseEvent);
         try {
