@@ -3165,23 +3165,6 @@
           }
         },
         {
-          "column_name": "problem",
-          "type": "Event",
-          "save_format": "json_array",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "problem"
-          }
-        },
-        {
-          "column_name": "problem_other",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "problem_other"
-          }
-        },
-        {
           "column_name": "action_taken",
           "type": "Event",
           "json_mapping": {

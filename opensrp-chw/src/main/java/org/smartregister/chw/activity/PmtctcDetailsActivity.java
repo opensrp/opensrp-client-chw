@@ -126,7 +126,7 @@ public class PmtctcDetailsActivity extends SecuredActivity implements View.OnCli
             referralDateCalendar.setTimeInMillis(memberObject.getLastFacilityVisitDate().getTime());
             lastFacilityVisitDate.setText(dateFormatter.format(referralDateCalendar.getTime()));
         } else {
-            lastFacilityVisitDate.setVisibility(View.GONE);
+            findViewById(R.id.referral_facility_layout).setVisibility(View.GONE);
         }
         locationName.setText(memberObject.getAddress());
 
