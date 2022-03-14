@@ -402,6 +402,7 @@
     <string name="exit">Exit</string>
     <string name="record_followup_feedback">Record  Followup Feedback</string>
     <string name="pmtct_followup_feedback_title">PMTCT Followup Feedback</string>
+    <string name="followup_feedback_recorded">Followup Feedback Recorded</string>
 
 
 </resources>
