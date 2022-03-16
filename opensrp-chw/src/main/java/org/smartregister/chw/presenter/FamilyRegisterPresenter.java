@@ -23,7 +23,7 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter {
             BaseRegisterContract.View view = viewReference == null? null : viewReference.get();
             if (view != null && view.getContext() != null) {
 //                view.refreshList(FetchStatus.fetched);
-
+                view.hideProgressDialog();
                 FamilyEventClient familyEventClient = familyEventClientList.get(0);
 //                FamilyEventClient headEventClient = familyEventClientList.get(1);
                 Intent intent = new Intent(view.getContext(), Utils.metadata().profileActivity);
@@ -33,8 +33,8 @@ public class FamilyRegisterPresenter extends BaseFamilyRegisterPresenter {
 //                intent.putExtra("village_town", Utils.getValue(patient.getColumnmaps(), "village_town", false));
 //                intent.putExtra("family_name", Utils.getValue(patient.getColumnmaps(), "first_name", false));
 //                intent.putExtra("go_to_due_page", goToDuePage);
+
                 view.getContext().startActivity(intent);
-                view.hideProgressDialog();
             }
         }else{
             super.onRegistrationSaved(isEditMode, isSaved, familyEventClientList);

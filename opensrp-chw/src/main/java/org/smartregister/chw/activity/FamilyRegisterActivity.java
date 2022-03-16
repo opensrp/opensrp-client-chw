@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.StringRes;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vijay.jsonwizard.domain.Form;
@@ -81,31 +82,24 @@ public class FamilyRegisterActivity extends CoreFamilyRegisterActivity implement
         return new FamilyRegisterFragment();
     }
 
-    private void initializeProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(true);
-        progressDialog.setTitle(getString(R.string.syncing_records));
+    public void showProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+        progressDialog = ProgressDialog.show(this, getString(R.string.syncing_records), getString(R.string.please_wait_message), true, true);
     }
 
-    public void showProgressDialog() {
-        try {
-            if (progressDialog == null) {
-                initializeProgressDialog();
-            }
-
-            progressDialog.show();
-        } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+    @Override
+    public void showProgressDialog(@StringRes int titleIdentifier) {
+        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+        if (!isFinishing()) {
+            progressDialog = ProgressDialog.show(this, getString(titleIdentifier), getString(R.string.please_wait_message), true, false);
         }
     }
 
+
+    @Override
     public void hideProgressDialog() {
-        try {
-            if (progressDialog != null) {
-                progressDialog.dismiss();
-            }
-        } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+        if (progressDialog != null) {
+            progressDialog.dismiss();
         }
     }
 
