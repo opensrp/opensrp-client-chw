@@ -300,8 +300,9 @@ public class ChwRepositoryFlv {
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+        String supervisorIndicatorConfigFile = "config/supervisor-reporting-indicator-definitions.yml";
         for (String configFile : Collections.unmodifiableList(
-                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile, supervisorIndicatorConfigFile))) {
             reportingLibrary.readConfigFile(configFile, sqLiteDatabase);
         }
     }
