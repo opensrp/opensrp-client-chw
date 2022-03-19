@@ -1,21 +1,20 @@
 package org.smartregister.chw.fragment;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.PmtctRegisterActivity;
-import org.smartregister.chw.activity.PmtctcDetailsActivity;
+import org.smartregister.chw.activity.MotherChampionRegisterActivity;
+import org.smartregister.chw.activity.PmtctFollowupDetailsActivity;
 import org.smartregister.chw.core.fragment.CorePmtctRegisterFragment;
-import org.smartregister.chw.model.PmtctRegisterFragmentModel;
-import org.smartregister.chw.presenter.PmtctRegisterFragmentPresenter;
-import org.smartregister.chw.provider.PmtctRegisterProvider;
+import org.smartregister.chw.model.PmtctFollowupRegisterFragmentModel;
+import org.smartregister.chw.presenter.PmtctFollowupRegisterFragmentPresenter;
+import org.smartregister.chw.provider.MotherChampionRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.Set;
 
 import timber.log.Timber;
 
-public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
+public class PmtctFollowupRegisterFragment extends CorePmtctRegisterFragment {
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -23,18 +22,18 @@ public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
         }
         String viewConfigurationIdentifier = null;
         try {
-            viewConfigurationIdentifier = ((PmtctRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+            viewConfigurationIdentifier = ((MotherChampionRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         } catch (Exception e) {
             Timber.e(e);
         }
 
-        presenter = new PmtctRegisterFragmentPresenter(this, new PmtctRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new PmtctFollowupRegisterFragmentPresenter(this, new PmtctFollowupRegisterFragmentModel(), viewConfigurationIdentifier);
 
     }
 
     @Override
     protected void openProfile(String baseEntityId) {
-        PmtctcDetailsActivity.startPmtctDetailsActivity(getActivity(), baseEntityId);
+        PmtctFollowupDetailsActivity.startPmtctDetailsActivity(getActivity(), baseEntityId);
     }
 
     @Override
@@ -45,8 +44,8 @@ public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        PmtctRegisterProvider pmtctRegisterProvider = new PmtctRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, pmtctRegisterProvider, context().commonrepository(this.tablename));
+        MotherChampionRegisterProvider motherChampionRegisterProvider = new MotherChampionRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, motherChampionRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }

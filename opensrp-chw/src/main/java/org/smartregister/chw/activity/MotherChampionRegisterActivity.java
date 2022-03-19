@@ -11,15 +11,15 @@ import org.smartregister.chw.core.activity.CorePmtctRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.MotherChampionRegisterFragment;
-import org.smartregister.chw.fragment.PmtctRegisterFragment;
-import org.smartregister.chw.listener.ChwPmtctBottomNavigationListener;
+import org.smartregister.chw.fragment.PmtctFollowupRegisterFragment;
+import org.smartregister.chw.listener.ChwMotherChampionBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import androidx.fragment.app.Fragment;
 
-public class PmtctRegisterActivity extends CorePmtctRegisterActivity {
+public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +54,13 @@ public class PmtctRegisterActivity extends CorePmtctRegisterActivity {
     }
 
     public BottomNavigationListener getBottomNavigation(Activity activity) {
-        return new ChwPmtctBottomNavigationListener(activity);
+        return new ChwMotherChampionBottomNavigationListener(activity);
     }
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new PmtctRegisterFragment[]{
-                new PmtctRegisterFragment()
+        return new PmtctFollowupRegisterFragment[]{
+                new PmtctFollowupRegisterFragment()
         };
     }
 

@@ -1,12 +1,12 @@
 package org.smartregister.chw.fragment;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.PmtctRegisterActivity;
-import org.smartregister.chw.activity.PmtctcDetailsActivity;
+import org.smartregister.chw.activity.MotherChampionRegisterActivity;
+import org.smartregister.chw.activity.PmtctFollowupDetailsActivity;
 import org.smartregister.chw.core.fragment.CorePmtctRegisterFragment;
 import org.smartregister.chw.model.MotherChampionRegisterFragmentModel;
 import org.smartregister.chw.presenter.MotherChampionRegisterFragmentPresenter;
-import org.smartregister.chw.provider.PmtctRegisterProvider;
+import org.smartregister.chw.provider.MotherChampionRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
@@ -22,7 +22,7 @@ public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
         }
         String viewConfigurationIdentifier = null;
         try {
-            viewConfigurationIdentifier = ((PmtctRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+            viewConfigurationIdentifier = ((MotherChampionRegisterActivity) getActivity()).getViewIdentifiers().get(0);
         } catch (Exception e) {
             Timber.e(e);
         }
@@ -33,7 +33,7 @@ public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
 
     @Override
     protected void openProfile(String baseEntityId) {
-        PmtctcDetailsActivity.startPmtctDetailsActivity(getActivity(), baseEntityId);
+        PmtctFollowupDetailsActivity.startPmtctDetailsActivity(getActivity(), baseEntityId);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
 
     @Override
     public void initializeAdapter(Set<View> visibleColumns) {
-        PmtctRegisterProvider pmtctRegisterProvider = new PmtctRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
-        clientAdapter = new RecyclerViewPaginatedAdapter(null, pmtctRegisterProvider, context().commonrepository(this.tablename));
+        MotherChampionRegisterProvider motherChampionRegisterProvider = new MotherChampionRegisterProvider(getActivity(), paginationViewHandler, registerActionHandler, visibleColumns);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, motherChampionRegisterProvider, context().commonrepository(this.tablename));
         clientAdapter.setCurrentlimit(20);
         clientsView.setAdapter(clientAdapter);
     }

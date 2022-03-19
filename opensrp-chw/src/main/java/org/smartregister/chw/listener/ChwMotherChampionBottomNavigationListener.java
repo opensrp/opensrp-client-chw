@@ -4,18 +4,18 @@ import android.app.Activity;
 import android.view.MenuItem;
 
 import org.smartregister.chw.R;
-import org.smartregister.chw.activity.PmtctRegisterActivity;
+import org.smartregister.chw.activity.MotherChampionRegisterActivity;
 import org.smartregister.chw.pmtct.listener.PmtctBottomNavigationListener;
 
 import androidx.annotation.NonNull;
 
-public class ChwPmtctBottomNavigationListener extends PmtctBottomNavigationListener {
+public class ChwMotherChampionBottomNavigationListener extends PmtctBottomNavigationListener {
 
-    private final PmtctRegisterActivity baseRegisterActivity;
+    private final MotherChampionRegisterActivity baseRegisterActivity;
 
-    public ChwPmtctBottomNavigationListener(Activity context) {
+    public ChwMotherChampionBottomNavigationListener(Activity context) {
         super(context);
-        this.baseRegisterActivity = (PmtctRegisterActivity) context;
+        this.baseRegisterActivity = (MotherChampionRegisterActivity) context;
     }
 
     @Override

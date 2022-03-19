@@ -12,7 +12,7 @@ import org.smartregister.family.util.DBConstants;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PmtctRegisterFragmentModel extends BasePmtctRegisterFragmentModel {
+public class PmtctFollowupRegisterFragmentModel extends BasePmtctRegisterFragmentModel {
     @NonNull
     @Override
     public String mainSelect(@NonNull String tableName, @NonNull String mainCondition) {
