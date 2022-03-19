@@ -15,7 +15,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
+public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -40,7 +40,7 @@ public class PmtctRegisterFragment extends CorePmtctRegisterFragment {
     @Override
     public void setupViews(android.view.View view) {
         super.setupViews(view);
-        titleLabelView.setText(R.string.action_received_hiv_followup_referrals);
+        titleLabelView.setText(R.string.mother_champion);
     }
 
     @Override
