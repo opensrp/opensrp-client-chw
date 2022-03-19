@@ -12,11 +12,11 @@ public class MotherChampionRegisterFragmentPresenter extends BasePmtctRegisterFr
 
     @Override
     public String getMainCondition() {
-        return " ec_family_member.date_removed is null AND ec_pmtct_community_followup.base_entity_id NOT IN (SELECT community_referral_form_id FROM ec_pmtct_community_feedback)";
+        return " ec_family_member.date_removed is null ";
     }
 
     @Override
     public String getMainTable() {
-        return TABLE_NAME.PMTCT_COMMUNITY_FOLLOWUP;
+        return TABLE_NAME.MOTHER_CHAMPION;
     }
 }

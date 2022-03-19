@@ -4,12 +4,11 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.PmtctRegisterActivity;
 import org.smartregister.chw.activity.PmtctcDetailsActivity;
 import org.smartregister.chw.core.fragment.CorePmtctRegisterFragment;
-import org.smartregister.chw.model.PmtctRegisterFragmentModel;
-import org.smartregister.chw.presenter.PmtctRegisterFragmentPresenter;
+import org.smartregister.chw.model.MotherChampionRegisterFragmentModel;
+import org.smartregister.chw.presenter.MotherChampionRegisterFragmentPresenter;
 import org.smartregister.chw.provider.PmtctRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.Set;
 
@@ -28,7 +27,7 @@ public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
             Timber.e(e);
         }
 
-        presenter = new PmtctRegisterFragmentPresenter(this, new PmtctRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new MotherChampionRegisterFragmentPresenter(this, new MotherChampionRegisterFragmentModel(), viewConfigurationIdentifier);
 
     }
 
