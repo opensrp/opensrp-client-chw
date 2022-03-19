@@ -36,7 +36,7 @@ import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
-import org.smartregister.chw.activity.PmtctRegisterActivity;
+import org.smartregister.chw.activity.MotherChampionRegisterActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
@@ -360,7 +360,7 @@ public class ChwApplication extends CoreChwApplication {
         }
 
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
-        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.PMTCT_FOLLOWUP_REGISTER_ACTIVITY, PmtctRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_CHAMPION_ACTIVITY, MotherChampionRegisterActivity.class);
         return registeredActivities;
     }
 

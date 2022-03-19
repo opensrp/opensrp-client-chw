@@ -9,8 +9,8 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
-public class PmtctRegisterProvider extends CorePmtctRegisterProvider {
-    public PmtctRegisterProvider(Context context, View.OnClickListener paginationClickListener, View.OnClickListener onClickListener, Set visibleColumns) {
+public class MotherChampionRegisterProvider extends CorePmtctRegisterProvider {
+    public MotherChampionRegisterProvider(Context context, View.OnClickListener paginationClickListener, View.OnClickListener onClickListener, Set visibleColumns) {
         super(context, paginationClickListener, onClickListener, visibleColumns);
     }
 

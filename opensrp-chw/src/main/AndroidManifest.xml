@@ -298,10 +298,13 @@
             android:name=".activity.ChwReferralDetailsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.PmtctRegisterActivity"
+            android:name=".activity.MotherChampionRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.PmtctcDetailsActivity"
+            android:name=".activity.PmtctFollowupDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherChampionProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

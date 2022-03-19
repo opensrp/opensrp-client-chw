@@ -5,8 +5,8 @@ import static org.smartregister.chw.core.utils.CoreConstants.TABLE_NAME;
 import org.smartregister.chw.pmtct.contract.PmtctRegisterFragmentContract;
 import org.smartregister.chw.pmtct.presenter.BasePmtctRegisterFragmentPresenter;
 
-public class PmtctRegisterFragmentPresenter extends BasePmtctRegisterFragmentPresenter {
-    public PmtctRegisterFragmentPresenter(PmtctRegisterFragmentContract.View view, PmtctRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+public class PmtctFollowupRegisterFragmentPresenter extends BasePmtctRegisterFragmentPresenter {
+    public PmtctFollowupRegisterFragmentPresenter(PmtctRegisterFragmentContract.View view, PmtctRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
 

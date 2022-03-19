@@ -493,6 +493,13 @@
             "creates_case": [
               "ec_pmtct_community_feedback"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mother Champion Community Services Referral",
+            "creates_case": [
+              "ec_mother_champion"
+            ]
           }
         ]
       }

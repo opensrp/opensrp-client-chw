@@ -48,7 +48,7 @@ import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.util.JsonFormUtils.STEP1;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
-public class PmtctcDetailsActivity extends SecuredActivity implements View.OnClickListener {
+public class PmtctFollowupDetailsActivity extends SecuredActivity implements View.OnClickListener {
     public static final String PMTCT_MEMBER_OBJECT = "PMTCT_MEMBER_OBJECT";
     private static PmtctReferralMemberObject memberObject;
     protected AppBarLayout appBarLayout;
@@ -64,7 +64,7 @@ public class PmtctcDetailsActivity extends SecuredActivity implements View.OnCli
     private String baseEntityId;
 
     public static void startPmtctDetailsActivity(Activity activity, String baseEntityId) {
-        Intent intent = new Intent(activity, PmtctcDetailsActivity.class);
+        Intent intent = new Intent(activity, PmtctFollowupDetailsActivity.class);
         intent.putExtra(PMTCT_MEMBER_OBJECT, baseEntityId);
         activity.startActivity(intent);
     }
@@ -245,11 +245,11 @@ public class PmtctcDetailsActivity extends SecuredActivity implements View.OnCli
                     baseEvent.setBaseEntityId(memberObject.getBaseEntityId());
                     NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.pmtct.util.JsonFormUtils.gson.toJson(baseEvent)));
                     Toast.makeText(this, R.string.followup_feedback_recorded, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, PmtctRegisterActivity.class);
+                    Intent intent = new Intent(this, MotherChampionRegisterActivity.class);
                     startActivity(intent);
                 }
             } catch (Exception e) {
-                Timber.e(e, "PmtctRegisterActivity -- > onActivityResult");
+                Timber.e(e, "MotherChampionRegisterActivity -- > onActivityResult");
             }
         }
     }
