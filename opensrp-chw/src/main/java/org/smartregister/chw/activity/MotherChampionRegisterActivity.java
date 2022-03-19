@@ -75,7 +75,7 @@ public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
         super.onResumption();
         NavigationMenu menu = NavigationMenu.getInstance(this, null, null);
         if (menu != null) {
-            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.PMTCT_FOLLOWUP);
+            menu.getNavigationAdapter().setSelectedView(CoreConstants.DrawerMenu.MOTHER_CHAMPION);
         }
     }
 
