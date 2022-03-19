@@ -18,10 +18,8 @@ import org.smartregister.domain.AlertStatus;
 import androidx.annotation.NonNull;
 
 public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
-    private static String baseEntityId;
 
     public static void startProfile(Activity activity, String baseEntityId) {
-        MotherChampionProfileActivity.baseEntityId = baseEntityId;
         Intent intent = new Intent(activity, MotherChampionProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         activity.startActivity(intent);
@@ -59,7 +57,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
 
     @Override
     protected void removeMember() {
-
+        //implement
     }
 
     @NonNull
@@ -70,46 +68,46 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
 
     @Override
     public void setProfileImage(String s, String s1) {
-
+        //implement
     }
 
     @Override
     public void setProfileDetailThree(String s) {
-
+        //implement
     }
 
     @Override
     public void toggleFamilyHead(boolean b) {
-
+        //implement
     }
 
     @Override
     public void togglePrimaryCaregiver(boolean b) {
-
+        //implement
     }
 
     @Override
     public void refreshList() {
-
+        //implement
     }
 
     @Override
     public void updateHasPhone(boolean b) {
-
+        //implement
     }
 
     @Override
     public void setFamilyServiceStatus(String s) {
-
+        //implement
     }
 
     @Override
     public void verifyHasPhone() {
-
+        //implement
     }
 
     @Override
     public void notifyHasPhone(boolean b) {
-
+        //implement
     }
 }

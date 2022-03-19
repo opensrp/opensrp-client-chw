@@ -3,7 +3,6 @@ package org.smartregister.chw.fragment;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.MotherChampionProfileActivity;
 import org.smartregister.chw.activity.MotherChampionRegisterActivity;
-import org.smartregister.chw.activity.PmtctFollowupDetailsActivity;
 import org.smartregister.chw.core.fragment.CorePmtctRegisterFragment;
 import org.smartregister.chw.model.MotherChampionRegisterFragmentModel;
 import org.smartregister.chw.presenter.MotherChampionRegisterFragmentPresenter;
@@ -34,7 +33,7 @@ public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
 
     @Override
     protected void openProfile(String baseEntityId) {
-        MotherChampionProfileActivity.startProfile(getActivity(),baseEntityId);
+        MotherChampionProfileActivity.startProfile(getActivity(), baseEntityId);
     }
 
     @Override
