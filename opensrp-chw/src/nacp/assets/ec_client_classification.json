@@ -500,6 +500,13 @@
             "creates_case": [
               "ec_mother_champion"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mother Champion Followup",
+            "creates_case": [
+              "ec_mother_champion_followup"
+            ]
           }
         ]
       }
