@@ -405,6 +405,7 @@
     <string name="followup_feedback_recorded">Followup Feedback Recorded</string>
     <string name="mother_champion">Mother Champion</string>
     <string name="return_to_mother_champion_clients">Return to Mother Champion\'s clients</string>
+    <string name="record_followup_visit_mother_champion">Record Followup Visit</string>
 
 
 </resources>

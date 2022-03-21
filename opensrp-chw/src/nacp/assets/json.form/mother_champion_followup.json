@@ -1,5 +1,5 @@
 {
-  "count": "1",
+  "count": "2",
   "encounter_type": "Mother Champion Followup",
   "entity_id": "",
   "metadata": {
@@ -47,11 +47,12 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Record Followup",
+    "title": "Services",
+    "next": "step2",
     "fields": [
       {
         "key": "type_of_service",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Type of Service",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_service",
@@ -62,12 +63,12 @@
             "text": "Facilitation of mother support group",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mother_support_group",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_parent": "type_of_service"
           },
           {
             "key": "counselling",
             "text": "Counselling",
-            "openmrs_entity_parent": "",
+            "openmrs_entity_parent": "type_of_service",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "counselling"
           }
@@ -104,8 +105,13 @@
         },
         "relevance": {
           "step1:type_of_service": {
-            "type": "string",
-            "ex": "equalTo(.,\"mother_support_group\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "mother_support_group"
+                ]
+              }
+            ]
           }
         }
       },
@@ -194,11 +200,21 @@
         },
         "relevance": {
           "step1:type_of_service": {
-            "type": "string",
-            "ex": "equalTo(.,\"counselling\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling"
+                ]
+              }
+            ]
           }
         }
-      },
+      }
+    ]
+  },
+  "step2": {
+    "title": "Referrals",
+    "fields": [
       {
         "key": "referrals_issued_other_services",
         "openmrs_entity_parent": "",
@@ -233,6 +249,62 @@
             "text": "Support Groups",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_support_groups",
+            "value": "false"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none",
+            "value": "false"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please answer this question"
+        }
+      },
+      {
+        "key": "referrals_completed_by_the_client",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referrals_completed_by_the_client",
+        "type": "check_box",
+        "label": "Pick Referrals to other Services Completed by the Client",
+        "options": [
+          {
+            "key": "chk_gender_based_violence",
+            "text": "Gender-Based Violence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_gender_based_violence",
+            "value": "false"
+          },
+          {
+            "key": "chk_legal_support",
+            "text": "Legal Support",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_legal_support",
+            "value": "false"
+          },
+          {
+            "key": "chk_nutritional_support",
+            "text": "Nutritional Support",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_nutritional_support",
+            "value": "false"
+          },
+          {
+            "key": "chk_support_groups",
+            "text": "Support Groups",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_support_groups",
+            "value": "false"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none",
             "value": "false"
           }
         ],
