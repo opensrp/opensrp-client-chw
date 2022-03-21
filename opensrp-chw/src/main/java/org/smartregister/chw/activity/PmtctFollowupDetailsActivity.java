@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -124,6 +125,11 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
     @Override
     protected void onResumption() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
     private void inflateToolbar() {
