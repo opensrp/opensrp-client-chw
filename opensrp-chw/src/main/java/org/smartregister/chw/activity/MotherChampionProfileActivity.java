@@ -9,23 +9,32 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.util.DBConstants;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePmtctProfileActivity;
 import org.smartregister.chw.core.interactor.CorePmtctProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.presenter.CorePmtctMemberProfilePresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.MotherChampionDao;
 import org.smartregister.chw.pmtct.util.Constants;
 import org.smartregister.chw.pmtct.util.NCUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -61,6 +70,32 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
                 e.printStackTrace();
             }
             startFormActivity(formJsonObject);
+        }
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        try {
+
+            Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
+            intent.putExtra(org.smartregister.family.util.Constants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
+
+            Form form = new Form();
+            form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
+            form.setWizard(false);
+            intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+
+            if (jsonForm.getString("encounter_type").equals(org.smartregister.chw.util.Constants.EncounterType.MOTHER_CHAMPION_FOLLOWUP)) {
+                form.setWizard(true);
+                form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
+                form.setName(getString(R.string.record_followup_visit_mother_champion));
+                form.setNextLabel(this.getResources().getString(org.smartregister.chw.core.R.string.next));
+                form.setPreviousLabel(this.getResources().getString(org.smartregister.chw.core.R.string.back));
+            }
+
+            startActivityForResult(intent, org.smartregister.family.util.JsonFormUtils.REQUEST_CODE_GET_JSON);
+        } catch (JSONException e) {
+            Timber.e(e);
         }
     }
 
