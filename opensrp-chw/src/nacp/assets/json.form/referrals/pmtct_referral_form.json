@@ -79,7 +79,7 @@
             },
             {
               "name": "poor_art_adherence",
-              "text": "Poor ART adherence during Pregnancy and after Birth",
+              "text": "Poor ART adherence during Pregnancy and after child birth",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "poor_art_adherence",
