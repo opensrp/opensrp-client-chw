@@ -141,4 +141,16 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
         });
         return map;
     }
+
+
+    @Override
+    public boolean hasReports() {
+        return true;
+    }
+
+
+    @Override
+    public boolean showMyCommunityActivityReport() {
+        return true;
+    }
 }

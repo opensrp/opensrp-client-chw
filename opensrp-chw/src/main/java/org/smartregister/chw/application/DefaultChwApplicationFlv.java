@@ -70,12 +70,12 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean hasServiceReport() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasStockUsageReport() {
-        return false;
+        return true;
     }
 
     @Override
@@ -85,7 +85,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean hasReports() {
-        return false;
+        return true;
     }
 
     @Override
@@ -139,7 +139,7 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     @Override
     public boolean showMyCommunityActivityReport() {
-        return false;
+        return true;
     }
 
     @Override

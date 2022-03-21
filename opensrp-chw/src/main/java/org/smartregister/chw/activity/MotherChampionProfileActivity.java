@@ -3,8 +3,10 @@ package org.smartregister.chw.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,24 +15,33 @@ import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePmtctProfileActivity;
 import org.smartregister.chw.core.interactor.CorePmtctProfileInteractor;
+import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
-import org.smartregister.chw.core.presenter.CorePmtctMemberProfilePresenter;
+import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.MotherChampionFloatingMenu;
 import org.smartregister.chw.dao.MotherChampionDao;
+import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.pmtct.util.Constants;
 import org.smartregister.chw.pmtct.util.NCUtils;
+import org.smartregister.chw.presenter.PmtctMemberProfilePresenter;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import timber.log.Timber;
 
 public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     private static String baseEntityId;
+    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
 
     public static void startProfile(Activity activity, String baseEntityId) {
         MotherChampionProfileActivity.baseEntityId = baseEntityId;
@@ -44,7 +55,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         showProgressBar(true);
         String baseEntityId = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
         memberObject = MotherChampionDao.getMember(baseEntityId);
-        profilePresenter = new CorePmtctMemberProfilePresenter(this, new CorePmtctProfileInteractor(), memberObject);
+        profilePresenter = new PmtctMemberProfilePresenter(this, new CorePmtctProfileInteractor(), memberObject);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
     }
@@ -62,6 +73,12 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
             }
             startFormActivity(formJsonObject);
         }
+    }
+
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+        addPmtctReferralTypes();
     }
 
     @Override
@@ -171,5 +188,49 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     @Override
     public void notifyHasPhone(boolean b) {
         //implement
+    }
+
+    @Override
+    public void initializeFloatingMenu() {
+        basePmtctFloatingMenu = new MotherChampionFloatingMenu(this, memberObject);
+
+        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
+            switch (viewId) {
+                case R.id.anc_fab:
+                    ((MotherChampionFloatingMenu) basePmtctFloatingMenu).animateFAB();
+                    break;
+                case R.id.call_layout:
+                    ((MotherChampionFloatingMenu) basePmtctFloatingMenu).launchCallWidget();
+                    ((MotherChampionFloatingMenu) basePmtctFloatingMenu).animateFAB();
+                    break;
+                case R.id.refer_to_facility_layout:
+                    ((PmtctMemberProfilePresenter) profilePresenter).referToFacility();
+                    ((MotherChampionFloatingMenu) basePmtctFloatingMenu).animateFAB();
+                    break;
+                default:
+                    Timber.d("Unknown fab action");
+                    break;
+            }
+
+        };
+
+        ((MotherChampionFloatingMenu) basePmtctFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        basePmtctFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        addContentView(basePmtctFloatingMenu, linearLayoutParams);
+    }
+
+    private void addPmtctReferralTypes() {
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.pmtct_referral),
+                    CoreConstants.JSON_FORM.getPmtctReferralForm(), CoreConstants.TASKS_FOCUS.PMTCT));
+
+        }
+
+    }
+
+    public List<ReferralTypeModel> getReferralTypeModels() {
+        return referralTypeModels;
     }
 }
