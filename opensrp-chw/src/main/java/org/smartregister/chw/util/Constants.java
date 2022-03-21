@@ -36,6 +36,7 @@ public class Constants extends CoreConstants {
         public static final String PNC_REFERRAL = "PNC Referral";
         public static final String ANC_REFERRAL = "ANC Referral";
         public static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "PMTCT Community Followup Feedback";
+        public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
     }
 
     public static class ChildIllnessViewType {
@@ -78,6 +79,11 @@ public class Constants extends CoreConstants {
     public static final class JsonForm{
         private static final String PARTNER_REGISTRATION_FORM = "male_partner_registration_form";
         private static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "pmtct_community_followup_feedback";
+        private static final String MOTHER_CHAMPION_FOLLOWUP_FORM = "mother_champion_followup";
+
+        public static String getMotherChampionFollowupForm() {
+            return MOTHER_CHAMPION_FOLLOWUP_FORM;
+        }
 
         public static String getPmtctCommunityFollowupFeedback() {
             return PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK;
@@ -95,6 +101,10 @@ public class Constants extends CoreConstants {
 
     public static final class ActionList {
         public static final String PMTCT_FOLLOWUP_FEEDBACK = "Pmtct_followup_action";
+    }
+
+    public static class TableName {
+        public static final String MOTHER_CHAMPION_FOLLOWUP = "ec_mother_champion_followup";
     }
 
     public interface PmtctFollowupFeedbackConstants {
