@@ -1,0 +1,206 @@
+{
+  "count": "1",
+  "encounter_type": "Mother Champion SBCC Sessions",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "SBCC Session",
+    "fields": [
+      {
+        "key": "location_type",
+        "type": "native_radio",
+        "label": "Where was the Session conducted?",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "location_type",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "facility",
+            "text": "Facility",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "community",
+            "text": "Community",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please answer this question"
+        }
+      },
+      {
+        "key": "participants_number",
+        "type": "edit_text",
+        "hint": "Total Number of Participants who attended the Session",
+        "openmrs_entity_id": "participants_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter the number of participants"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the number of participants"
+        }
+      },
+      {
+        "key": "health_education_topic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_education_topic",
+        "type": "check_box",
+        "label": "The Health Education Topic provided",
+        "options": [
+          {
+            "key": "chk_early_anc_initiation",
+            "text": "Early ANC initiation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_early_anc_initiation",
+            "value": "false"
+          },
+          {
+            "key": "chk_hiv_testing",
+            "text": "HIV testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_hiv_education",
+            "text": "HIV/AIDS education",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_education",
+            "value": "false"
+          },
+          {
+            "key": "chk_mother_child_health",
+            "text": "Mother and child health",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_mother_child_health",
+            "value": "false"
+          },
+          {
+            "key": "chk_education_positive_infant",
+            "text": "Breastfeeding education for positive infected infant",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_education_positive_infant",
+            "value": "false"
+          },
+          {
+            "key": "chk_hvl_testing",
+            "text": "HVL testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hvl_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_hei_testing",
+            "text": "HEI scheduling testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hei_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_nutrition",
+            "text": "Nutrition",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_nutrition",
+            "value": "false"
+          },
+          {
+            "key": "chk_arv_adherence",
+            "text": "ARV adherence",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_arv_adherence",
+            "value": "false"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other",
+            "value": "false"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please answer this question"
+        }
+      },
+      {
+        "key": "other_health_education_topic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_health_education_topic",
+        "type": "edit_text",
+        "hint": "Other Health Education Topic provided",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the other topic(s)"
+        },
+        "relevance": {
+          "step1:health_education_topic": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
