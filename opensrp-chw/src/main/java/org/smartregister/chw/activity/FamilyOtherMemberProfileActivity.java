@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
-
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONException;
@@ -32,6 +29,8 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
@@ -57,6 +56,12 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
+        }
+        if (flavor.hasANC() && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+            flavor.updateFpMenuItems(baseEntityId, menu);
+            menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_pregnancy_out_come).setVisible(false);
         }
 
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
@@ -92,7 +97,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startAncRegister() {
         AncRegisterActivity.startAncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+                Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+    }
+
+    @Override
+    protected void startPncRegister() {
+        PncRegisterActivity.startPncRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                CoreConstants.JSON_FORM.getPregnancyOutcome(), null, familyBaseEntityId, familyName, null);
     }
 
     @Override

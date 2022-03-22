@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreHivProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
@@ -58,7 +59,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import io.reactivex.annotations.Nullable;
 import timber.log.Timber;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
@@ -115,7 +115,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
         activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
     }
 
-    public static void startHivCommunityFollowupFeedbackActivity(Activity activity, String baseEntityID) throws JSONException{
+    public static void startHivCommunityFollowupFeedbackActivity(Activity activity, String baseEntityID) throws JSONException {
         Intent intent = new Intent(activity, BaseHivFormsActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
 
@@ -356,7 +356,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     public void setFamilyStatus(@androidx.annotation.Nullable AlertStatus status) {
         super.setFamilyStatus(status);
-        if(getHivMemberObject().getFamilyMemberEntityType().equals(Constants.FamilyMemberEntityType.EC_INDEPENDENT_CLIENT)){
+        if (getHivMemberObject().getFamilyMemberEntityType().equals(Constants.FamilyMemberEntityType.EC_INDEPENDENT_CLIENT)) {
             findViewById(R.id.rlFamilyServicesDue).setVisibility(View.GONE);
         }
     }
@@ -400,14 +400,14 @@ public class HivProfileActivity extends CoreHivProfileActivity
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
                     CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
-            if(isClientEligibleForAnc(getHivMemberObject())){
+            if (isClientEligibleForAnc(getHivMemberObject())) {
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
                         org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
                         CoreConstants.JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
-                if(!AncDao.isANCMember(getHivMemberObject().getBaseEntityId())){
+                if (!AncDao.isANCMember(getHivMemberObject().getBaseEntityId())) {
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation),
-                            CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(),CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
+                            CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
                 }
             }
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
@@ -460,8 +460,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
         menu.findItem(R.id.action_anc_registration).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !AncDao.isANCMember(getHivMemberObject().getBaseEntityId()));
-
-     //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+        menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()));
+        //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }
 
@@ -472,8 +472,11 @@ public class HivProfileActivity extends CoreHivProfileActivity
             startTbRegister();
             return true;
         }
-        if (itemId == R.id.action_anc_registration){
+        if (itemId == R.id.action_anc_registration) {
             startAncRegister();
+            return true;
+        } else if (itemId == R.id.action_pregnancy_out_come) {
+            PncRegisterActivity.startPncRegistrationActivity(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName(), null);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -488,7 +491,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     protected void startAncRegister() {
-        AncRegisterActivity.startAncRegistrationActivity(HivProfileActivity.this, Objects.requireNonNull(getHivMemberObject()).getBaseEntityId() , getHivMemberObject().getPhoneNumber(),
+        AncRegisterActivity.startAncRegistrationActivity(HivProfileActivity.this, Objects.requireNonNull(getHivMemberObject()).getBaseEntityId(), getHivMemberObject().getPhoneNumber(),
                 org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName());
     }
 
@@ -543,7 +546,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
         this.startActivityForResult(intent, org.smartregister.chw.anc.util.Constants.REQUEST_CODE_HOME_VISIT);
     }
 
-    protected boolean isClientEligibleForAnc(HivMemberObject hivMemberObject){
+    protected boolean isClientEligibleForAnc(HivMemberObject hivMemberObject) {
         if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
             //Obtaining the clients CommonPersonObjectClient used for checking is the client is Of Reproductive Age
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
@@ -558,7 +561,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     public interface Flavor {
-       // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+        // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
     }
 }
 

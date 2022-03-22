@@ -1,9 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -73,6 +69,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
@@ -183,7 +183,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             PncRegisterActivity.startPncRegistrationActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), memberObject.getFamilyBaseEntityId(), memberObject.getFamilyName(), memberObject.getLastMenstrualPeriod());
             return true;
         }
-        if(itemId == R.id.action_cbhs_registration){
+        if (itemId == R.id.action_cbhs_registration) {
             CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
 
             final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
@@ -198,9 +198,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.anc_danger_signs_outcome).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
-        menu.findItem(R.id.action_pregnancy_out_come).setVisible(false);
+        menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
-        UtilsFlv.updateHivMenuItems(baseEntityID,menu);
+        UtilsFlv.updateHivMenuItems(baseEntityID, menu);
         return true;
     }
 
@@ -406,6 +406,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             Timber.e(e);
         }
     }
+
     @Override
     public void openFamilyLocation() {
         Intent intent = new Intent(this, AncMemberMapActivity.class);
@@ -423,17 +424,17 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         handleReceivedNotifications(this, notifications, notificationListAdapter);
     }
 
-    public interface Flavor {
-        Boolean hasFamilyLocationRow();
-
-        Boolean hasEmergencyTransport();
-    }
-
     @Override
     public void setFamilyStatus(AlertStatus status) {
         super.setFamilyStatus(status);
         if (memberObject.getFamilyBaseEntityId().isEmpty()) {
             rlFamilyServicesDue.setVisibility(View.GONE);
         }
+    }
+
+    public interface Flavor {
+        Boolean hasFamilyLocationRow();
+
+        Boolean hasEmergencyTransport();
     }
 }
