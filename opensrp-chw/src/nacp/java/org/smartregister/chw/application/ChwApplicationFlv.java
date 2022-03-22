@@ -145,7 +145,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasReports() {
-        return true;
+        return false;
     }
 
 
