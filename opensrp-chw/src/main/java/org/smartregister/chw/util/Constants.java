@@ -80,6 +80,7 @@ public class Constants extends CoreConstants {
         private static final String PARTNER_REGISTRATION_FORM = "male_partner_registration_form";
         private static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "pmtct_community_followup_feedback";
         private static final String MOTHER_CHAMPION_FOLLOWUP_FORM = "mother_champion_followup";
+        private static final String MOTHER_CHAMPION_SBCC_FORM = "mother_champion_sbcc_sessions";
 
         public static String getMotherChampionFollowupForm() {
             return MOTHER_CHAMPION_FOLLOWUP_FORM;
@@ -91,6 +92,10 @@ public class Constants extends CoreConstants {
 
         public static String getPartnerRegistrationForm() {
             return Utils.getLocalForm(PARTNER_REGISTRATION_FORM, locale, assetManager);
+        }
+
+        public static String getMotherChampionSbccForm() {
+            return MOTHER_CHAMPION_SBCC_FORM;
         }
     }
 
