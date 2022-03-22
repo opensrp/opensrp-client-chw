@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.Cursor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AncHomeVisitActivity;
 import org.smartregister.chw.activity.AncPartnerFollowupReferralProfileActivity;
 import org.smartregister.chw.anc.util.DBConstants;
@@ -82,5 +83,11 @@ public class AncPartnerFollowupRegisterFragment extends CoreAncRegisterFragment 
                 cursor.close();
             }
         }
+    }
+
+    @Override
+    public void setupViews(android.view.View view) {
+        super.setupViews(view);
+        titleLabelView.setText(R.string.action_received_anc_partner_followup_referrals);
     }
 }

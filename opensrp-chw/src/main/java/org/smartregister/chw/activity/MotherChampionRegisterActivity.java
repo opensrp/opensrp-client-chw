@@ -10,6 +10,7 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CorePmtctRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.fragment.AncPartnerFollowupRegisterFragment;
 import org.smartregister.chw.fragment.MotherChampionRegisterFragment;
 import org.smartregister.chw.fragment.PmtctFollowupRegisterFragment;
 import org.smartregister.chw.listener.ChwMotherChampionBottomNavigationListener;
@@ -59,7 +60,8 @@ public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
 
     @Override
     protected Fragment[] getOtherFragments() {
-        return new PmtctFollowupRegisterFragment[]{
+        return new Fragment[]{
+                new AncPartnerFollowupRegisterFragment(),
                 new PmtctFollowupRegisterFragment()
         };
     }

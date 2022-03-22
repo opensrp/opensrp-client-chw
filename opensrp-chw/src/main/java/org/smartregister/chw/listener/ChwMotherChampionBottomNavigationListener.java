@@ -23,8 +23,11 @@ public class ChwMotherChampionBottomNavigationListener extends PmtctBottomNaviga
         if (item.getItemId() == R.id.action_home) {
             baseRegisterActivity.switchToFragment(0);
             return true;
-        }else if (item.getItemId() == R.id.action_followup) {
+        }else if (item.getItemId() == R.id.action_received_referrals) {
             baseRegisterActivity.switchToFragment(1);
+            return true;
+        }else if (item.getItemId() == R.id.action_followup) {
+            baseRegisterActivity.switchToFragment(2);
             return true;
         } else
             return super.onNavigationItemSelected(item);
