@@ -172,22 +172,19 @@
         "type": "spinner",
         "hint": "The place the mother gave birth",
         "values": [
+          "Birth before Arrival (BBA)",
           "At home",
-          "At a health facility",
-          "On the way to the health facility",
-          "Other"
+          "Traditional birth attendant"
         ],
         "keys": [
+          "Birth before Arrival (BBA)",
           "At home",
-          "At a health facility",
-          "On the way to the health facility",
-          "Other"
+          "Traditional birth attendant"
         ],
         "openmrs_choice_ids": {
+          "Birth before Arrival (BBA)": "Birth before Arrival (BBA)",
           "At home": "At home",
-          "At a health facility": "At a health facility",
-          "On the way to the health facility":   "On the way to the health facility",
-          "Other":   "Other"
+          "Traditional birth attendant": "Traditional birth attendant"
         },
         "v_required": {
           "value": "true",
@@ -224,7 +221,7 @@
         "options": [
           {
             "key": "gave_birth_alone",
-            "text": "She gave birth at home alone",
+            "text": "She gave birth alone",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -232,7 +229,7 @@
           },
           {
             "key": "gave_birth_with_help",
-            "text": "She gave birth at home with the help of a family member/friend/neighbor",
+            "text": "She gave birth with the help of a family member/friend/neighbor",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -240,74 +237,11 @@
           },
           {
             "key": "midwife_help",
-            "text": "She gave birth at home with the help of a traditional midwife",
+            "text": "She gave birth with the help of a traditional midwife",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "midwife_help"
-          }
-        ]
-      },
-      {
-        "key": "delivery_hf",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_hf",
-        "type": "native_radio",
-        "label": "The mother gave birth in a health facility. Who accompanied the mother to the health facility?",
-        "label_text_style": "bold",
-        "text_color": "#C0C0C0",
-        "v_required": {
-          "value": "true",
-          "err": "Please select"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        },
-        "options": [
-          {
-            "key": "facility_family_member",
-            "text": "She gave birth in a health facility, and she was accompanied by family member(s)",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "facility_family_member"
-          },
-          {
-            "key": "facility_midwife",
-            "text": "She gave birth in a health facility, and she was accompanied by a traditional midwife",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "facility_midwife"
-          },
-          {
-            "key": "alone",
-            "text": "She gave birth in a health facility, and she came by herself",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "alone"
-          },
-          {
-            "key": "other_pple",
-            "text": "She gave birth in a health facility, and she was accompanied by other people",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_pple"
-          },
-          {
-            "key": "other_chw",
-            "text": "She gave birth in a health facility, and she was accompanied by the CHW",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_chw"
           }
         ]
       },
@@ -322,7 +256,6 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
-
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -346,7 +279,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "repeating_group_max": "10",
+        "repeating_group_max": "4",
+        "expand_on_text_change": "true",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -354,7 +288,6 @@
             }
           }
         },
-
         "value": [
           {
             "key": "surname",
@@ -379,7 +312,6 @@
                 }
               }
             }
-
           },
           {
             "key": "same_as_fam_name_chk",
@@ -425,6 +357,10 @@
             "v_regex": {
               "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
               "err": "Please enter a valid name"
+            },
+            "v_required": {
+              "value": "true",
+              "err": "Please enter the middle name"
             }
           },
           {
@@ -452,6 +388,30 @@
             "v_required": {
               "value": "true",
               "err": "Gender required"
+            }
+          },
+          {
+            "key": "weight",
+            "type": "edit_text",
+            "hint": "Weight (KG)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "weight",
+            "openmrs_entity_parent": "",
+            "v_numeric": {
+              "value": "true",
+              "err": "Please enter the weight"
+            },
+            "v_min": {
+              "value": "0",
+              "err": "The weight must be equal or greater than 0 (KG)"
+            },
+            "v_max": {
+              "value": "30",
+              "err": "The weight must be equal or less than 30 (KG)"
+            },
+            "v_required": {
+              "value": true,
+              "err": "Please enter the weight"
             }
           },
           {
@@ -483,9 +443,68 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "type_of_disability",
-            "type": "edit_text",
-            "hint": "Type of physical disabilities",
-            "edit_type": "name",
+            "type": "check_box",
+            "label": "Type of disability",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "options": [
+              {
+                "key": "physical_impairments",
+                "text": "Mobility and Physical Impairments",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "physical_impairments"
+              },
+              {
+                "key": "spinal_cord_disability",
+                "text": "Spinal Cord Disability",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "spinal_cord_disability"
+              },
+              {
+                "key": "brain_disability",
+                "text": "Head Injuries - Brain Disability",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "brain_disability"
+              },
+              {
+                "key": "vision_disability",
+                "text": "Vision Disability",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "vision_disability"
+              },
+              {
+                "key": "hearing_disability",
+                "text": "Hearing Disability",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hearing_disability"
+              },
+              {
+                "key": "learning_disabilities",
+                "text": "Cognitive or Learning Disabilities",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "learning_disabilities"
+              },
+              {
+                "key": "psychological_disorders",
+                "text": "Psychological Disorders",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "psychological_disorders"
+              },
+              {
+                "key": "invisible_disabilities",
+                "text": "Invisible Disabilities",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "invisible_disabilities"
+              }
+            ],
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
@@ -500,7 +519,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "early_bf_1hr",
             "type": "spinner",
-            "hint": "Early initiation of breastfeeding (1 hr)?",
+            "hint": "Breastfed within 1 hour?",
             "values": [
               "Yes",
               "No"
@@ -515,46 +534,70 @@
             }
           },
           {
-            "key": "vacc_birth",
+            "key": "child_bcg_vaccination",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "vacc_birth",
-            "type": "check_box",
-            "label": "Which vaccinations were given?",
+            "openmrs_entity_id": "child_bcg_vaccination",
+            "type": "native_radio",
+            "label": "Was BCG vaccination given?",
             "label_text_style": "normal",
             "text_color": "#C0C0C0",
-            "exclusive": [
-              "chk_none"
-            ],
             "options": [
               {
-                "key": "chk_none",
-                "text": "None",
-                "value": false,
+                "key": "yes",
+                "text": "Yes",
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_none"
+                "openmrs_entity_id": "yes"
               },
               {
-                "key": "chk_opv_0",
-                "text": "OPV 0",
-                "value": false,
+                "key": "no",
+                "text": "No",
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_opv_0"
-              },
-              {
-                "key": "chk_bcg",
-                "text": "BCG",
-                "value": false,
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_bcg"
+                "openmrs_entity_id": "no"
               }
             ],
             "v_required": {
               "value": "true",
-              "err": "vaccinations given required"
+              "err": "Please select one"
+            }
+          },
+          {
+            "key": "child_opv0_vaccination",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_opv0_vaccination",
+            "type": "native_radio",
+            "label": "Was OPV 0 vaccination given?",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes"
+              },
+              {
+                "key": "no",
+                "text": "No",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no"
+              }
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "Please select one"
             }
           }
         ]
+      },
+      {
+        "key": "hiv_status",
+        "type": "hidden",
+        "openmrs_entity_id": "hiv_status",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "value": "negative"
       }
     ]
   }

@@ -3,8 +3,6 @@ package org.smartregister.chw.activity;
 import android.content.Context;
 import android.view.Menu;
 
-import androidx.viewpager.widget.ViewPager;
-
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONException;
@@ -31,13 +29,15 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import androidx.viewpager.widget.ViewPager;
 import timber.log.Timber;
 
 public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfileActivity {
 
+    private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
     private FamilyMemberFloatingMenu familyFloatingMenu;
     private CoreAllClientsMemberContract.Presenter allClientsMemberPresenter;
-    private final FamilyOtherMemberProfileActivity.Flavor flavor = new FamilyOtherMemberProfileActivityFlv();
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -52,6 +52,12 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
             menu.findItem(R.id.action_anc_registration).setVisible(true);
         } else {
             menu.findItem(R.id.action_anc_registration).setVisible(false);
+        }
+        if (flavor.hasANC() && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
+            flavor.updateFpMenuItems(baseEntityId, menu);
+            menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_pregnancy_out_come).setVisible(false);
         }
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
@@ -68,6 +74,12 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     protected void startAncRegister() {
         AncRegisterActivity.startAncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber,
                 Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+    }
+
+    @Override
+    protected void startPncRegister() {
+        PncRegisterActivity.startPncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber,
+                CoreConstants.JSON_FORM.getPregnancyOutcome(), null, familyBaseEntityId, familyName, null);
     }
 
     @Override
@@ -219,7 +231,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
                 FamilyCallDialogFragment.launchDialog(this, familyBaseEntityId);
                 break;
             case R.id.refer_to_facility_layout:
-                Utils.launchClientReferralActivity(this, Utils.getCommonReferralTypes(this,baseEntityId), baseEntityId);
+                Utils.launchClientReferralActivity(this, Utils.getCommonReferralTypes(this, baseEntityId), baseEntityId);
                 break;
             default:
                 break;
