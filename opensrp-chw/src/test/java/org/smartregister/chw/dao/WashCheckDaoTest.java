@@ -48,6 +48,20 @@ public class WashCheckDaoTest extends WashCheckDao {
     }
 
     @Test
+    public void testGetLastWashCheckVisitId() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id"});
+        matrixCursor.addRow(new Object[]{"123"});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        List<String> washCheckDate = WashCheckDao.getLastWashCheckVisitId("123");
+
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        Assert.assertEquals("123",washCheckDate.get(0));
+    }
+
+    @Test
     public void testGetAllWashCheckVisits() {
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"visit_id"});
         matrixCursor.addRow(new Object[]{"123456"});

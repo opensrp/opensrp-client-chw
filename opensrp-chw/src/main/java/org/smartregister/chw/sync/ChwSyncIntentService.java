@@ -9,7 +9,6 @@ public class ChwSyncIntentService extends SyncIntentService {
         return 1000;
     }
 
-
     @Override
     protected Integer getEventBatchSize(){
         return 50;

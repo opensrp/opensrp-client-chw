@@ -1,5 +1,7 @@
 package org.smartregister.chw.application;
 
+import static org.smartregister.util.Utils.isEmptyCollection;
+
 import com.google.common.collect.ImmutableList;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,8 +14,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseLoginActivity;
 
 import java.util.List;
-
-import static org.smartregister.util.Utils.isEmptyCollection;
 
 /**
  * Created by samuelgithengi on 10/19/18.
