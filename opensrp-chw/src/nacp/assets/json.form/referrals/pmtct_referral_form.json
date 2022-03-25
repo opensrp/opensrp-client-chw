@@ -96,6 +96,15 @@
               }
             },
             {
+              "name": "child_receive_dbs_test",
+              "text": "Child to receive DBS test",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "child_receive_dbs_test",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "Other_symptom",
               "text": "Others",
               "meta_data": {
