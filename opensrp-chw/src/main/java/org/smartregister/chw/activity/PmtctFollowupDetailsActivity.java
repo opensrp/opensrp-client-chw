@@ -1,5 +1,10 @@
 package org.smartregister.chw.activity;
 
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +14,9 @@ import android.os.Build;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.AppBarLayout;
 
@@ -40,14 +48,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import timber.log.Timber;
-
-import static com.vijay.jsonwizard.utils.FormUtils.fields;
-import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
-import static org.smartregister.util.JsonFormUtils.STEP1;
-import static org.smartregister.util.JsonFormUtils.VALUE;
 
 public class PmtctFollowupDetailsActivity extends SecuredActivity implements View.OnClickListener {
     public static final String PMTCT_MEMBER_OBJECT = "PMTCT_MEMBER_OBJECT";
@@ -186,12 +187,13 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
         }
         locationName.setText(memberObject.getAddress());
 
-        referralType.setText(memberObject.getReasonsForIssuingCommunityFollowupReferral());
-        if (memberObject.getPrimaryCareGiver() != null)
-            careGiverName.setText(String.format("CG : %s", memberObject.getPrimaryCareGiverName()));
-        else
+        if (StringUtils.isNotEmpty(memberObject.getChildName())) {
+            careGiverName.setText(String.format(getString(R.string.child_name), memberObject.getChildName()));
+            referralType.setText(context().getStringResource(getReasonsForReferralResource(true)));
+        } else {
             careGiverName.setVisibility(View.GONE);
-
+            referralType.setText(context().getStringResource(getReasonsForReferralResource(false)));
+        }
 
         if (StringUtils.isBlank(getFamilyMemberContacts()) && StringUtils.isEmpty(getFamilyMemberContacts())) {
             careGiverPhone.setText(getString(R.string.phone_not_provided));
@@ -202,6 +204,37 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
         if (StringUtils.isNotBlank(memberObject.getComments()) && StringUtils.isNotEmpty(memberObject.getComments())) {
             comments.setText(memberObject.getComments());
         }
+    }
+
+    private int getReasonsForReferralResource(boolean isChildReason) {
+        int resourceId;
+        if (isChildReason) {
+            switch (memberObject.getReasonsForIssuingCommunityFollowupReferral()) {
+                case "missed_appointment":
+                    resourceId = R.string.missed_appointment_child;
+                    break;
+                case "lost_to_followup":
+                    resourceId = R.string.lost_to_followup_child;
+                    break;
+                default:
+                    resourceId = -1;
+            }
+        } else {
+            switch (memberObject.getReasonsForIssuingCommunityFollowupReferral()) {
+                case "missed_appointment":
+                    resourceId = R.string.missed_appointment;
+                    break;
+                case "lost_to_followup":
+                    resourceId = R.string.lost_to_followup;
+                    break;
+                case "mother_champion_services":
+                    resourceId = R.string.mother_champion_services;
+                    break;
+                default:
+                    resourceId = -1;
+            }
+        }
+        return resourceId;
     }
 
     private String getFamilyMemberContacts() {

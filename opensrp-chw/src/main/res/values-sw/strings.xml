@@ -422,4 +422,5 @@
     <string name="anc_malaria_net_condition_bad">Mbaya</string>
     <string name="record_followup_feedback">Record  Followup Feedback</string>
     <string name="record_followup_visit_mother_champion">Record Followup Visit</string>
+    <string name="child_name">Child : %s</string>
 </resources>

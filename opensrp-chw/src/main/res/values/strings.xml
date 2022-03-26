@@ -407,6 +407,12 @@
     <string name="return_to_mother_champion_clients">Return to Mother Champion\'s clients</string>
     <string name="record_followup_visit_mother_champion">Record Followup Visit</string>
     <string name="sbcc">SBCC</string>
+    <string name="missed_appointment">Missed Appointment</string>
+    <string name="lost_to_followup">Lost To Followup</string>
+    <string name="mother_champion_services">Mother Champion Services</string>
+    <string name="lost_to_followup_child">Child lost to followup</string>
+    <string name="missed_appointment_child">Child Missed appointment</string>
+    <string name="child_name">Child : %s</string>
 
 
 </resources>
