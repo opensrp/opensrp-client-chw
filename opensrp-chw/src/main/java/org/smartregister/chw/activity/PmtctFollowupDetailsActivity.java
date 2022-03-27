@@ -218,6 +218,7 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
                     break;
                 default:
                     resourceId = -1;
+                    break;
             }
         } else {
             switch (memberObject.getReasonsForIssuingCommunityFollowupReferral()) {
@@ -232,6 +233,7 @@ public class PmtctFollowupDetailsActivity extends SecuredActivity implements Vie
                     break;
                 default:
                     resourceId = -1;
+                    break;
             }
         }
         return resourceId;
