@@ -67,6 +67,7 @@ public class PmtctDao extends org.smartregister.chw.pmtct.dao.PmtctDao {
             memberObject.setLastFacilityVisitDate(getCursorValueAsDate(cursor, "last_client_visit_date", getNativeFormsDateFormat()));
             memberObject.setReasonsForIssuingCommunityFollowupReferral(getCursorValue(cursor, "reasons_for_issuing_community_referral", ""));
             memberObject.setComments(getCursorValue(cursor, "comment", ""));
+            memberObject.setChildName(getCursorValue(cursor, "child_name", ""));
 
             String familyHeadName = getCursorValue(cursor, "family_head_first_name", "") + " "
                     + getCursorValue(cursor, "family_head_middle_name", "");

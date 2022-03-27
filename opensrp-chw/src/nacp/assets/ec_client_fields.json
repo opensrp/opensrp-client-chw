@@ -3586,6 +3586,14 @@
             "field": "obs.formSubmissionField",
             "concept": "reasons_for_issuing_community_referral"
           }
+        },
+        {
+          "column_name": "child_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "child_name"
+          }
         }
       ]
     },

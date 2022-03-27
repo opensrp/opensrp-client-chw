@@ -9,6 +9,15 @@ public class PmtctReferralMemberObject extends MemberObject {
     private Date lastFacilityVisitDate;
     private String reasonsForIssuingCommunityFollowupReferral;
     private String comments;
+    private String childName;
+
+    public String getChildName() {
+        return childName;
+    }
+
+    public void setChildName(String childName) {
+        this.childName = childName;
+    }
 
     public String getReasonsForIssuingCommunityFollowupReferral() {
         return reasonsForIssuingCommunityFollowupReferral;

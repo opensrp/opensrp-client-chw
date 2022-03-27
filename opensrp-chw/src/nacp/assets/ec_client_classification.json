@@ -507,6 +507,13 @@
             "creates_case": [
               "ec_mother_champion_followup"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HEI Community Followup",
+            "creates_case": [
+              "ec_pmtct_community_followup"
+            ]
           }
         ]
       }
