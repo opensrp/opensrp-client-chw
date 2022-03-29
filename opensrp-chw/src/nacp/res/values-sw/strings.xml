@@ -29,7 +29,8 @@
     <string name="optional">Hiari</string>
     <string name="action_received_anc_partner_followup_referrals">Ufuatiliji wa Mwenza</string>
     <string name="partner_registration_action_title">Usajili wa Mwenza</string>
-    <string name="back_to_pmtct">Rudi kwa Wateja wa Ufufatiliaji wa Mama Kinara</string>
+    <string name="back_to_pmtct">Rudi kwa Wateja wa Ufuatiliaji wa Mama Kinara</string>
     <string name="mother_champion">Mama Kinara</string>
     <string name="return_to_mother_champion_clients">Rudi kwa Wateja wa Mama Kinara</string>
+    <string name="pmtct_followup_feedback_title">Mrejesho wa Ufuatiliji wa Mama Kinara</string>
 </resources>
