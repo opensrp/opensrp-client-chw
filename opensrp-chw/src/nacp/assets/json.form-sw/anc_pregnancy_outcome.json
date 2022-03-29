@@ -49,7 +49,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Pregnancy Outcome",
+    "title": "Matokeo ya Ujauzito",
     "fields": [
       {
         "key": "relational_id",
@@ -70,7 +70,7 @@
         "options": [
           {
             "key": "born_alive",
-            "text": "Mtoto alizaliwa akiwa hai",
+            "text": "Mtoto alizaliwa mzima",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "born_alive",
@@ -78,7 +78,7 @@
           },
           {
             "key": "born_alive_died",
-            "text": "Mtoto alizaliwa akiwa hai, lakini akafa",
+            "text": "Mtoto alizaliwa hai, lakini akafariki baadaye",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "born_alive_died",
@@ -86,7 +86,7 @@
           },
           {
             "key": "still_born",
-            "text": "Mtoto alizaliwa mfu",
+            "text": "Mtoto alizaliwa akiwa amekwisha fariki",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "still_born",
@@ -94,7 +94,7 @@
           },
           {
             "key": "alive_with_problem",
-            "text": "Mtoto alizaliwa akiwa hai, lakini wana tatizo (yaani ulemavu, matatizo ya kupumua, n.k.)",
+            "text": "Mtoto alizaliwa hai, lakini aamekutwa na matatizo (i.e: ulemavu, matatizo ya kupumua)",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "alive_with_problem",
@@ -102,7 +102,7 @@
           },
           {
             "key": "miscarriage",
-            "text": "Iliharibika",
+            "text": "Mimba iliharibika",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "miscarriage",
@@ -120,12 +120,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "miscarriage_date",
         "type": "date_picker",
-        "hint": "Tarehe ya kuharibika kwa mimba",
+        "hint": "Tarehe ya mimba kuharibika",
         "expanded": false,
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza tarehe ya kuharibika kwa mimba ya mwanamke"
+          "err": "Tafadhari jaza tarehe ambayo Mimba ya Mama iliharibika/ilitoka"
         },
         "relevance": {
           "rules-engine": {
@@ -141,12 +141,12 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "delivery_date",
         "type": "date_picker",
-        "hint": "Tarehe ya kujifungua",
+        "hint": "Tarehe ya Mama ya kujifungua",
         "expanded": false,
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza tarehe ya kujifungua kwa mwanamke huyo"
+          "err": "Tafadhari ingiza tarehe ya kujifungua ya Mama"
         },
         "relevance": {
           "rules-engine": {
@@ -170,24 +170,21 @@
         "openmrs_entity_id": "delivery_place",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Mahali ambapo mama alijifungulia",
+        "hint": "Mahali ambapo Mama alijifungulia",
         "values": [
-          "Nyumbani",
-          "Katika kituo cha afya",
-          "Njiani kuelekea kituo cha afya",
-          "Nyingine"
+          "Amejifungua Njiani kabla ya kufika kwenye Kituo",
+          "Amejifungulia Nyumbani",
+          "Amejifungulia kwa Mkunga wa Jadi"
         ],
         "keys": [
+          "Birth before Arrival (BBA)",
           "At home",
-          "At a health facility",
-          "On the way to the health facility",
-          "Other"
+          "Traditional birth attendant"
         ],
         "openmrs_choice_ids": {
+          "Birth before Arrival (BBA)": "Birth before Arrival (BBA)",
           "At home": "At home",
-          "At a health facility": "At a health facility",
-          "On the way to the health facility": "On the way to the health facility",
-          "Other": "Other"
+          "Traditional birth attendant": "Traditional birth attendant"
         },
         "v_required": {
           "value": "true",
@@ -224,7 +221,7 @@
         "options": [
           {
             "key": "gave_birth_alone",
-            "text": "Alijifungua nyumbani peke yake",
+            "text": "Alijifungua nyumbani akiwa peke yake",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -240,7 +237,7 @@
           },
           {
             "key": "midwife_help",
-            "text": "Alijifungulia nyumbani kwa msaada wa mkunga wa jadi",
+            "text": "Alijifungua nyumbani akisaidiwa na mkunga wa jadi",
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -249,72 +246,9 @@
         ]
       },
       {
-        "key": "delivery_hf",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_hf",
-        "type": "native_radio",
-        "label": "Mama alijifungua katika kituo cha afya. Nani aliongozana na mama hadi kituo cha afya?",
-        "label_text_style": "bold",
-        "text_color": "#C0C0C0",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali cchagua"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_pregnancy_outcome_relevance.yml"
-            }
-          }
-        },
-        "options": [
-          {
-            "key": "facility_family_member",
-            "text": "Alijifungua katika kituo cha afya, na alisindikizwa na wanafamilia.",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "facility_family_member"
-          },
-          {
-            "key": "facility_midwife",
-            "text": "Alijifungua katika kituo cha afya, na alisindikizwa na mkunga wa jadi",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "facility_midwife"
-          },
-          {
-            "key": "alone",
-            "text": "Alijifungua katika kituo cha afya, na alikuja peke yake",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "alone"
-          },
-          {
-            "key": "other_pple",
-            "text": "Alijifungua katika kituo cha afya, na alisindikizwa na watu wengine",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_pple"
-          },
-          {
-            "key": "other_chw",
-            "text": "Alijifungua katika kituo cha afya, na aliandamana na mfanyakazi wa afya ya jamii (CHW)",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_chw"
-          }
-        ]
-      },
-      {
         "key": "baby_label",
         "type": "label",
-        "text": "BABY DETAILS",
+        "text": "Taarifa za Mtoto",
         "left_padding": "20dp",
         "right_padding": "20dp",
         "text_size": "7sp",
@@ -340,12 +274,13 @@
       {
         "key": "no_children_no",
         "type": "repeating_group",
-        "reference_edit_text_hint": "Number of children born alive",
-        "repeating_group_label": "Baby Details #",
+        "reference_edit_text_hint": "Idadi ya Wototo waliozaliwa",
+        "repeating_group_label": "Taarifa za Mtoto #",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "repeating_group_max": "10",
+        "repeating_group_max": "4",
+        "expand_on_text_change": "true",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -360,15 +295,15 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "",
             "type": "edit_text",
-            "hint": "Surname",
+            "hint": "Jina la ukoo",
             "edit_type": "name",
             "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+              "err": "Tafadhali weka jina la ukoo"
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the surname"
+              "err": "Tafadhali weka jina la ukoo"
             },
             "relevance": {
               "rules-engine": {
@@ -388,7 +323,7 @@
             "options": [
               {
                 "key": "same_as_fam_name",
-                "text": "Surname same as family name",
+                "text": "Jina la mwisho ni sawa na jina la ukoo",
                 "text_size": "18px",
                 "value": "false"
               }
@@ -400,15 +335,15 @@
             "openmrs_entity": "person",
             "openmrs_entity_id": "first_name",
             "type": "edit_text",
-            "hint": "First name",
+            "hint": "Jina la kwanza",
             "edit_type": "name",
             "v_required": {
               "value": "true",
-              "err": "Please enter the first name"
+              "err": "Tafadhali weka jina la kwanza"
             },
             "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+              "err": "Ingiza jina sahihi"
             }
           },
           {
@@ -417,11 +352,15 @@
             "openmrs_entity": "person",
             "openmrs_entity_id": "middle_name",
             "type": "edit_text",
-            "hint": "Middle name",
+            "hint": "Jina la kati",
             "edit_type": "name",
             "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-              "err": "Please enter a valid name"
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+              "err": "Ingiza jina sahihi"
+            },
+            "v_required": {
+              "value": "true",
+              "err": "Tafadhali weka jina la kati"
             }
           },
           {
@@ -436,11 +375,11 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "person",
             "openmrs_entity_id": "gender",
-            "type": "spinner",
+            "type": "Jinsi",
             "hint": "Sex",
             "values": [
-              "Male",
-              "Female"
+              "Me",
+              "Ke"
             ],
             "keys": [
               "Male",
@@ -452,15 +391,39 @@
             }
           },
           {
+            "key": "weight",
+            "type": "edit_text",
+            "hint": "Uzito (KG)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "weight",
+            "openmrs_entity_parent": "",
+            "v_numeric": {
+              "value": "true",
+              "err": "Tafadhali ingiza uzito"
+            },
+            "v_min": {
+              "value": "1.5",
+              "err": "Uzito lazima uwe sawasawa au zaidi ya 1.5 (KG)"
+            },
+            "v_max": {
+              "value": "6",
+              "err": "Uzito lazima uwe sawasawa au chini ya 6 (KG)"
+            },
+            "v_required": {
+              "value": true,
+              "err": "Tafadhali ingiza uzito"
+            }
+          },
+          {
             "key": "disabilities",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "disabilities",
             "type": "spinner",
-            "hint": "Physical disabilities",
+            "hint": "Ulemavu wa kimwili",
             "values": [
-              "Yes",
-              "No"
+              "Ndio",
+              "Hapana"
             ],
             "keys": [
               "Yes",
@@ -472,7 +435,7 @@
             },
             "v_required": {
               "value": "true",
-              "err": "Required"
+              "err": "Tafadhali chagua moja"
             }
           },
           {
@@ -480,9 +443,69 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "type_of_disability",
-            "type": "edit_text",
-            "hint": "Type of physical disabilities",
-            "edit_type": "name",
+            "type": "check_box",
+            "label": "Aina ya ulemavu wa kimwili",
+            "combine_checkbox_option_values": "true",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "options": [
+              {
+                "key": "physical_impairments",
+                "text": "Ulemavu wa Kimwili na utembeaji",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "physical_impairments"
+              },
+              {
+                "key": "spinal_cord_disability",
+                "text": "Ulemavu wa uti wa mgongo",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "spinal_cord_disability"
+              },
+              {
+                "key": "brain_disability",
+                "text": "Majeraha ya kichwa - Ulemavu wa Ubongo",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "brain_disability"
+              },
+              {
+                "key": "vision_disability",
+                "text": "Ulemavu wa Maono",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "vision_disability"
+              },
+              {
+                "key": "hearing_disability",
+                "text": "Ulemavu wa Kusikia ",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hearing_disability"
+              },
+              {
+                "key": "learning_disabilities",
+                "text": "Ulemavu wa Utambuzi au Kujifunza",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "learning_disabilities"
+              },
+              {
+                "key": "psychological_disorders",
+                "text": "Matatizo ya Kisaikolojia",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "psychological_disorders"
+              },
+              {
+                "key": "invisible_disabilities",
+                "text": "Ulemavu usioonekana",
+                "value": false,
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "invisible_disabilities"
+              }
+            ],
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
@@ -497,10 +520,10 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "early_bf_1hr",
             "type": "spinner",
-            "hint": "Early initiation of breastfeeding (1 hr)?",
+            "hint": "Kuanza kunyonya/kunyonyeshwa mapema (Saa 1)?",
             "values": [
-              "Yes",
-              "No"
+              "Ndio",
+              "Hapana"
             ],
             "keys": [
               "Yes",
@@ -512,44 +535,89 @@
             }
           },
           {
-            "key": "vacc_birth",
+            "key": "child_bcg_vaccination",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "vacc_birth",
-            "type": "check_box",
-            "combine_checkbox_option_values": "true",
-            "label": "Which vaccinations were given?",
+            "openmrs_entity_id": "child_bcg_vaccination",
+            "type": "native_radio",
+            "label": "Je, Mtoto amepata chanjo ya BCG?",
             "label_text_style": "normal",
             "text_color": "#C0C0C0",
-            "exclusive": [
-              "chk_none"
-            ],
             "options": [
               {
-                "key": "chk_none",
-                "text": "None",
-                "value": false,
+                "key": "yes",
+                "text": "Ndio",
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_none"
+                "openmrs_entity_id": "yes"
               },
               {
-                "key": "chk_opv_0",
-                "text": "OPV 0",
-                "value": false,
+                "key": "no",
+                "text": "Hapana",
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_opv_0"
-              },
-              {
-                "key": "chk_bcg",
-                "text": "BCG",
-                "value": false,
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_bcg"
+                "openmrs_entity_id": "no"
               }
             ],
             "v_required": {
               "value": "true",
-              "err": "vaccinations given required"
+              "err": "Tafadhari chagua mojawapo"
+            }
+          },
+          {
+            "key": "prompt_for_bcg_vacc_not_provided",
+            "type": "toaster_notes",
+            "text": "Mpatie Mtoto chanjo ya BCG wakati wa udhulio la kwanza la PNC, au mara tuu chanjo ya BCG ikiwepo. BCG haiwezi kutolewa kwa Mtoto ambaye amezidi miezi 12",
+            "openmrs_entity_id": "",
+            "openmrs_entity": "",
+            "openmrs_entity_parent": "",
+            "toaster_type": "problem",
+            "relevance": {
+              "step1:child_bcg_vaccination": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            }
+          },
+          {
+            "key": "child_opv0_vaccination",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "child_opv0_vaccination",
+            "type": "native_radio",
+            "label": "Je, Mtoto amepata chanjo ya OPV0?",
+            "label_text_style": "normal",
+            "text_color": "#C0C0C0",
+            "options": [
+              {
+                "key": "yes",
+                "text": "Ndio",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes"
+              },
+              {
+                "key": "no",
+                "text": "Hapana",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no"
+              }
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "Tafadhari chagua mojwapo"
+            }
+          },
+          {
+            "key": "prompt_for_opv0_vacc_not_provided",
+            "type": "toaster_notes",
+            "text": "Mtoto amepoteza nafasi ya kupata OPV-0, Mpatie OPV-1 katika udhulio la kwanza la PNC",
+            "openmrs_entity_id": "",
+            "openmrs_entity": "",
+            "openmrs_entity_parent": "",
+            "toaster_type": "problem",
+            "relevance": {
+              "step1:child_opv0_vaccination": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
             }
           }
         ]

@@ -298,7 +298,7 @@
             "hint": "Surname",
             "edit_type": "name",
             "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
               "err": "Please enter a valid name"
             },
             "v_required": {
@@ -342,7 +342,7 @@
               "err": "Please enter the first name"
             },
             "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
               "err": "Please enter a valid name"
             }
           },
@@ -355,7 +355,7 @@
             "hint": "Middle name",
             "edit_type": "name",
             "v_regex": {
-              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+              "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
               "err": "Please enter a valid name"
             },
             "v_required": {
@@ -563,6 +563,21 @@
             }
           },
           {
+            "key": "prompt_for_bcg_vacc_not_provided",
+            "type": "toaster_notes",
+            "text": "Provide BCG vaccination to the infant at the first Postnatal care visit or as soon as the BCG vaccine will be available. BCG should not be provided beyond 12-months of infant age",
+            "openmrs_entity_id": "",
+            "openmrs_entity": "",
+            "openmrs_entity_parent": "",
+            "toaster_type": "problem",
+            "relevance": {
+              "step1:child_bcg_vaccination": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            }
+          },
+          {
             "key": "child_opv0_vaccination",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -588,6 +603,21 @@
             "v_required": {
               "value": "true",
               "err": "Please select one"
+            }
+          },
+          {
+            "key": "prompt_for_opv0_vacc_not_provided",
+            "type": "toaster_notes",
+            "text": "Missed opportunity for OPV-0, provide OPV-1 at first postnatal care visit",
+            "openmrs_entity_id": "",
+            "openmrs_entity": "",
+            "openmrs_entity_parent": "",
+            "toaster_type": "problem",
+            "relevance": {
+              "step1:child_opv0_vaccination": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
             }
           }
         ]
