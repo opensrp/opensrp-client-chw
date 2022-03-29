@@ -48,7 +48,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Mother Champion Community Followup Feedback",
+    "title": "Mrejesho wa Ufuatiliji wa Mama Kinara",
     "fields": [
       {
         "key": "followup_status",
@@ -56,15 +56,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "followup_status",
         "type": "spinner",
-        "hint": "Followup Feedback",
+        "hint": "Mrejesho wa Ufuatiliaji",
         "values": [
-          "Continuing with services",
-          "Deceased",
-          "Client not found",
-          "Client has relocated to another location",
-          "Client has moved",
-          "Client has absconded",
-          "Client continues with clinic from elsewhere"
+          "Anaendelea na Huduma",
+          "Amefariki",
+          "Hapatikani",
+          "Amehamishiwa mahali pengine",
+          "Amehama",
+          "Amejitoa",
+          "Anaendelea na huduma akitokea mahali pengine"
         ],
         "keys": [
           "continuing_with_services",
@@ -86,7 +86,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Tafadhari chagua mojawapo"
         }
       },
       {
@@ -95,10 +95,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "name_of_hf",
         "type": "spinner",
-        "hint": "Choose moved to Facility",
+        "hint": "Chagua Kituo cha Afya alichohamia",
         "v_required": {
           "value": true,
-          "err": "Please select the health facility"
+          "err": "Tafadhali chagua Kituo cha Afya alichohamia"
         },
         "relevance": {
           "rules-engine": {
@@ -114,10 +114,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_facility",
         "type": "edit_text",
-        "hint": "Other Facility",
+        "hint": "Kituo cha Afya kingine",
         "v_required": {
           "value": true,
-          "err": "Please specify the other health facility"
+          "err": "Tafadhari bainisha Kituo cha Afaya kingine"
         },
         "relevance": {
           "step1:name_of_hf": {

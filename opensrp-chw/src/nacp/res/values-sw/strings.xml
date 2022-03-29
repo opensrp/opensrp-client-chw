@@ -27,7 +27,9 @@
     <string name="hiv_follow_up_visit">Ufuatiliaji wa VVU</string>
     <string name="hiv_service_due"><![CDATA[%1$s <font color=#000000>UWANYU (%2$s)</font></b>]]></string>
     <string name="optional">Hiari</string>
-    <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
+    <string name="action_received_anc_partner_followup_referrals">Ufuatiliji wa Mwenza</string>
     <string name="partner_registration_action_title">Usajili wa Mwenza</string>
-    <string name="back_to_pmtct">Back to PMTCT Clients</string>
+    <string name="back_to_pmtct">Rudi kwa Wateja wa Ufufatiliaji wa Mama Kinara</string>
+    <string name="mother_champion">Mama Kinara</string>
+    <string name="return_to_mother_champion_clients">Rudi kwa Wateja wa Mama Kinara</string>
 </resources>
