@@ -56,6 +56,7 @@
         "openmrs_entity_id": "counselling_given",
         "type": "check_box",
         "label": "Counselling provided to the mother and family members ",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [

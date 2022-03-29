@@ -400,6 +400,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Aina ya ulemavu wa kimwili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

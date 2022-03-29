@@ -137,6 +137,7 @@
         "openmrs_entity_id": "reason_for_not_attending_hf",
         "type": "check_box",
         "label": "Reason(s) why the partner did not agree to attend the HF",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [

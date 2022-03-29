@@ -99,6 +99,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "health_education_topic",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Mada iliyojadiliwa katika tukio la utoaji wa elimu kwa umma",
         "options": [
           {

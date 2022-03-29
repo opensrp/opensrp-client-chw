@@ -55,6 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Counselling provided",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

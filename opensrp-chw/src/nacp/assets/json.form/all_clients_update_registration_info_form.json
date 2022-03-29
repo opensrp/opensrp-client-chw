@@ -310,6 +310,7 @@
         "openmrs_entity_id": "id_avail",
         "type": "check_box",
         "label": "Do you have any of the following IDs?",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -646,6 +647,7 @@
         "openmrs_entity_id": "type_of_disability",
         "type": "check_box",
         "label": "Type of physical disabilities",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -846,6 +848,7 @@
         "openmrs_entity_id": "Community_Leader",
         "type": "check_box",
         "label": "Any leadership role in the community?",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
