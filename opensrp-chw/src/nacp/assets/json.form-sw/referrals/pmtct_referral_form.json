@@ -54,13 +54,13 @@
   },
   "steps": [
     {
-      "title": "PMTCT referral form",
+      "title": "Fomu ya Rufaa ya PMTCT",
       "fields": [
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick problem/condition associated with the client."
+            "text": "Chagua tatizo linaloendana na hali ya mgonjwa"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -70,7 +70,7 @@
           "options": [
             {
               "name": "lactating_hiv_positive_mother",
-              "text": "Lactating HIV positive mother",
+              "text": "Mama anayenyonyesha anaishi na VVU",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "lactating_hiv_positive_mother",
@@ -79,7 +79,7 @@
             },
             {
               "name": "poor_art_adherence",
-              "text": "Poor ART adherence during Pregnancy and after child birth",
+              "text": "Mama mwenye ufuasi mbaya wa dawa za ARV wakati wa ujauzito na baada ya kujifungua",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "poor_art_adherence",
@@ -88,7 +88,7 @@
             },
             {
               "name": "treatment_side_effects",
-              "text": "Treatment side effects during pregnancy and after child birth",
+              "text": "Madhira madogo madogo  ya dawa wakati wa ujauzito na baada ya kujifungua",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "treatment_side_effects",
@@ -97,7 +97,7 @@
             },
             {
               "name": "child_receive_dbs_test",
-              "text": "Child to receive DBS test",
+              "text": "Mtoto atafanyiwa kipimo cha DBS",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "child_receive_dbs_test",
@@ -126,7 +126,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other Problems",
+            "hint": "Tatizo nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -134,7 +134,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Tafadhali bainisha dalili nyingine",
           "subjects": "problem:map"
         },
         {
@@ -146,17 +146,17 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility",
-            "searchable": "Choose referral facility"
+            "text": "Chagua Kituo cha Afya cha kupeleka Rufaa",
+            "searchable": "Chagua Kituo cha Afya cha kupeleka Rufaa"
           },
           "options": [],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali bainisha Kituo cha Afya cha kupeleka Rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the appointment date",
+            "hint": "Tafadhali chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -166,7 +166,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date"
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
         }
       ]
     }

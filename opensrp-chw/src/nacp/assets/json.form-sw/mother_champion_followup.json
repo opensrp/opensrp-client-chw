@@ -1,0 +1,318 @@
+{
+  "count": "2",
+  "encounter_type": "Mother Champion Followup",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Huduma",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "type_of_service",
+        "type": "check_box",
+        "label": "Aina ya Huduma",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_service",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "mother_support_group",
+            "text": "Uwezeshaji wa kikundi cha msaada wa Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother_support_group",
+            "openmrs_entity_parent": "type_of_service"
+          },
+          {
+            "key": "counselling",
+            "text": "Kumsahuri Mteja",
+            "openmrs_entity_parent": "type_of_service",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "counselling"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhari jibu swali hili"
+        }
+      },
+      {
+        "key": "linked_to_psychosocial_group",
+        "type": "native_radio",
+        "label": "Je, Mteja huyu aliunganishwa kwenye kikundi cha msaada wa Kisaikolojia?",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "linked_to_psychosocial_group",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhari jibu swali hili"
+        },
+        "relevance": {
+          "step1:type_of_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "mother_support_group"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "counselling_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counselling_given",
+        "type": "check_box",
+        "label": "Chagua aina ya ushauri uliotolewa",
+        "options": [
+          {
+            "key": "chk_hiv_syphilis_testing",
+            "text": "HIV syphilis testing",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_syphilis_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_partner_testing",
+            "text": "Pimaji wa Wenza",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_partner_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_disclosure",
+            "text": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_disclosure",
+            "value": "false"
+          },
+          {
+            "key": "chk_male_involvement",
+            "text": "Ushiriki wa Wanaumwe katika huduma za ANC-PMTCT",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_male_involvement",
+            "value": "false"
+          },
+          {
+            "key": "chk_infant_test",
+            "text": "Ratiba ya Vipimo vya mtoto Mchanga",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_infant_test",
+            "value": "false"
+          },
+          {
+            "key": "chk_arv_adherence",
+            "text": "Ufuasi wa ARV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_arv_adherence",
+            "value": "false"
+          },
+          {
+            "key": "chk_prophylaxis_scheduling",
+            "text": "Ratiba ya Prophylaxis",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_prophylaxis_scheduling",
+            "value": "false"
+          },
+          {
+            "key": "chk_feeding_option",
+            "text": "Jinsi ya kulisha watoto wachanga",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_feeding_option",
+            "value": "false"
+          },
+          {
+            "key": "chk_maternal_nutrition",
+            "text": "Lishe ya Mama",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_maternal_nutrition",
+            "value": "false"
+          },
+          {
+            "key": "chk_family_planning",
+            "text": "Uzazi wa Mpango",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_family_planning",
+            "value": "false"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhari jibu swali hili"
+        },
+        "relevance": {
+          "step1:type_of_service": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "counselling"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Rufaa",
+    "fields": [
+      {
+        "key": "referrals_issued_other_services",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referrals_issued_other_services",
+        "type": "check_box",
+        "label": "Chagua rufaa aliyopewa mteja kwa ajili ya huduma nyingine",
+        "options": [
+          {
+            "key": "chk_gender_based_violence",
+            "text": "Unyanyasaji wa Kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_gender_based_violence",
+            "value": "false"
+          },
+          {
+            "key": "chk_legal_support",
+            "text": "Msaada wa Kishria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_legal_support",
+            "value": "false"
+          },
+          {
+            "key": "chk_nutritional_support",
+            "text": "Msaada wa Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_nutritional_support",
+            "value": "false"
+          },
+          {
+            "key": "chk_support_groups",
+            "text": "makundi ya msaada",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_support_groups",
+            "value": "false"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuan",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none",
+            "value": "false"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhari jibu swali hili"
+        }
+      },
+      {
+        "key": "referrals_completed_by_the_client",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referrals_completed_by_the_client",
+        "type": "check_box",
+        "label": "Chagua rufaa kwa huduma nyingine iliyokamilishwa na Mteja",
+        "options": [
+          {
+            "key": "chk_gender_based_violence",
+            "text": "Unyanyasaji wa Kijinsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_gender_based_violence",
+            "value": "false"
+          },
+          {
+            "key": "chk_legal_support",
+            "text": "Msaada wa Kisheria",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_legal_support",
+            "value": "false"
+          },
+          {
+            "key": "chk_nutritional_support",
+            "text": "Msaada wa Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_nutritional_support",
+            "value": "false"
+          },
+          {
+            "key": "chk_support_groups",
+            "text": "Makundi ya Msaada",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_support_groups",
+            "value": "false"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none",
+            "value": "false"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhari jibu swali hili"
+        }
+      }
+    ]
+  }
+}
