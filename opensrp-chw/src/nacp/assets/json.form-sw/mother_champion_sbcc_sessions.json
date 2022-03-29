@@ -1,0 +1,206 @@
+{
+  "count": "1",
+  "encounter_type": "Mother Champion SBCC Sessions",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "SBCC Session",
+    "fields": [
+      {
+        "key": "location_type",
+        "type": "native_radio",
+        "label": "Je, tukio hili lilifanyika wapi?",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "location_type",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "facility",
+            "text": "Kwenye Kituo cha Afya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "community",
+            "text": "Kwenye ngazi ya Jamii",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhari jibu swali hili"
+        }
+      },
+      {
+        "key": "participants_number",
+        "type": "edit_text",
+        "hint": "Idadi ya watu walihudhulia katika tukio hili",
+        "openmrs_entity_id": "participants_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhari ingiza idadi ya watu walihudhulia tukio hili"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhari ingiza idadi ya watu walihudhulia tukio hili"
+        }
+      },
+      {
+        "key": "health_education_topic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "health_education_topic",
+        "type": "check_box",
+        "label": "Mada iliyojadiliwa katika tukio la utoaji wa elimu kwa umma",
+        "options": [
+          {
+            "key": "chk_early_anc_initiation",
+            "text": "Kuanza huduma za ANC mapema",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_early_anc_initiation",
+            "value": "false"
+          },
+          {
+            "key": "chk_hiv_testing",
+            "text": "Upimaji wa VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_hiv_education",
+            "text": "Elimu ya Ukimwi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hiv_education",
+            "value": "false"
+          },
+          {
+            "key": "chk_mother_child_health",
+            "text": "Afya ya Mama na Mtoto",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_mother_child_health",
+            "value": "false"
+          },
+          {
+            "key": "chk_education_positive_infant",
+            "text": "Elimu ya unyonyeshaji kwa Mtoto mchanga mwenye maambukizi ya VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_education_positive_infant",
+            "value": "false"
+          },
+          {
+            "key": "chk_hvl_testing",
+            "text": "Kipimo cha HVL",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hvl_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_hei_testing",
+            "text": "Ratiba ya upimaji kwa mtoto aliyezaliwa na Mama anayeishi na VVU",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_hei_testing",
+            "value": "false"
+          },
+          {
+            "key": "chk_nutrition",
+            "text": "Lishe",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_nutrition",
+            "value": "false"
+          },
+          {
+            "key": "chk_arv_adherence",
+            "text": "Ufuasi wa dawa za ARV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_arv_adherence",
+            "value": "false"
+          },
+          {
+            "key": "chk_other",
+            "text": "Nyingine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_other",
+            "value": "false"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhari jibu swali hili"
+        }
+      },
+      {
+        "key": "other_health_education_topic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_health_education_topic",
+        "type": "edit_text",
+        "hint": "Mada nyingine zilizojadiliwa katika tukio hili",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhari ingiza mada nyingine zilizojadiliwa"
+        },
+        "relevance": {
+          "step1:health_education_topic": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

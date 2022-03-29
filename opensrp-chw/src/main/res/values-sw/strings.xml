@@ -420,7 +420,12 @@
     <string name="anc_malaria_field_no">Hapana</string>
     <string name="anc_malaria_net_condition_good">Nzuri</string>
     <string name="anc_malaria_net_condition_bad">Mbaya</string>
-    <string name="record_followup_feedback">Record  Followup Feedback</string>
-    <string name="record_followup_visit_mother_champion">Record Followup Visit</string>
-    <string name="child_name">Child : %s</string>
+    <string name="record_followup_feedback">Rekodi Mrejesho wa Ufuatiliaji </string>
+    <string name="record_followup_visit_mother_champion">Jaza Ufuatiliaji wa Mahudhurio</string>
+    <string name="missed_appointment">Amekosa Miadi</string>
+    <string name="lost_to_followup">Mteja Aliyepotea</string>
+    <string name="mother_champion_services">Huduma za Mama Kinara</string>
+    <string name="lost_to_followup_child">Mtoto Aliyepotea</string>
+    <string name="missed_appointment_child">Mtoto Amekosa Miadi</string>
+    <string name="child_name">Mtoto : %s</string>
 </resources>

@@ -124,6 +124,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_remove_member).setVisible(false);
         menu.findItem(R.id.action_issue_pmtct_followup_referral).setVisible(false);
+        menu.findItem(R.id.action_mark_as_deceased).setVisible(false);
         return true;
     }
 
