@@ -226,6 +226,7 @@
         "openmrs_entity_id": "delivery_method",
         "type": "check_box",
         "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "relevance": {
