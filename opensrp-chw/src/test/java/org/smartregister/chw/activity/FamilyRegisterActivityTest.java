@@ -70,9 +70,10 @@ public class FamilyRegisterActivityTest extends BaseUnitTest {
     @Test
     public void testShowProgressShouldShowProgressDialog() {
         FamilyRegisterActivity spyActivity = Mockito.spy(activity);
-        Whitebox.setInternalState(spyActivity, "progressDialog", progressDialog);
+//        Whitebox.setInternalState(spyActivity, "progressDialog", progressDialog);
         spyActivity.showProgressDialog();
-        Mockito.verify(progressDialog).show();
+        ProgressDialog progressDialog_ = Mockito.spy((ProgressDialog) Whitebox.getInternalState(spyActivity, "progressDialog"));
+        Assert.assertTrue(progressDialog_.isShowing());
     }
 
     @Test
