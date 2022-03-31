@@ -50,6 +50,20 @@
     "title": "SBCC Session",
     "fields": [
       {
+        "key": "sbcc_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sbcc_date",
+        "type": "date_picker",
+        "hint": "Date of the Session",
+        "expanded": false,
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please select a date"
+        }
+      },
+      {
         "key": "location_type",
         "type": "native_radio",
         "label": "Where was the Session conducted?",

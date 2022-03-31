@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 
-import org.smartregister.chw.core.provider.CorePmtctRegisterProvider;
+import org.smartregister.provider.PmtctRegisterProvider;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.util.Set;
 
-public class MotherChampionRegisterProvider extends CorePmtctRegisterProvider {
+public class MotherChampionRegisterProvider extends PmtctRegisterProvider {
     public MotherChampionRegisterProvider(Context context, View.OnClickListener paginationClickListener, View.OnClickListener onClickListener, Set visibleColumns) {
         super(context, paginationClickListener, onClickListener, visibleColumns);
     }
