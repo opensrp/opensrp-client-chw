@@ -11,9 +11,9 @@ import org.smartregister.chw.anc.contract.BaseAncUpcomingServicesContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.interactor.CoreChildUpcomingServiceInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
+import org.smartregister.chw.interactor.ChildUpcomingServiceInteractor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +71,18 @@ public final class UpcomingServicesUtil {
         return hasDue ? CoreConstants.VISIT_STATE.DUE : null;
     }
 
+    public static boolean hasUpcomingDueServices(MemberObject memberObject, Context ctx){
+        String childGender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
+        int childAge = memberObject.getAge();
+        if (!ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()
+                && childAge >= 2
+                && !(childGender.equalsIgnoreCase("Female") && childAge >= 9 && childAge <= 11)){
+            return false;
+        }
+        List<BaseUpcomingService> upcomingServices = new ChildUpcomingServiceInteractor().getUpcomingServices(memberObject, ctx);
+        return getDueServicesState(upcomingServices) != null;
+    }
+
     public static void fetchUpcomingDueServicesState(MemberObject memberObject, Context ctx, Consumer<String> onDueStatusFetched) {
         String childGender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
         int childAge = memberObject.getAge();
@@ -82,7 +94,7 @@ public final class UpcomingServicesUtil {
             return;
         }
 
-        new CoreChildUpcomingServiceInteractor().getUpComingServices(memberObject, ctx, new BaseAncUpcomingServicesContract.InteractorCallBack() {
+        new ChildUpcomingServiceInteractor().getUpComingServices(memberObject, ctx, new BaseAncUpcomingServicesContract.InteractorCallBack() {
             @Override
             public void onDataFetched(List<BaseUpcomingService> serviceList) {
                 onDueStatusFetched.accept(getDueServicesState(serviceList));
