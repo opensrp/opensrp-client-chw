@@ -384,6 +384,9 @@
     <string name="doses_needed">Doses Needed</string>
     <string name="community_activity">My Community Activity</string>
     <string name="children">Children</string>
+    <string name="eligible_children_description">List of children who can take the vaccines at a date in the future</string>
+    <string name="doses_needed_description">Number of vaccine doses needed for children who can take the vaccine at a date in the future</string>
+    <string name="community_activity_description">Number on vaccines provided and child deaths in my area</string>
 
     <string name="forgot_pin">Forgot pin?</string>
     <string name="use_your_password"> Use your password?</string>
@@ -416,6 +419,12 @@
 
     <!--Child Profile Strings -->
     <string name="family_has_nothing_else_due">Family has nothing else due</string>
+
+    <string name="edit_eligible_child_form_title">Edit eligible child %1$s\'s details</string>
+    <string name="not_able_to_change_family_head">Family head cannot be changed as there is only one adult in this family</string>
+    <string name="not_able_to_change_caregiver">Caregiver cannot be changed as there is only one adult in this family</string>
+    <item name="reports_title" type="string">@string/report</item>
+
     <string name="hint_kit_type">What type of kit has the family received?</string>
     <string name="simple_kit_hint">Simple Kit (ORS/ZINC and Paracetamol)</string>
     <string name="simple_kit_with_micro_hint">Simple Kit (ORS/ZINC and Paracetamol) with micronutrients</string>
@@ -447,4 +456,7 @@
 
     <!-- warning -->
     <string name="any_changes_you_make">Any changes you have made will be lost</string>
+
+    <string name="syncing_records">Syncing records…</string>
+    <string name="all_children_title">All Children</string>
 </resources>

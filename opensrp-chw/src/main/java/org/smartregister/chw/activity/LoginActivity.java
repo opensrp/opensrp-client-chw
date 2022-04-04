@@ -43,10 +43,15 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     private static final String WFH_CSV_PARSED = "WEIGHT_FOR_HEIGHT_CSV_PARSED";
 
     private PinLogger pinLogger = PinLoginUtil.getPinLogger();
+    private String adminLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            adminLogin = bundle.getString(org.smartregister.chw.util.Constants.LoginUtil.ADMIN_LOGIN);
+        }
     }
 
     @Override
@@ -54,7 +59,10 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         super.onResume();
         mLoginPresenter.processViewCustomizations();
 
-        if (hasPinLogin()) {
+        org.smartregister.Context context = mLoginPresenter.getOpenSRPContext();
+        String username = context.userService().getAllSharedPreferences().fetchRegisteredANM();
+        if (hasPinLogin()
+                && !context.allSharedPreferences().fetchForceRemoteLogin(username)) {
             pinLoginAttempt();
             return;
         }
@@ -66,15 +74,17 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
 
     private void pinLoginAttempt() {
         // if the user has pin
-        if (mLoginPresenter.isUserLoggedOut()) {
-            if (pinLogger.isPinSet()) {
-                Intent intent = new Intent(this, PinLoginActivity.class);
-                intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
-                startActivity(intent);
-                finish();
+        if (adminLogin == null) {
+            if (mLoginPresenter.isUserLoggedOut()) {
+                if (pinLogger.isPinSet()) {
+                    Intent intent = new Intent(this, PinLoginActivity.class);
+                    intent.putExtra(PinLoginActivity.DESTINATION_FRAGMENT, PinLoginFragment.TAG);
+                    startActivity(intent);
+                    finish();
+                }
+            } else {
+                goToHome(false);
             }
-        } else {
-            goToHome(false);
         }
     }
 
@@ -112,7 +122,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean hasPermissions(){
+    public boolean hasPermissions() {
         return PermissionUtils.isPermissionGranted(this
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                 , CoreConstants.RQ_CODE.STORAGE_PERMISIONS);
@@ -202,6 +212,11 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             WeightForHeightIntentService.startParseWFHZScores(this);
             allSharedPreferences.savePreference(WFH_CSV_PARSED, "true");
         }
+    }
+
+    @Override
+    public boolean isAppVersionAllowed() {
+        return true;
     }
 
 }

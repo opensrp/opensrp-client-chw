@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
@@ -7,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.vijay.jsonwizard.domain.Form;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -24,8 +28,6 @@ import org.smartregister.family.util.Constants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 
 public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActivity implements CoreChildProfileContract.Flavor {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -105,6 +107,10 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
                         , ((AboveFiveChildProfilePresenter) presenter()).getFamilyHeadID(), ((AboveFiveChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
 
                 return true;
+
+            case R.id.action_registration:
+                presenter().startFormForEdit(getString(R.string.edit_eligible_child_form_title, memberObject.getFirstName()), presenter().getChildClient());
+                return true;
             default:
                 break;
         }
@@ -141,7 +147,12 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             startActivity(intent);
             finish();
         }
+        execute();
+    }
+
+    protected void execute() {
         ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), CoreConstants.EventType.CHILD_HOME_VISIT, new Date());
+
     }
 
     private void addChildReferralTypes() {
@@ -158,6 +169,19 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.child_gbv_referral),
                     CoreConstants.JSON_FORM.getChildGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_CHILD_GBV));
         }
+    }
+
+    @Override
+    public void setDueTodayServices() {
+        layoutServiceDueRow.setVisibility(View.GONE);
+        textViewDueToday.setVisibility(View.GONE);
+    }
+
+    @Override
+    public Form getForm() {
+        Form currentFormConfig = super.getForm();
+        currentFormConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentFormConfig;
     }
 
     @Override

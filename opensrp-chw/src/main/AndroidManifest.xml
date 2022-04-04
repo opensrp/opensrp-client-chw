@@ -230,7 +230,7 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PinLoginActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+            android:theme="@style/ChwTheme.Login" />
         <activity
             android:name=".activity.AllClientsRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />

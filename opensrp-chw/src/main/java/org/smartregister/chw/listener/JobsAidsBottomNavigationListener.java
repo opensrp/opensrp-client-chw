@@ -28,10 +28,11 @@ public class JobsAidsBottomNavigationListener extends BottomNavigationListener {
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //        super.onNavigationItemSelected(item);
 
-        if (item.getItemId() == org.smartregister.family.R.id.action_family) {
-
-
-        } else if (item.getItemId() == org.smartregister.family.R.id.action_scan_qr) {
+//        if (item.getItemId() == org.smartregister.family.R.id.action_family) {
+//
+//
+//        } else
+        if (item.getItemId() == org.smartregister.family.R.id.action_scan_qr) {
 
             if (PermissionUtils.isPermissionGranted(context, Manifest.permission.CAMERA, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE)) {
                 try {

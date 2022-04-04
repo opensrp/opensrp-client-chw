@@ -10,19 +10,16 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.presenter.FamilyProfilePresenter;
 import org.smartregister.domain.FetchStatus;
@@ -37,9 +34,8 @@ import java.nio.charset.StandardCharsets;
 
 import static org.mockito.Mockito.times;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(application = ChwApplication.class, sdk = 22)
-public class FamilyProfileActivityTest {
+
+public class FamilyProfileActivityTest extends BaseUnitTest{
 
     private final String TEST_CARE_GIVER = "45645sdfs64564544";
     private final String TEST_FAMILY_HEAD = "hsdf34453";
@@ -55,13 +51,18 @@ public class FamilyProfileActivityTest {
         CoreLibrary.init(context);
 
         //Auto login by default
+        String password = "pwd";
         context.session().start(context.session().lengthInMilliseconds());
+        context.configuration().getDrishtiApplication().setPassword(password.getBytes());
+        context.session().setPassword(password.getBytes());
 
         MockitoAnnotations.initMocks(this);
         Intent testIntent = new Intent();
         testIntent.putExtra(Constants.INTENT_KEY.FAMILY_HEAD, TEST_CARE_GIVER);
         testIntent.putExtra(Constants.INTENT_KEY.PRIMARY_CAREGIVER, TEST_FAMILY_HEAD);
-        controller = Robolectric.buildActivity(FamilyProfileActivity.class, testIntent).create().start();
+        controller = Robolectric.buildActivity(FamilyProfileActivity.class, testIntent)
+                .create()
+                .start();
 
         activity = controller.get();
         ReflectionHelpers.setField(activity, "presenter", presenter);

@@ -1,5 +1,15 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.dao.ChildDao.queryColumnWithIdentifier;
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
+import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.FHIR_BUNDLE_INTENT;
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +21,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
@@ -38,16 +50,6 @@ import org.smartregister.family.util.Constants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-import static org.smartregister.chw.core.dao.ChildDao.queryColumnWithIdentifier;
-import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.CARE_PLAN_DATE;
-import static org.smartregister.chw.core.utils.CoreConstants.ThinkMdConstants.FHIR_BUNDLE_INTENT;
-import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
-import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications, CoreChildProfileContract.Flavor {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -158,9 +160,25 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
     }
 
+    private String getEligibleChildString() {
+        if (flavor.usesEligibleChildText()) {
+            return getString(R.string.edit_eligible_child_form_title, memberObject.getFirstName());
+        } else {
+            return getString(org.smartregister.chw.core.R.string.edit_child_form_title, memberObject.getFirstName());
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                if (ChwApplication.getApplicationFlavor().onChildProfileHomeGoToChildRegister()) {
+                    Intent intent = new Intent(this, ChildRegisterActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                return super.onOptionsItemSelected(item);
             case R.id.action_malaria_registration:
                 MalariaRegisterActivity.startMalariaRegistrationActivity(ChildProfileActivity.this, presenter().getChildClient().getCaseId(), ((ChildProfilePresenter) presenter()).getFamilyID());
                 return true;
@@ -169,6 +187,10 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
                         ((ChildProfilePresenter) presenter()).getFamilyID()
                         , ((ChildProfilePresenter) presenter()).getFamilyHeadID(), ((ChildProfilePresenter) presenter()).getPrimaryCareGiverID(), ChildRegisterActivity.class.getCanonicalName());
                 return true;
+            case R.id.action_registration:
+                presenter().startFormForEdit(getEligibleChildString(), presenter().getChildClient());
+                return true;
+
             case R.id.action_thinkmd_health_assessment:
                 presenter().launchThinkMDHealthAssessment(getContext());
                 break;
@@ -180,7 +202,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         }
         return super.onOptionsItemSelected(item);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -295,6 +317,13 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
+    public Form getForm() {
+        Form currentFormConfig = super.getForm();
+        currentFormConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentFormConfig;
+    }
+
+    @Override
     public void setFamilyHasNothingElseDue() {
         layoutFamilyHasRow.setVisibility(View.VISIBLE);
         viewFamilyRow.setVisibility(View.VISIBLE);
@@ -325,5 +354,7 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         void setVaccineHistoryView(String days, RelativeLayout layoutVaccineHistoryRow, View viewVaccineHistoryRow, Context context);
 
         String getToolbarTitleName(MemberObject memberObject);
+
+        boolean usesEligibleChildText();
     }
 }

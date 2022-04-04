@@ -228,6 +228,49 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean useAllChildrenTitle() {
+        return false;
+    }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return true;
+    }
+
+    @Override
+    public boolean disableTitleClickGoBack() {
+        return false;
+    }
+
+    @Override
+    public boolean showReportsDescription() {
+        return false;
+    }
+
+    @Override
+    public boolean showDueFilterToggle() {
+        return true;
+    }
+
+    @Override
+    public boolean showReportsDivider() {
+        return false;
+    }
+
+    public boolean hideChildRegisterPreviousNextIcons(){
+        return false;
+    }
+
+    public boolean hideFamilyRegisterPreviousNextIcons(){
+        return false;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return false;
+    }
+
+    @Override
     public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {
         return true;
     }
@@ -253,6 +296,30 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     }
 
     @Override
+    public boolean onFamilySaveGoToProfile() {
+        return false;
+    }
+
+    @Override
+    public boolean onChildProfileHomeGoToChildRegister() {
+        return true;
+    }
+
+    @Override
+    public boolean greyOutFormActionsIfInvalid() {
+        return false;
+    }
+
+    @Override
+    public boolean checkExtraForDueInFamily() {
+        return false;
+    }
+
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
+        return false;
+    }
+
     public String[] getFTSTables() {
         return new String[]{CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.CHILD};
     }
@@ -298,5 +365,13 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     @Override
     public boolean showsPhysicallyDisabledView() {
         return true;
+    }
+
+    @Override
+    public boolean vaccinesDefaultChecked() { return true; }
+
+    @Override
+    public boolean checkDueStatusFromUpcomingServices() {
+        return false;
     }
 }

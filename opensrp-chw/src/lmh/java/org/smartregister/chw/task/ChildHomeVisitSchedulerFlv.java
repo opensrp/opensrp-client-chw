@@ -1,5 +1,7 @@
 package org.smartregister.chw.task;
 
+import androidx.annotation.VisibleForTesting;
+
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.contract.ScheduleTask;
@@ -17,15 +19,23 @@ import java.util.Date;
 import java.util.List;
 
 public class ChildHomeVisitSchedulerFlv extends DefaultChildHomeVisitSchedulerFlv {
-    @Override
-    public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate, BaseScheduleTask baseScheduleTask) {
-        // recompute the home visit task for this child
+
+    @VisibleForTesting()
+    HomeAlertRule getAlertRule(final String baseEntityID){
         ChildHomeVisit childHomeVisit = ChildUtils.getLastHomeVisit(Constants.TABLE_NAME.CHILD, baseEntityID);
         String yearOfBirth = PersonDao.getDob(baseEntityID);
 
         HomeAlertRule alertRule = new HomeAlertRule(
                 ChwApplication.getInstance().getApplicationContext(), yearOfBirth, childHomeVisit.getLastHomeVisitDate(), childHomeVisit.getVisitNotDoneDate(), childHomeVisit.getDateCreated());
         CoreChwApplication.getInstance().getRulesEngineHelper().getButtonAlertStatus(alertRule, CoreConstants.RULE_FILE.HOME_VISIT);
+
+        return alertRule;
+    }
+
+    @Override
+    public List<ScheduleTask> generateTasks(String baseEntityID, String eventName, Date eventDate, BaseScheduleTask baseScheduleTask) {
+        // recompute the home visit task for this child
+        HomeAlertRule alertRule = getAlertRule(baseEntityID);
 
         // Check If any task are due for that child
         if (ChwChildDao.hasDueVaccines(baseEntityID)) {
