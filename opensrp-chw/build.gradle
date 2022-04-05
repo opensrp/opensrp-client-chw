@@ -332,7 +332,7 @@ android {
             versionName "0.1.7"
             buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://lmh-stage.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://liberiavts.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
