@@ -53,4 +53,9 @@ public class ChildProfileActivityFlv extends DefaultChildProfileActivityFlv {
     public String getToolbarTitleName(MemberObject memberObject) {
         return memberObject.getFamilyName();
     }
+
+    @Override
+    public boolean usesEligibleChildText(){
+        return true;
+    }
 }

@@ -26,6 +26,7 @@ import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.Vaccine;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public abstract class DefaultChildMedicalHistoryActivityFlv implements CoreChild
     protected Map<String, List<Vaccine>> vaccineMap = new LinkedHashMap<>();
     private Context context;
     private LinearLayout parentView;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMATS.DOB, Locale.getDefault());
     private SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
 
     @Override
@@ -105,6 +107,23 @@ public abstract class DefaultChildMedicalHistoryActivityFlv implements CoreChild
 
     protected void evaluateImmunizations() {
         if (vaccineMap != null && vaccineMap.size() > 0) {
+            List<String> validVaccines = new ArrayList<>();
+            for (Visit visit: visits){
+                for (Map.Entry<String, List<VisitDetail>> entry: visit.getVisitDetails().entrySet()){
+                    List<VisitDetail> validDetails = new ArrayList<>(entry.getValue().size());
+                    for (VisitDetail visitDetail: entry.getValue()) {
+                        String date = NCUtils.getText(visitDetail);
+                        // Using try to valid has a valid date, and may be not 'Vaccine not given'
+                        try{
+                            dateFormat.parse(date);
+                            validDetails.add(visitDetail);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (!validDetails.isEmpty()) validVaccines.add(entry.getKey());
+                }
+            }
 
             List<String> vaccineGiven = new ArrayList<>();
             // generate data
@@ -115,6 +134,8 @@ public abstract class DefaultChildMedicalHistoryActivityFlv implements CoreChild
                 List<String> content = new ArrayList<>();
                 for (Vaccine vaccine : entry.getValue()) {
                     String val = toLowerCase(vaccine.getName()).replace(" ", "_");
+                    if (!validVaccines.contains(val)) continue;
+
                     vaccineGiven.add(val.replace("_", ""));
                     String translated = Utils.getStringResourceByName(val, context);
                     content.add(String.format("%s - %s %s", translated, context.getString(org.smartregister.chw.core.R.string.done), sdf.format(vaccine.getDate())));

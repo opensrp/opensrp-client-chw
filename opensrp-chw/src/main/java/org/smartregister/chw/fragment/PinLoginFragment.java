@@ -1,10 +1,14 @@
 package org.smartregister.chw.fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -20,13 +24,16 @@ import androidx.fragment.app.Fragment;
 
 import org.joda.time.DateTime;
 import org.smartregister.chw.R;
+import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.PinLoginActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.PinLoginContract;
 import org.smartregister.chw.contract.PinViewContract;
 import org.smartregister.chw.pinlogin.PinLogger;
 import org.smartregister.chw.presenter.PinLoginPresenter;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.util.Utils;
+import org.smartregister.view.activity.SettingsActivity;
 
 import timber.log.Timber;
 
@@ -76,6 +83,7 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
         view.findViewById(R.id.forgot_pin).setOnClickListener(this);
         view.findViewById(R.id.use_your_password).setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -120,12 +128,23 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
                 attemptLogin();
                 break;
             case R.id.forgot_pin:
+                showAlertDialog();
+                break;
             case R.id.use_your_password:
                 revertToPassword();
                 break;
             default:
                 break;
         }
+    }
+
+    private void showAlertDialog() {
+        new AlertDialog.Builder(this.getActivity())
+                //set title
+                .setTitle("Forgot PIN?")
+//set message
+                .setMessage("Please contact the IT person at the County Health Team.")
+                .show();
     }
 
     private void revertToPassword() {
@@ -192,4 +211,25 @@ public class PinLoginFragment extends Fragment implements View.OnClickListener, 
                 .create();
         alertDialog.show();
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.pin_login_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            startActivity(new Intent(this.getActivity(), SettingsActivity.class));
+            return true;
+        }
+        else if (item.getItemId() == R.id.admin_login)  {
+            Intent intent = new Intent(this.getActivity(), LoginActivity.class);
+            intent.putExtra(Constants.LoginUtil.ADMIN_LOGIN,"true" );
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

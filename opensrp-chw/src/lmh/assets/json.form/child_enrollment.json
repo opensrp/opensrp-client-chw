@@ -87,6 +87,7 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
+        "edit_type": "name",
         "hint": "{{child_enrollment.step1.first_name.hint}}",
         "expanded": false,
         "v_required": {
@@ -105,6 +106,7 @@
         "openmrs_entity_id": "middle_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
+        "edit_type": "name",
         "hint": "{{child_enrollment.step1.middle_name.hint}}",
         "expanded": false,
         "v_regex": {
@@ -206,11 +208,18 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
-        "type": "spinner",
+        "type": "native_radio",
         "hint": "{{child_enrollment.step1.gender.hint}}",
-        "values": [
-          "{{child_enrollment.step1.gender.values[0]}}",
-          "{{child_enrollment.step1.gender.values[1]}}"
+        "label": "{{child_enrollment.step1.gender.hint}}",
+        "options": [
+          {
+            "key": "{{child_enrollment.step1.gender.values[0]}}",
+            "text": "{{child_enrollment.step1.gender.values[0]}}"
+          },
+          {
+            "key": "{{child_enrollment.step1.gender.values[1]}}",
+            "text": "{{child_enrollment.step1.gender.values[1]}}"
+          }
         ],
         "v_required": {
           "value": "true",

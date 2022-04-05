@@ -18,6 +18,7 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.util.ReflectionHelpers;
+import org.smartregister.Context;
 import org.smartregister.chw.BaseActivityTest;
 import org.smartregister.chw.R;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -47,6 +48,12 @@ public class LoginActivityTest extends BaseActivityTest<LoginActivity> {
     @Override
     protected Class<LoginActivity> getActivityClass() {
         return LoginActivity.class;
+    }
+
+    @Override
+    public void setUp() {
+        super.setUp();
+        Mockito.when(presenter.getOpenSRPContext()).thenReturn(Context.getInstance());
     }
 
     @Test

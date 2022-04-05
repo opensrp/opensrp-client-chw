@@ -2,6 +2,8 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
+import androidx.core.util.Supplier;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.joda.time.LocalDate;
@@ -26,6 +28,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -36,8 +39,7 @@ import timber.log.Timber;
 public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeVisitActionHelper {
 
     private Context context;
-    private List<VaccineWrapper> wrappers;
-    private LocalDate dueDate;
+    private Supplier<List<VaccineWrapper>> vaccineSupplier;
     private AlertStatus status;
 
     private List<String> keys = new ArrayList<>();
@@ -45,10 +47,15 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     private List<String> notDoneVaccines = new ArrayList<>();
     private Map<String, VaccineRepo.Vaccine> vaccineMap = new HashMap<>();
 
-    public ImmunizationActionHelper(Context context, List<VaccineWrapper> wrappers) {
+    public ImmunizationActionHelper(Context context, Supplier<List<VaccineWrapper>> vaccineSupplier) {
         this.context = context;
-        this.wrappers = wrappers;
-        List<VaccineRepo.Vaccine> repo = VaccineRepo.getVaccines(CoreConstants.SERVICE_GROUPS.CHILD);
+        this.vaccineSupplier = vaccineSupplier;
+        List<String> serviceGroups = Arrays.asList(CoreConstants.SERVICE_GROUPS.CHILD, org.smartregister.chw.util.Constants.CHILD_OVER_5);
+        List<VaccineRepo.Vaccine> repo = new ArrayList<>();
+        for (String serviceGroup : serviceGroups) {
+            List<VaccineRepo.Vaccine> childrenRepo = VaccineRepo.getVaccines(serviceGroup);
+            repo.addAll(childrenRepo);
+        }
         for (VaccineRepo.Vaccine v : repo) {
             vaccineMap.put(v.display().toLowerCase().replace(" ", "_"), v);
         }
@@ -59,7 +66,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
         LocalDate dueDate = null;
         AlertStatus myStatus = null;
 
-        for (VaccineWrapper vaccineWrapper : wrappers) {
+        for (VaccineWrapper vaccineWrapper : vaccineSupplier.get()) {
             Alert alert = vaccineWrapper.getAlert();
 
             if (myStatus == null || (alert != null && !alert.status().equals(AlertStatus.expired))) {
@@ -75,8 +82,27 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             keys.add(NCUtils.removeSpaces(vaccineWrapper.getName()));
         }
 
-        this.dueDate = new LocalDate(dueDate);
         this.status = myStatus;
+    }
+
+    private LocalDate getDueDate(){
+        LocalDate dueDate = null;
+        AlertStatus myStatus = null;
+
+        for (VaccineWrapper vaccineWrapper : vaccineSupplier.get()) {
+            Alert alert = vaccineWrapper.getAlert();
+
+            if (myStatus == null || (alert != null && !alert.status().equals(AlertStatus.expired))) {
+                myStatus = alert.status();
+            } else if (alert != null && alert.status().equals(AlertStatus.urgent)) {
+                myStatus = alert.status();
+            }
+
+            if (dueDate == null) {
+                dueDate = new LocalDate(alert.startDate());
+            }
+        }
+        return dueDate == null ? LocalDate.now() : dueDate;
     }
 
     @Override
@@ -95,7 +121,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             notDoneVaccines.clear();
             completedVaccines.clear();
 
-            if(jsonPayload == null) return;
+            if (jsonPayload == null) return;
 
             JSONObject jsonObject = new JSONObject(jsonPayload);
 
@@ -144,7 +170,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
             due = context.getString(R.string.overdue);
         }
 
-        return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(dueDate));
+        return MessageFormat.format("{0} {1}", due, DateTimeFormat.forPattern("dd MMM yyyy").print(getDueDate()));
     }
 
     /**

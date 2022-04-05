@@ -36,7 +36,7 @@ public class ChwSyncConfiguration extends SyncConfiguration {
         if(StringUtils.isBlank(locationId)) locationId = allSharedPreferences().fetchUserLocalityId(providerId);
 
         List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
-        if (!isEmptyCollection(locationIds)) {
+        if (!isEmptyCollection(locationIds) && locationIds.contains(locationId)) {
             int index = locationIds.indexOf(locationId);
             List<String> subLocationIds = locationIds.subList(index, locationIds.size());
             return StringUtils.join(subLocationIds, ",");

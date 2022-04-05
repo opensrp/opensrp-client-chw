@@ -4,11 +4,11 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.CoreFamilyRegisterFragment;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.provider.FamilyRegisterProvider;
-import org.smartregister.chw.util.Utils;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.family.util.DBConstants;
@@ -52,6 +52,7 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         return query;
     }
 
+
     private String getDueFilter() {
         return "AND ec_family.base_entity_id in (\n" +
                 "    /** Select family members with due services only **/\n" +
@@ -80,4 +81,20 @@ public class FamilyRegisterFragment extends CoreFamilyRegisterFragment {
         return " and (" + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " like '%" + filters + "%' or "
                 + CoreConstants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.LAST_NAME + " like '%" + filters + "%')";
     }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+        if (ChwApplication.getApplicationFlavor().showDueFilterToggle()) {
+            dueOnlyLayout.setVisibility(View.VISIBLE);
+        } else {
+            dueOnlyLayout.setVisibility(View.GONE);
+        }
+
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
+            View titleLayout = view.findViewById(R.id.title_layout);
+            titleLayout.setOnClickListener(null);
+        }
+    }
+
 }

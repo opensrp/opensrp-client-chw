@@ -49,7 +49,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasDefaultDueFilterForChildClient() {
-        return true;
+        return false;
     }
 
     @Override
@@ -94,16 +94,15 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean launchChildClientsAtLogin() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean useThinkMd() {
-        return true;
+        return false;
     }
 
     @Override
-
     public boolean splitUpcomingServicesView() {
         return true;
     }
@@ -149,21 +148,103 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
-    public boolean showChildrenAboveTwoDueStatus(){
+    public boolean showChildrenAboveTwoDueStatus() {
         return false;
     }
 
     @Override
-    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {return false;}
+    public boolean showFamilyServicesScheduleWithChildrenAboveTwo() {
+        return false;
+    }
 
     @Override
-    public boolean hasForeignData(){return true;}
+    public boolean hasForeignData() {
+        return true;
+    }
 
     @Override
-    public  boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven(){
+    public boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven() {
+        return true;
+    }
+
+    @Override
+    public boolean useAllChildrenTitle() {
+        return true;
+    }
+
+    @Override
+    public boolean showBottomNavigation() {
+        return false;
+    }
+
+    @Override
+    public boolean disableTitleClickGoBack() {
+        return true;
+    }
+
+    @Override
+    public boolean showReportsDescription() {
+        return true;
+    }
+
+    @Override
+    public boolean showDueFilterToggle() {
+        return false;
+    }
+
+    @Override
+    public boolean showReportsDivider() {
+        return true;
+    }
+
+    @Override
+    public boolean hideChildRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean hideFamilyRegisterPreviousNextIcons() {
+        return true;
+    }
+
+    @Override
+    public boolean showFamilyRegisterNextInToolbar() {
+        return true;
+    }
+
+    @Override
+    public boolean onFamilySaveGoToProfile() {
+        return true;
+    }
+
+    @Override
+    public boolean onChildProfileHomeGoToChildRegister() {
+        return false;
+    }
+
+    @Override
+    public boolean greyOutFormActionsIfInvalid() {
+        return true;
+    }
+
+    @Override
+    public boolean checkExtraForDueInFamily() {
+      return true;
+    }
+    @Override
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
         return true;
     }
 
     @Override
     public boolean showsPhysicallyDisabledView() { return false; }
+
+    @Override
+    public boolean vaccinesDefaultChecked() { return false; }
+
+    @Override
+    public boolean checkDueStatusFromUpcomingServices() {
+        return true;
+    }
 }
+

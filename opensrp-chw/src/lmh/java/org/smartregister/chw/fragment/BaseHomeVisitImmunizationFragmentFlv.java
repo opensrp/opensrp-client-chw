@@ -2,9 +2,11 @@ package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import org.smartregister.chw.anc.contract.BaseAncHomeVisitContract;
 import org.smartregister.chw.anc.domain.VaccineDisplay;
@@ -13,6 +15,7 @@ import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.util.DatePickerUtils;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +32,16 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
         fragment.details = details;
         fragment.vaccinesDefaultChecked = defaultChecked;
         for (VaccineDisplay vaccineDisplay : vaccineDisplays) {
+            String name = NCUtils.removeSpaces(vaccineDisplay.getVaccineWrapper().getName());
+            if (details != null && details.containsKey(name)) {
+                String value = NCUtils.getText(details.get(name));
+
+                try {
+                    vaccineDisplay.setDateGiven(dateFormat.parse(value));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
             fragment.vaccineDisplays.put(vaccineDisplay.getVaccineWrapper().getName(), vaccineDisplay);
         }
 
@@ -42,7 +55,17 @@ public class BaseHomeVisitImmunizationFragmentFlv extends DefaultBaseHomeVisitIm
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        DatePickerUtils.themeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
+        callDatePickerUtilsThemeDatePicker(singleDatePicker, new char[]{'d', 'm', 'y'});
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @VisibleForTesting
+    void callDatePickerUtilsThemeDatePicker(DatePicker datePicker, char[] ymdOrder) {
+        DatePickerUtils.themeDatePicker(datePicker, ymdOrder);
+    }
+
+    @Override
+    protected void setDatePickerTheme(DatePicker picker) {
+        callDatePickerUtilsThemeDatePicker(picker, new char[]{'d', 'm', 'y'});
     }
 }

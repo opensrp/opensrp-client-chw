@@ -53,13 +53,13 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+5y"
+              "window": "+1y"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+5y"
+              "offset": "+1y"
             }
           ]
         }
@@ -1017,6 +1017,36 @@
                   "type": "not_given"
                 }
               ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Typhoid",
+        "type": "Typhoid",
+        "openmrs_date": {
+          "parent_entity": "86022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "86022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 1
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "dob",
+              "offset": "+9m",
+              "window": "+2y"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+2y"
             }
           ]
         }

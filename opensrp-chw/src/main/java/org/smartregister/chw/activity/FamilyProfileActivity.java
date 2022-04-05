@@ -1,17 +1,25 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.joda.time.DateTime;
-import org.joda.time.Days;
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.activity.BaseAncMemberProfileActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
@@ -21,8 +29,11 @@ import org.smartregister.chw.core.activity.CoreChildProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileMenuActivity;
 import org.smartregister.chw.core.activity.CoreFamilyRemoveMemberActivity;
+import org.smartregister.chw.core.listener.FloatingMenuListener;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.custom_view.ChwFamilyFloatingMenu;
 import org.smartregister.chw.dao.ChwChildDao;
+import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.fragment.FamilyProfileActivityFragment;
 import org.smartregister.chw.fragment.FamilyProfileDueFragment;
@@ -39,9 +50,11 @@ import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private BaseFamilyProfileDueFragment profileDueFragment;
@@ -49,18 +62,55 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
     private TextView tvInterpunct;
 
     @Override
+    public void setupViews() {
+        super.setupViews();
+        tvEventDate = findViewById(R.id.textview_event_date);
+        tvInterpunct = findViewById(R.id.interpunct);
+
+        // Update profile border
+        CircleImageView profileView = findViewById(org.smartregister.chw.core.R.id.imageview_profile);
+        profileView.setBorderWidth(2);
+
+        // add floating menu
+        familyFloatingMenu = new ChwFamilyFloatingMenu(this);
+        LinearLayout.LayoutParams linearLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+        familyFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        addContentView(familyFloatingMenu, linearLayoutParams);
+        familyFloatingMenu.setClickListener(
+                FloatingMenuListener.getInstance(this, presenter().familyBaseEntityId())
+        );
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        Integer noOfAdults = FamilyDao.countAdultsFamilyMembers(familyBaseEntityId);
+        MenuItem cannotChangeCaregiver = menu.findItem(R.id.action_not_able_to_change_caregiver);
+        MenuItem cannotChangeFamilyHead = menu.findItem(R.id.action_not_able_to_change_head);
+        MenuItem changeCaregiver = menu.findItem(R.id.action_change_care_giver);
+        MenuItem changeFamilyHead = menu.findItem(R.id.action_change_head);
+
+        if (ChwApplication.getApplicationFlavor().hideCaregiverAndFamilyHeadWhenOnlyOneAdult() && noOfAdults == 1) {
+            cannotChangeCaregiver.setVisible(true);
+            cannotChangeFamilyHead.setVisible(true);
+        }
+        if ((!ChwApplication.getApplicationFlavor().hideCaregiverAndFamilyHeadWhenOnlyOneAdult())
+                || (ChwApplication.getApplicationFlavor().hideCaregiverAndFamilyHeadWhenOnlyOneAdult() && noOfAdults > 1)) {
+            changeCaregiver.setVisible(true);
+            changeFamilyHead.setVisible(true);
+        }
+        return true;
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && profileDueFragment != null) {
             profileDueFragment.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    @Override
-    protected void setupViews() {
-        super.setupViews();
-        tvEventDate = findViewById(R.id.textview_event_date);
-        tvInterpunct = findViewById(R.id.interpunct);
     }
 
     @Override
@@ -219,8 +269,11 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
 
     private Intent getChildIntent(CommonPersonObjectClient patient) {
         String dobString = Utils.getValue(patient.getColumnmaps(), DBConstants.KEY.DOB, false);
-
-        int age = (int) Math.floor(Days.daysBetween(new DateTime(dobString).toLocalDate(), new DateTime().toLocalDate()).getDays() / 365.4);
+        //Today's date
+        LocalDate today = LocalDate.now();
+        LocalDate birthday = LocalDate.of(new DateTime(dobString).toLocalDate().getYear(), new DateTime(dobString).toLocalDate().getMonthOfYear(), new DateTime(dobString).toLocalDate().getDayOfMonth()); //Birth date
+        Period p = Period.between(birthday, today);
+        int age = p.getYears();
 
         String gender = ChwChildDao.getChildGender(patient.entityId());
         if (ChwApplication.getApplicationFlavor().showChildrenUnderFiveAndGirlsAgeNineToEleven()) {
@@ -243,5 +296,26 @@ public class FamilyProfileActivity extends CoreFamilyProfileActivity {
         intent.putExtra(Constants.INTENT_KEY.BASE_ENTITY_ID, patient.getCaseId());
         intent.putExtra(org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT, memberObject);
         startActivity(intent);
+    }
+
+    @Override
+    public Form getFormConfig() {
+        Form currentConfig = new Form();
+        if (ChwApplication.getApplicationFlavor().hideFamilyRegisterPreviousNextIcons()) {
+            currentConfig.setHidePreviousIcon(true);
+            currentConfig.setHideNextIcon(true);
+        }
+        if (ChwApplication.getApplicationFlavor().showFamilyRegisterNextInToolbar()) {
+            currentConfig.setHideNextButton(true);
+            currentConfig.setNextLabel(getString(R.string.next));
+            currentConfig.setShowNextInToolbarWhenWizard(true);
+        }
+        currentConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentConfig;
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        super.startFormActivity(jsonForm);
     }
 }
