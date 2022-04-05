@@ -11,7 +11,9 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseLoginActivity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.smartregister.util.Utils.isEmptyCollection;
 
@@ -36,9 +38,10 @@ public class ChwSyncConfiguration extends SyncConfiguration {
         if(StringUtils.isBlank(locationId)) locationId = allSharedPreferences().fetchUserLocalityId(providerId);
 
         List<String> locationIds = LocationHelper.getInstance().locationsFromHierarchy(true, null);
+
         if (!isEmptyCollection(locationIds) && locationIds.contains(locationId)) {
             int index = locationIds.indexOf(locationId);
-            List<String> subLocationIds = locationIds.subList(index, locationIds.size());
+            Set<String> subLocationIds = new HashSet<>(locationIds.subList(index, locationIds.size()));
             return StringUtils.join(subLocationIds, ",");
         }
         return locationId;
@@ -115,12 +118,12 @@ public class ChwSyncConfiguration extends SyncConfiguration {
 
     @Override
     public int getConnectTimeout() {
-        return BuildConfig.MAX_CONNECTION_TIMEOUT * 60000;
+        return BuildConfig.MAX_CONNECTION_TIMEOUT * 300000;
     }
 
     @Override
     public int getReadTimeout() {
-        return BuildConfig.MAX_READ_TIMEOUT *  60000;
+        return BuildConfig.MAX_READ_TIMEOUT *  300000;
     }
 
     @Override
