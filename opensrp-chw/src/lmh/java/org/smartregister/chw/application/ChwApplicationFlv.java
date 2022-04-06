@@ -9,7 +9,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean syncUsingPost() {
-        return false;
+        return true;
     }
 
     @Override
