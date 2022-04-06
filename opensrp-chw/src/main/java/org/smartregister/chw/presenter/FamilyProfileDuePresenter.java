@@ -3,40 +3,21 @@ package org.smartregister.chw.presenter;
 import android.content.Context;
 import android.util.Pair;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.Months;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.VaccineScheduleUtil;
-import org.smartregister.chw.core.utils.VisitVaccineUtil;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.model.FamilyKitModel;
 import org.smartregister.chw.model.WashCheckModel;
-import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.UpcomingServicesUtil;
 import org.smartregister.dao.AbstractDao;
-import org.smartregister.domain.Alert;
 import org.smartregister.family.contract.FamilyProfileDueContract;
 import org.smartregister.family.presenter.BaseFamilyProfileDuePresenter;
-import org.smartregister.immunization.db.VaccineRepo;
-import org.smartregister.immunization.domain.jsonmapping.Vaccine;
-import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
-import org.smartregister.immunization.util.VaccinatorUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.function.Supplier;
-
-import timber.log.Timber;
 
 public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
     private WashCheckModel washCheckModel;
@@ -97,8 +78,6 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
 
     String validMembers(){
         List<Pair<String, String>> familyMembers = FamilyMemberDao.getFamilyMembers(this.familyBaseEntityId);
-        List<VaccineGroup> childVaccineGroups = VaccineScheduleUtil.getVaccineGroups(ChwApplication.getInstance().getApplicationContext(), CoreConstants.SERVICE_GROUPS.CHILD);
-        List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(contextSupplier.get());
 
         StringBuilder joiner = new StringBuilder();
         for (Pair<String, String> familyMemberRepr : familyMembers) {
@@ -109,7 +88,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
 
             boolean vaccineCardReceived = VisitDao.memberHasVaccineCard(member.getBaseEntityId());
 
-            if (!vaccineCardReceived || pendingImmunization(member, childVaccineGroups, specialVaccines)) {
+            if (!vaccineCardReceived || UpcomingServicesUtil.hasUpcomingDueServices(member, contextSupplier.get())) {
                 joiner.append(String.format("'%s'", member.getBaseEntityId()));
                 joiner.append(",");
             }
@@ -119,55 +98,6 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         }
 
         return joiner.toString();
-    }
-
-    int immunizationCeiling(MemberObject memberObject) {
-        String gender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
-
-        if (gender != null && gender.equalsIgnoreCase("Female")) {
-            if (memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
-                return 132;
-            } else {
-                return 60;
-            }
-        }
-
-        return 60;
-    }
-
-    boolean pendingImmunization(MemberObject memberObject, List<VaccineGroup> vaccineGroups, List<Vaccine> specialVaccines){
-        Date dob = null;
-        try {
-            dob = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(memberObject.getDob());
-        } catch (ParseException e) {
-            Timber.e(e);
-        }
-
-        int ageInMonths = Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
-        if (ageInMonths >= immunizationCeiling(memberObject)) return false;
-
-        List<org.smartregister.immunization.domain.Vaccine> vaccines = CoreChwApplication.getInstance().vaccineRepository()
-                .findByEntityId(memberObject.getBaseEntityId());
-
-        String vaccineCategory = memberObject.getAge() > 5 ? Constants.CHILD_OVER_5 : CoreConstants.SERVICE_GROUPS.CHILD;
-        List<VaccineRepo.Vaccine> allVacs = VaccineRepo.getVaccines(vaccineCategory);
-
-        Map<String, VaccineRepo.Vaccine> vaccinesRepo = new HashMap<>();
-        for (VaccineRepo.Vaccine vaccine : allVacs) {
-            vaccinesRepo.put(vaccine.display().toLowerCase().replace(" ", ""), vaccine);
-        }
-
-        Map<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> pendingVaccines = VisitVaccineUtil.generateVisitVaccines(
-                memberObject.getBaseEntityId(),
-                vaccinesRepo,
-                new DateTime(dob),
-                vaccineGroups,
-                specialVaccines,
-                vaccines,
-                null
-        );
-
-        return !pendingVaccines.isEmpty();
     }
 
     public boolean saveData(String jsonObject) {

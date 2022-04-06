@@ -149,9 +149,6 @@ android {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '500'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
@@ -168,9 +165,6 @@ android {
         }
 
         debug {
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '30'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '15'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
@@ -238,6 +232,9 @@ android {
             applicationIdSuffix ".ba"
             versionCode 8
             versionName "1.0.8"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://boresha-afya-stage.smartregister.org/opensrp/"'
@@ -254,6 +251,9 @@ android {
             applicationIdSuffix ".chad"
             versionCode 3
             versionName "1.0.3"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
@@ -272,6 +272,9 @@ android {
             applicationIdSuffix ".drc"
             versionCode 11
             versionName "1.0.16"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
             buildConfigField "String", 'opensrp_url_preview', '"https://wcaro-cd-preview.smartregister.org/opensrp/"'
@@ -290,6 +293,7 @@ android {
             applicationIdSuffix ".guinea"
             versionCode 4
             versionName "1.0.3"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-guinea.smartregister.org/opensrp/"'
@@ -310,6 +314,7 @@ android {
             applicationIdSuffix ".togo"
             versionCode 26
             versionName "1.2.7"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-tg.smartregister.org/opensrp/"'
@@ -328,6 +333,9 @@ android {
             dimension = 'baseDimension'
             versionCode 8
             versionName "1.0.1"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://wcaro-stage.smartregister.org/opensrp/"'
@@ -344,10 +352,11 @@ android {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
             versionCode 2
-            versionName "1.1.2"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '100000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '50000'
-            buildConfigField "String", 'opensrp_url', '"https://lmh-liberia.smartregister.org/opensrp/"'
+            versionName "2.0.1-rc5"
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
+            buildConfigField "String", 'opensrp_url', '"https://liberiavts.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://lmh-liberia-preview.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
