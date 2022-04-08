@@ -61,7 +61,7 @@
           "name": "registration_or_followup_status",
           "type": "spinner",
           "properties": {
-            "text": "Hali ya usajili/ ufuatiliaji"
+            "text": "Hali ya ufuatiliaji"
           },
           "meta_data": {
             "openmrs_entity": "concept",

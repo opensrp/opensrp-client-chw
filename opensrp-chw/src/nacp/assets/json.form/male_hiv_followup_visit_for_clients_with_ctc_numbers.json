@@ -61,7 +61,7 @@
           "name": "registration_or_followup_status",
           "type": "spinner",
           "properties": {
-            "text": "Registration/Followup status"
+            "text": "Followup status"
           },
           "meta_data": {
             "openmrs_entity": "concept",
