@@ -110,6 +110,11 @@ public class Constants extends CoreConstants {
 
     public static class TableName {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "ec_mother_champion_followup";
+        public static final String SBCC = "ec_sbcc";
+    }
+
+    public static class DBConstants{
+        public static final String SBCC_DATE = "sbcc_date";
     }
 
     public interface PmtctFollowupFeedbackConstants {

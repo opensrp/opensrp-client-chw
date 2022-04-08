@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
@@ -13,6 +14,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AncPartnerFollowupRegisterFragment;
 import org.smartregister.chw.fragment.MotherChampionRegisterFragment;
 import org.smartregister.chw.fragment.PmtctFollowupRegisterFragment;
+import org.smartregister.chw.fragment.SbccRegisterFragment;
 import org.smartregister.chw.listener.ChwMotherChampionBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
@@ -62,7 +64,8 @@ public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
     protected Fragment[] getOtherFragments() {
         return new Fragment[]{
                 new AncPartnerFollowupRegisterFragment(),
-                new PmtctFollowupRegisterFragment()
+                new PmtctFollowupRegisterFragment(),
+                new SbccRegisterFragment()
         };
     }
 
@@ -81,4 +84,9 @@ public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
+    }
 }

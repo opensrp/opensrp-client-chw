@@ -514,6 +514,13 @@
             "creates_case": [
               "ec_pmtct_community_followup"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Mother Champion SBCC Sessions",
+            "creates_case": [
+              "ec_sbcc"
+            ]
           }
         ]
       }
