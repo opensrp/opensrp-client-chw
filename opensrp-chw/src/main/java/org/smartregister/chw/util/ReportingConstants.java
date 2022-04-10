@@ -47,6 +47,12 @@ public interface ReportingConstants {
         String COUNT_WOMEN_OVERDUE_IPTPSP = "anc_report_indicator_8_2";
     }
 
+    interface SupervisorIndicatorKeys {
+        String TASK_COMPLETION_RATE = "supervisor_indicator_1_1";
+        String COUNT_PROVIDER_SYNCED_COMPLETED = "supervisor_indicator_2_1";
+        String COUNT_PROVIDER_SYNCED_PENDING = "supervisor_indicator_2_2";
+    }
+
     interface ChildIndicatorKeys {
         String COUNT_CHILDREN_UNDER_5 = "CHW_001";
         String DECEASED_CHILDREN_0_11_MONTHS = "CHW_002";

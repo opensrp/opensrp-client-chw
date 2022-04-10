@@ -21,6 +21,7 @@ import org.smartregister.chw.dao.ChwPNCDao;
 import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.FamilyTableDatabaseMigrationUtils;
 import org.smartregister.chw.util.PNCVisitUtil;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.chw.util.RepositoryUtilsFlv;
@@ -108,6 +109,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 21:
                     upgradeToVersion21(db);
+                    break;
+                case 22:
+                    upgradeToVersion22(db);
                     break;
                 default:
                     break;
@@ -296,8 +300,9 @@ public class ChwRepositoryFlv {
         String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
         String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
         String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+        String supervisorIndicatorConfigFile = "config/supervisor-reporting-indicator-definitions.yml";
         for (String configFile : Collections.unmodifiableList(
-                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+                Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile, supervisorIndicatorConfigFile))) {
             reportingLibrary.readConfigFile(configFile, sqLiteDatabase);
         }
     }
@@ -423,5 +428,14 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion21(SQLiteDatabase db) {
         RepositoryUtils.updateNullEventIds(db);
+    }
+
+    private static void upgradeToVersion22(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family ADD COLUMN provider_id VARCHAR;");
+            FamilyTableDatabaseMigrationUtils.fillFamilyTableWithProviderIds(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion22");
+        }
     }
 }

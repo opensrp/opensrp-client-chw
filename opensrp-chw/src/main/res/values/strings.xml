@@ -37,6 +37,7 @@
     <string name="vitamin_a">Vitamin A</string>
     <string name="tab_text_1">DASHBOARD</string>
     <string name="tab_text_2">GUIDEBOOKS</string>
+    <string name="tab_text_supervisor">SUPERVISOR</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="updating">Updating....</string>
@@ -293,6 +294,7 @@
     <string name="pnc_indicator_8">Postpartum women\'s chosen family planning methods (last 6 months)</string>
     <string name="pnc_indicator_9">Newborns (0&#8211;28 days) who died in the last year</string>
     <string name="pnc_indicator_10">Women up to date with their PNC health facility visits</string>
+    <string name="supervisor_indicators_2">Sync Completion Rate for Entire Catchment Area</string>
     <string name="physically_challenged">PHYSICALLY CHALLENGED</string>
 
     <string name="maternal_deaths_slice_label">Maternal deaths</string>

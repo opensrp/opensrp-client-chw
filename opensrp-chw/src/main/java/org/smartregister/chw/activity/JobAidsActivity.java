@@ -28,6 +28,7 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.GuideBooksFragment;
+import org.smartregister.chw.fragment.SupervisorIndicatorsFragment;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -86,6 +87,8 @@ public class JobAidsActivity extends FamilyRegisterActivity {
                 case 0:
                     return JobAidsDashboardFragment.newInstance();
                 case 1:
+                    return SupervisorIndicatorsFragment.newInstance();
+                case 2:
                     return GuideBooksFragment.newInstance();
                 default:
                     return JobAidsDashboardFragment.newInstance();
@@ -95,7 +98,7 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
 
         @Override

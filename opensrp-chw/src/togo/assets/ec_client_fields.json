@@ -11,6 +11,13 @@
           }
         },
         {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
+          }
+        },
+        {
           "column_name": "unique_id",
           "type": "Client",
           "json_mapping": {

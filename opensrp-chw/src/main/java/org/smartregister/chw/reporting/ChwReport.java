@@ -1,5 +1,8 @@
 package org.smartregister.chw.reporting;
 
+import static org.smartregister.chw.util.ReportingConstants.SupervisorIndicatorKeys.COUNT_PROVIDER_SYNCED_COMPLETED;
+import static org.smartregister.chw.util.ReportingConstants.SupervisorIndicatorKeys.COUNT_PROVIDER_SYNCED_PENDING;
+
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +33,7 @@ public class ChwReport {
      */
     public static void showIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies, Activity context) {
         // Display order as determined in https://docs.google.com/spreadsheets/d/1q9YiWqjLiToTd0--Q8CbwhBwwcNDspbDxVrUfDm8VGU/edit#gid=315573423
-      //  ChwChartListener chwChartListener = new ChwChartListener(context);
+        //  ChwChartListener chwChartListener = new ChwChartListener(context);
         int indicator1String = ChwApplication.getApplicationFlavor().showChildrenUnder5() ? R.string.total_under_5_children_label : R.string.total_under_2_children_label;
         NumericDisplayModel indicator1 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.COUNT_CHILDREN_UNDER_5, indicator1String, indicatorTallies);
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator1));
@@ -62,7 +65,7 @@ public class ChwReport {
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator8));
 
         int indicator9String = ChwApplication.getApplicationFlavor().showChildrenUnder5() ? R.string.deceased_children_12_59_months : R.string.deceased_children_12_23_months;
-        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_12_59_MONTHS, indicator9String , indicatorTallies);
+        NumericDisplayModel indicator9 = ReportingUtil.getIndicatorDisplayModel(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.ChildIndicatorKeys.DECEASED_CHILDREN_12_59_MONTHS, indicator9String, indicatorTallies);
         appendView(mainLayout, new NumericIndicatorView(mainLayout.getContext(), indicator9));
 
         if (ChwApplication.getApplicationFlavor().hasPNC()) {
@@ -70,6 +73,13 @@ public class ChwReport {
             PieChartSlice pnc_indicator_5_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, ReportingConstants.PncIndicatorKeysHelper.COUNT_MATERNAL_DEATHS, mainLayout.getContext().getResources().getString(R.string.maternal_deaths_slice_label), mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, ReportingConstants.PncIndicatorKeysHelper.COUNT_MATERNAL_DEATHS);
             appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_5_1, pnc_indicator_5_2), R.string.pnc_indicator_5, R.string.pnc_indicator_5_note, null)));
         }
+    }
+
+    public static void showSupervisorIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies, Activity context) {
+        // indicator 2 (Reporting (Sync Completion) Rate for Entire Catchment Area)
+        PieChartSlice pnc_indicator_2_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_COMPLETED, "Sync Completed", mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, COUNT_PROVIDER_SYNCED_COMPLETED);
+        PieChartSlice pnc_indicator_2_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_PENDING, "Sync Pending", mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, COUNT_PROVIDER_SYNCED_PENDING);
+        appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_2_1, pnc_indicator_2_2), R.string.supervisor_indicators_2, null, null)));
     }
 
     public static void createPncReportViews(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
