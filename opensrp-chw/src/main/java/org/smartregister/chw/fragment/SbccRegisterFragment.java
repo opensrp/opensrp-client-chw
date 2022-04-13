@@ -45,7 +45,9 @@ public class SbccRegisterFragment extends BasePmtctRegisterFragment {
         clientAdapter = new RecyclerViewPaginatedAdapter(null, sbccRegisterProvider, null);
         clientAdapter.setTotalcount(0);
         clientAdapter.setCurrentlimit(20);
-        clientsView.setAdapter(new SbccRegisterAdapter(sbccSessionModels, requireActivity()));
+        if (sbccSessionModels != null && !sbccSessionModels.isEmpty()) {
+            clientsView.setAdapter(new SbccRegisterAdapter(sbccSessionModels, requireActivity()));
+        }
     }
 
     @Override
@@ -114,7 +116,9 @@ public class SbccRegisterFragment extends BasePmtctRegisterFragment {
     @Override
     public void onViewCreated(@NonNull android.view.View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        clientsView.getAdapter().notifyDataSetChanged();
+        if (clientsView.getAdapter() != null) {
+            clientsView.getAdapter().notifyDataSetChanged();
+        }
     }
 
 
@@ -127,7 +131,9 @@ public class SbccRegisterFragment extends BasePmtctRegisterFragment {
         toolbar.setContentInsetsRelative(0, 0);
         toolbar.setContentInsetStartWithNavigation(0);
         NavigationMenu.getInstance(getActivity(), null, toolbar);
-        clientsView.getAdapter().notifyDataSetChanged();
+        if (clientsView.getAdapter() != null) {
+            clientsView.getAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
