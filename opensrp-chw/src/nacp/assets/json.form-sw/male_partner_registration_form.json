@@ -505,7 +505,7 @@
         "mask_hint": "12345678912345678912",
         "allowed_chars": "0123456789",
         "hint": "Namba ya kitambulisho cha taifa k.m 12345678-91234-56789-12",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_max_length": {
           "value": "23",
           "is_fixed_size": "true",
@@ -541,7 +541,7 @@
         "mask_hint": "123456789123",
         "allowed_chars": "0123456789",
         "hint": "Namba ya kitambulisho cha mpiga kura k.m T-1234-5678-912-3",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_max_length": {
           "value": "17",
           "is_fixed_size": "true",
@@ -577,7 +577,7 @@
         "mask_hint": "1234567891",
         "allowed_chars": "0123456789",
         "hint": "Namba ya leseni ya udereva k.m 1234567891",
-        "edit_type": "name",
+        "edit_type": "number",
         "v_max_length": {
           "value": "10",
           "is_fixed_size": "true",
