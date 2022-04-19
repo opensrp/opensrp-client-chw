@@ -378,10 +378,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
 
-        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
-        }
+      //  if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+//            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+//                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+      //  }
 
     }
 
