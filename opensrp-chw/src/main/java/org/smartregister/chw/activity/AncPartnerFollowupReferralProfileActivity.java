@@ -1,5 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static android.view.View.GONE;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -70,15 +78,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static android.view.View.GONE;
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
@@ -353,7 +352,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
-        } else if (id == R.id.rlPartnerView ||id == R.id.register_partner_btn) {
+        } else if (id == R.id.rlPartnerView || id == R.id.register_partner_btn) {
             Intent intent = new Intent(this, PartnerRegistrationActivity.class);
             intent.putExtra(INTENT_FORM_SUBMISSION_ID, AncPartnerDao.getFeedbackFormId(referralFormSubmissionId));
             intent.putExtra(INTENT_BASE_ENTITY_ID, baseEntityID);
