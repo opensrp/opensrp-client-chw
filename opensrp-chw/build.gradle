@@ -54,6 +54,14 @@ jacoco {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/dubdabasoduba/Documents/ona/opensrp-release-upload-key.jks')
+            storePassword 'uY*b5J#ooHxjT^TCEXTMd@2n&gy*Rnnd'
+            keyAlias 'release-upload-key'
+            keyPassword 'pVD$5NjP%DnfdeHogBq9vyY8Qn*ThD33'
+        }
+    }
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -232,8 +240,8 @@ android {
             applicationIdSuffix ".ba"
             versionCode 8
             versionName "1.0.8"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '3000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '3000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://boresha-afya.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
@@ -251,8 +259,8 @@ android {
             applicationIdSuffix ".chad"
             versionCode 3
             versionName "1.0.3"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '3000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '3000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-td.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
@@ -272,8 +280,8 @@ android {
             applicationIdSuffix ".drc"
             versionCode 11
             versionName "1.0.16"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '3000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '3000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-cd.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/drc/"'
@@ -333,8 +341,8 @@ android {
             dimension = 'baseDimension'
             versionCode 8
             versionName "1.0.1"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '3000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '3000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "String", 'opensrp_url', '"https://wcaro-lr.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/liberia/"'
@@ -353,12 +361,12 @@ android {
             applicationIdSuffix ".lmh"
             versionCode 2
             versionName "2.0.1-rc5"
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '3000'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '3000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
             buildConfigField "String", 'opensrp_url', '"https://liberiavts.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/lmh/"'
-            buildConfigField "String", 'opensrp_url_debug', '"https://lmh-liberia-preview.smartregister.org/opensrp/"'
+            buildConfigField "String", 'opensrp_url_debug', '"https://liberiavts.smartregister.org/opensrp/"'
             buildConfigField "String[]", "LOCATION_HIERACHY", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
