@@ -1,64 +1,47 @@
 indicators:
-   - key: "supervisor_indicator_1_1"
-        description: "Task Completion Rate for Entire Catchment Area"
-        indicatorQuery: "SELECT
-    	strftime ( '%m-%Y', sc.created_at ) AS date,
-    	count( DISTINCT provider_id ) AS total_providers,
-    	IIF(sc.completion_date IS NULL  , count( DISTINCT provider_id )  , '0') as providers_open_task,
-        IIF(sc.completion_date IS NOT NULL  , count( DISTINCT provider_id )  , '0') as providers_close_task
-        FROM schedule_service sc
-        INNER JOIN ec_family_member fm ON sc.base_entity_id = fm.base_entity_id COLLATE NOCASE
-        INNER JOIN ec_family f ON fm.relational_id = f.base_entity_id COLLATE NOCASE
-        GROUP BY strftime ( '%Y-%m', sc.created_at )
-        ORDER BY sc.created_at ASC"
+  - key: "supervisor_catchment_task_completion_rate"
+    description: "Task Completion Rate for Entire Catchment Area"
+    indicatorQuery: ""
 
-  - key: "supervisor_indicator_2_1"
+  - key: "supervisor_synced_count"
     description: "Sync Completion Rate for Entire Catchment Area"
     indicatorQuery: "SELECT count(distinct json_extract(json, '$.providerId')) FROM event where syncStatus = 'Synced'"
 
-  - key: "supervisor_indicator_2_2"
+  - key: "supervisor_unsynced_count"
     description: "Sync Not Completed Rate for Entire Catchment Area"
     indicatorQuery: "SELECT count(distinct json_extract(json, '$.providerId')) FROM event where syncStatus = 'Unsynced'"
 
-  - key: "supervisor_indicator_3"
-    description: "Reporting (Sync Completion) Rate for Entire Catchment Area"
-    indicatorQuery: "SELECT strftime ( '%m-%Y', sc.created_at ) AS date,
-	 provider_id  AS providers,
-	count(f.base_entity_id) as households,
-    -- 	 IIF(sc.completion_date IS NULL  , count( DISTINCT provider_id )  , '0') as open_tasks,
-    -- 	 IIF(sc.completion_date IS NOT NULL  , count( DISTINCT provider_id )  , '0') as close_task,
-    (IIF(sc.completion_date IS  NULL  , count( DISTINCT provider_id )  , '0'))/((count( DISTINCT provider_id )))*100 as open_percetage
-    -- 	 (IIF(sc.completion_date IS NOT NULL  , count( DISTINCT provider_id )  , '0'))/((count( DISTINCT provider_id )))*100 as close_percetage
-    FROM schedule_service sc
-    INNER JOIN ec_family_member fm ON sc.base_entity_id = fm.base_entity_id COLLATE NOCASE
-    INNER JOIN ec_family f ON fm.relational_id = f.base_entity_id COLLATE NOCASE
-    WHERE strftime('%Y-%m',sc.created_at) = strftime('%Y-%m',date('now'))
-    GROUP BY strftime ( '%Y-%m', sc.created_at ) , provider_id
-    ORDER BY sc.created_at ASC"
+  - key: "supervisor_households_with_open_tasks_for_month"
+    description: "Households with open tasks remaining for the month by CHW"
+    indicatorQuery: "SELECT f.provider_id as provider, (select count(distinct ecf.base_entity_id) from ec_family ecf where ecf.provider_id = f.provider_id and ecf.is_closed = 0)
+                      as total_households, count(distinct f.base_entity_id) as count
+                      FROM schedule_service sc INNER JOIN ec_family_member fm ON sc.base_entity_id = fm.base_entity_id
+                      COLLATE NOCASE INNER JOIN ec_family f ON fm.relational_id = f.base_entity_id COLLATE NOCASE
+                      WHERE (sc.completion_date IS NULL OR sc.completion_date = '') AND
+                      f.is_closed = 0 AND fm.is_closed = 0
+                      AND sc.created_at between  date('now', 'start of month') and date('now') GROUP BY provider"
+    isMultiResult: true
 
-  - key: "supervisor_indicator_4"
-    description: "Absolute count of tasks remaining incomplete for the month"
+  - key: "supervisor_incomplete_tasks_for_month"
+    description: "Tasks remaining incomplete for the month by CHW"
     indicatorQuery: "SELECT
-	strftime ( '%m-%Y', sc.created_at ) AS date,
-	count(f.base_entity_id) as households,
-	 provider_id  AS total_providers,
-	 IIF(sc.completion_date IS NULL  , count( DISTINCT provider_id )  , '0') as open_tasks,
-     IIF(sc.completion_date IS NOT NULL  , count( DISTINCT provider_id )  , '0') as close_task,
-     (IIF(sc.completion_date IS  NULL  , count( DISTINCT provider_id )  , '0'))/((count( DISTINCT provider_id )))*100 as open_percetage,
-     (IIF(sc.completion_date IS NOT NULL  , count( DISTINCT provider_id )  , '0'))/((count( DISTINCT provider_id )))*100 as close_percetage
-     FROM
-     schedule_service sc
-     INNER JOIN ec_family_member fm ON sc.base_entity_id = fm.base_entity_id COLLATE NOCASE
-     INNER JOIN ec_family f ON fm.relational_id = f.base_entity_id COLLATE NOCASE
-     GROUP BY
-     strftime ( '%Y-%m', sc.created_at ) , provider_id
-     ORDER BY
-     sc.created_at ASC"
+                     CASE WHEN sc.completion_date IS NULL THEN 'open_tasks'
+                     ELSE 'closed_tasks' END tasks, f.provider_id as provider, count(distinct f.base_entity_id) as households, count(*)
+                     FROM
+                     schedule_service sc
+                     INNER JOIN ec_family_member fm ON sc.base_entity_id = fm.base_entity_id COLLATE NOCASE
+                     INNER JOIN ec_family f ON fm.relational_id = f.base_entity_id COLLATE NOCASE
+                     WHERE f.is_closed = 0 AND fm.is_closed = 0 AND sc.created_at between  date('now', 'start of month') and date('now')
+                    GROUP BY tasks, provider"
+    isMultiResult: true
 
-  - key: "supervisor_indicator_5"
+  - key: "supervisor_chw_last_sync"
     description: "CHW by date of last sync"
     indicatorQuery: "SELECT
-     strftime('%Y-%m-%d',date(max(updatedAt))) as last_sync_date,
-     json_extract(json, '$.providerId') as providerId FROM event
-     where syncStatus = 'Synced'
-     group by providerId"
+                     json_extract(json, '$.providerId') as provider,
+                     strftime('%Y-%m-%d',date(max(updatedAt))) as last_sync_date, count(*) as count
+                     FROM event
+                     where syncStatus = 'Synced'
+                     group by provider
+                     order by last_sync_date desc"
+    isMultiResult: true

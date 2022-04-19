@@ -299,4 +299,5 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
     public boolean showsPhysicallyDisabledView() {
         return true;
     }
+
 }

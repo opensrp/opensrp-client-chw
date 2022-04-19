@@ -53,6 +53,10 @@ public class Constants extends CoreConstants {
         public static String getDeliveryKitReceived() {
             return Utils.getLocalForm(DELIVERY_KIT_RECEIVED, JSON_FORM.locale, JSON_FORM.assetManager);
         }
-
     }
+
+    public interface MultiResultProcessor {
+        String GROUPING_SEPARATOR = "_";
+    }
+
 }

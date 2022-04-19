@@ -5,6 +5,7 @@ import android.content.Context;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitRepository;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.util.RepositoryUtils;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
@@ -49,6 +50,9 @@ public class ChwRepositoryFlv {
                 case 8:
                     upgradeToVersion8(db);
                     break;
+                case 9:
+                    upgradeToVersion9(db);
+                    break;
                 default:
                     break;
             }
@@ -91,14 +95,16 @@ public class ChwRepositoryFlv {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
 
-            // setup reporting
-            ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
-            String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
-            String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
-            String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
-            for (String configFile : Collections.unmodifiableList(
-                    Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
-                reportingLibrary.readConfigFile(configFile, db);
+            // Set up reporting for CHW users only
+            if (!((ChwApplication)ChwApplication.getInstance()).isSupervisor()) {
+                ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+                String childIndicatorsConfigFile = "config/child-reporting-indicator-definitions.yml";
+                String ancIndicatorConfigFile = "config/anc-reporting-indicator-definitions.yml";
+                String pncIndicatorConfigFile = "config/pnc-reporting-indicator-definitions.yml";
+                for (String configFile : Collections.unmodifiableList(
+                        Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
+                    reportingLibrary.readConfigFile(configFile, db);
+                }
             }
 
         } catch (Exception e) {
@@ -142,7 +148,6 @@ public class ChwRepositoryFlv {
         }
     }
 
-
     private static void upgradeToVersion7(SQLiteDatabase db) {
         try {
             db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
@@ -152,6 +157,20 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
-       RepositoryUtils.updateNullEventIds(db);
+        RepositoryUtils.updateNullEventIds(db);
+    }
+
+    private static void upgradeToVersion9(SQLiteDatabase db) {
+        if (((ChwApplication) ChwApplication.getInstance()).isSupervisor()) {
+            try {
+                // setup reporting
+                ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+                String supervisorIndicatorDefinitionsFile = "config/supervisor-reporting-indicator-definitions.yml";
+                reportingLibrary.readConfigFile(supervisorIndicatorDefinitionsFile, db);
+            } catch (Exception e) {
+                Timber.e(e, "upgradeToVersion9");
+            }
+        }
+
     }
 }

@@ -48,9 +48,12 @@ public interface ReportingConstants {
     }
 
     interface SupervisorIndicatorKeys {
-        String TASK_COMPLETION_RATE = "supervisor_indicator_1_1";
-        String COUNT_PROVIDER_SYNCED_COMPLETED = "supervisor_indicator_2_1";
-        String COUNT_PROVIDER_SYNCED_PENDING = "supervisor_indicator_2_2";
+        String COUNT_PROVIDER_SYNCED_COMPLETED = "supervisor_synced_count";
+        String COUNT_PROVIDER_SYNCED_PENDING = "supervisor_unsynced_count";
+        String SUPERVISOR_HOUSEHOLDS_WITH_OPEN_TASKS = "supervisor_households_with_open_tasks_for_month";
+        String SUPERVISOR_TASK_COMPLETION_OPEN_TASKS = "supervisor_incomplete_tasks_for_month_open_tasks";
+        String SUPERVISOR_TASK_COMPLETION_CLOSED_TASKS = "supervisor_incomplete_tasks_for_month_closed_tasks";
+        String SUPERVISOR_LAST_SYNC_BY_CHW = "supervisor_chw_last_sync";
     }
 
     interface ChildIndicatorKeys {

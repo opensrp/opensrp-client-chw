@@ -26,9 +26,9 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
-import org.smartregister.chw.fragment.JobAidsDashboardFragment;
 import org.smartregister.chw.fragment.GuideBooksFragment;
-import org.smartregister.chw.fragment.SupervisorIndicatorsFragment;
+import org.smartregister.chw.fragment.JobAidsDashboardFragment;
+import org.smartregister.chw.fragment.SupervisorDashboardFragment;
 import org.smartregister.chw.listener.JobsAidsBottomNavigationListener;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.helper.BottomNavigationHelper;
@@ -85,10 +85,11 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
+                    if (((ChwApplication) ChwApplication.getInstance()).isSupervisor()) {
+                        return SupervisorDashboardFragment.newInstance();
+                    }
                     return JobAidsDashboardFragment.newInstance();
                 case 1:
-                    return SupervisorIndicatorsFragment.newInstance();
-                case 2:
                     return GuideBooksFragment.newInstance();
                 default:
                     return JobAidsDashboardFragment.newInstance();
@@ -98,13 +99,15 @@ public class JobAidsActivity extends FamilyRegisterActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public int getItemPosition(Object object) {
             if (object instanceof JobAidsDashboardFragment) {
                 ((JobAidsDashboardFragment) object).loadIndicatorTallies();
+            } else if ((object instanceof SupervisorDashboardFragment)) {
+                ((SupervisorDashboardFragment) object).loadIndicatorTallies();
             }
             return super.getItemPosition(object);
         }

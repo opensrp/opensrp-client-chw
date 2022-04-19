@@ -1,5 +1,7 @@
 package org.smartregister.chw.application;
 
+import static org.koin.core.context.GlobalContext.getOrNull;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,6 +11,7 @@ import android.os.Build;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
@@ -54,6 +57,7 @@ import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pnc.PncLibrary;
+import org.smartregister.chw.processor.ChwMultiResultsProcessor;
 import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.repository.ChwRepository;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -93,10 +97,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import io.fabric.sdk.android.Fabric;
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
-
-import static org.koin.core.context.GlobalContext.getOrNull;
 
 public class ChwApplication extends CoreChwApplication implements SyncStatusBroadcastReceiver.SyncStatusListener, P2pProcessingStatusBroadcastReceiver.StatusUpdate {
 
@@ -171,6 +174,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
     @Override
     public void onCreate() {
+        Fabric.with(this, new Crashlytics());
         super.onCreate();
 
         mInstance = this;
@@ -185,7 +189,6 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         //Setup Navigation menu. Done only once when app is created
         NavigationMenu.setupNavigationMenu(this, new NavigationMenuFlv(), new NavigationModelFlv(),
                 getRegisteredActivities(), flavor.hasP2P());
-
 
         initializeLibraries();
 
@@ -256,8 +259,11 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         PncLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         MalariaLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         FpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ReportingLibrary.getInstance().addMultiResultProcessor(new ChwMultiResultsProcessor());
+
         GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
         growthMonitoringConfig.setWeightForHeightZScoreFile("weight_for_height.csv");
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
@@ -402,6 +408,9 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
             ChildAlertService.updateAlerts(visit.getBaseEntityId());
         }
+    }
+    public boolean isSupervisor() {
+        return "Supervisor".equals(CoreLibrary.getInstance().context().allSharedPreferences().getUserPractitionerRole());
     }
 
     public AppExecutors getAppExecutors() {
@@ -614,6 +623,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         Map<String, String[]> getFTSSearchMap();
 
         Map<String, String[]> getFTSSortMap();
+
     }
 
 }

@@ -19,6 +19,7 @@ import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
+import org.smartregister.job.SyncPractitionersByIdAndRoleJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
@@ -64,6 +65,8 @@ public class ChwJobCreator implements JobCreator {
                 return new StockUsageReportJob();
             case DocumentConfigurationServiceJob.TAG:
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
+            case SyncPractitionersByIdAndRoleJob.TAG:
+                return new SyncPractitionersByIdAndRoleJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/

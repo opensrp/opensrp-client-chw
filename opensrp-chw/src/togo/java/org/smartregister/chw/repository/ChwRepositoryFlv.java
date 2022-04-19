@@ -12,6 +12,7 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.repository.VisitDetailsRepository;
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.anc.util.NCUtils;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.ScheduleRepository;
 import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
@@ -112,6 +113,9 @@ public class ChwRepositoryFlv {
                     break;
                 case 22:
                     upgradeToVersion22(db);
+                    break;
+                case 23:
+                    upgradeToVersion23(db);
                     break;
                 default:
                     break;
@@ -437,5 +441,18 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion22");
         }
+    }
+    private static void upgradeToVersion23(SQLiteDatabase db) {
+        if (((ChwApplication) ChwApplication.getInstance()).isSupervisor()) {
+            try {
+                // setup reporting
+                ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+                String supervisorIndicatorDefinitionsFile = "config/supervisor-reporting-indicator-definitions.yml";
+                reportingLibrary.readConfigFile(supervisorIndicatorDefinitionsFile, db);
+            } catch (Exception e) {
+                Timber.e(e, "upgradeToVersion23");
+            }
+        }
+
     }
 }

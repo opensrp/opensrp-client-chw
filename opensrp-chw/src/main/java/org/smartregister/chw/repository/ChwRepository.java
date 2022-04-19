@@ -6,8 +6,10 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.repository.CoreChwRepository;
+import org.smartregister.repository.PractitionerRepository;
 
 import timber.log.Timber;
 
@@ -17,6 +19,14 @@ public class ChwRepository extends CoreChwRepository {
     public ChwRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), CoreChwApplication.createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
         this.context = context;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase database) {
+        super.onCreate(database);
+        // Add Practitioner table
+        if (((ChwApplication) (ChwApplication.getInstance())).isSupervisor())
+            PractitionerRepository.createTable(database);
     }
 
     @Override

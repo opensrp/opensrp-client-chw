@@ -108,6 +108,13 @@
           "json_mapping": {
             "field": "entityType"
           }
+        },
+        {
+          "column_name": "provider_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "providerId"
+          }
         }
       ]
     },

@@ -57,7 +57,7 @@ public class JobAidsDashboardFragment extends Fragment implements ReportContract
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_job_aids_dashboard, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_indicators_dashboard, container, false);
         progressBar = rootView.findViewById(R.id.progress_bar);
         visualizationsViewGroup = rootView.findViewById(R.id.dashboard_content);
         return rootView;

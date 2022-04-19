@@ -15,6 +15,7 @@ import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
+import org.smartregister.job.SyncPractitionersByIdAndRoleJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncTaskServiceJob;
 
@@ -52,7 +53,12 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
             StockUsageReportJob.scheduleJob(StockUsageReportJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
-            DocumentConfigurationServiceJob.scheduleJob(DocumentConfigurationServiceJob.TAG,TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+            DocumentConfigurationServiceJob.scheduleJob(DocumentConfigurationServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+
+        if (((ChwApplication) ChwApplication.getInstance()).isSupervisor()) {
+            SyncPractitionersByIdAndRoleJob.scheduleJob(SyncPractitionersByIdAndRoleJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig
+                    .DATA_SYNC_DURATION_MINUTES));
+        }
     }
 
     @Override
@@ -79,6 +85,10 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
 
         if (ChwApplication.getApplicationFlavor().hasServiceReport())
             ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+
+        if (((ChwApplication) ChwApplication.getInstance()).isSupervisor()) {
+            SyncPractitionersByIdAndRoleJob.scheduleJobImmediately(SyncPractitionersByIdAndRoleJob.TAG);
+        }
     }
 
     @Override

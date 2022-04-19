@@ -11,14 +11,18 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.listener.ChwChartListener;
 import org.smartregister.chw.util.ReportingConstants;
+import org.smartregister.chw.util.SupervisorDashboardUtil;
 import org.smartregister.reporting.contract.ReportContract;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.reporting.domain.PieChartSlice;
+import org.smartregister.reporting.domain.TabularVisualization;
 import org.smartregister.reporting.model.NumericDisplayModel;
 import org.smartregister.reporting.util.ReportingUtil;
 import org.smartregister.reporting.view.NumericIndicatorView;
 import org.smartregister.reporting.view.PieChartIndicatorView;
+import org.smartregister.reporting.view.ReportingTableView;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -76,10 +80,29 @@ public class ChwReport {
     }
 
     public static void showSupervisorIndicatorVisualisations(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies, Activity context) {
-        // indicator 2 (Reporting (Sync Completion) Rate for Entire Catchment Area)
-        PieChartSlice pnc_indicator_2_1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_COMPLETED, "Sync Completed", mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, COUNT_PROVIDER_SYNCED_COMPLETED);
-        PieChartSlice pnc_indicator_2_2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_PENDING, "Sync Pending", mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, COUNT_PROVIDER_SYNCED_PENDING);
-        appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(pnc_indicator_2_1, pnc_indicator_2_2), R.string.supervisor_indicators_2, null, null)));
+        // Sync completion rate ror entire catchment area
+        PieChartSlice chartSlice1 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_COMPLETED, "Sync Completed", mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, COUNT_PROVIDER_SYNCED_COMPLETED);
+        PieChartSlice chartSlice2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_PENDING, "Sync Pending", mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, COUNT_PROVIDER_SYNCED_PENDING);
+        appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(chartSlice1, chartSlice2), R.string.catchment_sync_completion_rate_indicator, null, null)));
+
+        // Households with open tasks
+        List<String> tableHeaderList = Arrays.asList("", "", "");
+        int tableTitleStringResource = R.string.households_with_open_tasks_indicator;
+        List<String> houseHoldsData = SupervisorDashboardUtil.getHouseHoldsWithIncompleteTasksData(indicatorTallies, context);
+        TabularVisualization tabularVisualization = new TabularVisualization(tableTitleStringResource, tableHeaderList, houseHoldsData, true);
+        mainLayout.addView(new ReportingTableView(mainLayout.getContext(), tabularVisualization).createView());
+
+        // Tasks remaining incomplete for the month by CHW
+        tableTitleStringResource = R.string.incomplete_tasks_indicator;
+        List<String> houseHoldsWithOpenTasksData = SupervisorDashboardUtil.getIncompleteTasksData(indicatorTallies, context);
+        tabularVisualization = new TabularVisualization(tableTitleStringResource, tableHeaderList, houseHoldsWithOpenTasksData, true);
+        mainLayout.addView(new ReportingTableView(mainLayout.getContext(), tabularVisualization).createView());
+
+        // Last Sync by Supervisor
+        tableTitleStringResource = R.string.last_sync_date_by_chw_indicator;
+        List<String> chwLastSyncData = SupervisorDashboardUtil.getLastSyncByChwData(indicatorTallies);
+        tabularVisualization = new TabularVisualization(tableTitleStringResource, tableHeaderList, chwLastSyncData, true);
+        mainLayout.addView(new ReportingTableView(mainLayout.getContext(), tabularVisualization).createView());
     }
 
     public static void createPncReportViews(ViewGroup mainLayout, List<Map<String, IndicatorTally>> indicatorTallies) {
