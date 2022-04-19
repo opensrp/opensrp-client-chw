@@ -46,8 +46,8 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
 
         List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
-                    Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+//            referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.gbv_referral),
+//                    Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
             if(gender.equalsIgnoreCase("Female") && isMemberOfReproductiveAge(client, 10, 49)){
                 referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.pregnancy_confirmation_referral),
                         CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
