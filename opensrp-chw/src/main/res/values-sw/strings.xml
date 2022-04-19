@@ -428,4 +428,5 @@
     <string name="lost_to_followup_child">Mtoto Aliyepotea</string>
     <string name="missed_appointment_child">Mtoto Amekosa Miadi</string>
     <string name="child_name">Mtoto : %s</string>
+    <string name="return_to_all_partner_followup_clients">Rudi kwa Wateja wote wa Ufuatiliaji wa Mwenza</string>
 </resources>

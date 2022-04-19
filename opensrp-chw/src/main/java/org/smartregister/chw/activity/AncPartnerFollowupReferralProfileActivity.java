@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -56,6 +57,7 @@ import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,6 +73,7 @@ import timber.log.Timber;
 
 import static android.view.View.GONE;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
@@ -107,6 +110,9 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     @Override
     public void setupViews() {
         super.setupViews();
+        CustomFontTextView titleView = findViewById(R.id.toolbar_title);
+        String titleText = TextUtils.isEmpty(getTitleViewText()) ? getString(R.string.return_to_all_partner_followup_clients) : getTitleViewText();
+        titleView.setText(titleText);
         layoutRecordView.setVisibility(View.VISIBLE);
         if (AncPartnerDao.isPartnerFollowedUp(referralFormSubmissionId)) {
             textview_record_visit.setVisibility(View.GONE);

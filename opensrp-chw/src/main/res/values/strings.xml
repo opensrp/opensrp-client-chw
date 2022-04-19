@@ -416,6 +416,7 @@
     <string name="sbcc_location">Location: %s</string>
     <string name="sbcc_participants">Participants: %s</string>
     <string name="sbcc_session_date">Date: %s</string>
+    <string name="return_to_all_partner_followup_clients">Return to All Partner Follow-up clients</string>
 
 
 </resources>
