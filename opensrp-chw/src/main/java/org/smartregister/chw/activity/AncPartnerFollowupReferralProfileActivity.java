@@ -1,9 +1,18 @@
 package org.smartregister.chw.activity;
 
+import static android.view.View.GONE;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.Menu;
@@ -56,6 +65,7 @@ import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,14 +78,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static android.view.View.GONE;
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
-import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
@@ -107,6 +109,9 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     @Override
     public void setupViews() {
         super.setupViews();
+        CustomFontTextView titleView = findViewById(R.id.toolbar_title);
+        String titleText = TextUtils.isEmpty(getTitleViewText()) ? getString(R.string.return_to_all_partner_followup_clients) : getTitleViewText();
+        titleView.setText(titleText);
         layoutRecordView.setVisibility(View.VISIBLE);
         if (AncPartnerDao.isPartnerFollowedUp(referralFormSubmissionId)) {
             textview_record_visit.setVisibility(View.GONE);
@@ -347,7 +352,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
-        } else if (id == R.id.rlPartnerView ||id == R.id.register_partner_btn) {
+        } else if (id == R.id.rlPartnerView || id == R.id.register_partner_btn) {
             Intent intent = new Intent(this, PartnerRegistrationActivity.class);
             intent.putExtra(INTENT_FORM_SUBMISSION_ID, AncPartnerDao.getFeedbackFormId(referralFormSubmissionId));
             intent.putExtra(INTENT_BASE_ENTITY_ID, baseEntityID);
