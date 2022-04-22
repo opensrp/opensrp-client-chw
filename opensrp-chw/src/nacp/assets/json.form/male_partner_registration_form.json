@@ -726,37 +726,6 @@
         }
       },
       {
-        "key": "preg_1yr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_1yr",
-        "type": "spinner",
-        "hint": "Has the woman delivered in the last 1 year?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select if the woman has delivered in the last 1 year"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -858,76 +827,6 @@
         "v_required": {
           "value": true,
           "err": "Please select the type of physical disabilities"
-        }
-      },
-      {
-        "key": "has_primary_caregiver",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "Has_Primary_Caregiver",
-        "type": "spinner",
-        "hint": " Do you have a primary caregiver/Treatment supporter?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one"
-        }
-      },
-      {
-        "key": "primary_caregiver_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "Primary_Caregiver_Name",
-        "type": "edit_text",
-        "hint": "Name of caregiver",
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
-          "err": "Please enter a valid name"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the name of the caregiver."
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "other_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_phone_number",
-        "type": "edit_text",
-        "hint": "Primary caregiver phone number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
-        "v_regex": {
-          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Number must be 10 digits and must start with 06 or 07."
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -1167,146 +1066,18 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_engagement",
+            "text": "Male engagement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_engagement"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_under_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_under_15",
-        "type": "native_radio",
-        "label": "Reasons for Registration",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids_transmission",
-            "text": "HIV/AIDs transmission",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "sickle_cell_disease",
-            "text": "Sickle cell disease",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "heart_disease",
-            "text": "Heart diseases",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "diabetes",
-            "text": "Diabetes",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "cerebral_palsy",
-            "text": "Cerebral palsy",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "cancer",
-            "text": "Cancer",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Tuberculosis",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "A child born from a mother with HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Untested HIV/AIDs child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "weight_stagnation_child",
-            "text": "A child with stagnation in weight",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "child_with_fever",
-            "text": "A child with frequent fevers",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "abused_child",
-            "text": "Abused child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "gender_violence",
-            "text": "Gender violence",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Drug abuse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "child_in_risky_environment",
-            "text": "Child living in a risky environment",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
         }
       }
     ]
