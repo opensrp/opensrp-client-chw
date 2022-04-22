@@ -1022,6 +1022,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_engagement",
+            "text": "Male engagement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_engagement"
           }
         ],
         "v_required": {
