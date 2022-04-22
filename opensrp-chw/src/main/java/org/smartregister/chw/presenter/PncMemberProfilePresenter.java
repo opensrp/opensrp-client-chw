@@ -81,11 +81,9 @@ public class PncMemberProfilePresenter extends BaseAncMemberProfilePresenter imp
     @Override
     public void referToFacility() {
         List<ReferralTypeModel> referralTypeModels = getView().getReferralTypeModels();
-        if (referralTypeModels.size() == 1) {
-            startPncReferralForm();
-        } else {
-            org.smartregister.chw.util.Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, getEntityId());
-        }
+
+        org.smartregister.chw.util.Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, getEntityId());
+
     }
 
     @Override
