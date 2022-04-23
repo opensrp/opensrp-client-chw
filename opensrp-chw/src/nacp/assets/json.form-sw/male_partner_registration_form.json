@@ -1069,7 +1069,7 @@
           },
           {
             "key": "male_engagement",
-            "text": "Male engagement",
+            "text": "Uwepo wa mwanaume husika",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "male_engagement"
