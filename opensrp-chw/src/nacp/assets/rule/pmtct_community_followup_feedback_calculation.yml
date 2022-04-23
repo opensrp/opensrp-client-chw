@@ -4,4 +4,4 @@ description: pmtct community followup visit date calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = System.currentTimeMillis()"
+  - "calculation = helper.getTimeInMillis()"
