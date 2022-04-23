@@ -198,6 +198,11 @@
           "value": "true",
           "err": "Must be a rounded number"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali ingiza umri sahihi"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Lazima iwe namba kamili"
@@ -219,7 +224,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Tafahdhali ingiza umri"
+          "err": "Tafadhali ingiza umri"
         }
       },
       {
@@ -1022,6 +1027,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_engagement",
+            "text": "Male engagement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_engagement"
           }
         ],
         "v_required": {

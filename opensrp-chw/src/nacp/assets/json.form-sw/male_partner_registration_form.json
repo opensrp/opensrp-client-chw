@@ -386,7 +386,6 @@
             }
           }
         }
-
       },
       {
         "key": "marital_status",
@@ -727,37 +726,6 @@
         }
       },
       {
-        "key": "preg_1yr",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_1yr",
-        "type": "spinner",
-        "hint": "Je, mwanamke amejifungua katika mwaka 1 uliopita?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua ikiwa mwanamke amejifungua katika mwaka 1 uliopita"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "disabilities",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -859,76 +827,6 @@
         "v_required": {
           "value": true,
           "err": "Tafadhali chagua aina ya ulemavu wa kimwili"
-        }
-      },
-      {
-        "key": "has_primary_caregiver",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "Has_Primary_Caregiver",
-        "type": "spinner",
-        "hint": "Je, una mlezi/msaidizi wa Tiba?",
-        "values": [
-          "Ndio",
-          "Hapana"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali chagua moja"
-        }
-      },
-      {
-        "key": "primary_caregiver_name",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "Primary_Caregiver_Name",
-        "type": "edit_text",
-        "hint": "Jina la mlezi",
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
-          "err": "Tafadhali ingiza jina sahihi"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali taja jina la mlezi."
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "other_phone_number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_phone_number",
-        "type": "edit_text",
-        "hint": "Namba ya simu ya mlezi mkuu",
-        "v_numeric": {
-          "value": "true",
-          "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
-        },
-        "v_regex": {
-          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -1168,146 +1066,18 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
+          },
+          {
+            "key": "male_engagement",
+            "text": "Male engagement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_engagement"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_under_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_under_15",
-        "type": "native_radio",
-        "label": "Sababu za Usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids_transmission",
-            "text": "maambukizi ya VVU/UKIMWI",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "sickle_cell_disease",
-            "text": "Ugonjwa wa seli mundu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "heart_disease",
-            "text": "Magonjwa ya moyo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "diabetes",
-            "text": "Kisukari",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "cerebral_palsy",
-            "text": "Ugonjwa wa kupooza kwa ubongo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "cancer",
-            "text": "saratani",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "Mtoto aliyezaliwa na mama mwenye VVU/UKIMWI",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Mtoto ambaye hajapimwa VVU/UKIMWI",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "weight_stagnation_child",
-            "text": "Mtoto mwenye vilio vya uzito",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "child_with_fever",
-            "text": "Mtoto mwenye homa za mara kwa mara",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "abused_child",
-            "text": "Unyanyasaji wa mtoto",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "gender_violence",
-            "text": "Ukatili wa kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "child_in_risky_environment",
-            "text": "Mtoto anayeishi katika mazingira hatarishi",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
         }
       }
     ]
