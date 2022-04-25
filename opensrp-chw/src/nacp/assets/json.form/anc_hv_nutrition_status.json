@@ -76,6 +76,22 @@
           "value": "true",
           "err": "Please select one option"
         }
+      },
+      {
+        "key": "prompt_for_nutrition_status",
+        "type": "toaster_notes",
+        "text": "Refer for further management",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_nutrition_status_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }
