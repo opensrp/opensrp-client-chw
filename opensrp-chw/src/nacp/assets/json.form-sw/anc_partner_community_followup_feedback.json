@@ -80,6 +80,24 @@
         }
       },
       {
+        "key": "reason_partner_is_not_found",
+        "type": "edit_text",
+        "hint": "Sababu ya mwenza kutopatikana",
+        "openmrs_entity_id": "reason_partner_is_not_found",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali bainisha sababu ya mwenza kutopatikana"
+        },
+        "relevance": {
+          "step1:is_partner_found": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
         "key": "partner_agree_attending_hf",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

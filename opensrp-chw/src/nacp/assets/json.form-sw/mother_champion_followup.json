@@ -64,14 +64,14 @@
             "text": "Uwezeshaji wa kikundi cha msaada wa Mama",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mother_support_group",
-            "openmrs_entity_parent": "type_of_service"
+            "value": "false"
           },
           {
-            "key": "counselling",
-            "text": "Kumsahuri Mteja",
-            "openmrs_entity_parent": "type_of_service",
+            "key": "health_education",
+            "text": "Elimu ya Afya",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "counselling"
+            "openmrs_entity_id": "health_education",
+            "value": "false"
           }
         ],
         "v_required": {
@@ -89,7 +89,7 @@
         "options": [
           {
             "key": "yes",
-            "text": "Ndiyo",
+            "text": "Ndio",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
@@ -117,17 +117,32 @@
         }
       },
       {
+        "key": "prompt_for_linked_to_psychosocial_group",
+        "type": "toaster_notes",
+        "text": "Mpatie rufaa ya kwenda kwenye makundi ya kisaikolojia",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:linked_to_psychosocial_group": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        }
+      },
+      {
         "key": "counselling_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "counselling_given",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Chagua aina ya ushauri uliotolewa",
+        "label": "Chagua aina ya Elimu ya Afya iliyotolewa",
         "options": [
           {
             "key": "chk_hiv_syphilis_testing",
-            "text": "HIV syphilis testing",
+            "text": "Upimaji wa VVU/Kaswende",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hiv_syphilis_testing",
             "value": "false"
@@ -141,7 +156,7 @@
           },
           {
             "key": "chk_disclosure",
-            "text": "",
+            "text": "Ufunuzi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_disclosure",
             "value": "false"
@@ -205,7 +220,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "counselling"
+                  "health_education"
                 ]
               }
             ]
