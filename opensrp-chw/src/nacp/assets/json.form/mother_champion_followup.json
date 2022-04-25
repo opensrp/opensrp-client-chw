@@ -64,14 +64,14 @@
             "text": "Facilitation of mother support group",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mother_support_group",
-            "openmrs_entity_parent": "type_of_service"
+            "value": "false"
           },
           {
-            "key": "counselling",
-            "text": "Counselling",
-            "openmrs_entity_parent": "type_of_service",
+            "key": "health_education",
+            "text": "Health Education",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "counselling"
+            "openmrs_entity_id": "health_education",
+            "value": "false"
           }
         ],
         "v_required": {
@@ -117,13 +117,28 @@
         }
       },
       {
+        "key": "prompt_for_linked_to_psychosocial_group",
+        "type": "toaster_notes",
+        "text": "Refer the client to psychosocial groups",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:linked_to_psychosocial_group": {
+            "type": "String",
+            "ex": "equalTo(.,\"no\")"
+          }
+        }
+      },
+      {
         "key": "counselling_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "counselling_given",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Select the type of Counselling provided",
+        "label": "Select the type of Health Education provided",
         "options": [
           {
             "key": "chk_hiv_syphilis_testing",
@@ -205,7 +220,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "counselling"
+                  "health_education"
                 ]
               }
             ]
