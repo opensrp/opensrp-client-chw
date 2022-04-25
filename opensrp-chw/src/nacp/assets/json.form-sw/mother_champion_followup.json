@@ -156,7 +156,7 @@
           },
           {
             "key": "chk_disclosure",
-            "text": "Disclosure",
+            "text": "Ufunuzi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_disclosure",
             "value": "false"
