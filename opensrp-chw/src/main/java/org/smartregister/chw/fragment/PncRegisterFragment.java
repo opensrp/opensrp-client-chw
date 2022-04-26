@@ -12,13 +12,25 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.QueryGenerator;
 import org.smartregister.chw.model.ChwPncRegisterFragmentModel;
 import org.smartregister.chw.presenter.PncRegisterFragmentPresenter;
+import org.smartregister.chw.provider.ChwPncRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 
 import java.text.MessageFormat;
+import java.util.Set;
 
 import timber.log.Timber;
 
 public class PncRegisterFragment extends CorePncRegisterFragment {
+
+    @Override
+    public void initializeAdapter(Set<View> visibleColumns) {
+        ChwPncRegisterProvider provider = new ChwPncRegisterProvider(getActivity(), commonRepository(), visibleColumns, registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, provider, context().commonrepository(this.tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
 
     @Override
     protected void openHomeVisit(CommonPersonObjectClient client) {

@@ -69,6 +69,15 @@
           },
           "options": [
             {
+              "name": "home_delivery",
+              "text": "Home delivery",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "home_delivery",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "Vaginal_bleeding",
               "text": "Vaginal bleeding",
               "meta_data": {

@@ -1,5 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static android.view.View.GONE;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.Constants.EventType;
+import static org.smartregister.chw.util.Constants.JSON_FORM;
+import static org.smartregister.chw.util.Constants.ProfileActivityResults;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Pair;
@@ -12,8 +20,6 @@ import android.widget.LinearLayout;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -35,7 +41,6 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -48,6 +53,7 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.JsonFormUtils;
@@ -67,13 +73,6 @@ import io.reactivex.annotations.Nullable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.util.Constants.EventType;
-import static org.smartregister.chw.util.Constants.JSON_FORM;
-import static org.smartregister.chw.util.Constants.ProfileActivityResults;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
 
@@ -148,33 +147,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void setupViews() {
         super.setupViews();
-        PncVisitAlertRule summaryVisit = getVisitDetails();
-        String statusVisit = summaryVisit.getButtonStatus();
-        if (statusVisit.equals("OVERDUE")) {
-            textview_record_visit.setVisibility(View.VISIBLE);
-            textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
-        } else if (statusVisit.equals("DUE")) {
-            textview_record_visit.setVisibility(View.VISIBLE);
-            textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
-        } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
-            Visit lastVisit = getVisit(Constants.EVENT_TYPE.PNC_HOME_VISIT);
-            if (lastVisit != null) {
-                if ((Days.daysBetween(new DateTime(lastVisit.getCreatedAt()), new DateTime()).getDays() < 1) &&
-                        (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1)) {
-                    setEditViews(true, true, lastVisit.getDate().getTime());
-                } else {
-                    textview_record_visit.setVisibility(View.GONE);
-                    layoutRecordView.setVisibility(View.GONE);
-                }
-
-            } else {
-                textview_record_visit.setVisibility(View.VISIBLE);
-                textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
-            }
-        } else {
-            textview_record_visit.setVisibility(View.GONE);
-            layoutRecordView.setVisibility(View.GONE);
-        }
+        textview_record_visit.setVisibility(GONE);
     }
 
     private void refreshOnHomeVisitResult() {
@@ -241,6 +214,16 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         }
         notificationAndReferralRecyclerView.setAdapter(notificationListAdapter);
         notificationListAdapter.setOnClickListener(this);
+    }
+
+    @Override
+    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
+        findViewById(R.id.rlUpcomingServices).setVisibility(GONE);
+    }
+
+    @Override
+    public void setFamilyStatus(AlertStatus status) {
+        findViewById(R.id.view_family_row).setVisibility(GONE);
     }
 
     @Override
@@ -339,17 +322,17 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 String pncDay = pncMemberProfileInteractor.getPncDay(memberObject.getBaseEntityId());
                 layoutNotRecordView.setVisibility(View.VISIBLE);
                 tvEdit.setVisibility(View.VISIBLE);
-                textViewUndo.setVisibility(View.GONE);
+                textViewUndo.setVisibility(GONE);
                 textViewNotVisitMonth.setVisibility(View.VISIBLE);
                 textViewNotVisitMonth.setText(MessageFormat.format(getContext().getString(R.string.pnc_visit_done), pncDay));
                 imageViewCross.setImageResource(R.drawable.activityrow_visited);
-                textview_record_visit.setVisibility(View.GONE);
+                textview_record_visit.setVisibility(GONE);
             } else {
-                layoutNotRecordView.setVisibility(View.GONE);
+                layoutNotRecordView.setVisibility(GONE);
 
             }
         } else {
-            layoutNotRecordView.setVisibility(View.GONE);
+            layoutNotRecordView.setVisibility(GONE);
         }
     }
 
@@ -378,10 +361,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
 
-      //  if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+        //  if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
 //            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
 //                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
-      //  }
+        //  }
 
     }
 

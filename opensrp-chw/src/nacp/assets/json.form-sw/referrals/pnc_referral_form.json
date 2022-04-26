@@ -69,6 +69,15 @@
           },
           "options": [
             {
+              "name": "home_delivery",
+              "text": "Mama kajifungulia nyumbani",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "home_delivery",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "Vaginal_bleeding",
               "text": "Kutoka damu ukenig",
               "meta_data": {
