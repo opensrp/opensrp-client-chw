@@ -34,7 +34,6 @@ import timber.log.Timber;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
     private final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
-    private Context context;
     private Map<String, List<VisitDetail>> details = null;
     private MemberObject memberObject;
     private Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
@@ -43,7 +42,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
-        context = view.getContext();
+        Context context = view.getContext();
         this.memberObject = memberObject;
         this.callBack = callBack;
         // get the preloaded data
@@ -120,16 +119,16 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
     }
 
-    private void evaluateNutritionStatus(Map<String, List<VisitDetail>> details,
-                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
-                .withOptional(true)
-                .withDetails(details)
-                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getNutritionStatus())
-                .withHelper(new NutritionAction())
-                .build();
-        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), nutrition_ba);
-    }
+//    private void evaluateNutritionStatus(Map<String, List<VisitDetail>> details,
+//                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
+//        BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
+//                .withOptional(true)
+//                .withDetails(details)
+//                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getNutritionStatus())
+//                .withHelper(new NutritionAction())
+//                .build();
+//        actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), nutrition_ba);
+//    }
 
     private void evaluateCounsellingStatus(Map<String, List<VisitDetail>> details,
                                            final Context context) throws BaseAncHomeVisitAction.ValidationException {
