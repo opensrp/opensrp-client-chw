@@ -55,11 +55,15 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
-        "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
-        "label_info_text": "Did the woman attend her ANC visit at the health facility?",
+        "label_info_title": "ANC facility visit",
+        "label_info_text": "Did the woman attend her last scheduled ANC visit at the facility?",
         "type": "spinner",
-        "hint": "Did the woman attend her ANC {0} visit at the health facility?\n\nVisit due date: {1}",
+        "hint": "Did the woman attend her last scheduled ANC visit at the facility?\n\nVisit due date: {1}",
         "values": [
+          "Yes",
+          "No"
+        ],
+        "keys": [
           "Yes",
           "No"
         ],

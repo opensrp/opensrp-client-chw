@@ -55,10 +55,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
-        "label_info_title": "Je, Mwanamke huyu amehudhuria kliniki ya wajawazito mara {0} ?",
-        "label_info_text": "Je, Mwanamke huyu amehudhuria kliniki ya wajawazito?",
+        "label_info_title": "Hudhurio la ANC kituoni",
+        "label_info_text": "Je, Mwanamke alihudhuria tembeleo lake la mwisho la ANC kituoni?",
         "type": "spinner",
-        "hint": "Je, Mwanamke huyu amehudhuria kliniki ya wajawazito mara {0} ? Tarehe ya kukamilisha hudhurio: {1}",
+        "hint": "Je, Mwanamke alihudhuria tembeleo lake la mwisho la ANC kituoni?\n\n Tarehe ya kukamilisha hudhurio: {1}",
         "values": [
           "Ndiyo",
           "Hapana"
