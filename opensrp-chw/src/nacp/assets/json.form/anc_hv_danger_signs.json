@@ -217,6 +217,17 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option"
+        },
+        "relevance": {
+          "step1:danger_signs_present": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_none"
+                ]
+              }
+            ]
+          }
         }
       },
       {

@@ -16,6 +16,7 @@ import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
+import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
@@ -32,13 +33,19 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor {
+    private final LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
+    private Context context;
+    private Map<String, List<VisitDetail>> details = null;
+    private MemberObject memberObject;
+    private Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
+    private BaseAncHomeVisitContract.InteractorCallBack callBack;
+    private String visit_title;
+
     @Override
     public LinkedHashMap<String, BaseAncHomeVisitAction> calculateActions(BaseAncHomeVisitContract.View view, MemberObject memberObject, BaseAncHomeVisitContract.InteractorCallBack callBack) throws BaseAncHomeVisitAction.ValidationException {
-        LinkedHashMap<String, BaseAncHomeVisitAction> actionList = new LinkedHashMap<>();
-
-        Context context = view.getContext();
-
-        Map<String, List<VisitDetail>> details = null;
+        context = view.getContext();
+        this.memberObject = memberObject;
+        this.callBack = callBack;
         // get the preloaded data
         if (view.getEditMode()) {
             Visit lastVisit = AncLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.ANC_HOME_VISIT);
@@ -62,7 +69,6 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
             lastContact = DateTimeFormat.forPattern("dd-MM-yyyy").parseLocalDate(memberObject.getLastContactVisit());
         }
 
-        Map<Integer, LocalDate> dateMap = new LinkedHashMap<>();
 
         // today is the due date for the very first visit
         if (isFirst) {
@@ -71,20 +77,13 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         dateMap.putAll(ContactUtil.getContactWeeks(isFirst, lastContact, lastMenstrualPeriod));
 
-        evaluateDangerSigns(actionList, details, context);
-        evaluateHealthFacilityVisit(actionList, details, memberObject, dateMap, context);
-        evaluateFamilyPlanning(actionList, details, context);
-        evaluateNutritionStatus(actionList, details, context);
-        evaluateCounsellingStatus(actionList, details, context);
-        evaluateMalaria(actionList, details, context);
-        evaluateObservation(actionList, details, context);
-        evaluateRemarks(actionList, details, context);
+        evaluateDangerSigns(details, context);
+
 
         return actionList;
     }
 
-    private void evaluateDangerSigns(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                     Map<String, List<VisitDetail>> details,
+    private void evaluateDangerSigns(Map<String, List<VisitDetail>> details,
                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
                 .withOptional(false)
@@ -95,12 +94,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
     }
 
-    private void evaluateHealthFacilityVisit(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                             Map<String, List<VisitDetail>> details,
+    private void evaluateHealthFacilityVisit(Map<String, List<VisitDetail>> details,
                                              final MemberObject memberObject,
                                              Map<Integer, LocalDate> dateMap,
                                              final Context context) throws BaseAncHomeVisitAction.ValidationException {
-        String visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
+        visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
         BaseAncHomeVisitAction facility_visit = new BaseAncHomeVisitAction.Builder(context, visit_title)
                 .withOptional(false)
                 .withDetails(details)
@@ -111,8 +109,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(visit_title, facility_visit);
     }
 
-    private void evaluateFamilyPlanning(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                        Map<String, List<VisitDetail>> details,
+    private void evaluateFamilyPlanning(Map<String, List<VisitDetail>> details,
                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction family_planning_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_family_planning))
                 .withOptional(false)
@@ -123,8 +120,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
     }
 
-    private void evaluateNutritionStatus(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                         Map<String, List<VisitDetail>> details,
+    private void evaluateNutritionStatus(Map<String, List<VisitDetail>> details,
                                          final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction nutrition_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_nutrition_status))
                 .withOptional(true)
@@ -135,8 +131,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_nutrition_status), nutrition_ba);
     }
 
-    private void evaluateCounsellingStatus(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                           Map<String, List<VisitDetail>> details,
+    private void evaluateCounsellingStatus(Map<String, List<VisitDetail>> details,
                                            final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction counselling_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_counselling_task))
                 .withOptional(false)
@@ -147,8 +142,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_counselling_task), counselling_ba);
     }
 
-    private void evaluateMalaria(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                 Map<String, List<VisitDetail>> details,
+    private void evaluateMalaria(Map<String, List<VisitDetail>> details,
                                  final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction malaria_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_malaria_prevention))
                 .withOptional(false)
@@ -159,8 +153,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), malaria_ba);
     }
 
-    private void evaluateObservation(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                     Map<String, List<VisitDetail>> details,
+    private void evaluateObservation(Map<String, List<VisitDetail>> details,
                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction remark_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
@@ -171,8 +164,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), remark_ba);
     }
 
-    private void evaluateRemarks(LinkedHashMap<String, BaseAncHomeVisitAction> actionList,
-                                 Map<String, List<VisitDetail>> details,
+    private void evaluateRemarks(Map<String, List<VisitDetail>> details,
                                  final Context context) throws BaseAncHomeVisitAction.ValidationException {
         BaseAncHomeVisitAction remark_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_remarks_and_comments))
                 .withOptional(true)
@@ -222,27 +214,61 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String postProcess(String s) {
+            try {
+                if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
+                    evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
+                    evaluateFamilyPlanning(details, context);
+                    evaluateNutritionStatus(details, context);
+                    evaluateCounsellingStatus(details, context);
+                    evaluateMalaria(details, context);
+                    evaluateObservation(details, context);
+                    evaluateRemarks(details, context);
+                } else {
+                    Timber.d(actionList.toString());
+                    actionList.remove(context.getString(R.string.anc_home_visit_family_planning));
+                    actionList.remove(context.getString(R.string.anc_home_visit_nutrition_status));
+                    actionList.remove(context.getString(R.string.anc_home_visit_counselling_task));
+                    actionList.remove(context.getString(R.string.anc_home_visit_malaria_prevention));
+                    actionList.remove(context.getString(R.string.anc_home_visit_observations_n_illnes));
+                    actionList.remove(context.getString(R.string.anc_home_visit_remarks_and_comments));
+                    actionList.remove(visit_title);
+                }
+            } catch (BaseAncHomeVisitAction.ValidationException e) {
+                Timber.e(e);
+            }
+            new AppExecutors().mainThread().execute(() -> callBack.preloadActions(actionList));
             return null;
         }
 
         @Override
         public String evaluateSubTitle() {
-            return MessageFormat.format(context.getString(R.string.anc_home_visit_danger_signs) + ": " + "{0}", danger_signs_present) +
-                    "\n" +
-                    MessageFormat.format( context.getString(R.string.anc_health_facility_counselling_subtitle) + " " + "{0}",
-                            (danger_signs_counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
-                    );
+            if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
+                return MessageFormat.format(context.getString(R.string.anc_home_visit_danger_signs) + ": " + "{0}", danger_signs_present) +
+                        "\n" +
+                        MessageFormat.format(context.getString(R.string.anc_health_facility_counselling_subtitle) + " " + "{0}",
+                                (danger_signs_counseling.equalsIgnoreCase("Yes") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase())
+                        );
+            } else {
+                return MessageFormat.format(context.getString(R.string.anc_home_visit_danger_signs) + ": " + "{0}", danger_signs_present) +
+                        "\n" + context.getString(R.string.refer_to_facility);
+            }
         }
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (StringUtils.isBlank(danger_signs_counseling)) {
-                return BaseAncHomeVisitAction.Status.PENDING;
-            }
+            if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
+                if (StringUtils.isBlank(danger_signs_counseling)) {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
 
-            if (danger_signs_counseling.equalsIgnoreCase("Yes")) {
-                return BaseAncHomeVisitAction.Status.COMPLETED;
-            } else if (danger_signs_counseling.equalsIgnoreCase("No")) {
+                if (danger_signs_counseling.equalsIgnoreCase("Yes")) {
+                    return BaseAncHomeVisitAction.Status.COMPLETED;
+                } else if (danger_signs_counseling.equalsIgnoreCase("No")) {
+                    return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
+                } else {
+                    return BaseAncHomeVisitAction.Status.PENDING;
+                }
+            } else if (StringUtils.isNotBlank(danger_signs_present)) {
                 return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
             } else {
                 return BaseAncHomeVisitAction.Status.PENDING;
@@ -558,11 +584,11 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 return MessageFormat.format(context.getString(R.string.uses_net) + ": " + "{0}", context.getString(R.string.anc_malaria_field_no));
             else
                 return MessageFormat.format(context.getString(R.string.uses_net) + ": " + "{0}",
-            (fam_llin.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no)) 
-                    + "\n" +  MessageFormat.format(context.getString(R.string.slept_under_net) + ": " + "{0}",
-                (llin_2days.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no))
-                            + "\n" +  MessageFormat.format(context.getString(R.string.net_condition) + ": " + "{0}",
-                                            (llin_condition.equalsIgnoreCase("Good") ? context.getString(R.string.anc_malaria_net_condition_good) : context.getString(R.string.anc_malaria_net_condition_bad)))));
+                        (fam_llin.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no))
+                                + "\n" + MessageFormat.format(context.getString(R.string.slept_under_net) + ": " + "{0}",
+                                (llin_2days.equalsIgnoreCase("Yes") ? context.getString(R.string.anc_malaria_field_yes) : context.getString(R.string.anc_malaria_field_no))
+                                        + "\n" + MessageFormat.format(context.getString(R.string.net_condition) + ": " + "{0}",
+                                        (llin_condition.equalsIgnoreCase("Good") ? context.getString(R.string.anc_malaria_net_condition_good) : context.getString(R.string.anc_malaria_net_condition_bad)))));
         }
 
         @Override

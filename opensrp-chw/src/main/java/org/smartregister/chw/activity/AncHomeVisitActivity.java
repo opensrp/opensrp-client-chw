@@ -9,6 +9,7 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
 import org.smartregister.chw.anc.activity.BaseAncHomeVisitActivity;
+import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.task.RunnableTask;
@@ -21,6 +22,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import timber.log.Timber;
 
@@ -77,5 +79,11 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
+        actionList.clear();
+        super.initializeActions(map);
     }
 }
