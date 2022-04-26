@@ -1,7 +1,7 @@
 package org.smartregister.chw.util;
 
 public interface ChwQueryConstant {
-    String ALL_CLIENTS_SELECT_QUERY = "" +
+    String ALL_CLIENTS_SELECT_QUERY = "SELECT * FROM (" +
             "/*INDEPENDENT MEMBERS*/\n" +
             "SELECT ec_family_member.first_name,\n" +
             "       ec_family_member.middle_name,\n" +
@@ -329,7 +329,7 @@ public interface ChwQueryConstant {
             "    WHERE ec_tb_register.tb_case_closure_date is null\n" +
             "    UNION ALL\n" +
             "    SELECT ec_hiv_register.base_entity_id AS base_entity_id\n" +
-            "    FROM ec_hiv_register\n" +
+            "    FROM ec_hiv_register)\n" +
             ")\n" +
             "ORDER BY last_interacted_with DESC;";
 }
