@@ -218,7 +218,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
                     evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
                     evaluateFamilyPlanning(details, context);
-                    evaluateNutritionStatus(details, context);
+                    // evaluateNutritionStatus(details, context);
                     evaluateCounsellingStatus(details, context);
                     evaluateMalaria(details, context);
                     evaluateObservation(details, context);
