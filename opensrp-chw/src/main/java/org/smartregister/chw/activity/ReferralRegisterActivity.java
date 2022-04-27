@@ -3,8 +3,9 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
@@ -13,16 +14,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.fragment.CompletedReferralRegisterFragment;
 import org.smartregister.chw.fragment.ReferralRegisterFragment;
 import org.smartregister.chw.malaria.util.MalariaJsonFormUtils;
 import org.smartregister.chw.referral.activity.BaseReferralRegisterActivity;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.helper.BottomNavigationHelper;
-import org.smartregister.listener.BottomNavigationListener;
 
 import java.util.Collections;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import timber.log.Timber;
 
@@ -33,7 +35,7 @@ import static org.smartregister.chw.referral.util.Constants.ActivityPayloadType;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.getFieldJSONObject;
 
-public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
+public class ReferralRegisterActivity extends BaseReferralRegisterActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static void startReferralRegistrationActivity(Activity activity, String baseEntityID) {
         Intent intent = new Intent(activity, ReferralRegisterActivity.class);
@@ -46,7 +48,7 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
     @NotNull
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[]{};
+        return new CompletedReferralRegisterFragment[]{new CompletedReferralRegisterFragment()};
     }
 
     @NotNull
@@ -70,21 +72,10 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
     protected void registerBottomNavigation() {
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
+        bottomNavigationView.getMenu().clear();
 
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_clients);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.chw.referral.R.id.action_register);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_search);
-            bottomNavigationView.getMenu().removeItem(org.smartregister.R.id.action_library);
-
-            bottomNavigationView.inflateMenu(getMenuResource());
-            bottomNavigationHelper.disableShiftMode(bottomNavigationView);
-
-            BottomNavigationListener referralBottomNavigationListener = getBottomNavigation(this);
-            bottomNavigationView.setOnNavigationItemSelectedListener(referralBottomNavigationListener);
-
-        }
+        bottomNavigationView.inflateMenu(R.menu.referrals_bottom_nav_menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -136,6 +127,18 @@ public class ReferralRegisterActivity extends BaseReferralRegisterActivity {
             finish();
         }
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.action_home) {
+            switchToFragment(0);
+            return true;
+        } else if (menuItem.getItemId() == R.id.action_completed_referrals) {
+            switchToFragment(1);
+            return true;
+        } else
+            return false;
     }
 }
  
