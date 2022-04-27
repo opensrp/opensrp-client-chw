@@ -187,7 +187,7 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-5y",
+        "min_date": "today-4y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -240,8 +240,8 @@
           "err": "Umri lazima uwe sawa au zaidi ya 0"
         },
         "v_max": {
-          "value": "5",
-          "err": "Umri ni lazima uwe sawa au chini ya 5"
+          "value": "4",
+          "err": "Umri ni lazima uwe sawa au chini ya 4"
         },
         "relevance": {
           "rules-engine": {
