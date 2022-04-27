@@ -286,14 +286,7 @@
             "ex": "lessThan(., step1:no_prev_preg)",
             "err": "Number must be less than Number of Pregnancies (Including current pregnancy)"
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_relevance.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "person_assist",

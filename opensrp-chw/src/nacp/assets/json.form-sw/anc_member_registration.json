@@ -286,14 +286,7 @@
             "ex": "lessThan(., step1:no_prev_preg)",
             "err": "Namba lazima iwe chini ya idadi ya mimba (ikiwa ni pamoja na mimba ya sasa)"
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_relevance.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "person_assist",
