@@ -179,7 +179,7 @@
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Dalili za hatari</string>
-    <string name="anc_home_visit_facility_visit">Hudhurio la {0} la kliniki ya wajawazito katika kituo cha kutolea huduma za afya</string>
+    <string name="anc_home_visit_facility_visit">Hudhurio la kliniki ya wajawazito katika kituo cha afya</string>
     <string name="anc_home_visit_family_planning">Uzazi wa Mpango</string>
     <string name="anc_home_visit_nutrition_status">Hali ya lishe</string>
     <string name="anc_home_visit_counselling_task">Ushauri</string>
