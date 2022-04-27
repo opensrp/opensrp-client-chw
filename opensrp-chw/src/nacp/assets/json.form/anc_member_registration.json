@@ -71,64 +71,20 @@
         "v_required": {
           "value": "true",
           "err": "LMP required"
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_calculation.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_relevance.yml"
-            }
-          }
         }
-      },
-      {
-        "key": "last_menstrual_period_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "last_menstrual_period_unknown",
-        "openmrs_data_type": "text",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "lmp_unknown",
-            "text": "LNMP unknown?",
-            "text_size": "18px",
-            "value": "false"
-          }
-        ]
       },
       {
         "key": "edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "edd",
-        "type": "date_picker",
-        "hint": "Expected Date of Delivery (EDD)",
-        "max_date": "today+50w",
-        "min_date": "today",
+        "type": "hidden",
         "calculation": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "anc_member_registration_calculation.yml"
             }
           }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_relevance.yml"
-            }
-          }
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Required"
         }
       },
       {
@@ -161,13 +117,6 @@
               "rules-file": "anc_member_registration_calculation.yml"
             }
           }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -191,7 +140,7 @@
         "openmrs_entity_id": "no_prev_preg",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "No. of previous pregnancies",
+        "hint": "Number of pregnancies (Including current pregnancy)",
         "v_required": {
           "value": "true",
           "err": "Equal or greater than 0"
@@ -225,52 +174,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "delivery_method",
         "type": "check_box",
-        "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
+        "label": "Mode of delivery of previous pregnancies",
         "combine_checkbox_option_values": "true",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_member_registration_relevance.yml"
-            }
-          }
-        },
-        "options": [
-          {
-            "key": "chk_vaginally",
-            "text": "Vaginally",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_vaginally"
-          },
-          {
-            "key": "chk_cesarean_section",
-            "text": "Cesarean section",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cesarean_section"
-          },
-          {
-            "key": "chk_miscarriage",
-            "text": "Miscarriage",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_miscarriage"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select one"
-        }
-      },
-      {
-        "key": "delivery_method_one",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_method_one",
-        "type": "native_radio",
-        "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "relevance": {
@@ -309,13 +214,57 @@
         }
       },
       {
+        "key": "delivery_method_one",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_method_one",
+        "type": "native_radio",
+        "label": "Mode of delivery of previous pregnancy",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "chk_vaginally",
+            "text": "Vaginally",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_vaginally"
+          },
+          {
+            "key": "chk_cesarean_section",
+            "text": "Cesarean section",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_cesarean_section"
+          },
+          {
+            "key": "chk_miscarriage",
+            "text": "Miscarriage",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_miscarriage"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_surv_children",
         "type": "edit_text",
         "edit_type": "number",
-        "hint": "No. of surviving children",
+        "hint": "Number of living children",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -331,9 +280,19 @@
           "value": "true",
           "err": "Must be a rounded number"
         },
-        "v_relative_max": {
-          "value": "no_prev_preg",
-          "err": "Number must be less than or equal to Number of Previous Pregnancies"
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:no_prev_preg)",
+            "err": "Number must be less than Number of Pregnancies (Including current pregnancy)"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_member_registration_relevance.yml"
+            }
+          }
         }
       },
       {
