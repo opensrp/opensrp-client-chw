@@ -195,14 +195,6 @@
         ]
       },
       {
-        "key": "ageMessage",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "text": "{{out_of_area_child_enrollment.step1.ageMessage.text}}"
-      },
-      {
         "key": "age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
