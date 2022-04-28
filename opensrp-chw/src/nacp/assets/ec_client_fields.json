@@ -913,6 +913,14 @@
           }
         },
         {
+          "column_name": "referral_form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referral_form_submission_id"
+          }
+        },
+        {
           "column_name": "feedback_form_id",
           "type": "Event",
           "json_mapping": {

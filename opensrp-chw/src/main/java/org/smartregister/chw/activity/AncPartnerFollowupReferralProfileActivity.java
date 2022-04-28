@@ -4,6 +4,7 @@ import static android.view.View.GONE;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
+import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.REFERRAL_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
@@ -84,6 +85,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
     private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
     private String referralFormSubmissionId;
+    private RelativeLayout partnerView;
 
     public static void startMe(Activity activity, String baseEntityID, String formSubmissionId) {
         Intent intent = new Intent(activity, AncPartnerFollowupReferralProfileActivity.class);
@@ -130,11 +132,14 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             }
         });
 
-        RelativeLayout partnerView = findViewById(R.id.rlPartnerView);
+        partnerView = findViewById(R.id.rlPartnerView);
         Button registerBtn = findViewById(R.id.register_partner_btn);
         if (AncPartnerDao.hasPartnerAgreeForRegistration(referralFormSubmissionId) && !AncPartnerDao.isPartnerRegistered(referralFormSubmissionId)) {
             partnerView.setVisibility(View.VISIBLE);
         }
+
+        if (AncPartnerDao.isPartnerAlreadyRegistered(referralFormSubmissionId))
+            partnerView.setVisibility(View.GONE);
 
         partnerView.setOnClickListener(this);
         registerBtn.setOnClickListener(this);
@@ -191,6 +196,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     @Override
     protected void onResumption() {
         super.onResumption();
+        setupViews();
     }
 
     @Override
@@ -355,6 +361,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         } else if (id == R.id.rlPartnerView || id == R.id.register_partner_btn) {
             Intent intent = new Intent(this, PartnerRegistrationActivity.class);
             intent.putExtra(INTENT_FORM_SUBMISSION_ID, AncPartnerDao.getFeedbackFormId(referralFormSubmissionId));
+            intent.putExtra(REFERRAL_FORM_SUBMISSION_ID, referralFormSubmissionId);
             intent.putExtra(INTENT_BASE_ENTITY_ID, baseEntityID);
             startActivity(intent);
         }

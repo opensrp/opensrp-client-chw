@@ -31,6 +31,9 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
             createCancelReferral(task);
         }
 
+        if(getMemberObject().getProblem().equals("anc_male_engagement"))
+            ((CustomFontTextView)findViewById(R.id.client_referral_problem)).setText(getResources().getString(R.string.anc_male_engagement));
+
     }
 
     public static void startChwReferralDetailsViewActivity(Activity activity, MemberObject memberObject, CommonPersonObjectClient client) {

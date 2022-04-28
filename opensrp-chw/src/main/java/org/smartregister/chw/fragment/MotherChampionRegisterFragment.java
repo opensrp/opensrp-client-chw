@@ -39,7 +39,7 @@ public class MotherChampionRegisterFragment extends CorePmtctRegisterFragment {
     @Override
     public void setupViews(android.view.View view) {
         super.setupViews(view);
-        titleLabelView.setText(R.string.mother_champion);
+        titleLabelView.setText(R.string.mother_champion_community_services);
     }
 
     @Override

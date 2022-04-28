@@ -116,7 +116,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(R.string.return_to_mother_champion_clients);
 
-        textViewRecordPmtct.setText(R.string.record_followup);
+        textViewRecordPmtct.setText(R.string.record_mother_champion_follouwp_visit);
     }
 
     @Override

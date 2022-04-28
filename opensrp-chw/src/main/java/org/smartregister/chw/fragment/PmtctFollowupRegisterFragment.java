@@ -39,7 +39,7 @@ public class PmtctFollowupRegisterFragment extends CorePmtctRegisterFragment {
     @Override
     public void setupViews(android.view.View view) {
         super.setupViews(view);
-        titleLabelView.setText(R.string.action_received_hiv_followup_referrals);
+        titleLabelView.setText(R.string.missap_and_ltf_followups);
     }
 
     @Override

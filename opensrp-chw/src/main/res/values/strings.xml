@@ -404,6 +404,7 @@
     <string name="pmtct_followup_feedback_title">Mother Champion Followup Feedback</string>
     <string name="followup_feedback_recorded">Followup Feedback Recorded</string>
     <string name="mother_champion">Mother Champion</string>
+    <string name="mother_champion_community_services">Community Services</string>
     <string name="return_to_mother_champion_clients">Return to Mother Champion\'s clients</string>
     <string name="record_followup_visit_mother_champion">Record Followup Visit</string>
     <string name="sbcc">SBCC</string>
@@ -417,6 +418,9 @@
     <string name="sbcc_participants">Participants: %s</string>
     <string name="sbcc_session_date">Date: %s</string>
     <string name="return_to_all_partner_followup_clients">Return to All Partner Follow-up clients</string>
+    <string name="anc_male_engagement">ANC Client Male Engagement</string>
+    <string name="record_mother_champion_follouwp_visit">Record Mother mentor community services visit</string>
+    <string name="missap_and_ltf_followups">MISSAP/LTF Followups</string>
 
 
 </resources>

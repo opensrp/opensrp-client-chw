@@ -22,6 +22,21 @@ public class AncPartnerDao extends AbstractDao {
         return res.size() == 1;
     }
 
+
+    public static boolean isPartnerAlreadyRegistered(String ancReferralFormSubmissionId) {
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "partner_base_entity_id");
+
+        String sql = "SELECT partner_base_entity_id FROM ec_anc_partners WHERE referral_form_submission_id = '" + ancReferralFormSubmissionId + "' " +
+                "AND partner_base_entity_id is not null " +
+                "AND is_closed = 0 LIMIT 1";
+
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null)
+            return res.size() == 1;
+        return false;
+    }
+
     public static boolean hasPartnerAgreeForRegistration(String referralFormSubmissionId) {
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "partner_agree_attending_hf");
 

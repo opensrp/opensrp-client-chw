@@ -73,6 +73,7 @@ public class Constants extends CoreConstants {
         String FEEDBACK_FORM_ID = "feedback_form_id";
         String FormSubmissionId = "formSubmissionId";
         String INTENT_FORM_SUBMISSION_ID = "form_submission_id";
+        String REFERRAL_FORM_SUBMISSION_ID = "referral_form_submission_id";
         String ReferralFormId = "referral_form_id";
     }
 
