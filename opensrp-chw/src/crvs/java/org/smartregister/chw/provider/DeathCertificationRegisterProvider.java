@@ -69,7 +69,7 @@ public class DeathCertificationRegisterProvider extends CoreCertificationRegiste
 
             switch (clientType) {
                 case Constants.TABLES.PREGNANCY_OUTCOME: {
-                    String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName) + ", [" + stillBirth + "]";
+                    String parentName = context.getResources().getString(R.string.care_giver_initials) + ": " + getClientName(parentFirstName, parentMiddleName, parentLastName) + ", [" + context.getString(R.string.stillbirth) + "]";
                     fillValue(viewHolder.textViewParentName, WordUtils.capitalize(parentName));
                     String address = Utils.getValue(pc.getColumnmaps(), ChildDBConstants.KEY.FAMILY_HOME_ADDRESS, true);
                     fillValue(viewHolder.textViewAddressGender, address);
