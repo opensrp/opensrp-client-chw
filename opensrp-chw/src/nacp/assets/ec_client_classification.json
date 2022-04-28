@@ -148,6 +148,14 @@
           },
           {
             "field": "eventType",
+            "field_value": "ANC Followup Client Registration",
+            "creates_case": [
+              "ec_anc_register",
+              "ec_anc_log"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "ANC Home Visit",
             "creates_case": [
               "ec_anc_register"
