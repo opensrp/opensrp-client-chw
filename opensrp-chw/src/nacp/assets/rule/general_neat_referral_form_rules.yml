@@ -45,3 +45,10 @@ priority: 1
 condition: "true"
 actions:
   - "referral_status_calculation = 'PENDING'"
+---
+name: "service_before_referral_calculation"
+description: "Service Before Referral"
+condition: "true"
+priority: 1
+actions:
+  - "service_before_referral_calculation = 'None'"

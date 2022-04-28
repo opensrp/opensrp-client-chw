@@ -407,7 +407,8 @@
             "referral_date",
             "referral_time",
             "referral_type",
-            "referral_status"
+            "referral_status",
+            "service_before_referral"
           ]
         },
         {
@@ -424,75 +425,6 @@
           },
           "required_status": "true:Please specify other symptoms",
           "subjects": "problem:map"
-        },
-        {
-          "name": "service_before_referral",
-          "type": "multi_choice_checkbox",
-          "properties": {
-            "text": "Pre-referral management given."
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          "options": [
-            {
-              "name": "ORS",
-              "text": "ORS",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Panadol",
-              "text": "Panadol",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Other_treatment",
-              "text": "Other treatment",
-              "meta_data": {
-                "ignore": true,
-                "openmrs_entity": "",
-                "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "None",
-              "text": "None",
-              "is_exclusive": true,
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                "openmrs_entity_parent": ""
-              }
-            }
-          ],
-          "required_status": "Pre-referral management field is required",
-          "subjects": "problem:map"
-        },
-        {
-          "name": "service_before_referral_other",
-          "type": "text_input_edit_text",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          "properties": {
-            "hint": "Other Treatment",
-            "type": "name"
-          },
-          "required_status": "true:Please specify other treatment given",
-          "subjects": "service_before_referral:map"
         },
         {
           "name": "chw_referral_hf",

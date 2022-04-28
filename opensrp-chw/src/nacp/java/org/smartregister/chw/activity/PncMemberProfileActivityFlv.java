@@ -10,14 +10,11 @@ public class PncMemberProfileActivityFlv implements PncMemberProfileActivity.Fla
 
     @Override
     public Boolean onCreateOptionsMenu(Menu menu, String baseEntityId) {
-        UtilsFlv.updateMalariaMenuItems(baseEntityId, menu);
-        if (FpDao.isRegisteredForFp(baseEntityId)) {
-            menu.findItem(R.id.action_fp_change).setVisible(true);
-        } else {
-            menu.findItem(R.id.action_fp_initiation_pnc).setVisible(true);
-        }
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        menu.findItem(R.id.action_fp_initiation_pnc).setVisible(false);
+        menu.findItem(R.id.action_fp_change).setVisible(false);
+        menu.findItem(R.id.action_malaria_registration).setVisible(false);
         UtilsFlv.updateHivMenuItems(baseEntityId, menu);
-        UtilsFlv.updateTbMenuItems(baseEntityId, menu);
         return true;
     }
 }

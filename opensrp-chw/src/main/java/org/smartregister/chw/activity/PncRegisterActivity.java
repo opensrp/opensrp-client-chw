@@ -1,24 +1,32 @@
 package org.smartregister.chw.activity;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.apache.commons.lang3.EnumUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.anc.util.Constants;
 import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.core.activity.CoreFamilyRegisterActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.PncRegisterFragment;
+import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import timber.log.Timber;
 
-public class PncRegisterActivity extends CorePncRegisterActivity {
+public class PncRegisterActivity extends CorePncRegisterActivity implements BottomNavigationView.OnNavigationItemSelectedListener  {
 
     public static void startPncRegistrationActivity(Activity activity, String memberBaseEntityID, String phoneNumber, String formName,
                                                     String uniqueId, String familyBaseID, String family_name, String last_menstrual_period) {
@@ -46,8 +54,14 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
 
     @Override
     protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-        FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+        bottomNavigationHelper = new BottomNavigationHelper();
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.getMenu().clear();
+
+        bottomNavigationView.inflateMenu(R.menu.anc_bottom_nav_menu);
+        bottomNavigationView.getMenu().removeItem(R.id.action_received_referrals);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -60,6 +74,7 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
         return new PncRegisterFragment();
     }
 
+    @SuppressLint("MissingSuperCall")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResultExtended(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
@@ -82,5 +97,10 @@ public class PncRegisterActivity extends CorePncRegisterActivity {
                 Timber.e(e);
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
     }
 }
