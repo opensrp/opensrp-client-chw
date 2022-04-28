@@ -139,7 +139,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Register the client to HF",
+        "text": "Register the partner",
         "toaster_type": "info",
         "relevance": {
           "step1:partner_agree_attending_hf": {
