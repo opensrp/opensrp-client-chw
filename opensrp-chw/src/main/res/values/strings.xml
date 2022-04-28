@@ -158,7 +158,7 @@
 
     <!-- home visit strings-->
     <string name="anc_home_visit_danger_signs">Danger signs</string>
-    <string name="anc_home_visit_facility_visit">ANC {0} health facility visit</string>
+    <string name="anc_home_visit_facility_visit">ANC health facility visit</string>
     <string name="anc_home_visit_family_planning">Family planning</string>
     <string name="anc_home_visit_nutrition_status">Nutrition status</string>
     <string name="anc_home_visit_counselling_task">Counselling</string>
@@ -421,6 +421,7 @@
     <string name="anc_male_engagement">ANC Client Male Engagement</string>
     <string name="record_mother_champion_follouwp_visit">Record Mother mentor community services visit</string>
     <string name="missap_and_ltf_followups">MISSAP/LTF Followups</string>
+    <string name="successful_referrals">Successful Referrals</string>
 
 
 </resources>

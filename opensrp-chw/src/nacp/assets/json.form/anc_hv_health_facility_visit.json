@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "ANC {0} health facility visit",
+    "title": "ANC health facility visit",
     "fields": [
       {
         "key": "anc_hf_visit",
@@ -55,10 +55,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
-        "label_info_title": "ANC facility visit",
-        "label_info_text": "Did the woman attend her last scheduled ANC visit at the facility?",
         "type": "spinner",
-        "hint": "Did the woman attend her last scheduled ANC visit at the facility?\n\nVisit due date: {1}",
+        "hint": "Did the woman attend her last scheduled ANC visit at the facility?",
         "values": [
           "Yes",
           "No"
