@@ -46,7 +46,7 @@ actions:
 name: step1_marital_status
 description: marital_status relevance
 priority: 1
-condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') >= 14) || (step1_age != '' && step1_age >= 14)"
+condition: "(step1_dob != '' && helper.formatDate(step1_dob,'y') > 10) || (step1_age != '' && step1_age > 10)"
 actions:
   - "isRelevant = true"
 ---

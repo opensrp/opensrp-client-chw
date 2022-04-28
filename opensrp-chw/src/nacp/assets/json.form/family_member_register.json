@@ -355,7 +355,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_phone_number",
         "type": "edit_text",
-        "hint": "Other phone number",
+        "hint": "Alternative phone number",
         "v_numeric": {
           "value": "true",
           "err": "Number must be a total of 10 digits in length"

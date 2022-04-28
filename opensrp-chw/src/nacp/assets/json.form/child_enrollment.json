@@ -187,7 +187,7 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-5y",
+        "min_date": "today-4y",
         "max_date": "today",
         "v_required": {
           "value": "true",
@@ -240,8 +240,8 @@
           "err": "Age must be equal or greater than 0"
         },
         "v_max": {
-          "value": "5",
-          "err": "Age must be equal or less than 5"
+          "value": "4",
+          "err": "Age must be equal or less than 4"
         },
         "relevance": {
           "rules-engine": {
