@@ -56,7 +56,7 @@
         "openmrs_entity_id": "fam_planning",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the mother advised on family planning when you visited the health visit?",
+        "hint": "Was the mother advised on family planning when she visited the health visit?",
         "values": [
           "Yes",
           "No"
