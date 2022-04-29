@@ -39,7 +39,7 @@ description: set reasons for registration
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_reasons_for_registration_male_15"
+  - "calculation = 'male_engagement'"
 ---
 name: step2_sex
 description: set sex as male by default
