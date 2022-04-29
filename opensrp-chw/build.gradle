@@ -174,8 +174,8 @@ android {
         nacp {
             dimension = 'baseDimension'
             applicationIdSuffix ".nacp"
-            versionCode 4
-            versionName "1.0.4"
+            versionCode 5
+            versionName "1.0.5"
             buildConfigField "String", 'opensrp_url', '"http://50.116.15.4:8082/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
             buildConfigField "String", 'opensrp_url_debug', '"http://50.116.15.4:8082/opensrp/"'
