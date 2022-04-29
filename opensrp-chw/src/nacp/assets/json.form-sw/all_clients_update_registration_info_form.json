@@ -1268,6 +1268,276 @@
             }
           }
         }
+      },
+      {
+        "key": "reasons_for_registration_female_under_10",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_female_under_10",
+        "type": "native_radio",
+        "label": "Reasons for Registration",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "hiv_aids_transmission",
+            "text": "Maambukizi ya VVU/UKIMWI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Ugonjwa wa seli mundu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "heart_disease",
+            "text": "Magonjwa ya moyo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "diabetes",
+            "text": "Kisukari",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cerebral_palsy",
+            "text": "Ugonjwa wa kupooza kwa ubongo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cancer",
+            "text": "Saratani",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "tuberculosis",
+            "text": "Kifua kikuu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hiv_infected_child",
+            "text": "Mtoto aliyezaliwa na mama mwenye VVU/UKIMWI ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "untested_hiv_infected_child",
+            "text": "Mtoto ambaye hajapimwa VVU/UKIMWI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "weight_stagnation_child",
+            "text": "Mtoto mwenye vilio vya uzito",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "child_with_fever",
+            "text": "Mtoto mwenye homa za mara kwa mara",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "abused_child",
+            "text": "Mtoto anayenyanyaswa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "gender_violence",
+            "text": "Ukatili wa kijinsia",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "drug_abuse",
+            "text": "Matumizi mabaya ya madawa ya kulevya",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "child_in_risky_environment",
+            "text": "Mtoto anayeishi katika mazingira hatarishi",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Reason for registration is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reasons_for_registration_female_10_to_15",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reasons_for_registration_female_10_to_15",
+        "type": "native_radio",
+        "label": "Reasons for Registration",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "hiv_aids_transmission",
+            "text": "Maambukizi ya VVU/UKIMWI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Ugonjwa wa seli mundu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "heart_disease",
+            "text": "Magonjwa ya moyo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "diabetes",
+            "text": "Kisukari",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cerebral_palsy",
+            "text": "Ugonjwa wa kupooza kwa ubongo",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "cancer",
+            "text": "Saratani",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "tuberculosis",
+            "text": "Kifua kikuu",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "hiv_infected_child",
+            "text": "Mtoto aliyezaliwa na mama mwenye VVU/UKIMWI ",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "untested_hiv_infected_child",
+            "text": "Mtoto ambaye hajapimwa VVU/UKIMWI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "weight_stagnation_child",
+            "text": "Mtoto mwenye vilio vya uzito",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "child_with_fever",
+            "text": "Mtoto mwenye homa za mara kwa mara",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "abused_child",
+            "text": "Mtoto anayenyanyaswa",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "gender_violence",
+            "text": "Ukatili wa kijinsia",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "drug_abuse",
+            "text": "Matumizi mabaya ya madawa ya kulevya",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "child_in_risky_environment",
+            "text": "Mtoto anayeishi katika mazingira hatarishi",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "pregnant_mother",
+            "text": "Mama mjamzito",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "breastfeeding_mother",
+            "text": "Mama anayenyonyesha",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Reason for registration is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_update_relevance.yml"
+            }
+          }
+        }
       }
     ]
   }
