@@ -21,3 +21,4 @@ project.properties
 build/
 jacoco.exec
 opensrp-chw/ba/
+opensrp-chw/nacp/
