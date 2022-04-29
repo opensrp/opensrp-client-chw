@@ -839,37 +839,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "service_provider_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "service_provider_other",
-        "type": "edit_text",
-        "hint": "Taja Kazi nyingine",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Tafadhali taja kazi"
-        },
-        "relevance": {
-          "step1:service_provider": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "chk_other"
-                ]
-              }
-            ]
-          }
         }
       },
       {
@@ -932,13 +901,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_member_relevance.yml"
-            }
-          }
         }
       },
       {

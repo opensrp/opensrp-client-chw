@@ -871,13 +871,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -940,13 +933,6 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "male_partner_relevance.yml"
-            }
-          }
         }
       },
       {
@@ -985,99 +971,6 @@
               "rules-file": "male_partner_calculation.yml"
             }
           }
-        }
-      },
-      {
-        "key": "reasons_for_registration_male_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_male_15",
-        "type": "native_radio",
-        "label": "Sababu za Usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids_transmission",
-            "text": "Maambukizi ya VVU/UKIMWI",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "sickle_cell_disease",
-            "text": "Ugonjwa wa seli mundu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "heart_disease",
-            "text": "Magonjwa ya moyo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "diabetes",
-            "text": "Kisukari",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "cerebral_palsy",
-            "text": "Ugonjwa wa kupooza kwa ubongo",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "cancer",
-            "text": "Saratani",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "homosexual",
-            "text": "Wanaume wanaofanya mapenzi na wanaume",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "gender_violence",
-            "text": "Ukatili wa kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "male_engagement",
-            "text": "Uwepo wa mwanaume husika",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "male_engagement"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
         }
       }
     ]
