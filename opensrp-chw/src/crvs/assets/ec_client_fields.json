@@ -420,6 +420,14 @@
             "field": "obs.fieldCode",
             "concept": "deathManner"
           }
+        },
+        {
+          "column_name": "death_cause",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "deathManner"
+          }
         }
       ]
     },

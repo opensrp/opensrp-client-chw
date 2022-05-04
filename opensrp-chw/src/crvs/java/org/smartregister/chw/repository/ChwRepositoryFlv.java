@@ -6,6 +6,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.chw.anc.repository.VisitRepository;
 import org.smartregister.chw.util.RepositoryUtils;
+import org.smartregister.chw.util.RepositoryUtilsFlv;
 import org.smartregister.domain.db.Column;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -41,8 +42,10 @@ public class ChwRepositoryFlv {
                     upgradeToVersion5(context, db);
                     break;
                 case 6:
-//                    upgradeToVersion5(context, db);
                     upgradeToVersion6(db);
+                    break;
+                case 7:
+                    upgradeToVersion7(db);
                     break;
                 default:
                     break;
@@ -140,5 +143,9 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private static void upgradeToVersion7(SQLiteDatabase db) {
+        db.execSQL(RepositoryUtilsFlv.ADD_DEATH_CAUSE_COL_QUERY);
     }
 }
