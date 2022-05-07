@@ -279,14 +279,7 @@
         "v_numeric_integer": {
           "value": "true",
           "err": "Must be a rounded number"
-        },
-        "constraints": [
-          {
-            "type": "numeric",
-            "ex": "lessThan(., step1:no_prev_preg)",
-            "err": "Number must be less than Number of Pregnancies (Including current pregnancy)"
-          }
-        ]
+        }
       },
       {
         "key": "person_assist",
