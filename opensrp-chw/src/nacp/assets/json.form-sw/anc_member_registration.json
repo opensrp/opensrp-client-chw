@@ -279,14 +279,7 @@
         "v_numeric_integer": {
           "value": "true",
           "err": "Must be a rounded number"
-        },
-        "constraints": [
-          {
-            "type": "numeric",
-            "ex": "lessThan(., step1:no_prev_preg)",
-            "err": "Namba lazima iwe chini ya idadi ya mimba (ikiwa ni pamoja na mimba ya sasa)"
-          }
-        ]
+        }
       },
       {
         "key": "person_assist",
