@@ -141,7 +141,7 @@
         "hint": "Tarehe ya kuzaliwa",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "Umri"
         },
         "min_date": "today-120y",
         "max_date": "today-5y",

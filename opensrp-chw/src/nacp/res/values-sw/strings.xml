@@ -32,4 +32,12 @@
     <string name="back_to_pmtct">Rudi kwa Wateja wa Ufuatiliaji wa Mama Kinara</string>
     <string name="mother_champion">Mama Kinara</string>
     <string name="return_to_mother_champion_clients">Rudi kwa Wateja wa Mama Kinara</string>
+    <string name="cbhs_registration">Usajili wa UWANYU</string>
+    <string name="pnc_registration">Usajili wa baada ya Kujifungua</string>
+    <string name="mother_champion_community_services">Huduma za Kijamii</string>
+    <string name="successful_referrals">Rufaa Zilizofanikiwa</string>
+    <string name="record_partner_details">Ingiza Taarifa za Mwenza</string>
+    <string name="register_partner">Sajili Mwenza</string>
+    <string name="new_client">Mteja Mpya</string>
+    <string name="existing_client">Mteja Aliyepo</string>
 </resources>
