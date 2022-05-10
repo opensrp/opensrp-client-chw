@@ -153,7 +153,7 @@
           "name": "tb_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "TB ID",
+            "hint": "Namba ya utambulisho wa Kifua Kikuu",
             "type": "TB Clinic ID"
           },
           "meta_data": {
@@ -166,7 +166,7 @@
           "name": "rch_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "RCH ID",
+            "hint": "Namba ya utambulisho wa Kadi ya Kliniki (RCH)",
             "type": "RCH Clinic ID"
           },
           "meta_data": {
@@ -179,7 +179,7 @@
           "name": "mat_number",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "MAT ID",
+            "hint": "Namba ya utambulisho ya MAT",
             "type": "MAT Clinic ID"
           },
           "meta_data": {
