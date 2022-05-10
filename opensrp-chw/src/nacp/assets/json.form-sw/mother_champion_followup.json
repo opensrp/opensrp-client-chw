@@ -163,7 +163,7 @@
           },
           {
             "key": "chk_male_involvement",
-            "text": "Ushiriki wa Wanaumwe katika huduma za ANC-PMTCT",
+            "text": "Ushiriki wa mwanaume katika huduma za kliniki ya ujauzito na kliniki ya kuzuia maambukizi ya VVU kwa mtoto mchanga",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_male_involvement",
             "value": "false"

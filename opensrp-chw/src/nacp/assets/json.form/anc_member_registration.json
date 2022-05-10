@@ -93,7 +93,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "Gestational Age (GA)",
+        "hint": "Gestational Age (GA) in Weeks",
         "read_only": true,
         "calculation": {
           "rules-engine": {
