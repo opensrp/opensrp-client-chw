@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Nutrition status",
+    "title": "Hali ya Lishe",
     "fields": [
       {
         "key": "nutrition_status_1m5yr",
@@ -68,9 +68,9 @@
           "Severe"
         ],
         "openmrs_choice_ids": {
-          "Normal": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moderate": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Severe": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Normal": "Normal",
+          "Moderate": "Moderate",
+          "Severe": "Severe"
         },
         "v_required": {
           "value": "true",

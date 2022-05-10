@@ -153,7 +153,7 @@
           },
           {
             "key": "chk_hvl_testing",
-            "text": "Kipimo cha HVL",
+            "text": "Kipimo cha kiwango cha Virusi vya Ukimwi (HVL)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hvl_testing",
             "value": "false"
