@@ -118,7 +118,7 @@
         "options": [
           {
             "key": "chk_early_anc_initiation",
-            "text": "Kuanza huduma za ANC mapema",
+            "text": "Uanzaji  mapema wa Kliniki ya Mama Mjamzito",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_early_anc_initiation",
             "value": "false"
