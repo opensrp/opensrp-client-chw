@@ -240,6 +240,9 @@
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Chagua rufaa aliyopewa mteja kwa ajili ya huduma nyingine",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_gender_based_violence",
@@ -250,7 +253,7 @@
           },
           {
             "key": "chk_legal_support",
-            "text": "Msaada wa Kishria",
+            "text": "Msaada wa Kisheria",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_legal_support",
             "value": "false"
@@ -264,14 +267,14 @@
           },
           {
             "key": "chk_support_groups",
-            "text": "makundi ya msaada",
+            "text": "Makundi ya msaada",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_support_groups",
             "value": "false"
           },
           {
             "key": "chk_none",
-            "text": "Hakuan",
+            "text": "Hakuna",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none",
             "value": "false"
@@ -290,6 +293,9 @@
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Chagua rufaa kwa huduma nyingine iliyokamilishwa na Mteja",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_gender_based_violence",

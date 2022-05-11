@@ -240,6 +240,9 @@
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Pick Referrals Issued to the Client for Other Services",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_gender_based_violence",
@@ -290,6 +293,9 @@
         "type": "check_box",
         "combine_checkbox_option_values": "true",
         "label": "Pick Referrals to other Services Completed by the Client",
+        "exclusive": [
+          "chk_none"
+        ],
         "options": [
           {
             "key": "chk_gender_based_violence",
