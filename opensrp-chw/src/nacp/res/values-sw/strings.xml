@@ -43,4 +43,8 @@
     <string name="cancel_referral">Futa Rufaa</string>
     <string name="cancel_referral_title">Futa Rufaa?</string>
     <string name="record_mother_champion_follouwp_visit">Rekodi hudhurio la Mama Kinara katika jamii</string>
+    <string name="sbcc_location">Eneo: %s</string>
+    <string name="sbcc_participants">Washiriki: %s</string>
+    <string name="sbcc_session_date">Tarehe: %s</string>
+    <string name="sbcc_session_title">SBCC Session</string>
 </resources>
