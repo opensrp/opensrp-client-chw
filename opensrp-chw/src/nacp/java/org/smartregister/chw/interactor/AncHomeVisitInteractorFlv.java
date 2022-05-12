@@ -255,11 +255,9 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
-            if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
-                if (StringUtils.isBlank(danger_signs_counseling)) {
-                    return BaseAncHomeVisitAction.Status.PENDING;
-                }
-
+            if (StringUtils.isBlank(danger_signs_present)) {
+                return BaseAncHomeVisitAction.Status.PENDING;
+            } else if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
                 if (danger_signs_counseling.equalsIgnoreCase("Yes")) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else if (danger_signs_counseling.equalsIgnoreCase("No")) {
@@ -267,10 +265,8 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                 } else {
                     return BaseAncHomeVisitAction.Status.PENDING;
                 }
-            } else if (StringUtils.isNotBlank(danger_signs_present)) {
-                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
             } else {
-                return BaseAncHomeVisitAction.Status.PENDING;
+                return BaseAncHomeVisitAction.Status.PARTIALLY_COMPLETED;
             }
         }
 
