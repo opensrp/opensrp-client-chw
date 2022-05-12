@@ -46,5 +46,6 @@
     <string name="sbcc_location">Eneo: %s</string>
     <string name="sbcc_participants">Washiriki: %s</string>
     <string name="sbcc_session_date">Tarehe: %s</string>
-    <string name="sbcc_session_title">SBCC Session</string>
+    <string name="sbcc_session_title">Kipindi cha SBCC</string>
+    <string name="missap_and_ltf_followups">Ufuatiliaji wa MISSAP/LTF</string>
 </resources>
