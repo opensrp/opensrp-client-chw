@@ -146,6 +146,10 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion7(SQLiteDatabase db) {
-        db.execSQL(RepositoryUtilsFlv.ADD_DEATH_CAUSE_COL_QUERY);
+        try {
+            db.execSQL(RepositoryUtilsFlv.ADD_DEATH_CAUSE_COL_QUERY);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }
