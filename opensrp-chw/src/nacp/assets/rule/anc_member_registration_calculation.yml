@@ -12,7 +12,7 @@ description: Gestational age calculated
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step1_gest_age + ' weeks'"
+  - "calculation = step1_gest_age"
 
 ---
 name: step1_edd
@@ -29,13 +29,6 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_no_prev_preg + 1"
----
-name: step1_last_menstrual_period
-description: last_menstrual_period calculated
-priority: 1
-condition: "true"
-actions:
-  - "calculation = helper.subtractDuration(step1_edd,'280d')"
 
 ---
 name: step1_edd_note

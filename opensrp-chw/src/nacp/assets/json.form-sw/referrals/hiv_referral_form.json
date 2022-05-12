@@ -160,7 +160,7 @@
             },
             {
               "name": "none",
-              "text": "Hapana",
+              "text": "Hakuna",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",

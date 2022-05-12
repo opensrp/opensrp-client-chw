@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "SBCC Session",
+    "title": "Kipindi cha SBCC",
     "fields": [
       {
         "key": "sbcc_date",
@@ -118,7 +118,7 @@
         "options": [
           {
             "key": "chk_early_anc_initiation",
-            "text": "Kuanza huduma za ANC mapema",
+            "text": "Uanzaji  mapema wa Kliniki ya Mama Mjamzito",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_early_anc_initiation",
             "value": "false"
@@ -153,7 +153,7 @@
           },
           {
             "key": "chk_hvl_testing",
-            "text": "Kipimo cha HVL",
+            "text": "Kipimo cha kiwango cha Virusi vya Ukimwi (HVL)",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hvl_testing",
             "value": "false"

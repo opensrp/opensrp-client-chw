@@ -141,7 +141,7 @@
         "hint": "Tarehe ya kuzaliwa",
         "expanded": false,
         "duration": {
-          "label": "Age"
+          "label": "Umri"
         },
         "min_date": "today-120y",
         "max_date": "today-5y",
@@ -474,10 +474,10 @@
           "Mfuko wa Taifa wa Hifadhi ya Jamii - Manufaa ya Bima ya Afya ya Jamii (SHIB)",
           "Mfuko wa Taifa wa Bima ya Afya (NHIF)",
           "Tiba Kwa Kadi (TIKA)",
-          "AAR Healthcare",
-          "Strategies Insurance",
+          "AAR Huduma ya Afya",
+          "Bima ya afya ya Strategies",
           "Milvik Tanzania Ltd (BIMA Mkononi)",
-          "Bima ya afya Britam",
+          "Bima ya afya Britam Tanzania",
           "Bima ya afya Jubilee",
           "Bima ya afya Resolutions",
           "Bima ya afya Reliance",

@@ -69,7 +69,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_sbcc_session"
             android:gravity="center_horizontal"
-            android:text="SBCC Session"
+            android:text="@string/sbcc_session_title"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@android:color/black"
