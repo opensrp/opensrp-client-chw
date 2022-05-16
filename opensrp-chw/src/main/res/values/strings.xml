@@ -423,6 +423,7 @@
     <string name="missap_and_ltf_followups">MISSAP/LTF Followups</string>
     <string name="successful_referrals">Successful Referrals</string>
     <string name="sbcc_session_title">SBCC Session</string>
+    <string name="pnc_referral">PNC Referral</string>
 
 
 </resources>
