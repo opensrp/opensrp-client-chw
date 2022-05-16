@@ -358,7 +358,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     }
 
     private void addPncReferralTypes() {
-        referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
+        referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_referral),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? JSON_FORM.getPncUnifiedReferralForm() : JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
 
         //  if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
