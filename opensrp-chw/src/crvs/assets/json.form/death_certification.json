@@ -197,18 +197,22 @@
           "{{death_certification.step1.informant_relationship.values[0]}}",
           "{{death_certification.step1.informant_relationship.values[1]}}",
           "{{death_certification.step1.informant_relationship.values[2]}}",
-          "{{death_certification.step1.informant_relationship.values[3]}}"
+          "{{death_certification.step1.informant_relationship.values[3]}}",
+          "{{death_certification.step1.informant_relationship.values[4]}}"
+
         ],
         "keys": [
-          "Sibling",
-          "Spouse",
           "Parent",
+          "Spouse",
+          "Sibling",
+          "Other Relative",
           "Other"
         ],
         "openmrs_choice_ids": {
           "Sibling": "sibling_id_openmrs",
           "Spouse": "spouse_id_openmrs",
           "Parent": "parent_id_openmrs",
+          "Other Relative": "other_relative_id_openmrs",
           "Other": "other_id_openmrs"
         },
         "v_required": {
