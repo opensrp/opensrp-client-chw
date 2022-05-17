@@ -334,6 +334,11 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
     }
 
     @Override
+    protected void startLDRegistration() {
+        //implement
+    }
+
+    @Override
     public boolean usesPregnancyRiskProfileLayout() {
         return false;
     }

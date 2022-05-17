@@ -248,6 +248,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         //do nothing - implementation in hf
     }
 
+    @Override
+    protected void startLDRegistration() {
+        //do nothing - implementation in hf
+    }
+
     /**
      * build implementation differences file
      */
