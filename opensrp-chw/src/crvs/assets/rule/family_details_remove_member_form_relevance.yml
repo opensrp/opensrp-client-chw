@@ -83,3 +83,80 @@ priority: 1
 condition: "step1_remove_reason.equals('Died') && step1_age_at_death_calculation > 14"
 actions:
   - "isRelevant = true"
+---
+name: step1_informant_fields
+description: informant_fields
+priority: 1
+condition: "step1_received_death_certificate('Yes') || step1_death_notification_done('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_informant_name
+description: informant_name
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_informant_relationship
+description: informant_relationship
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_informant_address
+description: informant_address
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_informant_phone
+description: informant_phone
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_official_fields
+description: official_fields
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_official_name
+description: official_name
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_official_ID
+description: official_ID
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_official_position
+description: official_position
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_official_address
+description: official_address
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_official_number
+description: official_number
+priority: 1
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
+actions:
+  - "isRelevant = true"
