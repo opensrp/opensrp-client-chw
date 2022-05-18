@@ -806,12 +806,15 @@
           "{{out_of_area_death_form.step1.informant_relationship.values[0]}}",
           "{{out_of_area_death_form.step1.informant_relationship.values[1]}}",
           "{{out_of_area_death_form.step1.informant_relationship.values[2]}}",
-          "{{out_of_area_death_form.step1.informant_relationship.values[3]}}"
+          "{{out_of_area_death_form.step1.informant_relationship.values[3]}}",
+          "{{out_of_area_death_form.step1.informant_relationship.values[4]}}"
+
         ],
         "keys": [
-          "Sibling",
-          "Spouse",
           "Parent",
+          "Spouse",
+          "Sibling",
+          "Other Relative",
           "Other"
         ],
         "openmrs_choice_ids": {
