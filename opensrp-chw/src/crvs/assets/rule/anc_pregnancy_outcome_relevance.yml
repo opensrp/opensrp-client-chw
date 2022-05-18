@@ -23,6 +23,14 @@ actions:
   - "isRelevant = true"
 
 ---
+name: step1_birth_place_name
+description: birth_place_name relevance
+priority: 1
+condition: "step1_preg_outcome == 'Live birth' || step1_preg_outcome == 'Stillbirth'"
+actions:
+  - "isRelevant = true"
+
+---
 name: step1_baby_label
 description: baby_label relevance
 priority: 1
