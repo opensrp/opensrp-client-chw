@@ -177,6 +177,22 @@
         }
       },
       {
+        "key": "birth_place_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "{{anc_pregnancy_outcome.step1.birth_place_name.hint}}",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "baby_label",
         "type": "label",
         "text": "{{anc_pregnancy_outcome.step1.baby_label.text}}",
