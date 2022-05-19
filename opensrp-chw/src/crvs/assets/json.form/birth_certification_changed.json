@@ -203,7 +203,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "birth_certification.yml"
+              "rules-file": "birth_certification_relevance.yml"
             }
           }
         }
@@ -237,7 +237,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "birth_certification.yml"
+              "rules-file": "birth_certification_relevance.yml"
             }
           }
         }
@@ -253,7 +253,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "birth_certification.yml"
+              "rules-file": "birth_certification_relevance.yml"
             }
           }
         }

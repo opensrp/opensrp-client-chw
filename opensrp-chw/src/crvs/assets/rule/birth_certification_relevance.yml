@@ -49,8 +49,8 @@ actions:
   - "isRelevant = true"
 ---
 name: step1_birth_reg_type
-description: no. condoms
+description: Informant
 priority: 1
-condition: "step1_birth_cert == 'Yes' || step1_system_birth_notification == 'Yes'|| step1_birth_notification == 'Yes'"
+condition: "step1_birth_cert == 'Yes' || step1_system_birth_notification == 'Yes' || step1_birth_notification == 'Yes'"
 actions:
   - "isRelevant = true"

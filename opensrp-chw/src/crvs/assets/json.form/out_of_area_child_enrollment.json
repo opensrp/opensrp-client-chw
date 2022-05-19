@@ -102,7 +102,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -440,7 +440,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -487,7 +487,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -613,7 +613,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -655,7 +655,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -769,7 +769,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -793,7 +793,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -821,7 +821,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -836,7 +836,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -864,7 +864,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -892,7 +892,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -922,7 +922,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
@@ -938,7 +938,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "out_of_area_child_form_rules.yml"
+              "rules-file": "out_of_area_child_enrollment_relevance.yml"
             }
           }
         }
