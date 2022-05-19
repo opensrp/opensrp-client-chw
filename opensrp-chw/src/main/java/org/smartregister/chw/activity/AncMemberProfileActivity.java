@@ -314,6 +314,11 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     }
 
     @Override
+    protected void startLDRegistration() {
+        //do nothing
+    }
+
+    @Override
     public void setFamilyLocation() {
         if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation()) {
             view_family_location_row.setVisibility(View.VISIBLE);
