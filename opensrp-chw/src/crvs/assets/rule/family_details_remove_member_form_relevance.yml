@@ -87,7 +87,7 @@ actions:
 name: step1_informant_fields
 description: informant_fields
 priority: 1
-condition: "step1_received_death_certificate('Yes') || step1_death_notification_done('Yes')"
+condition: "step1_received_death_certificate.equals('Yes') || step1_death_notification_done.equals('Yes')"
 actions:
   - "isRelevant = true"
 ---
