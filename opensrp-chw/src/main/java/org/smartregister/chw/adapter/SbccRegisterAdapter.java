@@ -59,7 +59,13 @@ public class SbccRegisterAdapter extends RecyclerView.Adapter<SbccRegisterAdapte
 
             sbccSessionDate.setText(context.getString(R.string.sbcc_session_date, sbccSessionModel.getSessionDate()));
             sbccSessionParticipants.setText(context.getString(R.string.sbcc_participants, sbccSessionModel.getSessionParticipants()));
-            sbccSessionLocation.setText(context.getString(R.string.sbcc_location, sbccSessionModel.getSessionLocation()));
+            if (sbccSessionModel.getSessionLocation().equalsIgnoreCase("facility")) {
+                sbccSessionLocation.setText(context.getString(R.string.sbcc_location, itemView.getContext().getString(R.string.sbcc_session_location_facility)));
+            } else if (sbccSessionModel.getSessionLocation().equalsIgnoreCase("community")) {
+                sbccSessionLocation.setText(context.getString(R.string.sbcc_location, itemView.getContext().getString(R.string.sbcc_session_location_community)));
+            } else {
+                sbccSessionLocation.setText(context.getString(R.string.sbcc_location, sbccSessionModel.getSessionLocation()));
+            }
         }
     }
 }

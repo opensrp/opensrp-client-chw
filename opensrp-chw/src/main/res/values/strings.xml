@@ -417,6 +417,8 @@
     <string name="sbcc_location">Location: %s</string>
     <string name="sbcc_participants">Participants: %s</string>
     <string name="sbcc_session_date">Date: %s</string>
+    <string name="sbcc_session_location_facility">Facility</string>
+    <string name="sbcc_session_location_community">Community</string>
     <string name="return_to_all_partner_followup_clients">Return to All Partner Follow-up clients</string>
     <string name="anc_male_engagement">ANC Client Male Engagement</string>
     <string name="record_mother_champion_follouwp_visit">Record Mother mentor community services visit</string>
