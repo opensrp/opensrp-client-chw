@@ -44,6 +44,7 @@ public interface ChwQueryConstant {
             "    UNION ALL\n" +
             "    SELECT ec_hiv_register.base_entity_id AS base_entity_id\n" +
             "    FROM ec_hiv_register\n" +
+            "    WHERE ( UPPER (ec_hiv_register.client_hiv_status_after_testing) LIKE UPPER('Positive') OR ec_hiv_register.client_hiv_status_after_testing IS NULL) \n" +
             ")" +
             "UNION ALL" +
             "/* CBHS REGISTER */\n" +
@@ -66,7 +67,8 @@ public interface ChwQueryConstant {
             "         inner join ec_family_member on ec_family_member.base_entity_id = ec_hiv_register.base_entity_id\n" +
             "         inner join ec_family on ec_family.base_entity_id = ec_family_member.relational_id\n" +
             "where ec_family_member.date_removed is null\n" +
-            "  and ec_hiv_register.is_closed is 0\n" +
+            "  AND ec_hiv_register.is_closed is 0\n" +
+            "  AND ( UPPER (ec_hiv_register.client_hiv_status_after_testing) LIKE UPPER('Positive') OR ec_hiv_register.client_hiv_status_after_testing IS NULL) " +
             "  AND ec_hiv_register.base_entity_id IN (%s)\n" +
             "  AND ec_family_member.base_entity_id NOT IN (\n" +
             "    SELECT ec_anc_register.base_entity_id AS base_entity_id\n" +
