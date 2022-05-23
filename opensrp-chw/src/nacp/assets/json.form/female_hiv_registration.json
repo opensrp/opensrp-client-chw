@@ -61,9 +61,9 @@
           "name": "cbhs_number",
           "type": "masked_edit_text",
           "properties": {
-            "hint": "CBHS Number e.g 1234/56/78/912",
-            "type": "CBHS Number e.g 1234/56/78/912",
-            "mask": "####/##/##/###",
+            "hint": "CBHS Number e.g 1234-56-78-912",
+            "type": "CBHS Number e.g 1234-56-78-912",
+            "mask": "####-##-##-###",
             "mask_hint": "12345678912",
             "input_type": "number",
             "allowed_chars": "0123456789"
@@ -75,8 +75,8 @@
           },
           "validation": [
             {
-              "condition": "value.matches(\"(\\\\d{4}/\\\\d{2}/\\\\d{2}/\\\\d{3})?\")",
-              "message": "CBHS Number should be of the format (XXXX/XX/XX/XXX)."
+              "condition": "value.matches(\"(\\\\d{4}-\\\\d{2}-\\\\d{2}-\\\\d{3})?\")",
+              "message": "CBHS Number should be of the format (XXXX-XX-XX-XXX)."
             }
           ],
           "required_status": "yes:Please specify client's CBHS Number"
