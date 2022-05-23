@@ -104,7 +104,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "hint": "Alama ya kihistoria"
+        "hint": "Alama ya maeneo ya makazi"
       },
       {
         "key": "gps",
