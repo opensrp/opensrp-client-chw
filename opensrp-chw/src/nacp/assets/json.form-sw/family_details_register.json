@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Family Details",
+    "title": "Taarifa za Familia",
     "fields": [
       {
         "key": "fam_name",
