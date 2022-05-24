@@ -1,5 +1,7 @@
 package org.smartregister.chw.model;
 
+import com.google.gson.Gson;
+
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.domain.VisitDetail;
@@ -27,6 +29,7 @@ public class WashCheckModel {
             baseEvent.setBaseEntityId(familyId);
 
             Visit visit = NCUtils.eventToVisit(baseEvent);
+            visit.setPreProcessedJson(new Gson().toJson(baseEvent));
             AncLibrary.getInstance().visitRepository().addVisit(visit);
             for (Map.Entry<String, List<VisitDetail>> entry : visit.getVisitDetails().entrySet()) {
                 if (entry.getValue() != null) {
@@ -35,13 +38,6 @@ public class WashCheckModel {
                     }
                 }
             }
-            /* if (ChwApplication.getApplicationFlavor().launchWashCheckOnNativeForm()) {
-                // delete any previous wash check event
-                List<String> visitIds = WashCheckDao.getLastWashCheckVisitId(familyId);
-                for (int i = 0; i < visitIds.size() - 1; i++) {
-                    AncLibrary.getInstance().visitRepository().deleteVisit(visitIds.get(i));
-                }
-            } */
             NCUtils.addEvent(allSharedPreferences, baseEvent);
             NCUtils.startClientProcessing();
             return true;
