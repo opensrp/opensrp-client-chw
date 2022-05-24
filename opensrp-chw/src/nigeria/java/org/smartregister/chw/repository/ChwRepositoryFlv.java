@@ -64,29 +64,13 @@ public class ChwRepositoryFlv {
                 case 15:
                     upgradeToVersion15(db);
                     break;
+                case 16:
+                    upgradeToVersion16(db);
+                    break;
                 default:
                     break;
             }
             upgradeTo++;
-        }
-    }
-
-    private static void upgradeToVersion15(SQLiteDatabase db) {
-        try {
-            // add new column
-            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion15");
-        }
-    }
-
-    private static void upgradeToVersion14(SQLiteDatabase db) {
-        try {
-            // form configuration
-            ClientFormRepository.createTable(db);
-            ManifestRepository.createTable(db);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion14");
         }
     }
 
@@ -172,24 +156,6 @@ public class ChwRepositoryFlv {
         }
     }
 
-    private static void upgradeToVersion12(SQLiteDatabase db) {
-        try {
-            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion9");
-        }
-    }
-
-    private static void upgradeToVersion13(SQLiteDatabase db) {
-        try {
-            db.execSQL(ChildDBConstants.ADD_COLUMN_THINK_MD_ID);
-            db.execSQL(ChildDBConstants.ADD_COLUMN_HTML_ASSESSMENT);
-            db.execSQL(ChildDBConstants.ADD_COLUMN_CARE_PLAN_DATE);
-        } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion13");
-        }
-    }
-
     private static void upgradeToVersion10(SQLiteDatabase db, int oldDbVersion) {
         try {
             ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
@@ -210,6 +176,51 @@ public class ChwRepositoryFlv {
             IMDatabaseUtils.accessAssetsAndFillDataBaseForVaccineTypes(context, db);
         } catch (Exception e) {
             Timber.e(e);
+        }
+    }
+
+    private static void upgradeToVersion12(SQLiteDatabase db) {
+        try {
+            db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion9");
+        }
+    }
+
+    private static void upgradeToVersion13(SQLiteDatabase db) {
+        try {
+            db.execSQL(ChildDBConstants.ADD_COLUMN_THINK_MD_ID);
+            db.execSQL(ChildDBConstants.ADD_COLUMN_HTML_ASSESSMENT);
+            db.execSQL(ChildDBConstants.ADD_COLUMN_CARE_PLAN_DATE);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion13");
+        }
+    }
+
+    private static void upgradeToVersion14(SQLiteDatabase db) {
+        try {
+            // form configuration
+            ClientFormRepository.createTable(db);
+            ManifestRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion14");
+        }
+    }
+
+    private static void upgradeToVersion15(SQLiteDatabase db) {
+        try {
+            // add new column
+            db.execSQL("ALTER TABLE ec_family_member ADD COLUMN marital_status VARCHAR;");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion15");
+        }
+    }
+
+    private static void upgradeToVersion16(SQLiteDatabase db) {
+        try {
+            db.execSQL(RepositoryUtils.UPDATE_NULL_VISIT_PRE_PROCESSED_JSON_SQL);
+        } catch (Exception e) {
+            Timber.e(e, "Error upgrading to Version16");
         }
     }
 

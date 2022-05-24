@@ -47,6 +47,9 @@ public interface RepositoryUtils {
             "having count(*) > 1 " +
             ")";
 
+    String UPDATE_NULL_VISIT_PRE_PROCESSED_JSON_SQL= "UPDATE visits SET pre_processed = visit_json " +
+            "WHERE pre_processed IS NULL AND processed = 0";
+
     static void addDetailsColumnToFamilySearchTable(SQLiteDatabase db) {
         try {
 
