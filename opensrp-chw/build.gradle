@@ -275,8 +275,8 @@ android {
         nigeria {
             dimension = 'baseDimension'
             applicationIdSuffix ".nigeria"
-            versionCode 4
-            versionName "1.0.4"
+            versionCode 5
+            versionName "1.0.5"
             buildConfigField "String", 'opensrp_url', '"https://dcis-ng.smartregister.org/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/chad/"'
             buildConfigField "String", 'opensrp_url_debug', '"https://dcis-ng.labs.smartregister.org/opensrp/"'
@@ -285,7 +285,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"State" , "Lga" , "Ward","Community","Sub-Community"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Sub-Community"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Sub-Community"'
-            buildConfigField "int", "DATABASE_VERSION", '15'
+            buildConfigField "int", "DATABASE_VERSION", '16'
         }
         guinea {
             dimension = 'baseDimension'
