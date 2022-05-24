@@ -79,7 +79,7 @@
             },
             {
               "name": "Vaginal_bleeding",
-              "text": "Kutoka damu ukenig",
+              "text": "Kutoka damu ukeni",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -97,7 +97,7 @@
             },
             {
               "name": "Severe_abdominal_pain",
-              "text": "Maumivu makali ya tumbon",
+              "text": "Maumivu makali ya tumbo",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
