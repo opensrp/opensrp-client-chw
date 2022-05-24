@@ -60,4 +60,9 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
         ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
     }
+
+    @Override
+    protected String getHumanReadableConceptResponse(String value, Object object) {
+        return value;
+    }
 }

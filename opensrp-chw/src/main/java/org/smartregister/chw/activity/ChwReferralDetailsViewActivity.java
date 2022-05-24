@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
+import org.smartregister.chw.dao.ChwHivOutcomeDao;
 import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
 import org.smartregister.chw.referral.domain.MemberObject;
@@ -29,10 +30,22 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
         Task task = ChwApplication.getInstance().getTaskRepository().getTaskByIdentifier(taskId);
         if (!task.getBusinessStatus().equalsIgnoreCase("Complete")) {
             createCancelReferral(task);
+        } else {
+            //TODO this needs refactoring. This is a draft implementation.
+            if (getMemberObject().getChwReferralService().equals("Suspected HIV")) {
+                String servicesProvided = ChwHivOutcomeDao.servicesProvided(task.getForEntity(), task.getLastModified().getMillis());
+                String hivStatus = ChwHivOutcomeDao.hivStatus(task.getForEntity(), task.getLastModified().getMillis());
+
+                if (servicesProvided != null) {
+                    ((CustomFontTextView) findViewById(R.id.chw_details_phone)).setText(servicesProvided + " " + hivStatus);
+                    ((CustomFontTextView) findViewById(R.id.chw_details_phone_label)).setText("Services Provided");
+                    findViewById(R.id.chw_details_phone_layout).setVisibility(View.VISIBLE);
+                }
+            }
         }
 
-        if(getMemberObject().getProblem().equals("anc_male_engagement"))
-            ((CustomFontTextView)findViewById(R.id.client_referral_problem)).setText(getResources().getString(R.string.anc_male_engagement));
+        if (getMemberObject().getProblem().equals("anc_male_engagement"))
+            ((CustomFontTextView) findViewById(R.id.client_referral_problem)).setText(getResources().getString(R.string.anc_male_engagement));
 
     }
 
@@ -84,5 +97,10 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private String getTranslatedHivServicesProvided(String serviceProvided) {
+        //TODO implement this
+        return null;
     }
 }
