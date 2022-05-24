@@ -475,7 +475,7 @@
           "Mfuko wa Taifa wa Bima ya Afya (NHIF)",
           "Tiba Kwa Kadi (TIKA)",
           "AAR Huduma ya Afya",
-          "Bima ya afya ya Strategies",
+          "Bima ya afya Strategies",
           "Milvik Tanzania Ltd (BIMA Mkononi)",
           "Bima ya afya Britam Tanzania",
           "Bima ya afya Jubilee",
@@ -940,7 +940,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_male_15",
         "type": "native_radio",
-        "label": "Sababu ya usajili",
+        "label": "Sababu za usajili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -1040,7 +1040,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_female_15",
         "type": "native_radio",
-        "label": "Sababu ya usajili",
+        "label": "Sababu za usajili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -1147,7 +1147,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_under_15",
         "type": "native_radio",
-        "label": "Sababu ya usajili",
+        "label": "Sababu za usajili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -1275,7 +1275,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_female_under_10",
         "type": "native_radio",
-        "label": "Reasons for Registration",
+        "label": "Sababu za usajili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -1387,7 +1387,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Reason for registration is required"
+          "err": "Sababu ya usajili inahitajika"
         },
         "relevance": {
           "rules-engine": {
@@ -1403,7 +1403,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_female_10_to_15",
         "type": "native_radio",
-        "label": "Reasons for Registration",
+        "label": "Sababu za usajili",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
@@ -1529,7 +1529,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Reason for registration is required"
+          "err": "Sababu ya usajili inahitajika"
         },
         "relevance": {
           "rules-engine": {

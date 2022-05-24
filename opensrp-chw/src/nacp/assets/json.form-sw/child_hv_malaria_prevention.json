@@ -114,8 +114,8 @@
         "type": "spinner",
         "hint": "Hali ya chandarua (LLIN)",
         "values": [
-          "Ndiyo",
-          "Hapana"
+          "Nzuri",
+          "Mbaya"
         ],
         "keys": [
           "Okay",
