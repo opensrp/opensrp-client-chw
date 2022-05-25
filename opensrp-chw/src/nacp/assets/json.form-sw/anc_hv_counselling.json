@@ -187,6 +187,26 @@
           "value": "true",
           "err": "Tafadhali chagua angalau mojawapo"
         }
+      },
+      {
+        "key": "prompt_for_counselling_not_given",
+        "type": "toaster_notes",
+        "text": "Provide counselling to the mother and family members",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:counselling_given": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_none"
+                ]
+              }
+            ]
+          }
+        }
       }
     ]
   }
