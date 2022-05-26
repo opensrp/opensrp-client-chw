@@ -22,7 +22,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.rey.material.widget.Button;
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -133,7 +134,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
         });
 
         partnerView = findViewById(R.id.rlPartnerView);
-        Button registerBtn = findViewById(R.id.register_partner_btn);
+        AppCompatButton registerBtn = findViewById(R.id.register_partner_btn);
         if (AncPartnerDao.hasPartnerAgreeForRegistration(referralFormSubmissionId) && !AncPartnerDao.isPartnerRegistered(referralFormSubmissionId)) {
             partnerView.setVisibility(View.VISIBLE);
         }
