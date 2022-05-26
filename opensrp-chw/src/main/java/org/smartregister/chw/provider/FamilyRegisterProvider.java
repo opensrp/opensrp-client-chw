@@ -132,6 +132,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
                 setTasksDoneStatus(context, viewHolder.dueButton);
             } else if (visits_not_done != null && visits_not_done > 0) {
                 setTaskNotDone(context, viewHolder.dueButton);
+            }else if (due == 0 && over_due == 0){
+                viewHolder.dueButton.setVisibility(View.GONE);
             }
 
         } else {

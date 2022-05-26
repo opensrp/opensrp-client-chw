@@ -1,5 +1,6 @@
 package org.smartregister.chw.application;
 
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.family.util.DBConstants;
@@ -322,6 +323,11 @@ public abstract class DefaultChwApplicationFlv implements ChwApplication.Flavor 
 
     public String[] getFTSTables() {
         return new String[]{CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, CoreConstants.TABLE_NAME.CHILD};
+    }
+
+    @Override
+    public int immunizationCeilingMonths(MemberObject memberObject) {
+        return 24;
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.reporting.ReportingLibrary;
 
@@ -28,5 +29,11 @@ public class CoreChwApplicationTest extends BaseUnitTest {
 
         ReflectionHelpers.setField(application, "flavor", flv);
         Assert.assertNotNull(application.getP2PClassifier());
+    }
+
+    @Test
+    public void testApplicationImmunizationCeiling(){
+        MemberObject memberObject = Mockito.mock(MemberObject.class);
+        Assert.assertEquals(24, ChwApplication.getApplicationFlavor().immunizationCeilingMonths(memberObject));
     }
 }

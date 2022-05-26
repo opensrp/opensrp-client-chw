@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.interactor.ChildProfileInteractor;
@@ -98,5 +99,6 @@ public class ChildProfilePresenterTest extends BaseUnitTest {
 
         Mockito.verify(view).setProfileName(Mockito.any());
         Mockito.verify(view).setAge(Mockito.any());
+        Assert.assertNotNull(ReflectionHelpers.getField(profilePresenter, "childMemberObject"));
     }
 }

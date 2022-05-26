@@ -44,6 +44,7 @@ import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.ReportsActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -677,6 +678,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         boolean checkExtraForDueInFamily();
 
         boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult();
+
+        int immunizationCeilingMonths(MemberObject memberObject);
 
         boolean hasMap();
 
