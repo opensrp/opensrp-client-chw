@@ -214,6 +214,26 @@
         }
       },
       {
+        "key": "prompt_for_delivery_method",
+        "type": "toaster_notes",
+        "text": "Counsel the client on her risk of uterine rupture during labour and advise her to deliver at a health care facility",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:delivery_method": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_cesarean_section"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "delivery_method_one",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -255,6 +275,21 @@
         "v_required": {
           "value": "true",
           "err": "Please select one"
+        }
+      },
+      {
+        "key": "prompt_for_delivery_method_one",
+        "type": "toaster_notes",
+        "text": "Counsel the client on her risk of uterine rupture during labour and advise her to deliver at a health care facility",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:delivery_method_one": {
+            "type": "string",
+            "ex": "equalTo(., \"chk_cesarean_section\")"
+          }
         }
       },
       {
