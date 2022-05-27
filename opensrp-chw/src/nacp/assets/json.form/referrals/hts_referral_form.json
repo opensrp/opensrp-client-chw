@@ -69,11 +69,38 @@
           },
           "options": [
             {
-              "name": "frequent_fever",
-              "text": "Frequent fever",
+              "name": "high_risk_client",
+              "text": "High Risk client",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "frequent_fever",
+                "openmrs_entity_id": "high_risk_client",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "optimistic_infections",
+              "text": "Optimistic infections",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "optimistic_infections",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "confirmation_self_test",
+              "text": "Confirmation for self test",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "confirmation_self_test",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "index_contact_testing",
+              "text": "Index contact testing",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "index_contact_testing",
                 "openmrs_entity_parent": ""
               }
             },
@@ -92,15 +119,6 @@
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "living_with_a_spouse_with_hiv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_in_a_risky_area",
-              "text": "Risk area/location",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_in_a_risky_area",
                 "openmrs_entity_parent": ""
               }
             },

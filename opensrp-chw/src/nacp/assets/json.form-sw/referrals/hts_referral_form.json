@@ -69,17 +69,44 @@
           },
           "options": [
             {
-              "name": "frequent_fever",
-              "text": "Homa za mara kwa mara",
+              "name": "high_risk_client",
+              "text": "Mteja mwenye hatari kubwa (High Risk client)",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "frequent_fever",
+                "openmrs_entity_id": "high_risk_client",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "optimistic_infections",
+              "text": "Magonjwa nyemelezi (Optimistic infections)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "optimistic_infections",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "confirmation_self_test",
+              "text": "Kipimo binfasi cha uthibitisho (Confirmation for self test)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "confirmation_self_test",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "index_contact_testing",
+              "text": "Upimaji wa washirika wa ngono/wakujidunga (Index contact testing)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "index_contact_testing",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "weight_loss",
-              "text": "Kupoteza uzito",
+              "text": "Kupoteza uzito (Weight loss)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "weight_loss",
@@ -88,19 +115,10 @@
             },
             {
               "name": "living_with_a_spouse_with_hiv",
-              "text": "Anaishi na mwenza mwenye VVU",
+              "text": "Anaishi na mwenza mwenye VVU (Living with HIV+ spouse)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "living_with_a_spouse_with_hiv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_in_a_risky_area",
-              "text": "Maeneo hatarishi kwa maambukizi ya VVU",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_in_a_risky_area",
                 "openmrs_entity_parent": ""
               }
             },
