@@ -324,7 +324,7 @@
     <string name="storage_permissions_message">The app needs this permission to list guide book videos. \n Without this permission you cannot view any guidebook videos</string>
 
     <!--Referral -->
-    <string name="referral_reason">Reason for referral</string>
+    <string name="referral_reason">Service Referred to</string>
     <string name="open_referral_form">Open %s referral form</string>
     <string name="sick_child">Sick child</string>
     <string name="family_planning_referral">Family Planning</string>
