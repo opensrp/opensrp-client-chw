@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua tatizo/hali aliyonayo mteja."
+            "text": "Sababu za rufaa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -122,7 +122,7 @@
             },
             {
               "name": "Other_symptom",
-              "text": "Dalili nyingine",
+              "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "Other_symptom",
@@ -130,7 +130,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali bainisha tatizo/hali ya mteja",
+          "required_status": "yes:Tafadhali chagua sababu za rufaa",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -142,7 +142,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Dalili nyingine",
+            "hint": "Sababu nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -150,7 +150,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Tafadhali jaza dalili nyingine",
+          "required_status": "true:Tafadhali jaza sababu nyingine",
           "subjects": "problem:map"
         },
         {
