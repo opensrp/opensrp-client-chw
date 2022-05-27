@@ -394,7 +394,7 @@
             },
             {
               "name": "Other_symptom",
-              "text": "Other symptom",
+              "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -420,10 +420,10 @@
             "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Other reasons",
             "type": "name"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Please specify other reasons",
           "subjects": "problem:map"
         },
         {
