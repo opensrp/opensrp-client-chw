@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick condition/problem associated with the client."
+            "text": "Reasons for Referral"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -294,7 +294,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify reason for ANC referral",
+          "required_status": "yes:Please specify reasons for ANC referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
