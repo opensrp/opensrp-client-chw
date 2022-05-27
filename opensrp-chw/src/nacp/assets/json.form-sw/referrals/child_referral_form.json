@@ -258,7 +258,7 @@
               }
             },
             {
-              "name": "Other_symptom",
+              "name": "other_reasons",
               "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "concept",

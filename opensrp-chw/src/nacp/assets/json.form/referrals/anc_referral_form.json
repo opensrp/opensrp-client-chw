@@ -285,11 +285,11 @@
               }
             },
             {
-              "name": "Other_symptoms",
+              "name": "other_reasons",
               "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptoms",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }

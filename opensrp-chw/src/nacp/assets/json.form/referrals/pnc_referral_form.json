@@ -393,7 +393,7 @@
               }
             },
             {
-              "name": "Other_symptom",
+              "name": "other_reasons",
               "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
