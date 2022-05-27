@@ -69,6 +69,24 @@
           },
           "options": [
             {
+              "name": "rape",
+              "text": "Ubakaji (Rape)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "rape",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "physical_abuse",
+              "text": "Unyanyasaji wa kimwili (Physical abuse)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "physical_abuse",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "has_moved_out_from_home",
               "text": "Amehama nyumbani",
               "meta_data": {
@@ -103,7 +121,8 @@
                 "openmrs_entity_id": "needs_more_services",
                 "openmrs_entity_parent": ""
               }
-            },{
+            },
+            {
               "name": "has_great_level_of_stress_and_fear",
               "text": "Sonona (msongo wa mawazo)/ kuwa na woga mkuu",
               "meta_data": {
@@ -111,7 +130,8 @@
                 "openmrs_entity_id": "has_great_level_of_stress_and_fear",
                 "openmrs_entity_parent": ""
               }
-            },{
+            },
+            {
               "name": "threatened_to_be_killed",
               "text": "Kutishiwa kuuawa",
               "meta_data": {

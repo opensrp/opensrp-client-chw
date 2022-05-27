@@ -69,6 +69,24 @@
           },
           "options": [
             {
+              "name": "rape",
+              "text": "Rape",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "rape",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "physical_abuse",
+              "text": "Physical abuse",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "physical_abuse",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "has_moved_out_from_home",
               "text": "Has moved out from home",
               "meta_data": {
