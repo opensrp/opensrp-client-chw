@@ -156,10 +156,10 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
                 BuildConfig.USE_UNIFIED_REFERRAL_APPROACH ? org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm() : org.smartregister.chw.util.Constants.JSON_FORM.getAncReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
 
-       // if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
-//            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-//                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
-       // }
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+        }
 
         if (MalariaDao.isRegisteredForMalaria(baseEntityID)) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.client_malaria_follow_up), null, null));
