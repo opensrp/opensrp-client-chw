@@ -1121,8 +1121,7 @@
             "min_date": "today",
             "max_date": "today+3m"
           },
-          "required_status": "true:Please specify the next appointment date",
-          "subjects": "registration_or_followup_status:text"
+          "required_status": "true:Please specify the next appointment date"
         },
         {
           "name": "client_moved_location",
