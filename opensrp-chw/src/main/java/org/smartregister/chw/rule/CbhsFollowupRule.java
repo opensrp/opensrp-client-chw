@@ -4,7 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.smartregister.chw.core.rule.HivFollowupRule;
-import org.smartregister.chw.core.rule.ICommonRule;
 import org.smartregister.chw.core.utils.CoreConstants;
 
 import java.text.SimpleDateFormat;
