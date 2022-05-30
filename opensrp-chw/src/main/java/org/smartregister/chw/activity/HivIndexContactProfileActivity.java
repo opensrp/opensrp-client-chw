@@ -77,7 +77,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     @Override
     public void setupViews() {
         super.setupViews();
-        if(getHivIndexContactObject().getFollowedUpByChw()){
+        if (getHivIndexContactObject().getFollowedUpByChw()) {
 
         }
     }
@@ -170,8 +170,8 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral),
                     CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
 
-//            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-//                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }

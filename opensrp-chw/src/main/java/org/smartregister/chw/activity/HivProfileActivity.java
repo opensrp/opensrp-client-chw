@@ -428,8 +428,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
                             CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
                 }
             }
-//            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-//                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
+                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }

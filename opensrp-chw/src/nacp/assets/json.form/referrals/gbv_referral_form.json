@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick problem/condition associated with the client."
+            "text": "Reasons for Referral"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -68,6 +68,24 @@
             "openmrs_entity_id": "problem"
           },
           "options": [
+            {
+              "name": "rape",
+              "text": "Rape",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "rape",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "physical_abuse",
+              "text": "Physical abuse",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "physical_abuse",
+                "openmrs_entity_parent": ""
+              }
+            },
             {
               "name": "has_moved_out_from_home",
               "text": "Has moved out from home",
@@ -123,16 +141,16 @@
               }
             },
             {
-              "name": "Other_symptom",
-              "text": "Other Symptom",
+              "name": "other_reasons",
+              "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptom",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify client's problems",
+          "required_status": "yes:Please specify reasons for referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -144,7 +162,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Other reasons",
             "type": "name"
           },
           "meta_data": {
@@ -152,7 +170,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Please specify other reasons",
           "subjects": "problem:map"
         },
         {

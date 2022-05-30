@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua tatizo au hali inayoendana na mteja"
+            "text": "Sababu za rufaa"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -69,17 +69,44 @@
           },
           "options": [
             {
-              "name": "frequent_fever",
-              "text": "Homa za mara kwa mara",
+              "name": "high_risk_client",
+              "text": "Mteja mwenye hatari kubwa (High Risk client)",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "frequent_fever",
+                "openmrs_entity_id": "high_risk_client",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "optimistic_infections",
+              "text": "Magonjwa nyemelezi (Optimistic infections)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "optimistic_infections",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "confirmation_self_test",
+              "text": "Kipimo binfasi cha uthibitisho (Confirmation for self test)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "confirmation_self_test",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "index_contact_testing",
+              "text": "Upimaji wa washirika wa ngono/wakujidunga (Index contact testing)",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "index_contact_testing",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "weight_loss",
-              "text": "Kupoteza uzito",
+              "text": "Kupoteza uzito (Weight loss)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "weight_loss",
@@ -88,7 +115,7 @@
             },
             {
               "name": "living_with_a_spouse_with_hiv",
-              "text": "Anaishi na mwenza mwenye VVU",
+              "text": "Anaishi na mwenza mwenye VVU (Living with HIV+ spouse)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "living_with_a_spouse_with_hiv",
@@ -96,25 +123,16 @@
               }
             },
             {
-              "name": "living_in_a_risky_area",
-              "text": "Maeneo hatarishi kwa maambukizi ya VVU",
+              "name": "other_reasons",
+              "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "living_in_a_risky_area",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "Other_symptom",
-              "text": "Dalili nyingine",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptom",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua dalili nyingine",
+          "required_status": "yes:Tafadhali chagua sababu nyingine",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -126,7 +144,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Dalili nyingine",
+            "hint": "Sababu nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -134,7 +152,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Tafadhali chagua dalili nyingine",
+          "required_status": "true:Tafadhali chagua sababu nyingine",
           "subjects": "problem:map"
         },
         {

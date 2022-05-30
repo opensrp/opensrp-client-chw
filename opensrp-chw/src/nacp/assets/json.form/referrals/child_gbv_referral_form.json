@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick problem/condition associated with the client."
+            "text": "Reasons for Referral"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -141,16 +141,16 @@
               }
             },
             {
-              "name": "Other_symptom",
-              "text": "Other Symptom",
+              "name": "other_reasons",
+              "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptom",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify client's problems",
+          "required_status": "yes:Please specify reasons for referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -162,7 +162,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Other reasons",
             "type": "name"
           },
           "meta_data": {
@@ -170,7 +170,7 @@
             "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Please specify other reasons",
           "subjects": "problem:map"
         },
         {

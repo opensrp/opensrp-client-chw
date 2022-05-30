@@ -347,7 +347,7 @@
     <string name="storage_permissions_message">App inahitaji ruhusa hiyo kuorodhesha video za mwongozo. \ n Bila ruhusa hiyo huwezi kutazama video zozote za mwongozo</string>
 
     <!--Referral -->
-    <string name="referral_reason">Sababu za Kumpatia Mteja Rufaa kwenda kituo cha kutolea huduma za Afya</string>
+    <string name="referral_reason">Rufaa Kwaajili ya Huduma ya</string>
     <string name="open_referral_form">Fungua rufaa ya %s</string>
     <string name="sick_child">Mtoto mgonjwa</string>
     <string name="family_planning_referral">Uzazi wa mpango</string>
