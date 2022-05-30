@@ -33,6 +33,7 @@ import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.HivFloatingMenu;
+import org.smartregister.chw.dao.ChwCBHSDao;
 import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
@@ -100,6 +101,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
             JSONObject step = steps.getJSONObject(0);
             JSONArray fields = step.getJSONArray("fields");
             removeField(fields, "client_hiv_status_after_testing");
+        }
+
+        if(ChwCBHSDao.tbStatusAfterTestingDone(baseEntityID)){
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+            removeField(fields, "client_tb_status_after_testing");
         }
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());

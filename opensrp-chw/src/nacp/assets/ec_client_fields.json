@@ -2804,6 +2804,14 @@
           }
         },
         {
+          "column_name": "client_tb_status_after_testing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_tb_status_after_testing"
+          }
+        },
+        {
           "column_name": "hiv_registration_date",
           "type": "Event",
           "data_type": "date",
