@@ -93,19 +93,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
         HivMemberObject hivMemberObject = HivDao.getMember(baseEntityID);
         JSONObject formJsonObject;
+        formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.CBHSJsonForms.getCbhsFollowupForm());
 
-        if (hivMemberObject.getCtcNumber().isEmpty()) {
-            if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getFemaleHivFollowupVisit());
-            } else {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisit());
-            }
-        } else {
-            if (hivMemberObject.getGender().equalsIgnoreCase("Female")) {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.JSON_FORM.getFemaleHivFollowupVisitForClientsWithCtcNumbers());
-            } else {
-                formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getMaleHivFollowupVisitForClientsWithCtcNumbers());
-            }
+        if (!hivMemberObject.getCtcNumber().isEmpty()) {
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+            removeField(fields, "client_hiv_status_after_testing");
         }
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
@@ -113,6 +107,22 @@ public class HivProfileActivity extends CoreHivProfileActivity
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
 
         activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+    }
+
+    private static void removeField(JSONArray fields, String fieldName) throws JSONException {
+        int position = 0;
+        boolean found = false;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            if (field.getString("name").equalsIgnoreCase(fieldName)) {
+                position = i;
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            fields.remove(position);
+        }
     }
 
     public static void startHivCommunityFollowupFeedbackActivity(Activity activity, String baseEntityID) throws JSONException {

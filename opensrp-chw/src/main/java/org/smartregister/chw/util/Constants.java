@@ -77,6 +77,14 @@ public class Constants extends CoreConstants {
         String ReferralFormId = "referral_form_id";
     }
 
+    public static class CBHSJsonForms {
+        private static final String CBHS_FOLLOWUP_FORM = "cbhs_followup_form";
+
+        public static String getCbhsFollowupForm() {
+            return CBHS_FOLLOWUP_FORM;
+        }
+    }
+
     public static final class JsonForm{
         private static final String PARTNER_REGISTRATION_FORM = "male_partner_registration_form";
         private static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "pmtct_community_followup_feedback";

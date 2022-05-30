@@ -13,6 +13,13 @@ condition: "registration_or_followup_status.value=='New Client' || registration_
 actions:
   - "client_hiv_status_after_testing_visibility =  true"
 ---
+name: "client_tb_status_after_testing_visibility"
+description: "client_hiv_status_after_testing visibility"
+priority: 1
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
+actions:
+  - "client_tb_status_after_testing_visibility =  true"
+---
 name: "ctc_number_visibility"
 description: "ctc_number visibility"
 priority: 1
