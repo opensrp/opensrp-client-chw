@@ -292,6 +292,10 @@
             android:label="@string/upcoming_services"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
+            android:name=".activity.CbhsUpcomingServiceActivity"
+            android:label="@string/upcoming_services"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.ChwReferralDetailsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity

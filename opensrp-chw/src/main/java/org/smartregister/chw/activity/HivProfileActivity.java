@@ -368,7 +368,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public void openUpcomingServices() {
-        CoreHivUpcomingServicesActivity.startMe(this, HivUtil.toMember(getHivMemberObject()));
+        CbhsUpcomingServiceActivity.startMe(this, HivUtil.toMember(getHivMemberObject()));
     }
 
     @Override

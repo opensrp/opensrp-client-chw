@@ -4,17 +4,16 @@ import android.content.Context;
 
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.anc.domain.MemberObject;
-import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.anc.interactor.BaseAncUpcomingServicesInteractor;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.R;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.rule.HivFollowupRule;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.HomeVisitUtil;
+import org.smartregister.chw.dao.ChwCBHSDao;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.domain.HivAlertObject;
-import org.smartregister.chw.hiv.util.Constants;
+import org.smartregister.chw.rule.CbhsFollowupRule;
+import org.smartregister.chw.util.ChwHomeVisitUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -50,15 +49,11 @@ public class CbhsUpcomingServicesInteractor extends BaseAncUpcomingServicesInter
                 hiv_date = hiv.getHivStartDate();
             }
         }
-        Date lastVisitDate = null;
-        Visit lastVisit;
-        Date hivDate = new Date(new BigDecimal(hiv_date).longValue());
-        lastVisit = HivDao.getLatestVisit(memberObject.getBaseEntityId(), Constants.EventType.FOLLOW_UP_VISIT);
-        if (lastVisit != null) {
-            lastVisitDate = lastVisit.getDate();
-        }
 
-        HivFollowupRule alertRule = HomeVisitUtil.getHivVisitStatus(lastVisitDate, hivDate);
+        Date hivDate = new Date(new BigDecimal(hiv_date).longValue());
+        Date nextVisitDate = ChwCBHSDao.getNextVisitDate(memberObject.getBaseEntityId());
+
+        CbhsFollowupRule alertRule = ChwHomeVisitUtil.getCBHSVisitStatus(nextVisitDate, hivDate);
         serviceDueDate = alertRule.getDueDate();
         serviceOverDueDate = alertRule.getOverDueDate();
         serviceName = context.getString(R.string.cbhs_follow_up_visit);
