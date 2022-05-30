@@ -69,11 +69,29 @@
           },
           "options": [
             {
-              "name": "pain",
-              "text": "Maumivu",
+              "name": "fever",
+              "text": "Homa",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "pain",
+                "openmrs_entity_id": "fever",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "jaundice",
+              "text": "Manjano",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "jaundice",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "headache",
+              "text": "Kichwa kuuma",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "headache",
                 "openmrs_entity_parent": ""
               }
             },
@@ -83,6 +101,33 @@
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "coughing",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "altered_mental_status",
+              "text": "Kuchanganyikiwa/kutokuwa sawa kiakili",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "altered_mental_status",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "convulsion",
+              "text": "Degedege",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "convulsion",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "loss_of_consciousness",
+              "text": "Kupoteza fahamu",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "loss_of_consciousness",
                 "openmrs_entity_parent": ""
               }
             },
