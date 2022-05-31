@@ -9,9 +9,9 @@
     <string name="hts_referral">HIV Testing Services</string>
     <string name="tb_referral">TB Clinic</string>
     <string name="pmtct_referral">PMTCT Clinic</string>
-    <string name="gbv_referral">Gender Based Violence Referral</string>
-    <string name="pregnancy_confirmation_referral">Pregnancy Confirmation Referral</string>
-    <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
+    <string name="gbv_referral">Gender Based Violence</string>
+    <string name="pregnancy_confirmation_referral">Pregnancy Confirmation</string>
+    <string name="child_gbv_referral">Child Gender Based Violence</string>
     <string name="created">Created: %s</string>
     <string name="submit">SAVE</string>
     <string name="referral_status_pending">PENDING</string>
@@ -31,4 +31,10 @@
     <string name="register_partner_dialog_title">Register this client as Partner?</string>
     <string name="view_partner_prefile">View Partner Profile</string>
     <string name="back_to_pmtct">Back to Mother Champion\'s Followup Clients</string>
+
+    <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
+    <string name="referral_problem_pain">Pain</string>
+    <string name="referral_problem_coughing">Coughing</string>
+    <string name="referral_problem_weight_loss">Weight Loss</string>
+    <string name="referral_problem_frequent_fever">Frequent Fever</string>
 </resources>
