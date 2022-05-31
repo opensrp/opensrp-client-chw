@@ -351,8 +351,8 @@ android {
         lmh {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
-            versionCode 2
-            versionName "2.0.1-rc5"
+            versionCode 4
+            versionName "2.0.1"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
@@ -378,7 +378,7 @@ dependencies {
 
     implementation('com.google.android.gms:play-services-vision:17.0.2')
 
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.4-LMH-Beta-04-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'

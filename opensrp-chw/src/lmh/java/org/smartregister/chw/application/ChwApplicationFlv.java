@@ -1,5 +1,8 @@
 package org.smartregister.chw.application;
 
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.dao.ChwChildDao;
+
 public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
@@ -229,22 +232,42 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean checkExtraForDueInFamily() {
-      return true;
-    }
-    @Override
-    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult(){
         return true;
     }
 
     @Override
-    public boolean showsPhysicallyDisabledView() { return false; }
+    public boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult() {
+        return true;
+    }
 
     @Override
-    public boolean vaccinesDefaultChecked() { return false; }
+    public boolean showsPhysicallyDisabledView() {
+        return false;
+    }
+
+    @Override
+    public boolean vaccinesDefaultChecked() {
+        return false;
+    }
 
     @Override
     public boolean checkDueStatusFromUpcomingServices() {
         return true;
+    }
+
+    @Override
+    public int immunizationCeilingMonths(MemberObject memberObject) {
+        String gender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
+
+        if (gender != null && gender.equalsIgnoreCase("Female")) {
+            if (memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
+                return 132;
+            } else {
+                return 60;
+            }
+        }
+
+        return 60;
     }
 }
 

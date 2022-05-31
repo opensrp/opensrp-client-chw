@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
+import org.joda.time.Months;
 import org.smartregister.chw.anc.contract.BaseAncUpcomingServicesContract;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.model.BaseUpcomingService;
@@ -15,13 +16,19 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.chw.interactor.ChildUpcomingServiceInteractor;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import timber.log.Timber;
 
 public final class UpcomingServicesUtil {
     static List<BaseUpcomingService> deepCopy(@Nullable List<BaseUpcomingService> serviceList) {
@@ -32,7 +39,7 @@ public final class UpcomingServicesUtil {
         for (BaseUpcomingService service : serviceList) {
             BaseUpcomingService copy = new BaseUpcomingService();
             copy.setServiceName(service.getServiceName());
-            copy.setServiceDate(service.getOverDueDate());
+            copy.setServiceDate(service.getServiceDate());
             copy.setExpiryDate(service.getExpiryDate());
             copy.setOverDueDate(service.getOverDueDate());
 
@@ -71,14 +78,29 @@ public final class UpcomingServicesUtil {
         return hasDue ? CoreConstants.VISIT_STATE.DUE : null;
     }
 
-    public static boolean hasUpcomingDueServices(MemberObject memberObject, Context ctx){
-        String childGender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
+    public static boolean showStatusForChild(MemberObject memberObject, final String childGender) {
         int childAge = memberObject.getAge();
-        if (!ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()
-                && childAge >= 2
-                && !(childGender.equalsIgnoreCase("Female") && childAge >= 9 && childAge <= 11)){
-            return false;
+
+        return (ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus() && (childAge < 2 || (childGender.equalsIgnoreCase("Female") && childAge >= 9 && childAge <= 11))
+                || !ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus());
+    }
+
+    static Integer getAgeInMonths(MemberObject memberObject) {
+        Date dob;
+        try {
+            dob = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(memberObject.getDob());
+            return Months.monthsBetween(new LocalDate(dob), new LocalDate()).getMonths();
+        } catch (ParseException e) {
+            Timber.e(e);
         }
+        return null;
+    }
+
+    public static boolean hasUpcomingDueServices(MemberObject memberObject, Context ctx) {
+        Integer monthAge = getAgeInMonths(memberObject);
+        if (monthAge == null || monthAge >= ChwApplication.getApplicationFlavor().immunizationCeilingMonths(memberObject))
+            return false;
+
         List<BaseUpcomingService> upcomingServices = new ChildUpcomingServiceInteractor().getUpcomingServices(memberObject, ctx);
         return getDueServicesState(upcomingServices) != null;
     }
@@ -88,7 +110,7 @@ public final class UpcomingServicesUtil {
         int childAge = memberObject.getAge();
         if (!ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()
                 && childAge >= 2
-                && !(childGender.equalsIgnoreCase("Female") && childAge >= 9 && childAge <= 11)){
+                && !(childGender.equalsIgnoreCase("Female") && childAge >= 9 && childAge <= 11)) {
             String dueStatus = "";
             onDueStatusFetched.accept(dueStatus);
             return;
@@ -102,10 +124,10 @@ public final class UpcomingServicesUtil {
         });
     }
 
-    public static void fetchFamilyUpcomingDueServicesState(List<MemberObject> memberObjects, Context ctx, Consumer<Map<String, Integer> > onFamilyDueStatesConsumer){
+    public static void fetchFamilyUpcomingDueServicesState(List<MemberObject> memberObjects, Context ctx, Consumer<Map<String, Integer>> onFamilyDueStatesConsumer) {
         Map<String, Integer> upcoming = new HashMap<>();
         List<String> fetched = new ArrayList<>();
-        for (MemberObject member: memberObjects) {
+        for (MemberObject member : memberObjects) {
             fetchUpcomingDueServicesState(member, ctx, new Consumer<String>() {
                 @Override
                 public void accept(String s) {
@@ -122,7 +144,7 @@ public final class UpcomingServicesUtil {
                         }
                     });
                     fetched.add(s);
-                    if (fetched.size() >= memberObjects.size()){
+                    if (fetched.size() >= memberObjects.size()) {
                         onFamilyDueStatesConsumer.accept(upcoming);
                     }
                 }

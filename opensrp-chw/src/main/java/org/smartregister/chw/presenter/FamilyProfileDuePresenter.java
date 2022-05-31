@@ -58,17 +58,16 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         String ageFilter = "(((julianday('now') - julianday(ec_child.dob))/365.25) < 2 or (ec_child.gender = 'Female' and (((julianday('now') - julianday(ec_child.dob))/365.25) BETWEEN 9 AND 11)))\n";
         return (ChwApplication.getApplicationFlavor().checkExtraForDueInFamily() ? ageFilter :
                 " (ifnull(schedule_service.completion_date,'') = '' and schedule_service.expiry_date >= strftime('%Y-%m-%d') " +
-                "and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) " +
-                "and " + ageFilter);
+                        "and schedule_service.due_date <= strftime('%Y-%m-%d') and ifnull(schedule_service.not_done_date,'') = '' ) " +
+                        "and " + ageFilter);
     }
 
-    private String getSelectCondition(){
+    private String getSelectCondition() {
         String condition = " ( ec_family_member.relational_id = '" + this.familyBaseEntityId + "' or ec_family.base_entity_id = '" + this.familyBaseEntityId + "' ) AND ";
-        if(ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()){
+        if (ChwApplication.getApplicationFlavor().showChildrenAboveTwoDueStatus()) {
             condition += getDefaultChildDueQuery();
 //                    + " EXISTS(select * from alerts where caseID = ec_family_member.base_entity_id and status in ('normal','urgent') and expiryDate > date()) AND "
-        }
-        else {
+        } else {
             condition += getChildDueQueryForChildrenUnderTwoAndGirlsAgeNineToEleven();
 //                    + "EXISTS(select * from alerts where caseID = ec_family_member.base_entity_id and status in ('normal','urgent') and expiryDate > date()) AND "
         }
@@ -76,7 +75,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         return condition + (ChwApplication.getApplicationFlavor().checkExtraForDueInFamily() ? String.format(" and ec_family_member.base_entity_id in (%s)", validMembers()) : "");
     }
 
-    String validMembers(){
+    String validMembers() {
         List<Pair<String, String>> familyMembers = FamilyMemberDao.getFamilyMembers(this.familyBaseEntityId);
 
         StringBuilder joiner = new StringBuilder();
@@ -86,14 +85,16 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
             member.setFamilyBaseEntityId(this.familyBaseEntityId);
             member.setDob(familyMemberRepr.second);
 
-            boolean vaccineCardReceived = VisitDao.memberHasVaccineCard(member.getBaseEntityId());
+//            boolean vaccineCardReceived = VisitDao.memberHasVaccineCard(member.getBaseEntityId());
+            String childGender = ChwChildDao.getChildGender(member.getBaseEntityId());
 
-            if (!vaccineCardReceived || UpcomingServicesUtil.hasUpcomingDueServices(member, contextSupplier.get())) {
+            if (/*!vaccineCardReceived || */UpcomingServicesUtil.showStatusForChild(member, childGender)
+                    && UpcomingServicesUtil.hasUpcomingDueServices(member, contextSupplier.get())) {
                 joiner.append(String.format("'%s'", member.getBaseEntityId()));
                 joiner.append(",");
             }
         }
-        if(!joiner.toString().equalsIgnoreCase("")){
+        if (!joiner.toString().equalsIgnoreCase("")) {
             joiner.deleteCharAt(joiner.length() - 1);
         }
 
@@ -108,7 +109,7 @@ public class FamilyProfileDuePresenter extends BaseFamilyProfileDuePresenter {
         return familyKitModel.saveFamilyKitEvent(jsonObject);
     }
 
-    static class FamilyMemberDao extends AbstractDao{
+    static class FamilyMemberDao extends AbstractDao {
         public static List<Pair<String, String>> getFamilyMembers(String baseEntityId) {
             String sql = "SELECT base_entity_id, dob from ec_family_member" +
                     " where relational_id = '" + baseEntityId + "'" +

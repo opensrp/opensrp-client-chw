@@ -141,6 +141,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     @Override
     protected void setupViews() {
         super.setupViews();
+        if (ChwApplication.getApplicationFlavor().checkDueStatusFromUpcomingServices()) {
+            // Initially hide visit bar, that would be made visible after due services are checked
+            findViewById(R.id.record_visit_bar)
+                    .setVisibility(View.GONE);
+        }
+
         familyFloatingMenu = new FamilyMemberFloatingMenu(this);
         LinearLayout.LayoutParams linearLayoutParams =
                 new LinearLayout.LayoutParams(
