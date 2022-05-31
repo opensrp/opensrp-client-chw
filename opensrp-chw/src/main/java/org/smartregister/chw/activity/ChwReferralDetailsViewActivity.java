@@ -15,7 +15,9 @@ import org.smartregister.chw.referral.activity.ReferralDetailsViewActivity;
 import org.smartregister.chw.referral.domain.MemberObject;
 import org.smartregister.chw.referral.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Location;
 import org.smartregister.domain.Task;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import timber.log.Timber;
@@ -43,6 +45,9 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
                 }
             }
         }
+        LocationRepository locationRepository = new LocationRepository();
+        Location location = locationRepository.getLocationById(getMemberObject().getChwReferralHf());
+        ((CustomFontTextView) findViewById(R.id.referral_facility)).setText(location.getProperties().getName());
 
         if (getMemberObject().getProblem().equals("anc_male_engagement"))
             ((CustomFontTextView) findViewById(R.id.client_referral_problem)).setText(getResources().getString(R.string.anc_male_engagement));
