@@ -37,4 +37,7 @@
     <string name="referral_problem_coughing">Coughing</string>
     <string name="referral_problem_weight_loss">Weight Loss</string>
     <string name="referral_problem_frequent_fever">Frequent Fever</string>
+    <string name="referral_problem_anc_male_engagement">ANC Client Male Engagement</string>
+    <string name="referral_problem_none">None</string>
+
 </resources>
