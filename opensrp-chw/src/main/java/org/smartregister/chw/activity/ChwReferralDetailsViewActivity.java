@@ -131,9 +131,10 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
             if (checkHasFeedBack(servicesProvided, enrolledToCTC, commentsFromHF)) {
                 feedBackViewGroup.setVisibility(View.VISIBLE);
-                if(servicesProvided!=null)
+                if(servicesProvided!=null){
                     actionTakenGroup.setVisibility(View.VISIBLE);
-                    tvActionTaken.setText(servicesProvided);
+                    tvActionTaken.setText(getTranslatedHivServicesProvided(servicesProvided));
+                }
                 if(hivStatus!=null){
                     tvTestResult.setText(hivStatus);
                 }else{
@@ -141,7 +142,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
                 }
                 if(enrolledToCTC!=null){
                     enrolledClinicGroup.setVisibility(View.VISIBLE);
-                    tvEnrolledClinic.setText(enrolledToCTC);
+                    tvEnrolledClinic.setText(getTranslatedEnrolment(enrolledToCTC));
                     if(enrolledToCTC.equalsIgnoreCase("Yes")){
                         tvClinicNumber.setText(ctcNumber);
                     }else{
@@ -163,7 +164,25 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
     }
 
     private String getTranslatedHivServicesProvided(String serviceProvided) {
-        //TODO implement this
-        return null;
+       switch (serviceProvided){
+           case "no_action_taken":
+               return getString(R.string.no_action_taken);
+           case "tested":
+               return getString(R.string.tests_done);
+           case "referred":
+               return getString(R.string.referred);
+           default:
+               return serviceProvided;
+       }
+    }
+    private String getTranslatedEnrolment (String enrolledToCTC) {
+        switch (enrolledToCTC){
+            case "yes":
+                return getString(R.string.yes);
+            case "no":
+                return getString(R.string.no);
+            default:
+                return enrolledToCTC;
+        }
     }
 }
