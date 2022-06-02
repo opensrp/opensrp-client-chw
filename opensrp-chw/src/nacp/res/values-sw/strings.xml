@@ -55,4 +55,7 @@
     <string name="referral_submitted">Rufaa imetumwa kituoni</string>
     <string name="referral_submitted_successfully">Rufaa imetumwa kituoni</string>
     <string name="submit">HIFADHI</string>
+
+    <!-- String updates: New CBHS workflow   -->
+    <string name="client_registration">Usajili wa Mwanzo wa Mteja</string>
 </resources>

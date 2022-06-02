@@ -177,7 +177,7 @@ public class PartnerRegistrationActivity extends SecuredActivity implements View
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonObject.toString());
 
         Form form = new Form();
-        form.setName(getString(org.smartregister.chw.core.R.string.client_registration));
+        form.setName(getString(R.string.client_registration));
         form.setActionBarBackground(org.smartregister.chw.core.R.color.family_actionbar);
         form.setNavigationBackground(org.smartregister.chw.core.R.color.family_navigation);
         form.setHomeAsUpIndicator(org.smartregister.chw.core.R.mipmap.ic_cross_white);
