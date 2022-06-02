@@ -129,4 +129,10 @@ public class Constants extends CoreConstants {
     public interface PmtctFollowupFeedbackConstants {
         String referralFormId = "community_referral_form_id";
     }
+    public static final class ReportConstants {
+
+        public interface ReportTypes {
+           String CBHS_REPORT = "cbhs_report";
+        }
+    }
 }

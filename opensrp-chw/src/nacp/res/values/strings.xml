@@ -29,6 +29,9 @@
     <string name="reports_title">REPORTS</string>
     <string name="cbhs_reports_title">CBHS Summary</string>
     <string name="cbhs_reports_subtitle">View Monthly Summary Report</string>
+    <string name="select_reporting_month">Select Reporting Month</string>
+    <string name="monthly_report">Monthly Report</string>
+
 
 
     <string name="partner_registration_action_title">Partner Registration</string>

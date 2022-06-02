@@ -1,14 +1,8 @@
 package org.smartregister.chw.activity;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +13,10 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.view.activity.SecuredActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
 
@@ -77,10 +75,9 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.cbhs_summary){
-            Toast.makeText(this, "Under Construction", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(this, CBHSReportsActivity.class);
-//            startActivity(intent);
+        if (id == R.id.cbhs_summary) {
+            Intent intent = new Intent(this, CBHSReportsActivity.class);
+            startActivity(intent);
         }
     }
 
