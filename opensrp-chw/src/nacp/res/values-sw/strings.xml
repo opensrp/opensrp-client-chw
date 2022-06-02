@@ -55,4 +55,6 @@
     <string name="referral_submitted">Rufaa imetumwa kituoni</string>
     <string name="referral_submitted_successfully">Rufaa imetumwa kituoni</string>
     <string name="submit">HIFADHI</string>
+    <!-- Reports View Strings   -->
+    <string name="reports_title">REPORTS</string>
 </resources>

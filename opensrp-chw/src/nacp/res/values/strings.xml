@@ -24,6 +24,11 @@
     <string name="menu_independent">Independent</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
 
+
+    <!-- Reports View Strings   -->
+    <string name="reports_title">REPORTS</string>
+
+
     <string name="partner_registration_action_title">Partner Registration</string>
     <string name="new_client">New Client</string>
     <string name="existing_client">Existing Client</string>
