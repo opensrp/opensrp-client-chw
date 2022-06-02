@@ -11,5 +11,5 @@ public interface RepositoryUtilsFlv {
     };
 
     String addLbwColumnQuery = "ALTER TABLE ec_child ADD COLUMN low_birth_weight VARCHAR;";
-    String ADD_DEATH_CAUSE_COL_QUERY = "ALTER TABLE ec_family_member ADD COLUMN death_cause VARCHAR;";
+    String ADD_FAMILY_MEMBER_DEATH_CAUSE_COL_QUERY = "ALTER TABLE ec_family_member ADD COLUMN death_cause VARCHAR;";
 }

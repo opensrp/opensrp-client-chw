@@ -133,12 +133,6 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion6(SQLiteDatabase db) {
         try {
-            /*db.execSQL(RepositoryUtils.ADD_DEATH_RECEIVE_COLUMN_TO_ECCHILD);
-            db.execSQL(RepositoryUtils.ADD_DEATH_CERT_DATE_TO_ECCHILD);
-            db.execSQL(RepositoryUtils.ADD_DEATH_RECEIVE_COLUMNS_TO_FAMILY_MEMBER);
-            db.execSQL(RepositoryUtils.ADD_DEATH_CERT_DATE_TO_FAMILY_MEMBER);
-            db.execSQL(RepositoryUtils.ADD_BIRTH_REG_TO_CHILD);*/
-//            db.execSQL(RepositoryUtils.ADD_OUT_OF_AREA_CHILD_TABLE);
             db.execSQL(VisitRepository.ADD_VISIT_GROUP_COLUMN);
         } catch (Exception e) {
             Timber.e(e);
@@ -147,7 +141,7 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion7(SQLiteDatabase db) {
         try {
-            db.execSQL(RepositoryUtilsFlv.ADD_DEATH_CAUSE_COL_QUERY);
+            db.execSQL(RepositoryUtilsFlv.ADD_FAMILY_MEMBER_DEATH_CAUSE_COL_QUERY);
         } catch (Exception e) {
             Timber.e(e);
         }
