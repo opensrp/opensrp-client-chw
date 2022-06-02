@@ -5,6 +5,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 
+import org.smartregister.chw.activity.ChwReportsViewActivity;
+
 import androidx.annotation.RequiresApi;
 import androidx.webkit.WebViewAssetLoader;
 import androidx.webkit.WebViewClientCompat;
@@ -33,5 +35,6 @@ public class LocalContentWebViewClient extends WebViewClientCompat {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+        ChwReportsViewActivity.printWebView = view;
     }
 }

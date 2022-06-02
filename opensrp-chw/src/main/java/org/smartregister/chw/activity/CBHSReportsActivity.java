@@ -89,9 +89,9 @@ public class CBHSReportsActivity extends SecuredActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        // if (id == R.id.cbhs_monthly_report) {
-        // AncReportsViewActivity.startMe(this, "anc-taarifa-ya-mwezi", reportPeriod);
-        // }
+         if (id == R.id.cbhs_monthly_summary) {
+            CBHSReportsViewActivity.startMe(this, "cbhs-summary-monthly", reportPeriod);
+         }
     }
 
     private void showMonthPicker(Context context, Menu menu) {

@@ -11,9 +11,13 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".activity.CBHSReportsViewActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.CBHSReportsActivity"
-            android:theme="@style/ChwTheme.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.InAppReportsActivity"
             android:exported="false"

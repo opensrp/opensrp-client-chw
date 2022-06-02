@@ -59,4 +59,5 @@
     <string name="reports_title">REPORTS</string>
     <string name="select_reporting_month">Chagua Mwezi wa Kuripoti</string>
     <string name="monthly_report">Repoti Ya Mwezi</string>
+    <string name="print_report">Chapa</string>
 </resources>

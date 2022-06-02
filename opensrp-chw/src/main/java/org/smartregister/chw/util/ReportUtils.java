@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,12 +111,12 @@ public class ReportUtils {
     public static class CBHSReport {
         public static String computeReport(Date now) {
             String report = "";
-//            AncMonthlyReportObject ancMonthlyReportObject = new AncMonthlyReportObject(now);
-//            try {
-//                report = ancMonthlyReportObject.getIndicatorDataAsGson(ancMonthlyReportObject.getIndicatorData());
-//            } catch (Exception e) {
-//                Timber.e(e);
-//            }
+            CbhsMonthlyReportObject cbhsMonthlyReportObject = new CbhsMonthlyReportObject(now);
+            try {
+                report = cbhsMonthlyReportObject.getIndicatorDataAsGson(cbhsMonthlyReportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
             return report;
         }
     }

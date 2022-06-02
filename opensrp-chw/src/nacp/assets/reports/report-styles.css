@@ -1,0 +1,130 @@
+.show-on-print {
+  display: none;
+}
+
+body,
+h1,
+h2,
+td,
+th {
+  font-family: "Times New Roman", serif;
+}
+
+h1,
+h2 {
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: 200;
+}
+
+table {
+  background-color: #fff;
+  border: none;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#report_period {
+  font-weight: 700;
+}
+
+#reporting_facility {
+  font-weight: 700;
+}
+
+th {
+  padding: 10px;
+  background: #ccc;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.pnc-anc-table th {
+  padding: 4px;
+  font-size: 0.74rem;
+  text-transform: initial;
+}
+
+.pnc-anc-table td {
+  font-size: 0.71rem;
+  padding: 5px;
+}
+
+td {
+  text-align: initial;
+  padding: 10px 0;
+  padding-left: 10px;
+  font-size: 0.8rem;
+}
+
+.pnc-anc-table td:nth-child(1) {
+  width: 5%;
+  min-width: initial;
+  text-align: center;
+}
+
+td:nth-child(3) {
+  text-align: center;
+  width: 15%;
+}
+
+.pnc-anc-table td:nth-child(3) {
+  width: initial;
+}
+
+.pnc-table .list-title {
+  width: 30%;
+}
+
+tbody tr > td:nth-child(2),
+tbody tr > td:nth-child(4) {
+  text-align: center;
+  min-width: 50px;
+}
+
+tbody tr > td:nth-child(1) {
+  min-width: 40px;
+  text-align: center;
+}
+
+.pnc-anc-table td:nth-child(9) {
+  width: 10%;
+}
+
+tbody .four-cols > td:nth-child(3) {
+  width: 50%;
+  text-align: initial !important;
+}
+
+tbody .three-cols > td:nth-child(3) {
+  text-align: center;
+  min-width: 50px;
+}
+
+.pnc-anc-table tr > td:nth-child(n + 3) {
+  text-align: center;
+}
+
+.list-title {
+  text-align: initial !important;
+  font-size: 0.8rem;
+}
+
+.pnc-anc-table .child-table {
+  width: 50%;
+}
+
+.no-data {
+  background: #ccc;
+}
+
+@media print {
+  .show-on-print {
+    display: block;
+  }
+
+  .child-table {
+    width: 50%;
+  }
+}

@@ -17,9 +17,9 @@ public class ChwWebAppInterface {
     }
 
     @JavascriptInterface
-    public String getData(String key) {
+    public String getData(String reportKey) {
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.CBHS_REPORT)) {
-            ReportUtils.setPrintJobName("pnc_report_ya_mwezi-" + ReportUtils.getReportPeriod() + ".pdf");
+            ReportUtils.setPrintJobName("cbhs_monthly_summary-" + ReportUtils.getReportPeriod() + ".pdf");
             return ReportUtils.CBHSReport.computeReport(ReportUtils.getReportDate());
         }
 
