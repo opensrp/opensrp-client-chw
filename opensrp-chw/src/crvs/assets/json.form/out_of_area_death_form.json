@@ -353,42 +353,6 @@
         }
       },
       {
-        "key": "remove_reason",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "{{out_of_area_death_form.step1.remove_reason.hint}}",
-        "hidden": "true",
-        "v_required": {
-          "value": "true",
-          "err": "{{out_of_area_death_form.step1.remove_reason.v_required.err}}"
-        },
-        "values": [
-          "{{out_of_area_death_form.step1.remove_reason.values[0]}}",
-          "{{out_of_area_death_form.step1.remove_reason.values[1]}}",
-          "{{out_of_area_death_form.step1.remove_reason.values[2]}}"
-        ],
-        "keys": [
-          "Died",
-          "Moved away",
-          "Other"
-        ],
-        "openmrs_choice_ids": {
-          "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "out_of_area_death_form_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "mccd_conducted",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -766,16 +730,6 @@
             "ex": "equalTo(., \"No\")"
           }
         }
-      },
-      {
-        "key": "hidden_died_check",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "label": "{{out_of_area_death_form.step1.hidden_died_check.label}}",
-        "hint": "{{out_of_area_death_form.step1.hidden_died_check.hint}}",
-        "type": "edit_text",
-        "read_only": "true"
       },
       {
         "key": "informant_fields",
