@@ -55,14 +55,6 @@
     "title": "{{death_certification.step1.title}}",
     "fields": [
       {
-        "key": "death_certificate_fields",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "text": "{{death_certification.step1.death_certificate_fields.text}}"
-      },
-      {
         "key": "received_death_certificate",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
