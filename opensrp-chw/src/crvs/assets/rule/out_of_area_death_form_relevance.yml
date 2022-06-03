@@ -125,13 +125,6 @@ condition: "(step1_sex=='Female' && step1_deceased_pregnant=='Yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_remove_reason
-description: remove_reason
-priority: 1
-condition: "!step1_hidden_died_check=='.'"
-actions:
-  - "isRelevant = true"
----
 name: step1_informant_fields
 description: informant_fields
 priority: 1
