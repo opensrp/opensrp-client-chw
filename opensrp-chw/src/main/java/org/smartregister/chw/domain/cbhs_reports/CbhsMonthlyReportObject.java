@@ -29,7 +29,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
     public JSONObject getIndicatorData() throws JSONException {
         /*
          * we'll pass a json object with the following structure:
-         * data = [
+         * reportData = [
             {
                  "cbhs_number": "102-2021-210-2"
                  "reason_for_registration": "reason"
@@ -59,7 +59,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
         //                  }
 
         //TODO add the dataArray to the jsonObject
-        jsonObject.put("data", dataArray);
+        jsonObject.put("reportData", dataArray);
 
         return jsonObject;
     }

@@ -10,7 +10,7 @@
     <script src="./report-script.js"></script>
 </head>
 
-<body onload="loadData('cbhs')">
+<body onload="loadData()">
 <div class="show-on-print">
     <h1>MUHTASARI WA TAARIFA ZA HUDUMA ZA VVU NA UKIMWI KATIKA JAMII KWA MWEZI</h1>
      <h2>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h2>
@@ -30,19 +30,7 @@
         <th>Rufaa zilizotolewa(jaza zote zinazo husika)</th>
     </tr>
     </thead>
-    <tbody>
-    <tr>
-        <td id="cbhs_number">1</td>
-        <td id="reason_for_registration"></td>
-        <td id="hiv_status"></td>
-        <td id="clinic_number"></td>
-        <td id="type_of_clinic"></td>
-        <td id="age"></td>
-        <td id="sex"></td>
-        <td id="services_provided"></td>
-        <td id="medication_received"></td>
-        <td id="referral_received"></td>
-    </tr>
+    <tbody id="table-body">
     </tbody>
 </table>
 </body>
