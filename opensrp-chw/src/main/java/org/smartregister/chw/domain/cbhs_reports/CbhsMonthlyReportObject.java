@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 public class CbhsMonthlyReportObject extends ReportObject {
-    private final Date reportDate;
-    private final String[] indicatorCodesArray = new String[]{ "reason_for_registration", "hiv_status", "clinic_number", "type_of_clinic", "age", "sex", "services_provided", "medication_received", "referral_received"};
+    final Date reportDate;
+    private final String[] indicatorCodesArray = new String[]{"reason_for_registration", "hiv_status", "clinic_number", "type_of_clinic", "age", "sex", "services_provided", "medication_received", "referral_received"};
     private final List<String> indicatorCodes = new ArrayList<>();
 
     public CbhsMonthlyReportObject(Date reportDate) {

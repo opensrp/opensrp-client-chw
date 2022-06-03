@@ -1,7 +1,7 @@
 function loadData() {
   const data = JSON.parse(Android.getDataForReport());
   const tableBody = document.getElementById("table-body");
-  if(data!== undefined && data !== ""){
+  if(typeof data!== undefined && data !== ""){
     const reportData = data.reportData;
     reportData.forEach((dataPoint) => {
         //append to the table body a row with data
@@ -14,7 +14,7 @@ function loadData() {
         }
         );
         tableBody.appendChild(row);
-    })
+    });
   }
   const reportPeriod = document.getElementById("report_period");
   reportPeriod.innerHTML = Android.getDataPeriod();

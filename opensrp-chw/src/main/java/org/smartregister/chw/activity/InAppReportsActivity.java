@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 
