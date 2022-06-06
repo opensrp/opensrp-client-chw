@@ -48,4 +48,8 @@
     <string name="referral_problem_coughing">Coughing</string>
     <string name="referral_problem_weight_loss">Weight Loss</string>
     <string name="referral_problem_frequent_fever">Frequent Fever</string>
+
+
+    <!-- String updates: New CBHS workflow   -->
+    <string name="client_registration">Client\'s General Registration</string>
 </resources>
