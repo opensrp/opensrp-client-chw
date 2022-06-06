@@ -426,6 +426,9 @@
     <string name="successful_referrals">Successful Referrals</string>
     <string name="sbcc_session_title">SBCC Session</string>
     <string name="pnc_referral">PNC Referral</string>
+    <string name="referral_feedback_details">Referral Feedback Details</string>
+    <string name="ctc_number">CTC Number</string>
+    <string name="enrolled_clinic">Enrolled Clinic</string>
 
 
 </resources>

@@ -63,4 +63,19 @@
     <string name="select_reporting_month">Chagua Mwezi wa Kuripoti</string>
     <string name="monthly_report">Repoti Ya Mwezi</string>
     <string name="print_report">Chapa</string>
+
+    <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
+    <string name="referral_problem_pain">Maumivu</string>
+    <string name="referral_problem_fever">Homa</string>
+    <string name="referral_problem_jaundice">Manjano</string>
+    <string name="referral_problem_headache">Kichwa kuuma</string>
+    <string name="referral_problem_coughing">Kukohoa</string>
+    <string name="referral_problem_altered_mental_status">Kuchanganyikiwa/ Kutakuwa Sawa kiakili</string>
+    <string name="referral_problem_convulsion">Degedege</string>
+    <string name="referral_problem_loss_of_consciousness">Kupoteza Fahamu</string>
+    <string name="referral_problem_high_risk_client">Mteja mwenye hatari kubwa</string>
+    <string name="referral_problem_optimistic_infections">Magonjwa nyemelezi</string>
+    <string name="referral_problem_confirmation_self_test">Uthibitisho Kipimo binfasi</string>
+    <string name="referral_problem_index_contact_testing">Upimaji wa washirika wa ngono/wakujidunga</string>
+
 </resources>
