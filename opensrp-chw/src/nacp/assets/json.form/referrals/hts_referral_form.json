@@ -103,33 +103,6 @@
                 "openmrs_entity_id": "index_contact_testing",
                 "openmrs_entity_parent": ""
               }
-            },
-            {
-              "name": "weight_loss",
-              "text": "Weight loss",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "weight_loss",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_with_a_spouse_with_hiv",
-              "text": "Living with HIV+ spouse",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other_reasons",
-              "text": "Other reasons",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "other_reasons",
-                "openmrs_entity_parent": ""
-              }
             }
           ],
           "required_status": "yes:Please specify reasons for referral",
@@ -139,21 +112,6 @@
             "referral_type",
             "referral_status"
           ]
-        },
-        {
-          "name": "problem_other",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Other reasons",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem_other",
-            "openmrs_entity_parent": "problem"
-          },
-          "required_status": "true:Please specify other reasons",
-          "subjects": "problem:map"
         },
         {
           "name": "chw_referral_hf",

@@ -88,7 +88,7 @@
             },
             {
               "name": "confirmation_self_test",
-              "text": "Kipimo binfasi cha uthibitisho (Confirmation for self test)",
+              "text": "Uthibitisho Kipimo binfasi (Confirmation for self test)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "confirmation_self_test",
@@ -101,33 +101,6 @@
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "index_contact_testing",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "weight_loss",
-              "text": "Kupoteza uzito (Weight loss)",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "weight_loss",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "living_with_a_spouse_with_hiv",
-              "text": "Anaishi na mwenza mwenye VVU (Living with HIV+ spouse)",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "living_with_a_spouse_with_hiv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other_reasons",
-              "text": "Sababu nyingine",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }

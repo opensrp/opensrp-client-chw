@@ -430,4 +430,7 @@
     <string name="child_name">Mtoto : %s</string>
     <string name="return_to_all_partner_followup_clients">Rudi kwa Wateja wote wa Ufuatiliaji wa Mwenza</string>
     <string name="pnc_referral">Rufaa ya PNC </string>
+    <string name="ctc_number">Namba ya CTC</string>
+    <string name="enrolled_clinic">Amesajiliwa Kliniki</string>
+    <string name="referral_feedback_details">Taarifa Kutoka Kituoni</string>
 </resources>

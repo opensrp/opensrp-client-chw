@@ -32,13 +32,24 @@
     <string name="view_partner_prefile">View Partner Profile</string>
     <string name="back_to_pmtct">Back to Mother Champion\'s Followup Clients</string>
 
-    <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
-    <string name="referral_problem_pain">Pain</string>
-    <string name="referral_problem_coughing">Coughing</string>
-    <string name="referral_problem_weight_loss">Weight Loss</string>
-    <string name="referral_problem_frequent_fever">Frequent Fever</string>
-
 
     <!-- String updates: New CBHS workflow   -->
     <string name="client_registration">Client\'s General Registration</string>
+
+    <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
+    <string name="referral_problem_pain">Pain</string>
+    <string name="referral_problem_anc_male_engagement">ANC Client Male Engagement</string>
+    <string name="referral_problem_none">None</string>
+    <string name="referral_problem_fever">Fever</string>
+    <string name="referral_problem_jaundice">Jaundice</string>
+    <string name="referral_problem_headache">Headache</string>
+    <string name="referral_problem_coughing">Coughing</string>
+    <string name="referral_problem_altered_mental_status">Altered Mental Status</string>
+    <string name="referral_problem_convulsion">Convulsion</string>
+    <string name="referral_problem_loss_of_consciousness">Loss of Consciousness</string>
+    <string name="referral_problem_high_risk_client">High Risk Client</string>
+    <string name="referral_problem_optimistic_infections">Optimistic Infections</string>
+    <string name="referral_problem_confirmation_self_test">Confirmation Self Test</string>
+    <string name="referral_problem_index_contact_testing">Index Contact Testing</string>
+
 </resources>
