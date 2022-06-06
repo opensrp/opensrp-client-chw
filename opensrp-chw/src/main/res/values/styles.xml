@@ -72,4 +72,8 @@
         <item name="android:maxLines">3</item>
     </style>
 
+    <style name="optionItemWhiteText" parent="ChwTheme.NoActionBar">
+        <item name="actionMenuTextColor">@android:color/primary_text_dark</item>
+    </style>
+
 </resources>
