@@ -741,6 +741,75 @@
         }
       },
       {
+        "key": "death_certificate_number_acte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberActe",
+        "label": "Acte No.",
+        "hint": "Acte No.",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "5",
+          "err": "Characters must be less than or equal to 5"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number.v_numeric.err}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number_volume",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberVolume",
+        "label": "Volume",
+        "hint": "Volume",
+        "type": "edit_text",
+        "v_regex": {
+          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
+          "err": "Number must take the format of ##/####"
+        },
+        "v_max_length": {
+          "value": "9",
+          "err": "Characters must be less than or equal to 9"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number_Folio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberFolio",
+        "label": "Folio No.",
+        "hint": "Folio No.",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "6",
+          "err": "Characters must be less than or equal to 6"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number.v_numeric.err}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
         "key": "death_notification_done",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

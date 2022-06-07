@@ -837,6 +837,72 @@
         }
       },
       {
+        "key": "remove_member_number_acte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "removeMemberNumberActe",
+        "label": "Acte No.",
+        "hint": "Acte No.",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{family_details_remove_member.step1.informant_phone.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "5",
+          "err": "Characters must be less than or equal to 5"
+        },
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
+        "key": "remove_member_number_volume",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "removeMemberNumberVolume",
+        "label": "Volume No.",
+        "hint": "Volume No.",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "9",
+          "err": "Characters must be less than or equal to 9"
+        },
+        "v_regex": {
+          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
+          "err": "Number must take the format of ##/####"
+        },
+
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
+        "key": "remove_member_number_folio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "removeMemberNumberFolio",
+        "label": "Folio No.",
+        "hint": "Folio No.",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "6",
+          "err": "Characters must be less than or equal to 6"
+        },
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
         "key": "official_position",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
