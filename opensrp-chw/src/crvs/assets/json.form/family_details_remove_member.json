@@ -842,7 +842,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "removeMemberNumberActe",
         "label": "Acte No.",
-        "hint": "Acte No.",
+        "hint": "{{family_details_remove_member.step1.remove_member_number_acte.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
@@ -865,7 +865,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "removeMemberNumberVolume",
         "label": "Volume No.",
-        "hint": "Volume No.",
+        "hint": "{{family_details_remove_member.step1.remove_member_number_volume.hint}}",
         "type": "edit_text",
         "v_max_length": {
           "value": "9",
@@ -875,7 +875,6 @@
           "value": "([0-9]{1,4}\\/[0-9]{1,4})",
           "err": "Number must take the format of ##/####"
         },
-
         "relevance": {
           "step1:remove_reason": {
             "type": "string",
@@ -889,7 +888,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "removeMemberNumberFolio",
         "label": "Folio No.",
-        "hint": "Folio No.",
+        "hint": "{{family_details_remove_member.step1.remove_member_number_folio.hint}}",
         "type": "edit_text",
         "v_max_length": {
           "value": "6",

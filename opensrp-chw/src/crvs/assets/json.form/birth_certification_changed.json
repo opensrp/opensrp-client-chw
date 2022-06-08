@@ -180,19 +180,33 @@
         }
       },
       {
+        "key": "birth_cert_num_acte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthCertNumActe",
+        "type": "edit_text",
+        "hint": "{{birth_certification_changed.step1.birth_cert_num_acte.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{death_certification.step1.death_certificate_number.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "5",
+          "err": "Characters must be less than or equal to 5"
+        }
+      },
+      {
         "key": "birth_cert_num_volume",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_data_type": "text",
         "openmrs_entity_id": "birthCertNumVolume",
         "type": "edit_text",
-        "hint": "Volume No.",
-
+        "hint": "{{birth_certification_changed.step1.birth_cert_num_volume.hint}}",
         "v_regex": {
           "value": "([0-9]{1,4}\\/[0-9]{1,4})",
           "err": "Number must take the format of ##/####"
         },
-
         "v_max_length": {
           "value": "9",
           "err": "Characters must be less than or equal to 9"
@@ -205,24 +219,10 @@
         "openmrs_data_type": "text",
         "openmrs_entity_id": "birthCertNumFolio",
         "type": "edit_text",
-        "hint": "Folio No.",
-
+        "hint": "{{birth_certification_changed.step1.birth_cert_num_folio.hint}}",
         "v_max_length": {
           "value": "6",
           "err": "Characters must be less than or equal to 6"
-        }
-      },
-      {
-        "key": "birth_cert_num_acte",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "birthCertNumActe",
-        "type": "edit_text",
-        "hint": "Acte No.",
-
-        "v_max_length": {
-          "value": "5",
-          "err": "Characters must be less than or equal to 5"
         }
       },
       {

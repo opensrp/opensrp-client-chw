@@ -134,58 +134,12 @@
         }
       },
       {
-        "key": "death_certificate_number_folio",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "deathCertificationNumberFolio",
-        "label": "Folio No.",
-        "hint": "Folio No.",
-        "type": "edit_text",
-        "v_max_length": {
-          "value": "6",
-          "err": "Characters must be less than or equal to 6"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
-        },
-        "relevance": {
-          "step1:received_death_certificate": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },{
-        "key": "death_certificate_number_volume",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "deathCertificationNumberVolume",
-        "label": "Volume No.",
-        "hint": "Volume No.",
-        "type": "edit_text",
-        "v_regex": {
-          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
-          "err": "Number must take the format of ##/####"
-        },
-
-        "v_required": {
-          "value": "true",
-          "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
-        },
-        "relevance": {
-          "step1:received_death_certificate": {
-            "type": "string",
-            "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
         "key": "death_certificate_number_acte",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "deathCertificationNumberActe",
         "label": "Acte No.",
-        "hint": "Acte No.",
+        "hint": "{{death_certification.step1.death_certificate_number_acte.hint}}",
         "type": "edit_text",
         "v_max_length": {
           "value": "5",
@@ -206,6 +160,58 @@
           }
         }
       },
+      {
+        "key": "death_certificate_number_volume",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberVolume",
+        "label": "Volume No.",
+        "hint": "{{death_certification.step1.death_certificate_number_volume.hint}}",
+        "type": "edit_text",
+        "v_regex": {
+          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
+          "err": "Number must take the format of ##/####"
+        },
+        "v_max_length": {
+          "value": "9",
+          "err": "Characters must be less than or equal to 9"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number_folio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberFolio",
+        "label": "Folio No.",
+        "hint": "{{death_certification.step1.death_certificate_number_folio.hint}}",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "6",
+          "err": "Characters must be less than or equal to 6"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+
+
       {
         "key": "death_notification_done",
         "openmrs_entity_parent": "",
@@ -272,7 +278,6 @@
           "{{death_certification.step1.informant_relationship.values[2]}}",
           "{{death_certification.step1.informant_relationship.values[3]}}",
           "{{death_certification.step1.informant_relationship.values[4]}}"
-
         ],
         "keys": [
           "Parent",
