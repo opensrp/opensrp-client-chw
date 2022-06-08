@@ -1,7 +1,6 @@
 package org.smartregister.chw.sync.helper;
 
 import org.smartregister.CoreLibrary;
-import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.domain.Task;
 import org.smartregister.location.helper.LocationHelper;
@@ -18,7 +17,6 @@ public class ChwTaskServiceHelper extends TaskServiceHelper {
 
     private ChwTaskServiceHelper(TaskRepository taskRepository) {
         super(taskRepository);
-        setSyncByGroupIdentifier(false);
     }
 
     public static ChwTaskServiceHelper getInstance() {
@@ -31,13 +29,11 @@ public class ChwTaskServiceHelper extends TaskServiceHelper {
     @Override
     protected List<String> getLocationIds() {
         LocationHelper locationHelper = LocationHelper.getInstance();
-        ArrayList<String> allowedLevels = ChwApplication.getInstance().getAllowedLocationLevels();
-        List<String> locations = new ArrayList<>();
-        if (allowedLevels != null) {
-            List<String> locationIds = locationHelper.generateDefaultLocationHierarchy(allowedLevels);
-            if (locationIds != null) {
-                locations.add(locationHelper.getOpenMrsLocationId(locationIds.get(0)));
-            }
+        ArrayList<String> locations = new ArrayList<>();
+        if (locationHelper != null) {
+            String defaultLocation = locationHelper.getDefaultLocation();
+            List<String> locationsFromHierarchy = locationHelper.locationsFromHierarchy(true, defaultLocation);
+            locations.addAll(locationsFromHierarchy);
         }
         return locations;
     }
