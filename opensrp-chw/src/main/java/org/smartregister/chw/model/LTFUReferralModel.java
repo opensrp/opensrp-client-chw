@@ -54,6 +54,7 @@ public class LTFUReferralModel extends BaseReferralModel {
         columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.OWNER);
         columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.REQUESTER);
         columns.add(CoreConstants.TABLE_NAME.TASK + "." + CoreConstants.DB_CONSTANTS.START);
+        columns.add(CoreConstants.TABLE_NAME.TASK + "." + "reason_reference");
         columns.add(CoreConstants.TABLE_NAME.TASK + "." + "description AS REFERRAL_CLINIC" );
         columns.add(CoreConstants.TABLE_NAME.TASK + "." +  "location AS " + org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF);
         columns.add(CoreConstants.TABLE_NAME.REFERRAL + "." + org.smartregister.chw.referral.util.DBConstants.Key.PROBLEM);

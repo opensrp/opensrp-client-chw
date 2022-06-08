@@ -3,10 +3,13 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.BaseReferralTaskViewActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
 import org.smartregister.domain.Task;
@@ -14,11 +17,14 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.repository.LocationRepository;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
+import java.sql.Date;
+
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
 public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivity {
 
     private static CommonPersonObjectClient commonPersonObjectClient;
+
     public static void startLTFUReferralsDetailsViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         LTFUReferralsDetailsViewActivity.personObjectClient = personObjectClient;
         Intent intent = new Intent(activity, LTFUReferralsDetailsViewActivity.class);
@@ -71,11 +77,20 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
 
         CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
 
+        LinearLayout lastAppointmentLayout = findViewById(R.id.last_visit_date_layout);
+        CustomFontTextView tvLastAppointmentDate = findViewById(R.id.last_visit_date);
+
         getReferralDetails();
         LocationRepository locationRepository = new LocationRepository();
         String locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
+        String reasonReference = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "reason_reference", false);
         Location location = locationRepository.getLocationById(locationId);
         chwDetailsNames.setText(location.getProperties().getName());
+        Date lastAppointmentDate = ReferralDao.getLastAppointmentDate(reasonReference);
+        if (lastAppointmentDate != null) {
+            lastAppointmentLayout.setVisibility(View.VISIBLE);
+            tvLastAppointmentDate.setText(org.smartregister.chw.core.utils.Utils.dd_MMM_yyyy.format(lastAppointmentDate));
+        }
     }
 
     public void setStartingActivity(String startingActivity) {
