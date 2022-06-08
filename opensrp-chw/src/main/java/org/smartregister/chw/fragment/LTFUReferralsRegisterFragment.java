@@ -78,7 +78,7 @@ public class LTFUReferralsRegisterFragment extends BaseReferralRegisterFragment 
     }
 
     private void goToReferralsDetails(CommonPersonObjectClient client) {
-        handler.postDelayed(() -> LTFUReferralsDetailsViewActivity.startLTFUReferralsDetailsViewActivity(getActivity(), getCommonPersonObjectClient(), getTask(Utils.getValue(client.getColumnmaps(), "_id", false)), CoreConstants.REGISTERED_ACTIVITIES.LTFU_REFERRALS_REGISTER_ACTIVITY), 100);
+        handler.postDelayed(() -> LTFUReferralsDetailsViewActivity.startLTFUReferralsDetailsViewActivity(getActivity(), client, getTask(Utils.getValue(client.getColumnmaps(), "_id", false)), CoreConstants.REGISTERED_ACTIVITIES.LTFU_REFERRALS_REGISTER_ACTIVITY), 100);
     }
 
 }

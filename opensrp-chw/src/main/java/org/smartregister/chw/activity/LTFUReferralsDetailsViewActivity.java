@@ -8,19 +8,24 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.BaseReferralTaskViewActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.Location;
 import org.smartregister.domain.Task;
+import org.smartregister.family.util.Utils;
+import org.smartregister.repository.LocationRepository;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
 public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivity {
 
+    private static CommonPersonObjectClient commonPersonObjectClient;
     public static void startLTFUReferralsDetailsViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         LTFUReferralsDetailsViewActivity.personObjectClient = personObjectClient;
         Intent intent = new Intent(activity, LTFUReferralsDetailsViewActivity.class);
         intent.putExtra(CoreConstants.INTENT_KEY.USERS_TASKS, task);
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, personObjectClient);
         intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
+        commonPersonObjectClient = personObjectClient;
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
     }
@@ -67,6 +72,10 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
 
         getReferralDetails();
+        LocationRepository locationRepository = new LocationRepository();
+        String locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
+        Location location = locationRepository.getLocationById(locationId);
+        chwDetailsNames.setText(location.getProperties().getName());
     }
 
     public void setStartingActivity(String startingActivity) {
