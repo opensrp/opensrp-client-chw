@@ -28,7 +28,7 @@ public class LTFUReferralsRegisterFragment extends BaseReferralRegisterFragment 
         AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
         String anm = allSharedPreferences.fetchRegisteredANM();
         String currentLoaction = allSharedPreferences.fetchUserLocalityId(anm);
-        return " ec_family_member_search.date_removed is null and task.group_id = '" + currentLoaction + "' ";
+        return "task.business_status = '" + CoreConstants.BUSINESS_STATUS.REFERRED + "' and ec_family_member_search.date_removed is null and task.group_id = '" + currentLoaction + "' ";
     }
 
     @Override
