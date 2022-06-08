@@ -429,6 +429,7 @@
     <string name="referral_feedback_details">Referral Feedback Details</string>
     <string name="ctc_number">CTC Number</string>
     <string name="enrolled_clinic">Enrolled Clinic</string>
+    <string name="referred_by">Referred By %s</string>
 
 
 </resources>

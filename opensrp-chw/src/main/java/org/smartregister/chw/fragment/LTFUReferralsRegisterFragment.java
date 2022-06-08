@@ -8,15 +8,28 @@ import org.smartregister.chw.core.fragment.BaseReferralRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.presenter.LTFUReferralFragmentPresenter;
+import org.smartregister.chw.provider.LTFURegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.AllSharedPreferences;
+
+import java.util.Set;
 
 public class LTFUReferralsRegisterFragment extends BaseReferralRegisterFragment {
     public Handler handler = new Handler();
     private LTFUReferralFragmentPresenter referralFragmentPresenter;
     private CommonPersonObjectClient commonPersonObjectClient;
+
+    @Override
+    public void initializeAdapter(Set<View> visibleColumns, String tableName) {
+        LTFURegisterProvider registerProvider = new LTFURegisterProvider(getActivity(), registerActionHandler, paginationViewHandler);
+        clientAdapter = new RecyclerViewPaginatedAdapter(null, registerProvider, context().commonrepository(tablename));
+        clientAdapter.setCurrentlimit(20);
+        clientsView.setAdapter(clientAdapter);
+    }
 
     @Override
     public void setClient(CommonPersonObjectClient commonPersonObjectClient) {
