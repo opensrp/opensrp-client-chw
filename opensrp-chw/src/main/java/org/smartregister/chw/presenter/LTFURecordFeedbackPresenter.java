@@ -1,10 +1,6 @@
 package org.smartregister.chw.presenter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.nerdstone.neatformcore.domain.model.NFormViewData;
 
@@ -16,7 +12,6 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreReferralUtils;
-import org.smartregister.chw.fragment.LTFUReferralsRegisterFragment;
 import org.smartregister.chw.model.LTFURecordFeedbackModel;
 import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
 import org.smartregister.chw.referral.model.AbstractIssueReferralModel;
@@ -38,6 +33,7 @@ import org.smartregister.util.JsonFormUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import timber.log.Timber;
@@ -91,7 +87,11 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
             tagWithReferralDetails(valuesHashMap);
             super.saveForm(valuesHashMap, jsonObject);
         }
-
+        try {
+            createFeedbackEvent(valuesHashMap);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
         saveCloseReferralEvent();
         completeTask();
 
@@ -197,6 +197,35 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
             Timber.e(e, "LTFURecordFeedbackPresenter --> saveCloseReferralEvent");
         }
 
+    }
+
+    private void createFeedbackEvent(HashMap<String, NFormViewData> valuesHashMap) throws Exception {
+        List<Obs> obs = org.smartregister.chw.util.JsonFormUtils.getObsForNeatForm(valuesHashMap);
+        if (obs.size() > 0) {
+            Event baseEvent = (Event) new Event()
+                    .withBaseEntityId(baseEntityId)
+                    .withEventDate(new Date())
+                    .withEventType("LTFU Feedback")
+                    .withFormSubmissionId(JsonFormUtils.generateRandomUUIDString())
+                    .withEntityType(CoreConstants.TABLE_NAME.REFERRAL)
+                    .withProviderId(Utils.getAllSharedPreferences().fetchRegisteredANM())
+                    .withLocationId(referralHf)
+                    .withTeamId(Utils.getAllSharedPreferences().fetchDefaultTeamId(Utils.getAllSharedPreferences().fetchRegisteredANM()))
+                    .withTeam(Utils.getAllSharedPreferences().fetchDefaultTeam(Utils.getAllSharedPreferences().fetchRegisteredANM()))
+                    .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
+                    .withClientApplicationVersion(BuildConfig.VERSION_CODE)
+                    .withDateCreated(new Date());
+
+            for (Obs ob : obs) {
+                baseEvent.addObs(ob);
+            }
+            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            FamilyLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+            long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            ChwApplication.getClientProcessor(ChwApplication.getInstance().getContext().applicationContext()).processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+            ChwApplication.getInstance().getContext().allSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        }
     }
 
     private Task getTask() {
