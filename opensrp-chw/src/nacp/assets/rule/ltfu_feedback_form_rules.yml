@@ -1,0 +1,68 @@
+---
+name: "reasons_for_missed_appointment_visibility"
+description: "Reasons for missed appointment visibility"
+priority: 1
+condition: "followup_status.value == 'Client found and ready to return to clinic'"
+actions:
+  - "reasons_for_missed_appointment_visibility =  true"
+---
+name: "referral_appointment_date_visibility"
+description: "Reasons for missed appointment visibility"
+priority: 1
+condition: "followup_status.value == 'Client found and ready to return to clinic'"
+actions:
+  - "referral_appointment_date_visibility =  true"
+---
+name: "date_of_death_visibility"
+description: "Reasons for missed appointment visibility"
+priority: 1
+condition: "followup_status.value == 'Deceased'"
+actions:
+  - "date_of_death_visibility =  true"
+---
+name: "reason_client_not_found_visibility"
+description: "Reasons for missed appointment visibility"
+priority: 1
+condition: "followup_status.value == 'Client not found'"
+actions:
+  - "reason_client_not_found_visibility =  true"
+---
+name: "referral_date_calculation"
+description: "Referral date calculation"
+priority: 1
+condition: "true"
+actions:
+  - "referral_date_calculation =  System.currentTimeMillis()"
+---
+name: "referral_time_calculation"
+description: "Referral time calculation"
+priority: 1
+condition: "true"
+actions:
+  - "def getDate(dateFormat) {
+        import java.util.*;
+        import java.text.SimpleDateFormat;
+        return new SimpleDateFormat(dateFormat).format(System.currentTimeMillis());
+    }"
+  - "referral_time_calculation = getDate('HH:mm:ss.SSS')"
+---
+name: "referral_type_calculation"
+description: "Referral type calculation"
+priority: 1
+condition: "true"
+actions:
+  - "referral_type_calculation = 'ltfu_feedback_referral'"
+---
+name: "referral_status_calculation"
+description: "Referral type calculation"
+priority: 1
+condition: "true"
+actions:
+  - "referral_status_calculation = 'PENDING'"
+---
+name: "service_before_referral_calculation"
+description: "Service Before Referral"
+condition: "true"
+priority: 1
+actions:
+  - "service_before_referral_calculation = 'None'"
