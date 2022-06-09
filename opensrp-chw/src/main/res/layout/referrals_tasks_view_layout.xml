@@ -408,7 +408,7 @@
             android:visibility="visible">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/mark_ask_done"
+                android:id="@+id/record_feedback"
                 style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

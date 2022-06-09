@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.BaseReferralTaskViewActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
@@ -21,9 +23,10 @@ import java.sql.Date;
 
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
-public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivity {
+public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivity implements View.OnClickListener {
 
     private static CommonPersonObjectClient commonPersonObjectClient;
+    private static String baseEntityId;
 
     public static void startLTFUReferralsDetailsViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         LTFUReferralsDetailsViewActivity.personObjectClient = personObjectClient;
@@ -32,6 +35,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         intent.putExtra(CoreConstants.INTENT_KEY.CHILD_COMMON_PERSON, personObjectClient);
         intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
         commonPersonObjectClient = personObjectClient;
+        baseEntityId = Utils.getValue(personObjectClient.getColumnmaps(), CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID, false);
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
     }
@@ -73,9 +77,9 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         childNameLayout = findViewById(R.id.child_name_layout);
 
         womanGa = findViewById(R.id.woman_ga);
-        CustomFontTextView viewProfile = findViewById(R.id.view_profile);
 
-        CustomFontTextView markAskDone = findViewById(R.id.mark_ask_done);
+        CustomFontTextView recordFeedbackBtn = findViewById(R.id.record_feedback);
+        recordFeedbackBtn.setOnClickListener(this);
 
         LinearLayout lastAppointmentLayout = findViewById(R.id.last_visit_date_layout);
         CustomFontTextView tvLastAppointmentDate = findViewById(R.id.last_visit_date);
@@ -102,4 +106,12 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         return baseEntityId;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.record_feedback) {
+            JSONObject formJSONObject = FormUtils.getFormUtils().getFormJson("ltfu_community_followup_feedback");
+            LTFURecordFeedbackActivity.startFeedbackFormActivityForResults(this, baseEntityId, formJSONObject, false);
+        }
+
+    }
 }

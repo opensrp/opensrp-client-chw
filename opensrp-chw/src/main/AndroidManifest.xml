@@ -18,6 +18,8 @@
             android:theme="@style/ChwTheme.NoActionBar"/>
         <activity android:name=".activity.LTFUReferralsDetailsViewActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.LTFURecordFeedbackActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
             android:name=".activity.CBHSReportsActivity"
             android:exported="false"
