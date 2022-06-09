@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.BaseReferralTaskViewActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.dao.ReferralDao;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
 import org.smartregister.domain.Task;
@@ -27,6 +29,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
 
     private static CommonPersonObjectClient commonPersonObjectClient;
     private static String baseEntityId;
+    private static String locationId;
 
     public static void startLTFUReferralsDetailsViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         LTFUReferralsDetailsViewActivity.personObjectClient = personObjectClient;
@@ -36,6 +39,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         intent.putExtra(CoreConstants.INTENT_KEY.STARTING_ACTIVITY, startingActivity);
         commonPersonObjectClient = personObjectClient;
         baseEntityId = Utils.getValue(personObjectClient.getColumnmaps(), CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID, false);
+        locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
     }
@@ -86,7 +90,6 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
 
         getReferralDetails();
         LocationRepository locationRepository = new LocationRepository();
-        String locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
         String reasonReference = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "reason_reference", false);
         Location location = locationRepository.getLocationById(locationId);
         chwDetailsNames.setText(location.getProperties().getName());
@@ -110,7 +113,12 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
     public void onClick(View v) {
         if (v.getId() == R.id.record_feedback) {
             JSONObject formJSONObject = FormUtils.getFormUtils().getFormJson("ltfu_community_followup_feedback");
-            LTFURecordFeedbackActivity.startFeedbackFormActivityForResults(this, baseEntityId, formJSONObject, false);
+            try {
+                formJSONObject.put(Constants.REFERRAL_TASK_FOCUS, "LTFU Community Followup Feedback");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            LTFURecordFeedbackActivity.startFeedbackFormActivityForResults(this, baseEntityId, formJSONObject, false, locationId);
         }
 
     }

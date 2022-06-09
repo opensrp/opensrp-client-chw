@@ -18,7 +18,7 @@ public class LTFUReferralModel extends BaseReferralModel {
         queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName, entityTable), CoreConstants.DB_CONSTANTS.ID);
         queryBuilder.customJoin(String.format("INNER JOIN %s  ON  %s.%s = %s.%s AND task.business_status = 'Referred'  COLLATE NOCASE ",
                 entityTable, entityTable, DBConstants.KEY.BASE_ENTITY_ID, tableName, CoreConstants.DB_CONSTANTS.FOR));
-        queryBuilder.customJoin(String.format("INNER JOIN %s  ON  %s.%s = %s.%s COLLATE NOCASE ", CoreConstants.TABLE_NAME.REFERRAL,
+        queryBuilder.customJoin(String.format("INNER JOIN %s  ON  %s.%s = %s.%s COLLATE NOCASE AND ec_referral.chw_referral_service = 'LTFU' COLLATE NOCASE ", CoreConstants.TABLE_NAME.REFERRAL,
                 CoreConstants.TABLE_NAME.REFERRAL, DBConstants.KEY.BASE_ENTITY_ID, tableName, ChwDBConstants.TaskTable.REASON_REFERENCE));
         queryBuilder.customJoin("LEFT JOIN ec_family  ON  ec_family_member.relational_id = ec_family.id COLLATE NOCASE");
         return queryBuilder.mainCondition(mainCondition);

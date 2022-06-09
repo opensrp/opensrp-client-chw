@@ -7,16 +7,25 @@ import android.os.Bundle;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
+import org.smartregister.chw.presenter.LTFURecordFeedbackPresenter;
 import org.smartregister.chw.referral.activity.BaseIssueReferralActivity;
+import org.smartregister.chw.referral.contract.BaseIssueReferralContract;
+import org.smartregister.chw.referral.interactor.BaseIssueReferralInteractor;
+import org.smartregister.chw.referral.model.BaseIssueReferralModel;
+import org.smartregister.chw.referral.presenter.BaseIssueReferralPresenter;
 import org.smartregister.chw.referral.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
 
+import androidx.annotation.NonNull;
+
 public class LTFURecordFeedbackActivity extends BaseIssueReferralActivity {
 
-    // private static String BASE_ENTITY_ID;
+    private static String BASE_ENTITY_ID;
+    private static String referralHf;
 
-    public static void startFeedbackFormActivityForResults(Activity activity, String baseEntityId, JSONObject formJsonObject, boolean useCustomLayout) {
-        //  BASE_ENTITY_ID = baseEntityId;
+    public static void startFeedbackFormActivityForResults(Activity activity, String baseEntityId, JSONObject formJsonObject, boolean useCustomLayout, String locationId) {
+        BASE_ENTITY_ID = baseEntityId;
+        referralHf = locationId;
         Intent intent = new Intent(activity, LTFURecordFeedbackActivity.class);
         intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
@@ -32,4 +41,10 @@ public class LTFURecordFeedbackActivity extends BaseIssueReferralActivity {
     }
 
 
+    @NonNull
+    @Override
+    public BaseIssueReferralPresenter presenter() {
+        return new LTFURecordFeedbackPresenter(BASE_ENTITY_ID, referralHf, (BaseIssueReferralContract.View) this,
+                BaseIssueReferralModel.class, (BaseIssueReferralContract.Interactor) new BaseIssueReferralInteractor());
+    }
 }
