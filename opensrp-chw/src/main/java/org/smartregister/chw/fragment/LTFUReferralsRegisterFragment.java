@@ -2,6 +2,7 @@ package org.smartregister.chw.fragment;
 
 import android.os.Handler;
 
+import org.smartregister.chw.R;
 import org.smartregister.chw.activity.LTFUReferralsDetailsViewActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.fragment.BaseReferralRegisterFragment;
@@ -34,6 +35,11 @@ public class LTFUReferralsRegisterFragment extends BaseReferralRegisterFragment 
     @Override
     public void setClient(CommonPersonObjectClient commonPersonObjectClient) {
         setCommonPersonObjectClient(commonPersonObjectClient);
+    }
+
+    @Override
+    protected int getToolBarTitle() {
+        return R.string.menu_ltfu;
     }
 
     @Override
