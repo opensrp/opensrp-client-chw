@@ -320,6 +320,35 @@
         }
       },
       {
+        "key": "birth_place_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthPlaceType",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Type of Birth Place",
+        "values": [
+          "Home",
+          "Health Facility",
+          "Other"
+        ],
+        "keys": [
+          "Home",
+          "Health facility",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Home": "home",
+          "Health facility": "health_facility",
+          "Hospital": "hospital",
+          "Other": "other"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
         "key": "birth_place_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -328,6 +357,406 @@
         "type": "edit_text",
         "expanded": false,
         "hint": "{{child_enrollment.step1.birth_place_name.hint}}"
+      },
+      {
+        "key": "no_children",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "noChildren",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "expanded": false,
+        "hint": "Number of children",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_max_length": {
+          "value": "1",
+          "err": "Number of child should be between 0-9"
+        },
+        "v_regex": {
+          "value": "^[1-9_ ]{1}",
+          "err": "Number of child should be between 1-9"
+        }
+      },
+      {
+        "key": "del_attendant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delAttendant",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Type of attendance at delivery",
+        "values": [
+          "Doctor",
+          "Nurse",
+          "Midwife",
+          "other"
+        ],
+        "keys": [
+          "Doctor",
+          "Nurse",
+          "Midwife",
+          "Other"
+        ],
+        "openmrs_choice_ids": {
+          "Doctor": "docotor",
+          "Nurse": "nurser",
+          "Midwife": "midwife",
+          "Other": "other"
+        }
+      },
+      {
+        "key": "del_mode",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delMode",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Deliver Mood",
+        "values": [
+          "C-Section",
+          "Forceps",
+          "Normal Delivery",
+          "Vacuum",
+          "Unknown"
+        ],
+        "keys": [
+          "Césarienne",
+          "Forceps",
+          "Accouchement normal",
+          "Ventouse",
+          "Inconnu"
+        ],
+        "openmrs_choice_ids": {
+          "C-Section": "c_section",
+          "Forceps": "forceps",
+          "Normal delivery": "normal_delivery",
+          "Vacuum": "vacuum",
+          "Unknown": "unknown"
+        }
+      },
+      {
+        "key": "type_of_pregnancy",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "typeOfPregnancy",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Type of pregnancy",
+        "values": [
+          "Singleton",
+          "Twin",
+          "Triplet",
+          "other",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Singleton": "singleton",
+          "Twin": "twin",
+          "Triplet": "triplet",
+          "Other": "other",
+          "Unknown": "unknown"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "baby_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "label": "Baby Weight",
+        "hint": "Baby Weight",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": "500",
+          "err": "Weight must be equal or greater than 500"
+        },
+        "v_max": {
+          "value": "6000",
+          "err": "Weight must be equal or less than 6000"
+        }
+      },
+      {
+        "key": "mother_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherName",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Mother Name",
+        "look_up": "true",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter mother name"
+        }
+      },
+      {
+        "key": "mother_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherId",
+        "type": "edit_text",
+        "hint": "Mother's national ID number",
+        "edit_type": "name"
+      },
+      {
+        "key": "mother_dob_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherBirthDate",
+        "type": "date_picker",
+        "hint": "Mother's DOB",
+        "expanded": false,
+        "duration": {
+          "label": "Mother's DOB Label"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-10y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of birth"
+        }
+      },
+      {
+        "key": "mother_dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "label": "Mother's unknown DOB",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "Unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "mother_marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Mother Martial Status",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "values": [
+          "Married",
+          "Co Habiting",
+          "Single",
+          "Widowed"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "married",
+          "Co-habiting": "co_habitting",
+          "Single": "single",
+          "Widowed": "widowed"
+        }
+      },
+      {
+        "key": "mother_highest_edu_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mother_highest_edu_level",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Mother's highest education level",
+        "values": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
+        ],
+        "keys": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
+        ],
+        "openmrs_choice_ids": {
+          "None": "none",
+          "Literacy": "",
+          "Primary": "primary",
+          "Secondary": "secondary",
+          "University": "university"
+        }
+      },
+      {
+        "key": "mother_usual_residence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherUsualResidence",
+        "type": "edit_text",
+        "hint": "Mother's place of usual residence",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter usual residence"
+        }
+      },
+      {
+        "key": "mother_birth_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherBirthPlace",
+        "type": "edit_text",
+        "hint": "Mother's place of birth",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter birth place"
+        }
+      },
+      {
+        "key": "father_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherName",
+        "type": "edit_text",
+        "hint": "Father's name",
+        "edit_type": "name"
+      },
+      {
+        "key": "father_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherId",
+        "type": "edit_text",
+        "hint": "Father's national ID number",
+        "edit_type": "name"
+      },
+      {
+        "key": "father_dob_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherBirthDate",
+        "type": "date_picker",
+        "hint": "Father's DOB",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "today-120y",
+        "max_date": "today-10y"
+      },
+      {
+        "key": "father_dob_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdateApprox",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "dob_unknown",
+            "text": "Unknown?",
+            "text_size": "18px",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "father_marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Father's marital status",
+        "values": [
+          "Married",
+          "Co Habiting",
+          "Single",
+          "Widowed"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "married",
+          "Co-habiting": "ch_habitig",
+          "Single": "single",
+          "Widowed": "widowed"
+        }
+      },
+      {
+        "key": "father_highest_edu_level",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Father's highest education leve",
+        "values": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
+        ],
+        "keys": [
+          "None",
+          "Literacy",
+          "Primary",
+          "Secondary",
+          "University"
+        ],
+        "openmrs_choice_ids": {
+          "None": "none",
+          "Literacy": "",
+          "Primary": "primary",
+          "Secondary": "secondary",
+          "University": "university"
+        }
+      },
+      {
+        "key": "father_residence",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "motherUsualResidence",
+        "type": "edit_text",
+        "hint": "Father's residence",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter residence"
+        }
+      },
+      {
+        "key": "father_birth_place",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "fatherBirthPlace",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Father's place of birth",
+        "look_up": "true",
+        "edit_type": "name"
       }
     ]
   },
