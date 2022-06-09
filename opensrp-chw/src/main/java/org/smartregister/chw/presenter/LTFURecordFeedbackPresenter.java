@@ -219,6 +219,8 @@ public class LTFURecordFeedbackPresenter extends BaseIssueReferralPresenter {
             for (Obs ob : obs) {
                 baseEvent.addObs(ob);
             }
+            baseEvent.addObs((new Obs()).withFormSubmissionField(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK).withValue(getTask().getIdentifier())
+                    .withFieldCode(CoreConstants.FORM_CONSTANTS.FORM_SUBMISSION_FIELD.REFERRAL_TASK).withFieldType("formsubmissionField").withFieldDataType("text").withParentCode("").withHumanReadableValues(new ArrayList<>()));
             JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
             FamilyLibrary.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
             long lastSyncTimeStamp = ChwApplication.getInstance().getContext().allSharedPreferences().fetchLastUpdatedAtDate(0);
