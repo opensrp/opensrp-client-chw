@@ -14,6 +14,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.dao.ReferralDao;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Location;
 import org.smartregister.domain.Task;
@@ -30,6 +31,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
     private static CommonPersonObjectClient commonPersonObjectClient;
     private static String baseEntityId;
     private static String locationId;
+    private static String taskId;
 
     public static void startLTFUReferralsDetailsViewActivity(Activity activity, CommonPersonObjectClient personObjectClient, Task task, String startingActivity) {
         LTFUReferralsDetailsViewActivity.personObjectClient = personObjectClient;
@@ -40,6 +42,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         commonPersonObjectClient = personObjectClient;
         baseEntityId = Utils.getValue(personObjectClient.getColumnmaps(), CoreConstants.DB_CONSTANTS.BASE_ENTITY_ID, false);
         locationId = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
+        taskId = task.getIdentifier();
         passToolbarTitle(activity, intent);
         activity.startActivity(intent);
     }
@@ -65,6 +68,14 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
     @Override
     protected void onResumption() {
         //Overridden
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON) {
+            finish();
+        }
     }
 
     public void setUpViews() {
@@ -118,7 +129,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            LTFURecordFeedbackActivity.startFeedbackFormActivityForResults(this, baseEntityId, formJSONObject, false, locationId);
+            LTFURecordFeedbackActivity.startFeedbackFormActivityForResults(this, baseEntityId, formJSONObject, false, locationId, taskId);
         }
 
     }

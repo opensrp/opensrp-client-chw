@@ -22,10 +22,12 @@ public class LTFURecordFeedbackActivity extends BaseIssueReferralActivity {
 
     private static String BASE_ENTITY_ID;
     private static String referralHf;
+    private static String taskId;
 
-    public static void startFeedbackFormActivityForResults(Activity activity, String baseEntityId, JSONObject formJsonObject, boolean useCustomLayout, String locationId) {
+    public static void startFeedbackFormActivityForResults(Activity activity, String baseEntityId, JSONObject formJsonObject, boolean useCustomLayout, String locationId, String task_id) {
         BASE_ENTITY_ID = baseEntityId;
         referralHf = locationId;
+        taskId = task_id;
         Intent intent = new Intent(activity, LTFURecordFeedbackActivity.class);
         intent.putExtra(Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ActivityPayload.JSON_FORM, formJsonObject.toString());
@@ -44,7 +46,7 @@ public class LTFURecordFeedbackActivity extends BaseIssueReferralActivity {
     @NonNull
     @Override
     public BaseIssueReferralPresenter presenter() {
-        return new LTFURecordFeedbackPresenter(BASE_ENTITY_ID, referralHf, (BaseIssueReferralContract.View) this,
+        return new LTFURecordFeedbackPresenter(BASE_ENTITY_ID, taskId, referralHf, (BaseIssueReferralContract.View) this,
                 BaseIssueReferralModel.class, (BaseIssueReferralContract.Interactor) new BaseIssueReferralInteractor());
     }
 }
