@@ -53,7 +53,7 @@
     <string name="cancel_referral_message">Rufaa itafutwa na kupotea kwenye mfumo</string>
     <string name="exit">Toka</string>
     <string name="referral_submitted">Rufaa imetumwa kituoni</string>
-    <string name="referral_submitted_successfully">Rufaa imetumwa kituoni</string>
+    <string name="referral_submitted_successfully">Imefanikiwa</string>
     <string name="submit">HIFADHI</string>
 
     <!-- String updates: New CBHS workflow   -->
