@@ -46,6 +46,7 @@
 
     <!-- String updates: New CBHS workflow   -->
     <string name="client_registration">Client\'s General Registration</string>
+    <string name="referral_submitted_successfully">Successful</string>
 
     <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
     <string name="referral_problem_pain">Pain</string>
@@ -62,5 +63,6 @@
     <string name="referral_problem_optimistic_infections">Optimistic Infections</string>
     <string name="referral_problem_confirmation_self_test">Confirmation Self Test</string>
     <string name="referral_problem_index_contact_testing">Index Contact Testing</string>
+
 
 </resources>

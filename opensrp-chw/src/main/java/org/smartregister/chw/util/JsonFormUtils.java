@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 import android.content.Context;
 import android.util.Pair;
 
+import com.nerdstone.neatformcore.domain.model.NFormViewData;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -609,6 +610,60 @@ public class JsonFormUtils extends CoreJsonFormUtils {
         }
     }
 
+    public static List<Obs> getObsForNeatForm(HashMap<String, NFormViewData> detailsHashMap) {
+        ArrayList<Obs> obs = new ArrayList<>();
+        for (String key : detailsHashMap.keySet()) {
+            NFormViewData viewData = detailsHashMap.get(key);
+            Obs ob = new Obs();
+            ob.setFormSubmissionField(key);
+            if (viewData.getMetadata() != null) {
+                if (viewData.getMetadata().containsKey(OPENMRS_ENTITY))
+                    ob.setFieldType(viewData.getMetadata().get(OPENMRS_ENTITY).toString());
+                if (viewData.getMetadata().containsKey(OPENMRS_ENTITY_ID))
+                    ob.setFieldCode(viewData.getMetadata().get(OPENMRS_ENTITY_ID).toString());
+                if (viewData.getMetadata().containsKey(OPENMRS_ENTITY_PARENT))
+                    ob.setParentCode(viewData.getMetadata().get(OPENMRS_ENTITY_PARENT).toString());
+            }
+            if (viewData.getValue() instanceof HashMap) {
+                ArrayList<Object> humanReadableValues = new ArrayList<>();
+                addHumanReadableValues(ob, humanReadableValues, (HashMap<String, String>) viewData.getValue());
+                if (humanReadableValues.size() > 0)
+                    ob.setHumanReadableValues(humanReadableValues);
+            } else if (viewData.getValue() instanceof NFormViewData) {
+                ArrayList<Object> humanReadableValues = new ArrayList<>();
+                saveValues((NFormViewData) viewData.getValue(), ob, humanReadableValues);
+                if (humanReadableValues.size() > 0)
+                    ob.setHumanReadableValues(humanReadableValues);
+            } else {
+                ob.setValue(viewData.getValue());
+            }
+            obs.add(ob);
+        }
+        return obs;
+    }
+
+    private static void saveValues(NFormViewData optionsNFormViewData, Obs obs, ArrayList<Object> humanReadableValues) {
+        if (optionsNFormViewData.getMetadata() != null) {
+            if (optionsNFormViewData.getMetadata().containsKey(OPENMRS_ENTITY_ID)) {
+                obs.setValue(optionsNFormViewData.getMetadata().get(OPENMRS_ENTITY_ID).toString());
+                humanReadableValues.add(optionsNFormViewData.getValue());
+            } else {
+                obs.setValue(optionsNFormViewData.getValue());
+            }
+        }
+    }
+
+    private static void addHumanReadableValues(Obs obs, ArrayList<Object> humanReadableValues, HashMap<?, ?> valuesHashMap) {
+        for (Object key : valuesHashMap.keySet()) {
+            Object value = valuesHashMap.get(key);
+            if (value instanceof NFormViewData) {
+                saveValues((NFormViewData) value, obs, humanReadableValues);
+            } else {
+                obs.setValue(value);
+            }
+        }
+    }
+
     public interface Flavor {
         JSONObject getAutoJsonEditMemberFormString(String title, String formName, Context context, CommonPersonObjectClient client, String eventType, String familyName, boolean isPrimaryCaregiver);
 
@@ -616,3 +671,4 @@ public class JsonFormUtils extends CoreJsonFormUtils {
     }
 
 }
+

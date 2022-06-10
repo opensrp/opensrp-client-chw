@@ -10,7 +10,9 @@ import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
 import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
+import org.smartregister.chw.core.job.SyncTaskWithClientEventsServiceJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
+import org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService;
 import org.smartregister.chw.sync.ChwSyncIntentService;
 import org.smartregister.chw.sync.intent.ChwSyncTaskIntentService;
 import org.smartregister.job.DocumentConfigurationServiceJob;
@@ -62,6 +64,8 @@ public class ChwJobCreator implements JobCreator {
                 return new SyncLocationsByLevelAndTagsServiceJob();
             case StockUsageReportJob.TAG:
                 return new StockUsageReportJob();
+            case SyncTaskWithClientEventsServiceJob.TAG:
+                return new SyncTaskWithClientEventsServiceJob(SyncClientEventsPerTaskIntentService.class);
             case DocumentConfigurationServiceJob.TAG:
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
             //TODO uncomment to enable plans

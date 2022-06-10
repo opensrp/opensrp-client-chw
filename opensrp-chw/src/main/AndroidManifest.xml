@@ -14,6 +14,12 @@
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.LTFURegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.LTFUReferralsDetailsViewActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.LTFURecordFeedbackActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
             android:name=".activity.CBHSReportsActivity"
             android:exported="false"
@@ -330,6 +336,7 @@
         <service android:name=".sync.ChwSyncIntentService" />
         <service android:name=".core.service.StockUsageReportService" />
         <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
+        <service android:name="org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"
