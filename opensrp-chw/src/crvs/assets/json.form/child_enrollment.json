@@ -326,11 +326,11 @@
         "openmrs_entity_id": "birthPlaceType",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Type of Birth Place",
+        "hint": "{{child_enrollment.step1.birth_place_type.hint}}",
         "values": [
-          "Home",
-          "Health Facility",
-          "Other"
+          "{{child_enrollment.step1.birth_place_type.value[0]}}",
+          "{{child_enrollment.step1.birth_place_type.value[1]}}",
+          "{{child_enrollment.step1.birth_place_type.value[2]}}"
         ],
         "keys": [
           "Home",
@@ -345,7 +345,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{child_enrollment.step1.birth_place_type.error}}"
         }
       },
       {
@@ -366,18 +366,18 @@
         "openmrs_data_type": "text",
         "type": "edit_text",
         "expanded": false,
-        "hint": "Number of children",
+        "hint": "{{child_enrollment.step1.no_children.hint}}",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{child_enrollment.step1.no_children.v_numeric.error}}"
         },
         "v_max_length": {
           "value": "1",
-          "err": "Number of child should be between 0-9"
+          "err": "{{child_enrollment.step1.no_children.v_max_length.error}}"
         },
         "v_regex": {
           "value": "^[1-9_ ]{1}",
-          "err": "Number of child should be between 1-9"
+          "err": "{{child_enrollment.step1.no_children.v_regex.error}}"
         }
       },
       {
@@ -387,12 +387,12 @@
         "openmrs_entity_id": "delAttendant",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Type of attendance at delivery",
+        "hint": "{{child_enrollment.step1.del_attendant.hint}}",
         "values": [
-          "Doctor",
-          "Nurse",
-          "Midwife",
-          "other"
+          "{{child_enrollment.step1.del_attendant.value[0]}}",
+          "{{child_enrollment.step1.del_attendant.value[1]}}",
+          "{{child_enrollment.step1.del_attendant.value[2]}}",
+          "{{child_enrollment.step1.del_attendant.value[3]}}"
         ],
         "keys": [
           "Doctor",
@@ -414,13 +414,13 @@
         "openmrs_entity_id": "delMode",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Deliver Mood",
+        "hint": "{{child_enrollment.step1.del_mode.hint}}",
         "values": [
-          "C-Section",
-          "Forceps",
-          "Normal Delivery",
-          "Vacuum",
-          "Unknown"
+          "{{child_enrollment.step1.del_mode.value[0]}}",
+          "{{child_enrollment.step1.del_mode.value[1]}}",
+          "{{child_enrollment.step1.del_mode.value[2]}}",
+          "{{child_enrollment.step1.del_mode.value[3]}}",
+          "{{child_enrollment.step1.del_mode.value[4]}}"
         ],
         "keys": [
           "Césarienne",
@@ -444,13 +444,13 @@
         "openmrs_entity_id": "typeOfPregnancy",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Type of pregnancy",
+        "hint": "{{child_enrollment.step1.type_of_pregnancy.hint}}",
         "values": [
-          "Singleton",
-          "Twin",
-          "Triplet",
-          "other",
-          "Unknown"
+          "{{child_enrollment.step1.type_of_pregnancy.value[0]}}",
+          "{{child_enrollment.step1.type_of_pregnancy.value[1]}}",
+          "{{child_enrollment.step1.type_of_pregnancy.value[2]}}",
+          "{{child_enrollment.step1.type_of_pregnancy.value[3]}}",
+          "{{child_enrollment.step1.type_of_pregnancy.value[4]}}"
         ],
         "openmrs_choice_ids": {
           "Singleton": "singleton",
@@ -461,28 +461,28 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{child_enrollment.step1.type_of_pregnancy.error}}"
         }
       },
       {
-        "key": "baby_weight",
+        "key": "birth_weight",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "label": "Baby Weight",
-        "hint": "Baby Weight",
+        "hint": "{{child_enrollment.step1.birth_weight.hint}}",
         "type": "edit_text",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid number"
+          "err": "{{child_enrollment.step1.birth_weight.v_numeric.error}}"
         },
         "v_min": {
           "value": "500",
-          "err": "Weight must be equal or greater than 500"
+          "err": "{{child_enrollment.step1.birth_weight.v_min.error}}"
         },
         "v_max": {
           "value": "6000",
-          "err": "Weight must be equal or less than 6000"
+          "err": "{{child_enrollment.step1.birth_weight.v_max.error}}"
         }
       },
       {
@@ -492,12 +492,12 @@
         "openmrs_entity_id": "motherName",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Mother Name",
+        "hint": "{{child_enrollment.step1.mother_name.hint}}",
         "look_up": "true",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter mother name"
+          "err": "{{child_enrollment.step1.mother_name.error}}"
         }
       },
       {
@@ -506,7 +506,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "motherId",
         "type": "edit_text",
-        "hint": "Mother's national ID number",
+        "hint": "{{child_enrollment.step1.mother_id.hint}}",
         "edit_type": "name"
       },
       {
@@ -515,7 +515,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "motherBirthDate",
         "type": "date_picker",
-        "hint": "Mother's DOB",
+        "hint": "{{child_enrollment.step1.mother_dob_entered.hint}}",
         "expanded": false,
         "duration": {
           "label": "Mother's DOB Label"
@@ -524,7 +524,7 @@
         "max_date": "today-10y",
         "v_required": {
           "value": "true",
-          "err": "Please enter the date of birth"
+          "err": "{{child_enrollment.step1.mother_dob_entered.error}}"
         }
       },
       {
@@ -550,16 +550,16 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Mother Martial Status",
+        "hint": "{{child_enrollment.step1.mother_marital_status.hint}}",
         "v_required": {
           "value": "true",
-          "err": "Please select one option"
+          "err": "{{child_enrollment.step1.mother_marital_status.error}}"
         },
         "values": [
-          "Married",
-          "Co Habiting",
-          "Single",
-          "Widowed"
+          "{{mother_marital_status.step1.del_attendant.value[0]}}",
+          "{{mother_marital_status.step1.del_attendant.value[1]}}",
+          "{{mother_marital_status.step1.del_attendant.value[2]}}",
+          "{{mother_marital_status.step1.del_attendant.value[3]}}"
         ],
         "keys": [
           "Married",
@@ -581,13 +581,13 @@
         "openmrs_entity_id": "mother_highest_edu_level",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Mother's highest education level",
+        "hint": "{{child_enrollment.step1.mother_highest_edu_level.hint}}",
         "values": [
-          "None",
-          "Literacy",
-          "Primary",
-          "Secondary",
-          "University"
+          "{{child_enrollment.step1.mother_highest_edu_level.value[0]}}",
+          "{{child_enrollment.step1.mother_highest_edu_level.value[1]}}",
+          "{{child_enrollment.step1.mother_highest_edu_level.value[2]}}",
+          "{{child_enrollment.step1.mother_highest_edu_level.value[3]}}",
+          "{{child_enrollment.step1.mother_highest_edu_level.value[4]}}"
         ],
         "keys": [
           "None",
@@ -610,11 +610,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "motherUsualResidence",
         "type": "edit_text",
-        "hint": "Mother's place of usual residence",
+        "hint": "{{child_enrollment.step1.mother_usual_residence.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter usual residence"
+          "err": "{{child_enrollment.step1.mother_usual_residence.error}}"
         }
       },
       {
@@ -623,11 +623,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "motherBirthPlace",
         "type": "edit_text",
-        "hint": "Mother's place of birth",
+        "hint": "{{child_enrollment.step1.mother_birth_place.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter birth place"
+          "err": "{{child_enrollment.step1.mother_birth_place.error}}"
         }
       },
       {
@@ -636,7 +636,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fatherName",
         "type": "edit_text",
-        "hint": "Father's name",
+        "hint": "{{child_enrollment.step1.father_name.hint}}",
         "edit_type": "name"
       },
       {
@@ -645,7 +645,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fatherId",
         "type": "edit_text",
-        "hint": "Father's national ID number",
+        "hint": "{{child_enrollment.step1.father_id.hint}}",
         "edit_type": "name"
       },
       {
@@ -654,7 +654,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fatherBirthDate",
         "type": "date_picker",
-        "hint": "Father's DOB",
+        "hint": "{{child_enrollment.step1.father_dob_entered.hint}}",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -684,12 +684,12 @@
         "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Father's marital status",
+        "hint": "{{child_enrollment.step1.father_marital_status.hint}}",
         "values": [
-          "Married",
-          "Co Habiting",
-          "Single",
-          "Widowed"
+          "{{mother_marital_status.step1.father_marital_status.value[0]}}",
+          "{{mother_marital_status.step1.father_marital_status.value[1]}}",
+          "{{mother_marital_status.step1.father_marital_status.value[2]}}",
+          "{{mother_marital_status.step1.father_marital_status.value[3]}}"
         ],
         "keys": [
           "Married",
@@ -711,13 +711,13 @@
         "openmrs_entity_id": "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Father's highest education leve",
+        "hint": "{{child_enrollment.step1.father_highest_edu_level.hint}}",
         "values": [
-          "None",
-          "Literacy",
-          "Primary",
-          "Secondary",
-          "University"
+          "{{child_enrollment.step1.father_highest_edu_level.value[0]}}",
+          "{{child_enrollment.step1.father_highest_edu_level.value[1]}}",
+          "{{child_enrollment.step1.father_highest_edu_level.value[2]}}",
+          "{{child_enrollment.step1.father_highest_edu_level.value[3]}}",
+          "{{child_enrollment.step1.father_highest_edu_level.value[4]}}"
         ],
         "keys": [
           "None",
@@ -740,11 +740,11 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "motherUsualResidence",
         "type": "edit_text",
-        "hint": "Father's residence",
+        "hint": "{{child_enrollment.step1.father_residence.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter residence"
+          "err": "{{child_enrollment.step1.father_residence.error}}"
         }
       },
       {
@@ -754,7 +754,7 @@
         "openmrs_entity_id": "fatherBirthPlace",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Father's place of birth",
+        "hint": "{{child_enrollment.step1.father_birth_place.hint}}",
         "look_up": "true",
         "edit_type": "name"
       }
