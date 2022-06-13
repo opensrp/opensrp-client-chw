@@ -370,14 +370,6 @@
         "v_numeric": {
           "value": "true",
           "err": "{{child_enrollment.step1.no_children.v_numeric.error}}"
-        },
-        "v_max_length": {
-          "value": "1",
-          "err": "{{child_enrollment.step1.no_children.v_max_length.error}}"
-        },
-        "v_regex": {
-          "value": "^[1-9_ ]{1}",
-          "err": "{{child_enrollment.step1.no_children.v_regex.error}}"
         }
       },
       {
@@ -518,7 +510,7 @@
         "hint": "{{child_enrollment.step1.mother_dob_entered.hint}}",
         "expanded": false,
         "duration": {
-          "label": "Mother's DOB Label"
+          "label": "{{child_enrollment.step1.mother_dob_entered.label}}"
         },
         "min_date": "today-120y",
         "max_date": "today-10y",
@@ -532,12 +524,11 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdateApprox",
-        "label": "Mother's unknown DOB",
         "type": "check_box",
         "options": [
           {
             "key": "dob_unknown",
-            "text": "Unknown?",
+            "text": "{{child_enrollment.step1.mother_dob_unknown.label}}",
             "text_size": "18px",
             "value": "false"
           }
@@ -671,7 +662,7 @@
         "options": [
           {
             "key": "dob_unknown",
-            "text": "Unknown?",
+            "text": "{{child_enrollment.step1.father_dob_unknown.text}}",
             "text_size": "18px",
             "value": "false"
           }
