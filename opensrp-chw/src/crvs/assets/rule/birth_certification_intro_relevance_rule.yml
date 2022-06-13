@@ -13,6 +13,27 @@ condition: "step1_birth_cert == 'Yes'"
 actions:
   - "isRelevant = true"
 ---
+name: step1_birth_cert_num_acte
+description: birth certification acte
+priority: 1
+condition: "step1_birth_cert == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_cert_num_volume
+description: birth certification volume
+priority: 1
+condition: "step1_birth_cert == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_cert_num_folio
+description: birth certification folio
+priority: 1
+condition: "step1_birth_cert == 'Yes'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_birth_notification
 description: birth notification
 priority: 1

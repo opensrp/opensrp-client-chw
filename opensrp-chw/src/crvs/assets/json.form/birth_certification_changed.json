@@ -186,13 +186,24 @@
         "openmrs_entity_id": "birthCertNumActe",
         "type": "edit_text",
         "hint": "{{birth_certification_changed.step1.birth_cert_num_acte.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_acte.v_required.err}}"
+        },
         "v_numeric": {
           "value": "true",
-          "err": "{{death_certification.step1.death_certificate_number.v_numeric.err}}"
+          "err": "{{birth_certification_changed.step1.birth_cert_num_acte.v_numeric.error}}"
         },
         "v_max_length": {
           "value": "5",
-          "err": "Characters must be less than or equal to 5"
+          "err": "{{birth_certification_changed.step1.birth_cert_num_acte.v_max_length.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
+            }
+          }
         }
       },
       {
@@ -203,13 +214,25 @@
         "openmrs_entity_id": "birthCertNumVolume",
         "type": "edit_text",
         "hint": "{{birth_certification_changed.step1.birth_cert_num_volume.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_volume.v_required.err}}"
+        },
         "v_regex": {
           "value": "([0-9]{1,4}\\/[0-9]{1,4})",
-          "err": "Number must take the format of ##/####"
+          "err": "{{birth_certification_changed.step1.birth_cert_num_volume.v_regex.error}}"
         },
+
         "v_max_length": {
           "value": "9",
-          "err": "Characters must be less than or equal to 9"
+          "err": "{{birth_certification_changed.step1.birth_cert_num_volume.v_max_length.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
+            }
+          }
         }
       },
       {
@@ -220,9 +243,20 @@
         "openmrs_entity_id": "birthCertNumFolio",
         "type": "edit_text",
         "hint": "{{birth_certification_changed.step1.birth_cert_num_folio.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_folio.v_required.err}}"
+        },
         "v_max_length": {
           "value": "6",
-          "err": "Characters must be less than or equal to 6"
+          "err": "{{birth_certification_changed.step1.birth_cert_num_folio.v_max_length.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
+            }
+          }
         }
       },
       {
