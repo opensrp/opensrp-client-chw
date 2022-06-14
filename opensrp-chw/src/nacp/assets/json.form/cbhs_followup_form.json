@@ -822,11 +822,11 @@
               }
             },
             {
-              "name": "self_test_distribution_services",
-              "text": "Self test distribution services",
+              "name": "self_test_kits_distribution_services",
+              "text": "Self test kits distribution services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "self_test_distribution_services",
+                "openmrs_entity_id": "self_test_kits_distribution_services",
                 "openmrs_entity_parent": ""
               }
             },
