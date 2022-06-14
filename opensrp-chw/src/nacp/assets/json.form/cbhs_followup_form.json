@@ -732,83 +732,101 @@
           },
           "options": [
             {
-              "name": "hiv_education",
-              "text": "HIV Education",
+              "name": "hiv_counselling_and_testing",
+              "text": "HIV Counselling and Testing",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "hiv_education",
+                "openmrs_entity_id": "hiv_counselling_and_testing",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "pretest_information",
-              "text": "Pretest Information",
+              "name": "arv_services",
+              "text": "ARV Services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "pretest_information",
+                "openmrs_entity_id": "arv_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "ipc",
-              "text": "IPC (Uzuiaji wa uambukizo katika Jamii)",
+              "name": "hiv_prevention_services_from_mother_to_infant",
+              "text": "HIV Prevention services from mother to infant",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "ipc",
+                "openmrs_entity_id": "hiv_prevention_services_from_mother_to_infant",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "adherence_counselling",
-              "text": "Adherence Counselling",
+              "name": "collaborative_community_services_for_tb_and_hiv",
+              "text": "Collaborative community services for TB and HIV",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "adherence_counselling",
+                "openmrs_entity_id": "collaborative_community_services_for_tb_and_hiv",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "gbv_vac_screening",
-              "text": "Screening of GBV and VAC",
+              "name": "services_to_prevent_the_spread_of_stds",
+              "text": "Services to prevent the spread of STDs",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "gbv_vac_screening",
+                "openmrs_entity_id": "services_to_prevent_the_spread_of_stds",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "tb_sti_screening",
-              "text": "TB and STI Screening",
+              "name": "special_group_services",
+              "text": "Special group services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "tb_sti_screening",
+                "openmrs_entity_id": "special_group_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "referral_and_linkage",
-              "text": "Referral and Linkage",
+              "name": "services_to_prevent_gender_violence_and_child_abuse",
+              "text": "Services to prevent gender violence and child abuse",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "referral_and_linkage",
+                "openmrs_entity_id": "services_to_prevent_gender_violence_and_child_abuse",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "self_test_information",
-              "text": "Information and how to use self test",
+              "name": "psychological_services",
+              "text": "Psychological services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "self_test_information",
+                "openmrs_entity_id": "psychological_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "kvp_services",
-              "text": "KVP Services",
+              "name": "information_about_fgm",
+              "text": "Information about Female Genital Mutilation",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "kvp_services",
+                "openmrs_entity_id": "information_about_fgm",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "family_planning_and_condom_distribution_services",
+              "text": "Family planning and condom distribution services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "family_planning_and_condom_distribution_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "self_test_distribution_services",
+              "text": "Self test distribution services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "self_test_distribution_services",
                 "openmrs_entity_parent": ""
               }
             },
