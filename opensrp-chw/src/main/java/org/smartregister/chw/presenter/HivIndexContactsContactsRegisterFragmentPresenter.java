@@ -18,7 +18,7 @@ public class HivIndexContactsContactsRegisterFragmentPresenter extends BaseHivIn
     public String getMainCondition() {
         return " " +
                 Tables.HIV_INDEX + "." + DBConstants.Key.TEST_RESULTS + " IS NULL AND " +
-                Tables.HIV_INDEX + "." + DBConstants.Key.REFER_TO_CHW + " = 'Yes'  AND " +
+                Tables.HIV_INDEX + "." + DBConstants.Key.REFER_TO_CHW + " = 'Yes' COLLATE NOCASE AND " +
                 Tables.HIV_INDEX + "." + DBConstants.Key.HOW_TO_NOTIFY_CONTACT_CLIENT + " <> 'na'";
 
     }
