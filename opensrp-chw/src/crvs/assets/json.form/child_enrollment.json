@@ -340,7 +340,6 @@
         "openmrs_choice_ids": {
           "Home": "home",
           "Health facility": "health_facility",
-          "Hospital": "hospital",
           "Other": "other"
         },
         "v_required": {
@@ -415,11 +414,11 @@
           "{{child_enrollment.step1.del_mode.value[4]}}"
         ],
         "keys": [
-          "Césarienne",
+          "C-Section",
           "Forceps",
-          "Accouchement normal",
-          "Ventouse",
-          "Inconnu"
+          "Normal delivery",
+          "Vacuum",
+          "Unknown"
         ],
         "openmrs_choice_ids": {
           "C-Section": "c_section",
@@ -443,6 +442,13 @@
           "{{child_enrollment.step1.type_of_pregnancy.value[2]}}",
           "{{child_enrollment.step1.type_of_pregnancy.value[3]}}",
           "{{child_enrollment.step1.type_of_pregnancy.value[4]}}"
+        ],
+        "keys": [
+          "Singleton",
+          "Twin",
+          "Triplet",
+          "Other",
+          "Unknown"
         ],
         "openmrs_choice_ids": {
           "Singleton": "singleton",
@@ -517,6 +523,13 @@
         "v_required": {
           "value": "true",
           "err": "{{child_enrollment.step1.mother_dob_entered.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
         }
       },
       {
@@ -533,6 +546,37 @@
             "value": "false"
           }
         ]
+      },
+      {
+        "key": "mother_age_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "{{child_enrollment.step1.mother_age_entered.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{child_enrollment.step1.mother_age_entered.v_numeric.error}}"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "{{child_enrollment.step1.mother_age_entered.v_min.error}}"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "{{child_enrollment.step1.mother_age_entered.v_max.error}}"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_enrollment.step1.mother_age_entered.v_required.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "mother_marital_status",
@@ -589,7 +633,7 @@
         ],
         "openmrs_choice_ids": {
           "None": "none",
-          "Literacy": "",
+          "Literacy": "literacy",
           "Primary": "primary",
           "Secondary": "secondary",
           "University": "university"
@@ -651,7 +695,18 @@
           "label": "Age"
         },
         "min_date": "today-120y",
-        "max_date": "today-10y"
+        "max_date": "today-10y",
+        "v_required": {
+          "value": true,
+          "err": "{{child_enrollment.step1.father_age_entered.v_required.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "father_dob_unknown",
@@ -667,6 +722,37 @@
             "value": "false"
           }
         ]
+      },
+      {
+        "key": "father_age_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "edit_text",
+        "hint": "{{child_enrollment.step1.father_age_entered.hint}}",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{child_enrollment.step1.father_age_entered.v_numeric.error}}"
+        },
+        "v_min": {
+          "value": "5",
+          "err": "{{child_enrollment.step1.father_age_entered.v_min.error}}"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "{{child_enrollment.step1.father_age_entered.v_max.error}}"
+        },
+        "v_required": {
+          "value": true,
+          "err": "{{child_enrollment.step1.father_age_entered.v_required.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family-child-relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "father_marital_status",
@@ -719,23 +805,23 @@
         ],
         "openmrs_choice_ids": {
           "None": "none",
-          "Literacy": "",
+          "Literacy": "literacy",
           "Primary": "primary",
           "Secondary": "secondary",
           "University": "university"
         }
       },
       {
-        "key": "father_residence",
+        "key": "father_usual_residence",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "motherUsualResidence",
         "type": "edit_text",
-        "hint": "{{child_enrollment.step1.father_residence.hint}}",
+        "hint": "{{child_enrollment.step1.father_usual_residence.hint}}",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "{{child_enrollment.step1.father_residence.error}}"
+          "err": "{{child_enrollment.step1.father_usual_residence.error}}"
         }
       },
       {
