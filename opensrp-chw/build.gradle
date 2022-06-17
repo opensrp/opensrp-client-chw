@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath 'org.apache.commons:commons-lang3:3.10'
         classpath 'com.android.tools.build:gradle:4.0.2'
-        classpath 'com.google.gms:google-services:4.3.4'
+       // classpath 'com.google.gms:google-services:4.3.4'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
     }
 }
@@ -42,7 +42,7 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply from: "jacoco.gradle"
 apply plugin: 'kotlin-android'
