@@ -86,7 +86,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo"
+          "err": "Tafadhali chagua mojawapo"
         }
       },
       {
@@ -117,7 +117,7 @@
         "hint": "Kituo cha Afya kingine",
         "v_required": {
           "value": true,
-          "err": "Tafadhari bainisha Kituo cha Afaya kingine"
+          "err": "Tafadhali bainisha Kituo cha Afaya kingine"
         },
         "relevance": {
           "step1:name_of_hf": {
