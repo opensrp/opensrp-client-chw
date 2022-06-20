@@ -76,7 +76,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhari jibu swali hili"
+          "err": "Tafadhali jibu swali hili"
         }
       },
       {
@@ -102,7 +102,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari jibu swali hili"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "step1:type_of_service": {
@@ -213,7 +213,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari jibu swali hili"
+          "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
           "step1:type_of_service": {
@@ -282,7 +282,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari jibu swali hili"
+          "err": "Tafadhali jibu swali hili"
         }
       },
       {
@@ -335,7 +335,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari jibu swali hili"
+          "err": "Tafadhali jibu swali hili"
         }
       }
     ]

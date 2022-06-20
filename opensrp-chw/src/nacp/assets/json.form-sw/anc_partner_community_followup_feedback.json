@@ -76,7 +76,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari Chagua mojawapo"
+          "err": "Tafadhali chagua mojawapo"
         }
       },
       {
@@ -124,7 +124,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo:"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "step1:is_partner_found": {
@@ -232,7 +232,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari Chagua sababu"
+          "err": "Tafadhali chagua sababu"
         },
         "relevance": {
           "step1:partner_agree_attending_hf": {
@@ -251,7 +251,7 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Tafadhari ingiza sababu nyingine"
+          "err": "Tafadhali ingiza sababu nyingine"
         },
         "relevance": {
           "step1:reason_for_not_attending_hf": {

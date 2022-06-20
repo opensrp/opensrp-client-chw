@@ -250,7 +250,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhari bainisha matatizo aliyonayo mteja"
+          "err": "Tafadhali bainisha matatizo aliyonayo mteja"
         }
       },
       {
@@ -324,7 +324,7 @@
         "is_problem": false,
         "v_required": {
           "value": "true",
-          "err": "Tafadhari bainisha matibabu mengine"
+          "err": "Tafadhali bainisha matibabu mengine"
         },
         "relevance": {
           "rules-engine": {
