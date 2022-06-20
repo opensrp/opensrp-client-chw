@@ -170,11 +170,11 @@
         "type": "edit_text",
         "v_regex": {
           "value": "([0-9]{1,4}\\/[0-9]{1,4})",
-          "err": "Number must take the format of ##/####"
+          "err": "{{death_certification.step1.death_certificate_number_volume.v_regex.error}}"
         },
         "v_max_length": {
           "value": "9",
-          "err": "Characters must be less than or equal to 9"
+          "err": "{{death_certification.step1.death_certificate_number_volume.v_max_length.error}}"
         },
         "v_required": {
           "value": "true",
@@ -197,7 +197,7 @@
         "type": "edit_text",
         "v_max_length": {
           "value": "6",
-          "err": "Characters must be less than or equal to 6"
+          "err": "{{death_certification.step1.death_certificate_number_folio.v_max_length.error}}"
         },
         "v_required": {
           "value": "true",
@@ -210,8 +210,6 @@
           }
         }
       },
-
-
       {
         "key": "death_notification_done",
         "openmrs_entity_parent": "",

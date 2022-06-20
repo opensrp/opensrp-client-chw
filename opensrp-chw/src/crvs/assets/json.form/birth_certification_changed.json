@@ -164,6 +164,7 @@
         "key": "birth_cert_num",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
+        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "{{birth_certification_changed.step1.birth_cert_num.hint}}",
