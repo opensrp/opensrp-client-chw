@@ -2,6 +2,8 @@ package org.smartregister.chw.reporting;
 
 import static org.smartregister.chw.util.ReportingConstants.SupervisorIndicatorKeys.COUNT_PROVIDER_SYNCED_COMPLETED;
 import static org.smartregister.chw.util.ReportingConstants.SupervisorIndicatorKeys.COUNT_PROVIDER_SYNCED_PENDING;
+import static org.smartregister.chw.util.ReportingConstants.SupervisorIndicatorKeys.SUPERVISOR_CATCHMENT_NO_OPEN_TASK_COMPLETION_RATE;
+import static org.smartregister.chw.util.ReportingConstants.SupervisorIndicatorKeys.SUPERVISOR_CATCHMENT_TASK_COMPLETION_RATE;
 
 
 import android.app.Activity;
@@ -88,8 +90,8 @@ public class ChwReport {
         PieChartSlice chartSlice2 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_PENDING, "Sync Pending", mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, COUNT_PROVIDER_SYNCED_PENDING);
         appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(chartSlice1, chartSlice2), R.string.catchment_sync_completion_rate_indicator, null, null)));
 // sync test
-        PieChartSlice chartSlice3 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_COMPLETED, "Sync Completed2", mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, COUNT_PROVIDER_SYNCED_COMPLETED);
-        PieChartSlice chartSlice4 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, COUNT_PROVIDER_SYNCED_COMPLETED, "Sync Pending", mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, COUNT_PROVIDER_SYNCED_COMPLETED);
+        PieChartSlice chartSlice3 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, SUPERVISOR_CATCHMENT_TASK_COMPLETION_RATE, "Sync Completed2", mainLayout.getContext().getResources().getColor(R.color.pie_chart_yes_green), indicatorTallies, SUPERVISOR_CATCHMENT_TASK_COMPLETION_RATE);
+        PieChartSlice chartSlice4 = ReportingUtil.getPieChartSlice(ReportContract.IndicatorView.CountType.LATEST_COUNT, SUPERVISOR_CATCHMENT_NO_OPEN_TASK_COMPLETION_RATE, "Sync Pending", mainLayout.getContext().getResources().getColor(R.color.pie_chart_no_red), indicatorTallies, SUPERVISOR_CATCHMENT_NO_OPEN_TASK_COMPLETION_RATE);
         appendView(mainLayout, new PieChartIndicatorView(mainLayout.getContext(), ReportingUtil.getPieChartDisplayModel(ReportingUtil.addPieChartSlices(chartSlice3, chartSlice4), R.string.catchment_sync_completion_rate_indicator, null, null)));
 
         // Households with open tasks
