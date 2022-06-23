@@ -818,11 +818,7 @@
         "openmrs_entity_id": "motherUsualResidence",
         "type": "edit_text",
         "hint": "{{child_enrollment.step1.father_usual_residence.hint}}",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "{{child_enrollment.step1.father_usual_residence.error}}"
-        }
+        "edit_type": "name"
       },
       {
         "key": "father_birth_place",
