@@ -1,7 +1,18 @@
 indicators:
-  - key: "supervisor_catchment_task_completion_rate"
+  - key: "chw_with_open_tasks"
     description: "Task Completion Rate for Entire Catchment Area"
-    indicatorQuery: ""
+    indicatorQuery: "SELECT count(DISTINCT ef.provider_id ) FROM schedule_service sc
+                      INNER JOIN   ec_family_member efm ON sc.base_entity_id= efm.base_entity_id COLLATE NOCASE
+                      INNER JOIN   ec_family ef ON efm.relational_id= ef.base_entity_id COLLATE NOCASE
+                      AND sc.completion_date is NULL"
+
+  - key: "chw_with_no_open_tasks"
+    description: "Task Completion Rate for Entire Catchment Area"
+    indicatorQuery: "SELECT (SELECT count(DISTINCT ef.provider_id) FROM ec_family ef)-
+                      (SELECT count(DISTINCT ef.provider_id )  FROM schedule_service sc
+                      INNER JOIN   ec_family_member efm ON sc.base_entity_id= efm.base_entity_id COLLATE NOCASE
+                      INNER JOIN   ec_family ef ON efm.relational_id= ef.base_entity_id COLLATE NOCASE
+                      AND sc.completion_date is NULL)"
 
   - key: "supervisor_synced_count"
     description: "Sync Completion Rate for Entire Catchment Area"

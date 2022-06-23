@@ -296,6 +296,7 @@
 
     <!-- Supervisor indicator labels -->
     <string name="catchment_sync_completion_rate_indicator">Sync Completion Rate for Entire Catchment Area</string>
+    <string name="catchment_task_completion_rate_indicator">Task Completion Rate for Entire Catchment Area</string>
     <string name="households_with_open_tasks_indicator">Households with open tasks remaining for the month by CHW</string>
     <string name="incomplete_tasks_indicator">Tasks remaining incomplete for the month by CHW</string>
     <string name="last_sync_date_by_chw_indicator">Last sync by CHW</string>
