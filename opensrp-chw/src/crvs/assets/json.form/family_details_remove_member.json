@@ -704,9 +704,10 @@
         "type": "label",
         "text": "{{family_details_remove_member.step1.informant_fields.text}}",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -719,9 +720,10 @@
         "hint": "{{family_details_remove_member.step1.informant_name.hint}}",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -737,24 +739,28 @@
           "{{family_details_remove_member.step1.informant_relationship.values[0]}}",
           "{{family_details_remove_member.step1.informant_relationship.values[1]}}",
           "{{family_details_remove_member.step1.informant_relationship.values[2]}}",
-          "{{family_details_remove_member.step1.informant_relationship.values[3]}}"
+          "{{family_details_remove_member.step1.informant_relationship.values[3]}}",
+          "{{family_details_remove_member.step1.informant_relationship.values[4]}}"
         ],
         "keys": [
-          "Sibling",
-          "Spouse",
           "Parent",
+          "Spouse",
+          "Sibling",
+          "Other Relative",
           "Other"
         ],
         "openmrs_choice_ids": {
           "Sibling": "sibling_id_openmrs",
           "Spouse": "spouse_id_openmrs",
           "Parent": "parent_id_openmrs",
+          "Other Relative": "other_relative_id_openmrs",
           "Other": "other_id_openmrs"
         },
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -767,9 +773,10 @@
         "hint": "{{family_details_remove_member.step1.informant_address.hint}}",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -786,9 +793,10 @@
           "err": "{{family_details_remove_member.step1.informant_phone.v_numeric.err}}"
         },
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -800,9 +808,10 @@
         "type": "label",
         "text": "{{family_details_remove_member.step1.official_fields.text}}",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -815,9 +824,10 @@
         "hint": "{{family_details_remove_member.step1.official_name.hint}}",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -830,9 +840,10 @@
         "hint": "{{family_details_remove_member.step1.official_id.hint}}",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -910,9 +921,10 @@
         "hint": "{{family_details_remove_member.step1.official_position.hint}}",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -925,9 +937,10 @@
         "hint": "{{family_details_remove_member.step1.official_address.hint}}",
         "type": "edit_text",
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       },
@@ -944,9 +957,10 @@
           "err": "{{family_details_remove_member.step1.official_number.v_numeric.err}}"
         },
         "relevance": {
-          "step1:remove_reason": {
-            "type": "string",
-            "ex": "equalTo(., \"Died\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "family_details_remove_member_form_relevance.yml"
+            }
           }
         }
       }

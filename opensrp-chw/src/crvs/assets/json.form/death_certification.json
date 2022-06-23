@@ -55,14 +55,6 @@
     "title": "{{death_certification.step1.title}}",
     "fields": [
       {
-        "key": "death_certificate_fields",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "text": "{{death_certification.step1.death_certificate_fields.text}}"
-      },
-      {
         "key": "received_death_certificate",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -247,7 +239,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "{{death_certification.step1.informant_fields.text}}"
+        "text": "{{death_certification.step1.informant_fields.text}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "informant_name",
@@ -260,6 +259,13 @@
         "v_required": {
           "value": "true",
           "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -294,6 +300,13 @@
         "v_required": {
           "value": "true",
           "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -303,7 +316,14 @@
         "openmrs_entity_id": "",
         "label": "{{death_certification.step1.informant_address.label}}",
         "hint": "{{death_certification.step1.informant_address.hint}}",
-        "type": "edit_text"
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "informant_phone",
@@ -316,6 +336,13 @@
         "v_numeric": {
           "value": "true",
           "err": "{{death_certification.step1.informant_phone.v_numeric.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -324,7 +351,14 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "label",
-        "text": "{{death_certification.step1.official_fields.text}}"
+        "text": "{{death_certification.step1.official_fields.text}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "official_name",
@@ -337,6 +371,13 @@
         "v_required": {
           "value": "true",
           "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -346,7 +387,14 @@
         "openmrs_entity_id": "officialId",
         "label": "{{death_certification.step1.official_id.label}}",
         "hint": "{{death_certification.step1.official_id.hint}}",
-        "type": "edit_text"
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "official_position",
@@ -359,6 +407,13 @@
         "v_required": {
           "value": "true",
           "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -368,7 +423,14 @@
         "openmrs_entity_id": "",
         "label": "{{death_certification.step1.official_address.label}}",
         "hint": "{{death_certification.step1.official_address.hint}}",
-        "type": "edit_text"
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
+        }
       },
       {
         "key": "official_number",
@@ -381,6 +443,13 @@
         "v_numeric": {
           "value": "true",
           "err": "{{death_certification.step1.official_number.v_numeric.err}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "death_certification_relevance.yml"
+            }
+          }
         }
       }
     ]
