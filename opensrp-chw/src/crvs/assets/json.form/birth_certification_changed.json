@@ -181,6 +181,86 @@
         }
       },
       {
+        "key": "birth_cert_num_acte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birthCertNumActe",
+        "type": "edit_text",
+        "hint": "{{birth_certification_changed.step1.birth_cert_num_acte.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_acte.v_required.err}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_acte.v_numeric.error}}"
+        },
+        "v_max_length": {
+          "value": "5",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_acte.v_max_length.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_cert_num_volume",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_data_type": "text",
+        "openmrs_entity_id": "birthCertNumVolume",
+        "type": "edit_text",
+        "hint": "{{birth_certification_changed.step1.birth_cert_num_volume.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_volume.v_required.err}}"
+        },
+        "v_regex": {
+          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_volume.v_regex.error}}"
+        },
+
+        "v_max_length": {
+          "value": "9",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_volume.v_max_length.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_cert_num_folio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_data_type": "text",
+        "openmrs_entity_id": "birthCertNumFolio",
+        "type": "edit_text",
+        "hint": "{{birth_certification_changed.step1.birth_cert_num_folio.hint}}",
+        "v_required": {
+          "value": "true",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_folio.v_required.err}}"
+        },
+        "v_max_length": {
+          "value": "6",
+          "err": "{{birth_certification_changed.step1.birth_cert_num_folio.v_max_length.error}}"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_intro_relevance_rule.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "system_birth_notification",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

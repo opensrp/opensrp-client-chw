@@ -848,6 +848,71 @@
         }
       },
       {
+        "key": "remove_member_number_acte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "removeMemberNumberActe",
+        "label": "Acte No.",
+        "hint": "{{family_details_remove_member.step1.remove_member_number_acte.hint}}",
+        "type": "edit_text",
+        "v_numeric": {
+          "value": "true",
+          "err": "{{family_details_remove_member.step1.informant_phone.v_numeric.err}}"
+        },
+        "v_max_length": {
+          "value": "5",
+          "err": "{{family_details_remove_member.step1.informant_phone.v_max_length.err}}"
+        },
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
+        "key": "remove_member_number_volume",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "removeMemberNumberVolume",
+        "label": "Volume No.",
+        "hint": "{{family_details_remove_member.step1.remove_member_number_volume.hint}}",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "9",
+          "err": "{{family_details_remove_member.step1.remove_member_number_volume.v_max_length.error}}"
+        },
+        "v_regex": {
+          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
+          "err": "{{family_details_remove_member.step1.remove_member_number_volume.v_regex.error}}"
+        },
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
+        "key": "remove_member_number_folio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "removeMemberNumberFolio",
+        "label": "Folio No.",
+        "hint": "{{family_details_remove_member.step1.remove_member_number_folio.hint}}",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "6",
+          "err": "{{family_details_remove_member.step1.remove_member_number_folio.v_max_length.error}}"
+        },
+        "relevance": {
+          "step1:remove_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"Died\")"
+          }
+        }
+      },
+      {
         "key": "official_position",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

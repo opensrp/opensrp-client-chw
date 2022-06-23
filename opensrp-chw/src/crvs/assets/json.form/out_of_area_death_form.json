@@ -705,6 +705,75 @@
         }
       },
       {
+        "key": "death_certificate_number_acte",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberActe",
+        "label": "Acte No.",
+        "hint": "{{out_of_area_death_form.step1.death_certificate_number_acte.hint}}",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "5",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number_acte.v_max_length.error}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number.v_numeric.err}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number_volume",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberVolume",
+        "label": "Volume No.",
+        "hint": "{{out_of_area_death_form.step1.death_certificate_number_volume.hint}}",
+        "type": "edit_text",
+        "v_regex": {
+          "value": "([0-9]{1,4}\\/[0-9]{1,4})",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number_volume.v_regex.error}}"
+        },
+        "v_max_length": {
+          "value": "9",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number_volume.v_max_length.error}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "death_certificate_number_folio",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "deathCertificationNumberFolio",
+        "label": "Folio No.",
+        "hint": "{{out_of_area_death_form.step1.death_certificate_number_folio.hint}}",
+        "type": "edit_text",
+        "v_max_length": {
+          "value": "6",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number_folio.v_max_length.error}}"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "{{out_of_area_death_form.step1.death_certificate_number.v_numeric.err}}"
+        },
+        "relevance": {
+          "step1:received_death_certificate": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
         "key": "death_notification_done",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
