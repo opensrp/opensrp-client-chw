@@ -57,7 +57,6 @@ android {
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
-    android.ndkVersion  '21.0.6113669'
 
     lintOptions {
         checkReleaseBuilds false
@@ -367,7 +366,7 @@ android {
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-chw-core:2.1.6-crvs-alpha-4-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-chw-core:2.1.6-crvs-alpha-5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'androidx.legacy', module: 'legacy-support-v4'
