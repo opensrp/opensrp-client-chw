@@ -150,6 +150,47 @@
           "subjects": "client_hiv_status_during_registration:text"
         },
         {
+          "name": "client_tb_status_during_registration",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_tb_status_during_registration",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Client's TB status during registration"
+          },
+          "options": [
+            {
+              "name": "unknown",
+              "text": "Unknown",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "unknown",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "positive",
+              "text": "Positive",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "positive",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "negative",
+              "text": "Negative",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "negative",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ]
+        },
+        {
           "name": "tb_number",
           "type": "text_input_edit_text",
           "properties": {

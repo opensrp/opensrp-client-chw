@@ -9,9 +9,9 @@
     <string name="hts_referral">HIV Testing Services</string>
     <string name="tb_referral">TB Clinic</string>
     <string name="pmtct_referral">PMTCT Clinic</string>
-    <string name="gbv_referral">Gender Based Violence Referral</string>
-    <string name="pregnancy_confirmation_referral">Pregnancy Confirmation Referral</string>
-    <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
+    <string name="gbv_referral">Gender Based Violence</string>
+    <string name="pregnancy_confirmation_referral">Pregnancy Confirmation</string>
+    <string name="child_gbv_referral">Child Gender Based Violence</string>
     <string name="created">Created: %s</string>
     <string name="submit">SAVE</string>
     <string name="referral_status_pending">PENDING</string>
@@ -24,6 +24,17 @@
     <string name="menu_independent">Independent</string>
     <string name="action_received_anc_partner_followup_referrals">Partner Followup</string>
 
+
+    <!-- Reports View Strings   -->
+    <string name="reports_title">REPORTS</string>
+    <string name="cbhs_reports_title">CBHS Summary</string>
+    <string name="cbhs_reports_subtitle">View Monthly Summary Report</string>
+    <string name="select_reporting_month">Select Reporting Month</string>
+    <string name="monthly_report">Monthly Report</string>
+    <string name="print_report">Print</string>
+
+
+
     <string name="partner_registration_action_title">Partner Registration</string>
     <string name="new_client">New Client</string>
     <string name="existing_client">Existing Client</string>
@@ -31,4 +42,27 @@
     <string name="register_partner_dialog_title">Register this client as Partner?</string>
     <string name="view_partner_prefile">View Partner Profile</string>
     <string name="back_to_pmtct">Back to Mother Champion\'s Followup Clients</string>
+
+
+    <!-- String updates: New CBHS workflow   -->
+    <string name="client_registration">Client\'s General Registration</string>
+    <string name="referral_submitted_successfully">Successful</string>
+
+    <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
+    <string name="referral_problem_pain">Pain</string>
+    <string name="referral_problem_anc_male_engagement">ANC Client Male Engagement</string>
+    <string name="referral_problem_none">None</string>
+    <string name="referral_problem_fever">Fever</string>
+    <string name="referral_problem_jaundice">Jaundice</string>
+    <string name="referral_problem_headache">Headache</string>
+    <string name="referral_problem_coughing">Coughing</string>
+    <string name="referral_problem_altered_mental_status">Altered Mental Status</string>
+    <string name="referral_problem_convulsion">Convulsion</string>
+    <string name="referral_problem_loss_of_consciousness">Loss of Consciousness</string>
+    <string name="referral_problem_high_risk_client">High Risk Client</string>
+    <string name="referral_problem_optimistic_infections">Optimistic Infections</string>
+    <string name="referral_problem_confirmation_self_test">Confirmation Self Test</string>
+    <string name="referral_problem_index_contact_testing">Index Contact Testing</string>
+
+
 </resources>

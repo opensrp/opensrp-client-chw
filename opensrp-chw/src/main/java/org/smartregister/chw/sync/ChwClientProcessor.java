@@ -3,16 +3,23 @@ package org.smartregister.chw.sync;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
 import org.smartregister.domain.Event;
+import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.sync.ClientProcessorForJava;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class ChwClientProcessor extends CoreClientProcessor {
 
@@ -63,6 +70,27 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
     @Override
     protected String getHumanReadableConceptResponse(String value, Object object) {
+        try {
+            if (StringUtils.isBlank(value) || (object != null && !(object instanceof Obs))) {
+                return value;
+            }
+            // Skip human readable values and just get values which would aid in translations
+            final String VALUES = "values";
+            List values = new ArrayList();
+
+            Object valueObject = getValue(object, VALUES);
+            if(valueObject instanceof List) {
+                values = (List) valueObject;
+            }
+            if(object == null || values.isEmpty()) {
+                return value;
+            }
+
+            return values.size() == 1 ? values.get(0).toString() : values.toString();
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
         return value;
     }
 }

@@ -1821,6 +1821,14 @@
           }
         },
         {
+          "column_name": "last_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "last_appointment_date"
+          }
+        },
+        {
           "column_name": "service_before_referral",
           "type": "Event",
           "json_mapping": {
@@ -2801,6 +2809,22 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "test_results"
+          }
+        },
+        {
+          "column_name": "client_tb_status_after_testing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_tb_status_after_testing"
+          }
+        },
+        {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "next_appointment_date"
           }
         },
         {

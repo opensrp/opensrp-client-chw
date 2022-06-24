@@ -212,20 +212,119 @@
           },
           "options": [
             {
-              "name": "pain",
-              "text": "Maumivu",
+              "name": "general_body_malaise",
+              "text": "General Body Malaise",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "pain",
+                "openmrs_entity_id": "general_body_malaise",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "chest_pain",
+              "text": "Chest Pain",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "chest_pain",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "skin_infection",
+              "text": "Skin Infection",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "skin_infection",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "loss_of_appetite",
+              "text": "Loss of Appetite",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "loss_of_appetite",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "malnutrition",
+              "text": "Malnutrition",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "malnutrition",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "fever",
+              "text": "Fever",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "fever",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "jaundice",
+              "text": "Jaundice",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "jaundice",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "headache",
+              "text": "Headache",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "headache",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "coughing",
-              "text": "kukohoa",
+              "text": "Coughing",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "coughing",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "altered_mental_status",
+              "text": "Altered Mental Status",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "altered_mental_status",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "convulsion",
+              "text": "Convulsion",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "convulsion",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "loss_of_consciousness",
+              "text": "Loss of Consciousness",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "loss_of_consciousness",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "drugs_side_effects",
+              "text": "Drugs Side Effects",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "drugs_side_effects",
                 "openmrs_entity_parent": ""
               }
             },
@@ -268,10 +367,25 @@
           "subjects": "health_problem:map"
         },
         {
+          "name": "prompt_for_health_challenges",
+          "type": "toast_notification",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prompt_for_health_challenges",
+            "openmrs_entity_parent": "health_problem"
+          },
+          "properties": {
+            "notification_type": "error",
+            "dismissible": "no",
+            "text": "Refer to health facility for further management"
+          },
+          "subjects": "health_problem:map"
+        },
+        {
           "name": "social_problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Matatizo ya kijamii/kitabibu ya Mteja"
+            "text": "Pick Psychosocial challenges faced by the Client."
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -326,14 +440,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua matatizo ya kijamii/kitabibu ya Mteja",
+          "required_status": "yes:Please specify client's problems",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "social_problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Matatizo mengine ya kijamii ya Mteja",
+            "hint": "Other Psychosocial Challenges",
             "type": "name"
           },
           "meta_data": {
@@ -341,7 +455,7 @@
             "openmrs_entity_id": "social_problem_other",
             "openmrs_entity_parent": "social_problem"
           },
-          "required_status": "true:Tafadhali jaza matatizo mengine",
+          "required_status": "true:Please specify other psychosocial problems faced",
           "subjects": "social_problem:map"
         },
         {
@@ -436,7 +550,7 @@
           "name": "supplies_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Vifaa vilivyotolewa"
+            "text": "Vifaa/Commodities vilivyotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -445,47 +559,47 @@
           },
           "options": [
             {
-              "name": "soap",
-              "text": "Sabuni",
+              "name": "hiv_self_test_kits",
+              "text": "HIV Self Testing Kits",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "soap",
+                "openmrs_entity_id": "hiv_self_test_kits",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "mosquito_nets",
-              "text": "Chandarua",
+              "name": "sanitizers",
+              "text": "Sanitizers",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "mosquito_nets",
+                "openmrs_entity_id": "sanitizers",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "bed_sheets",
-              "text": "Mashuka",
+              "name": "face_masks",
+              "text": "Face masks",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "bed_sheets",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "water_disinfectant",
-              "text": "Dawa ya kusafisha/kuua vijidudu kwenye maji",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "water_disinfectant",
+                "openmrs_entity_id": "face_masks",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "condoms",
-              "text": "Kondomu",
+              "text": "Condoms",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "condoms",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "water_disinfectant",
+              "text": "Water disinfectants",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "water_disinfectant",
                 "openmrs_entity_parent": ""
               }
             },
@@ -509,14 +623,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua kifaa/vifaa vilivyotolewa",
+          "required_status": "yes:Tafadhali chagua kifaa/Commodities vilivyotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "supplies_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Vifaa vingine",
+            "hint": "Vifaa/Commodities vingine",
             "type": "name"
           },
           "meta_data": {
@@ -524,7 +638,7 @@
             "openmrs_entity_id": "supplies_provided_other",
             "openmrs_entity_parent": "supplies_provided"
           },
-          "required_status": "true:Tafadhali jaza vifaa vingine vilivyotolewa",
+          "required_status": "true:Tafadhali jaza vifaa/commodities vingine vilivyotolewa",
           "subjects": "supplies_provided:map"
         },
         {
@@ -540,29 +654,20 @@
           },
           "options": [
             {
-              "name": "cotrimoxazole",
-              "text": "Cotrimoxazole",
+              "name": "paracetamol",
+              "text": "Paracetamol",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "cotrimoxazole",
+                "openmrs_entity_id": "paracetamol",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "aspirin",
-              "text": "Aspirini",
+              "name": "ors",
+              "text": "ORS",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "aspirin",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other_medicine",
-              "text": "Dawa Nyinginezo",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "other_medicine",
+                "openmrs_entity_id": "ors",
                 "openmrs_entity_parent": ""
               }
             },
@@ -581,25 +686,10 @@
           "subjects": "registration_or_followup_status:text"
         },
         {
-          "name": "medicine_provided_other",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Dawa nyingine",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "medicine_provided_other",
-            "openmrs_entity_parent": "medicine_provided"
-          },
-          "required_status": "true:Tafadhali jaza dawa nyingine zilizotolewa",
-          "subjects": "medicine_provided:map"
-        },
-        {
           "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma za UKIMWI zilizotolewa na Mtoa huduma wa afya ngazi ya jamii"
+            "text": "Huduma za CBHS zilizotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -690,14 +780,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii",
+          "required_status": "yes:Tafadhali jaza huduma za CBHS zilizotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "hiv_services_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Huduma nyingnie za UKIMWI katika jamii zilizotolewa",
+            "hint": "Huduma nyingnie za CBHS zilizotolewa",
             "type": "name"
           },
           "meta_data": {
@@ -705,14 +795,14 @@
             "openmrs_entity_id": "hiv_services_provided_other",
             "openmrs_entity_parent": "hiv_services_provided"
           },
-          "required_status": "true:Tafadhali jaza huduma nyingnie za UKIMWI katika jamii zilizotolewa",
+          "required_status": "true:Tafadhali jaza huduma nyingine CBHS zilizotolewa",
           "subjects": "hiv_services_provided:map"
         },
         {
           "name": "referrals_issued_to_other_services",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua rufaa aliyopewa mteja kwa huduma nyingine"
+            "text": "Pick referrals issued to the Client for other services other than Medical Services"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -798,7 +888,7 @@
           "name": "referrals_to_other_services_completed",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua rufaa kwa huduma nyingine iliyokamilishwa na mteja"
+            "text": "Pick Referrals to other services other than Medical Services Completed by the Client."
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -882,14 +972,14 @@
         },
         {
           "name": "state_of_therapy",
-          "type": "spinner",
+          "type": "multi_choice_checkbox",
           "properties": {
             "text": "Hali ya Tiba na Matunzo (CTC)"
           },
           "meta_data": {
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "state_of_therapy",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_id": "state_of_therapy"
           },
           "options": [
             {
@@ -909,9 +999,59 @@
                 "openmrs_entity_id": "registered_and_uses_medication",
                 "openmrs_entity_parent": ""
               }
+            },
+            {
+              "name": "registered_in_injection_drugs_users_clinic",
+              "text": "Registered in Injection Drugs Users Clinic",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "registered_in_injection_drugs_users_clinic",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "registered_in_tb_clinic",
+              "text": "Registered in TB Clinic",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "registered_in_tb_clinic",
+                "openmrs_entity_parent": ""
+              }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya Tiba na Matunzo (CTC)",
+          "required_status": "yes:Tafadhali jaza hali ya tiba na matunzo (CTC)",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "comments_remarks",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Comments and Remarks",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "comments_remarks",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "no"
+        },
+        {
+          "name": "next_appointment_date",
+          "type": "datetime_picker",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "next_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Next Appointment Date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today",
+            "max_date": "today+3m"
+          },
+          "required_status": "true:Please specify the next appointment date",
           "subjects": "registration_or_followup_status:text"
         },
         {

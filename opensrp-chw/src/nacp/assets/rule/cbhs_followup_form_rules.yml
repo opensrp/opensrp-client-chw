@@ -13,6 +13,13 @@ condition: "registration_or_followup_status.value=='New Client' || registration_
 actions:
   - "client_hiv_status_after_testing_visibility =  true"
 ---
+name: "client_tb_status_after_testing_visibility"
+description: "client_hiv_status_after_testing visibility"
+priority: 1
+condition: "registration_or_followup_status.value=='New Client' || registration_or_followup_status.value=='Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
+actions:
+  - "client_tb_status_after_testing_visibility =  true"
+---
 name: "ctc_number_visibility"
 description: "ctc_number visibility"
 priority: 1
@@ -152,4 +159,18 @@ priority: 1
 condition: "client_moved_location.value == 'Other' && (registration_or_followup_status.value == 'Client has relocated to another location' || registration_or_followup_status.value == 'Amehamishiwa mahali pengine') || client_moved_location.value == 'Other' && (registration_or_followup_status.value == 'Client continues with clinic from elsewhere' || registration_or_followup_status.value == 'Anaendelea na huduma kutoka sehemu nyingine')"
 actions:
   - "client_moved_location_other_visibility = true"
+---
+name: "next_appointment_date_visibility"
+description: "next_appointment_date visibility"
+priority: 1
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.'"
+actions:
+  - "next_appointment_date_visibility = true"
+---
+name: "prompt_for_health_challenges_visibility"
+description: "prompt_for_health_challenges visibility"
+priority: 1
+condition: "health_problem['fever'] != null || health_problem['jaundice'] != null || health_problem['headache'] != null || health_problem['coughing'] != null || health_problem['altered_mental_status'] != null || health_problem['convulsion'] != null || health_problem['loss_of_consciousness'] != null"
+actions:
+  - "prompt_for_health_challenges_visibility =  true"
 

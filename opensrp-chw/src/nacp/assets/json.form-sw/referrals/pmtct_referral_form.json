@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua tatizo linaloendana na hali ya mgonjwa"
+            "text": "Sababu za rufaa"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -105,11 +105,11 @@
               }
             },
             {
-              "name": "Other_symptom",
-              "text": "Nyingine",
+              "name": "other_reasons",
+              "text": "Sababu nyingine",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptom",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }
@@ -126,7 +126,7 @@
           "name": "problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Tatizo nyingine",
+            "hint": "Sababu nyingine",
             "type": "name"
           },
           "meta_data": {
@@ -134,7 +134,7 @@
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "required_status": "true:Tafadhali bainisha dalili nyingine",
+          "required_status": "true:Tafadhali bainisha sababu nyingine",
           "subjects": "problem:map"
         },
         {

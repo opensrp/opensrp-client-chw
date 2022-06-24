@@ -60,7 +60,7 @@
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick condition/problem associated with the client."
+            "text": "Reasons for Referral"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -285,16 +285,16 @@
               }
             },
             {
-              "name": "Other_symptoms",
-              "text": "Other symptoms",
+              "name": "other_reasons",
+              "text": "Other reasons",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "Other_symptoms",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify reason for ANC referral",
+          "required_status": "yes:Please specify reasons for ANC referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -311,10 +311,10 @@
             "openmrs_entity_parent": "problem"
           },
           "properties": {
-            "hint": "Other symptoms",
+            "hint": "Other reasons",
             "type": "name"
           },
-          "required_status": "true:Please specify other symptoms",
+          "required_status": "true:Please specify other reasons",
           "subjects": "problem:map"
         },
         {

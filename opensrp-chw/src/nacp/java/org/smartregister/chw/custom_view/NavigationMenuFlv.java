@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.activity.InAppReportsActivity;
 import org.smartregister.chw.core.activity.CoreStockInventoryReportActivity;
 import org.smartregister.chw.core.activity.HIA2ReportsActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -66,11 +67,11 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public boolean hasInAppReports() {
-        return false;
+        return true;
     }
 
     @Override
     public Intent getInAppReportsActivityIntent(Activity activity) {
-        return null;
+        return new Intent(activity, InAppReportsActivity.class);
     }
 }
