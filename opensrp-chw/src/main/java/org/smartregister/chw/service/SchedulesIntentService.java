@@ -5,11 +5,13 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ScheduleDao;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
 import java.util.Date;
 import java.util.List;
@@ -30,8 +32,16 @@ public class SchedulesIntentService extends IntentService {
         super("SchedulesIntentService");
     }
 
+    public boolean isSyncing() {
+        return CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing();
+    }
+
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+
+        if (isSyncing())
+            return;
+
         // execute all children schedules
         executeChildVisitSchedules();
 
