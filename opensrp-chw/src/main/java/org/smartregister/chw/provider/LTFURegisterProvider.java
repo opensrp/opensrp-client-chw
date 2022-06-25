@@ -30,6 +30,11 @@ public class LTFURegisterProvider extends BaseReferralRegisterProvider {
         LocationRepository locationRepository = new LocationRepository();
         String locationId = Utils.getValue(pc.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
         Location location = locationRepository.getLocationById(locationId);
-        referredByTextView.setText(context.getString(R.string.referred_by, location.getProperties().getName()));
+        if(location != null) {
+            referredByTextView.setText(context.getString(R.string.referred_by, location.getProperties().getName()));
+        }else{
+            referredByTextView.setText(context.getString(R.string.referred_by, locationId));
+        }
+
     }
 }

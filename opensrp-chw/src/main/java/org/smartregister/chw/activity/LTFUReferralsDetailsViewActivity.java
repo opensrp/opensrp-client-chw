@@ -103,7 +103,11 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         LocationRepository locationRepository = new LocationRepository();
         String reasonReference = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "reason_reference", false);
         Location location = locationRepository.getLocationById(locationId);
+        if(location!= null){
         chwDetailsNames.setText(location.getProperties().getName());
+        }else{
+            chwDetailsNames.setText(locationId);
+        }
         Date lastAppointmentDate = ReferralDao.getLastAppointmentDate(reasonReference);
         if (lastAppointmentDate != null) {
             lastAppointmentLayout.setVisibility(View.VISIBLE);
