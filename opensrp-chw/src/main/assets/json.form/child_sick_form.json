@@ -80,9 +80,9 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "{{child_sick_form.step1.child_height.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{child_sick_form.step1.child_height.v_required.err}}"
+        "v_regex": {
+          "value": "^([1-9]|[1-9][0-9]|1[0-4][0-9]|149)$",
+          "err": "{{child_sick_form.step1.child_height.v_regex.error}}"
         }
       },
       {
@@ -93,9 +93,9 @@
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "{{child_sick_form.step1.child_weight.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{child_sick_form.step1.child_weight.v_required.err}}"
+        "v_regex": {
+          "value": "^(1\\.1|99\\.1|((\\-([1-9]|1[0-9])(\\.\\d{1})?)|([1-9]|[1-8][0-9]|9[0-9]|99)(\\.\\d{1})?))$",
+          "err": "{{child_sick_form.step1.child_weight.v_regex.error}}"
         }
       },
       {
