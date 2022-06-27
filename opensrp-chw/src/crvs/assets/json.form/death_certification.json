@@ -107,17 +107,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "deathCertificationNumber",
-        "label": "{{death_certification.step1.death_certificate_number.label}}",
-        "hint": "{{death_certification.step1.death_certificate_number.hint}}",
-        "type": "edit_text",
-        "v_numeric": {
-          "value": "true",
-          "err": "{{death_certification.step1.death_certificate_number.v_numeric.err}}"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "{{death_certification.step1.mandatory_field.v_required.err}}"
-        },
+        "text": "{{death_certification.step1.death_certificate_number.hint}}",
+        "type": "label",
         "relevance": {
           "step1:received_death_certificate": {
             "type": "string",

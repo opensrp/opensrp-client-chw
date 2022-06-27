@@ -129,6 +129,22 @@
         }
       },
       {
+        "key": "birth_cert_num",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "label",
+        "text": "{{birth_certification.step1.birth_cert_num.hint}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "birth_certification_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "birth_cert_num_acte",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -208,26 +224,7 @@
         }
 
       },
-      {
-        "key": "birth_cert_num",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "162052AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "{{birth_certification.step1.birth_cert_num.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{birth_certification.step1.birth_cert_num.v_required.err}}"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "birth_certification_relevance.yml"
-            }
-          }
-        }
-      },
+
       {
         "key": "birth_notification",
         "openmrs_entity_parent": "",
