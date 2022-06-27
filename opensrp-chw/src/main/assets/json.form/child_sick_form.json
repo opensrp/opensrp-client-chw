@@ -4123,15 +4123,26 @@
       },
       {
         "key": "muac",
-        "type": "edit_text",
+        "type": "spinner",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "number",
         "hint": "{{child_sick_form.step9.muac.hint}}",
-        "v_required": {
-          "value": "true",
-          "err": "{{child_sick_form.step9.muac.v_required.err}}"
+        "values": [
+          "{{child_sick_form.step9.muac.value[0]}}",
+          "{{child_sick_form.step9.muac.value[1]}}",
+          "{{child_sick_form.step9.muac.value[2]}}"
+        ],
+        "keys": [
+          "Green",
+          "Yellow",
+          "Red"
+        ],
+        "openmrs_choice_ids": {
+          "Green": "green",
+          "Yellow": "yellow",
+          "Red": "red"
         }
       },
       {
