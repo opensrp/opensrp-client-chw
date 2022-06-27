@@ -28,6 +28,7 @@ import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HivIndexContactFloatingMenu;
 import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
@@ -144,6 +145,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
+        menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivIndexContactObject().getBaseEntityId()));
         return true;
     }
 
