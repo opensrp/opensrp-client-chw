@@ -51,8 +51,8 @@ android {
         applicationId "org.smartregister.chw"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 1
-        versionName "0.2.0"
+        versionCode 2
+        versionName "0.2.1"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
