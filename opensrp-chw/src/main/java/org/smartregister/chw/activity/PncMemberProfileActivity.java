@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import static android.view.View.GONE;
+import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.EventType;
 import static org.smartregister.chw.util.Constants.JSON_FORM;
@@ -35,10 +36,12 @@ import org.smartregister.chw.core.activity.CorePncRegisterActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
 import org.smartregister.chw.core.rule.PncVisitAlertRule;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
@@ -116,6 +119,12 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                         FamilyEventClient familyEventClient =
                                 new FamilyProfileModel(memberObject.getFamilyName()).processUpdateMemberRegistration(jsonString, memberObject.getBaseEntityId());
                         new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, (FamilyProfileContract.InteractorCallBack) pncMemberProfilePresenter());
+                    }
+                    else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                        CommonPersonObjectClient client = getCommonPersonObjectClient(memberObject.getBaseEntityId());
+                        FamilyEventClient familyEventClient = new CoreAllClientsMemberModel().processJsonForm(jsonString, UpdateDetailsUtil.getFamilyBaseEntityId(client));
+                        familyEventClient.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
+                        new org.smartregister.family.interactor.FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, (FamilyProfileContract.InteractorCallBack) pncMemberProfilePresenter());
                     }
 
                     if (EventType.UPDATE_CHILD_REGISTRATION.equals(form.getString(JsonFormUtils.ENCOUNTER_TYPE))) {
@@ -277,6 +286,31 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         super.onCreateOptionsMenu(menu);
         flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == org.smartregister.chw.core.R.id.action_pnc_member_registration){
+            if (UpdateDetailsUtil.isIndependentClient(baseEntityID)) {
+                startFormForEdit(org.smartregister.chw.core.R.string.registration_info,
+                        CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
+            } else {
+                startFormForEdit(org.smartregister.chw.core.R.string.edit_member_form_title,
+                        CoreConstants.JSON_FORM.getFamilyMemberRegister());
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void startFormForEdit(Integer title_resource, String formName) {
+        try {
+            JSONObject form = CoreJsonFormUtils.getAncPncForm(title_resource, formName, memberObject, this);
+            startActivityForResult(CoreJsonFormUtils.getAncPncStartFormIntent(form, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     @Override

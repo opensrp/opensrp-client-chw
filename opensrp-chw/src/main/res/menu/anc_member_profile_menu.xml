@@ -9,6 +9,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_location_info"
+        android:enabled="true"
+        android:title="@string/location_info"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_anc_registration"
         android:enabled="true"
         android:title="@string/anc_registration_info"

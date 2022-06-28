@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -23,16 +21,20 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePmtctProfileActivity;
 import org.smartregister.chw.core.interactor.CorePmtctProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.MotherChampionFloatingMenu;
 import org.smartregister.chw.dao.MotherChampionDao;
+import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.pmtct.util.Constants;
 import org.smartregister.chw.pmtct.util.NCUtils;
 import org.smartregister.chw.presenter.PmtctMemberProfilePresenter;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
@@ -40,6 +42,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
@@ -146,6 +149,15 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
                     } catch (Exception e) {
                         Timber.e(e);
                     }
+                }
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                    FamilyEventClient familyEventClient =
+                            new FamilyProfileModel(memberObject.getFamilyName()).processUpdateMemberRegistration(jsonString, memberObject.getBaseEntityId());
+                    new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, presenter());
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                    FamilyEventClient familyEventClient = new CoreAllClientsMemberModel().processJsonForm(jsonString, memberObject.getFamilyBaseEntityId());
+                    familyEventClient.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
+                    new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, presenter());
                 }
             } catch (Exception e) {
                 Timber.e(e, "MotherChampionProfileActivity -- > onActivityResult");
