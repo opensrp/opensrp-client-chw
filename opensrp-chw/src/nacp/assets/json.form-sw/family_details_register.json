@@ -59,7 +59,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
-        "type": "edit_text",
+        "type": "hidden",
         "hint": "Jina la ukoo",
         "edit_type": "name",
         "v_required": {

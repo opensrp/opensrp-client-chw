@@ -76,12 +76,11 @@
       {
         "key": "surname",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "hint": "Surname",
         "edit_type": "name",
-        "read_only": true,
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
           "err": "Please enter a valid name"
@@ -949,35 +948,35 @@
             "text": "HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_aids"
           },
           {
             "key": "tuberculosis",
             "text": "Tuberculosis",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "tuberculosis"
           },
           {
             "key": "homosexual",
             "text": "Men who have sex with men",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "homosexual"
           },
           {
             "key": "gender_violence",
             "text": "Gender violence",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "gender_violence"
           },
           {
             "key": "drug_abuse",
             "text": "Drug abuse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "drug_abuse"
           },
           {
             "key": "male_engagement",
@@ -1014,49 +1013,49 @@
             "text": "HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_aids"
           },
           {
             "key": "tuberculosis",
             "text": "Tuberculosis",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "tuberculosis"
           },
           {
             "key": "sex_worker_woman",
             "text": "Sex worker",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "sex_worker_woman"
           },
           {
             "key": "gender_violence",
             "text": "Gender violence",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "gender_violence"
           },
           {
             "key": "drug_abuse",
             "text": "Drug abuse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "drug_abuse"
           },
           {
             "key": "pregnant_mother",
             "text": "Pregnant mother",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "pregnant_mother"
           },
           {
             "key": "breastfeeding_mother",
             "text": "Breastfeeding mother",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "breastfeeding_mother"
           }
         ],
         "v_required": {
@@ -1086,49 +1085,49 @@
             "text": "HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_aids"
           },
           {
             "key": "tuberculosis",
             "text": "Tuberculosis",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "tuberculosis"
           },
           {
             "key": "hiv_infected_child",
             "text": "A child born from a mother with HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_infected_child"
           },
           {
             "key": "untested_hiv_infected_child",
             "text": "Untested HIV/AIDs child",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "untested_hiv_infected_child"
           },
           {
             "key": "abused_child",
             "text": "Abused child",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "abused_child"
           },
           {
             "key": "gender_violence",
             "text": "Gender violence",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "gender_violence"
           },
           {
             "key": "drug_abuse",
             "text": "Drug abuse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "drug_abuse"
           }
         ],
         "v_required": {
@@ -1158,49 +1157,49 @@
             "text": "HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_aids"
           },
           {
             "key": "tuberculosis",
             "text": "Tuberculosis",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "tuberculosis"
           },
           {
             "key": "hiv_infected_child",
             "text": "A child born from a mother with HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_infected_child"
           },
           {
             "key": "untested_hiv_infected_child",
             "text": "Untested HIV/AIDs child",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "untested_hiv_infected_child"
           },
           {
             "key": "abused_child",
             "text": "Abused child",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "abused_child"
           },
           {
             "key": "gender_violence",
             "text": "Gender violence",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "gender_violence"
           },
           {
             "key": "drug_abuse",
             "text": "Drug abuse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "drug_abuse"
           }
         ],
         "v_required": {
@@ -1230,63 +1229,63 @@
             "text": "HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_aids"
           },
           {
             "key": "tuberculosis",
             "text": "Tuberculosis",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "tuberculosis"
           },
           {
             "key": "hiv_infected_child",
             "text": "A child born from a mother with HIV/AIDs",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "hiv_infected_child"
           },
           {
             "key": "untested_hiv_infected_child",
             "text": "Untested HIV/AIDs child",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "untested_hiv_infected_child"
           },
           {
             "key": "abused_child",
             "text": "Abused child",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "abused_child"
           },
           {
             "key": "gender_violence",
             "text": "Gender violence",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "gender_violence"
           },
           {
             "key": "drug_abuse",
             "text": "Drug abuse",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "drug_abuse"
           },
           {
             "key": "pregnant_mother",
             "text": "Pregnant mother",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "pregnant_mother"
           },
           {
             "key": "breastfeeding_mother",
             "text": "Breastfeeding mother",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "breastfeeding_mother"
           }
         ],
         "v_required": {
