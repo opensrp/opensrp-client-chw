@@ -377,6 +377,13 @@ condition: "step6_fever.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
+name: step6_malaria_test_not_done
+description: Days child has had fever
+priority: 1
+condition: "step6_malaria_test_done.contains('no')"
+actions:
+  - "isRelevant = true"
+---
 name: step6_fever_everyday
 description: Has fever been present every day
 priority: 1

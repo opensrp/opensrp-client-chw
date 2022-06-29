@@ -1949,7 +1949,7 @@
     "next": "step7",
     "fields": [
       {
-        "key": "fever",
+        "key": "step3_main_symptoms",
         "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2346,6 +2346,25 @@
         "v_required": {
           "value": "true",
           "err": "{{child_sick_form.step6.malaria_test_done.v_required.err}}"
+        }
+      },
+      {
+        "key": "malaria_test_not_done",
+        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "",
+        "hint": "{{child_sick_form.step6.malaria_test_not_done.hint}}",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sick_child_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "{{child_sick_form.step6.malaria_test_not_done.v_required.error}}"
         }
       },
       {
@@ -2838,6 +2857,12 @@
           {
             "key": "1st_dose_antimalarial",
             "text": "{{child_sick_form.step6.malaria_treat.options.1st_dose_antimalarial.text}}",
+            "value": false,
+            "openmrs_choice_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "act_treatment",
+            "text": "{{child_sick_form.step6.malaria_treat.options.act_treatment.text}}",
             "value": false,
             "openmrs_choice_id": "5839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
