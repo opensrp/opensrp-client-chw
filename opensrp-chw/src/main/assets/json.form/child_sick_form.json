@@ -1949,7 +1949,7 @@
     "next": "step7",
     "fields": [
       {
-        "key": "step3_main_symptoms",
+        "key": "fever",
         "type": "native_radio",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
