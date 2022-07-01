@@ -696,10 +696,6 @@
         },
         "min_date": "today-120y",
         "max_date": "today-10y",
-        "v_required": {
-          "value": true,
-          "err": "{{child_enrollment.step1.father_age_entered.v_required.error}}"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
