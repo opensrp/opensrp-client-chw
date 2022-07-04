@@ -71,10 +71,19 @@
           "options": [
             {
               "name": "continuing_with_services",
-              "text": "Client found and ready to return to clinic",
+              "text": "Continuing with services",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "continuing_with_services",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "client_found_ready_to_return",
+              "text": "Client found and ready to return to clinic",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_found_ready_to_return",
                 "openmrs_entity_parent": ""
               }
             },
@@ -239,6 +248,38 @@
             }
           ],
           "required_status": "yes:Please select reason why client missed last appointment",
+          "subjects": "followup_status:map"
+        },
+        {
+          "name": "other_reason_for_missed_appointment",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other reason for missed appointment",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason_for_missed_appointment",
+            "openmrs_entity_parent": "reasons_for_missed_appointment"
+          },
+          "required_status": "yes:Please fill the other reason for missed appointment",
+          "subjects": "reasons_for_missed_appointment:map"
+        },
+        {
+          "name": "last_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Last appointment date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "last_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Please select last appointment date",
           "subjects": "followup_status:map"
         },
         {
