@@ -251,6 +251,21 @@
           "subjects": "followup_status:map"
         },
         {
+          "name": "other_reason_for_missed_appointment",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other reason for missed appointment",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason_for_missed_appointment",
+            "openmrs_entity_parent": "reasons_for_missed_appointment"
+          },
+          "required_status": "yes:Please fill the other reason for missed appointment",
+          "subjects": "reasons_for_missed_appointment:map"
+        },
+        {
           "name": "last_appointment_date",
           "type": "datetime_picker",
           "properties": {

@@ -73,3 +73,10 @@ priority: 1
 condition: "followup_status.value == 'Continuing with services'"
 actions:
   - "last_appointment_date_visibility =  true"
+---
+name: "other_reason_for_missed_appointment_visibility"
+description: "other_reason_for_missed_appointment_visibility"
+priority: 1
+condition: "reasons_for_missed_appointment.value == 'Other'"
+actions:
+  - "other_reason_for_missed_appointment_visibility =  true"
