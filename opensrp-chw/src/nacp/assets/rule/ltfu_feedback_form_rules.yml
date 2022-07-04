@@ -66,3 +66,10 @@ condition: "true"
 priority: 1
 actions:
   - "service_before_referral_calculation = 'None'"
+---
+name: "last_appointment_date_visibility"
+description: "Last Appointment Date if client was continuing with service"
+priority: 1
+condition: "followup_status.value == 'Continuing with services'"
+actions:
+  - "last_appointment_date_visibility =  true"
