@@ -2,14 +2,14 @@
 name: "reasons_for_missed_appointment_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1
-condition: "followup_status.value == 'Client found and ready to return to clinic'"
+condition: "followup_status.value == 'Client is found and ready to return to clinic'"
 actions:
   - "reasons_for_missed_appointment_visibility =  true"
 ---
 name: "referral_appointment_date_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1
-condition: "followup_status.value == 'Client found and ready to return to clinic'"
+condition: "followup_status.value == 'Client is found and ready to return to clinic'"
 actions:
   - "referral_appointment_date_visibility =  true"
 ---
@@ -70,7 +70,7 @@ actions:
 name: "last_appointment_date_visibility"
 description: "Last Appointment Date if client was continuing with service"
 priority: 1
-condition: "followup_status.value == 'Continuing with services'"
+condition: "followup_status.value == 'Client attending the clinic'"
 actions:
   - "last_appointment_date_visibility =  true"
 ---
