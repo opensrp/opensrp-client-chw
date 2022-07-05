@@ -69,5 +69,6 @@
     <string name="ltfu_clinic_prep">PrEP</string>
     <string name="ltfu_clinic_pmtct">PMTCT</string>
     <string name="ltfu_clinic_tb">TB</string>
+    <string name="referred_clinic">Referred Clinic</string>
 
 </resources>
