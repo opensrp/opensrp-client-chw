@@ -115,6 +115,10 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         this.startingActivity = startingActivity;
     }
 
+    @Override
+    protected void updateProblemDisplay() {
+        clientReferralProblem.setText(Utils.getValue(commonPersonObjectClient.getColumnmaps(), "REFERRAL_CLINIC", false));
+    }
 
     public String getBaseEntityId() {
         return baseEntityId;
