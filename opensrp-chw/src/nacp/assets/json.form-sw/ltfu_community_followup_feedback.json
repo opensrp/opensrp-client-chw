@@ -336,7 +336,7 @@
           "options": [
             {
               "name": "address_incorrect",
-              "text": "Anwani sio sahihi ",
+              "text": "Anwani sio sahihi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "address_incorrect",
@@ -345,7 +345,7 @@
             },
             {
               "name": "client_relocated",
-              "text": "Amehama makazi ",
+              "text": "Amehama makazi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_relocated",
