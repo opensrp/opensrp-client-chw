@@ -55,13 +55,13 @@
   },
   "steps": [
     {
-      "title": "LTFU Community Followup Feedback",
+      "title": "Taarifa za mteja baada ya ufuatiliaji",
       "fields": [
         {
           "name": "followup_status",
           "type": "spinner",
           "properties": {
-            "text": "Followup Feedback"
+            "text": "Matokeo ya Ufuatiliaji"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -71,7 +71,7 @@
           "options": [
             {
               "name": "continuing_with_services",
-              "text": "Client attending the clinic",
+              "text": "Mteja anahudhuria kliniki",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "continuing_with_services",
@@ -80,7 +80,7 @@
             },
             {
               "name": "client_found_ready_to_return",
-              "text": "Client is found and ready to return to clinic",
+              "text": "Amepatikana na yupo tayari kurudi kliniki",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_found_ready_to_return",
@@ -89,7 +89,7 @@
             },
             {
               "name": "client_has_moved_to_another_facility",
-              "text": "Client has transferred to another center without notice",
+              "text": "Amehamia kituo kingine bila taarifa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_moved_to_another_facility",
@@ -98,7 +98,7 @@
             },
             {
               "name": "client_has_relocated",
-              "text": "Client has emigrated",
+              "text": "Amehama makazi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_relocated",
@@ -107,7 +107,7 @@
             },
             {
               "name": "client_does_not_want_to_return",
-              "text": "Client is found but is not ready to return to clinic",
+              "text": "Amepatikana lakini hayuko tayari kurudi kliniki",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_does_not_want_to_return",
@@ -116,7 +116,7 @@
             },
             {
               "name": "deceased",
-              "text": "Deceased",
+              "text": "Amefariki",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "deceased",
@@ -125,7 +125,7 @@
             },
             {
               "name": "client_not_found",
-              "text": "Client not found",
+              "text": "Hajapatikana",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_not_found",
@@ -133,13 +133,13 @@
               }
             }
           ],
-          "required_status": "yes:Please select followup feedback"
+          "required_status": "yes:Tafadhali chagua matokeo ya ufuatiliaji"
         },
         {
           "name": "reasons_for_missed_appointment",
           "type": "spinner",
           "properties": {
-            "text": "Reasons why the client missed last appointment"
+            "text": "Sababu za kutohudhuria kliniki"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -149,7 +149,7 @@
           "options": [
             {
               "name": "client_has_forgotten",
-              "text": "Client has forgotten",
+              "text": "Alisahau",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_forgotten",
@@ -158,7 +158,7 @@
             },
             {
               "name": "client_was_ill",
-              "text": "Client was very ill",
+              "text": "Alikuwa mgonjwa sana",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_was_ill",
@@ -167,7 +167,7 @@
             },
             {
               "name": "client_failed_to_disclose_his_status",
-              "text": "Client failed to disclose him/herself",
+              "text": "Ameshindwa kujiweka wazi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_failed_to_disclose_his_status",
@@ -176,7 +176,7 @@
             },
             {
               "name": "client_did_not_have_fare",
-              "text": "Client does not have a fare",
+              "text": "Amekosa Nauli",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_did_not_have_fare",
@@ -185,7 +185,7 @@
             },
             {
               "name": "client_lives_far_away_from_the_health_facility",
-              "text": "Long distance/poor transportation",
+              "text": "Umbali/Usafiri Mgumu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_lives_far_away_from_the_health_facility",
@@ -194,7 +194,7 @@
             },
             {
               "name": "client_feels_well",
-              "text": "Client is feeling better",
+              "text": "Amepata Nafuu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_feels_well",
@@ -203,7 +203,7 @@
             },
             {
               "name": "client_was_busy_at_work",
-              "text": "Client did not get permission from the workplace",
+              "text": "Hakupata ruhusa kazini",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_was_busy_at_work",
@@ -212,7 +212,7 @@
             },
             {
               "name": "client_traveled",
-              "text": "Client has traveled",
+              "text": "Alisafiri",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_traveled",
@@ -221,7 +221,7 @@
             },
             {
               "name": "client_uses_alternative_medicine",
-              "text": "Client uses alternative medicine",
+              "text": "Anatumia tiba mbadala",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_uses_alternative_medicine",
@@ -230,7 +230,7 @@
             },
             {
               "name": "poor_services_at_health_facility",
-              "text": "Client is not satisfied with the service",
+              "text": "Huduma haziridhishi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "poor_services_at_health_facility",
@@ -239,7 +239,7 @@
             },
             {
               "name": "other",
-              "text": "Other",
+              "text": "Nyinginezo",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other",
@@ -247,14 +247,14 @@
               }
             }
           ],
-          "required_status": "yes:Please select reason why client missed last appointment",
+          "required_status": "yes:Tafadhali chagua",
           "subjects": "followup_status:map"
         },
         {
           "name": "other_reason_for_missed_appointment",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other reason for missed appointment",
+            "hint": "Taja sababu nyingine za kutohudhuria kliniki",
             "type": "name"
           },
           "meta_data": {
@@ -262,14 +262,14 @@
             "openmrs_entity_id": "other_reason_for_missed_appointment",
             "openmrs_entity_parent": "reasons_for_missed_appointment"
           },
-          "required_status": "yes:Please fill the other reason for missed appointment",
+          "required_status": "yes:Tafadhali jaza",
           "subjects": "reasons_for_missed_appointment:map"
         },
         {
           "name": "last_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Last appointment date",
+            "hint": "Tarehe ya hudhurio la mwisho",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -279,14 +279,14 @@
             "openmrs_entity_id": "last_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "yes:Please select last appointment date",
+          "required_status": "yes:Tafadhali taja tarehe",
           "subjects": "followup_status:map"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the date client returns",
+            "hint": "Tarehe aliyoahidi kurudi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -296,7 +296,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date",
+          "required_status": "yes:Tafadhali taja tarehe",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -310,7 +310,7 @@
           "name": "date_of_death",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the date client died",
+            "hint": "Tarehe ya kifo",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy"
           },
@@ -319,14 +319,14 @@
             "openmrs_entity_id": "date_of_death",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the date of death",
+          "required_status": "yes:Tafadhali taja tarehe",
           "subjects": "followup_status:map"
         },
         {
           "name": "reason_client_not_found",
           "type": "spinner",
           "properties": {
-            "text": "Reason why client was not found"
+            "text": "Sababu za kutopatikana mteja"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -336,7 +336,7 @@
           "options": [
             {
               "name": "address_incorrect",
-              "text": "Address incorrect",
+              "text": "Anwani sio sahihi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "address_incorrect",
@@ -345,7 +345,7 @@
             },
             {
               "name": "client_relocated",
-              "text": "Emigrated",
+              "text": "Amehama makazi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_relocated",
@@ -354,7 +354,7 @@
             },
             {
               "name": "seasonal_work",
-              "text": "Seasonal Agriculture/Job",
+              "text": "Kilimo/kazi za msimu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "seasonal_work",
@@ -363,7 +363,7 @@
             }
           ],
           "subjects": "followup_status:map",
-          "required_status": "true:Please select reason why client was not found"
+          "required_status": "yes:Tafadhali chagua"
         }
       ]
     }

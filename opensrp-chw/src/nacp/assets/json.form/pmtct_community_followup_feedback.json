@@ -58,11 +58,11 @@
         "type": "spinner",
         "hint": "Followup Feedback",
         "values": [
-          "Continuing with services",
-          "Client found and ready to return to clinic",
-          "Client has moved to another facility without information",
-          "Client has relocated",
-          "Client found but does not want to return to clinic",
+          "Client attending the clinic",
+          "Client is found and ready to return to clinic",
+          "Client has transferred to another center without notice",
+          "Client has emigrated",
+          "Client is found but is not ready to return to clinic",
           "Deceased",
           "Client not found"
         ],
@@ -98,15 +98,15 @@
         "hint": "Reasons for Missed Appointment",
         "values": [
           "Client has forgotten",
-          "Client was ill",
-          "Client failed to disclose his status",
+          "Client was very ill",
+          "Client failed to disclose him/herself",
           "Client did not have fare",
-          "Client lives far away from the health facility",
-          "Client feels well",
-          "Client was busy at work",
-          "Client traveled",
+          "Long distance/poor transportation",
+          "Client is feeling better",
+          "Client did not get permission from the workplace",
+          "Client has traveled",
           "Client uses alternative medicine",
-          "Poor services at health facility",
+          "Client is not satisfied with the service",
           "Other"
         ],
         "keys": [
@@ -236,7 +236,7 @@
         "values": [
           "Address incorrect",
           "Client relocated",
-          "Seasonal work"
+          "Seasonal Agriculture/Job"
         ],
         "keys": [
           "address_incorrect",
