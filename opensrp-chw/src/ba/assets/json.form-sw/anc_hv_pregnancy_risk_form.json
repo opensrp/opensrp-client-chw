@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Pregnancy risk",
+    "title": "Hatari ya ujazito",
     "fields": [
       {
         "key": "preg_risk",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "preg_risk",
         "type": "check_box",
-        "label": "Hatari ya ujauzito kwa mwanamke",
+        "label": "Hatari ya ujazito",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "saveObsAsArray": true,
@@ -67,21 +67,21 @@
         "options": [
           {
             "key": "Low",
-            "text": "Chini",
+            "text": "Kidogo",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Low"
           },
           {
             "key": "Medium",
-            "text": "Wastani",
+            "text": "Kati kati",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Medium"
           },
           {
             "key": "High",
-            "text": "Juu",
+            "text": "Kubwa",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "High"
@@ -89,7 +89,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua angalau mojawapo"
+          "err": "Tafadhali chagua angalau moja"
         }
       }
     ]

@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Family Details",
+    "title": "Taarifa ya familia",
     "fields": [
       {
         "key": "fam_name",
@@ -60,15 +60,15 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Jina la ukoo",
+        "hint": "Jina la familia (ukoo)",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali weka jina la ukoo"
+          "err": "Tafadhali ingiza jina la familia (ukoo)"
         },
         "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
-          "err": "Tafadhali weka jina halali"
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
+          "err": "Tafadhali ingiza jina halali"
         }
       },
       {
@@ -79,11 +79,11 @@
         "hidden": "true",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "Number ya utambulisho",
+        "hint": "ID *",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
-          "err": "Tafadhali weka kitambulisho halali"
+          "err": "Tafadhali ingiza namba halali"
         }
       },
       {
@@ -92,10 +92,10 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Jina la Eneo",
+        "hint": "Kijiji / mtaa",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali weka jina la eneo"
+          "err": "Tafadhali ingiza kijiji au jiji"
         }
       },
       {
@@ -104,13 +104,13 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "landmark",
         "type": "edit_text",
-        "hint": "Alama ya kihistoria"
+        "hint": "Alama ya eneo la makazi"
       },
       {
         "key": "gps",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "gps",
+        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "gps"
       },
@@ -118,14 +118,14 @@
         "key": "nearest_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "nearest_facility",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Kijiji/Mtaa",
+        "hint": "Kituo cha karibu cha kutolea huduma za afya",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Tafadhali ingia kijijini au mtaani"
+          "err": "Tafadhali ingiza kituo cha afya kilicho karibu"
         }
       }
     ]
