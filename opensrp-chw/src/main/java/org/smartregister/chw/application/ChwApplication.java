@@ -406,6 +406,9 @@ public class ChwApplication extends CoreChwApplication {
     public void onVisitEvent(Visit visit) {
         if (visit != null) {
             Timber.v("Visit Submitted re processing Schedule for event ' %s '  : %s", visit.getVisitType(), visit.getBaseEntityId());
+            if (CoreLibrary.getInstance().isPeerToPeerProcessing() || SyncStatusBroadcastReceiver.getInstance().isSyncing())
+                return;
+
             ChwScheduleTaskExecutor.getInstance().execute(visit.getBaseEntityId(), visit.getVisitType(), visit.getDate());
 
             ChildAlertService.updateAlerts(visit.getBaseEntityId());
