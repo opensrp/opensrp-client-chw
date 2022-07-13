@@ -105,5 +105,6 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
             mAdapter.notifyDataSetChanged();
         }
         displayProgressBar(false);
+        redrawVisitUI();
     }
 }
