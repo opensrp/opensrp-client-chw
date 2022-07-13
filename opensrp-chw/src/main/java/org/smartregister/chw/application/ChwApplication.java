@@ -261,6 +261,10 @@ public class ChwApplication extends CoreChwApplication {
         // set up processor
         FamilyLibrary.getInstance().setClientProcessorForJava(ChwClientProcessor.getInstance(getApplicationContext()));
 
+        // Set display date format for date pickers in native forms
+        Form form = new Form();
+        form.setDatePickerDisplayFormat("dd MMM yyyy");
+
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }
 
