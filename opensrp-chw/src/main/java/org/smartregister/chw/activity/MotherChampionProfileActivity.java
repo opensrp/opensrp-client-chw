@@ -263,6 +263,11 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         addContentView(basePmtctFloatingMenu, linearLayoutParams);
     }
 
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        rlLastVisit.setVisibility(View.GONE);
+    }
+
     private void addPmtctReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.pmtct_referral),
