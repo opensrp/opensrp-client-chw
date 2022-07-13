@@ -390,6 +390,14 @@
           "value": "(0[0-9]{9})|\\s*",
           "err": "Namba lazima iwe na tarakimu 10 na ianze na 0"
         }
+      },
+      {
+        "key": "confirmation_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_confirmation_status",
+        "type": "hidden",
+        "value": "Confirmed"
       }
     ]
   }
