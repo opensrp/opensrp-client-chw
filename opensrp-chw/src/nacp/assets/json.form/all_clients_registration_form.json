@@ -1011,6 +1011,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1073,6 +1080,13 @@
         "v_required": {
           "value": "true",
           "err": "Please pick at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1118,7 +1132,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_male_15",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -1176,7 +1190,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_female_15",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -1248,7 +1262,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_under_15",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -1320,7 +1334,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_female_under_10",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
@@ -1392,7 +1406,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "reasons_for_registration_female_10_to_15",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Reasons for Registration",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
