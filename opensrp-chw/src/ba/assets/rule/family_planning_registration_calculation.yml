@@ -68,4 +68,4 @@ description: calculate fp start date
 priority: 1
 condition: "true"
 actions:
-  - "calculation = step2_fp_method_accepted == 'Standard day method' ? step1_fp_reg_date : helper.getNonBlankValue([step3_fp_start_condom,step3_fp_start_cocpop,step3_fp_start_injectable,step3_fp_start_iucd,step3_fp_start_implant_nxt,step3_fp_start_implant_jad,step3_fp_start_female_ster,step3_fp_start_male_ster])"
+  - "calculation = step2_fp_method_accepted == 'Standard day method' ? step1_fp_reg_date : helper.getNonBlankValue([String.valueOf(step3_fp_start_condom),step3_fp_start_cocpop,step3_fp_start_injectable,step3_fp_start_iucd,step3_fp_start_implant_nxt,step3_fp_start_implant_jad,step3_fp_start_female_ster,step3_fp_start_male_ster])"
