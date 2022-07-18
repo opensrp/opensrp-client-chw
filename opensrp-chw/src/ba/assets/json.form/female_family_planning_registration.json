@@ -1,5 +1,5 @@
 {
-  "validate_on_submit": false,
+  "validate_on_submit": true,
   "show_errors_on_submit": false,
   "count": "3",
   "encounter_type": "Family Planning Registration",
@@ -777,13 +777,6 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "family_planning_registration_calculation.yml"
-            }
-          }
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "family_planning_registration_relevance.yml"
             }
           }
         }
