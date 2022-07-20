@@ -186,8 +186,8 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThanEqualTo(., step1:no_prev_preg)",
-            "err": "Parity must be equal to or less than the number of pregnancies (Including current pregnancy)"
+            "ex": "lessThan(., step1:no_prev_preg)",
+            "err": "Parity must be less than the number of pregnancies (Including current pregnancy)"
           }
         ]
       },

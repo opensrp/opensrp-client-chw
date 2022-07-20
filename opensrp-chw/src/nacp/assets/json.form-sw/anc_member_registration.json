@@ -186,8 +186,8 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThanEqualTo(., step1:no_prev_preg)",
-            "err": "Namba lazima iwe sawa au chini ya idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)"
+            "ex": "lessThan(., step1:no_prev_preg)",
+            "err": "Namba lazima iwe chini ya idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)"
           }
         ]
       },
