@@ -732,6 +732,14 @@
           }
         },
         {
+          "column_name": "parity",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "parity"
+          }
+        },
+        {
           "column_name": "no_surv_children",
           "type": "Event",
           "json_mapping": {

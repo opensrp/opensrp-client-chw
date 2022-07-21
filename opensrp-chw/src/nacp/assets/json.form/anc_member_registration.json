@@ -169,6 +169,29 @@
         }
       },
       {
+        "key": "parity",
+        "type": "edit_text",
+        "hint": "Parity",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parity",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter parity number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the parity number"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:no_prev_preg)",
+            "err": "Parity must be less than the number of pregnancies (Including current pregnancy)"
+          }
+        ]
+      },
+      {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
