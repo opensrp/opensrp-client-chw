@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mother Champion Report</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', sans-serif;
+            font-size: 1rem;
+            color: #000;
+            width: 80%;
+            max-width: 768px;
+            margin: 0 auto;
+        }
+
+        .heading h1 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .underline {
+            border-bottom: 1px solid #000;
+        }
+
+        ol {
+            margin: 0;
+            padding: 0;
+            padding-left: 1.2rem;
+        }
+
+        li {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-size: 1rem;
+        }
+
+        .show-on-print {
+            display: none;
+        }
+
+        @media print {
+            .show-on-print {
+                display: block;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body onload="loadData()">
+
+<h1>Majumuisho ya kazi walizofanya</h1>
+<ol>
+    <li>
+        Idadi ya wateja wa PMTCT waliounganishwa kwenye kikundi/vikundi vya IGA and Ushauri Nasaha
+        <span class="underline" id="b-1"></span>
+    </li>
+    <li>
+        Idadi ya wateja wapya wa PMTCT waliofuatiliwa na mama vinara na kuanza kutumia dawa <span
+            class="underline" id="b-2"></span>
+    </li>
+    <li>
+        Idadi ya wateja wa PMTCT waliopotea kwenye matumizi ya dawa (LTF) na kurudishwa/kufuatiliwa
+        na mama vinara <span class="underline" id="b-3"></span>
+    </li>
+    <li>
+        Idadi ya vipindi alivyofundisha mama kinara/vinara kwa wateja wa PMTCT <span
+            class="underline" id="b-4"></span>
+    </li>
+    <li>
+        Idadi ya wateja wa PMTCT walioelimishwa na mama kinara/vinara <span class="underline"
+                                                                            id="b-5"></span>
+    </li>
+    <li>
+        Idadi ya wenza walioelimishwa na mama vinara juu ya PMTCT <span class="underline"
+                                                                        id="b-6"></span>
+    </li>
+    <li>
+        Idadi ya wenza waliofuatiliwa/kuletwa kituoni kupima na kujua hali za afya zao kwa mara ya
+        kwanza <span class="underline" id="b-7"></span>
+    </li>
+
+</ol>
+<script>
+    function loadData() {
+        const data = JSON.parse(Android.getDataForReport());
+        //TODO: load data from Android
+  }
+
+</script>
+</body>
+
+</html>
