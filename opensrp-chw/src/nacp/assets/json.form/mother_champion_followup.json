@@ -51,6 +51,13 @@
     "next": "step2",
     "fields": [
       {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
+      },
+      {
         "key": "type_of_service",
         "type": "check_box",
         "label": "Type of Service",

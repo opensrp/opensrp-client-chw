@@ -207,7 +207,7 @@
         }
       },
       {
-        "name": "date_of_death",
+        "key": "date_of_death",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "date_of_death",

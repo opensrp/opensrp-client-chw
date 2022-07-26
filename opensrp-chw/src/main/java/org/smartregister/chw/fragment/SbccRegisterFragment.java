@@ -1,5 +1,8 @@
 package org.smartregister.chw.fragment;
 
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
+
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -10,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.adapter.SbccRegisterAdapter;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.dao.ChwSbccDao;
 import org.smartregister.chw.model.SbccRegisterFragmentModel;
@@ -20,6 +24,7 @@ import org.smartregister.chw.provider.SbccRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.JsonFormUtils;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -32,6 +37,8 @@ import androidx.appcompat.widget.Toolbar;
 import timber.log.Timber;
 
 import static org.smartregister.util.JsonFormUtils.ENTITY_ID;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
 public class SbccRegisterFragment extends BasePmtctRegisterFragment {
@@ -188,6 +195,10 @@ public class SbccRegisterFragment extends BasePmtctRegisterFragment {
                     if (form != null) {
                         String randomId = generateRandomUUIDString();
                         form.put(ENTITY_ID, randomId);
+
+                        JSONObject chwName = getFieldJSONObject(fields(form, STEP1), "chw_name");
+                        AllSharedPreferences preferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+                        chwName.put(VALUE, preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
                         requireActivity().startActivityForResult(org.smartregister.chw.core.utils.FormUtils.getStartFormActivity(form, requireActivity().getString(R.string.sbcc), requireActivity()), JsonFormUtils.REQUEST_CODE_GET_JSON);
                     }
                 } catch (JSONException e) {

@@ -49,6 +49,12 @@
             font-size: 1rem;
         }
 
+        .dataItem {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0 0.5rem;
+        }
+
         .show-on-print {
             display: none;
         }
@@ -66,35 +72,27 @@
 
 <body onload="loadData()">
 
-<h1>Majumuisho ya kazi walizofanya</h1>
+<h1><b>Majumuisho ya kazi ulizofanya</b></h1>
 <ol>
     <li>
         Idadi ya wateja wa PMTCT waliounganishwa kwenye kikundi/vikundi vya IGA and Ushauri Nasaha
-        <span class="underline" id="b-1"></span>
+        <span class="underline dataItem" id="b-1"></span>
     </li>
     <li>
         Idadi ya wateja wapya wa PMTCT waliofuatiliwa na mama vinara na kuanza kutumia dawa <span
-            class="underline" id="b-2"></span>
+            class="underline dataItem" id="b-2"></span>
     </li>
     <li>
         Idadi ya wateja wa PMTCT waliopotea kwenye matumizi ya dawa (LTF) na kurudishwa/kufuatiliwa
-        na mama vinara <span class="underline" id="b-3"></span>
+        na mama vinara <span class="underline dataItem" id="b-3"></span>
     </li>
     <li>
         Idadi ya vipindi alivyofundisha mama kinara/vinara kwa wateja wa PMTCT <span
-            class="underline" id="b-4"></span>
+            class="underline dataItem" id="b-4"></span>
     </li>
     <li>
-        Idadi ya wateja wa PMTCT walioelimishwa na mama kinara/vinara <span class="underline"
+        Idadi ya wateja wa PMTCT walioelimishwa na mama kinara/vinara <span class="underline dataItem"
                                                                             id="b-5"></span>
-    </li>
-    <li>
-        Idadi ya wenza walioelimishwa na mama vinara juu ya PMTCT <span class="underline"
-                                                                        id="b-6"></span>
-    </li>
-    <li>
-        Idadi ya wenza waliofuatiliwa/kuletwa kituoni kupima na kujua hali za afya zao kwa mara ya
-        kwanza <span class="underline" id="b-7"></span>
     </li>
 
 </ol>
