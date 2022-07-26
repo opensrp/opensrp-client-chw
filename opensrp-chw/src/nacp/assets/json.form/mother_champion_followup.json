@@ -51,6 +51,13 @@
     "next": "step2",
     "fields": [
       {
+        "key": "visit_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_number",
+        "type": "hidden"
+      },
+      {
         "key": "chw_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
