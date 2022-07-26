@@ -60,6 +60,7 @@
         }
 
 
+
     </style>
 </head>
 
@@ -100,9 +101,15 @@
 <script>
     function loadData() {
         const data = JSON.parse(Android.getDataForReport());
-        //TODO: load data from Android
+        const keys = Object.keys(data.nameValuePairs);
+        keys.forEach((key) => {
+            let element;
+            element = document.getElementById(key);
+            if (element !== null && typeof element !== "undefined") {
+              element.innerHTML = data.nameValuePairs[key];
+            }
+        });
   }
-
 </script>
 </body>
 
