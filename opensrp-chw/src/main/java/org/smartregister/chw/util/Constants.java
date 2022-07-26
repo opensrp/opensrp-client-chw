@@ -133,6 +133,7 @@ public class Constants extends CoreConstants {
 
         public interface ReportTypes {
            String CBHS_REPORT = "cbhs_report";
+           String MOTHER_CHAMPION_REPORT = "mother_champion_report";
         }
     }
 }
