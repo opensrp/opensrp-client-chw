@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 
+import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -42,4 +43,11 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         return 60;
     }
 
+    @Override
+    protected void evaluateChildVaccineCard() throws Exception {
+        // expires on 5 years. verify that vaccine card is not received
+        if (new LocalDate().isBefore(new LocalDate(dob).plusYears(5)) && !vaccineCardReceived) {
+            addChildVaccineCardCardAction();
+        }
+    }
 }
