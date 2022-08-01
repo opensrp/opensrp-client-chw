@@ -204,21 +204,25 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         return 24;
     }
 
+    protected void addChildVaccineCardCardAction() throws BaseAncHomeVisitAction.ValidationException {
+        Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
+
+        BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
+                .withOptional(false)
+                .withDetails(details)
+                .withBaseEntityID(memberObject.getBaseEntityId())
+                .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
+                .withHelper(new ChildVaccineCardHelper(dob))
+                .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
+                .build();
+
+        actionList.put(context.getString(R.string.vaccine_card_title), vaccine_card);
+    }
+
     protected void evaluateChildVaccineCard() throws Exception {
         // expires after 24 months. verify that vaccine card is not received
         if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
-            Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
-
-            BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
-                    .withOptional(false)
-                    .withDetails(details)
-                    .withBaseEntityID(memberObject.getBaseEntityId())
-                    .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withHelper(new ChildVaccineCardHelper(dob))
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.CHILD_HOME_VISIT.getVaccineCard(), null, details, null))
-                    .build();
-
-            actionList.put(context.getString(R.string.vaccine_card_title), vaccine_card);
+            addChildVaccineCardCardAction();
         }
     }
 
