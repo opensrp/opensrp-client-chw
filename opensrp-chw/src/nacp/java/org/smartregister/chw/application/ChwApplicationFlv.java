@@ -11,7 +11,7 @@ import java.util.Map;
 public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     @Override
     public boolean hasP2P() {
-        return false;
+        return true;
     }
 
     @Override
