@@ -1,15 +1,20 @@
 function loadData() {
   const data = JSON.parse(Android.getDataForReport());
+
   const tableBody = document.getElementById("table-body");
+  console.log("json data returned is", data);
+  console.log("check here first");
   if(typeof data!== undefined && data !== ""){
-    const reportData = data.reportData;
+    const reportData = data.nameValuePairs.reportData.values;
+    console.log(JSON.stringify(reportData), "Data returned");
+
     reportData.forEach((dataPoint) => {
         //append to the table body a row with data
         const row = document.createElement("tr");
-        const dataPointKeys = Object.keys(dataPoint);
+        const dataPointKeys = Object.keys(dataPoint.nameValuePairs);
         dataPointKeys.forEach((key) => {
             const cell = document.createElement("td");
-            cell.innerHTML = dataPoint[key];
+            cell.innerHTML = dataPoint.nameValuePairs[key];
             row.appendChild(cell);
         }
         );

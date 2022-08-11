@@ -1,0 +1,20 @@
+indicators:
+  - key: "namba-za-mteja"
+    description: "Namba za mteja"
+    indicatorQuery: "SELECT count(ecr.cbhs_number)
+                      FROM ec_cbhs_register ecr
+                      INNER JOIN ec_family_member fm on fm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      date(substr(strftime('%Y-%m-%d', datetime(ecr.hiv_registration_date / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||
+                      substr(strftime('%Y-%m-%d', datetime(ecr.hiv_registration_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =
+                      date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))"
+
+  - key: "jinsia"
+    description: "Jinsia"
+    indicatorQuery: "SELECT count(fm.gender)
+                      FROM ec_cbhs_register ecr
+                      INNER JOIN ec_family_member fm on fm.base_entity_id = ecr.base_entity_id
+                      WHERE
+                      date(substr(strftime('%Y-%m-%d', datetime(ecr.hiv_registration_date / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||
+                      substr(strftime('%Y-%m-%d', datetime(ecr.hiv_registration_date / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =
+                      date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))"
