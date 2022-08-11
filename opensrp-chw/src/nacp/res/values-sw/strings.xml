@@ -78,44 +78,5 @@
     <string name="referral_problem_confirmation_self_test">Uthibitisho Kipimo binfasi</string>
     <string name="referral_problem_index_contact_testing">Upimaji wa washirika wa ngono/wakujidunga</string>
 
-    <!-- String resources for CBHS report -->
-    <!-- Sababu za usajili -->
-    <string name="hiv_aids">Maambukizi ya VVU</string>
-    <string name="tuberculosis">Kifua Kikuu</string>
-    <string name="homosexual">Wanaume wanaofanya mapenzi na wanaume</string>
-    <string name="gender_violence">Unyanyasaji wa Kijinsia</string>
-    <string name="drug_abuse">Matumizi mabaya ya dawa za kulevya</string>
-    <string name="sex_worker_woman">Mfanyabiashara ya ngono</string>
-    <string name="pregnant_mother">Mama mjamzito</string>
-    <string name="breastfeeding_mother">Mama anayenyonyesha</string>
-    <string name="hiv_infected_child">Mtoto aliyezaliwa na mama mwenye VVU</string>
-    <string name="untested_hiv_infected_child">Mtoto ambaye hajapimwa VVU</string>
-    <string name="abused_child">Unyanyasaji wa mtoto</string>
-    <!-- Huduma zilizotolewa -->
-    <string name="hiv_counselling_and_testing">Huduma za ushauri nasaha na upimaji katika jamii</string>
-    <string name="arv_services">Huduma za dawa za kupunguza makali ya vvu katika jamii</string>
-    <string name="hiv_prevention_services_from_mother_to_infant">Huduma za kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto katika jamiii</string>
-    <string name="collaborative_community_services_for_tb_and_hiv">Huduma shirikishi za kifua kikuu na VVU katika jamii</string>
-    <string name="services_to_prevent_the_spread_of_stds">Huduma za kuzuia kuenea magonjwa ya ngono katika jamii</string>
-    <string name="special_group_services">Huduma kwa makundi maalumu</string>
-    <string name="services_to_prevent_gender_violence_and_child_abuse">Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii</string>
-    <string name="psychological_services">Huduma za kisaikolojia katika jamii</string>
-    <string name="information_about_fgm">Elimu ya tohara katika jamii</string>
-    <string name="family_planning_and_condom_distribution_services">Huduma za uzazi wa mpango na usambazaji wa kondomu</string>
-    <string name="self_test_kits_distribution_services">Huduma ya ugawaji wa vitendanishi vya JIPIME</string>
-    <string name="other_hiv_services">Huduma zingine za CBHS</string>
-    <string name="none">Hamna</string>
-    <!-- Dawa zilizotolewa -->
-    <string name="paracetamol">Paracetamol</string>
-    <string name="ors">ORS</string>
-    <string name="none">Hakuna</string>
-    <!-- Vifaa vilivyotolewa -->
-    <string name="hiv_self_test_kits">Vifaa vya kujipima VVU</string>
-    <string name="sanitizers">Vitakasa mikono</string>
-    <string name="face_masks">Barakoa</string>
-    <string name="condoms">Kondomu</string>
-    <string name="water_disinfectant">Dawa za kuua vijidudu vya maji</string>
-    <string name="other_supplies">Vifaa vingine</string>
-    <string name="none">Hakuna</string>
 
 </resources>
