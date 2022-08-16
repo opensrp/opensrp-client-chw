@@ -44,6 +44,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -285,6 +286,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
+        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()));
         return true;
     }
 
@@ -300,6 +302,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                         CoreConstants.JSON_FORM.getFamilyMemberRegister());
             }
             return true;
+        }
+        if(itemId == R.id.action_hivst_registration){
+            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID);
         }
         return super.onOptionsItemSelected(item);
     }
