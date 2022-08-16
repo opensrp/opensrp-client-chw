@@ -18,6 +18,7 @@ import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.presenter.AllClientsMemberPresenter;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
@@ -47,6 +48,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         menu.findItem(R.id.action_cbhs_registration).setVisible(true);
         menu.findItem(R.id.action_tb_registration).setVisible(false);
         menu.findItem(R.id.action_fp_initiation).setVisible(false);
+        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
         if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
@@ -129,6 +131,11 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
         FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender),
                 FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+    }
+
+    @Override
+    protected void startHivstRegistration(){
+        HivstRegisterActivity.startHivstRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
