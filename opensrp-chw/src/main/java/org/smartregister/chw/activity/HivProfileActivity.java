@@ -499,7 +499,15 @@ public class HivProfileActivity extends CoreHivProfileActivity
             PncRegisterActivity.startPncRegistrationActivity(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName(), null);
             return true;
         }
+        else if(itemId == R.id.action_hivst_registration){
+            startHivstRegistration();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startHivstRegistration() {
+        HivstRegisterActivity.startHivstRegistrationActivity(this, getHivMemberObject().getBaseEntityId());
     }
 
     protected void startTbRegister() {

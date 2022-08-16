@@ -529,6 +529,13 @@
             "creates_case": [
               "ec_sbcc"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Self Testing Registration",
+            "creates_case": [
+              "ec_hivst_register"
+            ]
           }
         ]
       }
