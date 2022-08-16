@@ -1,7 +1,5 @@
 package org.smartregister.chw.model;
 
-import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
-
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.model.NavigationModel;
@@ -13,6 +11,8 @@ import org.smartregister.repository.AllSharedPreferences;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
 
 public class NavigationModelFlv implements NavigationModel.Flavor {
 
@@ -36,6 +36,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op13 = new NavigationOption(R.drawable.sidemenu_pmtct, R.drawable.sidemenu_pmtct_active, R.string.mother_champion, CoreConstants.DrawerMenu.MOTHER_CHAMPION, 0);
             NavigationOption op14 = new NavigationOption(R.mipmap.sidemenu_tb, R.mipmap.sidemenu_tb_active, R.string.menu_tb, CoreConstants.DrawerMenu.TB_CLIENTS, 0);
             NavigationOption op15 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_ltfu, Constants.DrawerMenu.LTFU, 0);
+            NavigationOption op16 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_hivst, CoreConstants.DrawerMenu.HIV_SELF_TESTING, 0);
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
                 AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
@@ -43,9 +44,9 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (teamRoleIdentifier.equals("mother_champion")) {
                     navigationOptions.addAll(Arrays.asList(op10, op13, op8));
                 } else if (teamRoleIdentifier.equals("cbhs_provider")) {
-                    navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
+                    navigationOptions.addAll(Arrays.asList(op10, op11, op12, op16, op8, op15));
                 } else {
-                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op13, op8, op15));
+                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op16, op3, op5, op13, op8, op15));
                 }
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
