@@ -1,0 +1,14 @@
+---
+name: step1_kit_code
+description: kit_code relevance
+priority: 1
+condition: "step1_self_test_kit_given.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_extra_kits_required
+description: extra_kits_required relevance
+priority: 1
+condition: "step1_self_test_kit_given.contains('yes')"
+actions:
+  - "isRelevant = true"
