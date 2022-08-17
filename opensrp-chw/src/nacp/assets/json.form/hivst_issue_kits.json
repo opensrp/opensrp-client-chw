@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "HIVST Self Test Kits",
+  "encounter_type": "Self Testing Kits Issue",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -74,10 +74,10 @@
         }
       },
       {
-        "key": "clients_testing_approach",
+        "key": "client_testing_approach",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "clients_testing_approach",
+        "openmrs_entity_id": "client_testing_approach",
         "label": "Client's testing approach",
         "text_color": "#000000",
         "type": "native_radio",

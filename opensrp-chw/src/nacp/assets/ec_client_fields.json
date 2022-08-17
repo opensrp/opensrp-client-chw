@@ -3945,6 +3945,92 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_hivst_followup",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "client_testing_approach",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_testing_approach"
+          }
+        },
+        {
+          "column_name": "self_test_kit_given",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "self_test_kit_given"
+          }
+        },
+        {
+          "column_name": "extra_kits",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "extra_kits_required"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_hivst_results",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "entity_id",
+            "type": "Event",
+            "json_mapping": {
+              "field": "baseEntityId"
+            }
+        },
+        {
+          "column_name":  "kit_for",
+          "type": "Event",
+            "json_mapping": {
+                "field": "obs.fieldCode",
+                "concept": "kit_for"
+            }
+        },
+        {
+          "column_name": "kit_code",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kit_code"
+          }
+        },
+        {
+          "column_name": "hivst_result",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hivst_result"
+          }
+        }
+      ]
     }
   ]
 }

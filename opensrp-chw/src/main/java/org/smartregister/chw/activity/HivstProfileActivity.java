@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivstProfileActivity;
@@ -17,6 +18,7 @@ import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.domain.AlertStatus;
 
 import androidx.annotation.NonNull;
+import timber.log.Timber;
 
 
 public class HivstProfileActivity extends CoreHivstProfileActivity {
@@ -45,6 +47,11 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     @Override
     public void startIssueSelfTestingKitsForm(String baseEntityId) {
         JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.HIVST_ISSUE_KITS);
+        try {
+            form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
         startFormActivity(form);
     }
 
