@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
+import org.json.JSONObject;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivstProfileActivity;
 import org.smartregister.chw.core.interactor.CoreHivstProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.presenter.CoreHivstMemberProfilePresenter;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hivst.dao.HivstDao;
-import org.smartregister.chw.pmtct.util.Constants;
+import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.domain.AlertStatus;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,12 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     @Override
     protected Class<? extends CoreFamilyProfileActivity> getFamilyProfileActivityClass() {
         return null;
+    }
+
+    @Override
+    public void startIssueSelfTestingKitsForm(String baseEntityId) {
+        JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.HIVST_ISSUE_KITS);
+        startFormActivity(form);
     }
 
     @Override
