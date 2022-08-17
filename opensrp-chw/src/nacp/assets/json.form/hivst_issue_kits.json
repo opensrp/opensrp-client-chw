@@ -155,7 +155,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hivst_providing_self_test_kits_relevance.yml"
+              "rules-file": "hivst_issue_kits_relevance.yml"
             }
           }
         }
@@ -191,7 +191,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "hivst_providing_self_test_kits_relevance.yml"
+              "rules-file": "hivst_issue_kits_relevance.yml"
             }
           }
         }
