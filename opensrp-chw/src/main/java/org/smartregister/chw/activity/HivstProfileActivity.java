@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +59,6 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
 
     @Override
     public void startResultViewActivity(Context context, String baseEntityId) {
-        //Toast.makeText(this, "ZAMEER", Toast.LENGTH_LONG).show();
         HivstResultViewActivity.startResultViewActivity(context, baseEntityId);
     }
 
