@@ -1,12 +1,15 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivstProfileActivity;
 import org.smartregister.chw.core.interactor.CoreHivstProfileInteractor;
@@ -55,6 +58,21 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         startFormActivity(form);
     }
 
+    @Override
+    public void startResultViewActivity(Context context, String baseEntityId) {
+        //Toast.makeText(this, "ZAMEER", Toast.LENGTH_LONG).show();
+        HivstResultViewActivity.startResultViewActivity(context, baseEntityId);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.rlSelfTestingResults) {
+            startResultViewActivity(this, memberObject.getBaseEntityId());
+        } else {
+            super.onClick(view);
+        }
+    }
     @Override
     protected void removeMember() {
         //implement
