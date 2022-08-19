@@ -2,21 +2,21 @@ package org.smartregister.chw.fragment;
 
 import android.os.Bundle;
 
-import org.smartregister.chw.hivst.fragment.BaseHivstResultRegisterFragment;
+import org.smartregister.chw.hivst.fragment.BaseHivstResultViewFragment;
 import org.smartregister.chw.hivst.presenter.BaseHivstResultsFragmentPresenter;
 import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.chw.model.HivstResultsFragmentModel;
 
-public class HivstResultsViewFragment extends BaseHivstResultRegisterFragment {
+public class HivstResultsViewFragment extends BaseHivstResultViewFragment {
 
     private String baseEntityId;
 
     public static HivstResultsViewFragment newInstance(String baseEntityId) {
-        HivstResultsViewFragment hivstResultRegisterFragment = new HivstResultsViewFragment();
+        HivstResultsViewFragment hivstResultsViewFragment = new HivstResultsViewFragment();
         Bundle b = new Bundle();
         b.putString(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
-        hivstResultRegisterFragment.setArguments(b);
-        return hivstResultRegisterFragment;
+        hivstResultsViewFragment.setArguments(b);
+        return hivstResultsViewFragment;
     }
 
     @Override
