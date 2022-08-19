@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import org.smartregister.chw.fragment.HivstResultsViewFragment;
 import org.smartregister.chw.hivst.activity.BaseHivstResultViewActivity;
-import org.smartregister.chw.hivst.fragment.BaseHivstResultRegisterFragment;
+import org.smartregister.chw.hivst.fragment.BaseHivstResultViewFragment;
 import org.smartregister.chw.hivst.util.Constants;
 
 public class HivstResultViewActivity extends BaseHivstResultViewActivity {
@@ -18,7 +18,7 @@ public class HivstResultViewActivity extends BaseHivstResultViewActivity {
     }
 
     @Override
-    public BaseHivstResultRegisterFragment getBaseFragment() {
+    public BaseHivstResultViewFragment getBaseFragment() {
         return HivstResultsViewFragment.newInstance(baseEntityId);
     }
 }
