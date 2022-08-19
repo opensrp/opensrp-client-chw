@@ -1,0 +1,14 @@
+---
+name: step1_client_test_result
+description: client_test_result relevance
+priority: 1
+condition: "step1_disclose_result == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_referral
+description: prompt_for_referral relevance
+priority: 1
+condition: "step1_client_test_result == 'reactive' || step1_client_test_result == 'non_reactive'"
+actions:
+  - "isRelevant = true"
