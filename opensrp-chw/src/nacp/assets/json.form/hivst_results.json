@@ -41,6 +41,7 @@
     },
     "encounter_location": ""
   },
+  "global": {},
   "step1": {
     "title": "Record HIVST results",
     "fields": [
@@ -71,6 +72,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -189,6 +197,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -239,6 +254,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
         }
       }
     ]

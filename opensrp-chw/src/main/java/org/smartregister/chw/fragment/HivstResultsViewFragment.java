@@ -11,7 +11,7 @@ import org.smartregister.chw.hivst.fragment.BaseHivstResultViewFragment;
 import org.smartregister.chw.hivst.presenter.BaseHivstResultsFragmentPresenter;
 import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.chw.model.HivstResultsFragmentModel;
-import org.smartregister.chw.pmtct.util.DBConstants;
+import org.smartregister.chw.hivst.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.util.Utils;
 
@@ -44,9 +44,11 @@ public class HivstResultsViewFragment extends BaseHivstResultViewFragment {
     public void openResultsForm(CommonPersonObjectClient client) {
         String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         String entityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.ENTITY_ID, false);
+        String kitFor = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.KIT_FOR, false);
         try {
             JSONObject jsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireContext(), Constants.FORMS.HIVST_RECORD_RESULTS);
-
+            JSONObject global =  jsonObject.getJSONObject("global");
+            global.putOpt("kit_for", kitFor);
             HivstResultViewActivity.startResultsForm(getContext(), jsonObject.toString(), baseEntityId, entityId);
         } catch (JSONException e) {
             e.printStackTrace();
