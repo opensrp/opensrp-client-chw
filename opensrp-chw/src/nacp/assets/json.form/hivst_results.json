@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Record HIVST results",
+  "encounter_type": "Self Testing Results",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -259,6 +259,20 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hivst_result",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hivst_result",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_calculation.yml"
             }
           }
         }

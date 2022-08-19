@@ -32,11 +32,9 @@ public class HivstResultViewActivity extends BaseHivstResultViewActivity {
     }
 
     @Override
-    public void startFormActivity(String jsonString, String baseEntityId, String entityId) {
+    public void startFormActivity(String jsonString) {
         Intent intent = new Intent(this, Utils.metadata().familyMemberFormActivity);
         intent.putExtra(Constants.JSON_FORM_EXTRA.JSON, jsonString);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.BASE_ENTITY_ID, baseEntityId);
-        intent.putExtra(Constants.JSON_FORM_EXTRA.ENTITY_ID, entityId);
 
         Form form = new Form();
         form.setName(getString(R.string.hivst_result));
