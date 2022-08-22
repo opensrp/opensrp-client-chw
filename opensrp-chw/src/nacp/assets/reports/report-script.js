@@ -2,11 +2,8 @@ function loadData() {
   const data = JSON.parse(Android.getDataForReport());
 
   const tableBody = document.getElementById("table-body");
-  console.log("json data returned is", data);
-  console.log("check here first");
   if(typeof data!== undefined && data !== ""){
     const reportData = data.nameValuePairs.reportData.values;
-    console.log(JSON.stringify(reportData), "Data returned");
 
     reportData.forEach((dataPoint) => {
         //append to the table body a row with data
