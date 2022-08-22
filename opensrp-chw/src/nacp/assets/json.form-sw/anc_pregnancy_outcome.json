@@ -203,6 +203,22 @@
         }
       },
       {
+        "key": "prompt_for_referral",
+        "type": "toaster_notes",
+        "text": "Toa Rufaa Kwenda Kituo Cha Afya Kwa Huduma Zaidi",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "delivery_home",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

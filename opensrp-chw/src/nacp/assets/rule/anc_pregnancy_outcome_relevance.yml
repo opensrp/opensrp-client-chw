@@ -77,3 +77,10 @@ priority: 1
 condition: "!step1_same_as_fam_name_chk.contains('same_as_fam_name')"
 actions:
   - "isRelevant = true"
+---
+name: step1_prompt_for_referral
+description: prompt_for_referral relevance
+priority: 1
+condition: "step1_delivery_place == 'At home' || step1_delivery_place == 'Traditional birth attendant'"
+actions:
+  - "isRelevant = true"
