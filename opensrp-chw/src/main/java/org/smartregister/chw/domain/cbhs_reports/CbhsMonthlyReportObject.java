@@ -15,11 +15,6 @@ import java.util.Map;
 
 public class CbhsMonthlyReportObject extends ReportObject {
     private final Context context;
-    private final String[] indicatorCodes = new String[]{"namba-za-mteja", "sababu-za-usajili",
-            "hali-ya-maamubikizi-ya-vvu", "namba-ya-usajili-wa kliniki", "aina-ya-kliniki", "umri",
-            "jinsia", "hali-ya-mteja", "tabia-ya-mteja", "huduma-zilizotolewa",
-            "vifaa-vilivyotolewa", "rufaa-zilizotolewa", "rufaa-zilizofanikiwa",
-            "hali-ya-tiba-na-matunzo", "hali-ya-usajili-na-ufuatiliaji"};
     private Date reportDate;
 
     public CbhsMonthlyReportObject(Date reportDate, Context context) {
