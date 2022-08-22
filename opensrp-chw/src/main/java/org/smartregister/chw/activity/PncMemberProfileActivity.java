@@ -1,6 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static android.view.View.GONE;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.EventType;
@@ -395,17 +394,17 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 String pncDay = pncMemberProfileInteractor.getPncDay(memberObject.getBaseEntityId());
                 layoutNotRecordView.setVisibility(View.VISIBLE);
                 tvEdit.setVisibility(View.VISIBLE);
-                textViewUndo.setVisibility(GONE);
+                textViewUndo.setVisibility(View.GONE);
                 textViewNotVisitMonth.setVisibility(View.VISIBLE);
                 textViewNotVisitMonth.setText(MessageFormat.format(getContext().getString(R.string.pnc_visit_done), pncDay));
                 imageViewCross.setImageResource(R.drawable.activityrow_visited);
-                textview_record_visit.setVisibility(GONE);
+                textview_record_visit.setVisibility(View.GONE);
             } else {
-                layoutNotRecordView.setVisibility(GONE);
+                layoutNotRecordView.setVisibility(View.GONE);
 
             }
         } else {
-            layoutNotRecordView.setVisibility(GONE);
+            layoutNotRecordView.setVisibility(View.GONE);
         }
     }
 

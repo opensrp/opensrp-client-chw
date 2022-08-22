@@ -179,16 +179,16 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         actionList.put(context.getString(R.string.anc_home_visit_malaria_prevention), malaria_ba);
     }
 
-//    private void evaluateObservation(Map<String, List<VisitDetail>> details,
-//                                     final Context context) throws BaseAncHomeVisitAction.ValidationException {
-//        BaseAncHomeVisitAction remark_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
-//                .withOptional(true)
-//                .withDetails(details)
-//                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
-//                .withHelper(new ObservationAction())
-//                .build();
-//        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), remark_ba);
-    //  }
+    private void evaluateObservation(Map<String, List<VisitDetail>> details,
+                                     final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        BaseAncHomeVisitAction remark_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_observations_n_illnes))
+                .withOptional(true)
+                .withDetails(details)
+                .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
+                .withHelper(new ObservationAction())
+                .build();
+        actionList.put(context.getString(R.string.anc_home_visit_observations_n_illnes), remark_ba);
+      }
 
     private void evaluateRemarks(Map<String, List<VisitDetail>> details,
                                  final Context context) throws BaseAncHomeVisitAction.ValidationException {
@@ -252,7 +252,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                     // evaluateNutritionStatus(details, context);
                     evaluateCounsellingStatus(details, context);
                     evaluateMalaria(details, context);
-                    //evaluateObservation(details, context);
+                    evaluateObservation(details, context);
                     evaluateRemarks(details, context);
                 } else {
                     Timber.d(actionList.toString());
