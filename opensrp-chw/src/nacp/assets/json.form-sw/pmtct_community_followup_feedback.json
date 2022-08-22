@@ -56,49 +56,88 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "followup_status",
         "type": "spinner",
-        "hint": "Mrejesho wa Ufuatiliaji",
+        "hint": "Matokeo ya ufuatiliaji",
         "values": [
-          "Anaendelea na Huduma",
-          "Amefariki",
-          "Hapatikani",
-          "Amehamishiwa mahali pengine",
-          "Amehama",
-          "Amejitoa",
-          "Anaendelea na huduma akitokea mahali pengine"
+          "Mteja anahudhuria kliniki",
+          "Amepatikana na yupo tayari kurudi kliniki",
+          "Amehamia Kituo kingine bila taarifa",
+          "Amehama makazi",
+          "Amepatikana lakini hayuko kurudi kliniki",
+          "Anefariki",
+          "Hajapatikana"
         ],
         "keys": [
           "continuing_with_services",
+          "client_found_ready_to_return",
+          "client_has_moved_to_another_facility",
+          "client_has_relocated",
+          "client_does_not_want_to_return",
           "deceased",
-          "client_not_found",
-          "client_has_relocated_to_another_location",
-          "client_has_moved",
-          "client_has_absconded",
-          "client_continues_with_clinic_from_elsewhere"
+          "client_not_found"
         ],
         "openmrs_choice_ids": {
           "continuing_with_services": "continuing_with_services",
+          "client_found_ready_to_return": "client_found_ready_to_return",
+          "client_has_moved_to_another_facility": "client_has_moved_to_another_facility",
+          "client_has_relocated": "client_has_relocated",
+          "client_does_not_want_to_return": "client_does_not_want_to_return",
           "deceased": "deceased",
-          "client_not_found": "client_not_found",
-          "client_has_relocated_to_another_location": "client_has_relocated_to_another_location",
-          "client_has_moved": "client_has_moved",
-          "client_has_absconded": "client_has_absconded",
-          "client_continues_with_clinic_from_elsewhere": "client_continues_with_clinic_from_elsewhere"
+          "client_not_found": "client_not_found"
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo"
+          "err": "Tafadhali chagua"
         }
       },
       {
-        "key": "name_of_hf",
+        "key": "reasons_for_missed_appointment",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "name_of_hf",
+        "openmrs_entity_id": "reasons_for_missed_appointment",
         "type": "spinner",
-        "hint": "Chagua Kituo cha Afya alichohamia",
+        "hint": "Sababu za kutohudhuria kliniki",
+        "values": [
+          "Alisahau",
+          "Alikuwa mgonjwa sana",
+          "Aneshindwa kujiweka wazi",
+          "Amekosa nauli",
+          "Umbali/Usafiri Mgumu",
+          "Amepata Nafuu",
+          "Hakupata ruhusa kazini",
+          "Alisafiri",
+          "Anatumia tiba mbadala",
+          "Huduma haziridhishi",
+          "Nyinginezo"
+        ],
+        "keys": [
+          "client_has_forgotten",
+          "client_was_ill",
+          "client_failed_to_disclose_his_status",
+          "client_did_not_have_fare",
+          "client_lives_far_away_from_the_health_facility",
+          "client_feels_well",
+          "client_was_busy_at_work",
+          "client_traveled",
+          "client_uses_alternative_medicine",
+          "poor_services_at_health_facility",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "client_has_forgotten": "client_has_forgotten",
+          "client_was_ill": "client_was_ill",
+          "client_failed_to_disclose_his_status": "client_failed_to_disclose_his_status",
+          "client_did_not_have_fare": "client_did_not_have_fare",
+          "client_lives_far_away_from_the_health_facility": "client_lives_far_away_from_the_health_facility",
+          "client_feels_well": "client_feels_well",
+          "client_was_busy_at_work": "client_was_busy_at_work",
+          "client_traveled": "client_traveled",
+          "client_uses_alternative_medicine": "client_uses_alternative_medicine",
+          "poor_services_at_health_facility": "poor_services_at_health_facility",
+          "other": "other"
+        },
         "v_required": {
-          "value": true,
-          "err": "Tafadhali chagua Kituo cha Afya alichohamia"
+          "value": "true",
+          "err": "Tafadhali chagua moja"
         },
         "relevance": {
           "rules-engine": {
@@ -109,21 +148,116 @@
         }
       },
       {
-        "key": "other_facility",
+        "key": "other_reason_for_missed_appointment",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_facility",
+        "openmrs_entity_id": "other_reason_for_missed_appointment",
         "type": "edit_text",
-        "hint": "Kituo cha Afya kingine",
+        "hint": "Taja sababu nyingine za kutohudhuria kliniki",
         "v_required": {
-          "value": true,
-          "err": "Tafadhari bainisha Kituo cha Afaya kingine"
+          "value": "true",
+          "err": "Tafadhali jaza"
         },
         "relevance": {
-          "step1:name_of_hf": {
-            "type": "String",
-            "ex": "equalTo(.,\"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
           }
+        }
+      },
+      {
+        "key": "last_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_appointment_date",
+        "type": "date_picker",
+        "min_date": "today",
+        "hint": "Tarehe ya hudhurio la mwisho",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_appointment_date",
+        "type": "date_picker",
+        "min_date": "today",
+        "hint": "Tarehe aliyoahidi kurudi",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "date_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_of_death",
+        "type": "date_picker",
+        "min_date": "today",
+        "hint": "Tarehe ya kifo",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reason_client_not_found",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_client_not_found",
+        "hint": "Sababu za kutopatikana mteja",
+        "type": "spinner",
+        "values": [
+          "Anwani sio sahihi",
+          "Amehama makazi",
+          "Kilimo/Kazi za msimu"
+        ],
+        "keys": [
+          "address_incorrect",
+          "client_relocated",
+          "seasonal_work"
+        ],
+        "openmrs_choice_ids": {
+          "address_incorrect": "address_incorrect",
+          "client_relocated": "client_relocated",
+          "seasonal_work": "seasonal_work"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua"
         }
       },
       {

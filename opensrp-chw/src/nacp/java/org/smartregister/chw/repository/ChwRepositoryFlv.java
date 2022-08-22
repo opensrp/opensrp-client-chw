@@ -27,6 +27,7 @@ import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -376,9 +377,17 @@ public class ChwRepositoryFlv {
 
 
     private static void upgradeToVersion24(SQLiteDatabase db) {
+        // setup reporting
+        ReportingLibrary reportingLibrary = ReportingLibrary.getInstance();
+        String motherChampionIndicatorsConfigFile = "config/mother_champion-reporting-indicator-definitions.yml";
+        for (String configFile : Collections.unmodifiableList(
+                Arrays.asList(motherChampionIndicatorsConfigFile))) {
+            reportingLibrary.readConfigFile(configFile, db);
+        }
+
         try {
             DatabaseMigrationUtils.createAddedECTables(db,
-                    new HashSet<>(Arrays.asList("ec_hiv_register", "ec_hiv_community_followup", "ec_hiv_community_feedback", "ec_tb_register", "ec_tb_community_followup", "ec_tb_community_feedback", "ec_hiv_outcome", "ec_tb_outcome","ec_hiv_index","ec_hiv_index_contact_community_followup")),
+                    new HashSet<>(Arrays.asList("ec_hiv_register", "ec_hiv_community_followup", "ec_hiv_community_feedback", "ec_tb_register", "ec_tb_community_followup", "ec_tb_community_feedback", "ec_hiv_outcome", "ec_tb_outcome", "ec_hiv_index", "ec_hiv_index_contact_community_followup")),
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion24");

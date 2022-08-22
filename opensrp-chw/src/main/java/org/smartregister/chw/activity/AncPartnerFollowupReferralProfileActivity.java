@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import static android.view.View.GONE;
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
@@ -8,6 +10,8 @@ import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.VALUE;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -127,6 +131,9 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             JSONObject formJsonObject = null;
             try {
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getAncPartnerCommunityFollowupFeedback());
+                AllSharedPreferences preferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+                JSONObject chwName = getFieldJSONObject(fields(formJsonObject, STEP1), "chw_name");
+                chwName.put(VALUE, preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
                 startFormActivity(formJsonObject);
             } catch (JSONException e) {
                 e.printStackTrace();

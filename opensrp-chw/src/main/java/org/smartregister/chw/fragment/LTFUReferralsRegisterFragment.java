@@ -15,7 +15,6 @@ import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.domain.Task;
 import org.smartregister.family.util.DBConstants;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.Set;
 
@@ -44,10 +43,7 @@ public class LTFUReferralsRegisterFragment extends BaseReferralRegisterFragment 
 
     @Override
     protected String getMainCondition() {
-        AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
-        String anm = allSharedPreferences.fetchRegisteredANM();
-        String currentLoaction = allSharedPreferences.fetchUserLocalityId(anm);
-        return "task.business_status = '" + CoreConstants.BUSINESS_STATUS.REFERRED + "' and ec_family_member_search.date_removed is null and task.group_id = '" + currentLoaction + "' ";
+        return "task.business_status = '" + CoreConstants.BUSINESS_STATUS.REFERRED + "' and ec_family_member_search.date_removed is null";
     }
 
     @Override

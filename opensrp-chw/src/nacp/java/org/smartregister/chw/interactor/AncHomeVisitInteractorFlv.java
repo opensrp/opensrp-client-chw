@@ -18,6 +18,8 @@ import org.smartregister.chw.anc.domain.VisitDetail;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.util.AppExecutors;
 import org.smartregister.chw.anc.util.VisitUtils;
+import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.util.ChwAncJsonFormUtils;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.ContactUtil;
 import org.smartregister.chw.util.JsonFormUtils;
@@ -84,10 +86,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateDangerSigns(Map<String, List<VisitDetail>> details,
                                      final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject dangerSignsForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getDangerSigns());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(dangerSignsForm, details);
+        }
         BaseAncHomeVisitAction danger_signs = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_danger_signs))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getDangerSigns())
+                .withJsonPayload(dangerSignsForm.toString())
                 .withHelper(new DangerSignsAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_danger_signs), danger_signs);
@@ -98,10 +105,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
                                              Map<Integer, LocalDate> dateMap,
                                              final Context context) throws BaseAncHomeVisitAction.ValidationException {
         visit_title = MessageFormat.format(context.getString(R.string.anc_home_visit_facility_visit), memberObject.getConfirmedContacts() + 1);
+        JSONObject healthFacilityVisitForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(healthFacilityVisitForm, details);
+        }
         BaseAncHomeVisitAction facility_visit = new BaseAncHomeVisitAction.Builder(context, visit_title)
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(new HealthFacilityAction(memberObject, dateMap))
+                .withJsonPayload(healthFacilityVisitForm.toString())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getHealthFacilityVisit())
                 .build();
 
@@ -110,10 +122,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateFamilyPlanning(Map<String, List<VisitDetail>> details,
                                         final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject familyPlanningForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(familyPlanningForm, details);
+        }
         BaseAncHomeVisitAction family_planning_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_family_planning))
                 .withOptional(false)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getFamilyPlanning())
+                .withJsonPayload(familyPlanningForm.toString())
                 .withHelper(new FamilyPlanningAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_family_planning), family_planning_ba);
@@ -132,9 +149,14 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateCounsellingStatus(Map<String, List<VisitDetail>> details,
                                            final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject counsellingForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getCOUNSELLING());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(counsellingForm, details);
+        }
         BaseAncHomeVisitAction counselling_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_counselling_task))
                 .withOptional(false)
                 .withDetails(details)
+                .withJsonPayload(counsellingForm.toString())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getCOUNSELLING())
                 .withHelper(new CounsellingStatusAction())
                 .build();
@@ -143,9 +165,14 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateMalaria(Map<String, List<VisitDetail>> details,
                                  final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject malariaForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(malariaForm, details);
+        }
         BaseAncHomeVisitAction malaria_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_malaria_prevention))
                 .withOptional(false)
                 .withDetails(details)
+                .withJsonPayload(malariaForm.toString())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getMALARIA())
                 .withHelper(new MalariaAction())
                 .build();
@@ -165,10 +192,15 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
     private void evaluateRemarks(Map<String, List<VisitDetail>> details,
                                  final Context context) throws BaseAncHomeVisitAction.ValidationException {
+        JSONObject remarkForm = FormUtils.getFormUtils().getFormJson(Constants.JSON_FORM.ANC_HOME_VISIT.getRemarksAndComments());
+        if(details != null){
+            ChwAncJsonFormUtils.populateForm(remarkForm, details);
+        }
         BaseAncHomeVisitAction remark_ba = new BaseAncHomeVisitAction.Builder(context, context.getString(R.string.anc_home_visit_remarks_and_comments))
                 .withOptional(true)
                 .withDetails(details)
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getRemarksAndComments())
+                .withJsonPayload(remarkForm.toString())
                 .withHelper(new RemarksAction())
                 .build();
         actionList.put(context.getString(R.string.anc_home_visit_remarks_and_comments), remark_ba);

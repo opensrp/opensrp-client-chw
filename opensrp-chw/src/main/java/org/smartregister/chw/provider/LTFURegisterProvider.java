@@ -24,12 +24,30 @@ public class LTFURegisterProvider extends BaseReferralRegisterProvider {
     public void populatePatientColumn(CommonPersonObjectClient pc, ReferralViewHolder viewHolder) {
         super.populatePatientColumn(pc, viewHolder);
         TextView referralClinic = viewHolder.itemView.findViewById(R.id.referral_clinic);
-        referralClinic.setText(Utils.getValue(pc.getColumnmaps(), "REFERRAL_CLINIC", true));
+        referralClinic.setText(getReferralClinic(Utils.getValue(pc.getColumnmaps(), "REFERRAL_CLINIC", true)));
 
         TextView referredByTextView = viewHolder.itemView.findViewById(org.smartregister.chw.core.R.id.referred_by);
         LocationRepository locationRepository = new LocationRepository();
         String locationId = Utils.getValue(pc.getColumnmaps(), org.smartregister.chw.referral.util.DBConstants.Key.REFERRAL_HF, false);
         Location location = locationRepository.getLocationById(locationId);
         referredByTextView.setText(context.getString(R.string.referred_by, location.getProperties().getName()));
+    }
+
+
+    private String getReferralClinic(String key){
+        switch (key.toLowerCase()){
+            case "ctc":
+                return context.getString(R.string.ltfu_clinic_ctc);
+            case "pwid":
+                return context.getString(R.string.ltfu_clinic_pwid);
+            case "prep":
+                return context.getString(R.string.ltfu_clinic_prep);
+            case "pmtct":
+                return context.getString(R.string.ltfu_clinic_pmtct);
+            case "tb":
+                return context.getString(R.string.ltfu_clinic_tb);
+            default:
+                return key.toUpperCase();
+        }
     }
 }

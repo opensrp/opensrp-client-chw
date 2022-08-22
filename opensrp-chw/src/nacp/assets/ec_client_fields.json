@@ -692,6 +692,14 @@
           }
         },
         {
+          "column_name": "confirmation_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pregnancy_confirmation_status"
+          }
+        },
+        {
           "column_name": "gest_age",
           "type": "Event",
           "json_mapping": {
@@ -721,6 +729,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "gravida"
+          }
+        },
+        {
+          "column_name": "parity",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "parity"
           }
         },
         {
@@ -880,7 +896,8 @@
           }
         }
       ]
-    },{
+    },
+    {
       "name": "ec_anc_partners",
       "columns": [
         {
@@ -3993,6 +4010,14 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "referrals_issued_other_services"
+          }
+        },
+        {
+          "column_name": "visit_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_number"
           }
         }
       ]

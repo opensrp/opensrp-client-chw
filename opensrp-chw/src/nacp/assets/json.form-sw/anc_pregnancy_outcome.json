@@ -125,7 +125,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhari jaza tarehe ambayo Mimba ya Mama iliharibika/ilitoka"
+          "err": "Tafadhali jaza tarehe ambayo Mimba ya Mama iliharibika/ilitoka"
         },
         "relevance": {
           "rules-engine": {
@@ -147,7 +147,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhari ingiza tarehe ya kujifungua ya Mama"
+          "err": "Tafadhali ingiza tarehe ya kujifungua ya Mama"
         },
         "relevance": {
           "rules-engine": {

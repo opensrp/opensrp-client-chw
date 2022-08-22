@@ -1,7 +1,42 @@
 ---
-name: step1_name_of_hf
-description: health facility option relevance
+name: step1_reasons_for_missed_appointment
+description: reasons_for_missed_appointment
 priority: 1
-condition: "step1_followup_status.contains('client_has_relocated_to_another_location') || step1_followup_status.contains('client_continues_with_clinic_from_elsewhere')"
+condition: "step1_followup_status.contains('client_found_ready_to_return')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_reason_for_missed_appointment
+description: other_reason_for_missed_appointment
+priority: 1
+condition: "step1_reasons_for_missed_appointment.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_last_appointment_date
+description: last_appointment_date
+priority: 1
+condition: "step1_followup_status.contains('continuing_with_services')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_appointment_date
+description: referral_appointment_date
+priority: 1
+condition: "step1_followup_status.contains('client_found_ready_to_return')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_date_of_death
+description: date_of_death
+priority: 1
+condition: "step1_followup_status.contains('deceased')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_reason_client_not_found
+description: reason_client_not_found
+priority: 1
+condition: "step1_followup_status.contains('client_not_found')"
 actions:
   - "isRelevant = true"

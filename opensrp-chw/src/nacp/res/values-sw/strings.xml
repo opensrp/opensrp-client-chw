@@ -78,5 +78,11 @@
     <string name="referral_problem_confirmation_self_test">Uthibitisho Kipimo binfasi</string>
     <string name="referral_problem_index_contact_testing">Upimaji wa washirika wa ngono/wakujidunga</string>
 
+    <string name="ltfu_clinic_ctc">CTC</string>
+    <string name="ltfu_clinic_pwid">KLINIKI YA WAJIDUNGA</string>
+    <string name="ltfu_clinic_prep">CTC(Dawa Kinga)</string>
+    <string name="ltfu_clinic_pmtct">PMTCT</string>
+    <string name="ltfu_clinic_tb">TB</string>
+    <string name="referred_clinic">Kitengo kilichotoa rufaa</string>
 
 </resources>

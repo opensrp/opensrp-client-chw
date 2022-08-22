@@ -2,28 +2,28 @@
 name: "reasons_for_missed_appointment_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1
-condition: "followup_status.value == 'Client found and ready to return to clinic'"
+condition: "followup_status.value == 'Client is found and ready to return to clinic' || followup_status.value == 'Amepatikana na yupo tayari kurudi kliniki' "
 actions:
   - "reasons_for_missed_appointment_visibility =  true"
 ---
 name: "referral_appointment_date_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1
-condition: "followup_status.value == 'Client found and ready to return to clinic'"
+condition: "followup_status.value == 'Client is found and ready to return to clinic' || followup_status.value == 'Amepatikana na yupo tayari kurudi kliniki' "
 actions:
   - "referral_appointment_date_visibility =  true"
 ---
 name: "date_of_death_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1
-condition: "followup_status.value == 'Deceased'"
+condition: "followup_status.value == 'Deceased' || followup_status.value == 'Amefariki' "
 actions:
   - "date_of_death_visibility =  true"
 ---
 name: "reason_client_not_found_visibility"
 description: "Reasons for missed appointment visibility"
 priority: 1
-condition: "followup_status.value == 'Client not found'"
+condition: "followup_status.value == 'Client not found' || followup_status.value == 'Hajapatikana' "
 actions:
   - "reason_client_not_found_visibility =  true"
 ---
@@ -66,3 +66,17 @@ condition: "true"
 priority: 1
 actions:
   - "service_before_referral_calculation = 'None'"
+---
+name: "last_appointment_date_visibility"
+description: "Last Appointment Date if client was continuing with service"
+priority: 1
+condition: "followup_status.value == 'Client attending the clinic' || followup_status.value == 'Mteja anahudhuria kliniki' "
+actions:
+  - "last_appointment_date_visibility =  true"
+---
+name: "other_reason_for_missed_appointment_visibility"
+description: "other_reason_for_missed_appointment_visibility"
+priority: 1
+condition: "reasons_for_missed_appointment.value == 'Other' || reasons_for_missed_appointment.value == 'Nyinginezo' "
+actions:
+  - "other_reason_for_missed_appointment_visibility =  true"

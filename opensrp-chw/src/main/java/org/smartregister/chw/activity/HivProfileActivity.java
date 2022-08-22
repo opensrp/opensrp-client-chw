@@ -23,15 +23,16 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreHivProfileActivity;
-import org.smartregister.chw.core.activity.CoreHivUpcomingServicesActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HivFloatingMenu;
 import org.smartregister.chw.dao.ChwCBHSDao;
 import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
@@ -103,7 +104,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
             removeField(fields, "client_hiv_status_after_testing");
         }
 
-        if(ChwCBHSDao.tbStatusAfterTestingDone(baseEntityID)){
+        if (ChwCBHSDao.tbStatusAfterTestingDone(baseEntityID)) {
             JSONArray steps = formJsonObject.getJSONArray("steps");
             JSONObject step = steps.getJSONObject(0);
             JSONArray fields = step.getJSONArray("fields");
@@ -317,7 +318,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public Context getContext() {
-        return null;
+        return this;
     }
 
     @Override
@@ -478,7 +479,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
         menu.findItem(R.id.action_anc_registration).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !AncDao.isANCMember(getHivMemberObject().getBaseEntityId()));
-        menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()));
+        menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !PNCDao.isPNCMember(getHivMemberObject().getBaseEntityId()));
+        menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }

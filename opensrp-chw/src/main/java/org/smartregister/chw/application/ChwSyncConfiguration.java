@@ -12,6 +12,9 @@ import java.util.List;
  * Created by samuelgithengi on 10/19/18.
  */
 public class ChwSyncConfiguration extends SyncConfiguration {
+    private int connectTimeout = 900000;
+    private int readTimeout = 900000;
+
     @Override
     public int getSyncMaxRetries() {
         return BuildConfig.MAX_SYNC_RETRIES;
@@ -70,5 +73,15 @@ public class ChwSyncConfiguration extends SyncConfiguration {
     @Override
     public String getTopAllowedLocationLevel() {
         return "Council";
+    }
+
+    @Override
+    public int getReadTimeout() {
+        return connectTimeout;
+    }
+
+    @Override
+    public int getConnectTimeout() {
+        return readTimeout;
     }
 }

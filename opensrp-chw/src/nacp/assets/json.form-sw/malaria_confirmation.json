@@ -85,7 +85,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "fever_malaria_chw",
         "type": "native_radio",
-        "label": "Je mteja huyu ana Homa au amepimwa kwenye Kituo cha Afya na akakutwa na Malaria?",
+        "label": "Je, Mteja huyu ana Homa au amepimwa kwenye Kituo cha Afya na akakutwa na Malaria?",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
@@ -108,7 +108,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari mojawapo kati ya haya:"
+          "err": "Tafadhali chagua mojawapo kati ya haya"
         }
       },
       {
@@ -128,7 +128,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari changua moja:"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "rules-engine": {
@@ -151,7 +151,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo:"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "rules-engine": {
@@ -178,7 +178,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo:"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "rules-engine": {
@@ -199,7 +199,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhari Ingiza tarehe ya kipimo cha Malaria katika Kituo cha Afya"
+          "err": "Tafadhali Ingiza tarehe ya kipimo cha Malaria katika Kituo cha Afya"
         },
         "relevance": {
           "rules-engine": {
@@ -264,7 +264,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "rules-engine": {
@@ -280,8 +280,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Tafadhari mpe rufaa mteja kwenye kituo cha afya kwa ajili ya kipimo cha Malaria",
-        "toaster_info_text": "Tafadhari mpe rufaa mteja kwenye kituo cha afya kwa ajili ya kipimo cha Malaria",
+        "text": "Tafadhali mpe rufaa mteja kwenye kituo cha afya kwa ajili ya kipimo cha Malaria",
+        "toaster_info_text": "Tafadhali mpe rufaa mteja kwenye kituo cha afya kwa ajili ya kipimo cha Malaria",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -313,7 +313,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari chagua mojawapo"
+          "err": "Tafadhali chagua mojawapo"
         }
       },
       {
@@ -333,7 +333,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari Chagua mojawapo:"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "rules-engine": {
@@ -360,7 +360,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhari changua mojawapo:"
+          "err": "Tafadhali chagua mojawapo"
         },
         "relevance": {
           "rules-engine": {

@@ -1,5 +1,10 @@
 package org.smartregister.chw.activity;
 
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,20 +24,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePmtctProfileActivity;
 import org.smartregister.chw.core.interactor.CorePmtctProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
+import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.custom_view.MotherChampionFloatingMenu;
 import org.smartregister.chw.dao.MotherChampionDao;
+import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.pmtct.util.Constants;
 import org.smartregister.chw.pmtct.util.NCUtils;
 import org.smartregister.chw.presenter.PmtctMemberProfilePresenter;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.interactor.FamilyProfileInteractor;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.AllSharedPreferences;
@@ -71,6 +81,13 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
             JSONObject formJsonObject = null;
             try {
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JsonForm.getMotherChampionFollowupForm());
+                AllSharedPreferences preferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+                JSONObject chwName = getFieldJSONObject(fields(formJsonObject, STEP1), "chw_name");
+                chwName.put(VALUE, preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
+
+                JSONObject visitNumber = getFieldJSONObject(fields(formJsonObject, STEP1), "visit_number");
+                visitNumber.put(VALUE, MotherChampionDao.getVisitNumber(memberObject.getBaseEntityId()));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -146,6 +163,15 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
                     } catch (Exception e) {
                         Timber.e(e);
                     }
+                }
+                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyMemberRegister.updateEventType)) {
+                    FamilyEventClient familyEventClient =
+                            new FamilyProfileModel(memberObject.getFamilyName()).processUpdateMemberRegistration(jsonString, memberObject.getBaseEntityId());
+                    new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, presenter());
+                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                    FamilyEventClient familyEventClient = new CoreAllClientsMemberModel().processJsonForm(jsonString, memberObject.getFamilyBaseEntityId());
+                    familyEventClient.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
+                    new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, presenter());
                 }
             } catch (Exception e) {
                 Timber.e(e, "MotherChampionProfileActivity -- > onActivityResult");
@@ -249,6 +275,11 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(basePmtctFloatingMenu, linearLayoutParams);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        rlLastVisit.setVisibility(View.GONE);
     }
 
     private void addPmtctReferralTypes() {
