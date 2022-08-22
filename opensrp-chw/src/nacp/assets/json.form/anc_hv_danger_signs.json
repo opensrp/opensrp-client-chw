@@ -148,6 +148,13 @@
             "openmrs_entity_id": "chk_unusual_movement"
           },
           {
+            "key": "chk_fgm",
+            "text": "FGM",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fgm"
+          },
+          {
             "key": "chk_none",
             "text": "None",
             "value": false,
@@ -185,7 +192,8 @@
                   "chk_swelling",
                   "chk_early_labour",
                   "chk_vaginal_discharge",
-                  "chk_unusual_movement"
+                  "chk_unusual_movement",
+                  "chk_fgm"
                 ]
               }
             ]
