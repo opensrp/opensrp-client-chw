@@ -1,6 +1,5 @@
 package org.smartregister.chw.activity;
 
-import static android.view.View.GONE;
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.EventType;
@@ -21,6 +20,8 @@ import android.widget.LinearLayout;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -44,6 +45,7 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
+import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -156,8 +158,44 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void setupViews() {
         super.setupViews();
-        textview_record_visit.setVisibility(GONE);
+//        textview_record_visit.setVisibility(GONE);
+
+        PncVisitAlertRule summaryVisit = getVisitDetails();
+        String statusVisit = summaryVisit.getButtonStatus();
+        if (statusVisit.equals("OVERDUE")) {
+            updateUiForVisitsOverdue();
+        } else if (statusVisit.equals("DUE")) {
+            updateUiForVisitsDue();
+        } else if (ChildProfileInteractor.VisitType.VISIT_DONE.name().equals(statusVisit)) {
+            Visit lastVisit = getVisit(Constants.EVENT_TYPE.PNC_HOME_VISIT);
+            if (lastVisit != null) {
+                if ((Days.daysBetween(new DateTime(lastVisit.getCreatedAt()), new DateTime()).getDays() < 1) &&
+                        (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1)) {
+                    setEditViews(true, true, lastVisit.getDate().getTime());
+                } else updateUiForNoVisits();
+
+            } else updateUiForVisitsDue();
+
+        } else updateUiForNoVisits();
     }
+
+    protected void updateUiForNoVisits() {
+        textview_record_visit.setVisibility(View.GONE);
+        layoutRecordView.setVisibility(View.GONE);
+    }
+
+    protected void updateUiForVisitsDue() {
+        layoutRecordView.setVisibility(View.VISIBLE);
+        textview_record_visit.setVisibility(View.VISIBLE);
+        textview_record_visit.setBackgroundResource(R.drawable.rounded_blue_btn);
+    }
+
+    protected void updateUiForVisitsOverdue() {
+        layoutRecordView.setVisibility(View.VISIBLE);
+        textview_record_visit.setVisibility(View.VISIBLE);
+        textview_record_visit.setBackgroundResource(R.drawable.rounded_red_btn);
+    }
+
 
     private void refreshOnHomeVisitResult() {
         Observable<Visit> observable = Observable.create(e -> {
@@ -225,15 +263,15 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         notificationListAdapter.setOnClickListener(this);
     }
 
-    @Override
-    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
-        findViewById(R.id.rlUpcomingServices).setVisibility(GONE);
-    }
-
-    @Override
-    public void setFamilyStatus(AlertStatus status) {
-        findViewById(R.id.view_family_row).setVisibility(GONE);
-    }
+//    @Override
+//    public void setUpComingServicesStatus(String service, AlertStatus status, Date date) {
+//        findViewById(R.id.rlUpcomingServices).setVisibility(GONE);
+//    }
+//
+//    @Override
+//    public void setFamilyStatus(AlertStatus status) {
+//        findViewById(R.id.view_family_row).setVisibility(GONE);
+//    }
 
     @Override
     public void registerPresenter() {
@@ -356,17 +394,17 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                 String pncDay = pncMemberProfileInteractor.getPncDay(memberObject.getBaseEntityId());
                 layoutNotRecordView.setVisibility(View.VISIBLE);
                 tvEdit.setVisibility(View.VISIBLE);
-                textViewUndo.setVisibility(GONE);
+                textViewUndo.setVisibility(View.GONE);
                 textViewNotVisitMonth.setVisibility(View.VISIBLE);
                 textViewNotVisitMonth.setText(MessageFormat.format(getContext().getString(R.string.pnc_visit_done), pncDay));
                 imageViewCross.setImageResource(R.drawable.activityrow_visited);
-                textview_record_visit.setVisibility(GONE);
+                textview_record_visit.setVisibility(View.GONE);
             } else {
-                layoutNotRecordView.setVisibility(GONE);
+                layoutNotRecordView.setVisibility(View.GONE);
 
             }
         } else {
-            layoutNotRecordView.setVisibility(GONE);
+            layoutNotRecordView.setVisibility(View.GONE);
         }
     }
 
