@@ -110,9 +110,9 @@ public class ReportUtils {
 
 
     public static class CBHSReport {
-        public static String computeReport(Date now) {
+        public static String computeReport(Date now, Context context) {
             String report = "";
-            CbhsMonthlyReportObject cbhsMonthlyReportObject = new CbhsMonthlyReportObject(now);
+            CbhsMonthlyReportObject cbhsMonthlyReportObject = new CbhsMonthlyReportObject(now, context);
             try {
                 report = cbhsMonthlyReportObject.getIndicatorDataAsGson(cbhsMonthlyReportObject.getIndicatorData());
             } catch (Exception e) {

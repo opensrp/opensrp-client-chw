@@ -2813,6 +2813,14 @@
           }
         },
         {
+          "column_name": "client_tb_status_during_registration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_tb_status_during_registration"
+          }
+        },
+        {
           "column_name": "client_hiv_status_during_registration",
           "type": "Event",
           "json_mapping": {
@@ -2851,6 +2859,234 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "hiv_registration_date"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_cbhs_followup",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "registration_or_followup_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "registration_or_followup_status"
+          }
+        },
+        {
+          "column_name": "client_condition",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_condition"
+          }
+        },
+        {
+          "column_name": "health_problem",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "health_problem"
+          }
+        },
+        {
+          "column_name": "health_problem_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "health_problem_other"
+          }
+        },
+        {
+          "column_name": "prompt_for_health_challenges",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "prompt_for_health_challenges"
+          }
+        },
+        {
+          "column_name": "social_problem",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "social_problem",
+            "value_field": "obs.fieldCode"
+          }
+        },
+        {
+          "column_name": "social_problem_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "social_problem_other"
+          }
+        },
+        {
+          "column_name": "client_behaviour_and_environmental_risk",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_behaviour_and_environmental_risk"
+          }
+        },
+        {
+          "column_name": "supplies_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "supplies_provided"
+          }
+        },
+        {
+          "column_name": "supplies_provided_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "supplies_provided_other"
+          }
+        },
+        {
+          "column_name": "next_appointment_date",
+          "type": "Event",
+          "data_type": "date",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "next_appointment_date"
+          }
+        },
+        {
+          "column_name": "hiv_services_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "hiv_services_provided"
+          }
+        },
+        {
+          "column_name": "hiv_services_provided_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "hiv_services_provided_other"
+          }
+        },
+        {
+          "column_name": "referrals_issued_to_other_services",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referrals_issued_to_other_services"
+          }
+        },
+        {
+          "column_name": "referrals_issued_to_other_services_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referrals_issued_to_other_services_other"
+          }
+        },
+        {
+          "column_name": "referrals_to_other_services_completed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referrals_to_other_services_completed"
+          }
+        },
+        {
+          "column_name": "referrals_to_other_services_completed_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "referrals_to_other_services_completed_other"
+          }
+        },
+        {
+          "column_name": "state_of_therapy",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "state_of_therapy"
+          }
+        },
+        {
+          "column_name": "client_moved_location",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_moved_location"
+          }
+        },
+        {
+          "column_name": "client_moved_location_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_moved_location_other"
+          }
+        },
+        {
+          "column_name": "client_tb_status_during_registration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "client_tb_status_during_registration"
+          }
+        },
+        {
+          "column_name": "client_hiv_status_during_registration",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_hiv_status_during_registration"
+          }
+        },
+        {
+          "column_name": "client_hiv_status_after_testing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "test_results"
+          }
+        },
+        {
+          "column_name": "client_tb_status_after_testing",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "client_tb_status_after_testing"
           }
         }
       ]

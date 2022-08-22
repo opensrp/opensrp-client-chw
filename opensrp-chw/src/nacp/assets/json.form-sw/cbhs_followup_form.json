@@ -584,7 +584,7 @@
           "name": "supplies_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Vifaa/Commodities vilivyotolewa"
+            "text": "Vifaa/bidhaa zilizotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -594,7 +594,7 @@
           "options": [
             {
               "name": "hiv_self_test_kits",
-              "text": "HIV Self Testing Kits",
+              "text": "Vifaa vya kujipima VVU",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "hiv_self_test_kits",
@@ -603,7 +603,7 @@
             },
             {
               "name": "sanitizers",
-              "text": "Sanitizers",
+              "text": "Vitakasa mikono",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "sanitizers",
@@ -612,7 +612,7 @@
             },
             {
               "name": "face_masks",
-              "text": "Face masks",
+              "text": "Barakoa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "face_masks",
@@ -621,7 +621,7 @@
             },
             {
               "name": "condoms",
-              "text": "Condoms",
+              "text": "Kondomu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "condoms",
@@ -630,7 +630,7 @@
             },
             {
               "name": "water_disinfectant",
-              "text": "Water disinfectants",
+              "text": "Dawa za kuua vijidudu vya maji",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "water_disinfectant",
@@ -723,7 +723,7 @@
           "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "CBHS services provided"
+            "text": "Huduma za CBHS zilizotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -814,7 +814,7 @@
             },
             {
               "name": "family_planning_and_condom_distribution_services",
-              "text": "Family planning and condom distribution services",
+              "text": "Huduma za uzazi wa mpango na usambazaji wa kondomu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "family_planning_and_condom_distribution_services",
