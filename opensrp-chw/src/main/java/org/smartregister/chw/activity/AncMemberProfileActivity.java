@@ -4,6 +4,7 @@ import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -430,25 +431,6 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             Timber.e(e);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void updateAgeAndGender(JSONArray fields, int age, String gender) throws Exception {
-        boolean foundAge = false;
-        boolean foundGender = false;
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-            if (field.getString("name").equals("age")) {
-                field.getJSONObject("properties").put("text", String.valueOf(age));
-                foundAge = true;
-            }
-            if (field.getString("name").equals("gender")) {
-                field.getJSONObject("properties").put("text", gender);
-                foundGender = true;
-            }
-            if (foundAge && foundGender) {
-                return;
-            }
         }
     }
 
