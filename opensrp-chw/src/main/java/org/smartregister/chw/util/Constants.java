@@ -90,6 +90,11 @@ public class Constants extends CoreConstants {
         private static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "pmtct_community_followup_feedback";
         private static final String MOTHER_CHAMPION_FOLLOWUP_FORM = "mother_champion_followup";
         private static final String MOTHER_CHAMPION_SBCC_FORM = "mother_champion_sbcc_sessions";
+        private static final String CBHS_REGISTRATION_FORM = "cbhs_registration";
+
+        public static String getCbhsRegistrationForm() {
+            return CBHS_REGISTRATION_FORM;
+        }
 
         public static String getMotherChampionFollowupForm() {
             return MOTHER_CHAMPION_FOLLOWUP_FORM;

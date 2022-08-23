@@ -242,7 +242,7 @@
         "hint": "Umri",
         "v_numeric_integer": {
           "value": "true",
-          "err": "Must be a rounded number"
+          "err": "Tafadhali jaza namba halali"
         },
         "v_numeric": {
           "value": "true",
@@ -251,6 +251,11 @@
         "v_min": {
           "value": "5",
           "err": "Umri lazima uwe sawa au zaidi ya 5"
+        },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali jaza namba halali"
         },
         "v_max": {
           "value": "120",
@@ -818,6 +823,13 @@
             "text": "Mkulima",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_traditional_healer",
+            "text": "Mtoa huduma ya Tiba Asili",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_healer"
           }
         ],
         "v_required": {

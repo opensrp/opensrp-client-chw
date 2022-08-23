@@ -2880,6 +2880,15 @@
             "field": "obs.formSubmissionField",
             "concept": "hiv_registration_date"
           }
+        },
+        {
+          "column_name": "reasons_for_registration",
+          "type": "Event",
+          "data_type": "date",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "reasons_for_registration"
+          }
         }
       ]
     },

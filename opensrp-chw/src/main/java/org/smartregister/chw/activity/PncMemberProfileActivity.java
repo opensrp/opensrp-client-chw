@@ -7,6 +7,7 @@ import static org.smartregister.chw.util.Constants.JSON_FORM;
 import static org.smartregister.chw.util.Constants.ProfileActivityResults;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.vijay.jsonwizard.utils.FormUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
@@ -58,9 +60,9 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
-import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
+import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
 
@@ -121,8 +123,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
                         FamilyEventClient familyEventClient =
                                 new FamilyProfileModel(memberObject.getFamilyName()).processUpdateMemberRegistration(jsonString, memberObject.getBaseEntityId());
                         new FamilyProfileInteractor().saveRegistration(familyEventClient, jsonString, true, (FamilyProfileContract.InteractorCallBack) pncMemberProfilePresenter());
-                    }
-                    else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
+                    } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(Utils.metadata().familyRegister.updateEventType)) {
                         CommonPersonObjectClient client = getCommonPersonObjectClient(memberObject.getBaseEntityId());
                         FamilyEventClient familyEventClient = new CoreAllClientsMemberModel().processJsonForm(jsonString, UpdateDetailsUtil.getFamilyBaseEntityId(client));
                         familyEventClient.getEvent().setEntityType(CoreConstants.TABLE_NAME.INDEPENDENT_CLIENT);
@@ -329,7 +330,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == org.smartregister.chw.core.R.id.action_pnc_member_registration){
+        if (itemId == org.smartregister.chw.core.R.id.action_pnc_member_registration) {
             if (UpdateDetailsUtil.isIndependentClient(baseEntityID)) {
                 startFormForEdit(org.smartregister.chw.core.R.string.registration_info,
                         CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
@@ -452,10 +453,24 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
 
     @Override
     protected void startHivRegister() {
+        CommonPersonObjectClient client = getCommonPersonObjectClient(memberObject.getBaseEntityId());
+        String gender = org.smartregister.chw.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        String dob = org.smartregister.chw.util.Utils.getValue(client.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = org.smartregister.chw.util.Utils.getAgeFromDate(dob);
+
         try {
-            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), JSON_FORM.getFemaleHivRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, JSON_FORM.getFemaleHivRegistration()).toString());
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(PncMemberProfileActivity.this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+            updateAgeAndGender(fields, age, gender);
+
+            HivRegisterActivity.startHIVFormActivity(PncMemberProfileActivity.this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
