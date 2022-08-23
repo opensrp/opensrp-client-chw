@@ -183,7 +183,6 @@
           {
             "key": "Incisional_bleeding",
             "text": "Kutokwa na damu kwa mkato",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -191,7 +190,6 @@
           {
             "key": "Pus_Discharge_from_incision",
             "text": "Usaha/Kutokwa na chale",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -199,7 +197,6 @@
           {
             "key": "Swollen_around_the_incision",
             "text": "Kuvimba karibu na chale",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -207,7 +204,6 @@
           {
             "key": "Others",
             "text": "Nyinginezo",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -215,7 +211,6 @@
           {
             "key": "None",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -223,7 +218,6 @@
           {
             "key": "Not_applicable",
             "text": "Haiusiki",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -253,7 +247,6 @@
           {
             "key": "Severe_pain_inside_the_vagina_after_IUD_was_put_in",
             "text": "Maumivu makali ndani ya uke baada ya IUD kuwekwa",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -261,7 +254,6 @@
           {
             "key": "Cramping_or_backaches_for_a_few_days_after_the_IUD_is_put_in",
             "text": "Mimba au maumivu ya mgongo kwa siku chache baada ya kuweka IUD",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "148031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -269,7 +261,6 @@
           {
             "key": "Spotting_between_periods_and_or_irregular_periods",
             "text": "Kugundua kati ya hedhi na/au hedhi isiyo ya kawaida",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -277,7 +268,6 @@
           {
             "key": "Heavier_periods_and_worse_menstrual_cramps",
             "text": "Hedhi nzito na maumivu makali ya hedhi",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "156197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -285,7 +275,6 @@
           {
             "key": "IUCD_explusion",
             "text": "Kufukuzwa kwa IUD",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "157401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -293,7 +282,6 @@
           {
             "key": "Others",
             "text": "Nyinginezo",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -301,7 +289,6 @@
           {
             "key": "None",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -309,7 +296,6 @@
           {
             "key": "Not_applicable",
             "text": "Haiusiki",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -339,7 +325,6 @@
           {
             "key": "Insertion_site_infected_pus_discharge",
             "text": "Sehemu ya kuingizwa iliyoambukizwa - usaha / kutokwa",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -347,7 +332,6 @@
           {
             "key": "Insertion_site_swollen",
             "text": "Sehemu iliyopandikizwa imevimba",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -355,7 +339,6 @@
           {
             "key": "Implant_expulsion",
             "text": "Kufukuzwa kwa implant",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "144458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -363,7 +346,6 @@
           {
             "key": "Heavy_bleeding",
             "text": "Kutokwa na damu nyingi",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -371,7 +353,6 @@
           {
             "key": "Others",
             "text": "Nyinginezo",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -379,7 +360,6 @@
           {
             "key": "None",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -387,7 +367,6 @@
           {
             "key": "Not_applicable",
             "text": "Haiusiki",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -417,7 +396,6 @@
           {
             "key": "Heavy_bleeding_",
             "text": "Kutokwa na damu nyingi",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -425,7 +403,6 @@
           {
             "key": "Irregular_periods",
             "text": "Vipindi visivyo vya kawaida",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -433,7 +410,6 @@
           {
             "key": "Others",
             "text": "Nyinginezo",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -441,7 +417,6 @@
           {
             "key": "None",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -449,7 +424,6 @@
           {
             "key": "Not_applicable",
             "text": "Haiusiki",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""

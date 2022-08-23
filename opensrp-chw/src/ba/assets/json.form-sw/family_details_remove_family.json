@@ -52,12 +52,12 @@
     }
   },
   "step1": {
-    "title": "Remove Family",
+    "title": "Ondoa familia",
     "fields": [
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "30sp"
@@ -65,7 +65,7 @@
       {
         "key": "fam_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
@@ -74,7 +74,7 @@
       {
         "key": "details",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
         "text": "",
@@ -84,13 +84,13 @@
         "key": "divider1",
         "type": "h_line",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": ""
       },
       {
         "key": "spacer",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spacer",
         "spacer_height": "20sp"
@@ -104,8 +104,8 @@
         "type": "spinner",
         "hint": "Sababu ya kufungwa",
         "values": [
-          "Uhamisho",
-          "Nyinginezo"
+          "Kaya imehama",
+          "Nyingine"
         ],
         "keys": [
           "Relocation",
@@ -130,7 +130,7 @@
         "hint": "Sababu nyingine",
         "v_required": {
           "value": "true",
-          "err": "Weka sababu ya kufungwa"
+          "err": "Ingiza sababu ya kufungwa"
         },
         "relevance": {
           "step1:closure_reason_fam": {
@@ -146,7 +146,7 @@
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Uhamisho wa kaya",
+        "hint": "Kaya imehama",
         "values": [
           "Ndani ya wilaya",
           "Nje ya wilaya"
@@ -157,7 +157,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Weka sababu ya kufungwa"
+          "err": "Ingiza sababu ya kufungwa"
         },
         "relevance": {
           "step1:closure_reason_fam": {

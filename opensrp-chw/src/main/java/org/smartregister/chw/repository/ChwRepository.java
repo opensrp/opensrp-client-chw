@@ -50,6 +50,7 @@ public class ChwRepository extends CoreChwRepository {
             }
             upgradeTo++;
         }
+        ChwRepositoryFlv.onUpgrade(context, db, oldVersion, newVersion);
     }
 
     private static void upgradeToVersion2(SQLiteDatabase db) {

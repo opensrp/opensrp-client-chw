@@ -16,7 +16,6 @@
       "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
     "today": {
-      "openmrs_entity_parent": "",
       "openmrs_entity": "encounter",
       "openmrs_entity_id": "encounter_date"
     },
@@ -47,7 +46,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Health Facility Visit",
+    "title": "Hudhurio katika kituo cha kutolea huduma za afya ya mama na mtoto baada ya kujifungua",
     "fields": [
       {
         "key": "pnc_visit_{0}",
@@ -56,14 +55,18 @@
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mwanamke huyo alihudhuria PNC yake alipotembelea {0} kituo cha afya? Tarehe ya kukamilisha hudhurio: {1}",
+        "hint": "Je, mama alihudhuria hudhurio la {0} la huduma ya mama  na  mtoto  baada ya kujifungua katika kituo cha kutolea  huduma za afya?\n\nTarehe ya hudhurio lingine:  {1}",
         "v_required": {
           "value": "true",
-          "err": "Tafadhai chagua chaguo"
+          "err": "Tafadhali chagua chaguo"
         },
         "values": [
           "Ndiyo",
           "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {
@@ -72,7 +75,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Tarehe ya kutembelea kituo cha afya cha PNC {0}",
+        "hint": "Tarehe ya hudhurio la {0} la huduma ya  mama na  mtoto baada ya kujifungua",
         "expanded": false,
         "max_date": "today",
         "v_required": {

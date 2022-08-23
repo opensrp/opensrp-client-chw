@@ -66,119 +66,102 @@
           {
             "key": "chk_attended_anc_contacts",
             "text": "1. Attend ANC clinic early",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_attended_anc_contacts"
           },
           {
             "key": "chk_anc_danger_signs",
             "text": "2. Pregnancy danger signs",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_anc_danger_signs"
           },
           {
             "key": "chk_maternal_nutrition",
             "text": "3. Maternal nutrition during pregnancy and breast feeding",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_maternal_nutrition"
           },
           {
             "key": "chk_personal_delivery",
             "text": "4. Personal delivery plan",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_personal_delivery"
           },
           {
             "key": "chk_hiv_aids",
             "text": "5. HIV/AIDS general information",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hiv_aids"
           },
           {
             "key": "chk_pmtct_for_mother",
             "text": "6. PMTCT for the mother",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pmtct_for_mother"
           },
           {
             "key": "chk_preventing_malaria",
             "text": "7. Preventing malaria for pregnant mothers",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_preventing_malaria"
           },
           {
             "key": "chk_physical_changes",
             "text": "8. Physical changes for a mother after giving birth",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_physical_changes"
           },
           {
             "key": "chk_pnc_danger_signs",
             "text": "9. PNC danger signs",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pnc_danger_signs"
           },
           {
             "key": "chk_care_of_infant",
             "text": "10. Care of infant after birth",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_care_of_infant"
           },
           {
             "key": "chk_infant_danger_signs",
             "text": "11. Infant danger signs",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_infant_danger_signs"
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "12. Follow-up for the HIV-exposed infant",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hiv_exposed_infant"
           },
           {
             "key": "chk_breastfeeding",
             "text": "13. Breastfeeding",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_breastfeeding"
           },
           {
             "key": "chk_exclusive_breast_feeding ",
             "text": "14. Plan for family planning using exclusive breast feeding for 6 months after birth",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_exclusive_breast_feeding"
           },
           {
             "key": "chk_family_planning",
             "text": "15. Family planning",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_family_planning"
           },
           {
             "key": "chk_infection_prevention",
             "text": "16. Infection prevention and control",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_infection_prevention"
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }

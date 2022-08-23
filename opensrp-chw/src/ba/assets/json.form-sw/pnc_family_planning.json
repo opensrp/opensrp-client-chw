@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Family Planning",
+    "title": "Uzazi wa mpango",
     "fields": [
       {
         "key": "fp_counseling",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mama alishauriwa kuhusu upangaji uzazi katika kituo cha afya hivi karibuni??",
+        "hint": "Je, mama amepata ushauri juu ya uzazi wa mpango katika kituo cha kutolea huduma za afya hivi karibuni?",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -80,27 +80,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Alishauriwa katika kipindi gani?",
+        "label": "Je, alipewa ushauri katika kipindi gani?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "options": [
           {
             "key": "chk_during_anc",
-            "text": "Wakati wa ANCc",
+            "text": "Wakati wa kliniki ya wajawazito",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_anc"
           },
           {
             "key": "chk_during_labour_and_delivery",
-            "text": "Wakati wa kujifungua",
+            "text": "Wakati wa uchungu na kujifungua",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_labour_and_delivery"
           },
           {
             "key": "chk_during_pnc",
-            "text": "Wakati wa PNC",
+            "text": "Wakati wa huduma ya mama na mtoto wa baada ya kujifungua",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_pnc"
@@ -125,17 +125,17 @@
         "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Njia ya uzazi wa mpango iliyochaguliwa",
+        "hint": "Njia ya uzazi wa mpango uliyochagua?",
         "values": [
-          "Njia ya PPIUCD",
-          "Vidonge",
+          "Kitanzi",
+          "Vidonge vya kumeza (POP)",
           "Kipandikizi",
           "Kondomu",
-          "Njia ya LAM",
-          "Njia ya kawaida ya siku",
-          "Njia ya kudumu (BTL)",
-          "Njia ya kudumu  (Vasectomy)",
-          "Hakuna"
+          "Njia ya uzazi wa mpango kwa unyonyeshaji (LAM)",
+          "Shanga",
+          "Kufunga kizazi mwanamke",
+          "Kufunga kizazi mwanamme",
+          "Hakuchagua njia yoyote"
         ],
         "keys": [
           "PPIUCD",
@@ -174,15 +174,15 @@
       {
         "key": "fp_start_date",
         "openmrs_entity_parent": "163757AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Tarehe ya kuanza",
+        "hint": "Tarehe ya kuanza njia ya uzazi wa mpango",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza tarehe ya kuanza kututmika kwa njia iliyochaguliwa"
+          "err": "Tafadhali ingiza tarehe"
         },
         "relevance": {
           "rules-engine": {

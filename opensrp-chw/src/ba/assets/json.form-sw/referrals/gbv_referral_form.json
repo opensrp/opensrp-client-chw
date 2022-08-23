@@ -54,17 +54,17 @@
   },
   "steps": [
     {
-      "title": "Rufaa kwenda kwenye huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)",
+      "title": "Rufaa kwenda Huduma ya kuzui ukatili wa kijinsia (dawati la jinsia)",
       "fields": [
         {
           "name": "problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Chagua tatizo/hali aliyonayo mteja."
+            "text": "Tatizo / hali ya afya ya mteja."
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem",
+            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           "options": [
@@ -130,7 +130,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali bainisha tatizo/hali ya mteja",
+          "required_status": "yes:Tafadhali taja hali ya mteja / shida",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -147,8 +147,8 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem_other",
-            "openmrs_entity_parent": "problem"
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "required_status": "true:Tafadhali jaza dalili nyingine",
           "subjects": "problem:map"
@@ -162,27 +162,26 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Chagua Kituo cha rufaa",
-            "searchable": "Chagua Kituo cha rufaa"
+            "text": "Chagua Kituo cha Afya",
+            "searchable": "Chagua Kituo cha Afya"
           },
           "options": [],
-          "required_status": "yes:Tafadhali chagua Kituo cha rufaa"
+          "required_status": "yes:Please specify referral facility"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Tarehe ya miadi",
+            "hint": "Tarehe ya kuhudhuria hospitali",
             "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "min_date": "today"
+            "display_format": "dd/MM/yyyy"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Tafadhali chagua tarehe ya miadi"
+          "required_status": "true:Tafadhali chagua tarehe ya kuhudhuria hospitali"
         }
       ]
     }

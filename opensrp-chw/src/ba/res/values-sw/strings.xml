@@ -1,23 +1,12 @@
 <resources>
     <string name="app_name">WAJA</string>
-    <string name="login_title">Wizara ya Afya  \n Mfumo wa WAJA</string>
-    <string name="nav_logo">Mfumo wa Jamii wa Wizara ya Afya</string>
+    <string name="login_title">USAID Boresha Afya  \n WAJA app</string>
+    <string name="nav_logo">USAID Boresha Afya</string>
     <string name="menu_anc">Wajawazito</string>
     <string name="menu_pnc">Baada ya Kujifungua</string>
     <string name="hiv_referral">Kliniki ya Tiba na matunzo (CTC)</string>
-    <string name="hts_referral">Ushauri nasaha na kupima</string>
-    <string name="tb_referral">Kliniki ya TB</string>
-    <string name="gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
-    <string name="child_gbv_referral">Huduma ya kuzuia ukatili wa kijinsia (dawati la jinsia)</string>
+    <string name="tb_referral">Kliniki ya kutibu kifua kikuu</string>
+    <string name="gbv_referral">Huduma ya kuzui ukatili wa kijinsia (dawati la jinsia)</string>
+    <string name="child_gbv_referral">Huduma ya kuzui ukatili wa kijinsia (dawati la jinsia)</string>
     <string name="created">Imeumbwa: %s</string>
-    <string name="menu_hiv">UWANYU (CBHS)</string>
-    <string name="hiv_return_to_previous_page">Rudi kwenye wateja wa UWANYU</string>
-    <string name="hiv_clients">Wateja wa UWANYU</string>
-    <string name="any_changes_you_make">Mabadiliko uliyoyafanya yatafutika</string>
-    <string name="record_hiv_followup">Rekodi ziara ya ufuatiliaji wa UWANYU</string>
-    <string name="action_received_hiv_followup_referrals">Ufuatiliaji</string>
-    <string name="fill_followup_form">Jaza fomu ya ufuatiliaji</string>
-    <string name="location_info">Taarifa za Kimaeneo</string>
-    <string name="menu_independent">Huru</string>
-
 </resources>

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Monthly Tallies",
+    "title": "Misaada ya kila mwezi",
     "fields": [
       {
         "key": "indicator_code",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "indicator_code",
         "type": "edit_text",
-        "hint": "Msimbo wa kiashiria",
+        "hint": "Nambari ya kiashiria",
         "value": ""
       },
       {
@@ -91,7 +91,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "created_at",
         "type": "edit_text",
-        "hint": "Imeundwa saa",
+        "hint": "Imeundwa kwa",
         "value": ""
       },
       {
@@ -100,7 +100,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "value",
         "type": "edit_text",
-        "hint": "Ilisasishwa saa",
+        "hint": "Imesasishwa kwa",
         "value": ""
       }
     ]
