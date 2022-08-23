@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness",
+    "title": "Uangulifu na muda ya ugonjwa",
     "fields": [
       {
         "key": "date_of_illness",
@@ -84,32 +84,28 @@
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Hatua iliyochukuliwa",
+        "hint": "Hatua zilizochukuliwa",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua hatua"
+          "err": "Please select action"
         },
         "values": [
           "ORS 5",
           "Zinc 10",
           "Panadol",
-          "Kutoa rufaa",
-          "Matibabu mengine",
-          "Hakuna matibabu yaliyotolewa"
+          "Matibabu mengine"
         ],
         "keys": [
           "ORS 5",
           "Zinc 10",
-          "Panadol",
-          "Referred",
-          "Other treatment given",
-          "No treatment"
+          "Paracetamol",
+          "Other treatment"
         ]
       },
       {
         "key": "other_treat_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
         "hint": "Matibabu mengine",

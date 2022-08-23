@@ -382,28 +382,24 @@
           {
             "key": "chk_national_id",
             "text": "Kitambulisho cha Taifa",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_national_id"
           },
           {
             "key": "chk_voters_id",
             "text": "Kitambulisho cha usajili wa mpiga kura",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_voters_id"
           },
           {
             "key": "chk_drivers_license",
             "text": "Leseni ya udereva",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -716,56 +712,48 @@
           {
             "key": "physical_impairments",
             "text": "Uhamaji na Ulemavu wa Kimwili",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
           {
             "key": "spinal_cord_disability",
             "text": "Ulemavu wa Uti wa Mgongo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "spinal_cord_disability"
           },
           {
             "key": "brain_disability",
             "text": "Majeraha ya Kichwa - Ulemavu wa Ubongo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "brain_disability"
           },
           {
             "key": "vision_disability",
             "text": "Ulemavu wa Maono",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
           {
             "key": "hearing_disability",
             "text": "Ulemavu wa Kusikia",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hearing_disability"
           },
           {
             "key": "learning_disabilities",
             "text": "Ulemavu wa Utambuzi au Kujifunza",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
             "text": "Matatizo ya Kisaikolojia",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
             "key": "invisible_disabilities",
             "text": "Ulemavu Usioonekana",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
           }
@@ -815,28 +803,24 @@
           {
             "key": "chk_self_employed",
             "text": "Amejiajiri",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_self_employed"
           },
           {
             "key": "chk_employed",
             "text": "Ameajiriwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_employed"
           },
           {
             "key": "chk_unemployed",
             "text": "Hajaajiriwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unemployed"
           },
           {
             "key": "chk_farmer",
             "text": "Mkulima",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
           },
@@ -870,42 +854,36 @@
           {
             "key": "chk_religious",
             "text": "Kiongozi wa dini",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Religious_Leader"
           },
           {
             "key": "chk_traditional",
             "text": "Kiongozi wa dini",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_political",
             "text": "Kiongozi wa kisiasa",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Political_leader"
           },
           {
             "key": "chk_influential",
             "text": "Kiongozi mwenye ushawishi",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Influential_Leader"
           },
           {
             "key": "chk_other",
             "text": "Nyinginezo",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Other_Community_Leader_Type"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Not_a_Community_Leader"
           }

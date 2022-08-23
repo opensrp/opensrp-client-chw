@@ -1,23 +1,13 @@
 <resources>
     <string name="app_name">WAJA</string>
-    <string name="login_title">Ministry of Health  \n WAJA app</string>
-    <string name="nav_logo">Ministry of Health Community App</string>
+    <string name="login_title">USAID Boresha Afya  \n WAJA app</string>
+    <string name="nav_logo">USAID Boresha Afya</string>
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
     <string name="sick_child_title">SICK CHILD FORM</string>
     <string name="hiv_referral">Clinic of Treatment and Care</string>
-    <string name="hts_referral">HIV Testing Services</string>
-    <string name="tb_referral">TB Clinic</string>
+    <string name="tb_referral">Clinic Of Tuberculosis Treatment</string>
     <string name="gbv_referral">Gender Based Violence Referral</string>
-    <string name="pregnancy_confirmation_referral">Pregnancy Confirmation Referral</string>
     <string name="child_gbv_referral">Child Gender Based Violence Referral</string>
     <string name="created">Created: %s</string>
-    <string name="submit">SAVE</string>
-    <string name="referral_status_pending">PENDING</string>
-    <string name="referral_status_successful">SUCCESSFUL</string>
-    <string name="referral_status_failed">NOT COMPLETED</string>
-    <string name="menu_hiv">CBHS</string>
-    <string name="hiv_return_to_previous_page">Return to all CBHS clients</string>
-    <string name="hiv_clients">CBHS Clients</string>
-    <string name="any_changes_you_make">Any Changes You Made Will Be Discarded</string>
 </resources>

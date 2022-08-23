@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Nutrition Status - Mother",
+    "title": "Hali ya lishe ya mama",
     "fields": [
       {
         "key": "nutrition_status_mama",
@@ -56,11 +56,11 @@
         "openmrs_entity_id": "163300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Hali ya lishe ya mwanamke",
+        "hint": "Hali ya lishe ya mama",
         "values": [
-          "Kawaida/Kijani",
-          "Wastani/Njano",
-          "Mbaya/Nyekundu"
+          "Nzuri/Kijani",
+          "Kadri/Njano",
+          "Dhaifu/Nyekundu"
         ],
         "keys": [
           "Normal",
@@ -74,7 +74,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafahdali chagua chaguo moja"
+          "err": "Tafadhali chagua chaguo moja"
         }
       }
     ]

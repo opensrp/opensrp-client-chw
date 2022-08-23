@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Danger Signs Baby",
+    "title": "Dalili za hatari kwa mtoto",
     "fields": [
       {
         "key": "danger_signs_present_child",
@@ -55,7 +55,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Je, mtoto ana dalili zozote za hatari?",
+        "label": "Je, mtoto mchanga ana dalili zozote za hatari?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -71,7 +71,7 @@
           },
           {
             "key": "chk_excessive_crying",
-            "text": "Kulia kupita kiasi",
+            "text": "Mtoto kulia sana",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "110540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -85,56 +85,56 @@
           },
           {
             "key": "chk_difficult_breathing",
-            "text": "Kupumua kwa shida",
+            "text": "Kushindwa kupumua",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_unable_to_suck",
-            "text": "Kutoweza kunyonya",
+            "text": "Kushindwa kunyonya au kumeza",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_umbilical_discharge",
-            "text": "Kitovu kutokwa na damu/usaha",
+            "text": "Kutoka damu kwenye kitovu au usaha",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_no_movement",
-            "text": "Hamna uchezaji",
+            "text": "Hakuna harakati",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
-            "text": "Degedege",
+            "text": "Degedege / Mtukutiko wa mwili",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_skin_rashes",
-            "text": "Vipele kwenye ngozi",
+            "text": "Vipele mwilini",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pale",
-            "text": "Kupauka au kuonekana na rangi ya manjano",
+            "text": "Mwili kuwa njano",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_eye_discharge",
-            "text": "Jicho kutokwa na majimaji ",
+            "text": "Macho kutoa uchafu / usaha",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -148,7 +148,7 @@
           },
           {
             "key": "chk_lethargy",
-            "text": "Ulegeevu",
+            "text": "Uchovu / Kulegea mwili",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -169,10 +169,10 @@
       {
         "key": "danger_signs_present_toaster",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Dalili ya hatari! Mpatie rufaa kwenda kituo cha afya haraka",
+        "text": "Dalili za hatari! \nToa rufaa haraka kwenda kituo cha kutolea huduma za afya.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {

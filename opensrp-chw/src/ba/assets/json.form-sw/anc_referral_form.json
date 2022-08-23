@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "ANC referral form",
+    "title": "Rufaa ya mama mjamzito",
     "fields": [
       {
         "key": "chw_referral_hf_anc",
@@ -75,12 +75,12 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Hali ya mteja / tatizo",
+        "label": "Tatizo / hali ya afya ya mteja",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Vaginal_bleeding",
-            "text": "Kutokwa na damu ukeni",
+            "text": "Kutoka damu ukeni",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -88,7 +88,7 @@
           },
           {
             "key": "Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell",
-            "text": "Kutokwa na majimaji yenye rangirangi na harufu mbaya",
+            "text": "Kutoka uchafu / majimaji ukeni yenye harufu mbaya",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "123396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -112,7 +112,7 @@
           },
           {
             "key": "Severe_anaemia",
-            "text": "upungufu mkali wa damu",
+            "text": "Upungufu mkubwa wa damu",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -120,7 +120,7 @@
           },
           {
             "key": "Convulsions",
-            "text": "Degedege",
+            "text": "Degedege / Mtukutiko wa mwili",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -128,7 +128,7 @@
           },
           {
             "key": "No_movement_unusual_movement_for_a_child_in_the_womb",
-            "text": "Hamna uchezaji / uchezaji usiyo wa kawaida kwa mtoto tumboni",
+            "text": "Kutocheza / kucheza kusiko kwa kawaida kwa mtoto aliye tumboni",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -136,7 +136,7 @@
           },
           {
             "key": "Pregnancy_pains_before_9_months",
-            "text": "Maumivu ya ujauzito kabla ya miezi 9",
+            "text": "Uchungu kuanza mapema kabla ya mimba kufikia miezi 9",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "153316AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -144,7 +144,7 @@
           },
           {
             "key": "Early_age_pregnancy_below_18_years",
-            "text": "Mimba ya umri mdogo (chini ya miaka 18)",
+            "text": "Kupata mimba katika umri mdogo (chini ya umri wa miaka 18)",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "163119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -160,7 +160,7 @@
           },
           {
             "key": "Swelling_of_the_face_andor_hands",
-            "text": "Kuvimba kwa uso na/au mikono",
+            "text": "Kuvimba uso na / au mikono",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -192,7 +192,7 @@
           },
           {
             "key": "Water_sack_broke_before_contractions",
-            "text": "Maji ya uzazi kupasuka kabla ya mikazo",
+            "text": "Chupa kupasuka mapema kabla ya uchungu",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "129211AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -200,7 +200,7 @@
           },
           {
             "key": "Cord_prolapse",
-            "text": "Kutokwa kwa kamba ya uzazi nje ya uke",
+            "text": "Kutangulia kitovu cha mtoto",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "128419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -208,7 +208,7 @@
           },
           {
             "key": "HIV_care_and_support_services",
-            "text": "Huduma za matunzo na usaidizi wa VVU",
+            "text": "Huduma za wateja / wagonjwa wanaoishi na VVU",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -224,7 +224,7 @@
           },
           {
             "key": "PMTCT_for_mothers",
-            "text": "PMTCT kwa akina mama",
+            "text": "Huduma ya kuzuia maambukizi ya VVU toka kwa mama kwenda kwa mtoto",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -248,7 +248,7 @@
           },
           {
             "key": "Breast_engorgement",
-            "text": "Kuvimba kwa matiti",
+            "text": "Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "118620AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -256,7 +256,7 @@
           },
           {
             "key": "Blurred_vision",
-            "text": "Uoni hafifu",
+            "text": "Kuona kwa shida",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -264,7 +264,7 @@
           },
           {
             "key": "Perineum_tear",
-            "text": "Kupasuka kwa msamba",
+            "text": "Kuchanika msamba",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "136938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -272,7 +272,7 @@
           },
           {
             "key": "Pregnancy_confirmation",
-            "text": "Kuthibitisha ujauzito",
+            "text": "Kuhakiki uja-uzito",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "152305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -280,7 +280,7 @@
           },
           {
             "key": "Other_symptoms",
-            "text": "Dalili zingine",
+            "text": "Dalili nyingine",
             "value": false,
             "ignore": true,
             "openmrs_entity": "",
@@ -290,7 +290,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Tafadhali bainisha sababu ya rufaa ya ANC"
+          "err": "Tafadhali taja sababu ya rufaa ya mama mjamzito"
         }
       },
       {
@@ -300,10 +300,10 @@
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
         "edit_type": "name",
-        "hint": "Dalili zingine",
+        "hint": "Dalili nyingine",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali bainisha dalili nyingine"
+          "err": "Tafadhali taja dalili zingine"
         },
         "relevance": {
           "rules-engine": {
@@ -320,7 +320,7 @@
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "is_problem": false,
-        "label": "Usimamizi wa kabla ya kutoa rufaa uliopewa",
+        "label": "Huduma aliyopewa kabla ya rufaa",
         "label_text_style": "bold",
         "exclusive": [
           "None"
@@ -353,7 +353,7 @@
           },
           {
             "key": "None",
-            "text": "HaKuna",
+            "text": "Hakuna huduma aliyopewa",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -362,7 +362,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Sehemu ya usimamizi kabla ya ktutoa rufaa inahitajika"
+          "err": "Huduma aliyopewa kabla ya rufaa ni lazima"
         }
       },
       {
@@ -373,10 +373,10 @@
         "openmrs_entity_parent": "",
         "is_problem": false,
         "edit_type": "name",
-        "hint": "Other treatment",
+        "hint": "Matibabu mengine",
         "v_required": {
           "value": "true",
-          "err": "Please specify other treatment"
+          "err": "Tafadhali taja matibabu mengine"
         },
         "relevance": {
           "rules-engine": {
@@ -405,7 +405,7 @@
         "key": "referral_time_anc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "referral_time_anc",
         "type": "hidden",
         "is_problem": false,
         "calculation": {

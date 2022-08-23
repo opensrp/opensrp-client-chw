@@ -19,24 +19,3 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = step1_fam_name"
----
-name: step2_first_name
-description: set surname as the one added in step one
-priority: 1
-condition: "true"
-actions:
-  - "calculation = step1_client_first_name"
----
-name: step2_middle_name
-description: set surname as the one added in step one
-priority: 1
-condition: "true"
-actions:
-  - "calculation = step1_client_middle_name"
----
-name: step2_reasons_for_registration
-description: set reasons for registration
-priority: 1
-condition: "true"
-actions:
-  - "calculation = ((step2_dob != '' && helper.formatDate(step2_dob,'y') < 15) || (step2_age != '' && step2_age < 15)) ? step2_reasons_for_registration_under_15 : (step2_sex.equalsIgnoreCase('Female') ? step2_reasons_for_registration_female_15 : step2_reasons_for_registration_male_15)"

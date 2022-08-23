@@ -65,7 +65,7 @@
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem"
+            "openmrs_entity_id": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "options": [
             {
@@ -149,8 +149,8 @@
           },
           "meta_data": {
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "problem_other",
-            "openmrs_entity_parent": "problem"
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           "required_status": "true:Please specify other symptoms",
           "subjects": "problem:map"
@@ -176,8 +176,7 @@
           "properties": {
             "hint": "Please select the appointment date",
             "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "min_date": "today"
+            "display_format": "dd/MM/yyyy"
           },
           "meta_data": {
             "openmrs_entity": "concept",

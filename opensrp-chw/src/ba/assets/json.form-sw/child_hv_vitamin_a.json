@@ -56,12 +56,12 @@
         "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "image": "ic_form_vitamin",
-        "hint": "Dozi ya Vitamini A {0} ilifanywa lini?",
+        "hint": "Dozi ya Vitamini A ya {0} ilifanyika lini?",
         "min_date": "today-120y",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza tarehe ambayo vitamini A iliyotolewa"
+          "err": "Tafadhali ingiza tarehe ya dozi ya Vitamini A"
         }
       }
     ]

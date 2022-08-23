@@ -319,28 +319,24 @@
           {
             "key": "chk_national_id",
             "text": "National ID",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_national_id"
           },
           {
             "key": "chk_voters_id",
             "text": "Voter's registration ID",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_voters_id"
           },
           {
             "key": "chk_drivers_license",
             "text": "Driver's license",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -653,56 +649,48 @@
           {
             "key": "physical_impairments",
             "text": "Mobility and Physical Impairments",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
           {
             "key": "spinal_cord_disability",
             "text": "Spinal Cord Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "spinal_cord_disability"
           },
           {
             "key": "brain_disability",
             "text": "Head Injuries - Brain Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "brain_disability"
           },
           {
             "key": "vision_disability",
             "text": "Vision Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
           {
             "key": "hearing_disability",
             "text": "Hearing Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hearing_disability"
           },
           {
             "key": "learning_disabilities",
             "text": "Cognitive or Learning Disabilities",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
             "text": "Psychological Disorders",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
             "key": "invisible_disabilities",
             "text": "Invisible Disabilities",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
           }
@@ -802,28 +790,24 @@
           {
             "key": "chk_self_employed",
             "text": "Self-Employed",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_self_employed"
           },
           {
             "key": "chk_employed",
             "text": "Employed",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_employed"
           },
           {
             "key": "chk_unemployed",
             "text": "Unemployed",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unemployed"
           },
           {
             "key": "chk_farmer",
             "text": "Farmer",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
           },
@@ -864,42 +848,36 @@
           {
             "key": "chk_religious",
             "text": "Religious leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Religious_Leader"
           },
           {
             "key": "chk_traditional",
             "text": "Traditional leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_political",
             "text": "Political leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Political_leader"
           },
           {
             "key": "chk_influential",
             "text": "Influential leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Influential_Leader"
           },
           {
             "key": "chk_other",
             "text": "Other",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Other_Community_Leader_Type"
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Not_a_Community_Leader"
           }
