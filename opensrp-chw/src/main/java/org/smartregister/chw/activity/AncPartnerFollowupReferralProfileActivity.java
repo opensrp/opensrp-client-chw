@@ -10,6 +10,7 @@ import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 import static org.smartregister.util.JsonFormUtils.STEP1;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -454,25 +455,6 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             Timber.e(e);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void updateAgeAndGender(JSONArray fields, int age, String gender) throws Exception {
-        boolean foundAge = false;
-        boolean foundGender = false;
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-            if (field.getString("name").equals("age")) {
-                field.getJSONObject("properties").put("text", String.valueOf(age));
-                foundAge = true;
-            }
-            if (field.getString("name").equals("gender")) {
-                field.getJSONObject("properties").put("text", gender);
-                foundGender = true;
-            }
-            if (foundAge && foundGender) {
-                return;
-            }
         }
     }
 
