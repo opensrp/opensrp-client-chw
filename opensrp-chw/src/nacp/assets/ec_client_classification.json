@@ -143,7 +143,8 @@
             "field_value": "ANC Registration",
             "creates_case": [
               "ec_anc_register",
-              "ec_anc_log"
+              "ec_anc_log",
+              "ec_anc_hf_data"
             ]
           },
           {
@@ -151,7 +152,15 @@
             "field_value": "ANC Followup Client Registration",
             "creates_case": [
               "ec_anc_register",
+              "ec_anc_hf_data",
               "ec_anc_log"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC First Facility Visit",
+            "creates_case": [
+              "ec_anc_hf_data"
             ]
           },
           {
