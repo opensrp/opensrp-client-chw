@@ -47,16 +47,16 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Malaria Prevention",
+    "title": "Kinga dhidi ya Malaria",
     "fields": [
       {
         "key": "fam_llin_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mtoto ana chandarua chenye dawa inayodumu kwa muda mrefu (LLIN)?",
+        "hint": "Ana chandarua chenye viuwatilifu vya muda mrefu?",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -77,11 +77,11 @@
       {
         "key": "llin_2days_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mtoto alilala kwenye chandarua chenye dawa inayodumu kwa muda mrefu (LLIN) jana usiku??",
+        "hint": "Je, amelala kwenye chandarua chenye viuwatilifu vya muda mrefu usiku uliopita?",
         "values": [
           "Ndiyo",
           "Hapana"
@@ -96,7 +96,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafahdali chagua chaguo moja"
+          "err": "Tafadhali chagua chaguo moja"
         },
         "relevance": {
           "step1:fam_llin_1m5yr": {
@@ -108,14 +108,14 @@
       {
         "key": "llin_condition_1m5yr",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Hali ya chandarua (LLIN)",
+        "hint": "Hali ya chandarua chenye viuwatilifu vya muda mrefu kinachotumika",
         "values": [
-          "Ndiyo",
-          "Hapana"
+          "Nzima",
+          "Mbovu"
         ],
         "keys": [
           "Okay",

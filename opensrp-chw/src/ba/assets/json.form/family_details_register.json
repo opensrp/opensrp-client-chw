@@ -60,14 +60,14 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "first_name",
         "type": "edit_text",
-        "hint": "Surname",
+        "hint": "Family name",
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the surname"
+          "err": "Please enter the family name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -77,7 +77,7 @@
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "opensrp_id",
         "hidden": "true",
-        "type": "edit_text",
+        "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "ID *",
         "scanButtonText": "Scan QR Code",
@@ -92,10 +92,10 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "cityVillage",
         "type": "edit_text",
-        "hint": "Area Name",
+        "hint": "Village/Town",
         "v_required": {
           "value": "true",
-          "err": "Please enter the area name"
+          "err": "Please enter the village or town"
         }
       },
       {
@@ -110,7 +110,7 @@
         "key": "gps",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "gps",
+        "openmrs_entity_id": "163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "gps"
       },
@@ -118,14 +118,14 @@
         "key": "nearest_facility",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "nearest_facility",
+        "openmrs_entity_id": "162724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "tree",
-        "hint": "Village/Street",
+        "hint": "Nearest health facility",
         "tree": [],
         "v_required": {
           "value": true,
-          "err": "Please enter the village or street"
+          "err": "Please enter the nearest health facility"
         }
       }
     ]

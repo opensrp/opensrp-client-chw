@@ -47,13 +47,13 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Uchunguzi na magonjwa",
+    "title": "Uchunguzi na ugonjwa",
     "fields": [
       {
         "key": "date_of_illness",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "date_of_illness",
+        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Tarehe",
         "expanded": false,
@@ -68,21 +68,21 @@
         "key": "illness_description",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "illness_description",
+        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Maelezo",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza maelezo hayo"
+          "err": "Tafadhali ingiza maelezo"
         }
       },
       {
         "key": "action_taken",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "action_taken",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Hatua iliyochukuliwa",
+        "label": "Hatua zilizochukuliwa",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -94,40 +94,62 @@
             "text": "ORS 5",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_ors"
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_zinc",
             "text": "Zinc 10",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_zinc"
+            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_paracetamol",
-            "text": "Panado",
+            "text": "Panadol",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_paracetamol"
+            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_referred",
-            "text": "Kupewa rufaa",
+            "text": "Amepewa rufaa",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_referred"
+            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_treatment",
+            "text": "Matibabu mengine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
-            "text": "Hakuna matibabu yaliyotolewa",
+            "text": "Hajapewa matibabu yoyote",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ],
+        ]
+      },
+      {
+        "key": "other_treatment_illness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Matibabu mengine",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali ingiza maelezo ya ugonjwa"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_observations.yml"
+            }
+          }
         }
       }
     ]

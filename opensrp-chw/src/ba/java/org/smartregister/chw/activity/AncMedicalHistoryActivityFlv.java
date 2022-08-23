@@ -26,13 +26,12 @@ public class AncMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivi
         if (hf_visits != null && hf_visits.size() > 0) {
             linearLayoutHealthFacilityVisit.setVisibility(View.VISIBLE);
 
-            int x = 1;
+            int x = 0;
             for (Map<String, String> vals : hf_visits) {
                 View view = inflater.inflate(R.layout.medial_history_anc_visit, null);
 
                 TextView tvTitle = view.findViewById(R.id.title);
                 TextView tvTests = view.findViewById(R.id.tests);
-                tvTests.setVisibility(View.GONE);
 
                 view.findViewById(R.id.weight).setVisibility(View.GONE);
                 view.findViewById(R.id.bp).setVisibility(View.GONE);
@@ -40,7 +39,8 @@ public class AncMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivi
                 view.findViewById(R.id.ifa_received).setVisibility(View.GONE);
 
 
-                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (x), vals.get("anc_hf_visit_date")));
+                tvTitle.setText(MessageFormat.format(context.getString(R.string.anc_visit_date), (hf_visits.size() - x), vals.get("anc_hf_visit_date")));
+                tvTests.setText(MessageFormat.format(context.getString(R.string.tests_done_details), vals.get("tests_done")));
 
                 linearLayoutHealthFacilityVisitDetails.addView(view, 0);
 

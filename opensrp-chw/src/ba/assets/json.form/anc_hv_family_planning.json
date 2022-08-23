@@ -53,10 +53,10 @@
         "key": "fam_planning",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "fam_planning",
+        "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Was the mother advised on family planning when she visited the health visit?",
+        "hint": "Was the mother advised on family planning when you visited the health visit?",
         "values": [
           "Yes",
           "No"
@@ -66,27 +66,12 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
-        }
-      },
-      {
-        "key": "prompt_for_family_planning",
-        "type": "toaster_notes",
-        "text": "Please provide the client counselling on family planning",
-        "openmrs_entity_id": "prompt_for_family_planning",
-        "openmrs_entity": "concept",
-        "openmrs_entity_parent": "",
-        "toaster_type": "warning",
-        "relevance": {
-          "step1:fam_planning": {
-            "type": "String",
-            "ex": "equalTo(.,\"No\")"
-          }
         }
       }
     ]

@@ -53,7 +53,7 @@
         "key": "anc_hf_visit",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "anc_hf_visit",
+        "openmrs_entity_id": "1889AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "label_info_title": "Did the woman attend her ANC {0} visit at the health facility?",
         "label_info_text": "Did the woman attend her ANC visit at the health facility?",
@@ -64,8 +64,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -76,7 +76,7 @@
         "key": "anc_hf_visit_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "anc_hf_visit_date",
+        "openmrs_entity_id": "159590AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "ANC visit date",
@@ -86,7 +86,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the facility visit date"
+          "err": "Enter the date that the member moved away"
         },
         "relevance": {
           "step1:anc_hf_visit": {
@@ -96,69 +96,224 @@
         }
       },
       {
-        "key": "reason_for_missed_visit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reason_for_missed_visit",
-        "type": "spinner",
-        "hint": "Reason for missed facility visit",
-        "values": [
-          "Fear to disclose her pregnancy",
-          "She forgot the appointment date",
-          "She did not have transport fare",
-          "She was not feeling well",
-          "Other"
-        ],
-        "keys": [
-          "fear_to_disclose_her_pregnancy",
-          "she_forgot_the_appointment_date",
-          "she_did_not_have_transport_fare",
-          "she_was_not_feeling_well",
-          "other"
-        ],
-        "openmrs_choice_ids": {
-          "fear_to_disclose_her_pregnancy":  "fear_to_disclose_her_pregnancy",
-          "she_forgot_the_appointment_date":  "she_forgot_the_appointment_date",
-          "she_did_not_have_transport_fare":  "she_did_not_have_transport_fare",
-          "she_was_not_feeling_well":  "she_was_not_feeling_well",
-          "other": "other"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select a reason"
-        },
-        "relevance": {
-          "step1:anc_hf_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
-          }
-        }
-      },
-      {
-        "key": "other_reason_missed_visit",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_reason_missed_visit",
-        "type": "edit_text",
-        "hint": "Other reason for missed facility visit",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter other reason"
-        },
-        "relevance": {
-          "step1:reason_for_missed_visit": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
-          }
-        }
-      },
-      {
         "key": "anc_hf_next_visit_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "anc_hf_next_visit_date",
         "type": "spacer"
+      },
+      {
+        "key": "tests_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Tests done",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_haemoglobin",
+            "text": "Haemoglobin level",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_urine_analysis_uti",
+            "text": "Urine analysis for UTI",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_urine_analysis_protein",
+            "text": "Urine analysis for protein and sugar",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_hiv",
+            "text": "HIV test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_syphilis",
+            "text": "Syphilis test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_malaria",
+            "text": "Malaria test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_tb",
+            "text": "TB screening",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other test",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "step1:anc_hf_visit": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "imm_medicine_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1767AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Immunisations and medicine provided",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_tetanus",
+            "text": "Tetanus toxoid (TT)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_malaria",
+            "text": "Malaria prevention (IPTp-SP)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "105232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_iron",
+            "text": "Iron and Folic acid (FEFO) tablets",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_albendazole",
+            "text": "Albendazole / Medandozle",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_calcuim",
+            "text": "Calcium supplement",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "72650AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other",
+            "text": "Other immunisation or medicine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "step1:anc_hf_visit": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_imm_medicine_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other immunisation or medicine",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the immunisation or medicine details"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "llin_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Did mother receive a LLIN in her first ANC contact at the health facility?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "relevance": {
+          "step1:anc_hf_visit": {
+            "type": "string",
+            "ex": "equalTo(., \"Yes\")"
+          },
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_health_facility_visit.yml"
+            }
+          }
+        }
       },
       {
         "key": "confirmed_visits",

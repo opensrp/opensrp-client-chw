@@ -62,7 +62,7 @@
         "key": "preg_outcome",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "preg_outcome",
+        "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Pregnancy outcome",
         "label_text_style": "bold",
@@ -73,7 +73,7 @@
             "text": "Child was born alive",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "born_alive",
+            "openmrs_entity_id": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -81,7 +81,7 @@
             "text": "Child was born alive, but died",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "born_alive_died",
+            "openmrs_entity_id": "164816AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -89,7 +89,7 @@
             "text": "Child was stillborn",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "still_born",
+            "openmrs_entity_id": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -97,7 +97,7 @@
             "text": "Child was born alive, but they have a problem (i.e. disability, respiratory issues, etc.)",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "alive_with_problem",
+            "openmrs_entity_id": "161599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -105,7 +105,7 @@
             "text": "Miscarriage",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "miscarriage",
+            "openmrs_entity_id": "48AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
         ],
@@ -118,7 +118,7 @@
         "key": "miscarriage_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "miscarriage_date",
+        "openmrs_entity_id": "165248AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Date of miscarriage",
         "expanded": false,
@@ -139,7 +139,7 @@
         "key": "delivery_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_date",
+        "openmrs_entity_id": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Delivery date",
         "expanded": false,
@@ -160,14 +160,14 @@
         "key": "no_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "no_children",
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden"
       },
       {
         "key": "delivery_place",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_place",
+        "openmrs_entity_id": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "The place the mother gave birth",
@@ -184,10 +184,10 @@
           "Other"
         ],
         "openmrs_choice_ids": {
-          "At home": "At home",
-          "At a health facility": "At a health facility",
-          "On the way to the health facility":   "On the way to the health facility",
-          "Other":   "Other"
+          "At home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "At a health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "On the way to the health facility": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -205,7 +205,7 @@
         "key": "delivery_home",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_home",
+        "openmrs_entity_id": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Who helped the mother with a home delivery?",
         "label_text_style": "bold",
@@ -228,7 +228,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "gave_birth_alone"
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "gave_birth_with_help",
@@ -236,7 +236,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "gave_birth_with_help"
+            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "midwife_help",
@@ -244,7 +244,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "midwife_help"
+            "openmrs_entity_id": "125872AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -252,7 +252,7 @@
         "key": "delivery_hf",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_hf",
+        "openmrs_entity_id": "159771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "The mother gave birth in a health facility. Who accompanied the mother to the health facility?",
         "label_text_style": "bold",
@@ -275,7 +275,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "facility_family_member"
+            "openmrs_entity_id": "969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "facility_midwife",
@@ -283,7 +283,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "facility_midwife"
+            "openmrs_entity_id": "1575AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "alone",
@@ -291,7 +291,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "alone"
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other_pple",
@@ -299,7 +299,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_pple"
+            "openmrs_entity_id": "1582AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other_chw",
@@ -307,7 +307,7 @@
             "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "other_chw"
+            "openmrs_entity_id": "1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -354,7 +354,10 @@
             }
           }
         },
-
+        "v_required": {
+          "value": true,
+          "err": "Please specify the # of babies"
+        },
         "value": [
           {
             "key": "surname",
@@ -458,7 +461,7 @@
             "key": "disabilities",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "disabilities",
+            "openmrs_entity_id": "159522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "spinner",
             "hint": "Physical disabilities",
             "values": [
@@ -470,8 +473,8 @@
               "No"
             ],
             "openmrs_choice_ids": {
-              "Yes": "Yes",
-              "No": "No"
+              "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
             },
             "v_required": {
               "value": "true",
@@ -482,7 +485,7 @@
             "key": "type_of_disability",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "type_of_disability",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "edit_text",
             "hint": "Type of physical disabilities",
             "edit_type": "name",
@@ -498,7 +501,7 @@
             "key": "early_bf_1hr",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "early_bf_1hr",
+            "openmrs_entity_id": "164819AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "spinner",
             "hint": "Early initiation of breastfeeding (1 hr)?",
             "values": [
@@ -510,15 +513,15 @@
               "No"
             ],
             "openmrs_choice_ids": {
-              "Yes": "Yes",
-              "No": "No"
+              "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
             }
           },
           {
             "key": "vacc_birth",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "vacc_birth",
+            "openmrs_entity_id": "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "check_box",
             "label": "Which vaccinations were given?",
             "label_text_style": "normal",
@@ -532,21 +535,21 @@
                 "text": "None",
                 "value": false,
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_none"
+                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               {
                 "key": "chk_opv_0",
                 "text": "OPV 0",
                 "value": false,
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_opv_0"
+                "openmrs_entity_id": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               },
               {
                 "key": "chk_bcg",
                 "text": "BCG",
                 "value": false,
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "chk_bcg"
+                "openmrs_entity_id": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
               }
             ],
             "v_required": {
