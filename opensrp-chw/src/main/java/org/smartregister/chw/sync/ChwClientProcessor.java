@@ -4,11 +4,13 @@ package org.smartregister.chw.sync;
 import android.content.Context;
 
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
 import org.smartregister.chw.service.ChildAlertService;
+import org.smartregister.chw.util.Constants;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.domain.db.EventClient;
@@ -61,11 +63,29 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case CoreConstants.EventType.CHILD_REGISTRATION:
                 case CoreConstants.EventType.UPDATE_CHILD_REGISTRATION:
                     ChildAlertService.updateAlerts(baseEntityID);
+                    break;
+                case Constants.Events.ANC_FIRST_FACILITY_VISIT:
+                case Constants.Events.ANC_RECURRING_FACILITY_VISIT:
+                    if (eventClient.getEvent() == null) {
+                        return;
+                    }
+                    processVisitEvent(eventClient);
+                    processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
                 default:
                     break;
             }
         }
         ChwScheduleTaskExecutor.getInstance().execute(event.getBaseEntityId(), event.getEventType(), event.getEventDate().toDate());
+    }
+
+    private void processVisitEvent(EventClient eventClient) {
+        try {
+            NCUtils.processHomeVisit(eventClient);
+        } catch (Exception e) {
+            String formID = (eventClient != null && eventClient.getEvent() != null) ? eventClient.getEvent().getFormSubmissionId() : "no form id";
+            Timber.e("Form id " + formID + ". " + e.toString());
+        }
     }
 
     @Override
