@@ -108,6 +108,12 @@
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "chk_traditional_medicine",
+            "text": "Traditional medicine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_medicine"
+          },
+          {
             "key": "chk_referred",
             "text": "Referred",
             "openmrs_entity": "concept",

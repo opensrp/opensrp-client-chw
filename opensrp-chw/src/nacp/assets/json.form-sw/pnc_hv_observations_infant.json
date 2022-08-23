@@ -108,6 +108,12 @@
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "chk_traditional_medicine",
+            "text": "Mitishamba",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_medicine"
+          },
+          {
             "key": "chk_referred",
             "text": "Kupewa rufaa",
             "openmrs_entity": "concept",

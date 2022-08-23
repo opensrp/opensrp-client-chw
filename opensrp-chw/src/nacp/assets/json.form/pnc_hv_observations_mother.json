@@ -97,10 +97,10 @@
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_zinc",
-            "text": "Zinc 10",
+            "key": "chk_traditional_medicine",
+            "text": "Traditional medicine",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_traditional_medicine"
           },
           {
             "key": "chk_paracetamol",

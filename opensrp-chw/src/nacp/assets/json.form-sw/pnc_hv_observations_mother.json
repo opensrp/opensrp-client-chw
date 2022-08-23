@@ -97,16 +97,16 @@
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_zinc",
-            "text": "Zinc 10",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_paracetamol",
             "text": "Panadol",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_traditional_medicine",
+            "text": "Mitishamba",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_medicine"
           },
           {
             "key": "chk_referred",

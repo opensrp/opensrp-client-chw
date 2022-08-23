@@ -58,6 +58,7 @@
         "label": "Does the baby have any danger signs?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "chk_none"
         ],
