@@ -111,6 +111,8 @@ public class Constants extends CoreConstants {
     public static final class Events {
         public static final String UPDATE_MALARIA_CONFIGURATION = "Update Malaria Confirmation";
         public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        public static final String ANC_FIRST_FACILITY_VISIT = "ANC First Facility Visit";
+        public static final String ANC_RECURRING_FACILITY_VISIT = "ANC Recurring Facility Visit";
     }
 
     public static final class ActionList {

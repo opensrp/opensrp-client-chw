@@ -967,6 +967,26 @@
       ]
     },
     {
+      "name": "ec_anc_hf_data",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "medical_surgical_history",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "medical_surgical_history"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_malaria_confirmation",
       "columns": [
         {

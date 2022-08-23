@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -114,6 +115,22 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         super.onCreation();
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addAncReferralTypes();
+        }
+    }
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+
+        RelativeLayout lastVisitHf = findViewById(R.id.rlLastVisitHf);
+        Visit firstVisit = getVisit(org.smartregister.chw.util.Constants.Events.ANC_FIRST_FACILITY_VISIT);
+        Visit recurringVisit = getVisit(org.smartregister.chw.util.Constants.Events.ANC_FIRST_FACILITY_VISIT);
+
+        if(firstVisit != null || recurringVisit != null){
+            lastVisitHf.setVisibility(View.VISIBLE);
+            lastVisitHf.setOnClickListener(this);
+        }else{
+            lastVisitHf.setVisibility(View.GONE);
         }
     }
 
@@ -353,6 +370,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
+        }else if(id == R.id.rlLastVisitHf){
+            AncHfMedicalHistoryActivity.startMe(this, memberObject);
         }
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
