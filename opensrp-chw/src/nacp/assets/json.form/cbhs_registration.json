@@ -1,0 +1,673 @@
+{
+  "form": "HIV Registration form",
+  "count": "1",
+  "encounter_type": "CBHS Registration",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/hiv_registration_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "CBHS Registration Form",
+      "fields": [
+        {
+          "name": "gender",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Gender"
+          },
+          "subjects": "gender:text"
+        },
+        {
+          "name": "age",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Enter your age",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "age",
+            "openmrs_entity_parent": ""
+          },
+          "subjects": "age:text"
+        },
+        {
+          "name": "cbhs_number",
+          "type": "masked_edit_text",
+          "properties": {
+            "hint": "CBHS Number e.g 1234-56-78-912",
+            "type": "CBHS Number e.g 1234-56-78-912",
+            "mask": "####-##-##-###",
+            "mask_hint": "12345678912",
+            "input_type": "number",
+            "allowed_chars": "0123456789"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "cbhs_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{4}-\\\\d{2}-\\\\d{2}-\\\\d{3})?\")",
+              "message": "CBHS Number should be of the format (XXXX-XX-XX-XXX)."
+            }
+          ],
+          "required_status": "yes:Please specify client's CBHS Number"
+        },
+        {
+          "name": "client_hiv_status_during_registration",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_hiv_status_during_registration",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Client's HIV status during registration"
+          },
+          "options": [
+            {
+              "name": "unknown",
+              "text": "Unknown",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "unknown",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "positive",
+              "text": "Positive",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "positive",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "negative",
+              "text": "Negative",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "negative",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "dependent_calculations": [
+            "hiv_registration_date"
+          ]
+        },
+        {
+          "name": "ctc_number",
+          "type": "masked_edit_text",
+          "properties": {
+            "hint": "CTC Number e.g 12-34-5678-912345",
+            "type": "CTC Number e.g 12-34-5678-912345",
+            "mask": "##-##-####-######",
+            "mask_hint": "12345678912345",
+            "input_type": "number",
+            "allowed_chars": "0123456789"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "CTC Number should be of format (XX-XX-XXXX-XXXXXX)."
+            }
+          ],
+          "subjects": "client_hiv_status_during_registration:text"
+        },
+        {
+          "name": "client_tb_status_during_registration",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_tb_status_during_registration",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Client's TB status during registration"
+          },
+          "options": [
+            {
+              "name": "unknown",
+              "text": "Unknown",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "unknown",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "positive",
+              "text": "Positive",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "positive",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "negative",
+              "text": "Negative",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "negative",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ]
+        },
+        {
+          "name": "reasons_for_registration_male_15",
+          "type": "radio_group",
+          "properties": {
+            "text": "Reason for registration"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reasons_for_registration_male_above_15",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "hiv_aids",
+              "text": "HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_aids",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tuberculosis",
+              "text": "Tuberculosis",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "tuberculosis",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "homosexual",
+              "text": "Men who have sex with men",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "homosexual",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "gender_violence",
+              "text": "Gender violence",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "gender_violence",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "drug_abuse",
+              "text": "Drug abuse",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "drug_abuse",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:The reason for registration is required",
+          "subjects": "gender:text, age:number",
+          "dependent_calculations": [
+            "reasons_for_registration"
+          ]
+        },
+        {
+          "name": "reasons_for_registration_female_15",
+          "type": "radio_group",
+          "properties": {
+            "text": "Reason for registration"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reasons_for_registration_female_15",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "hiv_aids",
+              "text": "HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_aids",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tuberculosis",
+              "text": "Tuberculosis",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "tuberculosis",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "sex_worker_woman",
+              "text": "Sex worker",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "sex_worker_woman",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "gender_violence",
+              "text": "Gender violence",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "gender_violence",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "drug_abuse",
+              "text": "Drug abuse",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "drug_abuse",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "pregnant_mother",
+              "text": "Pregnant mother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "pregnant_mother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "breastfeeding_mother",
+              "text": "Breastfeeding mother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "breastfeeding_mother",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:The reason for registration is required",
+          "subjects": "gender:text, age:number",
+          "dependent_calculations": [
+            "reasons_for_registration"
+          ]
+        },
+        {
+          "name": "reasons_for_registration_male_under_15",
+          "type": "radio_group",
+          "properties": {
+            "text": "Reason for registration"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reasons_for_registration_male_under_15",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "hiv_aids",
+              "text": "HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_aids",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tuberculosis",
+              "text": "Tuberculosis",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "tuberculosis",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "hiv_infected_child",
+              "text": "A child born from a mother with HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_infected_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "untested_hiv_infected_child",
+              "text": "Untested HIV/AIDs child",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "untested_hiv_infected_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "abused_child",
+              "text": "Abused child",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "abused_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "gender_violence",
+              "text": "Gender violence",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "gender_violence",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "drug_abuse",
+              "text": "Drug abuse",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "drug_abuse",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:The reason for registration is required",
+          "subjects": "gender:text, age:number",
+          "dependent_calculations": [
+            "reasons_for_registration"
+          ]
+        },
+        {
+          "name": "reasons_for_registration_female_under_10",
+          "type": "radio_group",
+          "properties": {
+            "text": "Reason for registration"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reasons_for_registration_female_under_10",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "hiv_aids",
+              "text": "HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_aids",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tuberculosis",
+              "text": "Tuberculosis",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "tuberculosis",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "hiv_infected_child",
+              "text": "A child born from a mother with HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_infected_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "untested_hiv_infected_child",
+              "text": "Untested HIV/AIDs child",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "untested_hiv_infected_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "abused_child",
+              "text": "Abused child",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "abused_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "gender_violence",
+              "text": "Gender violence",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "gender_violence",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "drug_abuse",
+              "text": "Drug abuse",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "drug_abuse",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:The reason for registration is required",
+          "subjects": "gender:text, age:number",
+          "dependent_calculations": [
+            "reasons_for_registration"
+          ]
+        },
+        {
+          "name": "reasons_for_registration_female_10_to_14",
+          "type": "radio_group",
+          "properties": {
+            "text": "Reason for registration"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reasons_for_registration_female_10_to_14",
+            "openmrs_entity_parent": ""
+          },
+          "options": [
+            {
+              "name": "hiv_aids",
+              "text": "HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_aids",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "tuberculosis",
+              "text": "Tuberculosis",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "tuberculosis",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "hiv_infected_child",
+              "text": "A child born from a mother with HIV/AIDs",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hiv_infected_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "untested_hiv_infected_child",
+              "text": "Untested HIV/AIDs child",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "untested_hiv_infected_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "abused_child",
+              "text": "Abused child",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "abused_child",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "gender_violence",
+              "text": "Gender violence",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "gender_violence",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "drug_abuse",
+              "text": "Drug abuse",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "drug_abuse",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "pregnant_mother",
+              "text": "Pregnant mother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "pregnant_mother",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "breastfeeding_mother",
+              "text": "Breastfeeding mother",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "breastfeeding_mother",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:The reason for registration is required",
+          "subjects": "gender:text, age:number",
+          "dependent_calculations": [
+            "reasons_for_registration"
+          ]
+        },
+        {
+          "name": "tb_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "TB ID",
+            "type": "TB Clinic ID"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_number",
+            "openmrs_entity_parent": ""
+          }
+        },
+        {
+          "name": "rch_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "RCH ID",
+            "type": "RCH Clinic ID"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "rch_number",
+            "openmrs_entity_parent": ""
+          },
+          "subjects": "gender:text"
+        },
+        {
+          "name": "mat_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "MAT ID",
+            "type": "MAT Clinic ID"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mat_number",
+            "openmrs_entity_parent": ""
+          }
+        }
+      ]
+    }
+  ]
+}

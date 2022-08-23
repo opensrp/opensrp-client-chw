@@ -12,3 +12,66 @@ priority: 1
 condition: "true"
 actions:
   - "hiv_registration_date_calculation = System.currentTimeMillis()"
+---
+name: "rch_number_visibility"
+description: "rch_number visibility"
+priority: 1
+condition: "gender == 'Female'"
+actions:
+  - "rch_number_visibility =  true"
+---
+name: "gender_visibility"
+description: "gender visibility"
+priority: 1
+condition: "false"
+actions:
+  - "gender_visibility =  true"
+---
+name: "age_visibility"
+description: "gender visibility"
+priority: 1
+condition: "false"
+actions:
+  - "age_visibility =  true"
+---
+name: "reasons_for_registration_male_15_visibility"
+description: "reasons_for_registration_male_15 visibility"
+priority: 1
+condition: "gender == 'Male' && age >= 15"
+actions:
+  - "reasons_for_registration_male_15_visibility =  true"
+---
+name: "reasons_for_registration_female_15_visibility"
+description: "reasons_for_registration_female_15 visibility"
+priority: 1
+condition: "gender == 'Female' && age >= 15"
+actions:
+  - "reasons_for_registration_female_15_visibility =  true"
+---
+name: "reasons_for_registration_male_under_15_visibility"
+description: "reasons_for_registration_male_under_15 visibility"
+priority: 1
+condition: "gender == 'Male' && age < 15"
+actions:
+  - "reasons_for_registration_male_under_15_visibility =  true"
+---
+name: "reasons_for_registration_female_under_10_visibility"
+description: "reasons_for_registration_female_under_10 visibility"
+priority: 1
+condition: "gender == 'Female' && age < 10"
+actions:
+  - "reasons_for_registration_female_under_10_visibility =  true"
+---
+name: "reasons_for_registration_female_10_to_14_visibility"
+description: "reasons_for_registration_female_10_to_14 visibility"
+priority: 1
+condition: "gender == 'Female' && (age > 10 && age <= 14)"
+actions:
+  - "reasons_for_registration_female_10_to_14_visibility =  true"
+---
+name: "reasons_for_registration_calculation"
+description: "calculating the reason for registration"
+priority: 1
+condition: "true"
+actions:
+  - "reasons_for_registration_calculation = (gender == 'Male' && age >= 15) ? reasons_for_registration_male_15 : (gender == 'Female' && age >= 15) ? reasons_for_registration_female_15 : (gender == 'Male' && age < 15) ? reasons_for_registration_male_under_15 : (gender == 'Female' && age < 10) ? reasons_for_registration_female_under_10 : (gender == 'Female' && (age > 10 && age <= 14)) ? reasons_for_registration_female_10_to_14 : '' "
