@@ -50,6 +50,13 @@
     "title": "Kipindi cha SBCC",
     "fields": [
       {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
+      },
+      {
         "key": "sbcc_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

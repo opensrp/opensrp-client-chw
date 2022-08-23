@@ -20,7 +20,11 @@ public class ChwWebAppInterface {
     public String getDataForReport() {
         if (reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.CBHS_REPORT)) {
             ReportUtils.setPrintJobName("cbhs_monthly_summary-" + ReportUtils.getReportPeriod() + ".pdf");
-            return ReportUtils.CBHSReport.computeReport(ReportUtils.getReportDate());
+            return ReportUtils.CBHSReport.computeReport(ReportUtils.getReportDate(), mContext);
+        }
+        if(reportType.equalsIgnoreCase(Constants.ReportConstants.ReportTypes.MOTHER_CHAMPION_REPORT)){
+            ReportUtils.setPrintJobName("mother_champion_report-" + ReportUtils.getReportPeriod() + ".pdf");
+            return ReportUtils.MotherChampionReport.computeReport(ReportUtils.getReportDate());
         }
 
         return "";

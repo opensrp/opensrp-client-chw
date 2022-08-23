@@ -140,7 +140,7 @@
           "err": "Tafadhali chagua moja"
         },
         "relevance": {
-          "rules_engine": {
+          "rules-engine": {
             "ex-rules": {
               "rules-file": "pmtct_community_followup_feedback_relevance.yml"
             }
@@ -159,7 +159,7 @@
           "err": "Tafadhali jaza"
         },
         "relevance": {
-          "rules_engine": {
+          "rules-engine": {
             "ex-rules": {
               "rules-file": "pmtct_community_followup_feedback_relevance.yml"
             }
@@ -179,7 +179,7 @@
           "err": "Tafadhali chagua"
         },
         "relevance": {
-          "rules_engine": {
+          "rules-engine": {
             "ex-rules": {
               "rules-file": "pmtct_community_followup_feedback_relevance.yml"
             }
@@ -199,7 +199,7 @@
           "err": "Tafadhali chagua"
         },
         "relevance": {
-          "rules_engine": {
+          "rules-engine": {
             "ex-rules": {
               "rules-file": "pmtct_community_followup_feedback_relevance.yml"
             }
@@ -207,7 +207,7 @@
         }
       },
       {
-        "name": "date_of_death",
+        "key": "date_of_death",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "date_of_death",
@@ -219,7 +219,7 @@
           "err": "Tafadhali chagua"
         },
         "relevance": {
-          "rules_engine": {
+          "rules-engine": {
             "ex-rules": {
               "rules-file": "pmtct_community_followup_feedback_relevance.yml"
             }
@@ -249,7 +249,7 @@
           "seasonal_work": "seasonal_work"
         },
         "relevance": {
-          "rules_engine": {
+          "rules-engine": {
             "ex-rules": {
               "rules-file": "pmtct_community_followup_feedback_relevance.yml"
             }

@@ -23,6 +23,7 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
     protected CustomFontTextView toolBarTextView;
     protected AppBarLayout appBarLayout;
     protected ConstraintLayout cbhsReportsLayout;
+    protected ConstraintLayout motherChampionReportsLayout;
 
     @Override
     protected void onCreation() {
@@ -40,7 +41,8 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
 
     public void setUpViews() {
         cbhsReportsLayout = findViewById(R.id.cbhs_summary);
-
+        motherChampionReportsLayout = findViewById(R.id.mother_champion_reports);
+        motherChampionReportsLayout.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
     }
 
@@ -76,6 +78,10 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         int id = v.getId();
         if (id == R.id.cbhs_summary) {
             Intent intent = new Intent(this, CBHSReportsActivity.class);
+            startActivity(intent);
+        }
+        if(id == R.id.mother_champion_reports){
+            Intent intent = new Intent(this, MotherChampionReportsActivity.class);
             startActivity(intent);
         }
     }

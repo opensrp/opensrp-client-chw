@@ -30,7 +30,7 @@ public class CBHSReportsActivity extends SecuredActivity implements View.OnClick
     protected ConstraintLayout monthlyReport;
     protected AppBarLayout appBarLayout;
     Menu menu;
-    private String reportPeriod = ReportUtils.getDefaultReportPeriod();
+    protected String reportPeriod = ReportUtils.getDefaultReportPeriod();
 
     @Override
     protected void onCreation() {

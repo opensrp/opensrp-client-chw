@@ -3,6 +3,7 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -23,6 +24,7 @@ import org.smartregister.util.LangUtils;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -84,6 +86,25 @@ public class AncHomeVisitActivity extends BaseAncHomeVisitActivity {
     @Override
     public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
         actionList.clear();
-        super.initializeActions(map);
+        //Necessary evil to rearrange the actions according to a specific arrangement
+        if (map.containsKey(getString(R.string.anc_home_visit_danger_signs))) {
+            BaseAncHomeVisitAction dangerSignsAction = map.get(getString(R.string.anc_home_visit_danger_signs));
+            actionList.put(getString(R.string.anc_home_visit_danger_signs), dangerSignsAction);
+        }
+        //====================End of Necessary evil ====================================
+
+        for (Map.Entry<String, BaseAncHomeVisitAction> entry : map.entrySet()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                actionList.putIfAbsent(entry.getKey(), entry.getValue());
+            } else {
+                actionList.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
+        displayProgressBar(false);
+        redrawVisitUI();
     }
 }

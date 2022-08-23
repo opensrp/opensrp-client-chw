@@ -32,6 +32,8 @@
     <string name="select_reporting_month">Select Reporting Month</string>
     <string name="monthly_report">Monthly Report</string>
     <string name="print_report">Print</string>
+    <string name="mother_champion_reports_subtitle">View Mother Champion Reports</string>
+    <string name="mother_champion_reports">Mother Champion Reports</string>
 
 
 
@@ -63,6 +65,51 @@
     <string name="referral_problem_optimistic_infections">Optimistic Infections</string>
     <string name="referral_problem_confirmation_self_test">Confirmation Self Test</string>
     <string name="referral_problem_index_contact_testing">Index Contact Testing</string>
+
+    <string name="ltfu_clinic_ctc">CTC</string>
+    <string name="ltfu_clinic_pwid">PWID</string>
+    <string name="ltfu_clinic_prep">PrEP</string>
+    <string name="ltfu_clinic_pmtct">PMTCT</string>
+    <string name="ltfu_clinic_tb">TB</string>
+    <string name="referred_clinic">Referred Clinic</string>
+    <!-- String resources for CBHS report -->
+    <!-- Sababu za usajili -->
+    <string name="reason_for_registration_hiv_aids">Maambukizi ya VVU</string>
+    <string name="reason_for_registration_tuberculosis">Kifua Kikuu</string>
+    <string name="reason_for_registration_homosexual">Wanaume wanaofanya mapenzi na wanaume</string>
+    <string name="reason_for_registration_gender_violence">Unyanyasaji wa Kijinsia</string>
+    <string name="reason_for_registration_drug_abuse">Matumizi mabaya ya dawa za kulevya</string>
+    <string name="reason_for_registration_sex_worker_woman">Mfanyabiashara ya ngono</string>
+    <string name="reason_for_registration_pregnant_mother">Mama mjamzito</string>
+    <string name="reason_for_registration_breastfeeding_mother">Mama anayenyonyesha</string>
+    <string name="reason_for_registration_hiv_infected_child">Mtoto aliyezaliwa na mama mwenye VVU</string>
+    <string name="reason_for_registration_untested_hiv_infected_child">Mtoto ambaye hajapimwa VVU</string>
+    <string name="reason_for_registration_abused_child">Unyanyasaji wa mtoto</string>
+    <!-- Huduma zilizotolewa -->
+    <string name="hiv_services_provided_hiv_counselling_and_testing">Huduma za ushauri nasaha na upimaji katika jamii</string>
+    <string name="hiv_services_provided_arv_services">Huduma za dawa za kupunguza makali ya vvu katika jamii</string>
+    <string name="hiv_services_provided_hiv_prevention_services_from_mother_to_infant">Huduma za kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto katika jamiii</string>
+    <string name="hiv_services_provided_collaborative_community_services_for_tb_and_hiv">Huduma shirikishi za kifua kikuu na VVU katika jamii</string>
+    <string name="hiv_services_provided_services_to_prevent_the_spread_of_stds">Huduma za kuzuia kuenea magonjwa ya ngono katika jamii</string>
+    <string name="hiv_services_provided_special_group_services">Huduma kwa makundi maalumu</string>
+    <string name="hiv_services_provided_services_to_prevent_gender_violence_and_child_abuse">Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii</string>
+    <string name="hiv_services_provided_psychological_services">Huduma za kisaikolojia katika jamii</string>
+    <string name="hiv_services_provided_information_about_fgm">Elimu ya tohara katika jamii</string>
+    <string name="hiv_services_provided_family_planning_and_condom_distribution_services">Huduma za uzazi wa mpango na usambazaji wa kondomu</string>
+    <string name="hiv_services_provided_self_test_kits_distribution_services">Huduma ya ugawaji wa vitendanishi vya JIPIME</string>
+    <string name="hiv_services_provided_other_hiv_services">Huduma zingine za CBHS</string>
+    <string name="hiv_services_provided_none">Hamna</string>
+    <!-- Dawa zilizotolewa -->
+    <string name="supplies_provided_paracetamol">Paracetamol</string>
+    <string name="supplies_provided_ors">ORS</string>
+    <string name="supplies_provided_none">Hakuna</string>
+    <!-- Vifaa vilivyotolewa -->
+    <string name="supplies_provided_hiv_self_test_kits">Vifaa vya kujipima VVU</string>
+    <string name="supplies_provided_sanitizers">Vitakasa mikono</string>
+    <string name="supplies_provided_face_masks">Barakoa</string>
+    <string name="supplies_provided_condoms">Kondomu</string>
+    <string name="supplies_provided_water_disinfectant">Dawa za kuua vijidudu vya maji</string>
+    <string name="supplies_provided_other_supplies">Vifaa vingine</string>
 
 
 </resources>

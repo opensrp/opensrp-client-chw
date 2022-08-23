@@ -11,6 +11,7 @@ import android.webkit.WebView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
+import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -109,11 +110,24 @@ public class ReportUtils {
 
 
     public static class CBHSReport {
-        public static String computeReport(Date now) {
+        public static String computeReport(Date now, Context context) {
             String report = "";
-            CbhsMonthlyReportObject cbhsMonthlyReportObject = new CbhsMonthlyReportObject(now);
+            CbhsMonthlyReportObject cbhsMonthlyReportObject = new CbhsMonthlyReportObject(now, context);
             try {
                 report = cbhsMonthlyReportObject.getIndicatorDataAsGson(cbhsMonthlyReportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+            return report;
+        }
+    }
+
+    public static class MotherChampionReport {
+        public static String computeReport(Date now) {
+            String report = "";
+            MotherChampionReportObject motherChampionReportObject = new MotherChampionReportObject(now);
+            try {
+                report = motherChampionReportObject.getIndicatorDataAsGson(motherChampionReportObject.getIndicatorData());
             } catch (Exception e) {
                 Timber.e(e);
             }

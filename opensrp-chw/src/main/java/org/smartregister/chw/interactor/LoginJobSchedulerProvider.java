@@ -1,5 +1,7 @@
 package org.smartregister.chw.interactor;
 
+import org.smartregister.CoreLibrary;
+import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.LoginJobScheduler;
@@ -12,6 +14,7 @@ import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.DocumentConfigurationServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.P2pServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncLocationsByLevelAndTagsServiceJob;
@@ -79,6 +82,12 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
 
         if (ChwApplication.getApplicationFlavor().hasServiceReport())
             ChwIndicatorGeneratingJob.scheduleJobImmediately(ChwIndicatorGeneratingJob.TAG);
+
+        P2POptions p2POptions = CoreLibrary.getInstance().getP2POptions();
+        if (p2POptions != null && p2POptions.isEnableP2PLibrary()) {
+            // Finish processing any unprocessed sync records here
+            P2pServiceJob.scheduleJobImmediately(P2pServiceJob.TAG);
+        }
     }
 
     @Override

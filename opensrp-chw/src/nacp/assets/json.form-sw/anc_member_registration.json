@@ -169,6 +169,29 @@
         }
       },
       {
+        "key": "parity",
+        "type": "edit_text",
+        "hint": "Idadi ya mimba zilizofikia wiki 24 au zaidi (Parity)",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parity",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali jaza namba halali"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza namba halali"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:no_prev_preg)",
+            "err": "Namba lazima iwe chini ya idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)"
+          }
+        ]
+      },
+      {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -390,6 +413,14 @@
           "value": "(0[0-9]{9})|\\s*",
           "err": "Namba lazima iwe na tarakimu 10 na ianze na 0"
         }
+      },
+      {
+        "key": "confirmation_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_confirmation_status",
+        "type": "hidden",
+        "value": "Confirmed"
       }
     ]
   }

@@ -1,5 +1,10 @@
 package org.smartregister.chw.activity;
 
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.VALUE;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +14,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -17,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePmtctProfileActivity;
 import org.smartregister.chw.core.interactor.CorePmtctProfileInteractor;
@@ -42,7 +50,6 @@ import org.smartregister.repository.AllSharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
@@ -74,6 +81,13 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
             JSONObject formJsonObject = null;
             try {
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, org.smartregister.chw.util.Constants.JsonForm.getMotherChampionFollowupForm());
+                AllSharedPreferences preferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+                JSONObject chwName = getFieldJSONObject(fields(formJsonObject, STEP1), "chw_name");
+                chwName.put(VALUE, preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
+
+                JSONObject visitNumber = getFieldJSONObject(fields(formJsonObject, STEP1), "visit_number");
+                visitNumber.put(VALUE, MotherChampionDao.getVisitNumber(memberObject.getBaseEntityId()));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -261,6 +275,11 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(basePmtctFloatingMenu, linearLayoutParams);
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        rlLastVisit.setVisibility(View.GONE);
     }
 
     private void addPmtctReferralTypes() {
