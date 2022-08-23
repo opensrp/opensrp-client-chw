@@ -93,35 +93,30 @@
           {
             "key": "chk_ors",
             "text": "ORS 5",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_ors"
           },
           {
             "key": "chk_traditional_medicine",
             "text": "Traditional medicine",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_traditional_medicine"
           },
           {
             "key": "chk_paracetamol",
             "text": "Panadol",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_paracetamol"
           },
           {
             "key": "chk_referred",
             "text": "Referred",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_referred"
           },
           {
             "key": "chk_none",
             "text": "No treatment given",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }

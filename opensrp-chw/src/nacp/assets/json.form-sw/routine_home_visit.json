@@ -72,105 +72,90 @@
           {
             "key": "chk_maternal_nutrition",
             "text": "Lishe ya mama wakati wa kunyonyesha",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_aids",
             "text": "Taarifa za jumla za VVU/UKIMWI",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_pmtc_for_mother",
             "text": "PMTCT kwa mama",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_malaria_prevention",
             "text": "Kinga dhidi ya malaria",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "Ufuatiliaji wa mtoto aliyeambukizwa VVU",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_breast_feeding",
             "text": "Kunyonyesha",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_birth_registration",
             "text": "Usajili wa kuzaliwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_complementary_feeding",
             "text": "Lishe ya ziada",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_growth_and_dev",
             "text": "Ukuaji na maendeleo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_immunization",
             "text": "Upataji wa chanjo ya kinga",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_newborn_danger",
             "text": "Ishara za hatari kwa watoto wachanga",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_infection",
             "text": "Kuzuia na kudhibiti maambukizi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_prevention_of_accidents",
             "text": "Kuzuia ajali",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_gender_issues",
             "text": "Masuala ya jinsia",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }
