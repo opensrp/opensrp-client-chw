@@ -71,7 +71,6 @@
           {
             "key": "born_alive",
             "text": "Child was born alive",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "born_alive",
             "openmrs_entity_parent": ""
@@ -79,7 +78,6 @@
           {
             "key": "born_alive_died",
             "text": "Child was born alive, but died",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "born_alive_died",
             "openmrs_entity_parent": ""
@@ -87,7 +85,6 @@
           {
             "key": "still_born",
             "text": "Child was stillborn",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "still_born",
             "openmrs_entity_parent": ""
@@ -95,7 +92,6 @@
           {
             "key": "alive_with_problem",
             "text": "Child was born alive, but they have a problem (i.e. disability, respiratory issues, etc.)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "alive_with_problem",
             "openmrs_entity_parent": ""
@@ -103,7 +99,6 @@
           {
             "key": "miscarriage",
             "text": "Miscarriage",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "miscarriage",
             "openmrs_entity_parent": ""
@@ -242,7 +237,6 @@
           {
             "key": "gave_birth_alone",
             "text": "She gave birth alone",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gave_birth_alone"
@@ -250,7 +244,6 @@
           {
             "key": "gave_birth_with_help",
             "text": "She gave birth with the help of a family member/friend/neighbor",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gave_birth_with_help"
@@ -258,7 +251,6 @@
           {
             "key": "midwife_help",
             "text": "She gave birth with the help of a traditional midwife",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "midwife_help"
@@ -289,7 +281,6 @@
           {
             "key": "facility_family_member",
             "text": "She gave birth in a health facility, and she was accompanied by family member(s)",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "facility_family_member"
@@ -297,7 +288,6 @@
           {
             "key": "facility_midwife",
             "text": "She gave birth in a health facility, and she was accompanied by a traditional midwife",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "facility_midwife"
@@ -305,7 +295,6 @@
           {
             "key": "alone",
             "text": "She gave birth in a health facility, and she came by herself",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "alone"
@@ -313,7 +302,6 @@
           {
             "key": "other_pple",
             "text": "She gave birth in a health facility, and she was accompanied by other people",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_pple"
@@ -321,7 +309,6 @@
           {
             "key": "other_chw",
             "text": "She gave birth in a health facility, and she was accompanied by the CHW",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "other_chw"

@@ -72,105 +72,90 @@
           {
             "key": "chk_maternal_nutrition",
             "text": "3. Maternal nutrition during breastfeeding",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_aids",
             "text": "5. HIV/AIDS general information",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_pmtc_for_mother",
             "text": "6. PMTCT for the mother",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_malaria_prevention",
             "text": "7. Malaria prevention",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "15. Follow-up for the HIV-exposed infant",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_breast_feeding",
             "text": "16. Breastfeeding",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_birth_registration",
             "text": "19. Birth registration",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_complementary_feeding",
             "text": "20. Complementary feeding",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_growth_and_dev",
             "text": "21. Growth and development",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_immunization",
             "text": "22. Immunisation",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_newborn_danger",
             "text": "23. Newborn danger signs",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_infection",
             "text": "24. Infection prevention and control",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_prevention_of_accidents",
             "text": "25. Prevention of accidents",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_gender_issues",
             "text": "26. Gender issues",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           }

@@ -92,7 +92,6 @@
           {
             "key": "has_fever",
             "text": "Has a fever",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "has_fever",
             "openmrs_entity_parent": ""
@@ -100,7 +99,6 @@
           {
             "key": "tested_positive_last_14_days",
             "text": "Tested positive for malaria in the last 14 days at a health facility",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "tested_positive_last_14_days",
             "openmrs_entity_parent": ""
@@ -387,42 +385,36 @@
           {
             "key": "overview_on_malaria",
             "text": "Overview on malaria",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "malaria_prevention",
             "text": "Malaria prevention",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "uncomplicated_malaria",
             "text": "Uncomplicated malaria",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159950AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "Severe_malaria",
             "text": "Severe malaria",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "malaria_in_pregnancy",
             "text": "Malaria in pregnancy",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135361AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }

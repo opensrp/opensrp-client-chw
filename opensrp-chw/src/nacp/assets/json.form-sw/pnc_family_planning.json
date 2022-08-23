@@ -88,21 +88,18 @@
           {
             "key": "chk_during_anc",
             "text": "Wakati wa ANCc",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_anc"
           },
           {
             "key": "chk_during_labour_and_delivery",
             "text": "Wakati wa kujifungua",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_labour_and_delivery"
           },
           {
             "key": "chk_during_pnc",
             "text": "Wakati wa PNC",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_pnc"
           }

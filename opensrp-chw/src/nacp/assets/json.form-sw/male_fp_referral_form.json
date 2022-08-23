@@ -120,7 +120,6 @@
           {
             "key": "Incisional_bleeding",
             "text": "Kutokwa damu",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -128,7 +127,6 @@
           {
             "key": "Pus_Discharge_from_incision",
             "text": "Kutokwa usaha",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -136,7 +134,6 @@
           {
             "key": "Swollen_around_the_incision",
             "text": "Kuvimba kwenye kidonda",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -144,7 +141,6 @@
           {
             "key": "Others",
             "text": "Madhara mengineyo",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -152,7 +148,6 @@
           {
             "key": "None",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -160,7 +155,6 @@
           {
             "key": "Not_applicable",
             "text": "Si husika",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
