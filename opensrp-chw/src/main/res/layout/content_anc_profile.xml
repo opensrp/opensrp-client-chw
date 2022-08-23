@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/notification_and_referral_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/notification_and_referral_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlLastVisit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_notification_and_referral_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tick_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/childrow_history" />
+
+            <ImageView
+                android:id="@+id/arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/row_goto" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_last_vist_day"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tick_image"
+                android:gravity="center_horizontal"
+                android:text="@string/last_visit_40_days_ago"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/text_view_medical_hstory"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview_last_vist_day"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tick_image"
+                android:text="@string/view_medical_history"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/light_grey_text" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlLastVisitHf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_last_visit_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tick_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/childrow_history" />
+
+            <ImageView
+                android:id="@+id/arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/row_goto" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_last_vist_day"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tick_image"
+                android:gravity="center_horizontal"
+                android:text="@string/last_facility_visit"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/text_view_medical_hstory"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview_last_vist_day"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tick_image"
+                android:text="@string/view_last_facility_visit_details"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/light_grey_text" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlUpcomingServices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_last_hf_visit_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/cross_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/childrow_upcoming" />
+
+            <ImageView
+                android:id="@+id/right_arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/row_goto" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_name_due"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toLeftOf="@+id/right_arrow_image"
+                android:layout_toRightOf="@+id/cross_image"
+                android:gravity="left|center_horizontal"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black" />
+
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/text_view_upcoming_service"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview_name_due"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/cross_image"
+                android:text="@string/view_upcoming_services"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/darker_gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlFamilyLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_most_due_overdue_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/family_location_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_family_location" />
+
+            <ImageView
+                android:id="@+id/family_location_arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/row_goto" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_family_location"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/family_location_image"
+                android:gravity="center_horizontal"
+                android:text="@string/family_location"
+                android:textColor="@android:color/black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlFamilyServicesDue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_family_location_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/family_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/childrow_family" />
+
+            <ImageView
+                android:id="@+id/family_arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/row_goto" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/textview_family_has"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/family_image"
+                android:gravity="center_horizontal"
+                android:text="@string/family_has_nothing_due"
+                android:textColor="@android:color/black" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/text_view_family_profile"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview_family_has"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/family_image"
+                android:text="@string/go_to_family_s_profile"
+                android:textColor="@android:color/darker_gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlPartnerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_family_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:clickable="true"
+            android:paddingVertical="20dp"
+            android:paddingStart="26dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/partner_view_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_partner" />
+
+            <ImageView
+                android:id="@+id/partner_arrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/row_goto"
+                android:visibility="gone" />
+
+            <com.rey.material.widget.Button
+                android:id="@+id/register_partner_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/record_btn_selector"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="@string/register"
+                android:textColor="@color/bottom_nav_bar_background"
+                android:textSize="13dp" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/text_view_partner_profile"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/partner_view_image"
+                android:gravity="center_horizontal"
+                android:text="@string/register_partner"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/partner_details"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_partner_profile"
+                android:layout_marginLeft="15dp"
+                android:text="@string/record_partner_details"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/partner_view_image"
+                android:textColor="@color/light_grey_text"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlPartnerTesting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_partner_row"
+            android:background="@drawable/list_item_background_selctor"
+            android:clickable="true"
+            android:paddingVertical="20dp"
+            android:paddingStart="26dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/partner_testing_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_testing" />
+
+            <com.rey.material.widget.Button
+                android:id="@+id/test_partner_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/record_btn_selector"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="@string/test_partner"
+                android:textColor="@color/bottom_nav_bar_background"
+                android:textSize="13dp" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/text_view_partner_testing"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/partner_testing_image"
+                android:gravity="center_horizontal"
+                android:text="@string/partner_testing"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/black" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/partner_testing_details"
+                style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:singleLine="false"
+                android:layout_toLeftOf="@id/test_partner_btn"
+                android:ellipsize="none"
+                android:scrollHorizontally="false"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_partner_testing"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/record_partner_testing_results"
+                android:layout_toRightOf="@+id/partner_testing_image"
+                android:textColor="@color/light_grey_text"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_notification_and_referral_row"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/notification_and_referral_row"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view_last_visit_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlLastVisit"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view_last_hf_visit_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlLastVisitHf"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view_most_due_overdue_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlUpcomingServices"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view_family_location_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlFamilyLocation"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view_family_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlFamilyServicesDue"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/view_partner_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlPartnerView"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/partner_testing_row"
+            android:layout_width="match_parent"
+            android:layout_height="1.5px"
+            android:layout_below="@+id/rlPartnerTesting"
+            android:background="@color/light_grey"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

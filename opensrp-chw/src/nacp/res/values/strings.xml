@@ -111,5 +111,13 @@
     <string name="supplies_provided_water_disinfectant">Dawa za kuua vijidudu vya maji</string>
     <string name="supplies_provided_other_supplies">Vifaa vingine</string>
 
+    <string name="height_in_cm">Height: {0} cm</string>
+    <string name="fundal_height">Fundal Height: {0} cm</string>
+    <string name="hiv_status">HIV Status: {0}</string>
+    <string name="gestation_age">Gestation Age: {0} Weeks</string>
+    <string name="mrdt_malaria">mRDT for Malaria: {0}</string>
+    <string name="view_last_facility_visit_details">View Last Facility Visit Details</string>
+    <string name="last_facility_visit">Last Facility Visit</string>
+
 
 </resources>

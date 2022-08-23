@@ -85,4 +85,12 @@
     <string name="ltfu_clinic_tb">TB</string>
     <string name="referred_clinic">Kitengo kilichotoa rufaa</string>
 
+    <string name="height_in_cm">Urefu: {0} cm</string>
+    <string name="fundal_height">Kimo cha mimba: {0} cm</string>
+    <string name="hiv_status">Kipimo cha VVU: {0}</string>
+    <string name="gestation_age">Umri wa Mimba: Wiki {0}</string>
+    <string name="mrdt_malaria">Malaria: {0}</string>
+    <string name="view_last_facility_visit_details">Pata Taarifa Za Hudhurio La Mwisho Kituoni</string>
+    <string name="last_facility_visit">Hudhurio La Mwisho Kituoni</string>
+
 </resources>
