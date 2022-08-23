@@ -348,6 +348,11 @@
           "value": "true",
           "err": "Must be a rounded number"
         },
+        "v_max_length": {
+          "value": "3",
+          "is_fixed_size": "true",
+          "err": "Tafadhali jaza namba halali"
+        },
         "v_numeric": {
           "value": "true",
           "err": "Lazima iwe number kamili"
@@ -370,9 +375,7 @@
         "v_required": {
           "value": true,
           "err": "Tafadhali jaza umri"
-        },
-        "v_min.err": "Umri lazima uwe sawa au zaidi ya 15",
-        "v_max.err": "Umri lazima uwe sawa au chini ya 120"
+        }
       },
       {
         "key": "sex",
@@ -914,6 +917,13 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_traditional_healer",
+            "text": "Mtoa huduma ya Tiba Asili",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_healer"
           }
         ],
         "v_required": {
