@@ -143,7 +143,7 @@
           "label": "Umri"
         },
         "min_date": "today-120y",
-        "max_date": "today-5y",
+        "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza tarehe ya kuzaliwa"
@@ -207,7 +207,7 @@
           "err": "Lazima iwe namba kamili"
         },
         "v_min": {
-          "value": "5",
+          "value": "0",
           "err": "Umri ni lazima uwe sawa au zaidi ya 5"
         },
         "v_max": {
