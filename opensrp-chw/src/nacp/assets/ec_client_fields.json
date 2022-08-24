@@ -4031,6 +4031,59 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_hivst_mobilization",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name":  "mobilization_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mobilization_date"
+          }
+        },
+        {
+          "column_name":  "female_clients_reached",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_clients_reached"
+          }
+        },
+        {
+          "column_name":  "male_clients_reached",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_clients_reached"
+          }
+        },
+        {
+          "column_name":  "male_condoms_issued",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_condoms_issued"
+          }
+        },
+        {
+          "column_name":  "female_condoms_issued",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_condoms_issued"
+          }
+        }
+      ]
+
     }
   ]
 }

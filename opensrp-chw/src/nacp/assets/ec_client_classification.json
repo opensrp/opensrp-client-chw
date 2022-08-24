@@ -557,6 +557,13 @@
             "creates_case": [
               "ec_hivst_results"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HIVST Mobilization Session",
+            "creates_case":[
+              "ec_hivst_mobilization"
+            ]
           }
         ]
       }
