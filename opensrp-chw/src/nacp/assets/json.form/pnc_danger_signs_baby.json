@@ -100,12 +100,6 @@
             "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_no_movement",
-            "text": "No movement",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_convulsions",
             "text": "Convulsions",
             "openmrs_entity": "concept",
@@ -137,7 +131,7 @@
           },
           {
             "key": "chk_lethargy",
-            "text": "Lethargy",
+            "text": "General body Weakness",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
