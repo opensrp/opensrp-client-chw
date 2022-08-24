@@ -3938,6 +3938,14 @@
           }
         },
         {
+          "column_name": "known_positive_during_reg",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "known_positive_during_reg"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

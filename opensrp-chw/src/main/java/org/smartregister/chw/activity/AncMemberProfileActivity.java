@@ -195,7 +195,14 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             return true;
         }
         if(itemId == R.id.action_hivst_registration){
-            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID);
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+            final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+            final CommonPersonObjectClient client =
+                    new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+            client.setColumnmaps(commonPersonObject.getColumnmaps());
+            String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
         }
         return super.onOptionsItemSelected(item);
     }

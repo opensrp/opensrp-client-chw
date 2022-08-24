@@ -14,11 +14,12 @@ import androidx.fragment.app.Fragment;
 public class HivstRegisterActivity extends CoreHivstRegisterActivity {
 
 
-    public static void startHivstRegistrationActivity(Activity activity, String memberBaseEntityID) {
+    public static void startHivstRegistrationActivity(Activity activity, String memberBaseEntityID, String gender) {
         Intent intent = new Intent(activity, HivstRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, memberBaseEntityID);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.HIVST_FORM_NAME, Constants.FORMS.HIVST_REGISTRATION);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.GENDER, gender);
         activity.startActivity(intent);
     }
 

@@ -500,8 +500,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
         } else if (itemId == R.id.action_pregnancy_out_come) {
             PncRegisterActivity.startPncRegistrationActivity(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName(), null);
             return true;
-        }
-        else if(itemId == R.id.action_hivst_registration){
+        } else if (itemId == R.id.action_hivst_registration) {
             startHivstRegistration();
             return true;
         }
@@ -509,7 +508,14 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     private void startHivstRegistration() {
-        HivstRegisterActivity.startHivstRegistrationActivity(this, getHivMemberObject().getBaseEntityId());
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(getHivMemberObject().getBaseEntityId());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+
+        HivstRegisterActivity.startHivstRegistrationActivity(this, getHivMemberObject().getBaseEntityId(), gender);
     }
 
     protected void startTbRegister() {

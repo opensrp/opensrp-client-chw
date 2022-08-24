@@ -304,7 +304,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             return true;
         }
         if(itemId == R.id.action_hivst_registration){
-            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID);
+            CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
+            String gender = org.smartregister.family.util.Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID,gender);
         }
         return super.onOptionsItemSelected(item);
     }

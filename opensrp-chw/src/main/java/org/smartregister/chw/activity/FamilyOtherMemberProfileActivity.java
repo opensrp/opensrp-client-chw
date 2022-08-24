@@ -257,7 +257,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     }
     @Override
     protected void startHivstRegistration(){
-        HivstRegisterActivity.startHivstRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+        HivstRegisterActivity.startHivstRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, gender);
     }
 
     /**
