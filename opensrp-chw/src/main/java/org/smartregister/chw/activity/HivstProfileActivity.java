@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -53,7 +54,8 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         try {
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
             JSONObject global = form.getJSONObject("global");
-            global.put("known_positive", HivstDao.isTheClientKnownPositiveAtReg(baseEntityId));
+            boolean knownPositiveFromHIV = HivDao.isRegisteredForHiv(baseEntityId) && StringUtils.isNotBlank(HivDao.getMember(baseEntityId).getCtcNumber());
+            global.put("known_positive", HivstDao.isTheClientKnownPositiveAtReg(baseEntityId) || knownPositiveFromHIV);
         } catch (JSONException e) {
             Timber.e(e);
         }
