@@ -193,6 +193,36 @@
           },
           {
             "field": "eventType",
+            "field_value": "Post Delivery Mother Management",
+            "closes_case": [
+              "ec_anc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Post Delivery Mother Management",
+            "creates_case": [
+              "ec_pregnancy_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "LD Child Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC No Mother Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Sick Child Referral",
             "creates_case": [
               "ec_referral"
