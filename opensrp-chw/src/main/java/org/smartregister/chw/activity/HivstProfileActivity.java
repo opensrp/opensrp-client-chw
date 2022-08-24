@@ -15,6 +15,7 @@ import org.smartregister.chw.core.interactor.CoreHivstProfileInteractor;
 import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.core.presenter.CoreHivstMemberProfilePresenter;
 import org.smartregister.chw.core.utils.FormUtils;
+import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.domain.AlertStatus;
@@ -51,6 +52,8 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.HIVST_ISSUE_KITS);
         try {
             form.put(org.smartregister.util.JsonFormUtils.ENTITY_ID, baseEntityId);
+            JSONObject global = form.getJSONObject("global");
+            global.put("known_positive", HivstDao.isTheClientKnownPositiveAtReg(baseEntityId));
         } catch (JSONException e) {
             Timber.e(e);
         }
