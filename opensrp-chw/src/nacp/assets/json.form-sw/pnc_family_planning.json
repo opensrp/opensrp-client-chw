@@ -178,7 +178,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Mshauri mteja juu ya utumiaji wa njia sahihi ya uzazi wa mpango kwa muda huu.\nMpe rufaa mte kwenda kituo cha afya kupewa njia sahihi ya uzazi wa mpango.",
+        "text": "Mshauri mteja juu ya utumiaji wa njia sahihi ya uzazi wa mpango kwa muda huu.\nMpe rufaa mteja kwenda kituo cha afya kupewa njia sahihi ya uzazi wa mpango.",
         "text_color": "#CF0800",
         "toaster_type": "problem",
         "relevance": {
