@@ -100,12 +100,6 @@
             "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_no_movement",
-            "text": "Hamna uchezaji",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "chk_convulsions",
             "text": "Degedege",
             "openmrs_entity": "concept",

@@ -114,8 +114,8 @@
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
-          "Okay",
-          "Bad"
+          "Good",
+          "Bad (Torn net)"
         ],
         "keys": [
           "Okay",

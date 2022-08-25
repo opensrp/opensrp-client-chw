@@ -455,7 +455,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     .withDetails(details)
                     .withBaseEntityID(baby.getBaseEntityID())
                     .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                    .withDestinationFragment(BaseAncHomeVisitFragment.getInstance(view, Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding(), null, details, null))
+                    .withFormName(Constants.JSON_FORM.PNC_HOME_VISIT.getExclusiveBreastFeeding())
                     .withHelper(new ExclusiveBreastFeedingHelper(baby.getDob()))
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_exclusive_breastfeeding), baby.getFullName()), action);
