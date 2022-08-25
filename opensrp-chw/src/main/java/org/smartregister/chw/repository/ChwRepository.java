@@ -62,7 +62,7 @@ public class ChwRepository extends CoreChwRepository {
             boolean isUpdated = checkIfAppUpdated();
             if (!indicatorDataInitialised || isUpdated) {
 
-                String indicatorsConfigFile = "config/cbhs-monthly-report.yml";
+                String indicatorsConfigFile = "config/indicator-definitions.yml";
 
                 for (String configFile : Collections.unmodifiableList(
                         Arrays.asList(indicatorsConfigFile))) {
