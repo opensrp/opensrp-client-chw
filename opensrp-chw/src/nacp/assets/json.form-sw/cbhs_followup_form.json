@@ -134,7 +134,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Anaendelea na huduma kutoka sehemu nyingine",
+              "text": "Anaendelea na huduma akitokea mahali pengine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
