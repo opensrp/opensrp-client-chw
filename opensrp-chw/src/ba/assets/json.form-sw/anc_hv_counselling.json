@@ -53,9 +53,9 @@
         "key": "counselling_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "counselling_given",
+        "openmrs_entity_id": "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Ushauri uliyotolewa kwa Mama na wanafamilia",
+        "label": "Ushauri nasaa uliotolewa kwa mama na wanafamilia",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -64,127 +64,127 @@
         "options": [
           {
             "key": "chk_attended_anc_contacts",
-            "text": "1. Kufika kliniki ya ANC mapema",
+            "text": "1. Kuhudhuria kliniki ya wajawazito mapema",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_attended_anc_contacts"
+            "openmrs_entity_id": "161013AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_anc_danger_signs",
-            "text": "2. Dalili za hatari za ujauzito",
+            "text": "2. Dalili za hatari wakati wa ujauzito",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_anc_danger_signs"
+            "openmrs_entity_id": "161050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_maternal_nutrition",
-            "text": "3. Lishe ya mama wakati wa ujauzito na kunyonyesha",
+            "text": "3. Lishe kwa mama wakati wa ujauzito na kunyonyesha",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_maternal_nutrition"
+            "openmrs_entity_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_personal_delivery",
             "text": "4. Mpango binafsi wa kujifungua",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_personal_delivery"
+            "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_aids",
-            "text": "5. Taarifa za ujumla za VVU/UKIMWI",
+            "text": "5. Umuhimu wa kupata ushauri nasaha na kupima VVU",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_hiv_aids"
+            "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pmtct_for_mother",
-            "text": "6. PMTCT kwa ajili ya Mama",
+            "text": "6. Kuzuia mambukizi ya VVU kutoka kwa mama kwenda kwa mtoto",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_pmtct_for_mother"
+            "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_preventing_malaria",
-            "text": "7. Kuzuia Malaria kwa ajili ya wamama wajawazito",
+            "text": "7. Kuzuia malaria kwa wajawazito",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_preventing_malaria"
+            "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_physical_changes",
-            "text": "8. Mabadiliko ya kimwili kwa mama aliyetoka kujifungua",
+            "text": "8. Mabadiliko ya kimwili kwa mama aliyejifungua",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_physical_changes"
+            "openmrs_entity_id": "162093AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pnc_danger_signs",
-            "text": "9. Dalili za hatari za PNC",
+            "text": "10. Dalili za hatari mara baada ya kujifungua hadi arobaini ya uzazi",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_pnc_danger_signs"
+            "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_care_of_infant",
-            "text": "10. Utunzaji wa mtoto mchanga baada ya kuzaliwa",
+            "text": "11. Huduma kwa mtoto mchanga mara baada ya kuzaliwa",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_care_of_infant"
+            "openmrs_entity_id": "160413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_infant_danger_signs",
-            "text": "11. Dalili za hatari za mtoto mchanga",
+            "text": "14. Dalili za hatari kwa mtoto mchanga",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_infant_danger_signs"
+            "openmrs_entity_id": "161071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_exposed_infant",
-            "text": "12. Ufuatiliaji kwa ajili ya mtoto mchanga aliyeambukizwa na VVU",
+            "text": "15. Ufuatiliaji wa mtoto aliyezaliwa na mama mwenye VVU",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_hiv_exposed_infant"
+            "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_breastfeeding",
-            "text": "13. Kunyonyesha ",
+            "text": "16. Unyonyeshaji wa maziwa ya mama",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_breastfeeding"
+            "openmrs_entity_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_exclusive_breast_feeding ",
-            "text": "14. Kupanga mpango wa uzazi kwa kutumia kunyonyesha maziwa ya mama pekee kwa miezi 6 baada ya kuzaliwa",
+            "text": "17. Njia ya uzazi wa mpango ya unyonyeshaji maziwa ya mama pekee kwa kipindi cha miezi sita baada ya kujifungua (LAM)",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_exclusive_breast_feeding"
+            "openmrs_entity_id": "161096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_family_planning",
-            "text": "15. Mpango wa uzazi",
+            "text": "18. Uzazi wa mpango",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_family_planning"
+            "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_infection_prevention",
-            "text": "16. Kuzuia na kudhibiti maambukizi",
+            "text": "24. Kuzuia maambukizi katika jamii",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_infection_prevention"
+            "openmrs_entity_id": "1906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
-            "text": "17. Hamna",
+            "text": "Hajatoa ushauri",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua angalau mojawapo"
+          "err": "Tafadhali chagua angalau moja"
         }
       }
     ]

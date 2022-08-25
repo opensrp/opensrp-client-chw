@@ -66,140 +66,120 @@
           {
             "key": "chk_maternal_nutrition",
             "text": "Lishe ya mama wakati wa kunyonyesha",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_aids",
             "text": "Taarifa za jumla za VVU/UKIMWI",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pmtct",
             "text": "PMTCT kwa mama",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_malaria_prevention",
             "text": "Kuzuia Malaria",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pnc_care_for_mother",
             "text": "Malezi ya PNC  kwa mama",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "Ufuatiliaji wa Mtoto aliye katika hatari ya VVU",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pnc_danger_signs",
             "text": "Dalili za hatari za PNC",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_care_of_infant_after_birth",
             "text": "Malezi ya mtoto mchanga baada ya kuzaliwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_care_of_premature_baby",
             "text": "Malezi ya mtoto njiti",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_care_of_new_born",
             "text": "Malezi ya mtoto mchanga mara baada ya kuzaliwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_new_born_danger_signs",
             "text": "Dalili za hatari kwa mtoto mchanga ",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_exposed_infant",
             "text": "Ufuatiliaji wa Mtoto aliye katika hatari ya VVU",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_breastfeeding",
             "text": "Kunyonyesha",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_lam",
             "text": "LAM kama njia ya asili ya uzazi wa mpango, ambayo inajumuisha unyonyeshaji wa kipekee miezi sita baada ya kujifungua",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_family_planning",
             "text": "Uzazi wa mpango",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_birth_registration",
             "text": "Usajili wa kuzaliwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_immunisation",
             "text": "Upataji wa chanjo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_infection_prevention",
             "text": "Kuzuia na kudhibiti maambukizi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_gender_issues",
             "text": "Masuala ya jinsia",
-            "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }

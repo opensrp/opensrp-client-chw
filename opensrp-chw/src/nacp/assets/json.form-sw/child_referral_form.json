@@ -81,7 +81,6 @@
           {
             "key": "Fast_breathing_and_difficulty_with_breathing",
             "text": "Kupumua haraka na ugumu wa kupumua",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -89,7 +88,6 @@
           {
             "key": "Umbilical_cord_navel_bleeding",
             "text": "Kutokwa na damu kwa kitovu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -97,7 +95,6 @@
           {
             "key": "Excessive_crying",
             "text": "Kulia kupita kiasi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -105,7 +102,6 @@
           {
             "key": "Convulsions",
             "text": "Degedege",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -113,7 +109,6 @@
           {
             "key": "Unable_to_breastfeed_or_swallow",
             "text": "Haiwezi kunyonya au kumeza",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -121,7 +116,6 @@
           {
             "key": "Neck_stiffness",
             "text": "Shingo kukaza",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -129,7 +123,6 @@
           {
             "key": "Fever",
             "text": "Homa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -137,7 +130,6 @@
           {
             "key": "Bloating",
             "text": "Kuvimba",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -145,7 +137,6 @@
           {
             "key": "Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord",
             "text": "Wekundu kuzunguka kitovu, kutokwa na harufu mbaya kutoka kwa kitovu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -153,7 +144,6 @@
           {
             "key": "Bacterial_conjunctivitis",
             "text": "Kuvimba kwa macho inayosababishwa na bakteria",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -161,7 +151,6 @@
           {
             "key": "Severe_anaemia",
             "text": "Kupungukiwa sana kwa damu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -169,7 +158,6 @@
           {
             "key": "Severe_abdominal_pain",
             "text": "Maumivu makali ya tumbo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -177,7 +165,6 @@
           {
             "key": "Pale_or_jaundiced",
             "text": "Kupoteza rangi kwenye ngozi au kuonekana wa njano",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -185,7 +172,6 @@
           {
             "key": "Cyanosis_blueness_of_lips",
             "text": "Midomo kuonekana na rangi ya bluu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -193,7 +179,6 @@
           {
             "key": "Skin_rash_pustules",
             "text": "Kuwa na upele kwenye ngozi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -201,7 +186,6 @@
           {
             "key": "Diarrhea",
             "text": "Kuhara",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -209,7 +193,6 @@
           {
             "key": "Vomiting",
             "text": "Kutapika",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "122983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -217,7 +200,6 @@
           {
             "key": "Disabilities",
             "text": "Ulemavu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -225,7 +207,6 @@
           {
             "key": "Premature_baby",
             "text": "Mtoto njiti",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -233,7 +214,6 @@
           {
             "key": "Care_of_HIV_exposed_infant",
             "text": "Utunzaji wa mtoto aliyeambukizwa VVU",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -241,7 +221,6 @@
           {
             "key": "Immunisation",
             "text": "Kupatiwa chanjo ya kinga",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -249,7 +228,6 @@
           {
             "key": "Other_symptom",
             "text": "Dalili zingine",
-            "value": false,
             "ignore": true,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -293,7 +271,6 @@
           {
             "key": "ORS",
             "text": "ORS",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -301,7 +278,6 @@
           {
             "key": "Panadol",
             "text": "Panadol",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
@@ -309,7 +285,6 @@
           {
             "key": "Other_treatment",
             "text": "Matibabu mengine",
-            "value": false,
             "ignore": true,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -318,7 +293,6 @@
           {
             "key": "None",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""

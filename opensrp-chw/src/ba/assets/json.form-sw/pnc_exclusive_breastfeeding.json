@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Exclusive breastfeeding",
+    "title": "Kunyonyeshwa maziwa ya mama pekee mwezi 0",
     "fields": [
       {
         "key": "exclusive_breast_feeding",
@@ -57,7 +57,7 @@
         "openmrs_data_type": "exclusive_breast_feeding",
         "type": "spinner",
         "image": "ic_form_bf",
-        "hint": "Je, mtoto amekuwa akinyonya maziwa ya mama pekee?",
+        "hint": "Je, mtoto amenyonyeshwa maziwa ya mama pekee?",
         "values": [
           "Ndiyo",
           "Hapana"

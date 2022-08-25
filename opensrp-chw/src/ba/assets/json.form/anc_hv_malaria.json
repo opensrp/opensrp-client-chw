@@ -53,7 +53,7 @@
         "key": "fam_llin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "fam_llin",
+        "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Does the woman have a long lasting insecticide net (LLIN)?",
@@ -66,8 +66,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -78,7 +78,7 @@
         "key": "llin_2days",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "llin_2days",
+        "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Did she sleep under the LLIN last night?",
@@ -91,8 +91,8 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -109,21 +109,21 @@
         "key": "llin_condition",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "llin_condition",
+        "openmrs_entity_id": "",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "LLIN condition",
         "values": [
-          "Good",
+          "Okay",
           "Bad"
         ],
         "keys": [
-          "Good",
+          "Okay",
           "Bad"
         ],
         "openmrs_choice_ids": {
-          "Good": "Good",
-          "Bad": "Bad"
+          "Okay": "159405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Bad": "159407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -133,86 +133,6 @@
           "step1:fam_llin": {
             "type": "string",
             "ex": "equalTo(., \"Yes\")"
-          }
-        }
-      },
-      {
-        "key": "malaria_sp",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "malaria_sp",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Has the client taken malaria prevention dosage (SP)?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select one option"
-        }
-      },
-      {
-        "key": "reason_for_missed_sp",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reason_for_missed_sp",
-        "type": "spinner",
-        "hint": "Reason as to why the client is not taking the SP medication",
-        "values": [
-          "Client was not given SP dosage",
-          "Client lost her medication",
-          "Client negligence",
-          "Other"
-        ],
-        "keys": [
-          "client_was_not_given_sp_dosage",
-          "client_lost_her_medication",
-          "client_negligence",
-          "other"
-        ],
-        "openmrs_choice_ids": {
-          "client_was_not_given_sp_dosage": "client_was_not_given_sp_dosage",
-          "client_lost_her_medication": "client_lost_her_medication",
-          "client_negligence": "client_negligence",
-          "other": "other"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please select a reason"
-        },
-        "relevance": {
-          "step1:malaria_sp": {
-            "type": "string",
-            "ex": "equalTo(., \"No\")"
-          }
-        }
-      },
-      {
-        "key": "other_reason_missed_sp_dosage",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_reason_missed_sp_dosage",
-        "type": "edit_text",
-        "hint": "Other reason for why the client is not taking the SP medication",
-        "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the reason"
-        },
-        "relevance": {
-          "step1:reason_for_missed_sp": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
           }
         }
       }

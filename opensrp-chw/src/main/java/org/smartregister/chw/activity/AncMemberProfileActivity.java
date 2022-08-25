@@ -1,5 +1,11 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -10,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -73,11 +80,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-
 public class AncMemberProfileActivity extends CoreAncMemberProfileActivity implements AncMemberProfileContract.View {
 
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
@@ -115,6 +117,22 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         super.onCreation();
         if (((ChwApplication) ChwApplication.getInstance()).hasReferrals()) {
             addAncReferralTypes();
+        }
+    }
+
+    @Override
+    public void setupViews() {
+        super.setupViews();
+
+        RelativeLayout lastVisitHf = findViewById(R.id.rlLastVisitHf);
+        Visit firstVisit = getVisit(org.smartregister.chw.util.Constants.Events.ANC_FIRST_FACILITY_VISIT);
+        Visit recurringVisit = getVisit(org.smartregister.chw.util.Constants.Events.ANC_FIRST_FACILITY_VISIT);
+
+        if(firstVisit != null || recurringVisit != null){
+            lastVisitHf.setVisibility(View.VISIBLE);
+            lastVisitHf.setOnClickListener(this);
+        }else{
+            lastVisitHf.setVisibility(View.GONE);
         }
     }
 
@@ -365,6 +383,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
+        }else if(id == R.id.rlLastVisitHf){
+            AncHfMedicalHistoryActivity.startMe(this, memberObject);
         }
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
     }
@@ -425,17 +445,23 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     protected void startCBHSRegister(CommonPersonObject commonPersonObject) {
         String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
-        String formName;
-        if (gender.equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
+        String dob = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.DOB, false);
+        int age = org.smartregister.chw.util.Utils.getAgeFromDate(dob);
 
         try {
-            HivRegisterActivity.startHIVFormActivity(AncMemberProfileActivity.this, baseEntityID, formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(AncMemberProfileActivity.this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            updateAgeAndGender(fields, age, gender);
+
+            HivRegisterActivity.startHIVFormActivity(AncMemberProfileActivity.this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Side Effects",
+    "title": "Madhara",
     "fields": [
       {
         "key": "fp_method",
@@ -65,7 +65,7 @@
         "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
           "Athari za mzio",
-          "Nyingine",
+          "Madhara mengineyo",
           "Hakuna"
         ],
         "keys": [
@@ -78,10 +78,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Je, anakabiliwa na madhara yoyote?",
+        "hint": "Je, ni madhara gani ambayo yeye amepata tangu kutumia kondom?",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -98,10 +98,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Zingine",
+        "hint": "Madhara mengineyo:",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -118,9 +118,9 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Kutokwa sana kwa damu",
-          "Vipindi vya hedhi visivyo vya kawaida",
-          "Nyingine",
+          "Kutokwa damu nyingi wakati wa hedhi",
+          "Kutopangiliwa kwa mzunguko wa hedhi",
+          "Madhara mengineyo",
           "Hakuna"
         ],
         "keys": [
@@ -135,10 +135,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Je, anakabiliwa na madhara yoyote?",
+        "hint": "Je, ni madhara gani ambayo yeye amepata tangu kutumia vidonge vya kumeza vyenye vichocheo viwili/kimoja?",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -155,10 +155,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5274AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Zingine",
+        "hint": "Madhara mengineyo:",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -175,9 +175,9 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Kutokwa sana kwa damu",
-          "Vipindi vya hedhi visivyo vya kawaida",
-          "Nyingine",
+          "Kutokwa damu nyingi wakati wa hedhi",
+          "Kutopangiliwa kwa mzunguko wa hedhi",
+          "Madhara mengineyo",
           "Hakuna"
         ],
         "keys": [
@@ -192,10 +192,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Je, anakabiliwa na madhara yoyote?",
+        "hint": "Je, ni madhara gani ambayo yeye amepata tangu kutumia sindano?",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -212,10 +212,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Zingine",
+        "hint": "Madhara mengineyo:",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -232,12 +232,12 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Maumivu makali ndani ya uke baada ya IUD kuwekwa",
-          "Kukaza au maumivu ya mgongo kwa siku chache baada ya kuweka IUD",
-          "Kugundua kati ya hedhi na/au hedhi isiyo ya kawaida",
-          "Hedhi nzito na maumivu makali ya hedhi",
-          "kutokw kwa IUD",
-          "Nyingine",
+          "Maumivu makali ndani ya uke baada kuwekewa kitanzi",
+          "Maumivu ya tumbo au kiuno siku chache baada ya kuwekewa kitanzi",
+          "Hedhi kutofuata mzunguko wa kawaida",
+          "Kutokwa damu nyingi na maumivu makali wakati wa hedhi",
+          "Kufukuzwa kwa kitanzi",
+          "Madhara mengineyo",
           "Hakuna"
         ],
         "keys": [
@@ -258,10 +258,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Je, anakabiliwa na madhara yoyote?",
+        "hint": "Je, ni madhara gani ambayo yeye amepata tangu kutumia kitanzi?",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -278,10 +278,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Zingine",
+        "hint": "Madhara mengineyo:",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -298,10 +298,10 @@
         "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "values": [
-          "Kutokwa na damu katika eneo lililochanwa",
-          "Usaha/Majimaji kutoka kwenye eneo lililochanwa",
-          "Kuvimba eneo linalozunguka mchano",
-          "Nyingine",
+          "Kutokwa damu",
+          "Kutokwa usaha",
+          "Kuvimba kwenye kidonda",
+          "Madhara mengineyo",
           "Hakuna"
         ],
         "keys": [
@@ -318,10 +318,10 @@
           "Others": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        "hint": "Je, anakabiliwa na madhara yoyote?",
+        "hint": "Je, ni madhara gani ya yeye ambayo mteja amepata kufunga kizazi?",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -338,10 +338,10 @@
         "openmrs_entity_id": "164377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "edit_type": "name",
-        "hint": "Zingine",
+        "hint": "Madhara mengineyo:",
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii hawezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -357,33 +357,33 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Action taken",
+        "label": "Hatua zilizochukuliwa",
         "options": [
           {
             "key": "managed",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140959AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Managed"
+            "text": "Alisimamia"
           },
           {
             "key": "referred",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Referred"
+            "text": "Alimkupata rufaa"
           },
           {
             "key": "no_action_taken",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No action taken"
+            "text": "Hajafanya chochote"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "This value cannot be null"
+          "err": "Thamani hii haiwezi kuwa laini"
         },
         "relevance": {
           "rules-engine": {
@@ -392,6 +392,7 @@
             }
           }
         }
+
       }
     ]
   }

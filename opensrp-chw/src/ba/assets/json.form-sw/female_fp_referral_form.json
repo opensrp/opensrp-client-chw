@@ -60,7 +60,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Mbinu ya FP iliyochaguliwa inayohitaji rufaa",
+        "label": "Njia ya uzazi wa mpango aliyochagua na anaohitaji rufaa",
         "label_text_style": "bold",
         "options": [
           {
@@ -82,28 +82,28 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "COC"
+            "text": "Vidonge vya kumeza vyenye vichocheo viwili"
           },
           {
             "key": "POP",
             "openmrs_entity": "",
             "openmrs_entity_id": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "POP"
+            "text": "Vidonge vya kumeza vyenye vichocheo kimoja"
           },
           {
             "key": "Standard_day_method",
             "openmrs_entity": "",
             "openmrs_entity_id": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Njia ya kawaida ya siku"
+            "text": "Shanga"
           },
           {
             "key": "Emergency_contraceptive",
             "openmrs_entity": "",
             "openmrs_entity_id": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Uzazi wa mpango wa dharura"
+            "text": "Uzazi wa dharura"
           },
           {
             "key": "Injectable",
@@ -117,35 +117,35 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "IUXD"
+            "text": "Kitanzi"
           },
           {
             "key": "Implanon_NXT",
             "openmrs_entity": "",
             "openmrs_entity_id": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Kitanzi"
+            "text": "Kipandikizi cha miaka 3"
           },
           {
             "key": "Jadelle",
             "openmrs_entity": "",
             "openmrs_entity_id": "1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Kijiti"
+            "text": "Kipandikizi cha miaka 5"
           },
           {
             "key": "Female_sterilization",
             "openmrs_entity": "",
             "openmrs_entity_id": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Kufunga kizazi kwa mwanamke"
+            "text": "Kufunga kizazi mwanamke"
           },
           {
             "key": "Male_sterilization",
             "openmrs_entity": "",
             "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Kufunga kizazi kwa wanaume"
+            "text": "Kufunga kizazi mwanamme"
           },
           {
             "key": "None",
@@ -159,12 +159,12 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Haiusiki"
+            "text": "Si husika"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua mbinu ya kupanga uzazi"
+          "err": "Tafadhali chagua chaguo moja"
         }
       },
       {
@@ -173,7 +173,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "label": "Madhara ya uzazi wa mpango",
+        "label": "Madhara/maudhi yatokanayo na njia za uzazi wa mpango",
         "label_text_style": "bold",
         "exclusive": [
           "None",
@@ -182,7 +182,7 @@
         "options": [
           {
             "key": "Incisional_bleeding",
-            "text": "Kutokwa na damu kwa mkato",
+            "text": "Kutokwa damu",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -190,7 +190,7 @@
           },
           {
             "key": "Pus_Discharge_from_incision",
-            "text": "Usaha/Kutokwa na chale",
+            "text": "Kutokwa usaha",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -198,7 +198,7 @@
           },
           {
             "key": "Swollen_around_the_incision",
-            "text": "Kuvimba karibu na chale",
+            "text": "Kuvimba kwenye kidonda",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -206,7 +206,7 @@
           },
           {
             "key": "Others",
-            "text": "Nyinginezo",
+            "text": "Madhara mengineyo",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -222,7 +222,7 @@
           },
           {
             "key": "Not_applicable",
-            "text": "Haiusiki",
+            "text": "Si husika",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -231,7 +231,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua thamani"
+          "err": "Tafadhali chagua chaguo moja"
         },
         "relevance": {
           "rules-engine": {
@@ -247,12 +247,12 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "label": "Madhara ya uzazi wa mpango",
+        "label": "Madhara/maudhi yatokanayo na njia za uzazi wa mpango",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Severe_pain_inside_the_vagina_after_IUD_was_put_in",
-            "text": "Maumivu makali ndani ya uke baada ya IUD kuwekwa",
+            "text": "Maumivu makali ndani ya uke baada kuwekewa kitanzi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -260,7 +260,7 @@
           },
           {
             "key": "Cramping_or_backaches_for_a_few_days_after_the_IUD_is_put_in",
-            "text": "Mimba au maumivu ya mgongo kwa siku chache baada ya kuweka IUD",
+            "text": "Maumivu ya tumbo au kiuno siku chache baada ya kuwekewa kitanzi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "148031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -268,7 +268,7 @@
           },
           {
             "key": "Spotting_between_periods_and_or_irregular_periods",
-            "text": "Kugundua kati ya hedhi na/au hedhi isiyo ya kawaida",
+            "text": "Hedhi kutofuata mzunguko wa kawaida",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -276,7 +276,7 @@
           },
           {
             "key": "Heavier_periods_and_worse_menstrual_cramps",
-            "text": "Hedhi nzito na maumivu makali ya hedhi",
+            "text": "Kutokwa damu nyingi na maumivu makali wakati wa hedhi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "156197AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -284,7 +284,7 @@
           },
           {
             "key": "IUCD_explusion",
-            "text": "Kufukuzwa kwa IUD",
+            "text": "Kufukuzwa kwa kitanzi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "157401AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -292,7 +292,7 @@
           },
           {
             "key": "Others",
-            "text": "Nyinginezo",
+            "text": "Madhara mengineyo",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -308,7 +308,7 @@
           },
           {
             "key": "Not_applicable",
-            "text": "Haiusiki",
+            "text": "Si husika",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -317,7 +317,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua thamani"
+          "err": "Tafadhali chagua chaguo moja"
         },
         "relevance": {
           "rules-engine": {
@@ -333,12 +333,12 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "label": "Madhara ya uzazi wa mpango",
+        "label": "Madhara/maudhi yatokanayo na njia za uzazi wa mpango ",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Insertion_site_infected_pus_discharge",
-            "text": "Sehemu ya kuingizwa iliyoambukizwa - usaha / kutokwa",
+            "text": "Kutokwa usaha sehemu alipowekewa kipandikizi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "164495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -346,7 +346,7 @@
           },
           {
             "key": "Insertion_site_swollen",
-            "text": "Sehemu iliyopandikizwa imevimba",
+            "text": "Imevimba sehemu alipowekewa kipandikizi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "159012AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -354,7 +354,7 @@
           },
           {
             "key": "Implant_expulsion",
-            "text": "Kufukuzwa kwa implant",
+            "text": "Kipandikizi kimetoka",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "144458AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -362,7 +362,7 @@
           },
           {
             "key": "Heavy_bleeding",
-            "text": "Kutokwa na damu nyingi",
+            "text": "Kutokwa damu nyingi wakati wa hedhi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -370,7 +370,7 @@
           },
           {
             "key": "Others",
-            "text": "Nyinginezo",
+            "text": "Madhara mengineyo",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -386,7 +386,7 @@
           },
           {
             "key": "Not_applicable",
-            "text": "Haiusiki",
+            "text": "Si husika",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -395,7 +395,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua "
+          "err": "Tafadhali chagua chaguo moja"
         },
         "relevance": {
           "rules-engine": {
@@ -411,12 +411,12 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "label": "Madhara ya uzazi wa mpango",
+        "label": "Madhara/maudhi yatokanayo na njia za uzazi wa mpango",
         "label_text_style": "bold",
         "options": [
           {
             "key": "Heavy_bleeding_",
-            "text": "Kutokwa na damu nyingi",
+            "text": "Kutokwa damu nyingi wakati wa hedhi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "136756AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -424,7 +424,7 @@
           },
           {
             "key": "Irregular_periods",
-            "text": "Vipindi visivyo vya kawaida",
+            "text": "Kutopangiliwa kwa mzunguko wa hedhi",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "116616AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -432,7 +432,7 @@
           },
           {
             "key": "Others",
-            "text": "Nyinginezo",
+            "text": "Madhara mengineyo",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -448,7 +448,7 @@
           },
           {
             "key": "Not_applicable",
-            "text": "Haiusiki",
+            "text": "Si husika",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -457,7 +457,7 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua "
+          "err": "Tafadhali chagua chaguo moja"
         },
         "relevance": {
           "rules-engine": {
@@ -488,10 +488,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "hint": "Madhara mengine",
+        "hint": "Madhara mengineyo",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali bainisha madhara mengine"
+          "err": "Tafadhali andika aadhara mengineyo"
         },
         "relevance": {
           "rules-engine": {
@@ -500,8 +500,7 @@
             }
           }
         }
-      },
-      {
+      },{
         "key": "referral_date_fp",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

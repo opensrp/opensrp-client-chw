@@ -11,6 +11,7 @@ import org.smartregister.chw.activity.ReferralRegistrationActivity;
 import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.core.contract.AncMemberProfileContract;
 import org.smartregister.chw.core.presenter.CoreAncMemberProfilePresenter;
+import org.smartregister.chw.dao.ChwAncDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -37,6 +38,26 @@ public class AncMemberProfilePresenter extends CoreAncMemberProfilePresenter
         } else {
             Utils.launchClientReferralActivity((Activity) getView(), referralTypeModels, getEntityId());
         }
+    }
+
+    @Override
+    public void refreshProfileTopSection(MemberObject memberObject) {
+        super.refreshProfileTopSection(memberObject);
+        String riskLabel = org.smartregister.chw.anc.util.Constants.HOME_VISIT.PREGNANCY_RISK_LOW;
+        if(ChwAncDao.isClientHighRisk(memberObject.getBaseEntityId())){
+            riskLabel = org.smartregister.chw.anc.util.Constants.HOME_VISIT.PREGNANCY_RISK_HIGH;
+        }
+        getView().setPregnancyRiskLabel(riskLabel);
+    }
+
+    @Override
+    public void setPregnancyRiskTransportProfileDetails(MemberObject memberObject) {
+        super.setPregnancyRiskTransportProfileDetails(memberObject);
+        String riskLabel = org.smartregister.chw.anc.util.Constants.HOME_VISIT.PREGNANCY_RISK_LOW;
+        if(ChwAncDao.isClientHighRisk(memberObject.getBaseEntityId())){
+            riskLabel = org.smartregister.chw.anc.util.Constants.HOME_VISIT.PREGNANCY_RISK_HIGH;
+        }
+        getView().setPregnancyRiskLabel(riskLabel);
     }
 
     @Override

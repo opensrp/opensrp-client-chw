@@ -143,7 +143,7 @@
           "label": "Age"
         },
         "min_date": "today-120y",
-        "max_date": "today-5y",
+        "max_date": "today",
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
@@ -207,7 +207,7 @@
           "err": "Please enter a valid age"
         },
         "v_min": {
-          "value": "5",
+          "value": "0",
           "err": "Age must be equal or greater than 5"
         },
         "v_max": {
@@ -319,28 +319,24 @@
           {
             "key": "chk_national_id",
             "text": "National ID",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_national_id"
           },
           {
             "key": "chk_voters_id",
             "text": "Voter's registration ID",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_voters_id"
           },
           {
             "key": "chk_drivers_license",
             "text": "Driver's license",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -653,56 +649,48 @@
           {
             "key": "physical_impairments",
             "text": "Mobility and Physical Impairments",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
           {
             "key": "spinal_cord_disability",
             "text": "Spinal Cord Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "spinal_cord_disability"
           },
           {
             "key": "brain_disability",
             "text": "Head Injuries - Brain Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "brain_disability"
           },
           {
             "key": "vision_disability",
             "text": "Vision Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
           {
             "key": "hearing_disability",
             "text": "Hearing Disability",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hearing_disability"
           },
           {
             "key": "learning_disabilities",
             "text": "Cognitive or Learning Disabilities",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
             "text": "Psychological Disorders",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
             "key": "invisible_disabilities",
             "text": "Invisible Disabilities",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
           }
@@ -802,30 +790,33 @@
           {
             "key": "chk_self_employed",
             "text": "Self-Employed",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_self_employed"
           },
           {
             "key": "chk_employed",
             "text": "Employed",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_employed"
           },
           {
             "key": "chk_unemployed",
             "text": "Unemployed",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unemployed"
           },
           {
             "key": "chk_farmer",
             "text": "Farmer",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_traditional_healer",
+            "text": "Traditional healer",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_healer"
           }
         ],
         "v_required": {
@@ -857,42 +848,36 @@
           {
             "key": "chk_religious",
             "text": "Religious leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Religious_Leader"
           },
           {
             "key": "chk_traditional",
             "text": "Traditional leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_political",
             "text": "Political leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Political_leader"
           },
           {
             "key": "chk_influential",
             "text": "Influential leader",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Influential_Leader"
           },
           {
             "key": "chk_other",
             "text": "Other",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Other_Community_Leader_Type"
           },
           {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Not_a_Community_Leader"
           }
@@ -930,387 +915,6 @@
                 ]
               }
             ]
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Registration_Reason",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_male_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_male_15",
-        "type": "check_box",
-        "label": "Reasons for Registration",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Tuberculosis",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "homosexual",
-            "text": "Men who have sex with men",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "homosexual"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Gender violence",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Drug abuse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          },
-          {
-            "key": "male_engagement",
-            "text": "Male engagement",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "male_engagement"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_female_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_female_15",
-        "type": "check_box",
-        "label": "Reasons for Registration",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Tuberculosis",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "sex_worker_woman",
-            "text": "Sex worker",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "sex_worker_woman"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Gender violence",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Drug abuse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          },
-          {
-            "key": "pregnant_mother",
-            "text": "Pregnant mother",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pregnant_mother"
-          },
-          {
-            "key": "breastfeeding_mother",
-            "text": "Breastfeeding mother",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breastfeeding_mother"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_under_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_under_15",
-        "type": "check_box",
-        "label": "Reasons for Registration",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Tuberculosis",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "A child born from a mother with HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_infected_child"
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Untested HIV/AIDs child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "untested_hiv_infected_child"
-          },
-          {
-            "key": "abused_child",
-            "text": "Abused child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abused_child"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Gender violence",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Drug abuse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_female_under_10",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_female_under_10",
-        "type": "check_box",
-        "label": "Reasons for Registration",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Tuberculosis",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "A child born from a mother with HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_infected_child"
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Untested HIV/AIDs child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "untested_hiv_infected_child"
-          },
-          {
-            "key": "abused_child",
-            "text": "Abused child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abused_child"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Gender violence",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Drug abuse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_female_10_to_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_female_10_to_15",
-        "type": "check_box",
-        "label": "Reasons for Registration",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Tuberculosis",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "A child born from a mother with HIV/AIDs",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_infected_child"
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Untested HIV/AIDs child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "untested_hiv_infected_child"
-          },
-          {
-            "key": "abused_child",
-            "text": "Abused child",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abused_child"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Gender violence",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Drug abuse",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          },
-          {
-            "key": "pregnant_mother",
-            "text": "Pregnant mother",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pregnant_mother"
-          },
-          {
-            "key": "breastfeeding_mother",
-            "text": "Breastfeeding mother",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breastfeeding_mother"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Reason for registration is required"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_update_relevance.yml"
-            }
           }
         }
       }

@@ -1,10 +1,15 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+
 import android.content.Context;
 import android.view.Menu;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.vijay.jsonwizard.utils.FormUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -30,7 +35,6 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
-import androidx.viewpager.widget.ViewPager;
 import timber.log.Timber;
 
 public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfileActivity {
@@ -92,16 +96,23 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     @Override
     protected void startHivRegister() {
         String gender = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
-        String formName;
-        if (gender.equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+
         try {
-            HivRegisterActivity.startHIVFormActivity(AllClientsMemberProfileActivity.this, baseEntityId, formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+            String formName = Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(AllClientsMemberProfileActivity.this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            updateAgeAndGender(fields, age, gender);
+
+            HivRegisterActivity.startHIVFormActivity(AllClientsMemberProfileActivity.this, baseEntityId, formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

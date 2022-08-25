@@ -53,7 +53,7 @@
         "key": "date_of_illness",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "date_of_illness",
+        "openmrs_entity_id": "1730AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Date ",
         "expanded": false,
@@ -68,7 +68,7 @@
         "key": "illness_description",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "illness_description",
+        "openmrs_entity_id": "1390AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Description",
         "v_required": {
@@ -80,7 +80,7 @@
         "key": "action_taken",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "action_taken",
+        "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Action taken",
         "label_text_style": "normal",
@@ -94,40 +94,62 @@
             "text": "ORS 5",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_ors"
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_zinc",
             "text": "Zinc 10",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_zinc"
+            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_paracetamol",
             "text": "Panadol",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_paracetamol"
+            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_referred",
             "text": "Referred",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_referred"
+            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_other_treatment",
+            "text": "Other treatment",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
             "text": "No treatment given",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_none"
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ],
+        ]
+      },
+      {
+        "key": "other_treatment_illness",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other treatment",
         "v_required": {
           "value": "true",
-          "err": "Please select an option"
+          "err": "Please enter the illness details"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_hv_observations.yml"
+            }
+          }
         }
       }
     ]

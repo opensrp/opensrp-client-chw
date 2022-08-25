@@ -9,6 +9,8 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ClientReferralActivity;
@@ -122,6 +124,28 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
             return getName(trimFirstName, trimMiddleName, trimLastName);
         } else {
             return Utils.getName(trimFirstName, trimMiddleName);
+        }
+    }
+
+    /*
+    * For CBHS Registration
+    */
+    public static void updateAgeAndGender(JSONArray fields, int age, String gender) throws Exception {
+        boolean foundAge = false;
+        boolean foundGender = false;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            if (field.getString("name").equals("age")) {
+                field.getJSONObject("properties").put("text", String.valueOf(age));
+                foundAge = true;
+            }
+            if (field.getString("name").equals("gender")) {
+                field.getJSONObject("properties").put("text", gender);
+                foundGender = true;
+            }
+            if (foundAge && foundGender) {
+                return;
+            }
         }
     }
 

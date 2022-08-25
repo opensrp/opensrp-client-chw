@@ -69,21 +69,18 @@
           {
             "key": "Low",
             "text": "Chini",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Low"
           },
           {
             "key": "Medium",
             "text": "Wastani",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "Medium"
           },
           {
             "key": "High",
             "text": "Juu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "High"
           }

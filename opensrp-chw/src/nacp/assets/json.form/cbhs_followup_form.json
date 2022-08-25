@@ -134,7 +134,7 @@
             },
             {
               "name": "client_continues_with_clinic_from_elsewhere",
-              "text": "Client continues with clinic from elsewhere",
+              "text": "Client continues with services coming from elsewhere",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_continues_with_clinic_from_elsewhere",
@@ -1111,37 +1111,6 @@
           "subjects": "registration_or_followup_status:text"
         },
         {
-          "name": "comments_remarks",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "Comments and Remarks",
-            "type": "name"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "comments_remarks",
-            "openmrs_entity_parent": ""
-          },
-          "required_status": "no"
-        },
-        {
-          "name": "next_appointment_date",
-          "type": "datetime_picker",
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "next_appointment_date",
-            "openmrs_entity_parent": ""
-          },
-          "properties": {
-            "hint": "Next Appointment Date",
-            "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "min_date": "today",
-            "max_date": "today+3m"
-          },
-          "required_status": "true:Please specify the next appointment date"
-        },
-        {
           "name": "client_moved_location",
           "type": "spinner",
           "properties": {
@@ -1168,6 +1137,20 @@
           "subjects": "registration_or_followup_status:text"
         },
         {
+          "name": "comments_remarks",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Comments and Remarks",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "comments_remarks",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "no"
+        },
+        {
           "name": "client_moved_location_other",
           "type": "text_input_edit_text",
           "properties": {
@@ -1181,6 +1164,24 @@
           },
           "required_status": "yes:Please enter the moved to facility",
           "subjects": "client_moved_location:text"
+        },
+        {
+          "name": "next_appointment_date",
+          "type": "datetime_picker",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "next_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "hint": "Next Appointment Date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today",
+            "max_date": "today+3m"
+          },
+          "required_status": "true:Please specify the next appointment date",
+          "subjects": "registration_or_followup_status:text"
         }
       ]
     }

@@ -58,6 +58,7 @@
         "label": "Je, mtoto ana dalili zozote za hatari?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "chk_none"
         ],
@@ -65,98 +66,84 @@
           {
             "key": "chk_fever",
             "text": "Homa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_excessive_crying",
             "text": "Kulia kupita kiasi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "110540AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_fast_breathing",
             "text": "Kupumua kwa haraka",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "125061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_difficult_breathing",
             "text": "Kupumua kwa shida",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_unable_to_suck",
             "text": "Kutoweza kunyonya",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_umbilical_discharge",
             "text": "Kitovu kutokwa na damu/usaha",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123843AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_no_movement",
             "text": "Hamna uchezaji",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164455AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
             "text": "Degedege",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_skin_rashes",
             "text": "Vipele kwenye ngozi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pale",
             "text": "Kupauka au kuonekana na rangi ya manjano",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_eye_discharge",
             "text": "Jicho kutokwa na majimaji ",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_severe_abdominal_pain",
             "text": "Maumivu makali ya tumbo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_lethargy",
             "text": "Ulegeevu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "116334AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
