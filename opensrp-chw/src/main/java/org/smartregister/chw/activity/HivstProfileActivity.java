@@ -9,8 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
-import androidx.annotation.NonNull;
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -26,9 +25,16 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hivst.listener.OnClickFloatingMenu;
 import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.chw.util.HivstUtils;
+import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.family.util.DBConstants;
 
+import androidx.annotation.NonNull;
 import timber.log.Timber;
+
+import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 
 public class HivstProfileActivity extends CoreHivstProfileActivity {
@@ -47,6 +53,30 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         profilePresenter = new CoreHivstMemberProfilePresenter(this, new CoreHivstProfileInteractor(), memberObject);
         fetchProfileData();
         profilePresenter.refreshProfileBottom();
+    }
+
+    @Override
+    protected void startHivServicesRegistration() {
+        CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
+        String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, false);
+        String dob = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+
+        try {
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new com.vijay.jsonwizard.utils.FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            updateAgeAndGender(fields, age, gender);
+
+            HivRegisterActivity.startHIVFormActivity(this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
+        } catch (JSONException e) {
+            Timber.e(e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -81,6 +111,13 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         } else {
             super.onClick(view);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.findItem(org.smartregister.chw.core.R.id.action_cbhs_registration).setVisible(!HivDao.isRegisteredForHiv(memberObject.getBaseEntityId()));
+        return true;
     }
 
     @Override
@@ -122,10 +159,6 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         //implement
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
-    }
 
     @NonNull
     @Override
