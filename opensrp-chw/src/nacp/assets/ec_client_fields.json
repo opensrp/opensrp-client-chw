@@ -4269,7 +4269,8 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "formSubmissionId"
+            "field": "obs.fieldCode",
+            "concept": "result_reg_id"
           }
         },
         {
