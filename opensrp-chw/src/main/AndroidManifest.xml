@@ -14,6 +14,10 @@
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CdpRegisterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity android:name=".activity.LTFURegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
         <activity android:name=".activity.LTFUReferralsDetailsViewActivity"

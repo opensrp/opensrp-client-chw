@@ -1,5 +1,6 @@
 package org.smartregister.chw.application;
 
+import static org.koin.core.context.GlobalContext.get;
 import static org.koin.core.context.GlobalContext.getOrNull;
 
 import android.Manifest;
@@ -28,6 +29,7 @@ import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
+import org.smartregister.chw.activity.CdpRegisterActivity;
 import org.smartregister.chw.activity.ChildRegisterActivity;
 import org.smartregister.chw.activity.FamilyProfileActivity;
 import org.smartregister.chw.activity.FamilyRegisterActivity;
@@ -44,6 +46,7 @@ import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
+import org.smartregister.chw.cdp.CdpLibrary;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
@@ -281,6 +284,8 @@ public class ChwApplication extends CoreChwApplication {
                 BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION
         );
 
+        CdpLibrary.init(context,getRepository(),BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
         SyncStatusBroadcastReceiver.init(this);
 
         LocationHelper.init(new ArrayList<>(Arrays.asList(BuildConfig.DEBUG ? BuildConfig.ALLOWED_LOCATION_LEVELS_DEBUG : BuildConfig.ALLOWED_LOCATION_LEVELS)), BuildConfig.DEBUG ? BuildConfig.DEFAULT_LOCATION_DEBUG : BuildConfig.DEFAULT_LOCATION);
@@ -354,6 +359,7 @@ public class ChwApplication extends CoreChwApplication {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HIV_INDEX_REGISTER_ACTIVITY, HivIndexContactsContactsRegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.LTFU_REFERRALS_REGISTER_ACTIVITY, LTFURegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TB_REGISTER_ACTIVITY, TbRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CDP_REGISTER_ACTIVITY, CdpRegisterActivity.class);
         }
 
         if (!BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
