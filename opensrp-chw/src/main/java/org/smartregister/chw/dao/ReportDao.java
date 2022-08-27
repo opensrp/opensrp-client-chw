@@ -529,7 +529,7 @@ public class ReportDao extends AbstractDao {
                 "where rt.type = 'Exclusive_breastfeeding' and ifnull(re.value,'yes') = 'yes'\n" +
                 "group by re.base_entity_id\n" +
                 ") ex on ex.base_entity_id = e.baseEntityId and SUBSTR(e.eventDate,1,10) between date(ex.last_exclusive_date, '-1 day') and date(ex.last_exclusive_date, '1 day')\n" +
-                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days')  <= date()))\n" +
+                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+42 days')  <= date()))\n" +
                 "and date(ec.dob) between date('now', '-5 month') and date('now')";
     }
 
@@ -552,7 +552,7 @@ public class ReportDao extends AbstractDao {
                 "where rt.type = 'Exclusive_breastfeeding' and ifnull(re.value,'yes') = 'yes'\n" +
                 "group by re.base_entity_id\n" +
                 ") ex on ex.base_entity_id = e.baseEntityId and SUBSTR(e.eventDate,1,10) between date(ex.last_exclusive_date, '-1 day') and date(ex.last_exclusive_date, '1 day')\n" +
-                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days')  <= date()))\n" +
+                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+42 days')  <= date()))\n" +
                 "and date(ec.dob) between date('now', '-5 month') and date('now') and ex.base_entity_id is null";
     }
 
@@ -561,7 +561,7 @@ public class ReportDao extends AbstractDao {
                 "f.first_name family_name  , ec.dob \n" +
                 "from recurring_service_types rt \n" +
                 "inner join recurring_service_records re on re.recurring_service_id = rt._id \n" +
-                "inner join ec_child ec on ec.base_entity_id = re.base_entity_id and (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days') <= date())) \n" +
+                "inner join ec_child ec on ec.base_entity_id = re.base_entity_id and (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+42 days') <= date())) \n" +
                 "inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null \n" +
                 "inner join ec_family f on ec.relational_id = f.base_entity_id  \n" +
                 "where rt.type = 'Vitamin_A' and date(ec.dob) between date('now', '-23 month') and date('now', '-6 month') \n" +
@@ -575,7 +575,7 @@ public class ReportDao extends AbstractDao {
                 "from ec_child ec \n" +
                 "left join ec_family f on ec.relational_id = f.base_entity_id  \n" +
                 "inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null \n" +
-                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days')  <= date())) \n" +
+                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+42 days')  <= date())) \n" +
                 "and date(ec.dob) between date('now', '-23 month') and date('now', '-6 month') \n" +
                 "and ec.base_entity_id not in ( \n" +
                 "select re.base_entity_id from recurring_service_records re \n" +
@@ -589,7 +589,7 @@ public class ReportDao extends AbstractDao {
                 "f.first_name family_name  , ec.dob \n" +
                 "from recurring_service_types rt \n" +
                 "inner join recurring_service_records re on re.recurring_service_id = rt._id \n" +
-                "inner join ec_child ec on ec.base_entity_id = re.base_entity_id and (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days') <= date())) \n" +
+                "inner join ec_child ec on ec.base_entity_id = re.base_entity_id and (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+42 days') <= date())) \n" +
                 "inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null \n" +
                 "inner join ec_family f on ec.relational_id = f.base_entity_id \n" +
                 "where rt.type = 'Deworming' and date(ec.dob) between date('now', '-23 month') and date('now', '-12 month') \n" +
@@ -603,7 +603,7 @@ public class ReportDao extends AbstractDao {
                 "from ec_child ec \n" +
                 "left join ec_family f on ec.relational_id = f.base_entity_id \n" +
                 "inner join ec_family_member ef on ec.base_entity_id = ef.base_entity_id and ef.date_removed is null \n" +
-                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+28 days') <= date())) \n" +
+                "where (( ifnull(ec.entry_point,'') <> 'PNC' ) or (ifnull(ec.entry_point,'') = 'PNC' and date(ec.dob, '+42 days') <= date())) \n" +
                 "and date(ec.dob) between date('now', '-23 month') and date('now', '-12 month') \n" +
                 "and ec.base_entity_id not in ( \n" +
                 "select re.base_entity_id from recurring_service_records re \n" +

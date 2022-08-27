@@ -2,6 +2,7 @@ package org.smartregister.chw.dao;
 
 import org.smartregister.chw.core.domain.Person;
 import org.smartregister.chw.domain.PncBaby;
+import org.smartregister.chw.pnc.util.Constants;
 import org.smartregister.dao.AbstractDao;
 
 import java.text.ParseException;
@@ -52,7 +53,7 @@ public class PersonDao extends AbstractDao {
                 "inner join ec_family_member on ec_child.base_entity_id = ec_family_member.base_entity_id " +
                 "where ec_child.mother_entity_id = '" + baseEntityID + "'" + " COLLATE NOCASE " +
                 "and ec_child.date_removed is null and ec_family_member.date_removed is null " +
-                "and date(ec_child.dob, '+28 days') >=  date() " +
+                "and date(ec_child.dob, '+42 days') >=  date() " +
                 "order by ec_family_member.first_name ASC, ec_family_member.last_name , ec_family_member.middle_name ";
 
         DataMap<PncBaby> dataMap = c -> {
@@ -68,7 +69,8 @@ public class PersonDao extends AbstractDao {
                     getCursorValue(c, "last_name"),
                     getCursorValue(c, "middle_name"),
                     dob,
-                    getCursorValue(c,"low_birth_weight")
+                    getCursorValue(c, "low_birth_weight"),
+                    getCursorValue(c, Constants.KEY.GENDER)
             );
         };
 

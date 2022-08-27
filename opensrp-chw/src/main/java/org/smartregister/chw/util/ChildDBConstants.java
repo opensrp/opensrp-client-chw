@@ -18,7 +18,7 @@ public class ChildDBConstants extends org.smartregister.chw.core.utils.ChildDBCo
     private static String childDueVaccinesFilterForChildrenBelowTwoAndGirlsAgeNineToEleven(String dateColumn, String entryPoint, String motherEntityId) {
         return " (( ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') <> 'PNC' ) " +
                 " or (ifnull(" + CoreConstants.TABLE_NAME.CHILD + "." + entryPoint + ",'') = 'PNC'" +
-                " and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + ", '+28 days') <= date() " +
+                " and ( date(" + CoreConstants.TABLE_NAME.CHILD + "." + dateColumn + ", '+42 days') <= date() " +
                 " and ((SELECT is_closed FROM ec_family_member WHERE base_entity_id = " + CoreConstants.TABLE_NAME.CHILD + "." + motherEntityId + " ) = 0))) " +
                 " or (ifnull(ec_child.entry_point,'') = 'PNC' " +
                 " and (SELECT is_closed FROM ec_family_member WHERE base_entity_id = ec_child.mother_entity_id ) = 1)) " +

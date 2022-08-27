@@ -51,7 +51,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
-    public static final int DURATION_OF_CHILD_IN_PNC = 28;
+    public static final int DURATION_OF_CHILD_IN_PNC = 42;
     protected List<Person> children;
     protected BaseAncHomeVisitContract.View view;
     private final HashMap<String, Boolean> dangerSignsEvaluationResults = new HashMap<>();
