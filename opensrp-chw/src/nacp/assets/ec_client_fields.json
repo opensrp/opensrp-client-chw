@@ -4161,6 +4161,88 @@
       ]
     },
     {
+      "name": "ec_cdp_outlet",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "unique_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.opensrp_id"
+          }
+        },
+        {
+          "column_name": "outlet_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.outlet_name"
+          }
+        },
+        {
+          "column_name": "outlet_ward_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.outlet_ward_name"
+          }
+        },
+        {
+          "column_name": "outlet_village_street_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.outlet_village_street_name"
+          }
+        },
+        {
+          "column_name": "focal_person_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.focal_person_name"
+          }
+        },
+        {
+          "column_name": "focal_person_phone",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.focal_person_phone"
+          }
+        },
+        {
+          "column_name": "outlet_type",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.outlet_type"
+          }
+        },
+        {
+          "column_name": "entity_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "entityType"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_cdp_register",
       "columns": [
         {
