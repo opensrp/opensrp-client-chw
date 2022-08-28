@@ -1,6 +1,5 @@
 package org.smartregister.chw.application;
 
-import static org.koin.core.context.GlobalContext.get;
 import static org.koin.core.context.GlobalContext.getOrNull;
 
 import android.Manifest;
