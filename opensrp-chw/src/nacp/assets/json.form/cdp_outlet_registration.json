@@ -48,7 +48,7 @@
       {
         "key": "outlet_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "outlet_name",
         "type": "edit_text",
         "hint": "Outlet name",
@@ -61,7 +61,7 @@
       {
         "key": "outlet_ward_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "outlet_ward_name",
         "type": "edit_text",
         "hint": "Outlet ward name",
@@ -74,7 +74,7 @@
       {
         "key": "outlet_village_street_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "outlet_village_street_name",
         "type": "edit_text",
         "hint": "Outlet Village/Street name",
@@ -87,7 +87,7 @@
       {
         "key": "focal_person_name",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "focal_person_name",
         "type": "edit_text",
         "hint": "Focal person's name",
@@ -104,7 +104,7 @@
       {
         "key": "focal_person_phone",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "focal_person_phone",
         "type": "edit_text",
         "hint": "Focal person's phone number",
@@ -133,7 +133,7 @@
       {
         "key": "outlet_type",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "outlet_type",
         "label": "Select outlet type",
         "text_color": "#000000",
@@ -189,8 +189,8 @@
       },
       {
         "key": "other_outlet_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "outlet_type",
+        "openmrs_entity": "outlet_attribute",
         "openmrs_entity_id": "other_outlet_type",
         "type": "edit_text",
         "hint": "Other",
