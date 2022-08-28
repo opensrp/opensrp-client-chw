@@ -575,7 +575,8 @@
             "field": "eventType",
             "field_value": "CDP Outlet Registration",
             "creates_case": [
-              "ec_cdp_outlet"
+              "ec_cdp_outlet",
+              "ec_cdp_register"
             ]
           }
         ]

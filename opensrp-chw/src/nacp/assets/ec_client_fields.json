@@ -4261,6 +4261,30 @@
           }
         },
         {
+          "column_name": "outlet_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "outlet_visit_date"
+          }
+        },
+        {
+          "column_name": "male_condoms_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_condom_count"
+          }
+        },
+        {
+          "column_name": "female_condoms_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_condom_count"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
