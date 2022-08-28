@@ -27,6 +27,6 @@ public class CdpRegisterActivity extends CoreCdpRegisterActivity {
     @Override
     public void startOutletForm() {
         JSONObject form = FormUtils.getFormUtils().getFormJson(Constants.FORMS.CDP_OUTLET_REGISTRATION);
-        startFormActivity(form);
+        startFormActivity(form, Constants.FORMS.CDP_OUTLET_REGISTRATION);
     }
 }
