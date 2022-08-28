@@ -46,6 +46,15 @@
     "title": "Outlet Registration",
     "fields": [
       {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "type": "edit_text",
+        "read_only": "true",
+        "hint": "ID"
+      },
+      {
         "key": "outlet_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "outlet_attribute",
