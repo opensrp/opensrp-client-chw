@@ -1,0 +1,272 @@
+{
+  "count": "1",
+  "encounter_type": "CDP Outlet Restock",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Record Outlet Restock",
+    "fields": [
+      {
+        "key": "condom_restock_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_restock_date",
+        "type": "date_picker",
+        "label": "Condom restock date",
+        "hint": "Condom restock date",
+        "expanded": false,
+        "min_date": "today-3m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Enter the condom restock date"
+        }
+      },
+      {
+        "key": "condom_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_type",
+        "type": "check_box",
+        "label": "Select condom type",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "male_condom",
+            "text": "Male",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condom"
+          },
+          {
+            "key": "female_condom",
+            "text": "Female",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condom"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the condom type"
+        }
+      },
+      {
+        "key": "male_condom_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_condom_brand",
+        "label": "Select the Male condom brand",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "public_sc",
+            "text": "Public sector condom",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_sc"
+          },
+          {
+            "key": "dume",
+            "text": "Dume",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dume"
+          },
+          {
+            "key": "salama",
+            "text": "Salama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "salama"
+          },
+          {
+            "key": "familia",
+            "text": "Familia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "familia"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the condom brand"
+        },
+        "relevance": {
+          "step1:condom_type": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condom"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "female_condom_brand",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "female_condom_brand",
+        "label": "Select the Female condom brand",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "public_sc",
+            "text": "Public sector condom",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_sc"
+          },
+          {
+            "key": "dume",
+            "text": "Dume",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dume"
+          },
+          {
+            "key": "salama",
+            "text": "Salama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "salama"
+          },
+          {
+            "key": "familia",
+            "text": "Familia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "familia"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select the condom brand"
+        },
+        "relevance": {
+          "step1:condom_type": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female_condom"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "restocked_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "restocked_male_condoms",
+        "type": "edit_text",
+        "hint": "Number of restocked Male condoms  (Pieces)",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err":"Please enter the number"
+        },
+        "relevance": {
+          "step1:condom_type": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condom"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "restocked_female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "restocked_female_condoms",
+        "type": "edit_text",
+        "hint": "Number of restocked Female condoms (Pieces)",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err":"Please enter the number"
+        },
+        "relevance": {
+          "step1:condom_type": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female_condom"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
