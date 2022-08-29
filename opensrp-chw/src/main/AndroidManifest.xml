@@ -214,7 +214,7 @@
             android:name=".activity.SickFormMedicalHistory"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".core.activity.HIA2ReportsActivity"
+            android:name=".activity.ChwHIA2ReportsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".core.activity.ReportSummaryActivity"
