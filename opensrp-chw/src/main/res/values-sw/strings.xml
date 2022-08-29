@@ -434,4 +434,9 @@
     <string name="enrolled_clinic">Amesajiliwa Kliniki</string>
     <string name="referral_feedback_details">Taarifa Kutoka Kituoni</string>
     <string name="referred_by">Rufaa imetolewa na %s</string>
+    <string name="callPhonePermissionRequestDenyButton">Hapana</string>
+    <string name="callPhonePermissionRequestGrantButton">Ruhusu</string>
+    <string name="callPhoneRequestTitle">Ruhusu Ukusanyaji wa Nambari ya Simu</string>
+    <string name="callPhoneRequestMessage">Mtoa Huduma wa Afya ngazi ya Jamii hukusanya nambari za simu za wateja zitakazotumika kwa ufuatiliaji, tathmini na uchambuzi wa ziara zinazofanywa katika jamii.</string>
+
 </resources>

@@ -430,6 +430,11 @@
     <string name="ctc_number">CTC Number</string>
     <string name="enrolled_clinic">Enrolled Clinic</string>
     <string name="referred_by">Referred By %s</string>
+    <string name="callPhonePermissionRequestDenyButton">No Thanks</string>
+    <string name="callPhonePermissionRequestGrantButton">Grant</string>
+    <string name="callPhoneRequestTitle">Allow Phone Number Collection</string>
+    <string name="callPhoneRequestMessage">Community Healthcare Worker collect user phone numbers to be used for monitoring, evaluation and analysis of visits conducted at the community.</string>
+
 
 
 </resources>

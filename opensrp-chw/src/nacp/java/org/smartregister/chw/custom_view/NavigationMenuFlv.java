@@ -32,7 +32,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public boolean hasServiceReport() {
-        return true;
+        return false;
     }
 
     @Override
