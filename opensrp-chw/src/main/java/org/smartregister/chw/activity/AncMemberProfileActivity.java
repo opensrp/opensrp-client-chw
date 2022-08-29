@@ -353,7 +353,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
 
     @Override
     public void setFamilyLocation() {
-        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation()) {
+        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation() && getMemberGPS() != null) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }
@@ -456,6 +456,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     public void openFamilyLocation() {
         Intent intent = new Intent(this, AncMemberMapActivity.class);
+        intent.putExtra(AncMemberMapActivity.GPS,getMemberGPS());
         this.startActivity(intent);
     }
 
