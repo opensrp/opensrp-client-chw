@@ -3,10 +3,12 @@ package org.smartregister.chw.sync;
 
 import android.content.Context;
 
-import org.smartregister.CoreLibrary;
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.cdp.CdpLibrary;
+import org.smartregister.chw.cdp.dao.CdpStockingDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
@@ -53,6 +55,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         ChwApplication.getInstance().getScheduleRepository().deleteSchedulesByEntityID(baseEntityID);
                     }
                     break;
+                case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_RECEIVE_FROM_FACILITY:
+                case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_OUTLET_RESTOCK:
+                    processCDPStockChanges(eventClient.getEvent());
+                    break;
                 default:
                     break;
             }
@@ -97,6 +103,35 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
     }
 
+    private void processCDPStockChanges(Event event) {
+        List<Obs> visitObs = event.getObs();
+        String maleCondomsOffset = null;
+        String femaleCondomsOffset = null;
+        String locationId = event.getLocationId();
+        String chwName = event.getProviderId();
+
+        if (visitObs.size() > 0) {
+            for (Obs obs : visitObs) {
+                if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.FEMALE_CONDOMS_OFFSET.equals(obs.getFieldCode())) {
+                    femaleCondomsOffset = (String) obs.getValue();
+                } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.MALE_CONDOMS_OFFSET.equals(obs.getFieldCode())) {
+                    maleCondomsOffset = (String) obs.getValue();
+                }
+            }
+            if (event.getEventType().equals(org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_RECEIVE_FROM_FACILITY)) {
+                String stockEventType = org.smartregister.chw.cdp.util.Constants.STOCK_EVENT_TYPES.INCREMENT;
+                CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType());
+                CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType);
+            }
+            if (event.getEventType().equals(org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_OUTLET_RESTOCK)) {
+                String stockEventType = org.smartregister.chw.cdp.util.Constants.STOCK_EVENT_TYPES.DECREMENT;
+                CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType());
+                CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType);
+            }
+            CdpLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(event.getFormSubmissionId());
+        }
+    }
+
     @Override
     protected String getHumanReadableConceptResponse(String value, Object object) {
         try {
@@ -108,10 +143,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
             List values = new ArrayList();
 
             Object valueObject = getValue(object, VALUES);
-            if(valueObject instanceof List) {
+            if (valueObject instanceof List) {
                 values = (List) valueObject;
             }
-            if(object == null || values.isEmpty()) {
+            if (object == null || values.isEmpty()) {
                 return value;
             }
 
