@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Counselling",
+    "title": "Ushauri",
     "fields": [
       {
         "key": "fp_counselling",
@@ -55,28 +55,29 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity_parent": "",
-        "label": "Je, mteja alipokea ushauri wowote wa uzazi wa mpango?",
+        "label": "Je, anapata ushauri wowote wa uzazi wa mpango?",
         "options": [
           {
             "key": "yes",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Ndiyo "
+            "text": "Yes"
           },
           {
             "key": "no",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Hapana"
+            "text": "No"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Sehemu hii haiwezi kuachwa wazi"
+          "err": "Thamani hii haiwezi kuwa laini"
         }
       }
+
     ]
   }
 }

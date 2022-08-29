@@ -60,11 +60,11 @@
         "key": "last_menstrual_period",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "last_menstrual_period",
+        "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Last Normal Menstrual Period (LNMP)",
-        "label_info_title": "LNMP",
-        "label_info_text": "LNMP = first day of Last Normal Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
+        "hint": "Last Menstrual Period (LMP)",
+        "label_info_title": "LMP",
+        "label_info_text": "LMP = first day of Last Menstrual Period. If the exact date is unknown, but the period of the month is known, use day 5 for beginning of the month, day 15 for middle of the month and day 25 for end of the month.",
         "expanded": false,
         "max_date": "today",
         "min_date": "today-50w",
@@ -97,7 +97,7 @@
         "options": [
           {
             "key": "lmp_unknown",
-            "text": "LNMP unknown?",
+            "text": "LMP unknown?",
             "text_size": "18px",
             "value": "false"
           }
@@ -107,7 +107,7 @@
         "key": "edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "edd",
+        "openmrs_entity_id": "5596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Expected Date of Delivery (EDD)",
         "max_date": "today+50w",
@@ -167,7 +167,7 @@
         "key": "gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "gest_age",
+        "openmrs_entity_id": "1438AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -202,7 +202,7 @@
         "key": "gravida",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "gravida",
+        "openmrs_entity_id": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -216,7 +216,7 @@
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_method",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
         "label_text_style": "normal",
@@ -234,21 +234,21 @@
             "text": "Vaginally",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_vaginally"
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_cesarean_section",
             "text": "Cesarean section",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cesarean_section"
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_miscarriage",
             "text": "Miscarriage",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_miscarriage"
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -260,7 +260,7 @@
         "key": "delivery_method_one",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "delivery_method_one",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Have you delivered your child(ren) vaginally or by cesarean section?",
         "label_text_style": "normal",
@@ -278,21 +278,21 @@
             "text": "Vaginally",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_vaginally"
+            "openmrs_entity_id": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_cesarean_section",
             "text": "Cesarean section",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_cesarean_section"
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_miscarriage",
             "text": "Miscarriage",
             "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_miscarriage"
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -304,7 +304,7 @@
         "key": "no_surv_children",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "no_surv_children",
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "edit_type": "number",
         "hint": "No. of surviving children",
@@ -329,10 +329,44 @@
         }
       },
       {
+        "key": "marital_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Marital status",
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        },
+        "values": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Divorced",
+          "Widowed"
+        ],
+        "keys": [
+          "Married",
+          "Co-habiting",
+          "Single",
+          "Divorced",
+          "Widowed"
+        ],
+        "openmrs_choice_ids": {
+          "Married": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Co-habiting": "1060AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Single": "5615AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Divorced": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Widowed": "1059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "phone_number",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Phone number",
         "v_numeric": {
@@ -340,8 +374,8 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Number must be 10 digits and must start with 06 or 07."
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "Number must be 10 digits and must start with 0."
         },
         "v_required": {
           "value": false
@@ -351,7 +385,7 @@
         "key": "person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "person_assist",
+        "openmrs_entity_id": "159771AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
         "hint": "Does the mother have anyone, 18 years or older, who would be able to assist her during her pregnancy?",
@@ -368,15 +402,15 @@
           "No"
         ],
         "openmrs_choice_ids": {
-          "Yes": "Yes",
-          "No": "No"
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
         "key": "name_person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "name_person_assist",
+        "openmrs_entity_id": "160638AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Name of close person/relative who lives with her and is 18 years or olders",
         "edit_type": "name",
@@ -387,10 +421,6 @@
             }
           }
         },
-        "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
-          "err": "Please enter a valid name"
-        },
         "v_required": {
           "value": "true",
           "err": "Please enter the person's name"
@@ -400,7 +430,7 @@
         "key": "phone_person_assist",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "phone_person_assist",
+        "openmrs_entity_id": "160642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Phone number",
         "v_required": {
@@ -418,8 +448,8 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
-          "err": "Number must be 10 digits and must start with 06 or 07."
+          "value": "(0[0-9]{9})|\\s*",
+          "err": "Number must be 10 digits and must start with 0."
         }
       }
     ]

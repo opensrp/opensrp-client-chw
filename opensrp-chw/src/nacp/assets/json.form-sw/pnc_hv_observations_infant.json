@@ -91,43 +91,43 @@
         "options": [
           {
             "key": "chk_ors",
-            "text": "ORS 5",
-            "value": false,
+            "text": "ORS",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_zinc",
-            "text": "Zinc 10",
-            "value": false,
+            "text": "Zinc",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_paracetamol",
             "text": "Panadol",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "chk_referred",
-            "text": "Kupewa rufaa",
-            "value": false,
+            "key": "chk_traditional_medicine",
+            "text": "Mitishamba",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "chk_traditional_medicine"
+          },
+          {
+            "key": "chk_attended_health_facility",
+            "text": "Alihudhuria Kituo cha Afya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_attended_health_facility"
           },
           {
             "key": "chk_other_treatment",
             "text": "Matibabu mengine",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
             "text": "Hakuna matibabu yaliyotolewa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
@@ -149,6 +149,27 @@
             "ex-rules": {
               "rules-file": "anc_hv_observations.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "traditional_medicine_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mshauri mteja kutokumia Tiba Asili/Dawa za mitishamba",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:action_taken": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_traditional_medicine"
+                ]
+              }
+            ]
           }
         }
       }

@@ -143,7 +143,8 @@
             "field_value": "ANC Registration",
             "creates_case": [
               "ec_anc_register",
-              "ec_anc_log"
+              "ec_anc_log",
+              "ec_anc_hf_data"
             ]
           },
           {
@@ -151,7 +152,15 @@
             "field_value": "ANC Followup Client Registration",
             "creates_case": [
               "ec_anc_register",
+              "ec_anc_hf_data",
               "ec_anc_log"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "ANC First Facility Visit",
+            "creates_case": [
+              "ec_anc_hf_data"
             ]
           },
           {
@@ -180,6 +189,36 @@
             "field_value": "Pregnancy Outcome",
             "creates_case": [
               "ec_pregnancy_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Post Delivery Mother Management",
+            "closes_case": [
+              "ec_anc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Post Delivery Mother Management",
+            "creates_case": [
+              "ec_pregnancy_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "LD Child Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC No Mother Registration",
+            "creates_case": [
+              "ec_child",
+              "ec_family_member"
             ]
           },
           {
@@ -333,7 +372,8 @@
             "field": "eventType",
             "field_value": "CBHS Registration",
             "creates_case": [
-              "ec_cbhs_register"
+              "ec_cbhs_register",
+              "ec_cbhs_followup"
             ]
           },
           {
@@ -349,7 +389,8 @@
             "field_value": "CBHS Followup",
             "creates_case": [
               "ec_hiv_register",
-              "ec_cbhs_register"
+              "ec_cbhs_register",
+              "ec_cbhs_followup"
             ]
           },
           {

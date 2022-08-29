@@ -66,91 +66,84 @@
           {
             "key": "chk_fever",
             "text": "Fever",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fever"
           },
           {
             "key": "chk_bleeding_vaginally",
             "text": "Bleeding vaginally",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_bleeding_vaginally"
           },
           {
             "key": "chk_server_headache",
             "text": "Severe headache",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_server_headache"
           },
           {
             "key": "chk_blurred_vision",
             "text": "Blurred vision",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_blurred_vision"
           },
           {
             "key": "chk_convulsions",
             "text": "Convulsions",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_convulsions"
           },
           {
             "key": "chk_difficulty_breathing",
             "text": "Difficulty breathing",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_difficulty_breathing"
           },
           {
             "key": "chk_severe_abdominal_pain",
             "text": "Severe abdominal pain",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_severe_abdominal_pain"
           },
           {
             "key": "chk_loss_consciousness",
             "text": "Loss of consciousness",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_loss_consciousness"
           },
           {
             "key": "chk_swelling",
             "text": "Swelling of the face and/or hands",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_swelling"
           },
           {
             "key": "chk_early_labour",
             "text": "Early labour pains before 9 months",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_early_labour"
           },
           {
             "key": "chk_vaginal_discharge",
             "text": "Discoloured or watery, liquid vaginal discharge with a bad smell",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_vaginal_discharge"
           },
           {
             "key": "chk_unusual_movement",
             "text": "No movement / unusual movement for a child in the womb",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unusual_movement"
           },
           {
+            "key": "chk_fgm",
+            "text": "FGM",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_fgm"
+          },
+          {
             "key": "chk_none",
             "text": "None",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }
@@ -185,7 +178,8 @@
                   "chk_swelling",
                   "chk_early_labour",
                   "chk_vaginal_discharge",
-                  "chk_unusual_movement"
+                  "chk_unusual_movement",
+                  "chk_fgm"
                 ]
               }
             ]

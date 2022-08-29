@@ -1,11 +1,14 @@
 package org.smartregister.chw.model;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +20,6 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
 
     @Override
     public List<NavigationOption> getNavigationItems() {
-
         if (navigationOptions.size() == 0) {
             NavigationOption op1 = new NavigationOption(R.mipmap.sidemenu_families, R.mipmap.sidemenu_families_active, R.string.menu_all_families, Constants.DrawerMenu.ALL_FAMILIES, 0);
             NavigationOption op2 = new NavigationOption(R.mipmap.sidemenu_children, R.mipmap.sidemenu_children_active, R.string.menu_child_clients, Constants.DrawerMenu.CHILD_CLIENTS, 0);
@@ -36,7 +38,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op15 = new NavigationOption(R.mipmap.sidemenu_referrals, R.mipmap.sidemenu_referrals_active, R.string.menu_ltfu, Constants.DrawerMenu.LTFU, 0);
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op13, op8,op15));
+                AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+                String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
+                if (teamRoleIdentifier.equals("mother_champion")) {
+                    navigationOptions.addAll(Arrays.asList(op10, op13, op8));
+                } else if (teamRoleIdentifier.equals("cbhs_provider")) {
+                    navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
+                } else {
+                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13, op8, op15));
+                }
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
                 if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)

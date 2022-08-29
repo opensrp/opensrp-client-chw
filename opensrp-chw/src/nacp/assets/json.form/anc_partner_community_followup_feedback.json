@@ -50,6 +50,13 @@
     "title": "Partner Followup Feedback",
     "fields": [
       {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
+      },
+      {
         "key": "is_partner_found",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -62,14 +69,12 @@
           {
             "key": "yes",
             "text": "Yes",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
             "text": "No",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
@@ -110,14 +115,12 @@
           {
             "key": "yes",
             "text": "Yes",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
             "text": "No",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
@@ -162,70 +165,60 @@
           {
             "key": "chk_negative_attitude",
             "text": "Negative attitudes towards ANC services-Men think clinics are for women",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_negative_attitude"
           },
           {
             "key": "chk_fear_hiv_test",
             "text": " Fear of men to be tested for HIV (most men don’t like to be tested)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fear_hiv_test"
           },
           {
             "key": "chk_unattractive_env",
             "text": "The environment at RCH clinics is not attractive to men e.g.,long waiting and lack of privacy",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unattractive_env"
           },
           {
             "key": "chk_poor_attitude",
             "text": "Poor attitude from some RCH staff to men",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_poor_attitude"
           },
           {
             "key": "chk_cultural_beliefs",
             "text": "Cultural beliefs and norms-men are not supposed to go to clinics, it is shame for a man to accompany his wife to RCH clinic",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cultural_beliefs"
           },
           {
             "key": "chk_fatherhood_resp",
             "text": "Fear of fatherhood responsibilities",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fatherhood_resp"
           },
           {
             "key": "chk_polygamy",
             "text": "Polygamy",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_polygamy"
           },
           {
             "key": "chk_ignorance",
             "text": "Ignorance and inadequate knowledge on the importance of Male involvement to ANC service",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_ignorance"
           },
           {
             "key": "chk_busy",
             "text": "Busy with day-to-day earnings for the family",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_busy"
           },
           {
             "key": "chk_other",
             "text": "Others (Specify)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
           }

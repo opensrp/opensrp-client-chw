@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness - Child",
+    "title": "Uchunguzi na ugonjwa kwa mtoto",
     "fields": [
       {
         "key": "date_of_illness_child",
@@ -61,7 +61,7 @@
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza tarehe ya ugonjwa"
+          "err": "Tafadhali ingiza tarehe ya shida"
         }
       },
       {
@@ -82,7 +82,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Hatua iliyochukuliwa",
+        "label": "Hatua zilizochukuliwa",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -112,7 +112,7 @@
           },
           {
             "key": "chk_referred",
-            "text": "Kupewa rufaa",
+            "text": "Amepewa rufaa",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -126,7 +126,7 @@
           },
           {
             "key": "chk_none",
-            "text": "Hakuna matibabu yaliyotolewa",
+            "text": "Hajapata matibabu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -142,7 +142,7 @@
         "hint": "Matibabu mengine",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza maelezo kuhusu ugonjwa"
+          "err": "Tafadhali ingiza maelezo ya ugonjwa"
         },
         "relevance": {
           "rules-engine": {

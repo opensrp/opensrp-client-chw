@@ -71,7 +71,7 @@
           "options": [
             {
               "name": "continuing_with_services",
-              "text": "Client found and ready to return to clinic",
+              "text": "Client attending the clinic",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "continuing_with_services",
@@ -79,8 +79,17 @@
               }
             },
             {
+              "name": "client_found_ready_to_return",
+              "text": "Client is found and ready to return to clinic",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_found_ready_to_return",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "client_has_moved_to_another_facility",
-              "text": "Client has moved to another facility without information",
+              "text": "Client has transferred to another center without notice",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_moved_to_another_facility",
@@ -89,7 +98,7 @@
             },
             {
               "name": "client_has_relocated",
-              "text": "Client has relocated",
+              "text": "Client has emigrated",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_has_relocated",
@@ -98,7 +107,7 @@
             },
             {
               "name": "client_does_not_want_to_return",
-              "text": "Client found but does not want to return to clinic",
+              "text": "Client is found but is not ready to return to clinic",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_does_not_want_to_return",
@@ -149,7 +158,7 @@
             },
             {
               "name": "client_was_ill",
-              "text": "Client was ill",
+              "text": "Client was very ill",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_was_ill",
@@ -158,7 +167,7 @@
             },
             {
               "name": "client_failed_to_disclose_his_status",
-              "text": "Client failed to disclose his status",
+              "text": "Client failed to disclose him/herself",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_failed_to_disclose_his_status",
@@ -167,7 +176,7 @@
             },
             {
               "name": "client_did_not_have_fare",
-              "text": "Client did not have fare",
+              "text": "Client does not have a fare",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_did_not_have_fare",
@@ -176,7 +185,7 @@
             },
             {
               "name": "client_lives_far_away_from_the_health_facility",
-              "text": "Client lives far away from the health facility",
+              "text": "Long distance/poor transportation",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_lives_far_away_from_the_health_facility",
@@ -185,7 +194,7 @@
             },
             {
               "name": "client_feels_well",
-              "text": "Client feels well",
+              "text": "Client is feeling better",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_feels_well",
@@ -194,7 +203,7 @@
             },
             {
               "name": "client_was_busy_at_work",
-              "text": "Client was busy at work",
+              "text": "Client did not get permission from the workplace",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_was_busy_at_work",
@@ -203,7 +212,7 @@
             },
             {
               "name": "client_traveled",
-              "text": "Client traveled",
+              "text": "Client has traveled",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_traveled",
@@ -221,7 +230,7 @@
             },
             {
               "name": "poor_services_at_health_facility",
-              "text": "Poor services at health facility",
+              "text": "Client is not satisfied with the service",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "poor_services_at_health_facility",
@@ -239,6 +248,38 @@
             }
           ],
           "required_status": "yes:Please select reason why client missed last appointment",
+          "subjects": "followup_status:map"
+        },
+        {
+          "name": "other_reason_for_missed_appointment",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other reason for missed appointment",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_reason_for_missed_appointment",
+            "openmrs_entity_parent": "reasons_for_missed_appointment"
+          },
+          "required_status": "yes:Please fill the other reason for missed appointment",
+          "subjects": "reasons_for_missed_appointment:map"
+        },
+        {
+          "name": "last_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Last appointment date",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "max_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "last_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "yes:Please select last appointment date",
           "subjects": "followup_status:map"
         },
         {
@@ -304,7 +345,7 @@
             },
             {
               "name": "client_relocated",
-              "text": "Client relocated",
+              "text": "Emigrated",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "client_relocated",
@@ -313,7 +354,7 @@
             },
             {
               "name": "seasonal_work",
-              "text": "Seasonal work",
+              "text": "Seasonal Agriculture/Job",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "seasonal_work",
@@ -321,7 +362,8 @@
               }
             }
           ],
-          "subjects": "followup_status:map"
+          "subjects": "followup_status:map",
+          "required_status": "true:Please select reason why client was not found"
         }
       ]
     }

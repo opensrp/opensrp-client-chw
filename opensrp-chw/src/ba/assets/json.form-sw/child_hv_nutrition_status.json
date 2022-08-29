@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Nutrition status",
+    "title": "Hali ya lishe",
     "fields": [
       {
         "key": "nutrition_status_1m5yr",
@@ -56,11 +56,11 @@
         "openmrs_entity_id": "163301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Hali ya lishe  ",
+        "hint": "Hali ya lishe",
         "values": [
           "Kawaida",
-          "Wastani",
-          "Mbaya"
+          "Dhaifu",
+          "Dhaifu sana"
         ],
         "keys": [
           "Normal",
@@ -74,7 +74,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali chagua chaguo angalau moja"
         }
       }
     ]

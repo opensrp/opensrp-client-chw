@@ -62,14 +62,12 @@
           {
             "key": "yes",
             "text": "Ndio",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
             "text": "Hapana",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
@@ -110,14 +108,12 @@
           {
             "key": "yes",
             "text": "Ndio",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
             "text": "Hapana",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
@@ -162,70 +158,60 @@
           {
             "key": "chk_negative_attitude",
             "text": "Wanaume wana mtizamo hasi kwenye huduma za Afya ya Mama na Mtoto, wanadhani huduma hizi nin kwa ajili ya Mama tu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_negative_attitude"
           },
           {
             "key": "chk_fear_hiv_test",
             "text": "Uwoga wa Wanaume kupima virusi vya VVU (Wanaume wengi hawapendi kupimwa)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fear_hiv_test"
           },
           {
             "key": "chk_unattractive_env",
             "text": "Mazingira ya Kliniki ya Mama na Mtoto hayawapendezi wanaume wengi k.m., mda mrefu wa kusubiri na kutokuwa na faraga",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unattractive_env"
           },
           {
             "key": "chk_poor_attitude",
             "text": "Mtazamo hafifu wa baadhi ya Watumishi wa Afya wa RCH kwa wanaume",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_poor_attitude"
           },
           {
             "key": "chk_cultural_beliefs",
             "text": "Tamaduni za zamani wanaume hawatakiwi kwenda kliniki, ni aibu kwa mwanaume kumsindikiza mke wake Kliniki",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cultural_beliefs"
           },
           {
             "key": "chk_fatherhood_resp",
             "text": "Uwoga wa majukumu ya Baba",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fatherhood_resp"
           },
           {
             "key": "chk_polygamy",
             "text": "Ndo ya Wake wengi",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_polygamy"
           },
           {
             "key": "chk_ignorance",
             "text": "Kutokuwa na Elimu ya umuhimu ya wanaume katika huduma za Kliniki",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_ignorance"
           },
           {
             "key": "chk_busy",
             "text": "Kutokuwa na muda kutokana na majukumu ya kifamilia",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_busy"
           },
           {
             "key": "chk_other",
             "text": "Nyingine",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_other"
           }

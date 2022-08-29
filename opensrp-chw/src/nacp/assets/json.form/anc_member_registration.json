@@ -1,5 +1,5 @@
 {
-  "count": "1",
+  "count": "2",
   "encounter_type": "ANC Registration",
   "entity_id": "",
   "metadata": {
@@ -48,6 +48,7 @@
   },
   "step1": {
     "title": "ANC Registration",
+    "next": "step2",
     "fields": [
       {
         "key": "relational_id",
@@ -169,6 +170,29 @@
         }
       },
       {
+        "key": "parity",
+        "type": "edit_text",
+        "hint": "Parity",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parity",
+        "openmrs_entity_parent": "",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter parity number"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the parity number"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:no_prev_preg)",
+            "err": "Parity must be less than the number of pregnancies (Including current pregnancy)"
+          }
+        ]
+      },
+      {
         "key": "delivery_method",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -189,21 +213,18 @@
           {
             "key": "chk_vaginally",
             "text": "Vaginally",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_vaginally"
           },
           {
             "key": "chk_cesarean_section",
             "text": "Cesarean section",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cesarean_section"
           },
           {
             "key": "chk_miscarriage",
             "text": "Miscarriage",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_miscarriage"
           }
@@ -253,21 +274,18 @@
           {
             "key": "chk_vaginally",
             "text": "Vaginally",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_vaginally"
           },
           {
             "key": "chk_cesarean_section",
             "text": "Cesarean section",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_cesarean_section"
           },
           {
             "key": "chk_miscarriage",
             "text": "Miscarriage",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_miscarriage"
           }
@@ -390,6 +408,175 @@
           "value": "(0[6-7][1-9][1-9][0-9]{6})|\\s*",
           "err": "Number must be 10 digits and must start with 06 or 07."
         }
+      },
+      {
+        "key": "confirmation_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pregnancy_confirmation_status",
+        "type": "hidden",
+        "value": "Confirmed"
+      }
+    ]
+  },
+  "step2": {
+    "title": "Medical And Surgical History",
+    "fields": [
+      {
+        "key": "medical_surgical_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "medical_surgical_history",
+        "type": "check_box",
+        "label": "Any Medical and surgical History of the Patient?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "diabetes_mellitus",
+            "text": "Diabetes Mellitus",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "diabetes_mellitus"
+          },
+          {
+            "key": "sickle_cell_disease",
+            "text": "Sickle Cell Disease",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sickle_cell_disease"
+          },
+          {
+            "key": "heart_diseases",
+            "text": "Heart Diseases",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "heart_diseases"
+          },
+          {
+            "key": "thyroid_diseases",
+            "text": "Thyroid Diseases",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "thyroid_diseases"
+          },
+          {
+            "key": "blood_transfusion",
+            "text": "Blood transfusion",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "blood_transfusion"
+          },
+          {
+            "key": "known_on_art",
+            "text": "On ART",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "known_on_art"
+          },
+          {
+            "key": "epilepsy",
+            "text": "Epilepsy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "epilepsy"
+          },
+          {
+            "key": "previous_c_s",
+            "text": "Previous C/S",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "previous_c_s"
+          },
+          {
+            "key": "myomectomy",
+            "text": "Myomectomy",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "myomectomy"
+          },
+          {
+            "key": "third_degree_tear",
+            "text": "Third Degree Tear",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "third_degree_tear"
+          },
+          {
+            "key": "repaired_fistula",
+            "text": "Repaired Fistula",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "repaired_fistula"
+          },
+          {
+            "key": "female_genital_mutilation",
+            "text": "Female Genital Mutilation",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_genital_mutilation"
+          },
+          {
+            "key": "closely_spaced_pregnancy",
+            "text": "Closely spaced pregnancy (within 2 years)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "closely_spaced_pregnancy"
+          },
+          {
+            "key": "pregnant_more_than_four",
+            "text": "Pregnant four or more times",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pregnant_more_than_four"
+          },
+          {
+            "key": "hx_hemorrhage",
+            "text": "History of Hemorrhage",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hx_hemorrhage"
+          },
+          {
+            "key": "history_of_high_blood_pressure",
+            "text": "History of high blood pressure",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "history_of_high_blood_pressure"
+          },
+          {
+            "key": "anaemia",
+            "text": "Anaemia",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "anaemia"
+          },
+          {
+            "key": "difficult_delivery",
+            "text": "Difficult delivery (Vacuum, episiotomy)",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "difficult_delivery"
+          },
+          {
+            "key": "hx_abortions",
+            "text": "History of Abortions",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hx_abortions"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ]
       }
     ]
   }

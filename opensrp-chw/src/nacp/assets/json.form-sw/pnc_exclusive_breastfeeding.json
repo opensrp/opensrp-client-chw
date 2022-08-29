@@ -51,24 +51,56 @@
     "fields": [
       {
         "key": "exclusive_breast_feeding",
-        "openmrs_entity_parent": "",
+        "type": "native_radio",
+        "label": "Je, mtoto amekuwa akinyonya maziwa ya mama pekee?",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "exclusive_breast_feeding",
-        "type": "spinner",
-        "image": "ic_form_bf",
-        "hint": "Je, mtoto amekuwa akinyonya maziwa ya mama pekee?",
-        "values": [
-          "Ndiyo",
-          "Hapana"
+        "openmrs_entity_id": "exclusive_breast_feeding",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "No",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "other_breast_feeding_options",
+        "type": "native_radio",
+        "label": "Chagua njia mbadala ya ulishaji ambayo mama anatumia",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_breast_feeding_options",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "mixed_feeding",
+            "text": "Kunyonyesha na vyakula vingine kwa pamoja chini ya miezi 6",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mixed_feeding"
+          },
+          {
+            "key": "replacement_feeding",
+            "text": "Chakula mbadala",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "replacement_feeding"
+          }
         ],
-        "keys": [
-          "Yes",
-          "No"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jibu swali hili"
+        },
+        "relevance": {
+          "step1:exclusive_breast_feeding": {
+            "type": "String",
+            "ex": "equalTo(.,\"No\")"
+          }
         }
       }
     ]

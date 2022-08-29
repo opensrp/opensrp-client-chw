@@ -58,31 +58,31 @@
         "type": "spinner",
         "hint": "Followup Feedback",
         "values": [
-          "Continuing with services",
+          "Client attending the clinic",
+          "Client is found and ready to return to clinic",
+          "Client has transferred to another center without notice",
+          "Client has emigrated",
+          "Client is found but is not ready to return to clinic",
           "Deceased",
-          "Client not found",
-          "Client has relocated to another location",
-          "Client has moved",
-          "Client has absconded",
-          "Client continues with clinic from elsewhere"
+          "Client not found"
         ],
         "keys": [
           "continuing_with_services",
+          "client_found_ready_to_return",
+          "client_has_moved_to_another_facility",
+          "client_has_relocated",
+          "client_does_not_want_to_return",
           "deceased",
-          "client_not_found",
-          "client_has_relocated_to_another_location",
-          "client_has_moved",
-          "client_has_absconded",
-          "client_continues_with_clinic_from_elsewhere"
+          "client_not_found"
         ],
         "openmrs_choice_ids": {
           "continuing_with_services": "continuing_with_services",
+          "client_found_ready_to_return": "client_found_ready_to_return",
+          "client_has_moved_to_another_facility": "client_has_moved_to_another_facility",
+          "client_has_relocated": "client_has_relocated",
+          "client_does_not_want_to_return": "client_does_not_want_to_return",
           "deceased": "deceased",
-          "client_not_found": "client_not_found",
-          "client_has_relocated_to_another_location": "client_has_relocated_to_another_location",
-          "client_has_moved": "client_has_moved",
-          "client_has_absconded": "client_has_absconded",
-          "client_continues_with_clinic_from_elsewhere": "client_continues_with_clinic_from_elsewhere"
+          "client_not_found": "client_not_found"
         },
         "v_required": {
           "value": "true",
@@ -90,15 +90,54 @@
         }
       },
       {
-        "key": "name_of_hf",
+        "key": "reasons_for_missed_appointment",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "name_of_hf",
+        "openmrs_entity_id": "reasons_for_missed_appointment",
         "type": "spinner",
-        "hint": "Choose moved to Facility",
+        "hint": "Reasons for Missed Appointment",
+        "values": [
+          "Client has forgotten",
+          "Client was very ill",
+          "Client failed to disclose him/herself",
+          "Client did not have fare",
+          "Long distance/poor transportation",
+          "Client is feeling better",
+          "Client did not get permission from the workplace",
+          "Client has traveled",
+          "Client uses alternative medicine",
+          "Client is not satisfied with the service",
+          "Other"
+        ],
+        "keys": [
+          "client_has_forgotten",
+          "client_was_ill",
+          "client_failed_to_disclose_his_status",
+          "client_did_not_have_fare",
+          "client_lives_far_away_from_the_health_facility",
+          "client_feels_well",
+          "client_was_busy_at_work",
+          "client_traveled",
+          "client_uses_alternative_medicine",
+          "poor_services_at_health_facility",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "client_has_forgotten": "client_has_forgotten",
+          "client_was_ill": "client_was_ill",
+          "client_failed_to_disclose_his_status": "client_failed_to_disclose_his_status",
+          "client_did_not_have_fare": "client_did_not_have_fare",
+          "client_lives_far_away_from_the_health_facility": "client_lives_far_away_from_the_health_facility",
+          "client_feels_well": "client_feels_well",
+          "client_was_busy_at_work": "client_was_busy_at_work",
+          "client_traveled": "client_traveled",
+          "client_uses_alternative_medicine": "client_uses_alternative_medicine",
+          "poor_services_at_health_facility": "poor_services_at_health_facility",
+          "other": "other"
+        },
         "v_required": {
-          "value": true,
-          "err": "Please select the health facility"
+          "value": "true",
+          "err": "Please select one"
         },
         "relevance": {
           "rules-engine": {
@@ -109,21 +148,116 @@
         }
       },
       {
-        "key": "other_facility",
+        "key": "other_reason_for_missed_appointment",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_facility",
+        "openmrs_entity_id": "other_reason_for_missed_appointment",
         "type": "edit_text",
-        "hint": "Other Facility",
+        "hint": "Other Reason for Missed Appointment",
         "v_required": {
-          "value": true,
-          "err": "Please specify the other health facility"
+          "value": "true",
+          "err": "Please enter other reason for missed appointment"
         },
         "relevance": {
-          "step1:name_of_hf": {
-            "type": "String",
-            "ex": "equalTo(.,\"Other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
           }
+        }
+      },
+      {
+        "key": "last_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "last_appointment_date",
+        "type": "date_picker",
+        "min_date": "today",
+        "hint": "Last Appointment Date",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter last appointment date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_appointment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "referral_appointment_date",
+        "type": "date_picker",
+        "min_date": "today",
+        "hint": "Please enter the date the client promises to return",
+        "v_required": {
+          "value": "true",
+          "err": "Please select"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "date_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "date_of_death",
+        "type": "date_picker",
+        "min_date": "today",
+        "hint": "Please enter the date the date the client died",
+        "v_required": {
+          "value": "true",
+          "err": "Please select"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "reason_client_not_found",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_client_not_found",
+        "hint": "Reason why client was not found",
+        "type": "spinner",
+        "values": [
+          "Address incorrect",
+          "Client relocated",
+          "Seasonal Agriculture/Job"
+        ],
+        "keys": [
+          "address_incorrect",
+          "client_relocated",
+          "seasonal_work"
+        ],
+        "openmrs_choice_ids": {
+          "address_incorrect": "address_incorrect",
+          "client_relocated": "client_relocated",
+          "seasonal_work": "seasonal_work"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pmtct_community_followup_feedback_relevance.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
         }
       },
       {

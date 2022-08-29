@@ -33,7 +33,20 @@ priority: 1
 condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') > 10) || (step2_age != '' && step2_age > 10)"
 actions:
   - "isRelevant = true"
-
+---
+name: step2_service_provider
+description: service provider relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step2_age != '' && step2_age >= 10)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_leader
+description: leadership role relevance
+priority: 1
+condition: "(step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10) || (step2_age != '' && step2_age >= 10)"
+actions:
+  - "isRelevant = true"
 ---
 name: step2_preg_1yr
 description: pregnance 1yr relevance
@@ -81,40 +94,5 @@ name: step2_other_phone_number
 description: as primary caregiver phone number
 priority: 1
 condition: "step2_has_primary_caregiver == 'Yes'"
-actions:
-  - "isRelevant = true"
----
-name: step2_reasons_for_registration_male_15
-description: Show up if client is male and age 15 above
-priority: 1
-condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 15) || (step2_age != '' && step2_age >= 15)) && step2_sex.equals('Male') "
-actions:
-  - "isRelevant = true"
----
-name: step2_reasons_for_registration_female_15
-description: Show up if client is female and age 15 above
-priority: 1
-condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 15) || (step2_age != '' && step2_age >= 15))&& step2_sex.equals('Female')"
-actions:
-  - "isRelevant = true"
----
-name: step2_reasons_for_registration_under_15
-description: Show up if client is below 15
-priority: 1
-condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') < 15) || (step2_age != '' && step2_age < 15)) && step2_sex.equals('Male')"
-actions:
-  - "isRelevant = true"
----
-name: step2_reasons_for_registration_female_under_10
-description: Show up if client is female and under 10
-priority: 1
-condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') < 10) || (step2_age != '' && step2_age < 10))&& step2_sex.equals('Female')"
-actions:
-  - "isRelevant = true"
----
-name: step2_reasons_for_registration_female_10_to_15
-description: Show up if client is female between 10 and 15
-priority: 1
-condition: "((step2_dob != '' && helper.formatDate(step2_dob,'y') >= 10  && helper.formatDate(step2_dob,'y') < 15 ) || (step2_age != '' && step2_age >= 10 && step2_age < 15))&& step2_sex.equals('Female')"
 actions:
   - "isRelevant = true"

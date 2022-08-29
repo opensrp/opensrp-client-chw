@@ -90,6 +90,11 @@ public class Constants extends CoreConstants {
         private static final String PMTCT_COMMUNITY_FOLLOWUP_FEEDBACK = "pmtct_community_followup_feedback";
         private static final String MOTHER_CHAMPION_FOLLOWUP_FORM = "mother_champion_followup";
         private static final String MOTHER_CHAMPION_SBCC_FORM = "mother_champion_sbcc_sessions";
+        private static final String CBHS_REGISTRATION_FORM = "cbhs_registration";
+
+        public static String getCbhsRegistrationForm() {
+            return CBHS_REGISTRATION_FORM;
+        }
 
         public static String getMotherChampionFollowupForm() {
             return MOTHER_CHAMPION_FOLLOWUP_FORM;
@@ -111,6 +116,8 @@ public class Constants extends CoreConstants {
     public static final class Events {
         public static final String UPDATE_MALARIA_CONFIGURATION = "Update Malaria Confirmation";
         public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
+        public static final String ANC_FIRST_FACILITY_VISIT = "ANC First Facility Visit";
+        public static final String ANC_RECURRING_FACILITY_VISIT = "ANC Recurring Facility Visit";
     }
 
     public static final class ActionList {
@@ -133,6 +140,7 @@ public class Constants extends CoreConstants {
 
         public interface ReportTypes {
            String CBHS_REPORT = "cbhs_report";
+           String MOTHER_CHAMPION_REPORT = "mother_champion_report";
         }
     }
 }

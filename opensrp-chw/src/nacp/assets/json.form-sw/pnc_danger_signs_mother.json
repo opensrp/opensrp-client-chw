@@ -58,6 +58,7 @@
         "label": "Je, mama ana dalili zozote za hatari?",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
+        "combine_checkbox_option_values": "true",
         "exclusive": [
           "chk_none"
         ],
@@ -65,98 +66,84 @@
           {
             "key": "chk_fever",
             "text": "Homa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_bleeding_vaginally",
             "text": "Kutokwa na damu ukeni",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_server_headache",
             "text": "Maumivu makali ya kichwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_convulsions",
             "text": "Degedege",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_difficulty_breathing",
             "text": "Kupumua kwa shida",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_severe_leg_pain",
             "text": "Maumivu makali ya mguu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_unusual_behaviour",
             "text": "Tabia isiyo ya kawaida (msongo wa mawazo, kuchanganyikiwa)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "152376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_swelling of breast",
             "text": "Kuvimba kwa titi na chuchu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "125212AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_severe_abdominal_pain",
             "text": "Maumivu makali ya tumbo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_vaginal_discharge",
             "text": "Kutokwa na majimaji yenye harufu mbaya kutoka ukeni",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_blurred_vision",
             "text": "Uoni hafifu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "147104AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_loss_conscioueness",
             "text": "Kupoteza fahamu",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "135592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_urination",
             "text": "Kukojoa kidogo au mkojo kuvuja kutoka ukeni",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "118982AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }

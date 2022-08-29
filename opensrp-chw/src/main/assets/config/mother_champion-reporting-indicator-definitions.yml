@@ -1,0 +1,42 @@
+indicators:
+  - key: "b-1"
+    description: "Idadi ya wateja wa PMTCT waliounganishwa kwenye kikundi/vikundi vya IGA and Ushauri Nasaha"
+    indicatorQuery: " SELECT  count(DISTINCT emcf.entity_id) as count
+                      from ec_mother_champion_followup emcf
+                      WHERE linked_to_psychosocial_group = 'yes'
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01')"
+  - key: "b-2"
+    description: "Idadi ya wateja wapya wa PMTCT waliofuatiliwa na mama vinara na kuanza kutumia dawa"
+    indicatorQuery: " SELECT  count(DISTINCT emcf.entity_id) as count
+                      from ec_mother_champion_followup emcf
+                      WHERE visit_number = 0
+                        AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01')"
+  - key: "b-3"
+    description: "Idadi ya wateja wa PMTCT waliopotea kwenye matumizi ya dawa (LTF) na kurudishwa/kufuatiliwa na mama vinara"
+    indicatorQuery: " SELECT  count(DISTINCT epcf.entity_id) as count
+                      from ec_pmtct_community_feedback epcf
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                 '-' ||
+                                 substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                 '-' || '01')"
+  - key: "b-4"
+    description: "Idadi ya vipindi alivyofundisha mama kinara/vinara kwa wateja wa PMTCT"
+    indicatorQuery: " SELECT count(DISTINCT id) as count
+                      from ec_sbcc es
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(es.sbcc_date, 7, 4) || '-' || substr(es.sbcc_date, 4, 2) || '-' || '01')"
+  - key: "b-5"
+    description: "Idadi ya wateja wa PMTCT walioelimishwa na mama kinara/vinara"
+    indicatorQuery: " SELECT SUM(participants_number) as count
+                      from ec_sbcc es
+                      WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                            date(substr(es.sbcc_date, 7, 4) || '-' || substr(es.sbcc_date, 4, 2) || '-' || '01')"

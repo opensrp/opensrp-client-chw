@@ -88,21 +88,18 @@
           {
             "key": "chk_during_anc",
             "text": "During ANC",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_anc"
           },
           {
             "key": "chk_during_labour_and_delivery",
             "text": "During labour and delivery",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_labour_and_delivery"
           },
           {
             "key": "chk_during_pnc",
             "text": "During PNC",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_pnc"
           }
@@ -129,7 +126,8 @@
         "hint": "Family Planning method chosen?",
         "values": [
           "PPIUCD",
-          "Pills",
+          "POP Pills",
+          "COC Pills",
           "Implant",
           "Condoms",
           "LAM",
@@ -140,7 +138,8 @@
         ],
         "keys": [
           "PPIUCD",
-          "Pills",
+          "POP Pills",
+          "COC Pills",
           "Implant",
           "Condoms",
           "LAM",
@@ -151,7 +150,8 @@
         ],
         "openmrs_choice_ids": {
           "PPIUCD": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Pills": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "COC Pills": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "POP Pills": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Implant": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Condoms": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "LAM": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -169,6 +169,22 @@
             "ex-rules": {
               "rules-file": "pnc_family_planning_relevance.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "incorrect_fp_method_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Counsel the mother on the correct FP method.\nRefer the mother to the health facility to receive the correct FP Method.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:fp_method": {
+            "type": "string",
+            "ex": "equalTo(., \"COC Pills\")"
           }
         }
       },

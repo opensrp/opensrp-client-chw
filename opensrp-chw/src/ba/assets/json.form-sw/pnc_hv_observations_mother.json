@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness - Mama",
+    "title": "Uchunguzi na ugonjwa kwa mama",
     "fields": [
       {
         "key": "date_of_illness_mama",
@@ -82,7 +82,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Hatua iliyochukuliwa",
+        "label": "Hatua zilizochukuliwa",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -112,7 +112,7 @@
           },
           {
             "key": "chk_referred",
-            "text": "Kutoa rufaa",
+            "text": "Amepewa rufaa",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "163762AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -126,7 +126,7 @@
           },
           {
             "key": "chk_none",
-            "text": "Hakuna matibabu yaliyotolewa",
+            "text": "Hajapata matibabu",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -142,7 +142,7 @@
         "hint": "Matibabu mengine",
         "v_required": {
           "value": "true",
-          "err": "Tafahdali ingiza maelezo ya ugonjwa"
+          "err": "Tafadhali ingiza maelezo ya ugonjwa"
         },
         "relevance": {
           "rules-engine": {

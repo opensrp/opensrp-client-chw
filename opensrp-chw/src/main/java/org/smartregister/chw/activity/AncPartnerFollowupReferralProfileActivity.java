@@ -1,6 +1,8 @@
 package org.smartregister.chw.activity;
 
 import static android.view.View.GONE;
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_BASE_ENTITY_ID;
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.INTENT_FORM_SUBMISSION_ID;
@@ -8,6 +10,9 @@ import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.
 import static org.smartregister.chw.util.Constants.PartnerRegistrationConstants.ReferralFormId;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+import static org.smartregister.util.JsonFormUtils.STEP1;
+import static org.smartregister.util.JsonFormUtils.VALUE;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -127,6 +132,9 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
             JSONObject formJsonObject = null;
             try {
                 formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getAncPartnerCommunityFollowupFeedback());
+                AllSharedPreferences preferences = ChwApplication.getInstance().getContext().allSharedPreferences();
+                JSONObject chwName = getFieldJSONObject(fields(formJsonObject, STEP1), "chw_name");
+                chwName.put(VALUE, preferences.getANMPreferredName(preferences.fetchRegisteredANM()));
                 startFormActivity(formJsonObject);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -430,17 +438,23 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
 
     protected void startCBHSRegister(CommonPersonObject commonPersonObject) {
         String gender = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
-        String formName;
-        if (gender.equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
+        String dob = org.smartregister.chw.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.DOB, false);
+        int age = org.smartregister.chw.util.Utils.getAgeFromDate(dob);
 
         try {
-            HivRegisterActivity.startHIVFormActivity(AncPartnerFollowupReferralProfileActivity.this, baseEntityID, formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(AncPartnerFollowupReferralProfileActivity.this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            updateAgeAndGender(fields, age, gender);
+
+            HivRegisterActivity.startHIVFormActivity(AncPartnerFollowupReferralProfileActivity.this, memberObject.getBaseEntityId(), formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

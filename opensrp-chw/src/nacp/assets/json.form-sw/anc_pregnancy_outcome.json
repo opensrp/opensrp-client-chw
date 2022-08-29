@@ -71,7 +71,6 @@
           {
             "key": "born_alive",
             "text": "Mtoto alizaliwa mzima",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "born_alive",
             "openmrs_entity_parent": ""
@@ -79,7 +78,6 @@
           {
             "key": "born_alive_died",
             "text": "Mtoto alizaliwa hai, lakini akafariki baadaye",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "born_alive_died",
             "openmrs_entity_parent": ""
@@ -87,7 +85,6 @@
           {
             "key": "still_born",
             "text": "Mtoto alizaliwa akiwa amekwisha fariki",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "still_born",
             "openmrs_entity_parent": ""
@@ -95,7 +92,6 @@
           {
             "key": "alive_with_problem",
             "text": "Mtoto alizaliwa hai, lakini aamekutwa na matatizo (i.e: ulemavu, matatizo ya kupumua)",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "alive_with_problem",
             "openmrs_entity_parent": ""
@@ -103,7 +99,6 @@
           {
             "key": "miscarriage",
             "text": "Mimba iliharibika",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "miscarriage",
             "openmrs_entity_parent": ""
@@ -175,22 +170,41 @@
         "values": [
           "Amejifungua Njiani kabla ya kufika kwenye Kituo",
           "Amejifungulia Nyumbani",
-          "Amejifungulia kwa Mkunga wa Jadi"
+          "Amejifungulia kwa Mkunga wa Jadi",
+          "Katika kituo cha afya"
         ],
         "keys": [
           "Birth before Arrival (BBA)",
           "At home",
-          "Traditional birth attendant"
+          "Traditional birth attendant",
+          "At a health facility"
         ],
         "openmrs_choice_ids": {
           "Birth before Arrival (BBA)": "Birth before Arrival (BBA)",
           "At home": "At home",
-          "Traditional birth attendant": "Traditional birth attendant"
+          "Traditional birth attendant": "Traditional birth attendant",
+          "At a health facility": "At a health facility"
         },
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
         },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_referral",
+        "type": "toaster_notes",
+        "text": "Toa Rufaa Kwenda Kituo Cha Afya Kwa Huduma Zaidi",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -223,7 +237,6 @@
           {
             "key": "gave_birth_alone",
             "text": "Alijifungua nyumbani akiwa peke yake",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gave_birth_alone"
@@ -231,7 +244,6 @@
           {
             "key": "gave_birth_with_help",
             "text": "Alijifungulia nyumbani kwa msaada wa mwanafamilia/rafiki/jirani",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "gave_birth_with_help"
@@ -239,10 +251,67 @@
           {
             "key": "midwife_help",
             "text": "Alijifungua nyumbani akisaidiwa na mkunga wa jadi",
-            "value": false,
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "midwife_help"
+          }
+        ]
+      },
+      {
+        "key": "delivery_hf",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "delivery_hf",
+        "type": "native_radio",
+        "label": "Mama alijifungua katika kituo cha afya. Nani aliongozana na mama hadi kituo cha afya?",
+        "label_text_style": "bold",
+        "text_color": "#C0C0C0",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali cchagua"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_pregnancy_outcome_relevance.yml"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "facility_family_member",
+            "text": "Alijifungua katika kituo cha afya, na alisindikizwa na wanafamilia.",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility_family_member"
+          },
+          {
+            "key": "facility_midwife",
+            "text": "Alijifungua katika kituo cha afya, na alisindikizwa na mkunga wa jadi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "facility_midwife"
+          },
+          {
+            "key": "alone",
+            "text": "Alijifungua katika kituo cha afya, na alikuja peke yake",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "alone"
+          },
+          {
+            "key": "other_pple",
+            "text": "Alijifungua katika kituo cha afya, na alisindikizwa na watu wengine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_pple"
+          },
+          {
+            "key": "other_chw",
+            "text": "Alijifungua katika kituo cha afya, na aliandamana na mfanyakazi wa afya ya jamii (CHW)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other_chw"
           }
         ]
       },

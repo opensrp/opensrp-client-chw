@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.anc.presenter.BaseAncHomeVisitPresenter;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -22,6 +23,7 @@ import org.smartregister.family.util.Utils;
 import org.smartregister.util.LangUtils;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
 
@@ -64,5 +66,16 @@ public class PncHomeVisitActivity extends BasePncHomeVisitActivity {
         // get language from prefs
         String lang = LangUtils.getLanguage(base.getApplicationContext());
         super.attachBaseContext(LangUtils.setAppLocale(base, lang));
+    }
+
+    @Override
+    public void initializeActions(LinkedHashMap<String, BaseAncHomeVisitAction> map) {
+        actionList.clear();
+        actionList.putAll(map);
+
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
+        displayProgressBar(false);
     }
 }

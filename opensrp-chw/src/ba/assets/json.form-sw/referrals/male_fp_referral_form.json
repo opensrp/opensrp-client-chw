@@ -237,8 +237,7 @@
           "properties": {
             "hint": "Tafadhali chagua tarehe ya hudhurio",
             "type": "date_picker",
-            "display_format": "dd/MM/yyyy",
-            "min_date": "today"
+            "display_format": "dd/MM/yyyy"
           },
           "meta_data": {
             "openmrs_entity": "concept",

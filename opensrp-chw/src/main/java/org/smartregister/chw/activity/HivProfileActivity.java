@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +29,7 @@ import org.smartregister.chw.core.activity.CoreHivProfileActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
 import org.smartregister.chw.core.contract.FamilyProfileExtendedContract;
 import org.smartregister.chw.core.dao.AncDao;
+import org.smartregister.chw.core.dao.PNCDao;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.task.RunnableTask;
@@ -61,9 +65,6 @@ import java.util.List;
 import java.util.Objects;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 
 public class HivProfileActivity extends CoreHivProfileActivity
         implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
@@ -421,8 +422,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
             if (isClientEligibleForAnc(getHivMemberObject())) {
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
                         org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
-                referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_danger_signs),
-                        CoreConstants.JSON_FORM.getPncReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_referral), CoreConstants.JSON_FORM.getPncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
                 if (!AncDao.isANCMember(getHivMemberObject().getBaseEntityId())) {
                     referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation),
                             CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
@@ -478,7 +478,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
         menu.findItem(R.id.action_anc_registration).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !AncDao.isANCMember(getHivMemberObject().getBaseEntityId()));
-        menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()));
+        menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !PNCDao.isPNCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;

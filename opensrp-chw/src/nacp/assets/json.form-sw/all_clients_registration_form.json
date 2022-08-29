@@ -499,28 +499,24 @@
           {
             "key": "chk_national_id",
             "text": "Kitambulisho cha Taifa",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_national_id"
           },
           {
             "key": "chk_voters_id",
             "text": "Kitambulisho cha mpiga kura",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_voters_id"
           },
           {
             "key": "chk_drivers_license",
             "text": "Leseni ya udereva",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_none"
           }
@@ -833,56 +829,48 @@
           {
             "key": "physical_impairments",
             "text": "Ulemavu wa viungo vya mwili",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "physical_impairments"
           },
           {
             "key": "spinal_cord_disability",
             "text": "Ulemavu wa Uti wa Mgongo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "spinal_cord_disability"
           },
           {
             "key": "brain_disability",
             "text": "Majeraha ya Kichwa - Ulemavu wa Ubongo",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "brain_disability"
           },
           {
             "key": "vision_disability",
             "text": "Ulemavu wa macho",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "vision_disability"
           },
           {
             "key": "hearing_disability",
             "text": "Ulemavu wa Kusikia",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "hearing_disability"
           },
           {
             "key": "learning_disabilities",
             "text": "Ulemavu wa Utambuzi au Kujifunza",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "learning_disabilities"
           },
           {
             "key": "psychological_disorders",
             "text": "Matatizo ya Kisaikolojia",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "psychological_disorders"
           },
           {
             "key": "invisible_disabilities",
             "text": "Ulemavu Usioonekana",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "invisible_disabilities"
           }
@@ -982,35 +970,45 @@
           {
             "key": "chk_self_employed",
             "text": "Amejiajiri",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_self_employed"
           },
           {
             "key": "chk_employed",
             "text": "Ameajiriwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_employed"
           },
           {
             "key": "chk_unemployed",
             "text": "Hajaajiriwa",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_unemployed"
           },
           {
             "key": "chk_farmer",
             "text": "Mkulima",
-            "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_farmer"
+          },
+          {
+            "key": "chk_traditional_healer",
+            "text": "Mtoa huduma ya Tiba Asili",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_healer"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1030,42 +1028,36 @@
           {
             "key": "chk_religious",
             "text": "Kiongozi wa dini",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Religious_Leader"
           },
           {
             "key": "chk_traditional",
             "text": "Kiongozi wa kimila",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Traditional_leader"
           },
           {
             "key": "chk_political",
             "text": "Kiongozi wa kisiasa",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Political_leader"
           },
           {
             "key": "chk_influential",
             "text": "Mtu mwenye ushawishi kwenye jamii",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Influential_Leader"
           },
           {
             "key": "chk_other",
             "text": "Nyinginezo",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Other_Community_Leader_Type"
           },
           {
             "key": "chk_none",
             "text": "Hakuna",
-            "value": false,
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Not_a_Community_Leader"
           }
@@ -1073,6 +1065,13 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua angalau moja"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "all_clients_member_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -1096,380 +1095,6 @@
                 ]
               }
             ]
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Registration_Reason",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_male_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_male_15",
-        "type": "native_radio",
-        "label": "Sababu za Usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "Maambukizi ya VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua Kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "homosexual",
-            "text": "Wanaume wanaofanya mapenzi na wanaume",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "homosexual"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Unyanyasaji wa Kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_female_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_female_15",
-        "type": "native_radio",
-        "label": "Sababu za Usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "Maambukizi ya VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "sex_worker_woman",
-            "text": "Mfanyabiashara ya ngono",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "sex_worker_woman"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Ukatili wa kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          },
-          {
-            "key": "pregnant_mother",
-            "text": "Mama mjamzito",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pregnant_mother"
-          },
-          {
-            "key": "breastfeeding_mother",
-            "text": "Mama anayenyonyesha",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breastfeeding_mother"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_under_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_under_15",
-        "type": "native_radio",
-        "label": "Sababu za Usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "Maambukizi ya VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "Mtoto aliyezaliwa na mama mwenye VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_infected_child"
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Mtoto ambaye hajapimwa VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "untested_hiv_infected_child"
-          },
-          {
-            "key": "abused_child",
-            "text": "Unyanyasaji wa mtoto",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abused_child"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Unyanyasaji wa kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_female_under_10",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_female_under_10",
-        "type": "native_radio",
-        "label": "Sababu za usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "Maambukizi ya VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "Mtoto aliyezaliwa na mama mwenye VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_infected_child"
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Mtoto ambaye hajapimwa VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "untested_hiv_infected_child"
-          },
-          {
-            "key": "abused_child",
-            "text": "Unyanyasaji wa mtoto",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abused_child"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Ukatili wa kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "reasons_for_registration_female_10_to_15",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "reasons_for_registration_female_10_to_15",
-        "type": "native_radio",
-        "label": "Sababu za usajili",
-        "label_text_style": "normal",
-        "text_color": "#C0C0C0",
-        "options": [
-          {
-            "key": "hiv_aids",
-            "text": "Maambukizi ya VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_aids"
-          },
-          {
-            "key": "tuberculosis",
-            "text": "Kifua kikuu",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tuberculosis"
-          },
-          {
-            "key": "hiv_infected_child",
-            "text": "Mtoto aliyezaliwa na mama mwenye VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "hiv_infected_child"
-          },
-          {
-            "key": "untested_hiv_infected_child",
-            "text": "Mtoto ambaye hajapimwa VVU",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "untested_hiv_infected_child"
-          },
-          {
-            "key": "abused_child",
-            "text": "Unyanyasaji wa mtoto",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "abused_child"
-          },
-          {
-            "key": "gender_violence",
-            "text": "Ukatili wa kijinsia",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "gender_violence"
-          },
-          {
-            "key": "drug_abuse",
-            "text": "Matumizi mabaya ya dawa za kulevya",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "drug_abuse"
-          },
-          {
-            "key": "pregnant_mother",
-            "text": "Mama mjamzito",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "pregnant_mother"
-          },
-          {
-            "key": "breastfeeding_mother",
-            "text": "Mama anayenyonyesha",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "breastfeeding_mother"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Sababu ya usajili inahitajika"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "all_clients_member_relevance.yml"
-            }
           }
         }
       }

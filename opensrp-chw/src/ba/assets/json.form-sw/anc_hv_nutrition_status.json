@@ -53,14 +53,14 @@
         "key": "nutrition_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "nutrition_status",
+        "openmrs_entity_id": "163300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, hali ya lishe ya Mama ikoje?",
+        "hint": "Je, hali ya lishe ya mama ikoje?",
         "values": [
-          "Kawaida/Kijani",
-          "Wastani/Njano",
-          "Mbaya/Nyekundu"
+          "Nzuri/Kijani",
+          "Kadri/Njano",
+          "Dhaifu/Nyekundu"
         ],
         "keys": [
           "Normal",
@@ -68,13 +68,13 @@
           "Severe"
         ],
         "openmrs_choice_ids": {
-          "Normal": "Normal",
-          "Moderate": "Moderate",
-          "Severe": "Severe"
+          "Normal": "1115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moderate": "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Severe": "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo moja"
+          "err": "Tafadhali chagua chaguo angalau moja"
         }
       }
     ]

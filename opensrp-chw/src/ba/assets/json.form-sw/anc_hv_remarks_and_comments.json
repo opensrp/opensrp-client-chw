@@ -53,12 +53,12 @@
         "key": "chw_comment_anc",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "chw_comment_anc",
+        "openmrs_entity_id": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Maoni",
+        "hint": "Toa maoni",
         "v_required": {
           "value": "false",
-          "err": "Tafadhali ingiza maoni yako"
+          "err": "Tafadhali ingiza maoni na maoni yako"
         }
       }
     ]

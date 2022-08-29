@@ -1,6 +1,7 @@
 package org.smartregister.chw.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -119,6 +120,27 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         this.startingActivity = startingActivity;
     }
 
+    @Override
+    protected void updateProblemDisplay() {
+        clientReferralProblem.setText(getReferralClinic(Utils.getValue(commonPersonObjectClient.getColumnmaps(), "REFERRAL_CLINIC", false),this));
+    }
+
+    private String getReferralClinic(String key, Context context){
+        switch (key.toLowerCase()){
+            case "ctc":
+                return context.getString(R.string.ltfu_clinic_ctc);
+            case "pwid":
+                return context.getString(R.string.ltfu_clinic_pwid);
+            case "prep":
+                return context.getString(R.string.ltfu_clinic_prep);
+            case "pmtct":
+                return context.getString(R.string.ltfu_clinic_pmtct);
+            case "tb":
+                return context.getString(R.string.ltfu_clinic_tb);
+            default:
+                return key.toUpperCase();
+        }
+    }
 
     public String getBaseEntityId() {
         return baseEntityId;
