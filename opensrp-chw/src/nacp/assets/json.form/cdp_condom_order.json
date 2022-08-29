@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "CDP Outlet Visit",
+  "encounter_type": "CDP Condom Order",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -42,83 +42,110 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Record Outlet Visit",
+    "title": "Order Condom",
     "fields": [
       {
-        "key": "outlet_visit_date",
+        "key": "condom_order_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "outlet_visit_date",
+        "openmrs_entity_id": "condom_order_date",
         "type": "date_picker",
-        "label": "Outlet visit date",
-        "hint": "Outlet visit date",
+        "label": "Condom order date",
+        "hint": "Condom order date",
         "expanded": false,
-        "min_date": "today-6m",
+        "min_date": "today-3m",
         "max_date": "today",
         "v_required": {
           "value": "true",
-          "err": "Enter the outlet visit date"
+          "err": "Enter the condom order date"
         }
       },
       {
-        "key": "condom_dispenser",
+        "key": "condom_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "condom_dispenser",
-        "label": "Does the condom dispenser have condoms?",
+        "openmrs_entity_id": "condom_type",
+        "label": "Select condom type",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes",
+            "key": "male_condom",
+            "text": "Male",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
+            "openmrs_entity_id": "male_condom"
           },
           {
-            "key": "no",
-            "text": "No",
+            "key": "female_condom",
+            "text": "Female",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
+            "openmrs_entity_id": "female_condom"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select an outlet type"
+          "err": "Please select the condom type"
         }
       },
       {
-        "key": "number_of_male_condoms",
+        "key": "condom_brand",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_male_condoms",
-        "type": "edit_text",
-        "hint": "Number of Male condoms (Pieces)",
-        "edit_type": "number",
+        "openmrs_entity_id": "condom_brand",
+        "label": "Select condom brand",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "public_sc",
+            "text": "Public sector condom",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "public_sc"
+          },
+          {
+            "key": "dume",
+            "text": "Dume",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dume"
+          },
+          {
+            "key": "salama",
+            "text": "Salama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "salama"
+          },
+          {
+            "key": "familia",
+            "text": "Familia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "familia"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please enter the number"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter the number"
-        },
-        "relevance": {
-          "step1:condom_dispenser": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
+          "err": "Please select the condom brand"
         }
       },
       {
-        "key": "number_of_female_condoms",
+        "key": "requested_condoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_female_condoms",
+        "openmrs_entity_id": "requested_condoms",
         "type": "edit_text",
-        "hint": "Number of Female condoms (Pieces)",
+        "hint": "Number of requested condoms (Pieces)",
         "edit_type": "number",
         "v_required": {
           "value": "true",
@@ -127,12 +154,6 @@
         "v_numeric": {
           "value": "true",
           "err":"Please enter the number"
-        },
-        "relevance": {
-          "step1:condom_dispenser": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
         }
       }
     ]
