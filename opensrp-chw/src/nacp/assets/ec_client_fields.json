@@ -4273,7 +4273,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "male_condom_count"
+            "concept": "number_of_male_condoms"
           }
         },
         {
@@ -4281,7 +4281,15 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "female_condom_count"
+            "concept": "number_of_female_condoms"
+          }
+        },
+        {
+          "column_name": "visit_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_number"
           }
         },
         {
@@ -4397,6 +4405,57 @@
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ec_cdp_outlet_visit",
+      "columns": [
+        {
+          "column_name": "entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "outlet_visit_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "outlet_visit_date"
+          }
+        },
+        {
+          "column_name": "male_condoms_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_male_condoms"
+          }
+        },
+        {
+          "column_name": "female_condoms_count",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_of_female_condoms"
+          }
+        },
+        {
+          "column_name": "visit_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_number"
           }
         }
       ]

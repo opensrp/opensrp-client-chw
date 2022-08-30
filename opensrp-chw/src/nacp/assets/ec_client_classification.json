@@ -594,6 +594,14 @@
               "ec_cdp_stock_count",
               "ec_cdp_stock_log"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Outlet Visit",
+            "creates_case": [
+              "ec_cdp_register",
+              "ec_cdp_outlet_visit"
+            ]
           }
         ]
       }
