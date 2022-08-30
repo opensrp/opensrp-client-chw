@@ -405,8 +405,8 @@
           "err": "Namba lazima iwe na jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "(0[0-9]{9})|\\s*",
-          "err": "Namba lazima iwe na tarakimu 10 na ianze na 0"
+          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "err": "Namba lazima iwe na tarakimu 10 na ianze na 06 au 07"
         }
       },
       {
