@@ -16,4 +16,5 @@ public class CdpProfileActivity extends CoreCdpProfileActivity {
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         activity.startActivity(intent);
     }
+
 }
