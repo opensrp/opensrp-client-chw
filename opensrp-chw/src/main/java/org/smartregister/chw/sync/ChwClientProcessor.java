@@ -112,8 +112,8 @@ public class ChwClientProcessor extends CoreClientProcessor {
 
     private void processCDPStockChanges(Event event) {
         List<Obs> visitObs = event.getObs();
-        String maleCondomsOffset = null;
-        String femaleCondomsOffset = null;
+        String maleCondomsOffset = "0";
+        String femaleCondomsOffset = "0";
         String locationId = event.getLocationId();
         String chwName = event.getProviderId();
 
