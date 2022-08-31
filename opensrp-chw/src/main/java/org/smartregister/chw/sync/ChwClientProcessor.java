@@ -58,6 +58,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_RECEIVE_FROM_FACILITY:
                 case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_OUTLET_RESTOCK:
                     processCDPStockChanges(eventClient.getEvent());
+                    processVisitEvent(eventClient);
                     break;
                 case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_OUTLET_VISIT:
                     if(eventClient.getEvent() == null){
