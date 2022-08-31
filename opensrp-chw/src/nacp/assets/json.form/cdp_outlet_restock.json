@@ -151,6 +151,34 @@
         }
       },
       {
+        "key": "restocked_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "restocked_male_condoms",
+        "type": "edit_text",
+        "hint": "Number of restocked Male condoms  (Pieces)",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err":"Please enter the number"
+        },
+        "relevance": {
+          "step1:condom_type": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condom"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "female_condom_brand",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -205,34 +233,6 @@
               {
                 "or": [
                   "female_condom"
-                ]
-              }
-            ]
-          }
-        }
-      },
-      {
-        "key": "restocked_male_condoms",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "restocked_male_condoms",
-        "type": "edit_text",
-        "hint": "Number of restocked Male condoms  (Pieces)",
-        "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the number"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err":"Please enter the number"
-        },
-        "relevance": {
-          "step1:condom_type": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "male_condom"
                 ]
               }
             ]
