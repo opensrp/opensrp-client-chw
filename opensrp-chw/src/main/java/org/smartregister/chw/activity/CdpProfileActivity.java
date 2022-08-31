@@ -17,4 +17,9 @@ public class CdpProfileActivity extends CoreCdpProfileActivity {
         activity.startActivity(intent);
     }
 
+
+    @Override
+    protected void startRestockingHistory() {
+        RestockingVisitHistoryActivity.startMe(this, outletObject);
+    }
 }
