@@ -4259,6 +4259,14 @@
             "field": "obs.fieldCode",
             "concept": "extra_kits_required"
           }
+        },
+        {
+          "column_name": "collection_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "collection_date"
+          }
         }
       ]
     },
