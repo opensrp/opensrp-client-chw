@@ -3,10 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -20,9 +18,7 @@ import org.smartregister.chw.core.presenter.CoreFamilyOtherMemberActivityPresent
 import org.smartregister.chw.core.presenter.CoreHivstMemberProfilePresenter;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hiv.dao.HivDao;
-import org.smartregister.chw.hivst.custom_views.BaseHivstFloatingMenu;
 import org.smartregister.chw.hivst.dao.HivstDao;
-import org.smartregister.chw.hivst.listener.OnClickFloatingMenu;
 import org.smartregister.chw.hivst.util.Constants;
 import org.smartregister.chw.util.HivstUtils;
 import org.smartregister.chw.util.Utils;
@@ -120,38 +116,20 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         return true;
     }
 
-    @Override
-    public void initializeFloatingMenu() {
-        baseHivstFloatingMenu = new BaseHivstFloatingMenu(this, memberObject);
-        checkPhoneNumberProvided(StringUtils.isNotBlank(memberObject.getPhoneNumber()));
-        OnClickFloatingMenu onClickFloatingMenu = viewId -> {
-            switch (viewId) {
-                case R.id.hivst_fab:
-                    //Animates the actual FAB
-                    baseHivstFloatingMenu.animateFAB();
-                    break;
-                case R.id.call_layout:
-                    baseHivstFloatingMenu.launchCallWidget();
-                    baseHivstFloatingMenu.animateFAB();
-                    break;
-                case R.id.refer_to_facility_layout:
-                    HivstUtils.startHIVSTReferral(this, memberObject.getBaseEntityId());
-                    break;
-                default:
-                    Timber.d("Unknown FAB action");
-                    break;
-            }
-        };
 
-        baseHivstFloatingMenu.setFloatMenuClickListener(onClickFloatingMenu);
-        baseHivstFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        addContentView(baseHivstFloatingMenu, linearLayoutParams);
+    @Override
+    public void startReferralForm() {
+        HivstUtils.startHIVSTReferral(this, memberObject.getBaseEntityId());
     }
 
-    private void checkPhoneNumberProvided(boolean hasPhoneNumber) {
-        baseHivstFloatingMenu.redrawWithOption(baseHivstFloatingMenu, hasPhoneNumber);
+    @Override
+    public void showReferralView() {
+        boolean knownPositiveFromHIV = HivDao.isRegisteredForHiv(memberObject.getBaseEntityId()) && StringUtils.isNotBlank(HivDao.getMember(memberObject.getBaseEntityId()).getCtcNumber());
+        if (knownPositiveFromHIV || HivstDao.isTheClientKnownPositiveAtReg(memberObject.getBaseEntityId())) {
+            baseHivstFloatingMenu.findViewById(R.id.refer_to_facility_layout).setVisibility(View.GONE);
+        }else {
+            baseHivstFloatingMenu.findViewById(R.id.refer_to_facility_layout).setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
