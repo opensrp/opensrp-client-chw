@@ -8,16 +8,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.activity.HivstResultViewActivity;
 import org.smartregister.chw.hivst.fragment.BaseHivstResultViewFragment;
-import org.smartregister.chw.hivst.presenter.BaseHivstResultsFragmentPresenter;
 import org.smartregister.chw.hivst.util.Constants;
-import org.smartregister.chw.model.HivstResultsFragmentModel;
 import org.smartregister.chw.hivst.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.util.Utils;
 
 public class HivstResultsViewFragment extends BaseHivstResultViewFragment {
-
-    private String baseEntityId;
 
     public static HivstResultsViewFragment newInstance(String baseEntityId) {
         HivstResultsViewFragment hivstResultsViewFragment = new HivstResultsViewFragment();
@@ -27,18 +23,6 @@ public class HivstResultsViewFragment extends BaseHivstResultViewFragment {
         return hivstResultsViewFragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        if (getArguments() != null) {
-            this.baseEntityId = getArguments().getString(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
-        }
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void initializePresenter() {
-        presenter = new BaseHivstResultsFragmentPresenter(baseEntityId, this, new HivstResultsFragmentModel(), null);
-    }
 
     @Override
     public void openResultsForm(CommonPersonObjectClient client) {
@@ -47,7 +31,7 @@ public class HivstResultsViewFragment extends BaseHivstResultViewFragment {
         String kitFor = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.KIT_FOR, false);
         try {
             JSONObject jsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireContext(), Constants.FORMS.HIVST_RECORD_RESULTS);
-            JSONObject global =  jsonObject.getJSONObject("global");
+            JSONObject global = jsonObject.getJSONObject("global");
             global.putOpt("kit_for", kitFor);
             HivstResultViewActivity.startResultsForm(getContext(), jsonObject.toString(), baseEntityId, entityId);
         } catch (JSONException e) {
