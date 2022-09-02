@@ -128,11 +128,11 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
             switch (viewId) {
                 case R.id.hivst_fab:
                     //Animates the actual FAB
-                    ((BaseHivstFloatingMenu) baseHivstFloatingMenu).animateFAB();
+                    baseHivstFloatingMenu.animateFAB();
                     break;
                 case R.id.call_layout:
-                    ((BaseHivstFloatingMenu) baseHivstFloatingMenu).launchCallWidget();
-                    ((BaseHivstFloatingMenu) baseHivstFloatingMenu).animateFAB();
+                    baseHivstFloatingMenu.launchCallWidget();
+                    baseHivstFloatingMenu.animateFAB();
                     break;
                 case R.id.refer_to_facility_layout:
                     HivstUtils.startHIVSTReferral(this, memberObject.getBaseEntityId());
@@ -143,7 +143,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
             }
         };
 
-        ((BaseHivstFloatingMenu) baseHivstFloatingMenu).setFloatMenuClickListener(onClickFloatingMenu);
+        baseHivstFloatingMenu.setFloatMenuClickListener(onClickFloatingMenu);
         baseHivstFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.END);
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
