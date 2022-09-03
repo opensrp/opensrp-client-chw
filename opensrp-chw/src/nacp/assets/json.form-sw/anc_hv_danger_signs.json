@@ -137,7 +137,7 @@
           },
           {
             "key": "chk_fgm",
-            "text": "FGM",
+            "text": "Ukeketaji",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_fgm"
           },
