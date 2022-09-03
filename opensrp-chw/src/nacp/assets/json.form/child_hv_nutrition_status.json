@@ -80,7 +80,7 @@
       {
         "key": "prompt_for_nutrition_status",
         "type": "toaster_notes",
-        "text": "Refer the child to the health facility",
+        "text": "Counsel the client on food and nutrition and refer the client if the child missed the last clinic appointment",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",
