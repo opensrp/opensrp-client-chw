@@ -42,6 +42,7 @@ public class AncMemberMapActivity extends AppCompatActivity {
     private GeoJsonSource communityTransportersSource;
     private LatLng userLocation;
     private static int BOUNDING_BOX_PADDING = 100;
+    public static final String GPS = "GPS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +93,22 @@ public class AncMemberMapActivity extends AppCompatActivity {
 
     @Nullable
     private LatLng extractUserLocation() {
+
         double latitude = Double.parseDouble("-1.9885");
         double longitude = Double.parseDouble("33.7799");
+
+        String gpsString = this.getIntent().getStringExtra(GPS);
+
+        if (gpsString != null) {
+            try {
+                String[] gpsCoordinates = gpsString.split(" ");
+                latitude = Double.parseDouble(gpsCoordinates[0]);
+                longitude = Double.parseDouble(gpsCoordinates[1]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return new LatLng(latitude, longitude);
     }
 

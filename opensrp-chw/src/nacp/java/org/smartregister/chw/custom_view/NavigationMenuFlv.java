@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.smartregister.chw.activity.ChwHIA2ReportsActivity;
 import org.smartregister.chw.activity.InAppReportsActivity;
 import org.smartregister.chw.core.activity.CoreStockInventoryReportActivity;
-import org.smartregister.chw.core.activity.HIA2ReportsActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.util.Constants;
@@ -32,7 +32,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public boolean hasServiceReport() {
-        return true;
+        return false;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public boolean hasCommunityResponders() {
-        return false;
+        return true;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public Intent getServiceReportIntent(Activity activity) {
-        return new Intent(activity, HIA2ReportsActivity.class);
+        return new Intent(activity, ChwHIA2ReportsActivity.class);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class NavigationMenuFlv implements NavigationMenu.Flavour {
 
     @Override
     public Intent getHIA2ReportActivityIntent(Activity activity) {
-        return new Intent(activity, HIA2ReportsActivity.class);
+        return new Intent(activity, ChwHIA2ReportsActivity.class);
     }
 
     @Override
