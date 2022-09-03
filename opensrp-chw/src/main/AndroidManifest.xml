@@ -22,6 +22,8 @@
         </activity>
         <activity
             android:name=".activity.RequestPhoneNumberCollectionPermission"
+            android:icon="@drawable/ic_launcher"
+            android:roundIcon="@drawable/ic_launcher_round"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
