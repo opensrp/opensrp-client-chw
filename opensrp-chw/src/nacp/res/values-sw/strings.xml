@@ -106,4 +106,7 @@
     <string name="penta_2">Penta 2</string>
     <string name="penta_3">Penta 3</string>
 
+    <string name="vit_a_received_label">Alipokea Vitamin A</string>
+    <string name="ifa_received_label">Alipokea vidonge vya IFA</string>
+
 </resources>

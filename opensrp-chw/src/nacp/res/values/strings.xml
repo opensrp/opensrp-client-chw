@@ -132,5 +132,8 @@
     <string name="penta_2">Penta 2</string>
     <string name="penta_3">Penta 3</string>
 
+    <string name="vit_a_received_label">Vitamin A received</string>
+    <string name="ifa_received_label">IFA tablets received</string>
+
 
 </resources>
