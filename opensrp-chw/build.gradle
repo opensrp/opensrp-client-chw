@@ -198,7 +198,7 @@ android {
     productFlavors {
         nacp {
             dimension = 'baseDimension'
-            applicationIdSuffix ".nacp"
+            applicationIdSuffix ".moh"
             versionCode 8
             versionName "1.1.0"
             buildConfigField "String", 'opensrp_url', '"http://50.116.15.4:8082/opensrp/"'
