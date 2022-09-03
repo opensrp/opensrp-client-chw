@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness",
+    "title": "Uchunguzi na ugonjwa",
     "fields": [
       {
         "key": "date_of_illness",
@@ -117,7 +117,7 @@
           },
           {
             "key": "chk_other_treatment",
-            "text": "Other treatment",
+            "text": "Matibabu Mengine",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },

@@ -50,6 +50,13 @@
     "title": "Mrejesho wa Ufuatiliaji wa Mwenza",
     "fields": [
       {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
+      },
+      {
         "key": "is_partner_found",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -5,36 +5,6 @@
     "days_after_birth_due": 0,
     "vaccines": [
       {
-        "name": "OPV 0",
-        "type": "OPV",
-        "openmrs_date": {
-          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 0
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+0d",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+28d"
-            }
-          ]
-        }
-      },
-      {
         "name": "BCG",
         "type": "BCG",
         "openmrs_date": {
@@ -53,43 +23,43 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+1y"
             }
           ]
         }
       },
       {
-        "name": "HEPATITIS B",
-        "type": "HEPATITIS_B",
+        "name": "OPV 0",
+        "type": "OPV",
         "openmrs_date": {
-          "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
+          "calculation": 0
         },
         "schedule": {
           "due": [
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+5y"
+              "offset": "+13d"
             }
           ]
         }
@@ -120,43 +90,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Penta 1",
-        "type": "Penta",
-        "openmrs_date": {
-          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+42d",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "offset": "+58m"
             }
           ]
         }
@@ -180,13 +120,43 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+58m"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Penta 1",
+        "type": "Penta",
+        "openmrs_date": {
+          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 1
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "dob",
+              "offset": "+42d",
+              "window": "+10d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+58m"
             }
           ]
         }
@@ -210,13 +180,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+7m"
             }
           ]
         }
@@ -248,44 +218,13 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Penta 2",
-        "type": "Penta",
-        "openmrs_date": {
-          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 2
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "prerequisite",
-              "prerequisite": "Penta 1",
-              "offset": "+28d",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "offset": "+59m"
             }
           ]
         }
@@ -310,13 +249,44 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+59m"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Penta 2",
+        "type": "Penta",
+        "openmrs_date": {
+          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 2
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "prerequisite",
+              "prerequisite": "Penta 1",
+              "offset": "+28d",
+              "window": "+10d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+59m"
             }
           ]
         }
@@ -341,13 +311,13 @@
               "reference": "prerequisite",
               "prerequisite": "Rota 1",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+8m"
             }
           ]
         }
@@ -379,44 +349,13 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 2",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Penta 3",
-        "type": "Penta",
-        "openmrs_date": {
-          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 3
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "prerequisite",
-              "prerequisite": "Penta 2",
-              "offset": "+28d",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -441,27 +380,27 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 2",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
       },
       {
-        "name": "Rota 3",
-        "type": "Rota",
+        "name": "Penta 3",
+        "type": "Penta",
         "openmrs_date": {
-          "parent_entity": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "openmrs_calculate": {
-          "parent_entity": "159698AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "1685AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 3
@@ -470,15 +409,15 @@
           "due": [
             {
               "reference": "prerequisite",
-              "prerequisite": "Rota 2",
+              "prerequisite": "Penta 2",
               "offset": "+28d",
-              "window": "+14d"
+              "window": "+10d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+2y"
+              "offset": "+5y"
             }
           ]
         }
@@ -502,13 +441,7 @@
             {
               "reference": "dob",
               "offset": "+98d",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "window": "+10d"
             }
           ]
         }
@@ -521,10 +454,10 @@
     "days_after_birth_due": 274,
     "vaccines": [
       {
-        "name": "MCV 1",
-        "type": "MCV",
+        "name": "MR 1",
+        "type": "MR",
         "openmrs_date": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -539,103 +472,7 @@
             {
               "reference": "dob",
               "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Rubella 1",
-        "type": "Rubella",
-        "openmrs_date": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Yellow Fever",
-        "type": "YF",
-        "openmrs_date": {
-          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "MenA",
-        "type": "MenA",
-        "openmrs_date": {
-          "parent_entity": "79549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "79549AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+9m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "window": "+10d"
             }
           ]
         }
@@ -643,15 +480,15 @@
     ]
   },
   {
-    "name": "15 Months",
-    "id": "Fifteen_Months",
-    "days_after_birth_due": 456,
+    "name": "18 Months",
+    "id": "Eighteen_Months",
+    "days_after_birth_due": 548,
     "vaccines": [
       {
-        "name": "MCV 2",
-        "type": "MCV",
+        "name": "MR 2",
+        "type": "MR",
         "openmrs_date": {
-          "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -659,50 +496,15 @@
           "parent_entity": "79409AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 2
+          "calculation": 1
         },
         "schedule": {
           "due": [
             {
-              "reference": "dob",
-              "offset": "+15m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "Rubella 2",
-        "type": "Rubella",
-        "openmrs_date": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "83563AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 2
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+15m",
-              "window": "+14d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+2y"
+              "reference": "prerequisite",
+              "prerequisite": "MR 1",
+              "offset": "+9m",
+              "window": "+10d"
             }
           ]
         }

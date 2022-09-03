@@ -64,6 +64,10 @@
         "values": [
           "Ndiyo",
           "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {

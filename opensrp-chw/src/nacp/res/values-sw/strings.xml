@@ -93,4 +93,20 @@
     <string name="view_last_facility_visit_details">Pata Taarifa Za Hudhurio La Mwisho Kituoni</string>
     <string name="last_facility_visit">Hudhurio La Mwisho Kituoni</string>
 
+    <string name="mr_1">Surua na Rubela 1</string>
+    <string name="mr_2">Surua na Rubela 2</string>
+    <string name="opv_0">OPV 0</string>
+    <string name="opv_1">OPV 1</string>
+    <string name="opv_2">OPV 2</string>
+    <string name="opv_3">OPV 3</string>
+    <string name="pcv_1">PCV 1</string>
+    <string name="pcv_2">PCV 2</string>
+    <string name="pcv_3">PCV 3</string>
+    <string name="penta_1">Penta 1</string>
+    <string name="penta_2">Penta 2</string>
+    <string name="penta_3">Penta 3</string>
+
+    <string name="vit_a_received_label">Alipokea Vitamin A</string>
+    <string name="ifa_received_label">Alipokea vidonge vya IFA</string>
+
 </resources>

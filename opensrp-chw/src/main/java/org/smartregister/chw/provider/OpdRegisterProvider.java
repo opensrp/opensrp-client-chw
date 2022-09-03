@@ -22,6 +22,8 @@ import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.util.Map;
 
+import timber.log.Timber;
+
 public class OpdRegisterProvider extends org.smartregister.opd.provider.OpdRegisterProvider {
     private final Context context;
 
@@ -55,10 +57,13 @@ public class OpdRegisterProvider extends org.smartregister.opd.provider.OpdRegis
         String lastName = opdRegisterProviderMetadata.getClientLastName(patientColumnMaps);
         String fullName = org.smartregister.util.Utils.getName(firstName, middleName + " " + lastName);
 
-        String age = String.valueOf(new Period(new DateTime(opdRegisterProviderMetadata.getDob(patientColumnMaps)),new DateTime()).getYears());
-
-        fillValue(viewHolder.textViewChildName, WordUtils.capitalize(fullName) + ", " +
-                WordUtils.capitalize(age));
+        try {
+            String age = String.valueOf(new Period(new DateTime(opdRegisterProviderMetadata.getDob(patientColumnMaps)), new DateTime()).getYears());
+            fillValue(viewHolder.textViewChildName, WordUtils.capitalize(fullName) + ", " +
+                    WordUtils.capitalize(age));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     private String getTranslatedRegisterType(String registerType) {
