@@ -8,6 +8,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cdp.CdpLibrary;
+import org.smartregister.chw.cdp.dao.CdpOrderDao;
 import org.smartregister.chw.cdp.dao.CdpStockingDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -61,11 +62,17 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     processVisitEvent(eventClient);
                     break;
                 case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_OUTLET_VISIT:
-                    if(eventClient.getEvent() == null){
+                    if (eventClient.getEvent() == null) {
                         return;
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+                    break;
+                case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_CONDOM_ORDER:
+                    if (eventClient.getEvent() == null) {
+                        return;
+                    }
+                    processCDPOrderEvent(eventClient.getEvent());
                     break;
                 default:
                     break;
@@ -136,6 +143,30 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType());
                 CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType);
             }
+            CdpLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(event.getFormSubmissionId());
+        }
+    }
+
+    private void processCDPOrderEvent(Event event) {
+        List<Obs> visitObs = event.getObs();
+        String condomBrand = "";
+        String condomType = "";
+        String quantityRequested = "0";
+        String locationId = event.getLocationId();
+        String baseEntityId = event.getBaseEntityId();
+        String formSubmissionId = event.getFormSubmissionId();
+
+        if (visitObs.size() > 0) {
+            for (Obs obs : visitObs) {
+                if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOM_TYPE.equals(obs.getFieldCode())) {
+                    condomType = (String) obs.getValue();
+                } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOM_BRAND.equals(obs.getFieldCode())) {
+                    condomBrand = (String) obs.getValue();
+                } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOMS_REQUESTED.equals(obs.getFieldCode())) {
+                    quantityRequested = (String) obs.getValue();
+                }
+            }
+            CdpOrderDao.updateOrderData(locationId, baseEntityId, formSubmissionId, condomType, condomBrand, quantityRequested, org.smartregister.chw.cdp.util.Constants.ORDER_TYPES.COMMUNITY_TO_FACILITY_ORDER);
             CdpLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(event.getFormSubmissionId());
         }
     }
