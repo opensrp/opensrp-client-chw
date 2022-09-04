@@ -4459,6 +4459,65 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_cdp_orders",
+      "columns": [
+        {
+          "column_name": "location_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "locationId"
+          }
+        },
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
+          }
+        },
+        {
+          "column_name": "condom_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condom_type"
+          }
+        },
+        {
+          "column_name": "condom_brand",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "condom_brand"
+          }
+        },
+        {
+          "column_name": "quantity_requested",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "requested_condoms"
+          }
+        },
+        {
+          "column_name": "request_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "request_type"
+          }
+        },
+        {
+          "column_name": "requested_at",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "requested_at"
+          }
+        }
+      ]
     }
   ]
 }

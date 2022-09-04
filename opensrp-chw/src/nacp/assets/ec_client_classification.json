@@ -602,6 +602,13 @@
               "ec_cdp_register",
               "ec_cdp_outlet_visit"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Condom Order",
+            "creates_case": [
+              "ec_cdp_orders"
+            ]
           }
         ]
       }
