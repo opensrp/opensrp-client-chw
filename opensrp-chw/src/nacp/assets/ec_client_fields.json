@@ -4471,6 +4471,13 @@
           }
         },
         {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "form_submission_id"
+          }
+        },
+        {
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
