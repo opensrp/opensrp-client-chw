@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Nutrition Status - Baby",
+    "title": "Hali ya Lishe - Baby",
     "fields": [
       {
         "key": "nutrition_status_1m",
@@ -75,6 +75,21 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "prompt_for_nutrition_status",
+        "type": "toaster_notes",
+        "text": "Mshauri mteja juu ya lishe bora na mpe rufaa kama amekosa hudhurio lake la mwisho kliniki",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:nutrition_status_1m": {
+            "type": "string",
+            "ex": "equalTo(., \"Severe\")"
+          }
         }
       }
     ]

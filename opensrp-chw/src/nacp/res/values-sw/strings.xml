@@ -110,4 +110,7 @@
     <string name="vit_a_received_label">Alipokea Vitamin A</string>
     <string name="ifa_received_label">Alipokea vidonge vya IFA</string>
 
+    <string name="pnc_visit_day_due">Siku %s tembeleo kufikiwa</string>
+    <string name="pnc_visit_day_overdue">Siku %s tembeleo limepitiliza</string>
+
 </resources>
