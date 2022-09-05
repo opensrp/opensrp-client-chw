@@ -520,7 +520,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public void onPayloadReceived(String jsonPayload) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonPayload);
-                counselling_given = JsonFormUtils.getCheckBoxValue(jsonObject, "counselling_given").toLowerCase();
+                counselling_given = JsonFormUtils.getValue(jsonObject, "counselling_given").toLowerCase();
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -543,7 +543,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            String subTitle = (!counselling_given.contains("none") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase());
+            String subTitle = (!counselling_given.contains("chk_none") ? context.getString(R.string.done).toLowerCase() : context.getString(R.string.not_done).toLowerCase());
             return MessageFormat.format("{0} {1}", context.getString(R.string.counselling), subTitle);
         }
 

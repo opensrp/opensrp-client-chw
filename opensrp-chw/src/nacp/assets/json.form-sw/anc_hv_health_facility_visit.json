@@ -56,9 +56,9 @@
         "openmrs_entity_id": "anc_hf_visit",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, Mwanamke alihudhuria tembeleo lake la mwisho la ANC kituoni?",
+        "hint": "Je, Mwanamke alihudhuria tembeleo lake la mwisho la wajawazito kituoni?",
         "values": [
-          "Ndiyo",
+          "Ndio",
           "Hapana"
         ],
         "keys": [
@@ -82,7 +82,7 @@
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "ANC visit date",
-        "hint": "Tarehe ya hudhurio ya ANC",
+        "hint": "Tarehe ya hudhurio la kliniki ya wajawazito",
         "expanded": false,
         "min_date": "today-10y",
         "max_date": "today",

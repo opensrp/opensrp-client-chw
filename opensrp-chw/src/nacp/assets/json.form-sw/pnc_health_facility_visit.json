@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Health Facility Visit",
+    "title": "Udhurio katika Kituo cha Afya",
     "fields": [
       {
         "key": "pnc_visit_{0}",
@@ -56,7 +56,7 @@
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Je, mwanamke huyo alihudhuria PNC yake alipotembelea {0} kituo cha afya? Tarehe ya kukamilisha hudhurio: {1}",
+        "hint": "Je, mwanamke amehudhuria hudhurio lake la {0} kwenye kliniki ya baada ya kujifungua katika kituo cha afya? Tarehe ya kukamilisha hudhurio: {1}",
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua jibu sahihi"
