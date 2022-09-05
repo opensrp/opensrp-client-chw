@@ -55,6 +55,7 @@
     <string name="referral_submitted">Rufaa imetumwa kituoni</string>
     <string name="referral_submitted_successfully">Imefanikiwa</string>
     <string name="submit">HIFADHI</string>
+    <string name="pmtct_followup_feedback_title">Mrejesho wa Ufuatiliaji</string>
 
     <!-- String updates: New CBHS workflow   -->
     <string name="client_registration">Usajili wa Mwanzo wa Mteja</string>

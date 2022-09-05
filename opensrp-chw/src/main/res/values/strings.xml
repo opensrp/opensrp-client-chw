@@ -401,7 +401,7 @@
     <string name="cancel_referral_message">Referral will be closed and disappear from app.</string>
     <string name="exit">Exit</string>
     <string name="record_followup_feedback">Record  Followup Feedback</string>
-    <string name="pmtct_followup_feedback_title">Mother Champion Followup Feedback</string>
+    <string name="pmtct_followup_feedback_title">Followup Feedback</string>
     <string name="followup_feedback_recorded">Followup Feedback Recorded</string>
     <string name="mother_champion">Mother Champion</string>
     <string name="mother_champion_community_services">Community Services</string>
