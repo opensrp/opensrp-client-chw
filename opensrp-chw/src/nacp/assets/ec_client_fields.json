@@ -4311,6 +4311,22 @@
             "field": "obs.fieldCode",
             "concept": "hivst_result"
           }
+        },
+        {
+          "column_name": "collection_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "collection_date"
+          }
+        },
+        {
+          "column_name": "result_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "result_date"
+          }
         }
       ]
     },
