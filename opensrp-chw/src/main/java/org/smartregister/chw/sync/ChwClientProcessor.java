@@ -72,7 +72,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     if (eventClient.getEvent() == null) {
                         return;
                     }
-                    processCDPOrderEvent(eventClient.getEvent());
+                    processCDPOrderEvent(eventClient.getEvent(), org.smartregister.chw.cdp.util.Constants.TABLES.CDP_ORDERS);
                     break;
                 default:
                     break;
@@ -147,29 +147,6 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
     }
 
-    private void processCDPOrderEvent(Event event) {
-        List<Obs> visitObs = event.getObs();
-        String condomBrand = "";
-        String condomType = "";
-        String quantityRequested = "0";
-        String locationId = event.getLocationId();
-        String baseEntityId = event.getBaseEntityId();
-        String formSubmissionId = event.getFormSubmissionId();
-
-        if (visitObs.size() > 0) {
-            for (Obs obs : visitObs) {
-                if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOM_TYPE.equals(obs.getFieldCode())) {
-                    condomType = (String) obs.getValue();
-                } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOM_BRAND.equals(obs.getFieldCode())) {
-                    condomBrand = (String) obs.getValue();
-                } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOMS_REQUESTED.equals(obs.getFieldCode())) {
-                    quantityRequested = (String) obs.getValue();
-                }
-            }
-            CdpOrderDao.updateOrderData(locationId, baseEntityId, formSubmissionId, condomType, condomBrand, quantityRequested, org.smartregister.chw.cdp.util.Constants.ORDER_TYPES.COMMUNITY_TO_FACILITY_ORDER);
-            CdpLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(event.getFormSubmissionId());
-        }
-    }
 
     @Override
     protected String getHumanReadableConceptResponse(String value, Object object) {
