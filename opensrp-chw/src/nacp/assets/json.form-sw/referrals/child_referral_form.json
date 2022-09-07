@@ -313,7 +313,7 @@
             },
             {
               "name": "Panadol",
-              "text": "Matibabu mengine",
+              "text": "Panadol",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -322,7 +322,7 @@
             },
             {
               "name": "Other_treatment",
-              "text": "Other treatment",
+              "text": "Matibabu Mengine",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

@@ -82,28 +82,56 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Action taken",
-        "v_required": {
-          "value": "true",
-          "err": "Please select action"
-        },
-        "values": [
-          "ORS 5",
-          "Zinc 10",
-          "Panadol",
-          "Referred",
-          "Other treatment",
-          "No treatment given"
+        "type": "check_box",
+        "label": "Action taken",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
         ],
-        "keys": [
-          "ORS 5",
-          "Zinc 10",
-          "Panadol",
-          "Referred",
-          "Other treatment given",
-          "No treatment"
+        "options": [
+          {
+            "key": "chk_ors",
+            "text": "ORS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_zinc",
+            "text": "Zinc",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "86672AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_paracetamol",
+            "text": "Panadol",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_traditional_medicine",
+            "text": "Traditional medicine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_medicine"
+          },
+          {
+            "key": "chk_attended_health_facility",
+            "text": "Attended Health Facility",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_attended_health_facility"
+          },
+          {
+            "key": "chk_other_treatment",
+            "text": "Other treatment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "No treatment given",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         ]
       },
       {
@@ -119,8 +147,34 @@
         },
         "relevance": {
           "step1:action_taken_1m5yr": {
-            "type": "string",
-            "ex": "equalTo(., \"Other treatment\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_treatment"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "traditional_medicine_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Counsel the client not to use Traditional Medicine.",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:action_taken": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_traditional_medicine"
+                ]
+              }
+            ]
           }
         }
       }

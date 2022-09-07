@@ -59,11 +59,15 @@
         "hint": "Je, mwanamke huyo alihudhuria PNC yake alipotembelea {0} kituo cha afya? Tarehe ya kukamilisha hudhurio: {1}",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "values": [
-          "Ndiyo",
+          "Ndio",
           "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ]
       },
       {
@@ -96,11 +100,15 @@
         "hint": "Je, mwanamke huyo alipokea Vitamini A ndani ya saa 24 baada ya kujifungua?",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo"
+          "err": "Please select option"
         },
         "values": [
           "Ndiyo",
           "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "relevance": {
           "step1:pnc_visit_{0}": {
@@ -119,11 +127,15 @@
         "hint": "Je, mwanamke alipokea tembe za iron na folic acid (IFA) ndani ya saa 24 baada ya kujifungua?",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua chaguo"
+          "err": "Tafadhali chagua jibu sahihi"
         },
         "values": [
           "Ndiyo",
           "Hapana"
+        ],
+        "keys": [
+          "Yes",
+          "No"
         ],
         "openmrs_choice_ids": {
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

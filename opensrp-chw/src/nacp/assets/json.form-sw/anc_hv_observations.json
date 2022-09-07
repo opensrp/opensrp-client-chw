@@ -92,7 +92,7 @@
         "options": [
           {
             "key": "chk_ors",
-            "text": "ORS 5",
+            "text": "ORS",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_ors"
           },
@@ -109,10 +109,10 @@
             "openmrs_entity_id": "chk_paracetamol"
           },
           {
-            "key": "chk_referred",
-            "text": "Kupewa rufaa",
+            "key": "chk_attended_health_facility",
+            "text": "Alihudhuria Kituo cha Afya",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "chk_referred"
+            "openmrs_entity_id": "chk_attended_health_facility"
           },
           {
             "key": "chk_none",
@@ -124,6 +124,27 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali chagua chaguo moja"
+        }
+      },
+      {
+        "key": "traditional_medicine_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mshauri mteja kutokumia Tiba Asili/Dawa za mitishamba",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:action_taken": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_traditional_medicine"
+                ]
+              }
+            ]
+          }
         }
       }
     ]

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Observations & Illness",
+    "title": "Uchunguzi na ugonjwa",
     "fields": [
       {
         "key": "date_of_illness",
@@ -82,29 +82,56 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164378AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "select one",
-        "type": "spinner",
-        "hint": "Hatua iliyochukuliwa",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Hatua iliyochukuliwa",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "chk_ors",
+            "text": "ORS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_ors"
+          },
+          {
+            "key": "chk_traditional_medicine",
+            "text": "Mitishamba",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_traditional_medicine"
+          },
+          {
+            "key": "chk_paracetamol",
+            "text": "Panado",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_paracetamol"
+          },
+          {
+            "key": "chk_attended_health_facility",
+            "text": "Alihudhuria Kituo cha Afya",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_attended_health_facility"
+          },
+          {
+            "key": "chk_other_treatment",
+            "text": "Matibabu Mengine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna matibabu yaliyotolewa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Tafadhali chagua hatua"
-        },
-        "values": [
-          "ORS 5",
-          "Zinc 10",
-          "Panadol",
-          "Kutoa rufaa",
-          "Matibabu mengine",
-          "Hakuna matibabu yaliyotolewa"
-        ],
-        "keys": [
-          "ORS 5",
-          "Zinc 10",
-          "Panadol",
-          "Referred",
-          "Other treatment given",
-          "No treatment"
-        ]
+          "err": "Tafadhali chagua chaguo moja"
+        }
       },
       {
         "key": "other_treat_1m5yr",
@@ -119,8 +146,34 @@
         },
         "relevance": {
           "step1:action_taken_1m5yr": {
-            "type": "string",
-            "ex": "equalTo(., \"Other treatment\")"
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_other_treatment"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "traditional_medicine_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Mshauri mteja kutokumia Tiba Asili/Dawa za mitishamba",
+        "text_color": "#CF0800",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:action_taken": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_traditional_medicine"
+                ]
+              }
+            ]
           }
         }
       }

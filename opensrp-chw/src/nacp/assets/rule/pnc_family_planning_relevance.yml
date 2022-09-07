@@ -16,6 +16,6 @@ actions:
 name: step1_fp_start_date
 description: Family Planning Start Date
 priority: 1
-condition: "step1_fp_counseling.contains('Yes') && !step1_fp_method.contains('None') && !step1_fp_method.isEmpty()"
+condition: "step1_fp_counseling.contains('Yes') && !step1_fp_method.contains('None') && !step1_fp_method.contains('COC Pills') && !step1_fp_method.isEmpty()"
 actions:
   - "isRelevant = true"

@@ -65,115 +65,115 @@
         "options": [
           {
             "key": "chk_maternal_nutrition",
-            "text": "3. Maternal nutrition during breastfeeding",
+            "text": "Maternal nutrition during breastfeeding",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_aids",
-            "text": "5. HIV/AIDS general information",
+            "text": "HIV/AIDS general information",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pmtct",
-            "text": "6. PMTCT for the mother",
+            "text": "PMTCT for the mother",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_malaria_prevention",
-            "text": "7. Malaria prevention",
+            "text": "Malaria prevention",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pnc_care_for_mother",
-            "text": "9. PNC care for mother",
+            "text": "PNC care for mother",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_exposed_infant",
-            "text": "9. Follow-up for the HIV-exposed Infant",
+            "text": "Follow-up for the HIV-exposed Infant",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_pnc_danger_signs",
-            "text": "10. PNC danger signs",
+            "text": "PNC danger signs",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_care_of_infant_after_birth",
-            "text": "11. Care of infant after birth",
+            "text": "Care of infant after birth",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_care_of_premature_baby",
-            "text": "12. Care of a premature baby",
+            "text": "Care of a premature baby",
             "openmrs_entity": "concept",
             "openmrs_entity_id": ""
           },
           {
             "key": "chk_care_of_new_born",
-            "text": "13. Care of a newborn",
+            "text": "Care of a newborn",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160413AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_new_born_danger_signs",
-            "text": "14. Newborn danger signs",
+            "text": "Newborn danger signs",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_hiv_exposed_infant",
-            "text": "15. Follow-up for the HIV-exposed infant",
+            "text": "Follow-up for the HIV-exposed infant",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_breastfeeding",
-            "text": "16. Breastfeeding",
+            "text": "Breastfeeding",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_lam",
-            "text": "17. LAM as a natural FP method, which includes exclusive breastfeeding six months after delivery",
+            "text": "LAM as a natural FP method, which includes exclusive breastfeeding six months after delivery",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_family_planning",
-            "text": "18. Family planning",
+            "text": "Family planning",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_birth_registration",
-            "text": "19. Birth registration",
+            "text": "Birth registration",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165406AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_immunisation",
-            "text": "22. Immunisation",
+            "text": "Immunisation",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_infection_prevention",
-            "text": "24. Infection prevention and control",
+            "text": "Infection prevention and control",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1906AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "chk_gender_issues",
-            "text": "26. Gender issues",
+            "text": "Gender issues",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
