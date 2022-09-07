@@ -1,0 +1,7 @@
+---
+name: step1_request_type
+description: request_type for community is community_to_facility
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'community_to_facility' "

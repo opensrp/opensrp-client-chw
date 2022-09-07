@@ -155,6 +155,20 @@
           "value": "true",
           "err":"Please enter the number"
         }
+      },
+      {
+        "key": "request_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "request_type",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_condom_order_calculation.yml"
+            }
+          }
+        }
       }
     ]
   }
