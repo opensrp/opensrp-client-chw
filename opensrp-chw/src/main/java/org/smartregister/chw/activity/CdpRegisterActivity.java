@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import org.json.JSONObject;
 import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.chw.core.activity.CoreCdpRegisterActivity;
-import org.smartregister.chw.core.fragment.CoreOrdersRegisterFragment;
 import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.fragment.CdpRegisterFragment;
 import org.smartregister.chw.fragment.OrdersRegisterFragment;
