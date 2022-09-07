@@ -8,7 +8,6 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.cdp.CdpLibrary;
-import org.smartregister.chw.cdp.dao.CdpOrderDao;
 import org.smartregister.chw.cdp.dao.CdpStockingDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -67,12 +66,6 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     }
                     processVisitEvent(eventClient);
                     processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
-                    break;
-                case org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_CONDOM_ORDER:
-                    if (eventClient.getEvent() == null) {
-                        return;
-                    }
-                    processCDPOrderEvent(eventClient.getEvent(), org.smartregister.chw.cdp.util.Constants.TABLES.CDP_ORDERS);
                     break;
                 default:
                     break;
