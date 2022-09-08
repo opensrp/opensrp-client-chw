@@ -18,7 +18,7 @@ public class OrdersRegisterFragment extends CoreOrdersRegisterFragment {
     public void startOrderForm() {
         try {
             JSONObject form = model().getOrderFormAsJson(Constants.FORMS.CDP_CONDOM_ORDER);
-            Intent startFormIntent = getStartFormActivity(form, requireActivity().getString(R.string.condom), requireActivity());
+            Intent startFormIntent = getStartFormActivity(form, null, requireActivity());
             requireActivity().startActivityForResult(startFormIntent, JsonFormUtils.REQUEST_CODE_GET_JSON);
         } catch (Exception e) {
             e.printStackTrace();
