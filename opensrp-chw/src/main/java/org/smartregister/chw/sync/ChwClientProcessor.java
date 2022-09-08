@@ -115,6 +115,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
         List<Obs> visitObs = event.getObs();
         String maleCondomsOffset = "0";
         String femaleCondomsOffset = "0";
+        String restockDate = "";
         String locationId = event.getLocationId();
         String chwName = event.getProviderId();
 
@@ -124,18 +125,21 @@ public class ChwClientProcessor extends CoreClientProcessor {
                     femaleCondomsOffset = (String) obs.getValue();
                 } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.MALE_CONDOMS_OFFSET.equals(obs.getFieldCode())) {
                     maleCondomsOffset = (String) obs.getValue();
+                } else if (org.smartregister.chw.cdp.util.Constants.JSON_FORM_KEY.CONDOM_RESTOCK_DATE.equals(obs.getFieldCode())) {
+                    restockDate = (String) obs.getValue();
                 }
             }
             if (event.getEventType().equals(org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_RECEIVE_FROM_FACILITY)) {
                 String stockEventType = org.smartregister.chw.cdp.util.Constants.STOCK_EVENT_TYPES.INCREMENT;
-                CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType());
-                CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType);
+                CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType(), restockDate);
+                CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, restockDate);
             }
             if (event.getEventType().equals(org.smartregister.chw.cdp.util.Constants.EVENT_TYPE.CDP_OUTLET_RESTOCK)) {
                 String stockEventType = org.smartregister.chw.cdp.util.Constants.STOCK_EVENT_TYPES.DECREMENT;
-                CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType());
-                CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType);
+                CdpStockingDao.updateStockLogData(locationId, event.getFormSubmissionId(), chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, event.getEventType(), restockDate);
+                CdpStockingDao.updateStockCountData(locationId, chwName, maleCondomsOffset, femaleCondomsOffset, stockEventType, restockDate);
             }
+            completeProcessing(event);
             CdpLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(event.getFormSubmissionId());
         }
     }

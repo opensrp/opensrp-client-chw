@@ -45,22 +45,6 @@
     "title": "Record Outlet Restock",
     "fields": [
       {
-        "key": "condom_restock_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "condom_restock_date",
-        "type": "date_picker",
-        "label": "Condom restock date",
-        "hint": "Condom restock date",
-        "expanded": false,
-        "min_date": "today-3m",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Enter the condom restock date"
-        }
-      },
-      {
         "key": "condom_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -264,6 +248,20 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "condom_restock_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_restock_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_outlet_restock_calculation.yml"
+            }
           }
         }
       }

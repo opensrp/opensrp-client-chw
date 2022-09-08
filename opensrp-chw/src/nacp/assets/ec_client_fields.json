@@ -4308,7 +4308,7 @@
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "locationId"
           }
         },
         {
@@ -4339,7 +4339,7 @@
           "column_name": "date_updated",
           "type": "Event",
           "json_mapping": {
-            "field": "eventDate"
+            "field": "condom_restock_date"
           }
         }
       ]
@@ -4351,7 +4351,7 @@
           "column_name": "entity_id",
           "type": "Event",
           "json_mapping": {
-            "field": "baseEntityId"
+            "field": "locationId"
           }
         },
         {
@@ -4394,17 +4394,13 @@
         },
         {
           "column_name": "stock_event_type",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "stock_event_type"
-          }
+          "type": "Event"
         },
         {
           "column_name": "date_updated",
           "type": "Event",
           "json_mapping": {
-            "field": "eventDate"
+            "field": "condom_restock_date"
           }
         }
       ]
