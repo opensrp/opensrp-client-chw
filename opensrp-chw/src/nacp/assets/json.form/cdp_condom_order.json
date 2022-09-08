@@ -45,22 +45,6 @@
     "title": "Order Condom",
     "fields": [
       {
-        "key": "condom_order_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "condom_order_date",
-        "type": "date_picker",
-        "label": "Condom order date",
-        "hint": "Condom order date",
-        "expanded": false,
-        "min_date": "today-3m",
-        "max_date": "today",
-        "v_required": {
-          "value": "true",
-          "err": "Enter the condom order date"
-        }
-      },
-      {
         "key": "condom_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -161,6 +145,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "request_type",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_condom_order_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "condom_order_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_order_date",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
