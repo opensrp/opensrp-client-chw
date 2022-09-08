@@ -20,6 +20,6 @@ public class RestockingVisitHistoryActivity extends BaseRestockingHistoryActivit
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
-        startActivityForResult(FormUtils.getStartFormActivity(jsonForm, this.getString(org.smartregister.chw.core.R.string.outlet_registration), this), JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(FormUtils.getStartFormActivity(jsonForm, null, this), JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }
