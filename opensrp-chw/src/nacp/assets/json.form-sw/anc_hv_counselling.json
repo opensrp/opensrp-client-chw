@@ -65,7 +65,7 @@
         "options": [
           {
             "key": "chk_attended_anc_contacts",
-            "text": "1. Kufika kliniki ya ANC mapema",
+            "text": "1. Kufikia kliniki ya wajawazito mapema",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_attended_anc_contacts"
           },
@@ -113,7 +113,7 @@
           },
           {
             "key": "chk_pnc_danger_signs",
-            "text": "9. Dalili za hatari za PNC",
+            "text": "9. Dalili za hatari za baada ya kujifungua",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pnc_danger_signs"
           },
