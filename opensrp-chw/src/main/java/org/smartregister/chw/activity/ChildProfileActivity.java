@@ -1,5 +1,12 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
+import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,23 +33,19 @@ import org.smartregister.chw.core.presenter.CoreChildProfilePresenter;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreConstants.JSON_FORM;
+import org.smartregister.chw.core.utils.MalariaFollowUpStatusTaskUtil;
 import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
+import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.ChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.family.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.smartregister.chw.anc.util.Constants.ANC_MEMBER_OBJECTS.MEMBER_PROFILE_OBJECT;
-import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
-import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
-import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
-import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-import static org.smartregister.opd.utils.OpdConstants.DateFormat.YYYY_MM_DD;
 
 public class ChildProfileActivity extends CoreChildProfileActivity implements OnRetrieveNotifications {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -172,6 +175,8 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
         menu.findItem(R.id.action_thinkmd_health_assessment).setVisible(ChwApplication.getApplicationFlavor().useThinkMd()
                 && flavor.isChildOverTwoMonths(((CoreChildProfilePresenter) presenter).getChildClient()));
+
+        UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
         return true;
     }
 

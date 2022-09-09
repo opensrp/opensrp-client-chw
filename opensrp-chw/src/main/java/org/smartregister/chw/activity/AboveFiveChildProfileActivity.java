@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
@@ -18,13 +20,12 @@ import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.AboveFiveChildProfilePresenter;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.family.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.smartregister.chw.util.Constants.MALARIA_REFERRAL_FORM;
 
 public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActivity {
     public FamilyMemberFloatingMenu familyFloatingMenu;
@@ -39,6 +40,7 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
+        UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
         return true;
     }
 

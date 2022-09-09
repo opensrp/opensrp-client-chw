@@ -209,14 +209,14 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "Yes",
+            "text": "Yes"
           },
           {
             "key": "No",
             "openmrs_entity": "",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "text": "No",
+            "text": "No"
           }
         ],
         "v_required": {
