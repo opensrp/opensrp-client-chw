@@ -1,7 +1,7 @@
 ---
-name: step1_condom_restock_date
-description: condom_restock_date
+name: step1_stock_event_type
+description: stock_event_type for restocking in community is decrement
 priority: 1
 condition: "true"
 actions:
-  - "calculation =  helper.getTimeInMillis() "
+  - "calculation = 'decrement' "
