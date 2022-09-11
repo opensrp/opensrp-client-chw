@@ -34,6 +34,7 @@ import org.smartregister.chw.hiv.activity.BaseHivFormsActivity;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;
+import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
@@ -146,6 +147,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivIndexContactObject().getBaseEntityId()));
+        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivIndexContactObject().getBaseEntityId()));
         return true;
     }
 

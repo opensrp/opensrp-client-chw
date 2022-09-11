@@ -1,0 +1,35 @@
+---
+name: step1_disclose_result
+description: relevant if global kit for is client
+priority: 1
+condition: "global_kit_for == 'client'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_peer_test_result
+description: relevant if global kit for is peer_friend
+priority: 1
+condition: "global_kit_for == 'peer_friend'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_sexual_partner_test_result
+description: relevant if global kit for is sexual_partner
+priority: 1
+condition: "global_kit_for == 'sexual_partner'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_client_test_result
+description: client_test_result relevance
+priority: 1
+condition: "step1_disclose_result == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_referral
+description: prompt_for_referral relevance
+priority: 1
+condition: "step1_client_test_result == 'reactive' || step1_client_test_result == 'non_reactive'"
+actions:
+  - "isRelevant = true"

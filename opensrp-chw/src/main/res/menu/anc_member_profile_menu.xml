@@ -56,6 +56,12 @@
         android:enabled="true"
         android:visible="false"
         android:title="@string/cbhs_registration"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_hivst_registration"
+        android:enabled="true"
+        android:visible="false"
+        android:title="@string/hivst_registration"
+        app:showAsAction="never" />
 </menu>
