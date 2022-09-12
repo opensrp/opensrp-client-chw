@@ -4348,6 +4348,9 @@
           "json_mapping": {
             "field": "condom_restock_date"
           }
+        },
+        {
+          "column_name": "processed_form_submission_ids"
         }
       ]
     },
