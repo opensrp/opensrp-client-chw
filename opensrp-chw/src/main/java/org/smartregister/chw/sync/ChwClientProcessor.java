@@ -7,8 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
-import org.smartregister.chw.cdp.CdpLibrary;
-import org.smartregister.chw.cdp.dao.CdpStockingDao;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;

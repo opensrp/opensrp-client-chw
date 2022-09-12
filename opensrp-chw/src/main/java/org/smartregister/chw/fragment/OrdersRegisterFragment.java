@@ -3,7 +3,6 @@ package org.smartregister.chw.fragment;
 import android.content.Intent;
 
 import org.json.JSONObject;
-import org.smartregister.chw.R;
 import org.smartregister.chw.activity.OrderDetailsActivity;
 import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.chw.core.fragment.CoreOrdersRegisterFragment;
