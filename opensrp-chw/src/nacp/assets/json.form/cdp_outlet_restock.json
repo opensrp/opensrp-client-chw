@@ -41,9 +41,42 @@
     },
     "encounter_location": ""
   },
+  "global": {},
   "step1": {
     "title": "Record Outlet Restock",
     "fields": [
+      {
+        "key": "male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_condoms",
+        "type": "edit_text",
+        "read_only": true,
+        "hint": "Available Male condoms",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_outlet_restock_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "female_condoms",
+        "type": "edit_text",
+        "read_only": true,
+        "hint": "Available Female condoms",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_outlet_restock_calculation.yml"
+            }
+          }
+        }
+      },
       {
         "key": "condom_type",
         "openmrs_entity_parent": "",
@@ -141,14 +174,13 @@
         "openmrs_entity_id": "male_condoms_offset",
         "type": "edit_text",
         "hint": "Number of restocked Male condoms  (Pieces)",
-        "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the number"
-        },
         "v_numeric": {
           "value": "true",
           "err":"Please enter the number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
         },
         "relevance": {
           "step1:condom_type": {
@@ -160,7 +192,14 @@
               }
             ]
           }
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:male_condoms)",
+            "err": "Number must be less than or equal to the stock on hand"
+          }
+        ]
       },
       {
         "key": "female_condom_brand",
@@ -230,14 +269,13 @@
         "openmrs_entity_id": "female_condoms_offset",
         "type": "edit_text",
         "hint": "Number of restocked Female condoms (Pieces)",
-        "edit_type": "number",
-        "v_required": {
+        "v_numeric": {
           "value": "true",
           "err": "Please enter the number"
         },
-        "v_numeric": {
+        "v_required": {
           "value": "true",
-          "err":"Please enter the number"
+          "err": "Please enter the number"
         },
         "relevance": {
           "step1:condom_type": {
@@ -249,7 +287,14 @@
               }
             ]
           }
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:female_condoms)",
+            "err": "Number must be less than or equal to the stock on hand"
+          }
+        ]
       },
       {
         "key": "condom_restock_date",
