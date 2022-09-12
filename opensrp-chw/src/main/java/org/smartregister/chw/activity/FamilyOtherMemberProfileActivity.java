@@ -70,7 +70,8 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
 
-        flavor.updateMalariaMenuItems(baseEntityId, menu);
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            flavor.updateMalariaMenuItems(baseEntityId, menu);
 
         if (gender.equalsIgnoreCase("Male") && flavor.isOfReproductiveAge(commonPersonObject, "Male")) {
             flavor.updateMaleFpMenuItems(baseEntityId, menu);

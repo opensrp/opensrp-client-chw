@@ -35,7 +35,6 @@ import org.smartregister.chw.core.listener.OnRetrieveNotifications;
 import org.smartregister.chw.core.task.RunnableTask;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.core.utils.MalariaFollowUpStatusTaskUtil;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.HivFloatingMenu;
 import org.smartregister.chw.dao.ChwCBHSDao;
@@ -46,7 +45,6 @@ import org.smartregister.chw.hiv.util.Constants;
 import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.interactor.CbhsProfileInteractor;
-import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.referral.domain.NeatFormMetaData;
@@ -484,7 +482,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !PNCDao.isPNCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
-        UtilsFlv.updateMalariaMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            UtilsFlv.updateMalariaMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }
 

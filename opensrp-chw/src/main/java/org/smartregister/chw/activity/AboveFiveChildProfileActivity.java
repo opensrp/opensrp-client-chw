@@ -40,7 +40,8 @@ public class AboveFiveChildProfileActivity extends CoreAboveFiveChildProfileActi
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_malaria_followup_visit).setVisible(false);
-        UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            UtilsFlv.updateMalariaMenuItems(memberObject.getBaseEntityId(), menu);
         return true;
     }
 

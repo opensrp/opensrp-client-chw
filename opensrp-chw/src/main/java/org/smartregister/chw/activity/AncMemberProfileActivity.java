@@ -43,7 +43,6 @@ import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
 import org.smartregister.chw.core.utils.ChwNotificationUtil;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
-import org.smartregister.chw.core.utils.MalariaFollowUpStatusTaskUtil;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
@@ -223,7 +222,8 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         UtilsFlv.updateHivMenuItems(baseEntityID, menu);
-        UtilsFlv.updateMalariaMenuItems(baseEntityID, menu);
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            UtilsFlv.updateMalariaMenuItems(baseEntityID, menu);
         return true;
     }
 
