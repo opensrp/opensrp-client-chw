@@ -1,0 +1,42 @@
+---
+name: step1_stock_event_type
+description: stock_event_type for distribution is decrement
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'increment' "
+---
+name: step1_condom_restock_date
+description: condom_restock_date
+priority: 1
+condition: "step1_condom_receive_date != ''"
+actions:
+  - "def getDate(date) {
+          import java.util.*;
+          import java.text.*;
+
+          SimpleDateFormat dateFormat = new SimpleDateFormat('dd-MM-yyyy', Locale.getDefault());
+          return dateFormat.parse(date).getTime();
+      }"
+  - "calculation = getDate(step1_condom_receive_date) "
+---
+name: step1_condom_type
+description: condom_type
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_condom_type"
+---
+name: step1_provided_male_condoms
+description: provided_male_condoms
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_condom_type == 'male_condom' ? global_condom_quantity : 0"
+---
+name: step1_provided_female_condoms
+description: provided_female_condoms
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_condom_type == 'female_condom' ? global_condom_quantity : 0"

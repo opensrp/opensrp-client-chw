@@ -46,6 +46,21 @@
     "title": "Receive Condom from Facility",
     "fields": [
       {
+        "key": "condom_receive_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_receive_date",
+        "type": "date_picker",
+        "hint": "Condom receive date",
+        "expanded": false,
+        "min_date": "today-1m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the receiving date"
+        }
+      },
+      {
         "key": "receiving_person_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -93,6 +108,76 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the phone number"
+        }
+      },
+      {
+        "key": "condom_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_type",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_receive_condom_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "male_condoms_offset",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_receive_condom_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "provided_female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "female_condoms_offset",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_receive_condom_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "stock_event_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "stock_event_type",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_receive_condom_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "condom_restock_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_restock_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_receive_condom_calculation.yml"
+            }
+          }
         }
       }
     ]
