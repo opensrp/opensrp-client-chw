@@ -4533,6 +4533,13 @@
             "field": "obs.fieldCode",
             "concept": "requested_at"
           }
+        },
+        {
+          "column_name": "teamId",
+          "type": "Event",
+          "json_mapping": {
+            "field": "teamId"
+          }
         }
       ]
     },
