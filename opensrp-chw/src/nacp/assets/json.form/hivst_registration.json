@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "HIVST Registration",
+  "encounter_type": "Self Testing Registration",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -86,6 +86,20 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "client_group",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_group_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_group_female",
         "label": "Select the client's group as screened by the health care provider",
         "text_color": "#000000",
         "type": "native_radio",
@@ -96,13 +110,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "fsw"
-          },
-          {
-            "key": "msm",
-            "text": "MSM",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "msm"
           },
           {
             "key": "pwid",
@@ -136,6 +143,77 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_group_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_group_male",
+        "label": "Select the client's group as screened by the health care provider",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "msm",
+            "text": "MSM",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msm"
+          },
+          {
+            "key": "pwid",
+            "text": "PWID",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pwid"
+          },
+          {
+            "key": "prisoners",
+            "text": "Prisoners",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prisoners"
+          },
+          {
+            "key": "others",
+            "text": "Others",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "others"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "known_positive_during_reg",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "known_positive_during_reg",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_registration_calculation.yml"
+            }
+          }
         }
       }
     ]

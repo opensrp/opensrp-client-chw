@@ -47,6 +47,7 @@ import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
+import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
 import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.model.FamilyProfileModel;
@@ -211,6 +212,16 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             startCBHSRegister(commonPersonObject);
             return true;
         }
+        if(itemId == R.id.action_hivst_registration){
+            CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+            final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+            final CommonPersonObjectClient client =
+                    new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+            client.setColumnmaps(commonPersonObject.getColumnmaps());
+            String gender = Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -221,6 +232,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(!MalariaDao.isRegisteredForMalaria(baseEntityID));
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
+        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityID));
         UtilsFlv.updateHivMenuItems(baseEntityID, menu);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             UtilsFlv.updateMalariaMenuItems(baseEntityID, menu);

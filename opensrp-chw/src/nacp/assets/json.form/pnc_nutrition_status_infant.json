@@ -76,6 +76,21 @@
           "value": "true",
           "err": "Please select one option"
         }
+      },
+      {
+        "key": "prompt_for_nutrition_status",
+        "type": "toaster_notes",
+        "text": "Counsel the client on proper feeding practice and give referral if they have missed their recent planned clinic visit",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:nutrition_status_1m": {
+            "type": "string",
+            "ex": "equalTo(., \"Severe\")"
+          }
+        }
       }
     ]
   }

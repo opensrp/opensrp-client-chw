@@ -1,0 +1,462 @@
+{
+  "count": "1",
+  "encounter_type": "Self Testing Kits Issue",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Providing Self Test Kits",
+    "fields": [
+      {
+        "key": "pre_test_counselling_and_instructions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pre_test_counselling_and_instructions",
+        "label": "Has the client been offered pre-test counselling and instructions?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "client_testing_approach",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_approach",
+        "label": "Client's testing approach",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "assisted_testing_on_site",
+            "text": "Assisted testing on site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "assisted_testing_on_site"
+          },
+          {
+            "key": "assisted_testing_off_site",
+            "text": "Assisted testing off site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "assisted_testing_off_site"
+          },
+          {
+            "key": "unassisted_testing_on_site",
+            "text": "Unassisted testing on site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unassisted_testing_on_site"
+          },
+          {
+            "key": "unassisted_testing_off_site",
+            "text": "Unassisted testing off site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unassisted_testing_off_site"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "self_test_kit_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "self_test_kit_given",
+        "label": "Was the client provided with HIVST kit?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kit_code",
+        "type": "edit_text",
+        "hint": "Kit code",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "extra_kits_required",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "extra_kits_required",
+        "label": "Does the client require extra kits?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "extra_kits_issued_for",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "extra_kits_issued_for",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Extra Kits were issued for?",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "peer_friend",
+            "text": "Peer Friend",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "peer_friend"
+          },
+          {
+            "key": "sexual_partner",
+            "text": "Sexual Partner",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sexual_partner"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:extra_kits_required": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "peer_friend_kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "peer_friend_kit_code",
+        "type": "edit_text",
+        "hint": "Peer Friend Kit code",
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "peer_friend"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "sexual_partner_kit_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_partner_kit_code",
+        "type": "edit_text",
+        "hint": "Sexual Partner Kit code",
+        "relevance": {
+          "step1:extra_kits_issued_for": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "sexual_partner"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "condoms_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condoms_given",
+        "label": "Was the client given condoms?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "type_of_issued_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_issued_condoms",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select the type of condoms issued",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "male_condoms",
+            "text": "Male Condoms",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms"
+          },
+          {
+            "key": "female_condoms",
+            "text": "Female Condoms",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:condoms_given": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_male_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condoms_issued",
+        "type": "edit_text",
+        "hint": "Number of Male condoms issued (Pieces)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "The number must be equal or greater than 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condoms_issued",
+        "type": "edit_text",
+        "hint": "Number of Female condoms issued (Pieces)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "The number must be equal or greater than 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "sms_notification_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sms_notification_service",
+        "label": "Has the client opted for sms notification service?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "collection_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "collection_date",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

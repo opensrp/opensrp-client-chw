@@ -1,7 +1,7 @@
 {
   "encounter_type": "PNC Health Facility Visit - Within 48 Hrs",
   "pnc_hf_visit_48hrs": {
-    "title": "PNC HF Visit 48 hrs",
+    "title": "Hudhurio la PNC katika kituo cha afya (Masaa 48)",
     "fields": [
       {
         "key": "pnc_visit_1",
@@ -9,7 +9,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "openmrs_entity_parent": "",
-        "label": "Je, mama alihudhuria hudhurio la kwanza la huduma ya mama  na  mtoto  baada ya kujifungua (ndani ya masaa 48) katika kituo cha kutolea  huduma za afya?\n\nTarehe ya hudhurio lingine: : [due date of visit]",
+        "label": "Je, Mama alihudhuria hudhurio la kwanza la huduma ya mama  na  mtoto  baada ya kujifungua (ndani ya masaa 48) katika kituo cha kutolea  huduma za afya?\n\nTarehe ya hudhurio lingine: : [due date of visit]",
         "options": [
           {
             "key": "Yes",

@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Nutrition Status - Mother",
+    "title": "Hali ya Lishe - Mother",
     "fields": [
       {
         "key": "nutrition_status_mama",

@@ -31,6 +31,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.HivstRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HivstProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.HivstResultViewActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
