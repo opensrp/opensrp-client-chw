@@ -128,10 +128,10 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         Visit firstVisit = getVisit(org.smartregister.chw.util.Constants.Events.ANC_FIRST_FACILITY_VISIT);
         Visit recurringVisit = getVisit(org.smartregister.chw.util.Constants.Events.ANC_FIRST_FACILITY_VISIT);
 
-        if(firstVisit != null || recurringVisit != null){
+        if (firstVisit != null || recurringVisit != null) {
             lastVisitHf.setVisibility(View.VISIBLE);
             lastVisitHf.setOnClickListener(this);
-        }else{
+        } else {
             lastVisitHf.setVisibility(View.GONE);
         }
     }
@@ -229,11 +229,13 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.anc_danger_signs_outcome).setVisible(false);
-        menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+        menu.findItem(R.id.action_malaria_diagnosis).setVisible(!MalariaDao.isRegisteredForMalaria(baseEntityID));
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(true);
         menu.findItem(R.id.action_anc_registration).setVisible(false);
         menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityID));
         UtilsFlv.updateHivMenuItems(baseEntityID, menu);
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            UtilsFlv.updateMalariaMenuItems(baseEntityID, menu);
         return true;
     }
 
@@ -383,7 +385,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
         } else if (id == R.id.textview_edit) {
             AncHomeVisitActivity.startMe(this, memberObject.getBaseEntityId(), true);
-        }else if(id == R.id.rlLastVisitHf){
+        } else if (id == R.id.rlLastVisitHf) {
             AncHfMedicalHistoryActivity.startMe(this, memberObject);
         }
         handleNotificationRowClick(this, view, notificationListAdapter, memberObject.getBaseEntityId());
@@ -468,7 +470,7 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
     @Override
     public void openFamilyLocation() {
         Intent intent = new Intent(this, AncMemberMapActivity.class);
-        intent.putExtra(AncMemberMapActivity.GPS,getMemberGPS());
+        intent.putExtra(AncMemberMapActivity.GPS, getMemberGPS());
         this.startActivity(intent);
     }
 

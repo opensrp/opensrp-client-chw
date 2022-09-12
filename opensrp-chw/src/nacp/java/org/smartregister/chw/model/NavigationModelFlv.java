@@ -46,7 +46,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 } else if (teamRoleIdentifier.equals("cbhs_provider")) {
                     navigationOptions.addAll(Arrays.asList(op10, op11, op12, op16, op8, op15));
                 } else {
-                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op16, op3, op5, op2, op13, op8, op15));
+                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op16, op3, op5, op2, op13, op7, op8, op15));
                 }
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));

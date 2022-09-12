@@ -52,6 +52,7 @@ import org.smartregister.chw.referral.domain.NeatFormMetaData;
 import org.smartregister.chw.referral.domain.NeatFormOption;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -483,6 +484,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()));
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            UtilsFlv.updateMalariaMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         return true;
     }
 

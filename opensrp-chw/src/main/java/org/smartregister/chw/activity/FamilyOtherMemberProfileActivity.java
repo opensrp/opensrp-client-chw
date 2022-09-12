@@ -71,6 +71,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
 
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            flavor.updateMalariaMenuItems(baseEntityId, menu);
+
         menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
 
         flavor.updateMalariaMenuItems(baseEntityId, menu);
