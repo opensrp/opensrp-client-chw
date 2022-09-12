@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Family Planning",
+    "title": "Uzazi wa Mpango",
     "fields": [
       {
         "key": "fp_counseling",
@@ -87,7 +87,7 @@
         "options": [
           {
             "key": "chk_during_anc",
-            "text": "Wakati wa ANCc",
+            "text": "Wakati wa ujauzito",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_anc"
           },
@@ -99,7 +99,7 @@
           },
           {
             "key": "chk_during_pnc",
-            "text": "Wakati wa PNC",
+            "text": "Wakati wa baada ya kujifungua",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_during_pnc"
           }

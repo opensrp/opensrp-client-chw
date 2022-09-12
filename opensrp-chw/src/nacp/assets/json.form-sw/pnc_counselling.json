@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Counselling",
+    "title": "Ushauri",
     "fields": [
       {
         "key": "couselling_pnc",
@@ -89,7 +89,7 @@
           },
           {
             "key": "chk_pnc_care_for_mother",
-            "text": "Malezi ya PNC  kwa mama",
+            "text": "Malezi ya baada ya kujifungua kwa mama",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -101,7 +101,7 @@
           },
           {
             "key": "chk_pnc_danger_signs",
-            "text": "Dalili za hatari za PNC",
+            "text": "Dalili za hatari za baada ya kujifungua",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "161541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },

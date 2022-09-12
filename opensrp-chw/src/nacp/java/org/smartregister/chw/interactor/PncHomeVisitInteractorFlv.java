@@ -51,7 +51,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv {
-    public static final int DURATION_OF_CHILD_IN_PNC = 28;
+    public static final int DURATION_OF_CHILD_IN_PNC = 42;
     protected List<Person> children;
     protected BaseAncHomeVisitContract.View view;
     private final HashMap<String, Boolean> dangerSignsEvaluationResults = new HashMap<>();
@@ -479,7 +479,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                String counsellingStatus = "None".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.subtask_done);
+                String counsellingStatus = "None".equals(couselling_pnc) || "Hakuna".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.subtask_done);
                 return MessageFormat.format("{0}: {1}", context.getString(R.string.counselling), counsellingStatus);
             }
 

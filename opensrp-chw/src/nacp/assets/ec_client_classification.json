@@ -573,6 +573,41 @@
           },
           {
             "field": "eventType",
+            "field_value": "Self Testing Registration",
+            "creates_case": [
+              "ec_hivst_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Self Testing Kits Issue",
+            "creates_case": [
+              "ec_hivst_followup"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Self Testing Results Registration",
+            "creates_case": [
+              "ec_hivst_results"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Self Testing Results",
+            "creates_case": [
+              "ec_hivst_results"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "HIVST Mobilization Session",
+            "creates_case":[
+              "ec_hivst_mobilization"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "CDP Outlet Registration",
             "creates_case": [
               "ec_cdp_outlet",

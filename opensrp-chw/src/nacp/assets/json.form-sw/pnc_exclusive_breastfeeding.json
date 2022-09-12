@@ -47,7 +47,7 @@
     "encounter_location": ""
   },
   "step1": {
-    "title": "Exclusive breastfeeding",
+    "title": "Unyonyeshwaji wa maziwa ya mama pekee",
     "fields": [
       {
         "key": "exclusive_breast_feeding",
@@ -59,13 +59,13 @@
         "options": [
           {
             "key": "Yes",
-            "text": "Yes",
+            "text": "Ndio",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "No",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }

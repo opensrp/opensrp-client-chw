@@ -10,6 +10,7 @@
     <item
         android:id="@+id/action_received_referrals"
         android:enabled="true"
+        android:visible="false"
         android:icon="@drawable/ic_trending_down_black_24dp"
         android:title="@string/action_received_anc_partner_followup_referrals"
         app:showAsAction="ifRoom" />

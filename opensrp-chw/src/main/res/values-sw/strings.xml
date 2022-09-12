@@ -3,7 +3,9 @@
     <string name="logo">Nembo</string>
 
     <string name="title_family_detail">Taarifa za kaya</string>
-    <string name="not_done">Haijafanyika</string>
+    <string name="not_done">Haujafanyika</string>
+    <string name="done">Umefanyika</string>
+    <string name="subtask_not_done">Haujafanyika</string>
     <string name="not_provided">Haijatolewa</string>
 
     <string name="child_under_five">Mtoto chini ya miaka 5</string>
@@ -434,4 +436,9 @@
     <string name="enrolled_clinic">Amesajiliwa Kliniki</string>
     <string name="referral_feedback_details">Taarifa Kutoka Kituoni</string>
     <string name="referred_by">Rufaa imetolewa na %s</string>
+    <string name="callPhonePermissionRequestDenyButton">Hapana</string>
+    <string name="callPhonePermissionRequestGrantButton">Ruhusu</string>
+    <string name="callPhoneRequestTitle">Ruhusu Ukusanyaji wa Nambari ya Simu</string>
+    <string name="callPhoneRequestMessage">Mtoa Huduma wa Afya ngazi ya Jamii hukusanya nambari za simu za wateja zitakazotumika kwa ufuatiliaji, tathmini na uchambuzi wa ziara zinazofanywa katika jamii.</string>
+
 </resources>

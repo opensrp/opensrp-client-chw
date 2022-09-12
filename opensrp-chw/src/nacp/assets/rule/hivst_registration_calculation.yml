@@ -1,0 +1,14 @@
+---
+name: step1_known_positive_during_reg
+description: if selected known positive, then yes else no
+priority: 1
+condition: "true"
+actions:
+  - "calculation = step1_client_testing_history.contains('known_positive') ? 'yes' : 'no'"
+---
+name: step1_client_group
+description: if client is male take client_group_male else take client_group_female
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_gender.equalsIgnoreCase('male') ? step1_client_group_male : step1_client_group_female"

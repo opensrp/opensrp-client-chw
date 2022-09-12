@@ -299,7 +299,7 @@
           "options": [
             {
               "name": "general_body_malaise",
-              "text": "General Body Malaise",
+              "text": "Uchovu wa mwili usio wa kawaida",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "general_body_malaise",
@@ -308,7 +308,7 @@
             },
             {
               "name": "chest_pain",
-              "text": "Chest Pain",
+              "text": "Maumivu ya kifua",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "chest_pain",
@@ -317,7 +317,7 @@
             },
             {
               "name": "skin_infection",
-              "text": "Skin Infection",
+              "text": "Magonjwa ya ngozi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "skin_infection",
@@ -326,7 +326,7 @@
             },
             {
               "name": "loss_of_appetite",
-              "text": "Loss of Appetite",
+              "text": "Kupoteza hamu ya kula",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "loss_of_appetite",
@@ -335,7 +335,7 @@
             },
             {
               "name": "malnutrition",
-              "text": "Malnutrition",
+              "text": "Utapiamlo",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "malnutrition",
@@ -344,7 +344,7 @@
             },
             {
               "name": "fever",
-              "text": "Fever",
+              "text": "Homa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "fever",
@@ -353,7 +353,7 @@
             },
             {
               "name": "jaundice",
-              "text": "Jaundice",
+              "text": "Manjano",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "jaundice",
@@ -362,7 +362,7 @@
             },
             {
               "name": "headache",
-              "text": "Headache",
+              "text": "Maumivu ya kichwa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "headache",
@@ -371,7 +371,7 @@
             },
             {
               "name": "coughing",
-              "text": "Coughing",
+              "text": "Kikohozi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "coughing",
@@ -380,7 +380,7 @@
             },
             {
               "name": "altered_mental_status",
-              "text": "Altered Mental Status",
+              "text": "Hali ya akili isio ya kawaida",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "altered_mental_status",
@@ -389,7 +389,7 @@
             },
             {
               "name": "convulsion",
-              "text": "Convulsion",
+              "text": "Mtukutiko mwili",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "convulsion",
@@ -398,7 +398,7 @@
             },
             {
               "name": "loss_of_consciousness",
-              "text": "Loss of Consciousness",
+              "text": "Kupoteza ufahamu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "loss_of_consciousness",
@@ -407,7 +407,7 @@
             },
             {
               "name": "drugs_side_effects",
-              "text": "Drugs Side Effects",
+              "text": "Madhara ya dawa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "drugs_side_effects",
@@ -471,7 +471,7 @@
           "name": "social_problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick Psychosocial challenges faced by the Client."
+            "text": "Chagua changamoto za kisaikolojia na kijamii ambazo Mteja anazipata"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -481,7 +481,7 @@
           "options": [
             {
               "name": "stigma_and_discriminations",
-              "text": "Stigma and Discriminations",
+              "text": "Ubaguzi na kutengwa",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "stigma_and_discriminations",
@@ -490,7 +490,7 @@
             },
             {
               "name": "food_insecurity",
-              "text": "Food insecurity",
+              "text": "Uhaba wa chakula",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "food_insecurity",
@@ -499,7 +499,7 @@
             },
             {
               "name": "lack_disclosure",
-              "text": "Lack disclosure",
+              "text": "Kushindwa kufichua hali yake",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "lack_disclosure",
@@ -508,7 +508,7 @@
             },
             {
               "name": "transport_issues_for_attending_ctc",
-              "text": "Transport issues while attending CTC",
+              "text": "Matatizo ya usafiri wa kwenda kwenye klinili ya CTC",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "transport_issues_for_attending_ctc",
@@ -517,7 +517,7 @@
             },
             {
               "name": "economic_constraints",
-              "text": "Economic constraints",
+              "text": "Matatizo ya kichumi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "economic_constraints",
@@ -526,7 +526,7 @@
             },
             {
               "name": "gbv_and_vac",
-              "text": "GBV and VAC",
+              "text": "Ukatili wa kijinsia na Ukatili dhidi ya watoto",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "gbv_and_vac",
@@ -535,7 +535,7 @@
             },
             {
               "name": "hard_to_reach_areas",
-              "text": "Hard to reach areas",
+              "text": "Maeneo magumu kufikika",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "hard_to_reach_areas",
@@ -562,14 +562,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua matatizo ya kijamii/kitabibu ya Mteja",
+          "required_status": "yes:Tafadhali chagua changamoto za kisaikolojia na kijamii ambazo Mteja anazipata",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "social_problem_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Other Psychosocial Challenges",
+            "hint": "Changamoto nyingine za kisaikolojia na kijamii",
             "type": "name"
           },
           "meta_data": {
@@ -577,7 +577,7 @@
             "openmrs_entity_id": "social_problem_other",
             "openmrs_entity_parent": "social_problem"
           },
-          "required_status": "true:Please specify other psychosocial problems faced",
+          "required_status": "true:Tafadhali bainisha changamoto nyingine za kisaikolojia na kijamii",
           "subjects": "social_problem:map"
         },
         {
@@ -664,7 +664,7 @@
           "name": "supplies_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Vifaa/Commodities vingine",
+            "hint": "Vifaa/bidhaa vingine",
             "type": "name"
           },
           "meta_data": {
@@ -672,7 +672,7 @@
             "openmrs_entity_id": "supplies_provided_other",
             "openmrs_entity_parent": "supplies_provided"
           },
-          "required_status": "true:Tafadhali jaza vifaa/commodities vingine vilivyotolewa",
+          "required_status": "true:Tafadhali jaza vifaa/bidhaa vingine vilivyotolewa",
           "subjects": "supplies_provided:map"
         },
         {
@@ -850,7 +850,7 @@
               }
             }
           ],
-          "required_status": "yes:Please fill the CBHS services provided",
+          "required_status": "yes:Tafadhali chagua huduma za CBHS zilizotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -872,7 +872,7 @@
           "name": "referrals_issued_to_other_services",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick referrals issued to the Client for other services other than Medical Services"
+            "text": "Chagua Rufaa iliyotolewa kwa Mteja kwenda kwenye huduma zisizo za kitabibu"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -936,7 +936,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the referrals issued",
+          "required_status": "yes:Tafadhali chagua rufaa zilizotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -951,14 +951,14 @@
             "openmrs_entity_id": "referrals_issued_to_other_services_other",
             "openmrs_entity_parent": "referrals_issued_to_other_services"
           },
-          "required_status": "true:Please specify other Referrals Issued",
+          "required_status": "true:Tafadhali bainisha rufaa nyingine zilizotolewa",
           "subjects": "referrals_issued_to_other_services:map"
         },
         {
           "name": "referrals_to_other_services_completed",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Pick Referrals to other services other than Medical Services Completed by the Client."
+            "text": "Chagua Rufaa iliyokamilishwa na Mteja kwenda kwenye huduma zisizo za kitabibu"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -1022,7 +1022,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the referrals completed",
+          "required_status": "yes:Tafadhali chagua rufaa zilizokamilishwa",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -1037,7 +1037,7 @@
             "openmrs_entity_id": "referrals_to_other_services_completed_other",
             "openmrs_entity_parent": "referrals_to_other_services_completed"
           },
-          "required_status": "true:Please specify other Referrals Completed",
+          "required_status": "true:Tafadhali bainisha rufaa nyingine zilizokamilishwa",
           "subjects": "referrals_to_other_services_completed:map"
         },
         {
@@ -1090,7 +1090,7 @@
             },
             {
               "name": "registered_in_injection_drugs_users_clinic",
-              "text": "Registered in Injection Drugs Users Clinic",
+              "text": "Amesajiliwa kwenye Kliniki ya Wajidunga",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_in_injection_drugs_users_clinic",
@@ -1099,7 +1099,7 @@
             },
             {
               "name": "registered_in_tb_clinic",
-              "text": "Registered in TB Clinic",
+              "text": "Amesajiliwa kwenye Kliniki ya Kifua Kikuu",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "registered_in_tb_clinic",
@@ -1114,7 +1114,7 @@
           "name": "comments_remarks",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Comments and Remarks",
+            "hint": "Maoni",
             "type": "name"
           },
           "meta_data": {
@@ -1133,13 +1133,13 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "hint": "Next Appointment Date",
+            "hint": "Tarehe ya miadi ijayo",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today",
             "max_date": "today+3m"
           },
-          "required_status": "true:Please specify the next appointment date",
+          "required_status": "true:Tafadhali chagua tarehe ya miadi ijayo",
           "subjects": "registration_or_followup_status:text"
         },
         {

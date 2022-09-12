@@ -39,6 +39,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_malaria_registration"
+        android:enabled="true"
+        android:title="@string/malaria_registration"
+        android:visible="false"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_malaria_diagnosis"
         android:enabled="true"
         android:title="@string/malaria_diagnosis"
@@ -56,6 +63,12 @@
         android:enabled="true"
         android:visible="false"
         android:title="@string/cbhs_registration"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_hivst_registration"
+        android:enabled="true"
+        android:visible="false"
+        android:title="@string/hivst_registration"
+        app:showAsAction="never" />
 </menu>

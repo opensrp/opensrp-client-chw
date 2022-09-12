@@ -26,6 +26,7 @@ import org.smartregister.chw.custom_view.FamilyMemberFloatingMenu;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
+import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -69,6 +70,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
         menu.findItem(R.id.action_sick_child_follow_up).setVisible(false);
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
+
+        if (ChwApplication.getApplicationFlavor().hasMalaria())
+            flavor.updateMalariaMenuItems(baseEntityId, menu);
+
+        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
 
         flavor.updateMalariaMenuItems(baseEntityId, menu);
 
@@ -260,6 +266,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     @Override
     protected void startLDRegistration() {
         //do nothing - implementation in hf
+    }
+    @Override
+    protected void startHivstRegistration(){
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+        HivstRegisterActivity.startHivstRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, gender);
     }
 
     /**
