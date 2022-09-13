@@ -1,0 +1,28 @@
+---
+name: step1_condom_restock_date
+description: condom_restock_date
+priority: 1
+condition: "true"
+actions:
+  - "calculation =  helper.getTimeInMillis() "
+---
+name: step1_stock_event_type
+description: stock_event_type for restocking in community is decrement
+priority: 1
+condition: "true"
+actions:
+  - "calculation = 'decrement' "
+---
+name: step1_male_condoms
+description: stock on hand of male condoms
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_male_condom_count"
+---
+name: step1_female_condoms
+description: stock on hand of female condoms
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_female_condom_count"

@@ -3,8 +3,8 @@ package org.smartregister.chw.sync;
 
 import android.content.Context;
 
-import org.smartregister.CoreLibrary;
 import org.apache.commons.lang3.StringUtils;
+import org.smartregister.CoreLibrary;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.sync.CoreClientProcessor;
@@ -97,6 +97,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
         }
     }
 
+
     @Override
     protected String getHumanReadableConceptResponse(String value, Object object) {
         try {
@@ -108,10 +109,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
             List values = new ArrayList();
 
             Object valueObject = getValue(object, VALUES);
-            if(valueObject instanceof List) {
+            if (valueObject instanceof List) {
                 values = (List) valueObject;
             }
-            if(object == null || values.isEmpty()) {
+            if (object == null || values.isEmpty()) {
                 return value;
             }
 

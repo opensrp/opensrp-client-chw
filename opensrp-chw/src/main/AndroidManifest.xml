@@ -43,6 +43,18 @@
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CdpRegisterActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.CdpProfileActivity"
+            android:exported="false"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.RestockingVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.OrderDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
         <activity android:name=".activity.LTFURegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
         <activity android:name=".activity.LTFUReferralsDetailsViewActivity"

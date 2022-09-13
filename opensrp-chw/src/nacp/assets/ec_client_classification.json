@@ -605,6 +605,45 @@
             "creates_case":[
               "ec_hivst_mobilization"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Outlet Registration",
+            "creates_case": [
+              "ec_cdp_outlet",
+              "ec_cdp_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Outlet Restock",
+            "creates_case": [
+              "ec_cdp_stock_count",
+              "ec_cdp_stock_log"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Receive From Facility",
+            "creates_case": [
+              "ec_cdp_stock_count",
+              "ec_cdp_stock_log"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Outlet Visit",
+            "creates_case": [
+              "ec_cdp_register",
+              "ec_cdp_outlet_visit"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "CDP Condom Order",
+            "creates_case": [
+              "ec_cdp_orders"
+            ]
           }
         ]
       }
