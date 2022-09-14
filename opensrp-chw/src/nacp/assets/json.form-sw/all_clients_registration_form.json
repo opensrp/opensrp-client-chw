@@ -1,6 +1,4 @@
 {
-  "validate_on_submit": true,
-  "show_errors_on_submit": false,
   "count": "2",
   "encounter_type": "Family Registration",
   "entity_id": "",
