@@ -30,6 +30,19 @@
         android:visible="false"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_malaria_registration"
+        android:enabled="true"
+        android:title="@string/malaria_registration"
+        android:visible="false"
+        android:orderInCategory="300"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_malaria_diagnosis"
+        android:enabled="true"
+        android:visible="false"
+        android:title="@string/malaria_diagnosis"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_tb_registration"
         android:enabled="true"
         android:visible="false"
