@@ -134,10 +134,32 @@
         "v_required": {
           "value": "true",
           "err": "Tafadhali jaza jina la eneo"
+        }
+      },
+      {
+        "key": "chairperson_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson_name",
+        "type": "edit_text",
+        "hint": "Jina la mwenyekiti wa mtaa",
+        "edit_type": "name"
+      },
+      {
+        "key": "chairperson_phone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chairperson_phone",
+        "type": "edit_text",
+        "hint": "Namba ya simu ya mwenyekiti wa mtaa",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Namba lazima iwe jumla ya tarakimu 10 kwa urefu"
         },
         "v_regex": {
-          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-]*",
-          "err": "Tafadhali jaza jina sahihi la eneo"
+          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
         }
       },
       {
@@ -706,10 +728,10 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Number",
         "type": "edit_text",
-        "hint": "Nambari ya mtoa huduma ya bima ya afya",
+        "hint": "Namba ya bima ya afya ya mteja",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ongeza Nambari ya kitambulisho ya mtoa huduma wa bima ya afya"
+          "err": "Tafadhali jaza namba ya bima ya afya ya mteja"
         },
         "relevance": {
           "rules-engine": {
