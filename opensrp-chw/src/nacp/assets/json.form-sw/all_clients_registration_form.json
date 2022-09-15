@@ -717,10 +717,10 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Health_Insurance_Number",
         "type": "edit_text",
-        "hint": "Namba ya mtoa huduma ya bima ya afya",
+        "hint": "Namba ya bima ya afya ya mteja",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ongeza Namba ya kitambulisho ya mtoa huduma wa bima ya afya"
+          "err": "Tafadhali jaza namba ya bima ya afya ya mteja"
         },
         "relevance": {
           "rules-engine": {
@@ -1031,7 +1031,7 @@
           },
           {
             "key": "chk_traditional",
-            "text": "Kiongozi wa kimila",
+            "text": "Kiongozi wa jadi",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "Traditional_leader"
           },
