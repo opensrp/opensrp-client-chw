@@ -74,7 +74,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         if(ChwApplication.getApplicationFlavor().hasHIVST()){
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
-            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age > 18);
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 18);
         }
         return true;
     }
