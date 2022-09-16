@@ -62,6 +62,7 @@
     <item
         android:id="@+id/action_hivst_registration"
         android:enabled="true"
+        android:visible="false"
         android:title="@string/hivst_registration"
         app:showAsAction="never" />
 
