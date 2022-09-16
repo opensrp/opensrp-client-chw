@@ -326,7 +326,8 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
         super.onCreateOptionsMenu(menu);
         flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
         if(ChwApplication.getApplicationFlavor().hasHIVST()){
-            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()));
+            int age = memberObject.getAge();
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()) && age > 18);
         }
         return true;
     }

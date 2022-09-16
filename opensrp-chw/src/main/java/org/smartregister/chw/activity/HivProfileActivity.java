@@ -483,7 +483,9 @@ public class HivProfileActivity extends CoreHivProfileActivity
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !PNCDao.isPNCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
         if(ChwApplication.getApplicationFlavor().hasHIVST()){
-            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()));
+            String dob = getHivMemberObject().getAge();
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()) && age > 18);
         }
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
