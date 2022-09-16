@@ -74,7 +74,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
 
-        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
+        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 18);
+        }
 
         flavor.updateMalariaMenuItems(baseEntityId, menu);
 

@@ -2,6 +2,7 @@ package org.smartregister.chw.model;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.NavigationModel;
 import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -45,9 +46,15 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (teamRoleIdentifier.equals("mother_champion")) {
                     navigationOptions.addAll(Arrays.asList(op10, op13, op8));
                 } else if (teamRoleIdentifier.equals("cbhs_provider")) {
-                    navigationOptions.addAll(Arrays.asList(op10, op11, op17, op12, op16, op8, op15));
+                    navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
                 } else {
-                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op17, op12, op16, op3, op5, op2, op13, op7, op8, op15));
+                    navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13, op7, op8, op15));
+                }
+                if(ChwApplication.getApplicationFlavor().hasHIVST()){
+                    navigationOptions.add(3,op16);
+                }
+                if(ChwApplication.getApplicationFlavor().hasCdp()){
+                    navigationOptions.add(4,op17);
                 }
             } else {
                 navigationOptions.addAll(Arrays.asList(op1, op3, op5, op2, op6, op7));
