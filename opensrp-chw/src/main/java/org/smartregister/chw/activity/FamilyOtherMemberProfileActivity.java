@@ -74,7 +74,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
 
-        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
+        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
+        }
 
         flavor.updateMalariaMenuItems(baseEntityId, menu);
 

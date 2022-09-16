@@ -53,7 +53,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         menu.findItem(R.id.action_cbhs_registration).setVisible(true);
         menu.findItem(R.id.action_tb_registration).setVisible(false);
         menu.findItem(R.id.action_fp_initiation).setVisible(false);
-        menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
+
         if (flavor.hasANC() && !presenter().isWomanAlreadyRegisteredOnAnc(commonPersonObject) && flavor.isOfReproductiveAge(commonPersonObject, "Female") && gender.equalsIgnoreCase("Female")) {
             flavor.updateFpMenuItems(baseEntityId, menu);
             menu.findItem(R.id.action_anc_registration).setVisible(true);
@@ -70,6 +70,10 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         menu.findItem(R.id.action_malaria_diagnosis).setVisible(false);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
+
+        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId));
+        }
         return true;
     }
 
