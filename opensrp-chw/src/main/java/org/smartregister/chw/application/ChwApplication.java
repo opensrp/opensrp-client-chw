@@ -544,6 +544,10 @@ public class ChwApplication extends CoreChwApplication {
 
         boolean hasEventDateOnFamilyProfile();
 
+        boolean hasCdp();
+
+        boolean hasHIVST();
+
         String[] getFTSTables();
 
         Map<String, String[]> getFTSSearchMap();
