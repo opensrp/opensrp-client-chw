@@ -114,4 +114,13 @@
     <string name="pnc_visit_day_overdue">Siku %s tembeleo limepitiliza</string>
     <string name="register">Sajili</string>
     <string name="all_male_clients">Wateja Wote wa Kiume</string>
+
+    <string name="pnc_yes">Ndio</string>
+    <string name="pnc_no">Hapana</string>
+    <string name="pnc_okay">Nzuri</string>
+    <string name="pnc_bad">Mbaya (Chandarula kimechanika)</string>
+
+    <string name="pnc_normal">Kawaida</string>
+    <string name="pnc_moderate">Wastani</string>
+    <string name="pnc_severe">Mbaya</string>
 </resources>

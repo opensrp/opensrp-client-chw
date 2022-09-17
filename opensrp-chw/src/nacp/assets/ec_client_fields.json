@@ -2928,7 +2928,7 @@
           "column_name": "registration_or_followup_status",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "registration_or_followup_status"
           }
         },
@@ -2936,7 +2936,7 @@
           "column_name": "client_condition",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "client_condition"
           }
         },
@@ -2960,7 +2960,7 @@
           "column_name": "prompt_for_health_challenges",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "prompt_for_health_challenges"
           }
         },
@@ -2968,16 +2968,15 @@
           "column_name": "social_problem",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "social_problem",
-            "value_field": "obs.fieldCode"
+            "field": "obs.formSubmissionField",
+            "concept": "social_problem"
           }
         },
         {
           "column_name": "social_problem_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "social_problem_other"
           }
         },
@@ -3090,7 +3089,7 @@
           "column_name": "client_tb_status_during_registration",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "client_tb_status_during_registration"
           }
         },
@@ -3106,7 +3105,7 @@
           "column_name": "client_hiv_status_after_testing",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "test_results"
           }
         },
