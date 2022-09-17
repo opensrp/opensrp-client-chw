@@ -136,4 +136,13 @@
     <string name="ifa_received_label">IFA tablets received</string>
 
 
+    <string name="pnc_yes">Yes</string>
+    <string name="pnc_no">No</string>
+    <string name="pnc_okay">Good</string>
+    <string name="pnc_bad">Bad (Torn)</string>
+    <string name="pnc_normal">Normal</string>
+    <string name="pnc_moderate">Moderate</string>
+    <string name="pnc_severe">Severe</string>
+
+
 </resources>
