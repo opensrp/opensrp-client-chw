@@ -31,6 +31,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.KvpPrEPRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HivstRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
