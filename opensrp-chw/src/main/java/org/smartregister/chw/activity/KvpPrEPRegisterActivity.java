@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 
 import org.smartregister.chw.core.activity.CoreKvpRegisterActivity;
+import org.smartregister.chw.fragment.KvpPrEPRegisterFragment;
 import org.smartregister.chw.kvp.util.Constants;
+import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class KvpPrEPRegisterActivity extends CoreKvpRegisterActivity {
     public static void startRegistration(Activity activity, String memberBaseEntityID) {
@@ -14,5 +16,10 @@ public class KvpPrEPRegisterActivity extends CoreKvpRegisterActivity {
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.KVP_FORM_NAME, Constants.FORMS.KVP_PrEP_REGISTRATION);
 
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new KvpPrEPRegisterFragment();
     }
 }
