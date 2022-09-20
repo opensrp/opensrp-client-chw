@@ -644,6 +644,13 @@
             "creates_case": [
               "ec_cdp_orders"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "KVP PrEP Registration",
+            "creates_case": [
+              "ec_kvp_prep_register"
+            ]
           }
         ]
       }
