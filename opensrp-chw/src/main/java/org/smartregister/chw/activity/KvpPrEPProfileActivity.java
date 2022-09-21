@@ -13,4 +13,8 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
         activity.startActivity(intent);
     }
 
+    @Override
+    public void openFollowupVisit() {
+        KvpPrEPVisitActivity.startKvpPrEPVisitActivity(this, memberObject.getBaseEntityId(), false);
+    }
 }
