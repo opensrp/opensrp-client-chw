@@ -123,6 +123,7 @@
         "hint": "Delivery date",
         "expanded": false,
         "max_date": "today",
+        "min_date": "today-6w",
         "v_required": {
           "value": "true",
           "err": "Please enter date the woman delivered"

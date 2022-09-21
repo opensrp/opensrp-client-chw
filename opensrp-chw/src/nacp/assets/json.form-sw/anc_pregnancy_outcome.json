@@ -138,8 +138,8 @@
         "type": "date_picker",
         "hint": "Tarehe ya Mama ya kujifungua",
         "expanded": false,
-        "min_date": "today-1m",
         "max_date": "today",
+        "min_date": "today-6w",
         "v_required": {
           "value": "true",
           "err": "Tafadhali ingiza tarehe ya kujifungua ya Mama"
