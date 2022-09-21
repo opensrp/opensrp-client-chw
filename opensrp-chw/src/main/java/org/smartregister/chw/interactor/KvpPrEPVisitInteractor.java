@@ -3,6 +3,10 @@ package org.smartregister.chw.interactor;
 import android.content.Context;
 
 import org.smartregister.chw.R;
+import org.smartregister.chw.actionhelper.KvpPrEPPreventiveServicesActionHelper;
+import org.smartregister.chw.actionhelper.KvpPrEPReferralServicesActionHelper;
+import org.smartregister.chw.actionhelper.KvpPrEPSbccServicesActionHelper;
+import org.smartregister.chw.actionhelper.KvpPrEPStructuralServicesActionHelper;
 import org.smartregister.chw.actionhelper.KvpPrEPVisitTypeActionHelper;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.kvp.contract.BaseKvpVisitContract;
@@ -81,7 +85,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateSBCCServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(context);
+        KvpPrEPSbccServicesActionHelper actionHelper = new KvpPrEPSbccServicesActionHelper(context);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_sbcc_services))
                 .withOptional(false)
                 .withDetails(details)
@@ -94,7 +98,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluatePreventiveServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(context);
+        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper(context);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_preventive_services))
                 .withOptional(false)
                 .withDetails(details)
@@ -107,7 +111,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateStructuralServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(context);
+        KvpPrEPStructuralServicesActionHelper actionHelper = new KvpPrEPStructuralServicesActionHelper(context);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_structural_services))
                 .withOptional(false)
                 .withDetails(details)
@@ -120,7 +124,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateReferralServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(context);
+        KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper(context);
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_referral_services))
                 .withOptional(false)
                 .withDetails(details)
