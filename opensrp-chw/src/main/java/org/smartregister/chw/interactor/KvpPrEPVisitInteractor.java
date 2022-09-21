@@ -100,7 +100,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
         KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_preventive_services))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withHelper(actionHelper)
                 .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.PREVENTIVE_SERVICES)
@@ -113,7 +113,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
         KvpPrEPStructuralServicesActionHelper actionHelper = new KvpPrEPStructuralServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_structural_services))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withHelper(actionHelper)
                 .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.STRUCTURAL_SERVICES)
@@ -126,7 +126,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
         KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_referral_services))
-                .withOptional(false)
+                .withOptional(true)
                 .withDetails(details)
                 .withHelper(actionHelper)
                 .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.REFERRAL_SERVICES)
