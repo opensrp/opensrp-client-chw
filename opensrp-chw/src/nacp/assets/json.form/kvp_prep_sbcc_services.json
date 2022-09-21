@@ -46,10 +46,10 @@
     "title": "SBCC Services",
     "fields": [
       {
-        "key": "services_offered",
+        "key": "sbcc_services_offered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "services_offered",
+        "openmrs_entity_id": "sbcc_services_offered",
         "buttonText": "Add SBCC Topics Provided",
         "sort": false,
         "maxSelectable": 5,
@@ -59,6 +59,8 @@
           {
             "key": "proper_use_of_male_condom",
             "text": "Proper use of Male Condom",
+            "openmrs_entity_id": "proper_use_of_male_condom",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "proper_use_of_male_condom",
               "confirmed-id": "proper_use_of_male_condom"
@@ -67,6 +69,8 @@
           {
             "key": "proper_use_of_female_condom",
             "text": "Proper use of Female Condom",
+            "openmrs_entity_id": "proper_use_of_female_condom",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "proper_use_of_female_condom",
               "confirmed-id": "proper_use_of_female_condom"
@@ -75,6 +79,8 @@
           {
             "key": "influence_on_condom_usage",
             "text": "Influence on Condom Usage",
+            "openmrs_entity_id": "influence_on_condom_usage",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "influence_on_condom_usage",
               "confirmed-id": "influence_on_condom_usage"
@@ -83,6 +89,8 @@
           {
             "key": "preventive_methods_against_std",
             "text": "Preventive methods against STD",
+            "openmrs_entity_id": "preventive_methods_against_std",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "preventive_methods_against_std",
               "confirmed-id": "preventive_methods_against_std"
@@ -91,6 +99,8 @@
           {
             "key": "excessive_alcohol_usage",
             "text": "Excessive Alcohol Usage",
+            "openmrs_entity_id": "excessive_alcohol_usage",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "excessive_alcohol_usage",
               "confirmed-id": "excessive_alcohol_usage"
@@ -99,6 +109,8 @@
           {
             "key": "education_on_hiv_aids_protection",
             "text": "Education on HIV & AIDS Protection",
+            "openmrs_entity_id": "education_on_hiv_aids_protection",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_hiv_aids_protection",
               "confirmed-id": "education_on_hiv_aids_protection"
@@ -107,6 +119,8 @@
           {
             "key": "education_on_hiv_aids_art_usage",
             "text": "Education on HIV & AIDS ART Usage",
+            "openmrs_entity_id": "education_on_hiv_aids_art_usage",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_hiv_aids_art_usage",
               "confirmed-id": "education_on_hiv_aids_art_usage"
@@ -115,6 +129,8 @@
           {
             "key": "education_on_hiv_aids_self_test",
             "text": "Education on HIV & AIDS Self Test",
+            "openmrs_entity_id": "education_on_hiv_aids_self_test",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_hiv_aids_self_test",
               "confirmed-id": "education_on_hiv_aids_self_test"
@@ -123,6 +139,8 @@
           {
             "key": "education_on_the_use_of_prep",
             "text": "Education on the use of PrEP",
+            "openmrs_entity_id": "education_on_the_use_of_prep",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_the_use_of_prep",
               "confirmed-id": "education_on_the_use_of_prep"
@@ -131,6 +149,8 @@
           {
             "key": "education_on_the_use_of_pep",
             "text": "Education on the use of PEP",
+            "openmrs_entity_id": "education_on_the_use_of_pep",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_the_use_of_pep",
               "confirmed-id": "education_on_the_use_of_pep"
@@ -139,6 +159,8 @@
           {
             "key": "reduction_of_effects_of_the_use_of_mat",
             "text": "Reduction of effects of the use of drug MAT",
+            "openmrs_entity_id": "reduction_of_effects_of_the_use_of_mat",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "reduction_of_effects_of_the_use_of_mat",
               "confirmed-id": "reduction_of_effects_of_the_use_of_mat"
@@ -147,6 +169,8 @@
           {
             "key": "education_on_paraphenalia_for_PWID",
             "text": "Education on Paraphenalia for PWID",
+            "openmrs_entity_id": "education_on_paraphenalia_for_PWID",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_paraphenalia_for_PWID",
               "confirmed-id": "education_on_paraphenalia_for_PWID"
@@ -155,6 +179,8 @@
           {
             "key": "education_on_overdose_management",
             "text": "Education on Overdose Management",
+            "openmrs_entity_id": "education_on_overdose_management",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_overdose_management",
               "confirmed-id": "education_on_overdose_management"
@@ -163,6 +189,8 @@
           {
             "key": "education_on_hepatitis_b",
             "text": "Education On Hepatitis B",
+            "openmrs_entity_id": "education_on_hepatitis_b",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_hepatitis_b",
               "confirmed-id": "education_on_hepatitis_b"
@@ -171,6 +199,8 @@
           {
             "key": "education_on_hepatitis_c",
             "text": "Education On Hepatitis C",
+            "openmrs_entity_id": "education_on_hepatitis_c",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "education_on_hepatitis_c",
               "confirmed-id": "education_on_hepatitis_c"
@@ -179,6 +209,8 @@
           {
             "key": "counselling_on_tb",
             "text": "Counselling On TB",
+            "openmrs_entity_id": "counselling_on_tb",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "counselling_on_tb",
               "confirmed-id": "counselling_on_tb"
@@ -187,6 +219,8 @@
           {
             "key": "counselling_on_gbv",
             "text": "Counselling On GBV",
+            "openmrs_entity_id": "counselling_on_gbv",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "counselling_on_gbv",
               "confirmed-id": "counselling_on_gbv"
@@ -195,6 +229,8 @@
           {
             "key": "stigma_and_discrimination",
             "text": "Stigma & Discrimination",
+            "openmrs_entity_id": "stigma_and_discrimination",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "stigma_and_discrimination",
               "confirmed-id": "stigma_and_discrimination"
@@ -203,6 +239,8 @@
           {
             "key": "effect_of_multiple_sexual_partners",
             "text": "Effect of multiple Sexual Partners",
+            "openmrs_entity_id": "effect_of_multiple_sexual_partners",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "effect_of_multiple_sexual_partners",
               "confirmed-id": "effect_of_multiple_sexual_partners"
@@ -211,6 +249,8 @@
           {
             "key": "counselling_on_hiv_testing",
             "text": "Counselling on HIV Testing",
+            "openmrs_entity_id": "counselling_on_hiv_testing",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "counselling_on_hiv_testing",
               "confirmed-id": "counselling_on_hiv_testing"
@@ -219,6 +259,8 @@
           {
             "key": "counselling_on_need_of_health_servicers",
             "text": "Counselling on the need of health Servicers",
+            "openmrs_entity_id": "counselling_on_need_of_health_servicers",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "counselling_on_need_of_health_servicers",
               "confirmed-id": "counselling_on_need_of_health_servicers"
@@ -227,6 +269,8 @@
           {
             "key": "male_circumcision",
             "text": "Male Circumcision",
+            "openmrs_entity_id": "male_circumcision",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "male_circumcision",
               "confirmed-id": "male_circumcision"
@@ -235,6 +279,8 @@
           {
             "key": "rch_services",
             "text": "RCH Services",
+            "openmrs_entity_id": "rch_services",
+            "openmrs_entity": "concept",
             "property": {
               "presumed-id": "rch_services",
               "confirmed-id": "rch_services"

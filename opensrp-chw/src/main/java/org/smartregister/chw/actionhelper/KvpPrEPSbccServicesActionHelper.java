@@ -40,7 +40,7 @@ public class KvpPrEPSbccServicesActionHelper implements BaseKvpVisitAction.KvpVi
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            services_offered = CoreJsonFormUtils.getValue(jsonObject, "services_offered");
+            services_offered = CoreJsonFormUtils.getValue(jsonObject, "sbcc_services_offered");
         } catch (JSONException e) {
             e.printStackTrace();
         }
