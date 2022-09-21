@@ -111,7 +111,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateStructuralServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPStructuralServicesActionHelper actionHelper = new KvpPrEPStructuralServicesActionHelper(context);
+        KvpPrEPStructuralServicesActionHelper actionHelper = new KvpPrEPStructuralServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_structural_services))
                 .withOptional(false)
                 .withDetails(details)
