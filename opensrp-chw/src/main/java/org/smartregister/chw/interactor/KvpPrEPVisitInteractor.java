@@ -72,7 +72,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateVisitType(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper(context);
+        KvpPrEPVisitTypeActionHelper actionHelper = new KvpPrEPVisitTypeActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_visit_type))
                 .withOptional(false)
                 .withDetails(details)
