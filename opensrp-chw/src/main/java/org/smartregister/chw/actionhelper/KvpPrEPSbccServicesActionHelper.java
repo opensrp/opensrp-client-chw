@@ -2,6 +2,10 @@ package org.smartregister.chw.actionhelper;
 
 import android.content.Context;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.kvp.domain.VisitDetail;
 import org.smartregister.chw.kvp.model.BaseKvpVisitAction;
 
@@ -10,35 +14,46 @@ import java.util.Map;
 
 public class KvpPrEPSbccServicesActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
-    private final Context context;
-
-    public KvpPrEPSbccServicesActionHelper(Context context) {
-        this.context = context;
-    }
+    private String jsonPayload;
+    private String subTitle;
+    private String services_offered;
+    private BaseKvpVisitAction.ScheduleStatus scheduleStatus;
 
     @Override
-    public void onJsonFormLoaded(String s, Context context, Map<String, List<VisitDetail>> map) {
-
+    public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
+        this.jsonPayload = jsonPayload;
     }
 
     @Override
     public String getPreProcessed() {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonPayload);
+            return jsonObject.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
-    public void onPayloadReceived(String s) {
-
+    public void onPayloadReceived(String jsonPayload) {
+        try {
+            JSONObject jsonObject = new JSONObject(jsonPayload);
+            services_offered = CoreJsonFormUtils.getValue(jsonObject, "services_offered");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public BaseKvpVisitAction.ScheduleStatus getPreProcessedStatus() {
-        return null;
+        return scheduleStatus;
     }
 
     @Override
     public String getPreProcessedSubTitle() {
-        return null;
+        return subTitle;
     }
 
     @Override
@@ -53,11 +68,15 @@ public class KvpPrEPSbccServicesActionHelper implements BaseKvpVisitAction.KvpVi
 
     @Override
     public BaseKvpVisitAction.Status evaluateStatusOnPayload() {
-        return null;
+        if (StringUtils.isBlank(services_offered))
+            return BaseKvpVisitAction.Status.PENDING;
+        else {
+            return BaseKvpVisitAction.Status.COMPLETED;
+        }
     }
 
     @Override
     public void onPayloadReceived(BaseKvpVisitAction baseKvpVisitAction) {
-
+        //Overridden
     }
 }

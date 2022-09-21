@@ -85,7 +85,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateSBCCServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPSbccServicesActionHelper actionHelper = new KvpPrEPSbccServicesActionHelper(context);
+        KvpPrEPSbccServicesActionHelper actionHelper = new KvpPrEPSbccServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_sbcc_services))
                 .withOptional(false)
                 .withDetails(details)
