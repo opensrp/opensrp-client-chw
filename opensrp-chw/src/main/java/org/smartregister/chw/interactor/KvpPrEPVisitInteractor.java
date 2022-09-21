@@ -124,7 +124,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluateReferralServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper(context);
+        KvpPrEPReferralServicesActionHelper actionHelper = new KvpPrEPReferralServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_referral_services))
                 .withOptional(false)
                 .withDetails(details)
