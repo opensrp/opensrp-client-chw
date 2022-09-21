@@ -77,7 +77,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
-                .withFormName(Constants.FORMS.KVP_FOLLOW_UP_VISIT)
+                .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.VISIT_TYPE)
                 .build();
 
         actionList.put(context.getString(R.string.kvp_prep_visit_type), action);
@@ -90,7 +90,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
-                .withFormName(Constants.FORMS.KVP_FOLLOW_UP_VISIT)
+                .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.SBCC_SERVICES)
                 .build();
 
         actionList.put(context.getString(R.string.kvp_prep_sbcc_services), action);
@@ -103,7 +103,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
-                .withFormName(Constants.FORMS.KVP_FOLLOW_UP_VISIT)
+                .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.PREVENTIVE_SERVICES)
                 .build();
 
         actionList.put(context.getString(R.string.kvp_prep_preventive_services), action);
@@ -116,7 +116,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
-                .withFormName(Constants.FORMS.KVP_FOLLOW_UP_VISIT)
+                .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.STRUCTURAL_SERVICES)
                 .build();
 
         actionList.put(context.getString(R.string.kvp_prep_structural_services), action);
@@ -129,7 +129,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
                 .withOptional(false)
                 .withDetails(details)
                 .withHelper(actionHelper)
-                .withFormName(Constants.FORMS.KVP_FOLLOW_UP_VISIT)
+                .withFormName(Constants.KVP_PrEP_FOLLOWUP_FORMS.REFERRAL_SERVICES)
                 .build();
 
         actionList.put(context.getString(R.string.kvp_prep_referral_services), action);
