@@ -98,7 +98,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void evaluatePreventiveServices(Map<String, List<VisitDetail>> details) throws BaseKvpVisitAction.ValidationException {
 
-        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper(context);
+        KvpPrEPPreventiveServicesActionHelper actionHelper = new KvpPrEPPreventiveServicesActionHelper();
         BaseKvpVisitAction action = getBuilder(context.getString(R.string.kvp_prep_preventive_services))
                 .withOptional(false)
                 .withDetails(details)

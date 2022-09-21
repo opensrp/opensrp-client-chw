@@ -1,0 +1,243 @@
+{
+  "count": "1",
+  "encounter_type": "KVP PrEP Preventive Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Protective Service",
+    "fields": [
+      {
+        "key": "condom_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_type",
+        "label": "Visit Type",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "male",
+            "text": "Male",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male"
+          },
+          {
+            "key": "female",
+            "text": "Female",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "number_of_condoms_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_condoms_distributed",
+        "hint": "Number of Condoms Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_iec_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_iec_distributed",
+        "hint": "Number of IEC Materials Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "protective_items_for_PWID_label",
+        "type": "label",
+        "text": "Protective Items for PWID",
+        "text_size": "6sp",
+        "has_bg": true,
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": ""
+      },
+      {
+        "key": "number_of_tubes_needles_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_tubes_needles_distributed",
+        "hint": "Number of tubes & needles distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_water_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_water_distributed",
+        "hint": "Number of Water Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_alcohol_swabs_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_alcohol_swabs_distributed",
+        "hint": "Number of Alcohol Swabs Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_disposable_safety_boxes_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_disposable_safety_boxes_distributed",
+        "hint": "Number of Disposable Safety Boxes Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_plasters_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_plasters_distributed",
+        "hint": "Number of Plasters Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_hivst_kits_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_hivst_kits_distributed",
+        "hint": "Number of HIVST Kits Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "number_of_index_coupons_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_index_coupons_distributed",
+        "hint": "Number of Index Coupons Distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Must be a number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please provide number distributed"
+        }
+      }
+    ]
+  }
+}
