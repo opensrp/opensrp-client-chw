@@ -3,7 +3,6 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 
 import org.smartregister.chw.core.activity.CoreKvpRegisterActivity;
 import org.smartregister.chw.fragment.KvpPrEPRegisterFragment;

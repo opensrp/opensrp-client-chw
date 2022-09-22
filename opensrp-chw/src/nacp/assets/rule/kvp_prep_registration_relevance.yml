@@ -6,9 +6,16 @@ condition: "global_gender.equalsIgnoreCase('male')"
 actions:
   - "isRelevant = true "
 ---
-name: step1_client_group_female
-description: if client is female is relevannt
+name: step1_client_group_female_15_24
+description: if client is female with age between 15 to 24 is relevannt
 priority: 1
-condition: "global_gender.equalsIgnoreCase('female')"
+condition: "global_gender.equalsIgnoreCase('female') && (global_age >= 15 && global_age <= 24)"
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_group_female
+description: if client is female and age is not between 15 and 24 is relevannt
+priority: 1
+condition: "global_gender.equalsIgnoreCase('female') && (global_age < 15 || global_age > 24)"
 actions:
   - "isRelevant = true "
