@@ -4,6 +4,7 @@ import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
@@ -224,7 +225,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
         }
         if(itemId == R.id.action_kvp_prep_registration){
-            KvpPrEPRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID);
+            String gender = getClientGender(baseEntityID);
+            int age = memberObject.getAge();
+            KvpPrEPRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID, gender, age);
             return true;
         }
         return super.onOptionsItemSelected(item);

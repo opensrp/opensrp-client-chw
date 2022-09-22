@@ -514,11 +514,20 @@ public class HivProfileActivity extends CoreHivProfileActivity
             startHivstRegistration();
             return true;
         } else if(itemId == R.id.action_kvp_prep_registration){
-            KvpPrEPRegisterActivity.startRegistration(HivProfileActivity.this, getHivMemberObject().getBaseEntityId());
+            startKvpPrepRegistration();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void startKvpPrepRegistration(){
+         String gender = org.smartregister.chw.util.Utils.getClientGender(getHivMemberObject().getBaseEntityId());
+        String dob = getHivMemberObject().getAge();
+        int age = Utils.getAgeFromDate(dob);
+        KvpPrEPRegisterActivity.startRegistration(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), gender, age);
+    }
+
+
 
     private void startHivstRegistration() {
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);

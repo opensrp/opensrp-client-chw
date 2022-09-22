@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 
@@ -126,7 +127,10 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if(itemId == R.id.action_kvp_prep_registration){
-            KvpPrEPRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId());
+            String gender = getClientGender(memberObject.getBaseEntityId());
+           String dob = memberObject.getAge();
+           int age = Utils.getAgeFromDate(dob);
+            KvpPrEPRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
             return true;
         }
         return super.onOptionsItemSelected(item);

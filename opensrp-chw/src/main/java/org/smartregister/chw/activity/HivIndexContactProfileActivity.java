@@ -139,7 +139,10 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
                 HivRegisterActivity.startHIVFormActivity(this, getHivIndexContactObject().getBaseEntityId(), CoreConstants.JSON_FORM.getHivIndexContactCommunityFollowupReferral(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivIndexContactCommunityFollowupReferral()).toString());
                 return true;
             }else if(itemId == R.id.action_kvp_prep_registration){
-                KvpPrEPRegisterActivity.startRegistration(HivIndexContactProfileActivity.this, getHivIndexContactObject().getBaseEntityId());
+                String gender = Utils.getClientGender(getHivIndexContactObject().getBaseEntityId());
+                String dob = getHivIndexContactObject().getDob();
+                int age = Utils.getAgeFromDate(dob);
+                KvpPrEPRegisterActivity.startRegistration(HivIndexContactProfileActivity.this, getHivIndexContactObject().getBaseEntityId(), gender, age);
                 return true;
             }
         } catch (JSONException e) {

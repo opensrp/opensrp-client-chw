@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.content.Context;
@@ -166,7 +167,10 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     @Override
     protected void startKvpPrEPRegistration() {
-        KvpPrEPRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
+        String gender = getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        KvpPrEPRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, gender, age);
     }
 
     @Override

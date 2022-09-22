@@ -1,0 +1,14 @@
+---
+name: step1_client_group_male
+description: if client is male is relevannt
+priority: 1
+condition: "global_gender.equalsIgnoreCase('male')"
+actions:
+  - "isRelevant = true "
+---
+name: step1_client_group_female
+description: if client is female is relevannt
+priority: 1
+condition: "global_gender.equalsIgnoreCase('female')"
+actions:
+  - "isRelevant = true "

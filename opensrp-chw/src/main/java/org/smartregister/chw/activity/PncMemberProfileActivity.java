@@ -7,6 +7,7 @@ import static org.smartregister.chw.util.Constants.JSON_FORM;
 import static org.smartregister.chw.util.Constants.ProfileActivityResults;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
@@ -355,7 +356,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID,gender);
         }
         if(itemId == R.id.action_kvp_prep_registration){
-            KvpPrEPRegisterActivity.startRegistration(PncMemberProfileActivity.this, baseEntityID);
+            String gender = getClientGender(baseEntityID);
+            int age = memberObject.getAge();
+            KvpPrEPRegisterActivity.startRegistration(PncMemberProfileActivity.this, baseEntityID, gender, age);
             return true;
         }
         return super.onOptionsItemSelected(item);
