@@ -51,6 +51,7 @@ import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -329,6 +330,9 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             int age = memberObject.getAge();
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()) && age >= 18);
         }
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityID));
+        }
         return true;
     }
 
@@ -349,6 +353,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
             String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID,gender);
+        }
+        if(itemId == R.id.action_kvp_prep_registration){
+            KvpPrEPRegisterActivity.startRegistration(PncMemberProfileActivity.this, baseEntityID);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
