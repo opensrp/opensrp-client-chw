@@ -27,7 +27,7 @@ public class KvpVisitUtils extends VisitUtils {
 
         for (Visit v : visits) {
 
-            if (v.getVisitType().equalsIgnoreCase(Constants.EVENT_TYPE.KVP_FOLLOW_UP_VISIT)) {
+            if (v.getVisitType().equalsIgnoreCase(Constants.EVENT_TYPE.KVP_PrEP_FOLLOW_UP_VISIT)) {
                 try {
                     kvpFollowupVisits.add(v);
                 } catch (Exception e) {

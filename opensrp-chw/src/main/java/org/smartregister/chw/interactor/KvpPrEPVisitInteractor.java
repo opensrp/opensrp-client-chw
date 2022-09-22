@@ -40,7 +40,7 @@ public class KvpPrEPVisitInteractor extends BaseKvpVisitInteractor {
 
     private void getDetailsOnEdit(BaseKvpVisitContract.View view, MemberObject memberObject) {
         if (view.getEditMode()) {
-            Visit lastVisit = KvpLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.KVP_FOLLOW_UP_VISIT);
+            Visit lastVisit = KvpLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.KVP_PrEP_FOLLOW_UP_VISIT);
 
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(KvpLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));

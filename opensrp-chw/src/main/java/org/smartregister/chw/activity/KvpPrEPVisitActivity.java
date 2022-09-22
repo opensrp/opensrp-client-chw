@@ -51,7 +51,7 @@ public class KvpPrEPVisitActivity extends BaseKvpVisitActivity {
 
     @Override
     public void submittedAndClose() {
-        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.KVP_FOLLOW_UP_VISIT, new Date());
+        Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.KVP_PrEP_FOLLOW_UP_VISIT, new Date());
         Utils.startAsyncTask(new RunnableTask(runnable), null);
         super.submittedAndClose();
     }
