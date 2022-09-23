@@ -26,7 +26,7 @@ public class KvpPrEPVisitActivity extends BaseKvpVisitActivity {
         Intent intent = new Intent(activity, KvpPrEPVisitActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, editMode);
-
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.KVP_PrEP_PROFILE);
         activity.startActivity(intent);
     }
 

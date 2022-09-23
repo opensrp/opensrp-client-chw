@@ -13,6 +13,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     public static void startProfileActivity(Activity activity, String baseEntityId) {
         Intent intent = new Intent(activity, KvpPrEPProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.PROFILE_TYPE, Constants.PROFILE_TYPES.KVP_PrEP_PROFILE);
         activity.startActivity(intent);
     }
 
