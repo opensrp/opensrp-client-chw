@@ -341,6 +341,9 @@
         <activity
             android:name=".activity.MotherChampionProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MotherChampionMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
