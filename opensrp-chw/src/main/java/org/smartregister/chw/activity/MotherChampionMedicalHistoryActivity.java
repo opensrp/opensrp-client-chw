@@ -39,7 +39,7 @@ public class MotherChampionMedicalHistoryActivity extends CoreAncMedicalHistoryA
         TextView tvTitle = findViewById(org.smartregister.chw.opensrp_chw_anc.R.id.tvTitle);
         tvTitle.setText(getString(org.smartregister.chw.opensrp_chw_anc.R.string.back_to, heiMemberObject.getFullName()));
 
-        ((TextView)findViewById(R.id.medical_history)).setText(getString(R.string.visits_history));
+        ((TextView) findViewById(R.id.medical_history)).setText(getString(R.string.visits_history));
     }
 
     @Override
