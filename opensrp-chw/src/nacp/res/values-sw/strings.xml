@@ -42,7 +42,7 @@
     <string name="existing_client">Mteja Aliyepo</string>
     <string name="cancel_referral">Futa Rufaa</string>
     <string name="cancel_referral_title">Futa Rufaa?</string>
-    <string name="record_mother_champion_follouwp_visit">Rekodi hudhurio la Mama Kinara katika jamii</string>
+    <string name="record_mother_champion_follouwp_visit">Rekodi Hudhurio la Mama Kinara katika Jamii</string>
     <string name="sbcc_location">Eneo: %s</string>
     <string name="sbcc_participants">Washiriki: %s</string>
     <string name="sbcc_session_date">Tarehe: %s</string>
@@ -123,12 +123,15 @@
     <string name="pnc_normal">Kawaida</string>
     <string name="pnc_moderate">Wastani</string>
     <string name="pnc_severe">Mbaya</string>
+
+    <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
+    <string name="visits_history">Historia ya Matembeleo</string>
     <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
     <string name="mother_champion_visit_title">Tembeleo la Mama Kinara {0}: {1}</string>
-    <string name="mother_champion_type_of_service">Aina ya Huduma: {0}</string>
-    <string name="mother_champion_linked_to_psychosocial_group">Aliunganishwa kwenye kikundi cha msaada wa Kisaikolojia: {0}</string>
-    <string name="mother_champion_counselling_given">Elimu ya Afya iliyotolewa: {0}</string>
-    <string name="mother_champion_referrals_issued_other_services">Rufaa zilizotolewa kwa ajili ya huduma nyingine: {0}</string>
+    <string name="mother_champion_type_of_service">Aina ya Huduma:</string>
+    <string name="mother_champion_linked_to_psychosocial_group">Aliunganishwa kwenye kikundi cha msaada wa Kisaikolojia:</string>
+    <string name="mother_champion_counselling_given">Elimu ya Afya iliyotolewa:</string>
+    <string name="mother_champion_referrals_issued_other_services">Rufaa zilizotolewa kwa ajili ya huduma nyingine:</string>
     <string name="mother_champion_mother_support_group">Uwezeshaji wa kikundi cha msaada wa Mama</string>
     <string name="mother_champion_health_education">Elimu ya Afya</string>
     <string name="mother_champion_counselling_chk_hiv_syphilis_testing">Upimaji wa VVU/Kaswende</string>

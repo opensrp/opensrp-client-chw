@@ -21,6 +21,7 @@
         style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="10"
         android:paddingLeft="20dp"
         android:text="@string/mother_champion_type_of_service"
         android:textColor="@color/medical_sub_text_inner"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:text="@string/mother_champion_linked_to_psychosocial_group"
+        android:maxLines="10"
         android:textColor="@color/medical_sub_text_inner"
         android:textSize="14sp" />
 
@@ -43,6 +45,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:text="@string/mother_champion_counselling_given"
+        android:maxLines="10"
         android:textColor="@color/medical_sub_text_inner"
         android:textSize="14sp" />
 
@@ -52,6 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
+        android:maxLines="10"
         android:text="@string/mother_champion_referrals_issued_other_services"
         android:textColor="@color/medical_sub_text_inner"
         android:textSize="14sp" />

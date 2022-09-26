@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="40dp"
+    android:layout_height="5dp"
     android:padding="40dp"
     android:shape="rectangle">
     <corners android:radius="9dp" />
@@ -7,5 +9,4 @@
         android:width="1dp"
         android:color="@color/visit_status_not_yet" />
     <solid android:color="@color/white" /> <!-- the button color -->
-
 </shape>

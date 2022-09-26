@@ -1,6 +1,11 @@
 package org.smartregister.chw.activity;
 
 import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.BulletSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +19,6 @@ import org.smartregister.chw.core.activity.DefaultAncMedicalHistoryActivityFlv;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,7 @@ import java.util.Map;
 import timber.log.Timber;
 
 public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHistoryActivityFlv {
+    private final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
 
     @Override
     protected void processAncCard(String has_card, Context context) {
@@ -127,7 +132,8 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
 
     private void evaluateTypeOfService(Context context, Map<String, String> vals, TextView tvTypeOfService) {
         if (StringUtils.isNotBlank(getMapValue(vals, "type_of_service"))) {
-            String parsedTypeOfService = "";
+            SpannableStringBuilder parsedTypeOfService = new SpannableStringBuilder();
+            parsedTypeOfService.append(context.getString(R.string.mother_champion_type_of_service), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
             String typeOfServiceValue = getMapValue(vals, "type_of_service");
             String[] typeOfServiceValueArray;
             if (typeOfServiceValue.contains(",")) {
@@ -135,15 +141,14 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
                 for (String type : typeOfServiceValueArray) {
                     int resourceId = context.getResources().
                             getIdentifier("mother_champion_" + type.trim(), "string", context.getPackageName());
-                    parsedTypeOfService = context.getString(resourceId) + ",";
+                    parsedTypeOfService.append(context.getString(resourceId) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             } else {
                 int resourceId = context.getResources().
                         getIdentifier("mother_champion_" + typeOfServiceValue.trim(), "string", context.getPackageName());
-                parsedTypeOfService = context.getString(resourceId) + ",";
+                parsedTypeOfService.append(context.getString(resourceId)).append("\n");
             }
-            parsedTypeOfService = parsedTypeOfService.substring(0, parsedTypeOfService.length() - 1);
-            tvTypeOfService.setText(MessageFormat.format(context.getString(R.string.mother_champion_type_of_service), parsedTypeOfService));
+            tvTypeOfService.setText(parsedTypeOfService);
         } else {
             tvTypeOfService.setVisibility(View.GONE);
         }
@@ -151,9 +156,12 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
 
     private void evaluateLinkedToPsychosocialGroup(Context context, Map<String, String> vals, TextView textView) {
         if (StringUtils.isNotBlank(getMapValue(vals, "linked_to_psychosocial_group"))) {
+            SpannableStringBuilder linkedToGroupsStringBuilder = new SpannableStringBuilder();
+            linkedToGroupsStringBuilder.append(context.getString(R.string.mother_champion_linked_to_psychosocial_group), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
             int resourceId = context.getResources().
                     getIdentifier(getMapValue(vals, "linked_to_psychosocial_group"), "string", context.getPackageName());
-            textView.setText(MessageFormat.format(context.getString(R.string.mother_champion_linked_to_psychosocial_group), context.getString(resourceId)));
+            linkedToGroupsStringBuilder.append(context.getString(resourceId)).append("\n");
+            textView.setText(linkedToGroupsStringBuilder);
         } else {
             textView.setVisibility(View.GONE);
         }
@@ -161,7 +169,10 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
 
     private void evaluateCounsellingGiven(Context context, Map<String, String> vals, TextView textView) {
         if (StringUtils.isNotBlank(getMapValue(vals, "counselling_given"))) {
-            String parsedCounsellingGiven = "";
+            SpannableStringBuilder parsedCounsellingGiven = new SpannableStringBuilder();
+            parsedCounsellingGiven.append(context.getString(R.string.mother_champion_counselling_given), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+
+
             String counsellingGivenValue = getMapValue(vals, "counselling_given");
             String[] counsellingGivenValueArray;
             if (counsellingGivenValue.contains(",")) {
@@ -169,16 +180,16 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
                 for (String type : counsellingGivenValueArray) {
                     int resourceId = context.getResources().
                             getIdentifier("mother_champion_counselling_" + type.trim(), "string", context.getPackageName());
-                    parsedCounsellingGiven = context.getString(resourceId) + ",";
+                    parsedCounsellingGiven.append(context.getString(resourceId) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             } else {
                 int resourceId = context.getResources().
                         getIdentifier("mother_champion_counselling_" + counsellingGivenValue.trim(), "string", context.getPackageName());
-                parsedCounsellingGiven = context.getString(resourceId) + ",";
-            }
-            parsedCounsellingGiven = parsedCounsellingGiven.substring(0, parsedCounsellingGiven.length() - 1);
 
-            textView.setText(MessageFormat.format(context.getString(R.string.mother_champion_counselling_given), parsedCounsellingGiven));
+                parsedCounsellingGiven.append(context.getString(resourceId)).append("\n");
+            }
+
+            textView.setText(parsedCounsellingGiven);
         } else {
             textView.setVisibility(View.GONE);
         }
@@ -186,7 +197,10 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
 
     private void evaluateReferralsIssuedToOtherServices(Context context, Map<String, String> vals, TextView textView) {
         if (StringUtils.isNotBlank(getMapValue(vals, "referrals_issued_other_services"))) {
-            String parsedReferralsIssued = "";
+            SpannableStringBuilder parsedReferralsIssued = new SpannableStringBuilder();
+            parsedReferralsIssued.append(context.getString(R.string.mother_champion_referrals_issued_other_services), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+
+
             String referralsIssuedValue = getMapValue(vals, "referrals_issued_other_services");
             String[] referralsIssuedList;
             if (referralsIssuedValue.contains(",")) {
@@ -194,16 +208,14 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
                 for (String type : referralsIssuedList) {
                     int resourceId = context.getResources().
                             getIdentifier("mother_champion_referrals_issued_other_services_" + type.trim(), "string", context.getPackageName());
-                    parsedReferralsIssued = context.getString(resourceId) + ",";
+                    parsedReferralsIssued.append(context.getString(resourceId) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             } else {
                 int resourceId = context.getResources().
                         getIdentifier("mother_champion_referrals_issued_other_services_" + referralsIssuedValue.trim(), "string", context.getPackageName());
-                parsedReferralsIssued = context.getString(resourceId) + ",";
+                parsedReferralsIssued.append(context.getString(resourceId)).append("\n");
             }
-            parsedReferralsIssued = parsedReferralsIssued.substring(0, parsedReferralsIssued.length() - 1);
-
-            textView.setText(MessageFormat.format(context.getString(R.string.mother_champion_referrals_issued_other_services), parsedReferralsIssued));
+            textView.setText(parsedReferralsIssued);
         } else {
             textView.setVisibility(View.GONE);
         }
@@ -211,9 +223,6 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
 
     private String getMapValue(Map<String, String> map, String key) {
         if (map.containsKey(key)) {
-            if (map.get(key) != null && map.get(key).length() > 1) {
-                return map.get(key).split(",")[0];
-            }
             return map.get(key);
         }
         return "";

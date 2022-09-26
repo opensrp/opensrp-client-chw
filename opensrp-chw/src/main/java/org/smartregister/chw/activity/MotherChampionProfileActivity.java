@@ -287,6 +287,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         if (lastFollowupVisit != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
             TextView medicalHistoryTitle = findViewById(R.id.ivViewHistoryArrow);
+            medicalHistoryTitle.setText(getString(R.string.view_visits_history));
             medicalHistoryTitle.setTextColor(getResources().getColor(R.color.black));
         } else {
             rlLastVisit.setVisibility(View.GONE);
@@ -314,5 +315,11 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
     public @Nullable
     Visit getVisit(String eventType) {
         return PmtctLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshMedicalHistory(true);
     }
 }
