@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MotherChampionMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
     private static MemberObject heiMemberObject;
-    private Flavor flavor = new MotherChampionMedicalHistoryActivityFlv();
+    private final Flavor flavor = new MotherChampionMedicalHistoryActivityFlv();
     private ProgressBar progressBar;
 
     public static void startMe(Activity activity, MemberObject memberObject) {
