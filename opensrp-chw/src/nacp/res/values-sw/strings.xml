@@ -42,7 +42,7 @@
     <string name="existing_client">Mteja Aliyepo</string>
     <string name="cancel_referral">Futa Rufaa</string>
     <string name="cancel_referral_title">Futa Rufaa?</string>
-    <string name="record_mother_champion_follouwp_visit">Rekodi hudhurio la Mama Kinara katika jamii</string>
+    <string name="record_mother_champion_follouwp_visit">Rekodi Hudhurio la Mama Kinara katika Jamii</string>
     <string name="sbcc_location">Eneo: %s</string>
     <string name="sbcc_participants">Washiriki: %s</string>
     <string name="sbcc_session_date">Tarehe: %s</string>
@@ -123,4 +123,31 @@
     <string name="pnc_normal">Kawaida</string>
     <string name="pnc_moderate">Wastani</string>
     <string name="pnc_severe">Mbaya</string>
+
+    <string name="mother_champion_visits_history">Historia ya Matembeleo</string>
+    <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
+    <string name="visits_history">Historia ya Matembeleo</string>
+    <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
+    <string name="mother_champion_visit_title">Tembeleo la Mama Kinara {0}: {1}</string>
+    <string name="mother_champion_type_of_service">Aina ya Huduma:</string>
+    <string name="mother_champion_linked_to_psychosocial_group">Aliunganishwa kwenye kikundi cha msaada wa Kisaikolojia:</string>
+    <string name="mother_champion_counselling_given">Elimu ya Afya iliyotolewa:</string>
+    <string name="mother_champion_referrals_issued_other_services">Rufaa zilizotolewa kwa ajili ya huduma nyingine:</string>
+    <string name="mother_champion_mother_support_group">Uwezeshaji wa kikundi cha msaada wa Mama</string>
+    <string name="mother_champion_health_education">Elimu ya Afya</string>
+    <string name="mother_champion_counselling_chk_hiv_syphilis_testing">Upimaji wa VVU/Kaswende</string>
+    <string name="mother_champion_counselling_chk_partner_testing">Pimaji wa Wenza</string>
+    <string name="mother_champion_counselling_chk_disclosure">Ufunuzi</string>
+    <string name="mother_champion_counselling_chk_male_involvement">Ushiriki wa mwanaume katika huduma za kliniki ya ujauzito na kliniki ya kuzuia maambukizi ya VVU kwa mtoto mchanga</string>
+    <string name="mother_champion_counselling_chk_infant_test">Ratiba ya Vipimo vya mtoto Mchanga</string>
+    <string name="mother_champion_counselling_chk_arv_adherence">Ufuasi wa ARV</string>
+    <string name="mother_champion_counselling_chk_prophylaxis_scheduling">Ratiba ya Kinga</string>
+    <string name="mother_champion_counselling_chk_feeding_option">Jinsi ya kulisha watoto wachanga</string>
+    <string name="mother_champion_counselling_chk_maternal_nutrition">Lishe ya Mama</string>
+    <string name="mother_champion_counselling_chk_family_planning">Uzazi wa Mpango</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_gender_based_violence">Unyanyasaji wa Kijinsia</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_legal_support">Msaada wa Kisheria</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_nutritional_support">Msaada wa Lishe</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Makundi ya msaada</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_none">Hakuna</string>
 </resources>

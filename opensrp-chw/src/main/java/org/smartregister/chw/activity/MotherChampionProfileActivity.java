@@ -36,6 +36,8 @@ import org.smartregister.chw.custom_view.MotherChampionFloatingMenu;
 import org.smartregister.chw.dao.MotherChampionDao;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.pmtct.PmtctLibrary;
+import org.smartregister.chw.pmtct.domain.Visit;
 import org.smartregister.chw.pmtct.util.Constants;
 import org.smartregister.chw.pmtct.util.NCUtils;
 import org.smartregister.chw.presenter.PmtctMemberProfilePresenter;
@@ -49,6 +51,8 @@ import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import timber.log.Timber;
 
@@ -279,7 +283,15 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
 
     @Override
     public void refreshMedicalHistory(boolean hasHistory) {
-        rlLastVisit.setVisibility(View.GONE);
+        Visit lastFollowupVisit = getVisit(org.smartregister.chw.util.Constants.Events.MOTHER_CHAMPION_FOLLOWUP);
+        if (lastFollowupVisit != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.mother_champion_visits_history);
+            ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
     }
 
     private void addPmtctReferralTypes() {
@@ -293,5 +305,21 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
 
     public List<ReferralTypeModel> getReferralTypeModels() {
         return referralTypeModels;
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        MotherChampionMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
+    public @Nullable
+    Visit getVisit(String eventType) {
+        return PmtctLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshMedicalHistory(true);
     }
 }

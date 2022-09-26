@@ -28,7 +28,7 @@
             android:paddingTop="10dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:text="@string/record_anc_visit"
+            android:text="Teeeeeest"
             android:textColor="@color/anc_member_profile_bg" />
 
 
