@@ -16,7 +16,7 @@ import org.smartregister.chw.pmtct.domain.MemberObject;
 import java.util.List;
 
 public class MotherChampionMedicalHistoryActivity extends CoreAncMedicalHistoryActivity {
-    private static org.smartregister.chw.pmtct.domain.MemberObject heiMemberObject;
+    private static MemberObject heiMemberObject;
     private Flavor flavor = new MotherChampionMedicalHistoryActivityFlv();
     private ProgressBar progressBar;
 
