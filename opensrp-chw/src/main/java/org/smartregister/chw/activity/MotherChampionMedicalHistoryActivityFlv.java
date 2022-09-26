@@ -105,10 +105,12 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
                 TextView counsellingGiven = view.findViewById(R.id.counselling_given);
                 TextView referralsIssuedToOtherServices = view.findViewById(R.id.referrals_issued_other_services);
                 evaluateTitle(context, x, vals, tvTitle);
-                evaluateTypeOfService(context, vals, tvTypeOfService);
-                evaluateLinkedToPsychosocialGroup(context, vals, tvLinkedToPsychosocialGroup);
-                evaluateCounsellingGiven(context, vals, counsellingGiven);
-                evaluateReferralsIssuedToOtherServices(context, vals, referralsIssuedToOtherServices);
+
+                evaluateView(context, vals, tvTypeOfService, "type_of_service", R.string.mother_champion_type_of_service, "mother_champion_");
+                evaluateView(context, vals, tvLinkedToPsychosocialGroup, "linked_to_psychosocial_group", R.string.mother_champion_linked_to_psychosocial_group, "");
+                evaluateView(context, vals, counsellingGiven, "counselling_given", R.string.mother_champion_counselling_given, "mother_champion_counselling_");
+                evaluateView(context, vals, referralsIssuedToOtherServices, "referrals_issued_other_services", R.string.mother_champion_referrals_issued_other_services, "mother_champion_referrals_issued_other_services_");
+
                 linearLayoutHealthFacilityVisitDetails.addView(view, 0);
 
                 x++;
@@ -130,101 +132,43 @@ public class MotherChampionMedicalHistoryActivityFlv extends DefaultAncMedicalHi
         }
     }
 
-    private void evaluateTypeOfService(Context context, Map<String, String> vals, TextView tvTypeOfService) {
-        if (StringUtils.isNotBlank(getMapValue(vals, "type_of_service"))) {
-            SpannableStringBuilder parsedTypeOfService = new SpannableStringBuilder();
-            parsedTypeOfService.append(context.getString(R.string.mother_champion_type_of_service), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
-            String typeOfServiceValue = getMapValue(vals, "type_of_service");
-            String[] typeOfServiceValueArray;
-            if (typeOfServiceValue.contains(",")) {
-                typeOfServiceValueArray = typeOfServiceValue.split(",");
-                for (String type : typeOfServiceValueArray) {
-                    int resourceId = context.getResources().
-                            getIdentifier("mother_champion_" + type.trim(), "string", context.getPackageName());
-                    parsedTypeOfService.append(context.getString(resourceId) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private void evaluateView(Context context, Map<String, String> vals, TextView tv, String valueKey, int viewTitleStringResource, String valuePrefixInStringResources) {
+        if (StringUtils.isNotBlank(getMapValue(vals, valueKey))) {
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+            spannableStringBuilder.append(context.getString(viewTitleStringResource), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
+
+            String stringValue = getMapValue(vals, valueKey);
+            String[] stringValueArray;
+            if (stringValue.contains(",")) {
+                stringValueArray = stringValue.split(",");
+                for (String value : stringValueArray) {
+                    spannableStringBuilder.append(getStringResource(context, valuePrefixInStringResources, value.trim()) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
             } else {
-                int resourceId = context.getResources().
-                        getIdentifier("mother_champion_" + typeOfServiceValue.trim(), "string", context.getPackageName());
-                parsedTypeOfService.append(context.getString(resourceId)).append("\n");
+                spannableStringBuilder.append(getStringResource(context, valuePrefixInStringResources, stringValue)).append("\n");
             }
-            tvTypeOfService.setText(parsedTypeOfService);
+            tv.setText(spannableStringBuilder);
         } else {
-            tvTypeOfService.setVisibility(View.GONE);
+            tv.setVisibility(View.GONE);
         }
     }
 
-    private void evaluateLinkedToPsychosocialGroup(Context context, Map<String, String> vals, TextView textView) {
-        if (StringUtils.isNotBlank(getMapValue(vals, "linked_to_psychosocial_group"))) {
-            SpannableStringBuilder linkedToGroupsStringBuilder = new SpannableStringBuilder();
-            linkedToGroupsStringBuilder.append(context.getString(R.string.mother_champion_linked_to_psychosocial_group), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
-            int resourceId = context.getResources().
-                    getIdentifier(getMapValue(vals, "linked_to_psychosocial_group"), "string", context.getPackageName());
-            linkedToGroupsStringBuilder.append(context.getString(resourceId)).append("\n");
-            textView.setText(linkedToGroupsStringBuilder);
-        } else {
-            textView.setVisibility(View.GONE);
-        }
-    }
-
-    private void evaluateCounsellingGiven(Context context, Map<String, String> vals, TextView textView) {
-        if (StringUtils.isNotBlank(getMapValue(vals, "counselling_given"))) {
-            SpannableStringBuilder parsedCounsellingGiven = new SpannableStringBuilder();
-            parsedCounsellingGiven.append(context.getString(R.string.mother_champion_counselling_given), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
-
-
-            String counsellingGivenValue = getMapValue(vals, "counselling_given");
-            String[] counsellingGivenValueArray;
-            if (counsellingGivenValue.contains(",")) {
-                counsellingGivenValueArray = counsellingGivenValue.split(",");
-                for (String type : counsellingGivenValueArray) {
-                    int resourceId = context.getResources().
-                            getIdentifier("mother_champion_counselling_" + type.trim(), "string", context.getPackageName());
-                    parsedCounsellingGiven.append(context.getString(resourceId) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            } else {
-                int resourceId = context.getResources().
-                        getIdentifier("mother_champion_counselling_" + counsellingGivenValue.trim(), "string", context.getPackageName());
-
-                parsedCounsellingGiven.append(context.getString(resourceId)).append("\n");
-            }
-
-            textView.setText(parsedCounsellingGiven);
-        } else {
-            textView.setVisibility(View.GONE);
-        }
-    }
-
-    private void evaluateReferralsIssuedToOtherServices(Context context, Map<String, String> vals, TextView textView) {
-        if (StringUtils.isNotBlank(getMapValue(vals, "referrals_issued_other_services"))) {
-            SpannableStringBuilder parsedReferralsIssued = new SpannableStringBuilder();
-            parsedReferralsIssued.append(context.getString(R.string.mother_champion_referrals_issued_other_services), boldSpan, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE).append("\n");
-
-
-            String referralsIssuedValue = getMapValue(vals, "referrals_issued_other_services");
-            String[] referralsIssuedList;
-            if (referralsIssuedValue.contains(",")) {
-                referralsIssuedList = referralsIssuedValue.split(",");
-                for (String type : referralsIssuedList) {
-                    int resourceId = context.getResources().
-                            getIdentifier("mother_champion_referrals_issued_other_services_" + type.trim(), "string", context.getPackageName());
-                    parsedReferralsIssued.append(context.getString(resourceId) + "\n", new BulletSpan(10), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            } else {
-                int resourceId = context.getResources().
-                        getIdentifier("mother_champion_referrals_issued_other_services_" + referralsIssuedValue.trim(), "string", context.getPackageName());
-                parsedReferralsIssued.append(context.getString(resourceId)).append("\n");
-            }
-            textView.setText(parsedReferralsIssued);
-        } else {
-            textView.setVisibility(View.GONE);
-        }
-    }
 
     private String getMapValue(Map<String, String> map, String key) {
         if (map.containsKey(key)) {
             return map.get(key);
         }
         return "";
+    }
+
+    private String getStringResource(Context context, String prefix, String resourceName) {
+        int resourceId = context.getResources().
+                getIdentifier(prefix + resourceName.trim(), "string", context.getPackageName());
+        try {
+            return context.getString(resourceId);
+        } catch (Exception e) {
+            Timber.e(e);
+            return prefix + resourceName;
+        }
     }
 }

@@ -286,9 +286,9 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         Visit lastFollowupVisit = getVisit(org.smartregister.chw.util.Constants.Events.MOTHER_CHAMPION_FOLLOWUP);
         if (lastFollowupVisit != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
-            TextView medicalHistoryTitle = findViewById(R.id.ivViewHistoryArrow);
-            medicalHistoryTitle.setText(getString(R.string.view_visits_history));
-            medicalHistoryTitle.setTextColor(getResources().getColor(R.color.black));
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.mother_champion_visits_history);
+            ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
         } else {
             rlLastVisit.setVisibility(View.GONE);
         }
