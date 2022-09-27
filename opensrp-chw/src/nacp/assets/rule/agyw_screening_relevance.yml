@@ -1,0 +1,56 @@
+---
+name: step1_household_people_for_less_than_18
+description: household_people_for_less_than_18 relevance
+priority: 1
+condition: "global_age < 18"
+actions:
+  - "isRelevant = true"
+---
+name: step1_household_people_for_18_and_above
+description: household_people_for_18_and_above relevance
+priority: 1
+condition: "global_age >= 18"
+actions:
+  - "isRelevant = true"
+---
+name: step1_birth_before_18
+description: birth_before_18 relevance
+priority: 1
+condition: "global_age >= 18"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_agyw_enrollment
+description: prompt_for_agyw_enrollment relevance
+priority: 1
+condition: "step1_household_people_for_less_than_18.equals('led_by_below_eighteen') || step1_birth_before_18.equals('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_ever_married
+description: ever_married relevance
+priority: 1
+condition: "global_age < 18"
+actions:
+  - "isRelevant = true"
+---
+name: step1_ever_pregnant
+description: ever_pregnant relevance
+priority: 1
+condition: "global_age < 18"
+actions:
+  - "isRelevant = true"
+---
+name: step1_currently_pregnant
+description: currently_pregnant relevance
+priority: 1
+condition: "step1_ever_pregnant.equals('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_missed_school
+description: missed_school relevance
+priority: 1
+condition: "step2_formal_education.equals('yes')"
+actions:
+  - "isRelevant = true"
