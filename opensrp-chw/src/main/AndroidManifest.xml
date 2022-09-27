@@ -39,6 +39,10 @@
         <activity
             android:name=".activity.HivstResultViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity android:name=".activity.AgywRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.AgywProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
