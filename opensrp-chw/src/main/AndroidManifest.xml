@@ -43,6 +43,10 @@
             android:theme="@style/ChwTheme.NoActionBar"/>
         <activity android:name=".activity.AgywProfileActivity"
             android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.AGYWServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity android:name=".activity.AgywServicesFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar"/>
         <activity
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
