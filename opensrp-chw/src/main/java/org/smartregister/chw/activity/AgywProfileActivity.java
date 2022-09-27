@@ -20,4 +20,9 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
         //TODO: update options menu with required details
         return false;
     }
+
+    @Override
+    protected void startAGYWServices() {
+        AGYWServicesActivity.startMe(this, memberObject.getBaseEntityId());
+    }
 }
