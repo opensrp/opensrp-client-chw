@@ -165,7 +165,9 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     @Override
     protected void startAgywScreening() {
-        AgywRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AgywRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, age);
     }
 
     @Override

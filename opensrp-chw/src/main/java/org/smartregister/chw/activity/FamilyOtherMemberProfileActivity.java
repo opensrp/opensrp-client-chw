@@ -283,7 +283,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
 
     @Override
     protected void startAgywScreening() {
-        AgywRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AgywRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, age);
     }
 
     /**

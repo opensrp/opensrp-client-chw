@@ -10,10 +10,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class AgywRegisterActivity extends CoreAgywRegisterActivity {
 
-    public static void startRegistration(Activity activity, String baseEntityId) {
+    public static void startRegistration(Activity activity, String baseEntityId, int age) {
         Intent intent = new Intent(activity, AgywRegisterActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.ACTION, Constants.ACTIVITY_PAYLOAD_TYPE.REGISTRATION);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.AGE, age);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.AGYW_FORM_NAME, Constants.FORMS.AGYW_REGISTRATION);
 
         activity.startActivity(intent);
