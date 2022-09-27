@@ -5,6 +5,8 @@ import android.content.Intent;
 
 import org.smartregister.chw.agyw.util.Constants;
 import org.smartregister.chw.core.activity.CoreAgywRegisterActivity;
+import org.smartregister.chw.fragment.AgywRegisterFragment;
+import org.smartregister.view.fragment.BaseRegisterFragment;
 
 public class AgywRegisterActivity extends CoreAgywRegisterActivity {
 
@@ -15,5 +17,10 @@ public class AgywRegisterActivity extends CoreAgywRegisterActivity {
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.AGYW_FORM_NAME, Constants.FORMS.AGYW_REGISTRATION);
 
         activity.startActivity(intent);
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        return new AgywRegisterFragment();
     }
 }
