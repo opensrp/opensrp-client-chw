@@ -1,0 +1,431 @@
+{
+  "count": "1",
+  "encounter_type": "AGYW Structural Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Structural Services",
+    "fields": [
+      {
+        "key": "economic_empowerment_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "economic_empowerment_education",
+        "type": "check_box",
+        "label": "Elimu ya uwezeshaji wa kiuchumi",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "group_entrepreneurial_skills",
+            "text": "Ujuzi wa ujasiliamali katika kikundi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "group_entrepreneurial_skills"
+          },
+          {
+            "key": "practical_skills",
+            "text": "Mafunzo kwa vitendo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "practical_skills"
+          },
+          {
+            "key": "entrepreneurship_tools",
+            "text": "Vifaa vya ujasiliamali",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "entrepreneurship_tools"
+          },
+          {
+            "key": "self_emp_and_emp",
+            "text": "Maandalizi ya kujiajiri na kuajiriwa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "self_emp_and_emp"
+          },
+          {
+            "key": "saccos_vicoba",
+            "text": "Huduma za kuweka na kukopeshana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "saccos_vicoba"
+          },
+          {
+            "key": "savings_mgmt",
+            "text": "Usimamizi wa Akiba",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "savings_mgmt"
+          },
+          {
+            "key": "credit_mgmt",
+            "text": "Usimamizi wa Mikopo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "credit_mgmt"
+          },
+          {
+            "key": "planning_a_budget",
+            "text": "Kupanga bajeti",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "planning_a_budget"
+          },
+          {
+            "key": "starting_a_business",
+            "text": "Kuanzisha biashara",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "starting_a_business"
+          },
+          {
+            "key": "prepare_business_plan",
+            "text": "Kuandaa mpango biashara",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prepare_business_plan"
+          },
+          {
+            "key": "business_mgmt",
+            "text": "Usimamizi wa biashara",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "business_mgmt"
+          },
+          {
+            "key": "commercial_banking_service",
+            "text": "Huduma za benki ya biashara",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "commercial_banking_service"
+          },
+          {
+            "key": "marketing_research",
+            "text": "Utafiti wa masoko",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "marketing_research"
+          },
+          {
+            "key": "financial_edu_and_investments",
+            "text": "Elimu ya fedha na uwekezaji",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_edu_and_investments"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "education_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_materials",
+        "label": "Msaada wa vifaa vya elimu?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "entrepreneurial_tools",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "entrepreneurial_tools",
+        "label": "Vifaa vya ujasiriamali?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "given_capital",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "given_capital",
+        "label": "Alipatiwa fedha ya mtaji?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "distribute_sanitary_pads",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "distribute_sanitary_pads",
+        "label": "Ugawaji wa taulo za kike?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "nurturing_and_upb_edu",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nurturing_and_upb_edu",
+        "label": "Alipatiwa elimu ya malezi na makuzi?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          },
+          {
+            "key": "not_applicable",
+            "text": "Haihusiki",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_applicable"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "nurturing_and_upb_edu_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nurturing_and_upb_edu_given",
+        "type": "check_box",
+        "label": "Elimu malezi na makuzi",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "services_to_young_women",
+            "text": "Huduma zinzotolewa kwa wanawake vijana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "services_to_young_women"
+          },
+          {
+            "key": "imp_edu_in_fam_comm",
+            "text": "Umuhimu wa elimu ya malezi katika familia/jamii",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "imp_edu_in_fam_comm"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "Maana ya ukatili dhidi ya watoto na aina za ukatili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "risk_fac_leading_to_violence_against_children",
+            "text": "Visababishi na mambo hatarishi yanayochangia ukatili dhidi ya watoto",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "risk_fac_leading_to_violence_against_children"
+          },
+          {
+            "key": "violence_against_children_effects",
+            "text": "Athari za ukatili dhidi ya watoto katika familia/jamii zetu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children_effects"
+          },
+          {
+            "key": "childcare_on_protection_security",
+            "text": "Malezi ya watoto wadogo yanayozingatia ulinzi na usalama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "childcare_on_protection_security"
+          },
+          {
+            "key": "safe_env_for_children",
+            "text": "Kujenga na kudumisha mazingira salama ya watoto nyumbani na katika jamii",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "safe_env_for_children"
+          },
+          {
+            "key": "skills_against_violence",
+            "text": "Stadi muhimu zinazofundisha watoto kujilinda na ukatili",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skills_against_violence"
+          },
+          {
+            "key": "communication_for_children",
+            "text": "Mawasiliano yanayofaa kwa watoto wa rika tofauti",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "communication_for_children"
+          },
+          {
+            "key": "empowering_children",
+            "text": "Kuwawezesha watoto kuzungumza na utaratibu wa rufaa katika jamii",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "empowering_children"
+          },
+          {
+            "key": "nurturing_of_disabled_children",
+            "text": "Malezi ya watoto wenye ulemavu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nurturing_of_disabled_children"
+          },
+          {
+            "key": "household_econ_strengthening",
+            "text": "Kuimarisha uchumi wa kaya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_econ_strengthening"
+          },
+          {
+            "key": "culture_media",
+            "text": "Utamaduni na vyombo vya habari",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "culture_media"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        },
+        "relevance": {
+          "step1:nurturing_and_upb_edu": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}
