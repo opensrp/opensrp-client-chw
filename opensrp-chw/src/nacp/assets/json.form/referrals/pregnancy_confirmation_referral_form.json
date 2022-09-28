@@ -117,7 +117,7 @@
               "name": "feeling_lightheaded_or_dizzy",
               "text": "Feeling lightheaded or dizzy",
               "meta_data": {
-                "openmrs_entity": "conceptc",
+                "openmrs_entity": "concept",
                 "openmrs_entity_id": "feeling_lightheaded_or_dizzy",
                 "openmrs_entity_parent": ""
               }
