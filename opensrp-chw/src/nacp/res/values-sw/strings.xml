@@ -190,4 +190,6 @@
     <string name="mother_champion_referrals_issued_other_services_chk_nutritional_support">Msaada wa Lishe</string>
     <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Makundi ya msaada</string>
     <string name="mother_champion_referrals_issued_other_services_chk_none">Hakuna</string>
+
+    <string name="pnc_counselling_done">Umefanyika</string>
 </resources>

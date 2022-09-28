@@ -209,4 +209,6 @@
     <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Support Groups</string>
     <string name="mother_champion_referrals_issued_other_services_chk_none">None</string>
 
+    <string name="pnc_counselling_done">done</string>
+
 </resources>

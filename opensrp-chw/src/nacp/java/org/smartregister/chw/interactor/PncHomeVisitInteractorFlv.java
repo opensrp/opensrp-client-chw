@@ -477,7 +477,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                String counsellingStatus = "None".equals(couselling_pnc) || "Hakuna".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.subtask_done);
+                String counsellingStatus = "None".equals(couselling_pnc) || "Hakuna".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.pnc_counselling_done);
                 return MessageFormat.format("{0}: {1}", context.getString(R.string.counselling), counsellingStatus);
             }
 
