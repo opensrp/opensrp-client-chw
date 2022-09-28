@@ -457,7 +457,7 @@
             ],
             "v_required": {
               "value": "true",
-              "err": "Gender required"
+              "err": "Tafadhali chagua jinsi"
             }
           },
           {
