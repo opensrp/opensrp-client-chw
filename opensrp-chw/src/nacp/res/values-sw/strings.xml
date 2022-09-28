@@ -67,6 +67,7 @@
 
     <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
     <string name="referral_problem_pain">Maumivu</string>
+    <string name="referral_problem_anc_male_engagement">Ushirikishwaji wa mwenza</string>
     <string name="referral_problem_fever">Homa</string>
     <string name="referral_problem_jaundice">Manjano</string>
     <string name="referral_problem_headache">Kichwa kuuma</string>
