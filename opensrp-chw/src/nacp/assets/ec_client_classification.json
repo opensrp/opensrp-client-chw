@@ -651,6 +651,13 @@
             "creates_case": [
               "ec_agyw_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW GRADUATE SERVICES",
+            "closes_case": [
+              "ec_agyw_register"
+            ]
           }
         ]
       }
