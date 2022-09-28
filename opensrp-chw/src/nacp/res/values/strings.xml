@@ -151,4 +151,31 @@
     <string name="kvp_prep_structural_services">Structural Services</string>
     <string name="kvp_prep_referral_services">Referral Services</string>
 
+    <string name="mother_champion_visits_history">Visits History</string>
+    <string name="view_visits_history">View Visits History</string>
+    <string name="visits_history">Visits History</string>
+    <string name="mother_champion_visit">Mother Champion Visits</string>
+    <string name="mother_champion_visit_title">Mother Champion Visit {0}: {1}</string>
+    <string name="mother_champion_type_of_service">Type of Service:</string>
+    <string name="mother_champion_linked_to_psychosocial_group">Linked to Psychosocial Group:</string>
+    <string name="mother_champion_counselling_given">Counselling Given:</string>
+    <string name="mother_champion_referrals_issued_other_services">Referrals Issued to Other Services:</string>
+    <string name="mother_champion_mother_support_group">Facilitation of mother support group</string>
+    <string name="mother_champion_health_education">Health Education</string>
+    <string name="mother_champion_counselling_chk_hiv_syphilis_testing">HIV syphilis testing</string>
+    <string name="mother_champion_counselling_chk_partner_testing">Partner Testing</string>
+    <string name="mother_champion_counselling_chk_disclosure">Disclosure</string>
+    <string name="mother_champion_counselling_chk_male_involvement">Male Involvement</string>
+    <string name="mother_champion_counselling_chk_infant_test">Infant Scheduling Test</string>
+    <string name="mother_champion_counselling_chk_arv_adherence">ARV adherence</string>
+    <string name="mother_champion_counselling_chk_prophylaxis_scheduling">Prophylaxis Scheduling</string>
+    <string name="mother_champion_counselling_chk_feeding_option">Infant feeding practice option</string>
+    <string name="mother_champion_counselling_chk_maternal_nutrition">Maternal Nutrition</string>
+    <string name="mother_champion_counselling_chk_family_planning">Family Planning</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_gender_based_violence">Gender-Based Violence</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_legal_support">Legal Support</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_nutritional_support">Nutritional Support</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Support Groups</string>
+    <string name="mother_champion_referrals_issued_other_services_chk_none">None</string>
+
 </resources>

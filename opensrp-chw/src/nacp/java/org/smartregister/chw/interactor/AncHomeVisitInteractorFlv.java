@@ -246,7 +246,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         @Override
         public String postProcess(String s) {
             try {
-                if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
+                if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
                     evaluateHealthFacilityVisit(details, memberObject, dateMap, context);
                     evaluateFamilyPlanning(details, context);
                     // evaluateNutritionStatus(details, context);
@@ -273,7 +273,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
 
         @Override
         public String evaluateSubTitle() {
-            if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
+            if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
                 return MessageFormat.format(context.getString(R.string.anc_home_visit_danger_signs) + ": " + "{0}", danger_signs_present) +
                         "\n" +
                         MessageFormat.format(context.getString(R.string.anc_health_facility_counselling_subtitle) + " " + "{0}",
@@ -289,7 +289,7 @@ public class AncHomeVisitInteractorFlv implements AncHomeVisitInteractor.Flavor 
         public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
             if (StringUtils.isBlank(danger_signs_present)) {
                 return BaseAncHomeVisitAction.Status.PENDING;
-            } else if (danger_signs_present.contains("None") || danger_signs_present.contains("Hakuna")) {
+            } else if (danger_signs_present.contains("None") || danger_signs_present.equals("Hakuna")) {
                 if (danger_signs_counseling.equalsIgnoreCase("Yes")) {
                     return BaseAncHomeVisitAction.Status.COMPLETED;
                 } else if (danger_signs_counseling.equalsIgnoreCase("No")) {

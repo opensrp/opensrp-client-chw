@@ -118,6 +118,7 @@ public class Constants extends CoreConstants {
         public static final String MALARIA_CONFIRMATION = "malaria_confirmation";
         public static final String ANC_FIRST_FACILITY_VISIT = "ANC First Facility Visit";
         public static final String ANC_RECURRING_FACILITY_VISIT = "ANC Recurring Facility Visit";
+        public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
     }
 
     public static final class ActionList {
