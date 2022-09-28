@@ -4851,6 +4851,14 @@
           }
         },
         {
+          "column_name": "sbcc_intervention_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "sbcc_intervention_provided"
+          }
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

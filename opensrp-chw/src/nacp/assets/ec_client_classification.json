@@ -658,6 +658,13 @@
             "closes_case": [
               "ec_agyw_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW Behavioral Services",
+            "creates_case": [
+              "ec_agyw_register"
+            ]
           }
         ]
       }
