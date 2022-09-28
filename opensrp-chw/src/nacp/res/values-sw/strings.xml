@@ -79,6 +79,45 @@
     <string name="referral_problem_confirmation_self_test">Uthibitisho Kipimo binfasi</string>
     <string name="referral_problem_index_contact_testing">Upimaji wa washirika wa ngono/wakujidunga</string>
 
+
+    <string name="referral_problem_home_delivery">Mama kajifungulia nyumbani</string>
+    <string name="referral_problem_Vaginal_bleeding">Kutoka damu ukeni</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge">Kutoka uchafu / majimaji ukeni yenye harufu mbaya</string>
+    <string name="referral_problem_Severe_abdominal_pain">Maumivu makali ya tumbo</string>
+    <string name="referral_problem_Severe_anaemia">Upungufu mkubwa wa damu (weupe wa kiganja)</string>
+    <string name="referral_problem_Convulsions">Degedege / mtukutiko wa mwili</string>
+    <string name="referral_problem_A_severe_headache_dizziness">Maumivu makali ya kichwa / kizunguzungu</string>
+    <string name="referral_problem_Swelling_of_the_face_and_or_hands">Kuvimba uso na / au mikono</string>
+    <string name="referral_problem_Fever">Homa</string>
+    <string name="referral_problem_Shivering_trembling">Kutetemeka</string>
+    <string name="referral_problem_Nausea">Kichefuchefu</string>
+    <string name="referral_problem_Vomiting">Kutapika</string>
+    <string name="referral_problem_Cord_prolapse">Kutangulia kitovu cha mtoto"</string>
+    <string name="referral_problem_Perineum_bleeding">Kuchanika msamba</string>
+    <string name="referral_problem_Fullness_or_pain_of_the_breasts">Kujaa au maumivu ya matiti, chuchu, na kushindwa kunyonyesha</string>
+    <string name="referral_problem_HIV_care_and_support_services">Huduma za wateja / wagonjwa wanaoishi na VVU</string>
+    <string name="referral_problem_Family_planning_services">Huduma za uzazi wa mpango</string>
+    <string name="referral_problem_PMTCT_for_mothers">Huduma ya kuzuia maambukizi ya VVU toka kwa mama kwenda kwa mtoto</string>
+    <string name="referral_problem_Fistula">Fistula</string>
+    <string name="referral_problem_Fast_breathing_and_difficulty_with_breathing">Kushindwa kupumua</string>
+    <string name="referral_problem_Excessive_crying">Unable to breastfeed or swallow</string>
+    <string name="referral_problem_Unable_to_breastfeed_or_swallow">Kushindwa kunyonya au kumeza</string>
+    <string name="referral_problem_Neck_stiffness">Shingo kukakamaa</string>
+    <string name="referral_problem_Bloating">Tumbo kujaa</string>
+    <string name="referral_problem_Redness_around_the_umbilical_cord_foul">Uambukizo kwenye kitovu</string>
+    <string name="referral_problem_Bacterial_conjunctivitis">Macho kutoa uchafu / usaa</string>
+    <string name="referral_problem_Pale_or_jaundiced">Mwili kuwa njano</string>
+    <string name="referral_problem_Cyanosis_blueness_of_lips">Kubadilika kwa sababu ya kukosa hewa(midomo kuwa bluu,ulimi au viganja)</string>
+    <string name="referral_problem_Skin_rash_pustules">Vipele mwilini</string>
+    <string name="referral_problem_Diarrhea">Kuharisha</string>
+    <string name="referral_problem_Disabilities">Kuzaliwa na ulemavu</string>
+    <string name="referral_problem_Premature_baby">Mtoto aliyezaliwa na Uzito pungufu/ njiti</string>
+    <string name="referral_problem_Failure_to_pass_urine_or_stool">Kushindwa kukojoa au kutopata haja kubwa kwa muda wa saa 24 baada ya kuzaliwa</string>
+    <string name="referral_problem_Care_of_HIV_exposed_infant">Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU</string>
+    <string name="referral_problem_Immunisation">Huduma za chanjo</string>
+    <string name="referral_problem_other_reasons">Sababu nyingine</string>
+
+
     <string name="ltfu_clinic_ctc">CTC</string>
     <string name="ltfu_clinic_pwid">KLINIKI YA WAJIDUNGA</string>
     <string name="ltfu_clinic_prep">CTC(Dawa Kinga)</string>
