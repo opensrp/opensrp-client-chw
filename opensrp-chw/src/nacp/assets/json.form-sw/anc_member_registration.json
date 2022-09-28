@@ -144,15 +144,15 @@
         "hint": "Idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)",
         "v_required": {
           "value": "true",
-          "err": "Sawa na au zaidi ya 0"
+          "err": "Sawa na au zaidi ya 1"
         },
         "v_numeric_integer": {
           "value": "true",
           "err": "Must be a rounded number"
         },
         "v_min": {
-          "value": "0",
-          "err": "Namba lazima iwe sawa au zaidi ya 0"
+          "value": "1",
+          "err": "Namba lazima iwe sawa au zaidi ya 1"
         }
       },
       {
@@ -172,7 +172,7 @@
       {
         "key": "parity",
         "type": "edit_text",
-        "hint": "Idadi ya mimba zilizofikia wiki 24 au zaidi (Parity)",
+        "hint": "Idadi ya mimba zilizofikia wiki 28 au zaidi (Parity)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "parity",
         "openmrs_entity_parent": "",
@@ -237,7 +237,7 @@
       {
         "key": "prompt_for_delivery_method",
         "type": "toaster_notes",
-        "text":  "Mteja ashauriwe kujifungua Kituo cha Afya kwa sababu ya hatari ya kupasuka kwa mfuko wa uzazi",
+        "text": "Mteja ashauriwe kujifungua Kituo cha Afya kwa sababu ya hatari ya kupasuka kwa mfuko wa uzazi",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",

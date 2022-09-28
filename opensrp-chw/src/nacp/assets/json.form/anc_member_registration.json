@@ -144,15 +144,15 @@
         "hint": "Number of pregnancies (Including current pregnancy)",
         "v_required": {
           "value": "true",
-          "err": "Equal or greater than 0"
+          "err": "Equal or greater than 1"
         },
         "v_numeric_integer": {
           "value": "true",
           "err": "Must be a rounded number"
         },
         "v_min": {
-          "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "value": "1",
+          "err": "Number must be equal or greater than 1"
         }
       },
       {
