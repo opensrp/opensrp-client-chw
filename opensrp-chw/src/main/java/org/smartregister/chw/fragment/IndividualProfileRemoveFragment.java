@@ -69,13 +69,20 @@ public class IndividualProfileRemoveFragment extends CoreIndividualProfileRemove
                 if (getActivity() != null) {
                     if (getActivity() instanceof IndividualProfileRemoveActivity) {
                         getActivity().finish();
+
+                        Intent intent = new Intent(getActivity(), AllClientsRegisterActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         if (familyBaseEntityId != null) { //Independent clients don't belong to family
                             CommonPersonObject personObject = getCommonRepository(Utils.metadata().familyRegister.tableName).findByBaseEntityId(familyBaseEntityId);
-                            CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
-                                    personObject.getDetails(), "");
-                            pClient.setColumnmaps(personObject.getColumnmaps());
+                            if (personObject != null) {
+                                CommonPersonObjectClient pClient = new CommonPersonObjectClient(personObject.getCaseId(),
+                                        personObject.getDetails(), "");
+                                pClient.setColumnmaps(personObject.getColumnmaps());
 
-                            goToPatientDetailActivity(pClient);
+                                goToPatientDetailActivity(pClient);
+                            } else {
+                                startActivity(intent);
+                            }
                         }
                     }
                 }
