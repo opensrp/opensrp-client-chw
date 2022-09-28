@@ -163,7 +163,7 @@
           },
           {
             "key": "chk_partner_testing",
-            "text": "Pimaji wa Wenza",
+            "text": "Upimaji wa Wenza",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_partner_testing",
             "value": "false"
