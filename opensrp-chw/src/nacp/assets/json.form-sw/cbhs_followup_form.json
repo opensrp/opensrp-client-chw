@@ -463,7 +463,7 @@
           "properties": {
             "notification_type": "error",
             "dismissible": "no",
-            "text": "Refer to health facility for further management"
+            "text": "Mpatie mteja rufaa kwenda kituo cha afya kwa uchunguzi zaidi"
           },
           "subjects": "health_problem:map"
         },
@@ -716,14 +716,14 @@
               }
             }
           ],
-          "required_status": "yes:Please choose medicine given",
+          "required_status": "yes:Tafadhali chagua dawa zilizotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "hiv_services_provided",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Huduma za CBHS zilizotolewa"
+            "text": "Huduma za HUWANYU zilizotolewa"
           },
           "meta_data": {
             "openmrs_entity": "concept",
@@ -832,7 +832,7 @@
             },
             {
               "name": "other_hiv_services",
-              "text": "Huduma zingine za CBHS",
+              "text": "Huduma nyingine za HUWANYU",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_hiv_services",
@@ -850,14 +850,14 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua huduma za CBHS zilizotolewa",
+          "required_status": "yes:Tafadhali chagua huduma za HUWANYU zilizotolewa",
           "subjects": "registration_or_followup_status:text"
         },
         {
           "name": "hiv_services_provided_other",
           "type": "text_input_edit_text",
           "properties": {
-            "hint": "Huduma nyingnie za CBHS zilizotolewa",
+            "hint": "Huduma nyingnie za HUWANYU zilizotolewa",
             "type": "name"
           },
           "meta_data": {
@@ -865,7 +865,7 @@
             "openmrs_entity_id": "hiv_services_provided_other",
             "openmrs_entity_parent": "hiv_services_provided"
           },
-          "required_status": "true:Tafadhali jaza huduma nyingine za CBHS zilizotolewa",
+          "required_status": "true:Tafadhali jaza huduma nyingine za HUWANYU zilizotolewa",
           "subjects": "hiv_services_provided:map"
         },
         {

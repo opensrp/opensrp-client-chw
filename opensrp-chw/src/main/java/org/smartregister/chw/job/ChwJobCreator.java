@@ -68,6 +68,8 @@ public class ChwJobCreator implements JobCreator {
                 return new SyncTaskWithClientEventsServiceJob(SyncClientEventsPerTaskIntentService.class);
             case DocumentConfigurationServiceJob.TAG:
                 return new DocumentConfigurationServiceJob(DocumentConfigurationIntentService.class);
+            case PncCloseDateServiceJob.TAG:
+                return new PncCloseDateServiceJob();
             //TODO uncomment to enable plans
             /*case PlanIntentServiceJob.TAG:
                 return new PlanIntentServiceJob();*/

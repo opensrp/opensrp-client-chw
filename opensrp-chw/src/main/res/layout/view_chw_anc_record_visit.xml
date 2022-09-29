@@ -28,7 +28,6 @@
             android:paddingTop="10dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:text="Teeeeeest"
             android:textColor="@color/anc_member_profile_bg" />
 
 
@@ -111,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/textview_undo"
+            android:layout_toLeftOf="@+id/textview_edit"
             android:layout_toRightOf="@+id/tick_image"
             android:padding="10dp"
             android:text="@string/not_visiting_this_month"

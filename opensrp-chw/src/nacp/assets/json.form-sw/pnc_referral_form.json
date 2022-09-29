@@ -215,91 +215,91 @@
             "key": "Umbilical_cord",
             "text": "Kutokwa na damu kwenye kitovu",
             "openmrs_entity": "",
-            "openmrs_entity_id": "123844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Umbilical_cord",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Excessive_crying",
             "text": "Kulia kupita kiasi",
             "openmrs_entity": "",
-            "openmrs_entity_id": "140944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Excessive_crying",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Unable_to_breastfeed_or_swallow",
             "text": "Kutoweza kunyonya au kumeza",
             "openmrs_entity": "",
-            "openmrs_entity_id": "159861AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Unable_to_breastfeed_or_swallow",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Neck_stiffness",
             "text": "Kukaza kwa shingo",
             "openmrs_entity": "",
-            "openmrs_entity_id": "112721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Neck_stiffness",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Bloating",
             "text": "Tumbo kujaa",
             "openmrs_entity": "",
-            "openmrs_entity_id": "147132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Bloating",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Redness_around_the_umbilical_cord_foul",
             "text": "Kuwa na wekundu eneolinalozunguka  kitovu, kutokwa na majimaji yenye harufu mbaya kutoka kwenye kitovu",
             "openmrs_entity": "",
-            "openmrs_entity_id": "132407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Redness_around_the_umbilical_cord_foul",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Bacterial_conjunctivitis",
             "text": "Ugonjwa wa macho unaosababishwa na bakteria",
             "openmrs_entity": "",
-            "openmrs_entity_id": "148026AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Bacterial_conjunctivitis",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Pale_or_jaundiced",
             "text": "Kupauka au kuonekana na ngozi yenye rangi ya njano",
             "openmrs_entity": "",
-            "openmrs_entity_id": "136443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Pale_or_jaundiced",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Cyanosis_blueness_of_lips",
             "text": "Mdomo kuwa na rangi ya bluu",
             "openmrs_entity": "",
-            "openmrs_entity_id": "143050AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Cyanosis_blueness_of_lips",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Skin_rash_pustules",
             "text": "Vipele kwenye ngozi",
             "openmrs_entity": "",
-            "openmrs_entity_id": "512AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Skin_rash_pustules",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Diarrhea",
             "text": "Kuhara",
             "openmrs_entity": "",
-            "openmrs_entity_id": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Diarrhea",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Disabilities",
             "text": "Ulemavu wa kuzaliwa nao",
             "openmrs_entity": "",
-            "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Disabilities",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Premature_baby",
             "text": "Mtoto njiti",
             "openmrs_entity": "",
-            "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Premature_baby",
             "openmrs_entity_parent": ""
           },
           {
@@ -313,14 +313,14 @@
             "key": "Care_of_HIV_exposed_infant",
             "text": "Utunzaji wa mtoto aliyeambukizwa VVU",
             "openmrs_entity": "",
-            "openmrs_entity_id": "164818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Care_of_HIV_exposed_infant",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Immunisation",
             "text": "Kupatiwa chanjo ya kinga",
             "openmrs_entity": "",
-            "openmrs_entity_id": "1914AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Immunisation",
             "openmrs_entity_parent": ""
           },
           {
@@ -328,7 +328,7 @@
             "text": "Dalili nyingine",
             "ignore": true,
             "openmrs_entity": "",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Other_symptom",
             "openmrs_entity_parent": ""
           }
         ],
@@ -370,14 +370,14 @@
             "key": "ORS",
             "text": "ORS",
             "openmrs_entity": "",
-            "openmrs_entity_id": "351AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "ORS",
             "openmrs_entity_parent": ""
           },
           {
             "key": "Panadol",
             "text": "Panadol",
             "openmrs_entity": "",
-            "openmrs_entity_id": "70116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Panadol",
             "openmrs_entity_parent": ""
           },
           {
@@ -385,14 +385,14 @@
             "text": "Matibabu mengine",
             "ignore": true,
             "openmrs_entity": "",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "Other_treatment",
             "openmrs_entity_parent": ""
           },
           {
             "key": "None",
             "text": "Hakuna",
             "openmrs_entity": "",
-            "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "None",
             "openmrs_entity_parent": ""
           }
         ],

@@ -136,23 +136,26 @@
       },
       {
         "key": "no_prev_preg",
-        "openmrs_entity_parent": "",
+        "type": "edit_text",
+        "hint": "Number of pregnancies (Including current pregnancy)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_prev_preg",
-        "type": "edit_text",
-        "edit_type": "number",
-        "hint": "Number of pregnancies (Including current pregnancy)",
-        "v_required": {
+        "openmrs_entity_parent": "",
+        "v_numeric": {
           "value": "true",
-          "err": "Equal or greater than 0"
+          "err": "Please enter the gravida number"
         },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Must be a rounded number"
+        "v_max": {
+          "value": "35",
+          "err": "Gravida must be equal to or less than 35"
         },
         "v_min": {
-          "value": "0",
-          "err": "Number must be equal or greater than 0"
+          "value": "1",
+          "err": "Number must be equal or greater than 1"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please answer"
         }
       },
       {
@@ -180,17 +183,17 @@
           "value": "true",
           "err": "Please enter parity number"
         },
-        "v_required": {
-          "value": true,
-          "err": "Please enter the parity number"
-        },
         "constraints": [
           {
             "type": "numeric",
             "ex": "lessThan(., step1:no_prev_preg)",
             "err": "Parity must be less than the number of pregnancies (Including current pregnancy)"
           }
-        ]
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please answer"
+        }
       },
       {
         "key": "delivery_method",
