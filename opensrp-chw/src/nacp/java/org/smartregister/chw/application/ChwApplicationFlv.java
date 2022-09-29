@@ -51,7 +51,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasMalaria() {
-        return true;
+        return false;
     }
 
     @Override
@@ -124,17 +124,17 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasCdp() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean hasHIVST() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean hasKvp() {
-        return true;
+        return false;
     }
 
     @Override
