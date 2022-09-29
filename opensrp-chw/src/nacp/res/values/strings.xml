@@ -36,7 +36,6 @@
     <string name="mother_champion_reports">Mother Champion Reports</string>
 
 
-
     <string name="partner_registration_action_title">Partner Registration</string>
     <string name="new_client">New Client</string>
     <string name="existing_client">Existing Client</string>
@@ -210,5 +209,7 @@
     <string name="mother_champion_referrals_issued_other_services_chk_none">None</string>
 
     <string name="pnc_counselling_done">done</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell">Discoloured or watery, liquid vaginal discharge with a bad smell</string>
+    <string name="referral_problem_High_blood_pressure">High blood pressure</string>
 
 </resources>

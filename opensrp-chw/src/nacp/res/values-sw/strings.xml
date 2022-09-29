@@ -192,4 +192,6 @@
     <string name="mother_champion_referrals_issued_other_services_chk_none">Hakuna</string>
 
     <string name="pnc_counselling_done">Umefanyika</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell">Kutokwa na majimaji ukeni yenye rangirangi na harufu mbaya</string>
+    <string name="referral_problem_High_blood_pressure">Shinikizo la damu</string>
 </resources>
