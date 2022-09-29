@@ -46,6 +46,7 @@ import org.smartregister.chw.hiv.util.DBConstants;
 import org.smartregister.chw.hiv.util.HivUtil;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.CbhsProfileInteractor;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.referral.domain.NeatFormMetaData;
@@ -487,6 +488,9 @@ public class HivProfileActivity extends CoreHivProfileActivity
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()) && age >= 18);
         }
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(getHivMemberObject().getBaseEntityId()));
+        }
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             UtilsFlv.updateMalariaMenuItems(getHivMemberObject().getBaseEntityId(), menu);
@@ -509,9 +513,21 @@ public class HivProfileActivity extends CoreHivProfileActivity
         } else if (itemId == R.id.action_hivst_registration) {
             startHivstRegistration();
             return true;
+        } else if(itemId == R.id.action_kvp_prep_registration){
+            startKvpPrepRegistration();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void startKvpPrepRegistration(){
+         String gender = org.smartregister.chw.util.Utils.getClientGender(getHivMemberObject().getBaseEntityId());
+        String dob = getHivMemberObject().getAge();
+        int age = Utils.getAgeFromDate(dob);
+        KvpPrEPRegisterActivity.startRegistration(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), gender, age);
+    }
+
+
 
     private void startHivstRegistration() {
         CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);

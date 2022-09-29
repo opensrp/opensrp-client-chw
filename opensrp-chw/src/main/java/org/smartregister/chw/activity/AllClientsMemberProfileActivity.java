@@ -1,5 +1,6 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.content.Context;
@@ -25,6 +26,7 @@ import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.presenter.AllClientsMemberPresenter;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
@@ -75,6 +77,10 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 18);
+        }
+
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId));
         }
         return true;
     }
@@ -157,6 +163,14 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     protected void startHivstRegistration(){
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         HivstRegisterActivity.startHivstRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, gender);
+    }
+
+    @Override
+    protected void startKvpPrEPRegistration() {
+        String gender = getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        KvpPrEPRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, gender, age);
     }
 
     @Override

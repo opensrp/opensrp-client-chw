@@ -177,6 +177,12 @@
     <string name="pnc_moderate">Moderate</string>
     <string name="pnc_severe">Severe</string>
 
+    <!---KVP/PrEP Strings -->
+    <string name="kvp_prep_visit_type">Visit Type</string>
+    <string name="kvp_prep_sbcc_services">SBCC Services</string>
+    <string name="kvp_prep_preventive_services">Preventive Services</string>
+    <string name="kvp_prep_structural_services">Structural Services</string>
+    <string name="kvp_prep_referral_services">Referral Services</string>
 
     <string name="mother_champion_visits_history">Visits History</string>
     <string name="view_visits_history">View Visits History</string>

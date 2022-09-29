@@ -1,0 +1,152 @@
+{
+  "count": "1",
+  "encounter_type": "KVP PrEP Structural Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Structural Services",
+    "fields": [
+      {
+        "key": "structural_services_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "structural_services_provided",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select structural services provided to the client",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "education_on_income_generation_activities",
+            "text": "Education on Income Generation Activities (IGA)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_income_generation_activities"
+          },
+          {
+            "key": "flyers_on_income_generation_activities",
+            "text": "Provided Flyers on Income Generation Activities (IGA)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "flyers_on_income_generation_activities"
+          },
+          {
+            "key": "addressing_stigma_and_discrimination",
+            "text": "Addressing Stigma and Discrimination",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "addressing_stigma_and_discrimination"
+          },
+          {
+            "key": "community_empowerment",
+            "text": "Community Empowerment",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_empowerment"
+          },
+          {
+            "key": "education_on_addressing_gbv",
+            "text": "Education Addressing GBV against KVPs",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_addressing_gbv"
+          },
+          {
+            "key": "provision_of_business_skills",
+            "text": "Provision of Entrepreneurship and Business skills",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "provision_of_business_skills"
+          },
+          {
+            "key": "startup_kits",
+            "text": "Provision of Startup Kits",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "startup_kits"
+          },
+          {
+            "key": "legal_support",
+            "text": "Legal Aid Support",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "legal_support"
+          },
+          {
+            "key": "chk_others",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_others"
+          },
+          {
+            "key": "chk_none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "other_structural_services_provided",
+        "openmrs_entity_parent": "structural_services_provided",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_structural_services_provided",
+        "hint": "Other(specify)",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "step1:structural_services_provided": {
+            "ex-checkbox": [
+              {
+                "or": ["chk_others"]
+              }
+            ]
+          }
+          }
+        }
+    ]
+  }
+}
