@@ -760,6 +760,12 @@
             "text": "Low abdominal pain",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "low_abdominal_pain"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -959,15 +965,30 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "total_score",
-        "type": "edit_text",
+        "type": "hidden",
         "hint": "Total score for the AGYW beneficiary",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a number"
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "total_score_prompt",
+        "type": "toaster_notes",
+        "text": "Total score for the AGYW beneficiary: {total_agyw_score}",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
         }
       },
       {
@@ -975,23 +996,30 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "percentage_score",
-        "type": "edit_text",
+        "type": "hidden",
         "hint": "Percentage (%) score for the assessed AGYW beneficiary",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Please enter a number"
-        },
-        "v_min": {
-          "value": "0",
-          "err": "Number must be equal to or greater than 0"
-        },
-        "v_max": {
-          "value": "100",
-          "err": "Number must be equal to or less than 100"
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "percentage_score_prompt",
+        "type": "toaster_notes",
+        "text": "Percentage score for the assessed AGYW beneficiary: {total_percentage_score}%",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
         }
       }
     ]
