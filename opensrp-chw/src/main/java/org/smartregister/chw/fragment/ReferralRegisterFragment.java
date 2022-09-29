@@ -237,8 +237,9 @@ public class ReferralRegisterFragment extends BaseReferralRegisterFragment {
         try {
 
             String query = "select count(*) from " + presenter().getMainTable() + " inner join " + Constants.TABLE_NAME.FAMILY_MEMBER +
-                    " on " + presenter().getMainTable() + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " +
+                    " on " + presenter().getMainTable() + ".entity_id = " +
                     Constants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.BASE_ENTITY_ID +
+                    " inner join task on task.for = ec_family_member.base_entity_id"+
                     " where " + presenter().getMainCondition();
 
             if (StringUtils.isNotBlank(filters)) {

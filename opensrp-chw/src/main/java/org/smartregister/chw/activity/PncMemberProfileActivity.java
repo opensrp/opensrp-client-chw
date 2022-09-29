@@ -8,6 +8,7 @@ import static org.smartregister.chw.util.Constants.ProfileActivityResults;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,6 +38,7 @@ import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CorePncMemberProfileActivity;
 import org.smartregister.chw.core.activity.CorePncRegisterActivity;
 import org.smartregister.chw.core.adapter.NotificationListAdapter;
+import org.smartregister.chw.core.dao.ChwNotificationDao;
 import org.smartregister.chw.core.interactor.CorePncMemberProfileInteractor;
 import org.smartregister.chw.core.listener.OnClickFloatingMenu;
 import org.smartregister.chw.core.model.CoreAllClientsMemberModel;
@@ -47,8 +49,8 @@ import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.core.utils.UpdateDetailsUtil;
 import org.smartregister.chw.custom_view.AncFloatingMenu;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
-import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.interactor.ChildProfileInteractor;
 import org.smartregister.chw.interactor.FamilyProfileInteractor;
 import org.smartregister.chw.interactor.PncMemberProfileInteractor;
 import org.smartregister.chw.model.ChildRegisterModel;
@@ -66,6 +68,7 @@ import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.family.util.Utils;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -83,6 +86,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class PncMemberProfileActivity extends CorePncMemberProfileActivity implements PncMemberProfileContract.View {
+    public static final String CLOSE_PNC_VISITS = "Close PNC Visits";
 
     private Flavor flavor = new PncMemberProfileActivityFlv();
     private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
@@ -325,7 +329,7 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         flavor.onCreateOptionsMenu(menu, memberObject.getBaseEntityId());
-        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             int age = memberObject.getAge();
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()) && age >= 18);
         }
@@ -345,10 +349,10 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
             }
             return true;
         }
-        if(itemId == R.id.action_hivst_registration){
+        if (itemId == R.id.action_hivst_registration) {
             CommonPersonObjectClient commonPersonObjectClient = getCommonPersonObjectClient(memberObject.getBaseEntityId());
             String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
-            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID,gender);
+            HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -524,6 +528,33 @@ public class PncMemberProfileActivity extends CorePncMemberProfileActivity imple
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> notifications) {
         handleReceivedNotifications(this, notifications, notificationListAdapter);
+    }
+
+    public static void closePncMemberVisits(String baseEntityId) {
+        AllSharedPreferences sharedPreferences = getAllSharedPreferences();
+        Event baseEvent = (Event) new Event()
+                .withBaseEntityId(baseEntityId)
+                .withEventDate(new Date())
+                .withEventType(CLOSE_PNC_VISITS)
+                .withFormSubmissionId(org.smartregister.util.JsonFormUtils.generateRandomUUIDString())
+                .withEntityType(CoreConstants.TABLE_NAME.PNC_MEMBER)
+                .withProviderId(sharedPreferences.fetchRegisteredANM())
+                .withLocationId(ChwNotificationDao.getSyncLocationId(baseEntityId))
+                .withTeamId(sharedPreferences.fetchDefaultTeamId(sharedPreferences.fetchRegisteredANM()))
+                .withTeam(sharedPreferences.fetchDefaultTeam(sharedPreferences.fetchRegisteredANM()))
+                .withClientDatabaseVersion(BuildConfig.DATABASE_VERSION)
+                .withClientApplicationVersion(BuildConfig.VERSION_CODE)
+                .withDateCreated(new Date());
+        try {
+            org.smartregister.chw.util.JsonFormUtils.tagSyncMetadata(Utils.context().allSharedPreferences(), baseEvent);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        try {
+            org.smartregister.chw.anc.util.NCUtils.processEvent(baseEvent.getBaseEntityId(), new JSONObject(org.smartregister.chw.anc.util.JsonFormUtils.gson.toJson(baseEvent)));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
     public interface Flavor {

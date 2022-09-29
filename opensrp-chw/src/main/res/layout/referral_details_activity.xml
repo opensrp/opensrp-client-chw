@@ -256,6 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
+                        android:maxLines="35"
                         android:text=""
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/text_black"

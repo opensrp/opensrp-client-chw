@@ -70,6 +70,7 @@
 
     <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
     <string name="referral_problem_pain">Maumivu</string>
+    <string name="referral_problem_anc_male_engagement">Ushirikishwaji wa mwenza</string>
     <string name="referral_problem_fever">Homa</string>
     <string name="referral_problem_jaundice">Manjano</string>
     <string name="referral_problem_headache">Kichwa kuuma</string>
@@ -81,6 +82,44 @@
     <string name="referral_problem_optimistic_infections">Magonjwa nyemelezi</string>
     <string name="referral_problem_confirmation_self_test">Uthibitisho Kipimo binfasi</string>
     <string name="referral_problem_index_contact_testing">Upimaji wa washirika wa ngono/wakujidunga</string>
+
+
+    <string name="referral_problem_home_delivery">Mama kajifungulia nyumbani</string>
+    <string name="referral_problem_Vaginal_bleeding">Kutoka damu ukeni</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge">Kutoka uchafu / majimaji ukeni yenye harufu mbaya</string>
+    <string name="referral_problem_Severe_abdominal_pain">Maumivu makali ya tumbo</string>
+    <string name="referral_problem_Severe_anaemia">Upungufu mkubwa wa damu (weupe wa kiganja)</string>
+    <string name="referral_problem_Convulsions">Degedege / mtukutiko wa mwili</string>
+    <string name="referral_problem_Swelling_of_the_face_and_or_hands">Kuvimba uso na / au mikono</string>
+    <string name="referral_problem_Shivering_trembling">Kutetemeka</string>
+    <string name="referral_problem_Nausea">Kichefuchefu</string>
+    <string name="referral_problem_Vomiting">Kutapika</string>
+    <string name="referral_problem_Cord_prolapse">Kutangulia kitovu cha mtoto"</string>
+    <string name="referral_problem_Perineum_bleeding">Kuchanika msamba</string>
+    <string name="referral_problem_Fullness_or_pain_of_the_breasts">Kujaa au maumivu ya matiti, chuchu, na kushindwa kunyonyesha</string>
+    <string name="referral_problem_HIV_care_and_support_services">Huduma za wateja / wagonjwa wanaoishi na VVU</string>
+    <string name="referral_problem_Family_planning_services">Huduma za uzazi wa mpango</string>
+    <string name="referral_problem_PMTCT_for_mothers">Huduma ya kuzuia maambukizi ya VVU toka kwa mama kwenda kwa mtoto</string>
+    <string name="referral_problem_Fistula">Fistula</string>
+    <string name="referral_problem_Fast_breathing_and_difficulty_with_breathing">Kushindwa kupumua</string>
+
+    <string name="referral_problem_Excessive_crying">Mtoto kulia sana</string>
+    <string name="referral_problem_Unable_to_breastfeed_or_swallow">Kushindwa kunyonya au kumeza</string>
+
+    <string name="referral_problem_Neck_stiffness">Shingo kukakamaa</string>
+    <string name="referral_problem_Bloating">Tumbo kujaa</string>
+    <string name="referral_problem_Bacterial_conjunctivitis">Macho kutoa uchafu / usaa</string>
+    <string name="referral_problem_Pale_or_jaundiced">Mwili kuwa njano</string>
+    <string name="referral_problem_Cyanosis_blueness_of_lips">Kubadilika kwa sababu ya kukosa hewa(midomo kuwa bluu,ulimi au viganja)</string>
+    <string name="referral_problem_Skin_rash_pustules">Vipele mwilini</string>
+    <string name="referral_problem_Diarrhea">Kuharisha</string>
+    <string name="referral_problem_Disabilities">Kuzaliwa na ulemavu</string>
+    <string name="referral_problem_Premature_baby">Mtoto aliyezaliwa na Uzito pungufu/ njiti</string>
+    <string name="referral_problem_Failure_to_pass_urine_or_stool">Kushindwa kukojoa au kutopata haja kubwa kwa muda wa saa 24 baada ya kuzaliwa</string>
+    <string name="referral_problem_Care_of_HIV_exposed_infant">Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU</string>
+    <string name="referral_problem_Immunisation">Huduma za chanjo</string>
+    <string name="referral_problem_other_reasons">Sababu nyingine</string>
+
 
     <string name="ltfu_clinic_ctc">CTC</string>
     <string name="ltfu_clinic_pwid">KLINIKI YA WAJIDUNGA</string>
@@ -154,4 +193,65 @@
     <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Makundi ya msaada</string>
     <string name="mother_champion_referrals_issued_other_services_chk_none">Hakuna</string>
     <string name="followup_feedback_recorded">Hudhurio la ufuatiliaji limerekodiwa</string>
+
+    <string name="pnc_counselling_done">Umefanyika</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell">Kutokwa na majimaji ukeni yenye rangirangi na harufu mbaya</string>
+    <string name="referral_problem_High_blood_pressure">Shinikizo la damu</string>
+    <string name="referral_problem_Umbilical_cord_navel_bleeding">Vidonda na makovu</string>
+    <string name="referral_problem_Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord">Uambukizo kwenye kitovu</string>
+    <string name="referral_problem_rape">Ubakaji (Rape)</string>
+    <string name="referral_problem_physical_abuse">Unyanyasaji wa kimwili (Physical abuse)</string>
+    <string name="referral_problem_has_moved_out_from_home">Amehama nyumbani</string>
+    <string name="referral_problem_ulcers_and_scars">Vidonda na makovu</string>
+    <string name="referral_problem_is_weak">Amedhoofika</string>
+    <string name="referral_problem_needs_more_services">Anahitaji huduma zaidi</string>
+    <string name="referral_problem_has_great_level_of_stress_and_fear">Sonona (msongo wa mawazo)/ kuwa na woga mkuu</string>
+    <string name="referral_problem_threatened_to_be_killed">Kutishiwa kuuawa</string>
+    <string name="referral_problem_Fever">Homa</string>
+    <string name="referral_problem_Trembling">Kutetemeka</string>
+    <string name="referral_problem_Sweating">Kutoka jasho</string>
+    <string name="referral_problem_Redness_around_the_umbilical_cord_foul">Uambukizo kwenye kitovu</string>
+    <string name="referral_problem_Muscle_pain">Maumivu ya misuli</string>
+    <string name="referral_problem_Sweling_of_the_face_and_or_hands">Kuvimba uso na / au mikono</string>
+    <string name="referral_problem_Difficult_in_breathing_fast_and_laboured_breathing">Kushindwa kupumua</string>
+    <string name="referral_problem_Very_weak">Kulegea</string>
+    <string name="referral_problem_Irritable_easily_disturbed">Kukereka kirahisi</string>
+    <string name="referral_problem_Unconcious">Kukosa fahamu</string>
+    <string name="referral_problem_Unable_to_sit_without_support">Kushindwa kukaa bila msaada</string>
+    <string name="referral_problem_Abnormal_bleeding_or_passing_of_urine_with_blood">Kutokwa na damu au mkojo wenye damu</string>
+    <string name="referral_problem_Severe_anaemia_pale_palms_and_inner_eyelids">Upungufu mkubwa wa damu</string>
+    <string name="referral_problem_Yellowing_of_the_eyes_jaundice">Macho kuwa ya njano</string>
+    <string name="referral_problem_Severe_malnutrition">Utapiamlo mkali</string>
+    <string name="referral_problem_Unusually_sleepy">Kulala kusiko kwa kawaida</string>
+    <string name="referral_problem_Incisional_bleeding">Kutokwa damu</string>
+    <string name="referral_problem_Pus_Discharge_from_incision">Kutokwa usaha</string>
+    <string name="referral_problem_Swollen_around_the_incision">Kuvimba kwenye kidonda</string>
+    <string name="referral_problem_Others">Sababu nyingine</string>
+    <string name="referral_problem_none">hakuna</string>
+    <string name="referral_problem_lactating_hiv_positive_mother">Mama anayenyonyesha anaishi na VVU</string>
+    <string name="referral_problem_poor_art_adherence">Mama mwenye ufuasi mbaya wa dawa za ARV wakati wa ujauzito na baada ya kujifungua</string>
+    <string name="referral_problem_treatment_side_effects">Madhira madogo madogo  ya dawa wakati wa ujauzito na baada ya kujifungua</string>
+    <string name="referral_problem_child_receive_dbs_test">Mtoto atafanyiwa kipimo cha DBS</string>
+    <string name="referral_problem_loss_of_menstrual_period">Amepoteza siku zake za hedhi</string>
+    <string name="referral_problem_vomiting">Kutapika</string>
+    <string name="referral_problem_severe_headache">Maumivu makali ya kichwa</string>
+    <string name="referral_problem_nausea">Kichefuchefu</string>
+    <string name="referral_problem_feeling_lightheaded_or_dizzy">Kizunguzungu</string>
+    <string name="referral_problem_frequent_urination">Kukojoa mara kwa mara</string>
+    <string name="referral_problem_painful_breasts">Maumivu ya matiti</string>
+    <string name="referral_problem_Other_symptom">Dalili nyingine</string>
+    <string name="referral_problem_history_of_coughing_for_more_than_two_weeks">Kukohoa kwa Zaidi ya wiki mbili (kwa watu wasio na VVU)</string>
+    <string name="referral_problem_persistent_coughing_hiv_positive">Kikohozi cha muda wowote (Kwa wagonjwa wa VVU)</string>
+    <string name="referral_problem_night_sweats">Kutoka jasho jingi wakati amelala</string>
+    <string name="referral_problem_No_movement_unusual_movement_for_a_child_in_the_womb">Hakuna uchezaji / uchezaji usiyo wa kawaida kwa mtoto tumboni</string>
+    <string name="referral_problem_Pregnancy_pains_before_9_months">Uchungu kuanza mapema kabla ya mimba kufikia miezi 9</string>
+    <string name="referral_problem_Early_age_pregnancy_below_18_years">Kupata mimba katika umri mdogo (chini ya umri wa miaka 18)</string>
+    <string name="referral_problem_A_severe_headache_dizziness">Maumivu makali ya kichwa/kizunguzungu</string>
+    <string name="referral_problem_Swelling_of_the_face_andor_hands">Kuvimba uso na/au mikono</string>
+    <string name="referral_problem_Nausea_and_Vomiting">Kichefuchefu na kutapika</string>
+    <string name="referral_problem_Water_sack_broke_before_contractions">Chupa kupasuka mapema kabla ya uchungu</string>
+    <string name="referral_problem_Difficultly_breathing">Kupumua kwa shida</string>
+    <string name="referral_problem_Breast_engorgement">Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha</string>
+    <string name="referral_problem_Blurred_vision">Kuona kwa shida</string>
+    <string name="referral_referral_Perineum_tear">Kuchanika msamba</string>
 </resources>

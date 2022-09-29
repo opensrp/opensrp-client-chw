@@ -18,7 +18,7 @@ actions:
 name: step1_edd
 description: Edd calculated
 priority: 1
-condition: "true"
+condition: "step1_last_menstrual_period != ''"
 actions:
   - "calculation = helper.addDuration(step1_last_menstrual_period,'280d')"
 

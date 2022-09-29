@@ -212,7 +212,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "date_of_death",
         "type": "date_picker",
-        "min_date": "today",
+        "max_date": "today",
         "hint": "Please enter the date the date the client died",
         "v_required": {
           "value": "true",
