@@ -65,97 +65,97 @@
         "options": [
           {
             "key": "chk_attended_anc_contacts",
-            "text": "1. Attend ANC clinic early",
+            "text": "Attend ANC clinic early",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_attended_anc_contacts"
           },
           {
             "key": "chk_anc_danger_signs",
-            "text": "2. Pregnancy danger signs",
+            "text": "Pregnancy danger signs",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_anc_danger_signs"
           },
           {
             "key": "chk_maternal_nutrition",
-            "text": "3. Maternal nutrition during pregnancy and breast feeding",
+            "text": "Maternal nutrition during pregnancy and breast feeding",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_maternal_nutrition"
           },
           {
             "key": "chk_personal_delivery",
-            "text": "4. Personal delivery plan",
+            "text": "Personal delivery plan",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_personal_delivery"
           },
           {
             "key": "chk_hiv_aids",
-            "text": "5. HIV/AIDS general information",
+            "text": "HIV/AIDS general information",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hiv_aids"
           },
           {
             "key": "chk_pmtct_for_mother",
-            "text": "6. PMTCT for the mother",
+            "text": "PMTCT for the mother",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pmtct_for_mother"
           },
           {
             "key": "chk_preventing_malaria",
-            "text": "7. Preventing malaria for pregnant mothers",
+            "text": "Preventing malaria for pregnant mothers",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_preventing_malaria"
           },
           {
             "key": "chk_physical_changes",
-            "text": "8. Physical changes for a mother after giving birth",
+            "text": "Physical changes for a mother after giving birth",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_physical_changes"
           },
           {
             "key": "chk_pnc_danger_signs",
-            "text": "9. PNC danger signs",
+            "text": "PNC danger signs",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_pnc_danger_signs"
           },
           {
             "key": "chk_care_of_infant",
-            "text": "10. Care of infant after birth",
+            "text": "Care of infant after birth",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_care_of_infant"
           },
           {
             "key": "chk_infant_danger_signs",
-            "text": "11. Infant danger signs",
+            "text": "Infant danger signs",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_infant_danger_signs"
           },
           {
             "key": "chk_hiv_exposed_infant",
-            "text": "12. Follow-up for the HIV-exposed infant",
+            "text": "Follow-up for the HIV-exposed infant",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_hiv_exposed_infant"
           },
           {
             "key": "chk_breastfeeding",
-            "text": "13. Breastfeeding",
+            "text": "Breastfeeding",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_breastfeeding"
           },
           {
             "key": "chk_exclusive_breast_feeding ",
-            "text": "14. Plan for family planning using exclusive breast feeding for 6 months after birth",
+            "text": "Plan for family planning using exclusive breast feeding for 6 months after birth",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_exclusive_breast_feeding"
           },
           {
             "key": "chk_family_planning",
-            "text": "15. Family planning",
+            "text": "Family planning",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_family_planning"
           },
           {
             "key": "chk_infection_prevention",
-            "text": "16. Infection prevention and control",
+            "text": "Infection prevention and control",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_infection_prevention"
           },

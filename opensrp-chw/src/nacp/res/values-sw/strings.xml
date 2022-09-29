@@ -60,10 +60,13 @@
     <!-- String updates: New CBHS workflow   -->
     <string name="client_registration">Usajili wa Mwanzo wa Mteja</string>
     <!-- Reports View Strings   -->
-    <string name="reports_title">REPORTS</string>
+    <string name="reports_title">RIPOTI</string>
     <string name="select_reporting_month">Chagua Mwezi wa Kuripoti</string>
     <string name="monthly_report">Repoti Ya Mwezi</string>
     <string name="print_report">Chapa</string>
+
+    <string name="mother_champion_reports_subtitle">Tazama ripoti ya mama kinara</string>
+    <string name="mother_champion_reports">Ripoti ya mama kinara</string>
 
     <!-- Referral Problem / Reason strings (need to be prefixed with referral_problem_ + "key of the problem")  -->
     <string name="referral_problem_pain">Maumivu</string>
@@ -189,6 +192,7 @@
     <string name="mother_champion_referrals_issued_other_services_chk_nutritional_support">Msaada wa Lishe</string>
     <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Makundi ya msaada</string>
     <string name="mother_champion_referrals_issued_other_services_chk_none">Hakuna</string>
+    <string name="followup_feedback_recorded">Hudhurio la ufuatiliaji limerekodiwa</string>
 
     <string name="pnc_counselling_done">Umefanyika</string>
     <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell">Kutokwa na majimaji ukeni yenye rangirangi na harufu mbaya</string>
