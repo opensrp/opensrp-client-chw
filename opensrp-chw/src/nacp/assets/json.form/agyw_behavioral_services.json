@@ -85,11 +85,11 @@
             "openmrs_entity_id": "effective_communication"
           },
           {
-            "key": "sti",
-            "text": "STI",
+            "key": "sti_hiv_aids",
+            "text": "STI and HIV/AIDS",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sti"
+            "openmrs_entity_id": "sti_hiv_aids"
           },
           {
             "key": "family_planning",
@@ -167,6 +167,20 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "provision_iec"
+          },
+          {
+            "key": "puberty_education_menstrual_hygiene",
+            "text": "Puberty education and menstrual hygiene",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puberty_education_menstrual_hygiene"
+          },
+          {
+            "key": "life_skills",
+            "text": "Life skills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
           }
         ],
         "v_required": {

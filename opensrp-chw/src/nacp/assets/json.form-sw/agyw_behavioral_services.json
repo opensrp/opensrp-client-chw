@@ -85,11 +85,11 @@
             "openmrs_entity_id": "effective_communication"
           },
           {
-            "key": "sti",
-            "text": "Magonjwa ya ngono",
+            "key": "sti_hiv_aids",
+            "text": "Magonjwa ya ngono na VVU/UKIMWI",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sti"
+            "openmrs_entity_id": "sti_hiv_aids"
           },
           {
             "key": "family_planning",
@@ -167,6 +167,20 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "provision_iec"
+          },
+          {
+            "key": "puberty_education_menstrual_hygiene",
+            "text": "Elimu ya balehe na usafi wa hedhi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puberty_education_menstrual_hygiene"
+          },
+          {
+            "key": "life_skills",
+            "text": "Elimu ya stadi za maisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
           }
         ],
         "v_required": {
