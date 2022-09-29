@@ -114,7 +114,13 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali taja hali ya mteja / shida"
+          "required_status": "yes:Tafadhali taja hali ya mteja / shida",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
         },
         {
           "name": "problem_other",
