@@ -55,6 +55,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "household_people_for_less_than_18",
         "openmrs_entity_parent": "",
+        "exclusive": [
+          "led_by_below_eighteen"
+        ],
         "options": [
           {
             "key": "father",
@@ -139,17 +142,47 @@
             "text": "Guardian",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "guardian"
-          },
-          {
-            "key": "both_parents_alive",
-            "text": "Both parents are alive",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "both_parents_alive"
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please select at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "both_parents_alive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "both_parents_alive",
+        "label": "Are both your parents alive?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
         },
         "relevance": {
           "rules-engine": {
@@ -914,53 +947,6 @@
     "next": "step8",
     "fields": [
       {
-        "key": "tell_or_ask",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "tell_or_ask",
-        "label": "Is there anything else you would like to tell or ask me?",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "yes"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "no"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        }
-      },
-      {
-        "key": "specify_tell_or_ask",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "specify_tell_or_ask",
-        "type": "edit_text",
-        "hint": "Specify",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify"
-        },
-        "relevance": {
-          "step7:tell_or_ask": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
         "key": "total_score",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1019,6 +1005,53 @@
             "ex-rules": {
               "rules-file": "agyw_screening_calculation.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "tell_or_ask",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tell_or_ask",
+        "label": "Is there anything else you would like to tell or ask me?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "specify_tell_or_ask",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_tell_or_ask",
+        "type": "edit_text",
+        "hint": "Specify",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "step7:tell_or_ask": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       }
