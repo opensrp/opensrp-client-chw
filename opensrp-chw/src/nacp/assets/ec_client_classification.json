@@ -372,8 +372,7 @@
             "field": "eventType",
             "field_value": "CBHS Registration",
             "creates_case": [
-              "ec_cbhs_register",
-              "ec_cbhs_followup"
+              "ec_cbhs_register"
             ]
           },
           {

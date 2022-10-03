@@ -2981,14 +2981,6 @@
           }
         },
         {
-          "column_name": "client_behaviour_and_environmental_risk",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "client_behaviour_and_environmental_risk"
-          }
-        },
-        {
           "column_name": "supplies_provided",
           "type": "Event",
           "json_mapping": {
@@ -3002,6 +2994,14 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "supplies_provided_other"
+          }
+        },
+        {
+          "column_name": "medicine_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "medicine_provided"
           }
         },
         {
@@ -3083,22 +3083,6 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "client_moved_location_other"
-          }
-        },
-        {
-          "column_name": "client_tb_status_during_registration",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "client_tb_status_during_registration"
-          }
-        },
-        {
-          "column_name": "client_hiv_status_during_registration",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "client_hiv_status_during_registration"
           }
         },
         {
