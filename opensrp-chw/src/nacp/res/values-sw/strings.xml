@@ -170,6 +170,9 @@
     <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
     <string name="visits_history">Historia ya Matembeleo</string>
     <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
+    <string name="cbhs_visit">Matembeleo ya HUWANYU</string>
+    <string name="cbhs_visit_less_than_twenty_four">Tembeleo la mwisho la HUWANYU lilikuwa chini ya masaa 24 yaliyopita</string>
+    <string name="cbhs_last_visit_n_days_ago">Tembeleo la mwisho la HUWANYU lilikuwa siku %1$s zilizopiita</string>
     <string name="mother_champion_visit_title">Tembeleo la Mama Kinara {0}: {1}</string>
     <string name="mother_champion_type_of_service">Aina ya Huduma:</string>
     <string name="mother_champion_linked_to_psychosocial_group">Aliunganishwa kwenye kikundi cha msaada wa Kisaikolojia:</string>
@@ -254,4 +257,92 @@
     <string name="referral_problem_Breast_engorgement">Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha</string>
     <string name="referral_problem_Blurred_vision">Kuona kwa shida</string>
     <string name="referral_referral_Perineum_tear">Kuchanika msamba</string>
+
+    <!--    CBHS Visit History String Resources-->
+    <string name="cbhs_registration_or_followup_status">Hali ya ufuatiliaji:</string>
+    <string name="cbhs_new_client">Mteja Mpya</string>
+    <string name="cbhs_continuing_with_services">Anaendelea na Huduma</string>
+    <string name="cbhs_deceased">Amefariki</string>
+    <string name="cbhs_client_not_found">Hapatikani</string>
+    <string name="cbhs_client_relocated_to_another_location">Amehamishiwa mahali pengine</string>
+    <string name="cbhs_client_has_moved">Amehama</string>
+    <string name="cbhs_client_has_absconded">Amejitoa</string>
+    <string name="cbhs_client_continues_with_clinic_from_elsewhere">Anaendelea na huduma akitokea mahali pengine</string>
+    <string name="cbhs_completed_and_qualified_from_the_services">Amemaliza huduma</string>
+
+    <string name="cbhs_client_tb_status_after_testing">Hali ya maambukizi ya Kifua Kikuu baada ya kipimo</string>
+
+    <string name="cbhs_na">Haitambuliki</string>
+    <string name="cbhs_unknown">Haijulikani</string>
+    <string name="cbhs_positive">Chanya</string>
+    <string name="cbhs_negative">Hasi</string>
+
+    <string name="cbhs_health_problem">Matatizo ya kitabibu ya Mteja:</string>
+    <string name="cbhs_general_body_malaise">Uchovu wa mwili usio wa kawaida</string>
+    <string name="cbhs_chest_pain">Maumivu ya kifua</string>
+    <string name="cbhs_skin_infection">Magonjwa ya ngozi</string>
+    <string name="cbhs_loss_of_appetite">Kupoteza hamu ya kula</string>
+    <string name="cbhs_malnutrition">Utapiamlo</string>
+    <string name="cbhs_fever">Homa</string>
+    <string name="cbhs_jaundice">Manjano</string>
+    <string name="cbhs_headache">Maumivu ya kichwa</string>
+    <string name="cbhs_coughing">Kikohozi</string>
+    <string name="cbhs_convulsion">Mtukutiko mwili</string>
+    <string name="cbhs_loss_of_consciousness">Kupoteza ufahamu</string>
+    <string name="cbhs_drugs_side_effects">Madhara ya dawa</string>
+    <string name="cbhs_other_health_problems">Matatizo mengine</string>
+    <string name="cbhs_none">Hana tatizo</string>
+
+    <string name="cbhs_social_problem">Changamoto za kisaikolojia na kijamii : </string>
+    <string name="cbhs_stigma_and_discriminations">Ubaguzi na kutengwa</string>
+    <string name="cbhs_food_insecurity">Uhaba wa chakula</string>
+    <string name="cbhs_lack_disclosure">Kushindwa kufichua hali yake</string>
+    <string name="cbhs_transport_issues_for_attending_ctc">Matatizo ya usafiri wa kwenda kwenye klinili ya CTC</string>
+    <string name="cbhs_economic_constraints">Matatizo ya kichumi</string>
+    <string name="cbhs_gbv_and_vac">Ukatili wa kijinsia na Ukatili dhidi ya watoto</string>
+    <string name="cbhs_hard_to_reach_areas">Maeneo magumu kufikika</string>
+    <string name="cbhs_other_social_problems">Matatizo mengine</string>
+
+    <string name="cbhs_supplies_provided">Vifaa/bidhaa zilizotolewa:</string>
+    <string name="cbhs_hiv_self_test_kits">Vifaa vya kujipima VVU</string>
+    <string name="cbhs_sanitizers">Vitakasa mikono</string>
+    <string name="cbhs_face_masks">Barakoa</string>
+    <string name="cbhs_condoms">Kondomu</string>
+    <string name="cbhs_water_disinfectant">Dawa za kuua vijidudu vya maji</string>
+    <string name="cbhs_other_supplies">Vifaa vingine</string>
+
+    <string name="cbhs_medicine_provided">Dawa zilizotolewa</string>
+    <string name="cbhs_paracetamol">Paracetamol</string>
+    <string name="cbhs_ors">ORS</string>
+    <string name="cbhs_hiv_services_provided">Huduma za HUWANYU zilizotolewa</string>
+    <string name="cbhs_hiv_counselling_and_testing">Huduma za ushauri nasaha na upimaji katika jamii</string>
+    <string name="cbhs_arv_services">Huduma za dawa za kupunguza makali ya vvu katika jamii</string>
+    <string name="cbhs_hiv_prevention_services_from_mother_to_infant">Huduma za kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto katika jamii</string>
+    <string name="cbhs_collaborative_community_services_for_tb_and_hiv">Huduma shirikishi za kifua kikuu na VVU katika jamii</string>
+    <string name="cbhs_services_to_prevent_the_spread_of_stds">Huduma za kuzuia kuenea magonjwa ya ngono katika jamii</string>
+    <string name="cbhs_special_group_services">Huduma kwa makundi maalumu</string>
+    <string name="cbhs_services_to_prevent_gender_violence_and_child_abuse">Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii</string>
+    <string name="cbhs_psychological_services">Huduma za kisaikolojia katika jamii</string>
+    <string name="cbhs_information_about_fgm">Elimu ya tohara katika jamii</string>
+    <string name="cbhs_family_planning_and_condom_distribution_services">Huduma za uzazi wa mpango na usambazaji wa kondomu</string>
+    <string name="cbhs_self_test_kits_distribution_services">Huduma ya ugawaji wa vitendanishi vya JIPIME"</string>
+    <string name="cbhs_other_hiv_services">Huduma nyingine za HUWANYU</string>
+
+    <string name="cbhs_hiv_services_provided_other">Other CBHS Services Provided</string>
+    <string name="cbhs_referrals_issued_to_other_services">Rufaa ziliyotolewa kwa Mteja kwenda kwenye huduma zisizo za kitabibu : </string>
+    <string name="cbhs_legal_services">Huduma ya kisheria</string>
+    <string name="cbhs_support_groups">Msaada wa kisaikolojia kutoka kwenye makundi</string>
+    <string name="cbhs_ovc_services">Huduma za watoto yatima na wanaoishi kwenye mazingira magumu</string>
+    <string name="cbhs_elderly_centers">Vituo vya wazee</string>
+    <string name="cbhs_other_referrals">Rufaa nyingine</string>
+
+
+    <string name="cbhs_referrals_to_other_services_completed">Rufaa iliyokamilishwa na Mteja kwenda kwenye huduma zisizo za kitabibu</string>
+    <string name="cbhs_state_of_therapy">Hali ya Tiba na Matunzo (CTC): </string>
+
+    <string name="cbhs_registered_but_not_began_medication">Ameandikishwa CTC/PMTCT lakini hajaanza ARV</string>
+    <string name="cbhs_registered_and_uses_medication">Ameandikishwa CTC/PMTCT na anatumia ARV</string>
+    <string name="cbhs_not_registered_in_ctc_clinic">Hajaandikishwa CTC/PMTCT</string>
+    <string name="cbhs_registered_in_injection_drugs_users_clinic">Amesajiliwa kwenye Kliniki ya Wajidunga</string>
+    <string name="cbhs_registered_in_tb_clinic">Amesajiliwa kwenye Kliniki ya Kifua Kikuu</string>
 </resources>

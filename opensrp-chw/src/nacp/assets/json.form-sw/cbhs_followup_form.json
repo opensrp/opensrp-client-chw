@@ -289,7 +289,7 @@
           "name": "health_problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Matatizo ya kijamii/kitabibu ya Mteja"
+            "text": "Matatizo ya kitabibu ya Mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",

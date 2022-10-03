@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/title"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/mother_champion_visit_title"
+        android:textColor="@color/medical_text_inner"
+        android:textSize="16sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/registration_or_followup_status"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/client_condition"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/health_problem"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/social_problem"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/medicine_provided"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/hiv_services_provided"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/referrals_issued_other_services"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:maxLines="10"
+        android:text="@string/mother_champion_referrals_issued_other_services"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/referrals_to_other_services_completed"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:maxLines="10"
+        android:text="@string/mother_champion_referrals_issued_other_services"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/state_of_therapy"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:maxLines="10"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/view_baseline_results_row"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/dark_grey"
+        android:visibility="visible" />
+
+</LinearLayout>
