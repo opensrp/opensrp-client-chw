@@ -93,13 +93,21 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 referralIssued += getCbhsClientDetails(chwRegistrationFollowupClient, "referrals_issued_to_other_services") + "<br>";
             }
 
+            String referralsCompleted = "";
+            if (!getCbhsClientDetails(chwRegistrationFollowupClient, "successful_referrals").equals("-")) {
+                referralsCompleted += getCbhsClientDetails(chwRegistrationFollowupClient, "successful_referrals") + "<br>";
+            }
+            if (!getCbhsClientDetails(chwRegistrationFollowupClient, "referrals_to_other_services_completed").equals("-")) {
+                referralsCompleted += getCbhsClientDetails(chwRegistrationFollowupClient, "referrals_to_other_services_completed") + "<br>";
+            }
+
 
             reportJsonObject.put("umri", getCbhsClientDetails(chwRegistrationFollowupClient, "age"));
             reportJsonObject.put("jinsia", getCbhsClientDetails(chwRegistrationFollowupClient, "gender"));
             reportJsonObject.put("huduma-zilizotolewa", getCbhsClientDetails(chwRegistrationFollowupClient, "hiv_services_provided"));
             reportJsonObject.put("vifaa-vilivyotolewa", getCbhsClientDetails(chwRegistrationFollowupClient, "supplies_provided"));
             reportJsonObject.put("rufaa-zilizotolewa", referralIssued);
-            reportJsonObject.put("rufaa-zilizofanikiwa", getCbhsClientDetails(chwRegistrationFollowupClient, "successful_referrals"));
+            reportJsonObject.put("rufaa-zilizofanikiwa", referralsCompleted);
             reportJsonObject.put("hali-ya-tiba-na-matunzo", getCbhsClientDetails(chwRegistrationFollowupClient, "state_of_therapy"));
             reportJsonObject.put("hali-ya-usajili-na-ufuatiliaji", getCbhsClientDetails(chwRegistrationFollowupClient, "registration_or_followup_status"));
 
@@ -122,6 +130,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 case "registration_reason":
                     return getStringValues(details, "reason_for_registration_");
                 case "referrals_issued_to_other_services":
+                case "referrals_to_other_services_completed":
                 case "supplies_provided":
                 case "hiv_services_provided":
                 case "registration_or_followup_status":
@@ -156,7 +165,13 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 } else
                     sb.append(value).append(", ");
             }
-            return sb.toString();
+
+            String stringValues = sb.toString().trim();
+            if (stringValues.charAt(stringValues.length() - 1) == ',') {
+                stringValues = stringValues.substring(0, stringValues.length() - 1);
+            }
+
+            return stringValues;
         }
         int humanReadableValueId = context.getResources().getIdentifier(resourceKey + receivedVal.trim().toLowerCase(), "string", context.getPackageName());
         if (humanReadableValueId != 0) {
@@ -216,7 +231,12 @@ public class CbhsMonthlyReportObject extends ReportObject {
         if (StringUtils.isBlank(translatedFocus.toString())) {
             return "-";
         }
-        return translatedFocus.toString();
+
+        String stringValues = translatedFocus.toString().trim();
+        if (stringValues.charAt(translatedFocus.length() - 1) == ',') {
+            stringValues = translatedFocus.substring(0, translatedFocus.length() - 1);
+        }
+        return stringValues;
     }
 
 

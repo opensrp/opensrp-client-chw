@@ -2853,7 +2853,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "test_results"
+            "concept": "client_hiv_status_after_testing"
           }
         },
         {
@@ -3090,7 +3090,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "test_results"
+            "concept": "client_hiv_status_after_testing"
           }
         },
         {
