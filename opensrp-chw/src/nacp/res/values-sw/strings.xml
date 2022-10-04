@@ -345,4 +345,6 @@
     <string name="cbhs_not_registered_in_ctc_clinic">Hajaandikishwa CTC/PMTCT</string>
     <string name="cbhs_registered_in_injection_drugs_users_clinic">Amesajiliwa kwenye Kliniki ya Wajidunga</string>
     <string name="cbhs_registered_in_tb_clinic">Amesajiliwa kwenye Kliniki ya Kifua Kikuu</string>
+    <string name="cbhs_male">Me</string>
+    <string name="cbhs_female">Ke</string>
 </resources>
