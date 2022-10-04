@@ -43,8 +43,16 @@ public class CbhsMonthlyReportObject extends ReportObject {
 
             reportJsonObject.put("namba-za-mteja", getCbhsClientDetails(chwRegistrationFollowupClient, "cbhs_number"));
             reportJsonObject.put("sababu-za-usajili", getCbhsClientDetails(chwRegistrationFollowupClient, "registration_reason"));
-            reportJsonObject.put("hali-ya-maamubikizi-ya-vvu", getCbhsClientDetails(chwRegistrationFollowupClient, "hiv_status_during_registration"));
-            reportJsonObject.put("hali-ya-maamubikizi-ya-tb", getCbhsClientDetails(chwRegistrationFollowupClient, "tb_status_during_registration"));
+
+            if (chwRegistrationFollowupClient.get("client_hiv_status_after_testing") == null)
+                reportJsonObject.put("hali-ya-maamubikizi-ya-vvu", getCbhsClientDetails(chwRegistrationFollowupClient, "hiv_status_during_registration"));
+            else
+                reportJsonObject.put("hali-ya-maamubikizi-ya-vvu", getCbhsClientDetails(chwRegistrationFollowupClient, "client_hiv_status_after_testing"));
+
+            if (chwRegistrationFollowupClient.get("client_tb_status_after_testing") == null)
+                reportJsonObject.put("hali-ya-maamubikizi-ya-tb", getCbhsClientDetails(chwRegistrationFollowupClient, "tb_status_during_registration"));
+            else
+                reportJsonObject.put("hali-ya-maamubikizi-ya-tb", getCbhsClientDetails(chwRegistrationFollowupClient, "client_tb_status_after_testing"));
 
 
             String clinicRegistrationNumber = "";
@@ -121,6 +129,8 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 case "gender":
                 case "hiv_status_during_registration":
                 case "tb_status_during_registration":
+                case "client_hiv_status_after_testing":
+                case "client_tb_status_after_testing":
                     return getStringValues(details, "cbhs_");
                 default:
                     return details;
