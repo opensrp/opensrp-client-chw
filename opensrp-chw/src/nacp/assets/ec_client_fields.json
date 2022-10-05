@@ -4851,6 +4851,14 @@
           }
         },
         {
+          "column_name": "uic_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "uic_id"
+          }
+        },
+        {
           "column_name": "hotspot_name",
           "type": "Event",
           "json_mapping": {
@@ -4867,11 +4875,11 @@
           }
         },
         {
-          "column_name": "client_birth_region",
+          "column_name": "birth_region",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "client_birth_region"
+            "concept": "birth_region"
           }
         },
         {

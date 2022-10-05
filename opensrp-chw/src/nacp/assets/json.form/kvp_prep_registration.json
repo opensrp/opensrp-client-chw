@@ -75,10 +75,10 @@
         }
       },
       {
-        "key": "client_birth_region",
+        "key": "birth_region",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "client_birth_region",
+        "openmrs_entity_id": "birth_region",
         "type": "edit_text",
         "hint": "Client's Birth Region",
         "v_required": {
