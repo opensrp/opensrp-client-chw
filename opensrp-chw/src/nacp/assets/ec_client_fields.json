@@ -3062,11 +3062,19 @@
           }
         },
         {
-          "column_name": "state_of_therapy",
+          "column_name": "state_of_hiv_care_and_treatment",
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "state_of_therapy"
+            "concept": "state_of_hiv_care_and_treatment"
+          }
+        },
+        {
+          "column_name": "state_of_registration_in_tb_and_pwid_clinics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "state_of_registration_in_tb_and_pwid_clinics"
           }
         },
         {

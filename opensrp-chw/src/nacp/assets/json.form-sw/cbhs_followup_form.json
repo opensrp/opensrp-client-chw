@@ -1041,21 +1041,20 @@
           "subjects": "referrals_to_other_services_completed:map"
         },
         {
-          "name": "state_of_therapy",
-          "type": "multi_choice_checkbox",
+          "name": "state_of_hiv_care_and_treatment",
+          "type": "radio_group",
           "properties": {
             "text": "Hali ya Tiba na Matunzo (CTC)"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "state_of_therapy"
+            "openmrs_entity_id": "state_of_hiv_care_and_treatment"
           },
           "options": [
             {
               "name": "na",
               "text": "Haihusiki",
-              "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "na",
@@ -1088,6 +1087,32 @@
                 "openmrs_entity_id": "not_registered_in_ctc_clinic",
                 "openmrs_entity_parent": ""
               }
+            }
+          ],
+          "required_status": "yes:Tafadhali jaza hali ya tiba na matunzo (CTC)",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "state_of_registration_in_tb_and_pwid_clinics",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Hali ya usajili kwenye Kliniki ya Kifua Kikuu na Wajidunga"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "state_of_registration_in_tb_and_pwid_clinics"
+          },
+          "options": [
+            {
+              "name": "na",
+              "text": "Haihusiki",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
+                "openmrs_entity_parent": ""
+              }
             },
             {
               "name": "registered_in_injection_drugs_users_clinic",
@@ -1108,7 +1133,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya tiba na matunzo (CTC)",
+          "required_status": "yes:Tafadhali jaza hali ya usajili kwenye Kliniki ya Kifua Kikuu na Wajidunga",
           "subjects": "registration_or_followup_status:text"
         },
         {

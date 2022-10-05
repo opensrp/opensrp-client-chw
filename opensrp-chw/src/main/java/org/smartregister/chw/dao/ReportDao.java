@@ -249,23 +249,22 @@ public class ReportDao extends AbstractDao {
                 "       ecf.supplies_provided,\n" +
                 "       tasks.issued_referrals,\n" +
                 "       tasks.successful_referrals,\n" +
-                "       ecf.state_of_therapy,\n" +
+                "       ecf.state_of_hiv_care_and_treatment,\n" +
+                "       ecf.state_of_registration_in_tb_and_pwid_clinics,\n" +
                 "       ecf.referrals_issued_to_other_services,\n" +
                 "       ecf.referrals_to_other_services_completed,\n" +
                 "       ecf.registration_or_followup_status\n" +
                 "FROM ec_cbhs_register ecr\n" +
                 "         INNER JOIN ec_family_member fm on fm.base_entity_id = ecr.base_entity_id\n" +
                 "         LEFT JOIN (SELECT entity_id,\n" +
-                "                           last_interacted_with,\n" +
+                "                           max(last_interacted_with) as last_interacted_with,\n" +
                 "                           hiv_services_provided,\n" +
-                "                           state_of_therapy,\n" +
+                "                           state_of_hiv_care_and_treatment,\n" +
+                "                           state_of_registration_in_tb_and_pwid_clinics,\n" +
                 "                           registration_or_followup_status,\n" +
                 "                           supplies_provided,\n" +
-                "                           client_hiv_status_after_testing,\n" +
                 "                           referrals_issued_to_other_services,\n" +
-                "                           referrals_to_other_services_completed,\n" +
-                "                           count(id)\n" +
-                "                               as number_of_followups\n" +
+                "                           referrals_to_other_services_completed\n" +
                 "                    from ec_cbhs_followup\n" +
                 "                    WHERE date(substr(strftime('%Y-%m-%d',\n" +
                 "                                               datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1,\n" +
@@ -275,8 +274,7 @@ public class ReportDao extends AbstractDao {
                 "                                      2) || '-' || '01')\n" +
                 "                              =\n" +
                 "                          date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
-                "\n" +
-                "                    group by entity_id) ecf on fm.base_entity_id = ecf.entity_id\n" +
+                "                    GROUP BY entity_id) ecf on fm.base_entity_id = ecf.entity_id\n" +
                 "\n" +
                 "\n" +
                 "       LEFT JOIN (SELECT entity_id,\n" +
@@ -343,7 +341,8 @@ public class ReportDao extends AbstractDao {
             data.put("supplies_provided", cursor.getString(cursor.getColumnIndex("supplies_provided")));
             data.put("issued_referrals", cursor.getString(cursor.getColumnIndex("issued_referrals")));
             data.put("successful_referrals", cursor.getString(cursor.getColumnIndex("successful_referrals")));
-            data.put("state_of_therapy", cursor.getString(cursor.getColumnIndex("state_of_therapy")));
+            data.put("state_of_hiv_care_and_treatment", cursor.getString(cursor.getColumnIndex("state_of_hiv_care_and_treatment")));
+            data.put("state_of_registration_in_tb_and_pwid_clinics", cursor.getString(cursor.getColumnIndex("state_of_registration_in_tb_and_pwid_clinics")));
             data.put("registration_or_followup_status", cursor.getString(cursor.getColumnIndex("registration_or_followup_status")));
             return data;
         };

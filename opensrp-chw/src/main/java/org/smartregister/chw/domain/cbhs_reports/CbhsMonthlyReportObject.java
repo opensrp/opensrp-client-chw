@@ -108,7 +108,16 @@ public class CbhsMonthlyReportObject extends ReportObject {
             reportJsonObject.put("vifaa-vilivyotolewa", getCbhsClientDetails(chwRegistrationFollowupClient, "supplies_provided"));
             reportJsonObject.put("rufaa-zilizotolewa", referralIssued);
             reportJsonObject.put("rufaa-zilizofanikiwa", referralsCompleted);
-            reportJsonObject.put("hali-ya-tiba-na-matunzo", getCbhsClientDetails(chwRegistrationFollowupClient, "state_of_therapy"));
+
+
+            String stateOfHivCareAndTreatment = getCbhsClientDetails(chwRegistrationFollowupClient, "state_of_hiv_care_and_treatment");
+
+            if (chwRegistrationFollowupClient.get("state_of_registration_in_tb_and_pwid_clinics") != null && !chwRegistrationFollowupClient.get("state_of_registration_in_tb_and_pwid_clinics").equals("not_applicable")) {
+                stateOfHivCareAndTreatment = stateOfHivCareAndTreatment + ", " + getCbhsClientDetails(chwRegistrationFollowupClient, "state_of_registration_in_tb_and_pwid_clinics");
+            }
+
+
+            reportJsonObject.put("hali-ya-tiba-na-matunzo", stateOfHivCareAndTreatment);
             reportJsonObject.put("hali-ya-usajili-na-ufuatiliaji", getCbhsClientDetails(chwRegistrationFollowupClient, "registration_or_followup_status"));
 
             dataArray.put(reportJsonObject);
@@ -134,7 +143,8 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 case "supplies_provided":
                 case "hiv_services_provided":
                 case "registration_or_followup_status":
-                case "state_of_therapy":
+                case "state_of_hiv_care_and_treatment":
+                case "state_of_registration_in_tb_and_pwid_clinics":
                 case "gender":
                 case "hiv_status_during_registration":
                 case "tb_status_during_registration":
@@ -234,7 +244,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
 
         String stringValues = translatedFocus.toString().trim();
         if (stringValues.charAt(translatedFocus.length() - 1) == ',') {
-            stringValues = translatedFocus.substring(0, translatedFocus.length() - 1);
+            stringValues = stringValues.substring(0, stringValues.length() - 1);
         }
         return stringValues;
     }

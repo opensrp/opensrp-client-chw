@@ -132,12 +132,19 @@ condition: "referrals_to_other_services_completed['other_referrals'] != null"
 actions:
   - "referrals_to_other_services_completed_other_visibility =  true"
 ---
-name: "state_of_therapy_visibility"
-description: "state_of_therapy visibility"
+name: "state_of_hiv_care_and_treatment_visibility"
+description: "state_of_hiv_care_and_treatment visibility"
 priority: 1
 condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.' || registration_or_followup_status.value == 'Client continues with services coming from elsewhere' || registration_or_followup_status.value == 'Anaendelea na huduma akitokea mahali pengine'"
 actions:
-  - "state_of_therapy_visibility =  true"
+  - "state_of_hiv_care_and_treatment_visibility =  true"
+---
+name: "state_of_registration_in_tb_and_pwid_clinics_visibility"
+description: "state_of_registration_in_tb_and_pwid_clinics visibility"
+priority: 1
+condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.' || registration_or_followup_status.value == 'Client continues with services coming from elsewhere' || registration_or_followup_status.value == 'Anaendelea na huduma akitokea mahali pengine'"
+actions:
+  - "state_of_registration_in_tb_and_pwid_clinics_visibility =  true"
 ---
 name: "hiv_followup_visit_date_calculation"
 description: "calculating the hiv followup visit date"
