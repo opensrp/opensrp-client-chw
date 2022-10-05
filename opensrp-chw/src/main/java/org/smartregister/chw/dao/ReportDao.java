@@ -278,6 +278,7 @@ public class ReportDao extends AbstractDao {
                 "\n" +
                 "\n" +
                 "       LEFT JOIN (SELECT entity_id,\n" +
+                "                           max(last_interacted_with) as last_interaction, \n" +
                 "                           registration_or_followup_status as last_followup_status\n" +
                 "                    from ec_cbhs_followup\n" +
                 "                    WHERE date(substr(strftime('%Y-%m-%d',\n" +
