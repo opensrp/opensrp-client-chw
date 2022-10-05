@@ -8,3 +8,10 @@ actions:
                     'client_did_not_disclose' : step1_client_test_result != '' ? step1_client_test_result
                      : step1_peer_test_result != '' ? step1_peer_test_result : step1_sexual_partner_test_result != '' ?
                         step1_sexual_partner_test_result : '' "
+---
+name: step1_result_date
+description: result_date calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = helper.getDateToday()"
