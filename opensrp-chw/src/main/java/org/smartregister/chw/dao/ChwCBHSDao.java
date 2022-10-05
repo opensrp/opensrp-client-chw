@@ -64,4 +64,17 @@ public class ChwCBHSDao extends AbstractDao {
         }
         return false;
     }
+
+    public static boolean hasFollowupVisits(String baseEntityId) {
+        String sql = " Select ecf.entity_id\n" +
+                " FROM ec_cbhs_followup ecf\n" +
+                " WHERE ecf.entity_id = '" + baseEntityId + "'" +
+                " ORDER BY ecf.last_interacted_with DESC\n" +
+                " LIMIT 1";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "entity_id");
+        List<String> res = readData(sql, dataMap);
+
+        return res != null && res.size() > 0;
+    }
 }

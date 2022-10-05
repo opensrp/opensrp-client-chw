@@ -124,6 +124,15 @@ public class HivProfileActivity extends CoreHivProfileActivity
         }
 
         if (fields != null && hivMemberObject != null) {
+
+            if (ChwCBHSDao.hasFollowupVisits(hivMemberObject.getBaseEntityId())) { //Removing the New Client option as followup status for clients with previous followup visits
+                JSONObject registrationOrFollowupStatus = getJsonObject(fields, "registration_or_followup_status");
+                if (registrationOrFollowupStatus != null) {
+                    removeField(registrationOrFollowupStatus.getJSONArray("options"), "new_client");
+                }
+            }
+
+
             if (StringUtils.isNotBlank(hivMemberObject.getCtcNumber())) {
                 removeField(fields, "client_hiv_status_after_testing");
             }
