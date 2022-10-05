@@ -24,17 +24,17 @@ public class ChwCBHSDao extends AbstractDao {
         return false;
     }
 
-    public static Date getNextVisitDate(String baseEntityId){
+    public static Date getNextVisitDate(String baseEntityId) {
         String sql = "Select next_appointment_date from ec_cbhs_register where base_entity_id = '" + baseEntityId + "'";
 
         DataMap<String> dataMap = cursor -> getCursorValue(cursor, "next_appointment_date");
         List<String> res = readData(sql, dataMap);
 
-        if (res != null && res.size() > 0 && res.get(0) != null){
+        if (res != null && res.size() > 0 && res.get(0) != null) {
             Calendar cal = Calendar.getInstance();
-            try{
+            try {
                 cal.setTimeInMillis(new BigDecimal(res.get(0)).longValue());
-            }catch (Exception e){
+            } catch (Exception e) {
                 //NEEDED FOR THE ISSUE IN SOME TABLETS FAILING TO CREATE A TIMESTAMP
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 try {
@@ -46,5 +46,22 @@ public class ChwCBHSDao extends AbstractDao {
             return new Date(cal.getTimeInMillis());
         }
         return null;
+    }
+
+    public static boolean isDeceased(String baseEntityId) {
+        String sql = " Select registration_or_followup_status\n" +
+                " FROM ec_cbhs_followup ecf\n" +
+                "         INNER JOIN ec_family_member efm on ecf.entity_id = efm.base_entity_id\n" +
+                " WHERE efm.dod IS NULL AND ecf.entity_id = '" + baseEntityId + "'" +
+                " ORDER BY ecf.last_interacted_with DESC\n" +
+                " LIMIT 1";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "registration_or_followup_status");
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && res.size() > 0 && res.get(0) != null) {
+            return res.get(0).equals("deceased");
+        }
+        return false;
     }
 }

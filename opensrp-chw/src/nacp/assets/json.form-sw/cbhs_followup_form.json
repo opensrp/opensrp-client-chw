@@ -1055,6 +1055,7 @@
             {
               "name": "na",
               "text": "Haihusiki",
+              "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "na",

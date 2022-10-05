@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.activity.CoreHivRegisterActivity;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
-import org.smartregister.chw.fragment.HivFollowupRegisterFragment;
 import org.smartregister.chw.fragment.HivRegisterFragment;
 import org.smartregister.chw.hiv.fragment.BaseHivCommunityFollowupRegisterFragment;
 import org.smartregister.chw.hiv.fragment.BaseHivRegisterFragment;
@@ -70,8 +69,7 @@ public class HivRegisterActivity extends CoreHivRegisterActivity {
     @NotNull
     @Override
     protected BaseHivCommunityFollowupRegisterFragment[] getOtherFragments() {
-        return new HivFollowupRegisterFragment[]{
-                new HivFollowupRegisterFragment()};
+        return new BaseHivCommunityFollowupRegisterFragment[0];
     }
 
     @Override
