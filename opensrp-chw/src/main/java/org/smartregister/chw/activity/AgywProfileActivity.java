@@ -38,8 +38,8 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
     public void startReferralForm() {
         if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH){
             List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.agyw_referral),
-                    org.smartregister.chw.util.Constants.JSON_FORM.getAgywReferralForm(), CoreConstants.TASKS_FOCUS.AGYW_REFERRAL));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.sti_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getSTIServicesReferralForm(), CoreConstants.TASKS_FOCUS.STI_REFERRAL));
             referralTypeModels.addAll(Utils.getCommonReferralTypes(this, memberObject.getBaseEntityId()));
 
             Utils.launchClientReferralActivity(this, referralTypeModels, memberObject.getBaseEntityId());

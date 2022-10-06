@@ -434,7 +434,7 @@
     <string name="callPhonePermissionRequestGrantButton">Grant</string>
     <string name="callPhoneRequestTitle">Allow Phone Number Collection</string>
     <string name="callPhoneRequestMessage">Community Healthcare Worker collect user phone numbers to be used for monitoring, evaluation and analysis of visits conducted at the community.</string>
-    <string name="agyw_referral">AGYW Services</string>
+    <string name="sti_referral">STI Services</string>
 
 
 </resources>

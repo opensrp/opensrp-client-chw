@@ -1,9 +1,9 @@
 {
-  "form": "KVP Services Referral",
-  "encounter_type": "AGYW Services Referral",
+  "form": "STI Services Referral",
+  "encounter_type": "STI Services Referral",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/agyw_referral_form_rules.yml",
+  "rules_file": "rule/sti_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "AGYW Services Referral",
+      "title": "STI Services Referral",
       "fields": [
         {
           "name": "problem",
@@ -69,76 +69,73 @@
           },
           "options": [
             {
-              "name": "hiv_testing",
-              "text": "HIV Testing Services",
+              "name": "genital_ulcers",
+              "text": "Genital ulcers",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "hiv_testing",
+                "openmrs_entity_id": "genital_ulcers",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "sti_services",
-              "text": "STI Services",
+              "name": "abnormal_vag_discharge",
+              "text": "Abnormal vaginal discharge(including anal discharge if practicing receptive anal sex)",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "sti_services",
+                "openmrs_entity_id": "abnormal_vag_discharge",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "prep_services",
-              "text": "PrEP Services",
+              "name": "pain_during_sexual_act",
+              "text": "Pain during the sexual act",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "prep_services",
+                "openmrs_entity_id": "pain_during_sexual_act",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "family_planning_services",
-              "text": "Family Planning Services",
+              "name": "low_abdominal_pain",
+              "text": "Low abdominal pain",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "family_planning_services",
+                "openmrs_entity_id": "low_abdominal_pain",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "gbv_screening",
-              "text": "GBV Screening",
+              "name": "other",
+              "text": "Others (Specify)",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "gbv_screening",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "tb_services",
-              "text": "TB Services",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "tb_services",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "pep",
-              "text": "PEP",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "pep",
+                "openmrs_entity_id": "other",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify reason for AGYW services referral",
+          "required_status": "yes:Please specify reason for STI services referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
             "referral_type",
             "referral_status"
           ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other reasons",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
+          },
+          "required_status": "true:Please specify other reasons",
+          "subjects": "problem:map"
         },
         {
           "name": "chw_referral_hf",
