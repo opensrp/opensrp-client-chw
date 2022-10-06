@@ -1107,6 +1107,21 @@
     "title": "AGYW Enrollment",
     "fields": [
       {
+        "key": "enroll_to_agyw_services",
+        "type": "toaster_notes",
+        "text": "The client does not qualify to be enrolled to AGYW Services",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
         "key": "birth_region",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1117,7 +1132,13 @@
         "v_required": {
           "value": "true",
           "err": "Please answer this question"
+        },
+        "relevance": {
+        "step7:should_enroll": {
+          "type": "string",
+          "ex": "equalTo(., \"yes\")"
         }
+      }
       },
       {
         "key": "schooling_status",
@@ -1146,6 +1167,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -1182,6 +1209,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -1211,6 +1244,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -1303,6 +1342,12 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
