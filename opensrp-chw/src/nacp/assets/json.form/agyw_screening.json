@@ -229,7 +229,7 @@
         }
       },
       {
-        "key": "prompt_for_agyw_enrollment_more_than_18",
+        "key": "prompt_for_agyw_enrollment_birth_before_18",
         "type": "toaster_notes",
         "text": "Enroll to AGYW services regardless of the score",
         "openmrs_entity_id": "",
@@ -237,10 +237,9 @@
         "openmrs_entity_parent": "",
         "toaster_type": "problem",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "agyw_screening_relevance.yml"
-            }
+          "step1:birth_before_18": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -564,6 +563,21 @@
         }
       },
       {
+        "key": "prompt_for_agyw_enrollment_sex_for_money",
+        "type": "toaster_notes",
+        "text": "Enroll to AGYW services regardless of the score",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:sex_for_money": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
         "key": "sex_after_substance_abuse",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -599,10 +613,10 @@
         }
       },
       {
-        "key": "more_than_one_partner",
+        "key": "more_than_two_partner",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "more_than_one_partner",
+        "openmrs_entity_id": "more_than_two_partner",
         "label": "Have you ever had sex with more than two sexual partners in the past 3 months?",
         "text_color": "#000000",
         "type": "native_radio",
@@ -628,6 +642,21 @@
         },
         "relevance": {
           "step3:sexual_intercourse": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "prompt_for_agyw_enrollment_more_than_two_partner",
+        "type": "toaster_notes",
+        "text": "Enroll to AGYW services regardless of the score",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:more_than_two_partner": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1055,6 +1084,20 @@
           "step7:tell_or_ask": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "should_enroll",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "should_enroll",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
           }
         }
       }

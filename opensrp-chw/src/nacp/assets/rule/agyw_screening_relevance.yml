@@ -27,13 +27,6 @@ condition: "global_age >= 18"
 actions:
   - "isRelevant = true"
 ---
-name: step1_prompt_for_agyw_enrollment_more_than_18
-description: prompt_for_agyw_enrollment_more_than_18 relevance
-priority: 1
-condition: "step1_birth_before_18.equals('yes')"
-actions:
-  - "isRelevant = true"
----
 name: step1_ever_married
 description: ever_married relevance
 priority: 1
