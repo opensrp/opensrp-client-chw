@@ -169,17 +169,8 @@
           },
           "options": [
             {
-              "name": "na",
-              "text": "Not Applicable",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "na",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "unknown",
-              "text": "Unknown",
+              "text": "Haijulikani",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "unknown",
@@ -188,7 +179,7 @@
             },
             {
               "name": "positive",
-              "text": "Positive",
+              "text": "Ana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -197,7 +188,7 @@
             },
             {
               "name": "negative",
-              "text": "Negative",
+              "text": "Hana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -1133,7 +1124,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the state of HIV therapy",
+          "required_status": "yes:Please specify the state of Registration in TB and PWID Clinics",
           "subjects": "registration_or_followup_status:text"
         },
         {

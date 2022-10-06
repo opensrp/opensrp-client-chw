@@ -138,6 +138,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
             }
             int age = org.smartregister.chw.util.Utils.getAgeFromDate(hivMemberObject.getAge());
 
+            JSONObject referralsIssuedToOtherServices = getJsonObject(fields, "referrals_issued_to_other_services");
+            JSONObject completedReferralsToOtherServices = getJsonObject(fields, "referrals_to_other_services_completed");
 
             if (age < 15) { //Removing condoms and HIV self testing kits as supplies for children below 15 years
                 JSONObject supplies = getJsonObject(fields, "supplies_provided");
@@ -145,32 +147,21 @@ public class HivProfileActivity extends CoreHivProfileActivity
                     removeField(supplies.getJSONArray("options"), "hiv_self_test_kits");
                     removeField(supplies.getJSONArray("options"), "condoms");
                 }
+            }
 
-                JSONObject referralsIssuedToOtherServices = getJsonObject(fields, "referrals_issued_to_other_services");
+            if (age < 50) { //Removing Elderly service for clients below 50 years
                 if (referralsIssuedToOtherServices != null)
                     removeField(referralsIssuedToOtherServices.getJSONArray("options"), "elderly_centers");
-
-                JSONObject completedReferralsToOtherServices = getJsonObject(fields, "referrals_to_other_services_completed");
                 if (completedReferralsToOtherServices != null)
                     removeField(completedReferralsToOtherServices.getJSONArray("options"), "elderly_centers");
             }
 
-
             if (age > 18) {  //Removing OVC (Orphans and Vulnerable Children) as referral services for clients above 18 years
-                JSONObject referralsIssuedToOtherServices = getJsonObject(fields, "referrals_issued_to_other_services");
                 if (referralsIssuedToOtherServices != null)
                     removeField(referralsIssuedToOtherServices.getJSONArray("options"), "ovc_services");
 
-                JSONObject completedReferralsToOtherServices = getJsonObject(fields, "referrals_to_other_services_completed");
                 if (completedReferralsToOtherServices != null)
                     removeField(completedReferralsToOtherServices.getJSONArray("options"), "ovc_services");
-
-                if (age < 50) { //Removing Elderly service for clients below 50 years
-                    if (referralsIssuedToOtherServices != null)
-                        removeField(referralsIssuedToOtherServices.getJSONArray("options"), "elderly_centers");
-                    if (completedReferralsToOtherServices != null)
-                        removeField(completedReferralsToOtherServices.getJSONArray("options"), "elderly_centers");
-                }
             }
 
 

@@ -169,15 +169,6 @@
           },
           "options": [
             {
-              "name": "na",
-              "text": "Haitambuliki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "na",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "unknown",
               "text": "Haijulikani",
               "meta_data": {
