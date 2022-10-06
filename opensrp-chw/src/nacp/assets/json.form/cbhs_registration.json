@@ -150,7 +150,8 @@
           ],
           "dependent_calculations": [
             "hiv_registration_date"
-          ]
+          ],
+          "required_status": "yes:Please specify client's HIV status during registration"
         },
         {
           "name": "ctc_number",

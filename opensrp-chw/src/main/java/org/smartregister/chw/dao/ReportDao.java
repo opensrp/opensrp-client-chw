@@ -1,5 +1,7 @@
 package org.smartregister.chw.dao;
 
+import static org.smartregister.chw.core.utils.VisitVaccineUtil.getInMemoryAlerts;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -36,8 +38,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.VisitVaccineUtil.getInMemoryAlerts;
 
 /**
  * @author rkodev
@@ -230,8 +230,7 @@ public class ReportDao extends AbstractDao {
         return VisitVaccineUtil.getSchedule(vaccineGroups, specialVaccines, category);
     }
 
-    public static List<Map<String, String>> getCHWRegistrationFollowUpClients(Date reportDate)
-    {
+    public static List<Map<String, String>> getCHWRegistrationFollowUpClients(Date reportDate) {
         String sql = "SELECT ecr.cbhs_number                           as cbhs_number,\n" +
                 "       ecr.reasons_for_registration              as registration_reason,\n" +
                 "       ecr.client_hiv_status_during_registration as hiv_status_during_registration,\n" +

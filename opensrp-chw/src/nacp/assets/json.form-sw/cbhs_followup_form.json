@@ -205,7 +205,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua moja",
+          "required_status": "yes:Tafadhali jaza hali ya maambukizi ya VVU baada ya kipimo",
           "subjects": "registration_or_followup_status:text"
         },
         {
