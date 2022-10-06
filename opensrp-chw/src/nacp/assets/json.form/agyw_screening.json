@@ -1122,6 +1122,41 @@
         }
       },
       {
+        "key": "consent_to_be_enrolled",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "consent_to_be_enrolled",
+        "label": "Has the client accepted to be enrolled",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
         "key": "birth_region",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1134,11 +1169,11 @@
           "err": "Please answer this question"
         },
         "relevance": {
-        "step7:should_enroll": {
-          "type": "string",
-          "ex": "equalTo(., \"yes\")"
+          "step8:consent_to_be_enrolled": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
-      }
       },
       {
         "key": "schooling_status",
@@ -1169,7 +1204,7 @@
           "err": "Please select an answer"
         },
         "relevance": {
-          "step7:should_enroll": {
+          "step8:consent_to_be_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1211,7 +1246,7 @@
           "err": "Please select an answer"
         },
         "relevance": {
-          "step7:should_enroll": {
+          "step8:consent_to_be_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1246,7 +1281,7 @@
           "err": "Please select an answer"
         },
         "relevance": {
-          "step7:should_enroll": {
+          "step8:consent_to_be_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1344,7 +1379,7 @@
           "err": "Please select an answer"
         },
         "relevance": {
-          "step7:should_enroll": {
+          "step8:consent_to_be_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
