@@ -1074,18 +1074,6 @@
         }
       },
       {
-        "key": "uic_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "uic_id",
-        "type": "edit_text",
-        "hint": "UIC ID",
-        "v_required": {
-          "value": "true",
-          "err": "Please answer this question"
-        }
-      },
-      {
         "key": "schooling_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
