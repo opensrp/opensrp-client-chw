@@ -65,6 +65,23 @@ public class ChwCBHSDao extends AbstractDao {
         return false;
     }
 
+    public static boolean completedServiceOrNoLongerContinuingWithService(String baseEntityId) {
+        String sql = " Select registration_or_followup_status\n" +
+                " FROM ec_cbhs_followup ecf\n" +
+                "         INNER JOIN ec_family_member efm on ecf.entity_id = efm.base_entity_id\n" +
+                " WHERE efm.dod IS NULL AND ecf.entity_id = '" + baseEntityId + "'" +
+                " ORDER BY ecf.last_interacted_with DESC\n" +
+                " LIMIT 1";
+
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "registration_or_followup_status");
+        List<String> res = readData(sql, dataMap);
+
+        if (res != null && res.size() > 0 && res.get(0) != null) {
+            return res.get(0).equals("deceased") || res.get(0).equals("client_has_absconded") || res.get(0).equals("completed_and_qualified_from_the_services") || res.get(0).equals("client_relocated_to_another_location");
+        }
+        return false;
+    }
+
     public static boolean hasFollowupVisits(String baseEntityId) {
         String sql = " Select ecf.entity_id\n" +
                 " FROM ec_cbhs_followup ecf\n" +

@@ -179,7 +179,7 @@
             },
             {
               "name": "positive",
-              "text": "Chanya",
+              "text": "Ana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -188,7 +188,7 @@
             },
             {
               "name": "negative",
-              "text": "Hasi",
+              "text": "Hana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -231,7 +231,7 @@
             },
             {
               "name": "positive",
-              "text": "Chanya",
+              "text": "Ana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -240,7 +240,7 @@
             },
             {
               "name": "negative",
-              "text": "Hasi",
+              "text": "Hana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",

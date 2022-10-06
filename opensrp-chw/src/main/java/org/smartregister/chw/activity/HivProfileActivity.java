@@ -2,7 +2,6 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
-import static org.smartregister.util.JsonFormUtils.FIELDS;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -28,7 +27,6 @@ import org.joda.time.Days;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.anc.AncLibrary;
@@ -63,6 +61,7 @@ import org.smartregister.chw.referral.domain.NeatFormMetaData;
 import org.smartregister.chw.referral.domain.NeatFormOption;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.util.CbhsUtils;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -72,11 +71,9 @@ import org.smartregister.domain.Location;
 import org.smartregister.family.util.Utils;
 import org.smartregister.repository.LocationRepository;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import timber.log.Timber;
@@ -334,10 +331,19 @@ public class HivProfileActivity extends CoreHivProfileActivity
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 getHivMemberObject().getBaseEntityId(), this);
+
+        //Refreshing the hiv Member object with new data just in-case it was updated in the background
+        setHivMemberObject(HivDao.getMember(getHivMemberObject().getBaseEntityId()));
+        onMemberDetailsReloaded(getHivMemberObject());
+
         try {
-            removeDeceasedClients();
+            CbhsUtils.removeDeceasedClients(getHivMemberObject(), getContext());
         } catch (Exception e) {
             Timber.e(e);
+        }
+
+        if (ChwCBHSDao.completedServiceOrNoLongerContinuingWithService(getHivMemberObject().getBaseEntityId())) {
+            CbhsUtils.createCloseCbhsEvent(getHivMemberObject());
         }
     }
 
@@ -402,9 +408,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
         Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getHivMemberObject().getBaseEntityId(), org.smartregister.chw.hiv.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());
         org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
         try {
-            removeDeceasedClients();
+            CbhsUtils.removeDeceasedClients(getHivMemberObject(), getContext());
         } catch (Exception e) {
             Timber.e(e);
+        }
+
+        if (ChwCBHSDao.completedServiceOrNoLongerContinuingWithService(getHivMemberObject().getBaseEntityId())) {
+            CbhsUtils.createCloseCbhsEvent(getHivMemberObject());
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -715,31 +725,6 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     public interface Flavor {
         // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
-    }
-
-    private void removeDeceasedClients() throws Exception {
-        JSONObject removeFamilyMemberForm = null;
-        if (ChwCBHSDao.isDeceased(getHivMemberObject().getBaseEntityId())) {
-            try {
-                removeFamilyMemberForm = (new FormUtils()).getFormJsonFromRepositoryOrAssets(getContext(), CoreConstants.JSON_FORM.FAMILY_DETAILS_REMOVE_MEMBER);
-                org.smartregister.chw.anc.util.JsonFormUtils.getRegistrationForm(removeFamilyMemberForm, getHivMemberObject().getBaseEntityId(), org.smartregister.Context.getInstance().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID));
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-            if (removeFamilyMemberForm != null) {
-                JSONObject stepOne = removeFamilyMemberForm.getJSONObject(org.smartregister.chw.anc.util.JsonFormUtils.STEP1);
-                JSONArray jsonArray = stepOne.getJSONArray(FIELDS);
-
-                org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "remove_reason", "Death");
-
-                org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dob", getHivMemberObject().getAge());
-                org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "date_died", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "age_at_death", org.smartregister.chw.util.Utils.getAgeFromDate(getHivMemberObject().getAge()) + "y");
-
-                org.smartregister.chw.util.Utils.removeUser(null, removeFamilyMemberForm, org.smartregister.chw.util.Utils.context().allSharedPreferences().fetchRegisteredANM());
-            }
-        }
     }
 }
 

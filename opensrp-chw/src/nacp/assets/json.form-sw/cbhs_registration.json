@@ -117,7 +117,7 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Hali ya maambukizo ya VVU wakati wa kuandikishwa"
+            "text": "Hali ya maambukizi ya VVU wakati wa kuandikishwa"
           },
           "options": [
             {
@@ -150,7 +150,8 @@
           ],
           "dependent_calculations": [
             "hiv_registration_date"
-          ]
+          ],
+          "required_status": "yes:Tafadhali jaza hali ya maambukizi ya VVU"
         },
         {
           "name": "ctc_number",
@@ -185,7 +186,7 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Hali ya maambukizo ya TB Wakati wa kusajiliwa"
+            "text": "Hali ya maambukizi ya TB Wakati wa kusajiliwa"
           },
           "options": [
             {
@@ -215,7 +216,8 @@
                 "openmrs_entity_parent": ""
               }
             }
-          ]
+          ],
+          "required_status": "yes:Tafadhali jaza hali ya maambukizi ya TB"
         },
         {
           "name": "reasons_for_registration_male_15",

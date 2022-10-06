@@ -311,7 +311,7 @@ public class ReportDao extends AbstractDao {
                 "                          date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
                 "                    group by for) tasks on fm.base_entity_id = tasks.for\n" +
                 "\n" +
-                "WHERE last_followup_status <> 'client_relocated_to_another_location' OR  last_followup_status <> 'completed_and_qualified_from_the_services' OR last_followup_status <> 'client_has_absconded' OR last_followup_status <> 'deceased' OR last_followup_status IS NULL\n" +
+                "WHERE (last_followup_status <> 'client_relocated_to_another_location' AND  last_followup_status <> 'completed_and_qualified_from_the_services' AND last_followup_status <> 'client_has_absconded' AND last_followup_status <> 'deceased') OR last_followup_status IS NULL\n" +
                 "group by fm.base_entity_id\n";
 
         String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
