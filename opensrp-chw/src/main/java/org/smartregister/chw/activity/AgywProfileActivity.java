@@ -11,6 +11,7 @@ import org.smartregister.chw.agyw.util.Constants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.common.Gender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,10 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.sti_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getSTIServicesReferralForm(), CoreConstants.TASKS_FOCUS.STI_REFERRAL));
             referralTypeModels.addAll(Utils.getCommonReferralTypes(this, memberObject.getBaseEntityId()));
-
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.family_planning_referral),
+                    org.smartregister.chw.util.Constants.JSON_FORM.getFamilyPlanningUnifiedReferralForm(Gender.FEMALE.toString()), CoreConstants.TASKS_FOCUS.FP_SIDE_EFFECTS));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
+                    CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
             Utils.launchClientReferralActivity(this, referralTypeModels, memberObject.getBaseEntityId());
         }
     }
