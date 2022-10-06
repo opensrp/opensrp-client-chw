@@ -81,7 +81,11 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         }
 
         if (ChwApplication.getApplicationFlavor().hasAGYW()) {
-            menu.findItem(R.id.action_agyw_screening).setVisible(gender.equalsIgnoreCase("Female") && !AGYWDao.isRegisteredForAgyw(baseEntityId));
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            if (gender.equalsIgnoreCase("Female") && age >= 10 && age <= 24 && !AGYWDao.isRegisteredForAgyw(baseEntityId)) {
+                menu.findItem(R.id.action_agyw_screening).setVisible(true);
+            }
         }
         flavor.updateMalariaMenuItems(baseEntityId, menu);
 
