@@ -2787,7 +2787,7 @@
           "column_name": "ctc_number",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "ctc_number"
           }
         },
@@ -2819,7 +2819,7 @@
           "column_name": "cbhs_number",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "cbhs_number"
           }
         },
@@ -2844,7 +2844,7 @@
           "column_name": "client_hiv_status_during_registration",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "client_hiv_status_during_registration"
           }
         },

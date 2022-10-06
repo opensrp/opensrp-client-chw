@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -434,13 +435,21 @@ public class HivProfileActivity extends CoreHivProfileActivity
     @Override
     public void openHivRegistrationForm() {
         try {
-            String formName;
-            if (getHivMemberObject().getGender().equalsIgnoreCase("male")) {
-                formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-            } else {
-                formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+
+            int age = org.smartregister.chw.util.Utils.getAgeFromDate(getHivMemberObject().getAge());
+            try {
+                updateAgeAndGender(fields, age, getHivMemberObject().getGender());
+            } catch (Exception e) {
+                Timber.e(e);
             }
-            HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+
+            HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(), formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -635,19 +644,26 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public void startHivRegistrationDetailsActivity() {
         Intent intent = new Intent(this, BaseHivFormsActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, getHivMemberObject().getBaseEntityId());
-
-        String formName;
-        if (getHivMemberObject().getGender().equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
+        String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
 
         JSONObject formJsonObject = null;
         try {
             formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+
+        try {
+
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            int age = org.smartregister.chw.util.Utils.getAgeFromDate(getHivMemberObject().getAge());
+            updateAgeAndGender(fields, age, getHivMemberObject().getGender());
+
+            formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
             formJsonObject.put(ENCOUNTER_TYPE, UPDATE_HIV_REGISTRATION);
-            JSONArray fields = formJsonObject.getJSONArray("steps").getJSONObject(0).getJSONArray("fields");
 
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject field = fields.getJSONObject(i);
@@ -669,7 +685,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 }
             }
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Timber.e(e);
         }
 

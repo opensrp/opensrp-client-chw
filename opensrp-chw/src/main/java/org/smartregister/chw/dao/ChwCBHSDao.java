@@ -68,8 +68,7 @@ public class ChwCBHSDao extends AbstractDao {
     public static boolean completedServiceOrNoLongerContinuingWithService(String baseEntityId) {
         String sql = " Select registration_or_followup_status\n" +
                 " FROM ec_cbhs_followup ecf\n" +
-                "         INNER JOIN ec_family_member efm on ecf.entity_id = efm.base_entity_id\n" +
-                " WHERE efm.dod IS NULL AND ecf.entity_id = '" + baseEntityId + "'" +
+                " WHERE ecf.is_closed = 0 AND ecf.entity_id = '" + baseEntityId + "'" +
                 " ORDER BY ecf.last_interacted_with DESC\n" +
                 " LIMIT 1";
 

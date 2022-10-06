@@ -370,6 +370,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "CBHS Close Visits",
+            "closes_case": [
+              "ec_cbhs_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "CBHS Registration",
             "creates_case": [
               "ec_cbhs_register"

@@ -18,9 +18,11 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwCBHSDao;
 import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
@@ -45,6 +47,17 @@ public class CbhsUtils {
 
         closeCbhsEvent.setFormSubmissionId(UUID.randomUUID().toString());
         closeCbhsEvent.setEventDate(new Date());
+
+        closeCbhsEvent.addObs(
+                (new Obs())
+                        .withFormSubmissionField("cbhs_close_visit_date")
+                        .withValue(new Date().toString())
+                        .withFieldCode("cbhs_close_visit_date")
+                        .withFieldType("formsubmissionField")
+                        .withFieldDataType("text")
+                        .withParentCode("")
+                        .withHumanReadableValues(new ArrayList<>()));
+
         try {
             NCUtils.addEvent(allSharedPreferences, closeCbhsEvent);
             NCUtils.startClientProcessing();

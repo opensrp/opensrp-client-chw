@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.hiv.model.BaseHivRegisterFragmentModel;
-import org.smartregister.chw.hiv.util.Constants.Tables;
 import org.smartregister.chw.hiv.util.DBConstants.Key;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -50,10 +49,10 @@ public class HivRegisterFragmentModel extends BaseHivRegisterFragmentModel {
         columnList.add("T1." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T1." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T1." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.PRIMARY_CAREGIVER);
         columnList.add("T2." + DBConstants.KEY.FIRST_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.MIDDLE_NAME + " || " + "' '" + " || " + "T2." + DBConstants.KEY.LAST_NAME + " AS " + DBConstants.KEY.FAMILY_HEAD);
         columnList.add(Constants.TABLE_NAME.FAMILY + "." + DBConstants.KEY.FIRST_NAME + " as " + org.smartregister.chw.anc.util.DBConstants.KEY.FAMILY_NAME);
-        columnList.add(Tables.HIV + "." + Key.CTC_NUMBER);
-        columnList.add(Tables.HIV + "." + Key.CBHS_NUMBER);
-        columnList.add(Tables.HIV + "." + Key.CLIENT_HIV_STATUS_DURING_REGISTRATION);
-        columnList.add(Tables.HIV + "." + Key.CLIENT_HIV_STATUS_AFTER_TESTING);
+        columnList.add(tableName + "." + Key.CTC_NUMBER);
+        columnList.add(tableName + "." + Key.CBHS_NUMBER);
+        columnList.add(tableName+ "." + Key.CLIENT_HIV_STATUS_DURING_REGISTRATION);
+        columnList.add(tableName+ "." + Key.CLIENT_HIV_STATUS_AFTER_TESTING);
 
         return columnList.toArray(new String[columnList.size()]);
     }
