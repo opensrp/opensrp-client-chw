@@ -84,9 +84,9 @@ public class CbhsUtils {
 
                 org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "dob", hivMemberObject.getAge());
                 org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "date_died", new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-                org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "age_at_death", org.smartregister.chw.util.Utils.getAgeFromDate(hivMemberObject.getAge()) + "y");
+                org.smartregister.chw.anc.util.JsonFormUtils.updateFormField(jsonArray, "age_at_death", Utils.getAgeFromDate(hivMemberObject.getAge()) + "y");
 
-                org.smartregister.chw.util.Utils.removeUser(null, removeFamilyMemberForm, org.smartregister.chw.util.Utils.context().allSharedPreferences().fetchRegisteredANM());
+                org.smartregister.chw.util.Utils.removeUser(null, removeFamilyMemberForm, Utils.context().allSharedPreferences().fetchRegisteredANM());
             }
         }
     }
