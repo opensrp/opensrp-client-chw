@@ -86,11 +86,31 @@
       },
       {
         "key": "reason_partner_is_not_found",
-        "type": "edit_text",
-        "hint": "Sababu ya mwenza kutopatikana",
+        "type": "native_radio",
+        "label": "Sababu ya mwenza kutopatikana",
         "openmrs_entity_id": "reason_partner_is_not_found",
         "openmrs_entity": "concept",
         "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "address_incorrect",
+            "text": "Anwani sio sahihi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "address_incorrect"
+          },
+          {
+            "key": "client_relocated",
+            "text": "Amehama makazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "client_relocated"
+          },
+          {
+            "key": "seasonal_work",
+            "text": "Kilimo/kazi za msimu",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "seasonal_work"
+          }
+        ],
         "v_required": {
           "value": true,
           "err": "Tafadhali bainisha sababu ya mwenza kutopatikana"
