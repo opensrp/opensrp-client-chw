@@ -169,17 +169,8 @@
           },
           "options": [
             {
-              "name": "na",
-              "text": "Not Applicable",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "na",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "unknown",
-              "text": "Unknown",
+              "text": "Haijulikani",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "unknown",
@@ -188,7 +179,7 @@
             },
             {
               "name": "positive",
-              "text": "Positive",
+              "text": "Ana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -197,7 +188,7 @@
             },
             {
               "name": "negative",
-              "text": "Negative",
+              "text": "Hana maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -768,29 +759,29 @@
               }
             },
             {
-              "name": "services_to_prevent_the_spread_of_stds",
+              "name": "prevention_of_the_spread_of_stds_service",
               "text": "Services to prevent the spread of STDs",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "services_to_prevent_the_spread_of_stds",
+                "openmrs_entity_id": "prevention_of_the_spread_of_stds_service",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "special_group_services",
+              "name": "for_special_group_services",
               "text": "Special group services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "special_group_services",
+                "openmrs_entity_id": "for_special_group_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "services_to_prevent_gender_violence_and_child_abuse",
+              "name": "prevention_of_gender_based_violence_and_child_abuse_services",
               "text": "Services to prevent gender violence and child abuse",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "services_to_prevent_gender_violence_and_child_abuse",
+                "openmrs_entity_id": "prevention_of_gender_based_violence_and_child_abuse_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -822,11 +813,11 @@
               }
             },
             {
-              "name": "self_test_kits_distribution_services",
+              "name": "distribution_of_self_test_kits",
               "text": "Self test kits distribution services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "self_test_kits_distribution_services",
+                "openmrs_entity_id": "distribution_of_self_test_kits",
                 "openmrs_entity_parent": ""
               }
             },
@@ -1041,15 +1032,15 @@
           "subjects": "referrals_to_other_services_completed:map"
         },
         {
-          "name": "state_of_therapy",
-          "type": "multi_choice_checkbox",
+          "name": "state_of_hiv_care_and_treatment",
+          "type": "radio_group",
           "properties": {
             "text": "State of HIV Care and treatment"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "state_of_therapy"
+            "openmrs_entity_id": "state_of_hiv_care_and_treatment"
           },
           "options": [
             {
@@ -1087,6 +1078,32 @@
                 "openmrs_entity_id": "not_registered_in_ctc_clinic",
                 "openmrs_entity_parent": ""
               }
+            }
+          ],
+          "required_status": "yes:Please specify the state of HIV therapy",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "state_of_registration_in_tb_and_pwid_clinics",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "State of Registration in TB and PWID Clinics"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "state_of_registration_in_tb_and_pwid_clinics"
+          },
+          "options": [
+            {
+              "name": "na",
+              "text": "Not Applicable",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
+                "openmrs_entity_parent": ""
+              }
             },
             {
               "name": "registered_in_injection_drugs_users_clinic",
@@ -1107,7 +1124,7 @@
               }
             }
           ],
-          "required_status": "yes:Please specify the state of HIV therapy",
+          "required_status": "yes:Please specify the state of Registration in TB and PWID Clinics",
           "subjects": "registration_or_followup_status:text"
         },
         {

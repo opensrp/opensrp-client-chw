@@ -158,7 +158,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
         if(ChwApplication.getApplicationFlavor().hasHIVST()){
             String dob = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
-            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivIndexContactObject().getBaseEntityId()) && age >= 18);
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivIndexContactObject().getBaseEntityId()) && age >= 15);
         }
         if(ChwApplication.getApplicationFlavor().hasKvp()){
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(getHivIndexContactObject().getBaseEntityId()));

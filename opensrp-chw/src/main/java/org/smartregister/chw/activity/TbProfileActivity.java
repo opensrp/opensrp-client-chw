@@ -2,6 +2,7 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +18,9 @@ import android.widget.LinearLayout;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -275,14 +278,22 @@ public class TbProfileActivity extends CoreTbProfileActivity
     }
 
     protected void startHivRegister() {
-        String formName;
-        if (getTbMemberObject().getGender().equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
         try {
-            HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+
+            int age = org.smartregister.chw.util.Utils.getAgeFromDate(getTbMemberObject().getAge());
+            try {
+                updateAgeAndGender(fields, age, getTbMemberObject().getGender());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+
+            HivRegisterActivity.startHIVFormActivity(this, getTbMemberObject().getBaseEntityId(), formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
         }

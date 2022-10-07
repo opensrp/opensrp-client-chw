@@ -354,7 +354,7 @@ public class AncPartnerFollowupReferralProfileActivity extends CoreAncMemberProf
 
     @Override
     public void setFamilyLocation() {
-        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation()) {
+        if (ChwApplication.getApplicationFlavor().flvSetFamilyLocation() && getMemberGPS() != null) {
             view_family_location_row.setVisibility(View.VISIBLE);
             rlFamilyLocation.setVisibility(View.VISIBLE);
         }

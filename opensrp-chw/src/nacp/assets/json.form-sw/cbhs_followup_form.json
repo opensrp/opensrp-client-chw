@@ -169,15 +169,6 @@
           },
           "options": [
             {
-              "name": "na",
-              "text": "Haitambuliki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "na",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "unknown",
               "text": "Haijulikani",
               "meta_data": {
@@ -188,7 +179,7 @@
             },
             {
               "name": "positive",
-              "text": "Chanya",
+              "text": "Ana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -197,7 +188,7 @@
             },
             {
               "name": "negative",
-              "text": "Hasi",
+              "text": "Hana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -205,7 +196,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali chagua moja",
+          "required_status": "yes:Tafadhali jaza hali ya maambukizi ya VVU baada ya kipimo",
           "subjects": "registration_or_followup_status:text"
         },
         {
@@ -240,7 +231,7 @@
             },
             {
               "name": "positive",
-              "text": "Chanya",
+              "text": "Ana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -249,7 +240,7 @@
             },
             {
               "name": "negative",
-              "text": "Hasi",
+              "text": "Hana Maambukizi",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -289,7 +280,7 @@
           "name": "health_problem",
           "type": "multi_choice_checkbox",
           "properties": {
-            "text": "Matatizo ya kijamii/kitabibu ya Mteja"
+            "text": "Matatizo ya kitabibu ya Mteja"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
@@ -768,29 +759,29 @@
               }
             },
             {
-              "name": "services_to_prevent_the_spread_of_stds",
+              "name": "prevention_of_the_spread_of_stds_service",
               "text": "Huduma za kuzuia kuenea magonjwa ya ngono katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "services_to_prevent_the_spread_of_stds",
+                "openmrs_entity_id": "prevention_of_the_spread_of_stds_service",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "special_group_services",
+              "name": "for_special_group_services",
               "text": "Huduma kwa makundi maalumu",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "special_group_services",
+                "openmrs_entity_id": "for_special_group_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "services_to_prevent_gender_violence_and_child_abuse",
+              "name": "prevention_of_gender_based_violence_and_child_abuse_services",
               "text": "Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "services_to_prevent_gender_violence_and_child_abuse",
+                "openmrs_entity_id": "prevention_of_gender_based_violence_and_child_abuse_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -822,11 +813,11 @@
               }
             },
             {
-              "name": "self_test_kits_distribution_services",
+              "name": "distribution_of_self_test_kits",
               "text": "Huduma ya ugawaji wa vitendanishi vya JIPIME",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "self_test_kits_distribution_services",
+                "openmrs_entity_id": "distribution_of_self_test_kits",
                 "openmrs_entity_parent": ""
               }
             },
@@ -1041,15 +1032,15 @@
           "subjects": "referrals_to_other_services_completed:map"
         },
         {
-          "name": "state_of_therapy",
-          "type": "multi_choice_checkbox",
+          "name": "state_of_hiv_care_and_treatment",
+          "type": "radio_group",
           "properties": {
             "text": "Hali ya Tiba na Matunzo (CTC)"
           },
           "meta_data": {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "state_of_therapy"
+            "openmrs_entity_id": "state_of_hiv_care_and_treatment"
           },
           "options": [
             {
@@ -1087,6 +1078,32 @@
                 "openmrs_entity_id": "not_registered_in_ctc_clinic",
                 "openmrs_entity_parent": ""
               }
+            }
+          ],
+          "required_status": "yes:Tafadhali jaza hali ya tiba na matunzo (CTC)",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
+          "name": "state_of_registration_in_tb_and_pwid_clinics",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Hali ya usajili kwenye Kliniki ya Kifua Kikuu na Wajidunga"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "state_of_registration_in_tb_and_pwid_clinics"
+          },
+          "options": [
+            {
+              "name": "na",
+              "text": "Haihusiki",
+              "is_exclusive": true,
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "na",
+                "openmrs_entity_parent": ""
+              }
             },
             {
               "name": "registered_in_injection_drugs_users_clinic",
@@ -1107,7 +1124,7 @@
               }
             }
           ],
-          "required_status": "yes:Tafadhali jaza hali ya tiba na matunzo (CTC)",
+          "required_status": "yes:Tafadhali jaza hali ya usajili kwenye Kliniki ya Kifua Kikuu na Wajidunga",
           "subjects": "registration_or_followup_status:text"
         },
         {
