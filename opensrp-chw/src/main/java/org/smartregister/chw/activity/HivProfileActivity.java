@@ -2,7 +2,9 @@ package org.smartregister.chw.activity;
 
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +15,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,11 +55,14 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.CbhsProfileInteractor;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.pmtct.PmtctLibrary;
+import org.smartregister.chw.pmtct.domain.Visit;
 import org.smartregister.chw.presenter.HivProfilePresenter;
 import org.smartregister.chw.referral.domain.NeatFormMetaData;
 import org.smartregister.chw.referral.domain.NeatFormOption;
 import org.smartregister.chw.referral.util.JsonFormConstants;
 import org.smartregister.chw.schedulers.ChwScheduleTaskExecutor;
+import org.smartregister.chw.util.CbhsUtils;
 import org.smartregister.chw.util.UtilsFlv;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -78,12 +88,10 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public static final String PROPERTIES = "properties";
     public static final String TEXT = "text";
     public static final String SELECTION = "selection";
-    private static final String FOLLOWUP_STATUS_DECEASED_EN_VALUE = "Deceased";
-    private static final String FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE_EN_VALUE = "Client has completed and qualified from the services";
-    private static final String FOLLOWUP_STATUS_DECEASED_SW_VALUE = "Amefariki";
-    private static final String FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE_SW_VALUE = "Amefuzu huduma";
-    private List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-    private NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
+    private static final String FOLLOWUP_STATUS_DECEASED = "deceased";
+    private static final String FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE = "completed_and_qualified_from_the_services";
+    private final List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
+    private final NotificationListAdapter notificationListAdapter = new NotificationListAdapter();
     private Flavor flavor = new HivProfileActivityFlv();
 
     public static void startHivProfileActivity(Activity activity, HivMemberObject memberObject) {
@@ -100,18 +108,64 @@ public class HivProfileActivity extends CoreHivProfileActivity
         JSONObject formJsonObject;
         formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, org.smartregister.chw.util.Constants.CBHSJsonForms.getCbhsFollowupForm());
 
-        if (!hivMemberObject.getCtcNumber().isEmpty()) {
-            JSONArray steps = formJsonObject.getJSONArray("steps");
-            JSONObject step = steps.getJSONObject(0);
-            JSONArray fields = step.getJSONArray("fields");
-            removeField(fields, "client_hiv_status_after_testing");
+        JSONArray steps = null;
+        if (formJsonObject != null) {
+            steps = formJsonObject.getJSONArray("steps");
+        }
+        JSONObject step = null;
+        if (steps != null) {
+            step = steps.getJSONObject(0);
+        }
+        JSONArray fields = null;
+        if (step != null) {
+            fields = step.getJSONArray("fields");
         }
 
-        if (ChwCBHSDao.tbStatusAfterTestingDone(baseEntityID)) {
-            JSONArray steps = formJsonObject.getJSONArray("steps");
-            JSONObject step = steps.getJSONObject(0);
-            JSONArray fields = step.getJSONArray("fields");
-            removeField(fields, "client_tb_status_after_testing");
+        if (fields != null && hivMemberObject != null) {
+
+            if (ChwCBHSDao.hasFollowupVisits(hivMemberObject.getBaseEntityId())) { //Removing the New Client option as followup status for clients with previous followup visits
+                JSONObject registrationOrFollowupStatus = getJsonObject(fields, "registration_or_followup_status");
+                if (registrationOrFollowupStatus != null) {
+                    removeField(registrationOrFollowupStatus.getJSONArray("options"), "new_client");
+                }
+            }
+
+
+            if (StringUtils.isNotBlank(hivMemberObject.getCtcNumber())) {
+                removeField(fields, "client_hiv_status_after_testing");
+            }
+            int age = org.smartregister.chw.util.Utils.getAgeFromDate(hivMemberObject.getAge());
+
+            JSONObject referralsIssuedToOtherServices = getJsonObject(fields, "referrals_issued_to_other_services");
+            JSONObject completedReferralsToOtherServices = getJsonObject(fields, "referrals_to_other_services_completed");
+
+            if (age < 15) { //Removing condoms and HIV self testing kits as supplies for children below 15 years
+                JSONObject supplies = getJsonObject(fields, "supplies_provided");
+                if (supplies != null) {
+                    removeField(supplies.getJSONArray("options"), "hiv_self_test_kits");
+                    removeField(supplies.getJSONArray("options"), "condoms");
+                }
+            }
+
+            if (age < 50) { //Removing Elderly service for clients below 50 years
+                if (referralsIssuedToOtherServices != null)
+                    removeField(referralsIssuedToOtherServices.getJSONArray("options"), "elderly_centers");
+                if (completedReferralsToOtherServices != null)
+                    removeField(completedReferralsToOtherServices.getJSONArray("options"), "elderly_centers");
+            }
+
+            if (age > 18) {  //Removing OVC (Orphans and Vulnerable Children) as referral services for clients above 18 years
+                if (referralsIssuedToOtherServices != null)
+                    removeField(referralsIssuedToOtherServices.getJSONArray("options"), "ovc_services");
+
+                if (completedReferralsToOtherServices != null)
+                    removeField(completedReferralsToOtherServices.getJSONArray("options"), "ovc_services");
+            }
+
+
+            if (ChwCBHSDao.tbStatusAfterTestingDone(baseEntityID)) {
+                removeField(fields, "client_tb_status_after_testing");
+            }
         }
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
@@ -137,19 +191,22 @@ public class HivProfileActivity extends CoreHivProfileActivity
         }
     }
 
-    public static void startHivCommunityFollowupFeedbackActivity(Activity activity, String baseEntityID) throws JSONException {
-        Intent intent = new Intent(activity, BaseHivFormsActivity.class);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, baseEntityID);
 
-        JSONObject formJsonObject;
-
-        formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(activity, CoreConstants.JSON_FORM.getHivCommunityFollowFeedback());
-
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.ACTION, Constants.ActivityPayloadType.FOLLOW_UP_VISIT);
-        intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.USE_DEFAULT_NEAT_FORM_LAYOUT, false);
-
-        activity.startActivityForResult(intent, CoreConstants.ProfileActivityResults.CHANGE_COMPLETED);
+    private static JSONObject getJsonObject(JSONArray fields, String fieldName) throws JSONException {
+        int position = 0;
+        boolean found = false;
+        for (int i = 0; i < fields.length(); i++) {
+            JSONObject field = fields.getJSONObject(i);
+            if (field.getString("name").equalsIgnoreCase(fieldName)) {
+                position = i;
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            return fields.getJSONObject(position);
+        }
+        return null;
     }
 
     private static JSONObject initializeHealthFacilitiesList(JSONObject form) {
@@ -229,15 +286,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
             getTvStatus().setVisibility(View.VISIBLE);
             switch (getHivMemberObject().getClientFollowupStatus()) {
-                case FOLLOWUP_STATUS_DECEASED_EN_VALUE:
-                case FOLLOWUP_STATUS_DECEASED_SW_VALUE:
+                case FOLLOWUP_STATUS_DECEASED:
                     labelTextColor = context().getColorResource(org.smartregister.chw.opensrp_chw_anc.R.color.high_risk_text_red);
                     background = org.smartregister.chw.opensrp_chw_anc.R.drawable.high_risk_label;
                     labelText = getResources().getString(R.string.client_followup_status_deceased);
                     hideFollowUpVisitButton();
                     break;
-                case FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE_EN_VALUE:
-                case FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE_SW_VALUE:
+                case FOLLOWUP_STATUS_QUALIFIED_FROM_SERVICE:
                     labelTextColor = context().getColorResource(org.smartregister.chw.opensrp_chw_anc.R.color.low_risk_text_green);
                     background = org.smartregister.chw.opensrp_chw_anc.R.drawable.low_risk_label;
                     labelText = getResources().getString(R.string.client_followup_status_qualified_from_service);
@@ -277,6 +332,20 @@ public class HivProfileActivity extends CoreHivProfileActivity
         notificationListAdapter.canOpen = true;
         ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
                 getHivMemberObject().getBaseEntityId(), this);
+
+        //Refreshing the hiv Member object with new data just in-case it was updated in the background
+        setHivMemberObject(HivDao.getMember(getHivMemberObject().getBaseEntityId()));
+        onMemberDetailsReloaded(getHivMemberObject());
+
+        try {
+            CbhsUtils.removeDeceasedClients(getHivMemberObject(), getContext());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        if (ChwCBHSDao.completedServiceOrNoLongerContinuingWithService(getHivMemberObject().getBaseEntityId())) {
+            CbhsUtils.createCloseCbhsEvent(getHivMemberObject());
+        }
     }
 
     @Override
@@ -287,7 +356,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     protected void removeMember() {
-        IndividualProfileRemoveActivity.startIndividualProfileActivity(HivProfileActivity.this,
+        IndividualProfileRemoveActivity.startIndividualProfileActivity((Activity) getContext(),
                 getClientDetailsByBaseEntityID(getHivMemberObject().getBaseEntityId()),
                 getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyHead(),
                 getHivMemberObject().getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
@@ -321,7 +390,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public Context getContext() {
-        return this;
+        return HivProfileActivity.this;
     }
 
     @Override
@@ -339,6 +408,15 @@ public class HivProfileActivity extends CoreHivProfileActivity
         // recompute schedule
         Runnable runnable = () -> ChwScheduleTaskExecutor.getInstance().execute(getHivMemberObject().getBaseEntityId(), org.smartregister.chw.hiv.util.Constants.EventType.FOLLOW_UP_VISIT, new Date());
         org.smartregister.chw.util.Utils.startAsyncTask(new RunnableTask(runnable), null);
+        try {
+            CbhsUtils.removeDeceasedClients(getHivMemberObject(), getContext());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
+        if (ChwCBHSDao.completedServiceOrNoLongerContinuingWithService(getHivMemberObject().getBaseEntityId())) {
+            CbhsUtils.createCloseCbhsEvent(getHivMemberObject());
+        }
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CoreConstants.ProfileActivityResults.CHANGE_COMPLETED && resultCode == Activity.RESULT_OK) {
@@ -351,19 +429,27 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     public void openMedicalHistory() {
-        //TODO implement
+        CbhsMedicalHistoryActivity.startMe(this, getHivMemberObject());
     }
 
     @Override
     public void openHivRegistrationForm() {
         try {
-            String formName;
-            if (getHivMemberObject().getGender().equalsIgnoreCase("male")) {
-                formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-            } else {
-                formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+            String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
+            JSONObject formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+
+            int age = org.smartregister.chw.util.Utils.getAgeFromDate(getHivMemberObject().getAge());
+            try {
+                updateAgeAndGender(fields, age, getHivMemberObject().getGender());
+            } catch (Exception e) {
+                Timber.e(e);
             }
-            HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+
+            HivRegisterActivity.startHIVFormActivity(this, getHivMemberObject().getBaseEntityId(), formName, formJsonObject.toString());
         } catch (JSONException e) {
             Timber.e(e);
         }
@@ -483,12 +569,12 @@ public class HivProfileActivity extends CoreHivProfileActivity
         menu.findItem(R.id.action_anc_registration).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !AncDao.isANCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_pregnancy_out_come).setVisible(isClientEligibleForAnc(getHivMemberObject()) && !PNCDao.isPNCMember(getHivMemberObject().getBaseEntityId()));
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivMemberObject().getBaseEntityId()));
-        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = getHivMemberObject().getAge();
             int age = Utils.getAgeFromDate(dob);
-            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()) && age >= 18);
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivMemberObject().getBaseEntityId()) && age >= 15);
         }
-        if(ChwApplication.getApplicationFlavor().hasKvp()){
+        if (ChwApplication.getApplicationFlavor().hasKvp()) {
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(getHivMemberObject().getBaseEntityId()));
         }
         //   flavor.updateTbMenuItems(getHivMemberObject().getBaseEntityId(), menu);
@@ -508,25 +594,24 @@ public class HivProfileActivity extends CoreHivProfileActivity
             startAncRegister();
             return true;
         } else if (itemId == R.id.action_pregnancy_out_come) {
-            PncRegisterActivity.startPncRegistrationActivity(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName(), null);
+            PncRegisterActivity.startPncRegistrationActivity((Activity) getContext(), getHivMemberObject().getBaseEntityId(), null, CoreConstants.JSON_FORM.getPregnancyOutcome(), AncLibrary.getInstance().getUniqueIdRepository().getNextUniqueId().getOpenmrsId(), getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName(), null);
             return true;
         } else if (itemId == R.id.action_hivst_registration) {
             startHivstRegistration();
             return true;
-        } else if(itemId == R.id.action_kvp_prep_registration){
+        } else if (itemId == R.id.action_kvp_prep_registration) {
             startKvpPrepRegistration();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void startKvpPrepRegistration(){
-         String gender = org.smartregister.chw.util.Utils.getClientGender(getHivMemberObject().getBaseEntityId());
+    private void startKvpPrepRegistration() {
+        String gender = org.smartregister.chw.util.Utils.getClientGender(getHivMemberObject().getBaseEntityId());
         String dob = getHivMemberObject().getAge();
         int age = Utils.getAgeFromDate(dob);
-        KvpPrEPRegisterActivity.startRegistration(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), gender, age);
+        KvpPrEPRegisterActivity.startRegistration((Activity) getContext(), getHivMemberObject().getBaseEntityId(), gender, age);
     }
-
 
 
     private void startHivstRegistration() {
@@ -542,14 +627,14 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     protected void startTbRegister() {
         try {
-            TbRegisterActivity.startTbFormActivity(HivProfileActivity.this, getHivMemberObject().getBaseEntityId(), CoreConstants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getTbRegistration()).toString());
+            TbRegisterActivity.startTbFormActivity((Activity) getContext(), getHivMemberObject().getBaseEntityId(), CoreConstants.JSON_FORM.getTbRegistration(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getTbRegistration()).toString());
         } catch (JSONException e) {
             Timber.e(e);
         }
     }
 
     protected void startAncRegister() {
-        AncRegisterActivity.startAncRegistrationActivity(HivProfileActivity.this, Objects.requireNonNull(getHivMemberObject()).getBaseEntityId(), getHivMemberObject().getPhoneNumber(),
+        AncRegisterActivity.startAncRegistrationActivity((Activity) getContext(), Objects.requireNonNull(getHivMemberObject()).getBaseEntityId(), getHivMemberObject().getPhoneNumber(),
                 org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName());
     }
 
@@ -559,19 +644,26 @@ public class HivProfileActivity extends CoreHivProfileActivity
     public void startHivRegistrationDetailsActivity() {
         Intent intent = new Intent(this, BaseHivFormsActivity.class);
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.BASE_ENTITY_ID, getHivMemberObject().getBaseEntityId());
-
-        String formName;
-        if (getHivMemberObject().getGender().equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
+        String formName = org.smartregister.chw.util.Constants.JsonForm.getCbhsRegistrationForm();
 
         JSONObject formJsonObject = null;
         try {
             formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+
+        try {
+
+            JSONArray steps = formJsonObject.getJSONArray("steps");
+            JSONObject step = steps.getJSONObject(0);
+            JSONArray fields = step.getJSONArray("fields");
+
+            int age = org.smartregister.chw.util.Utils.getAgeFromDate(getHivMemberObject().getAge());
+            updateAgeAndGender(fields, age, getHivMemberObject().getGender());
+
+            formJsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName);
             formJsonObject.put(ENCOUNTER_TYPE, UPDATE_HIV_REGISTRATION);
-            JSONArray fields = formJsonObject.getJSONArray("steps").getJSONObject(0).getJSONArray("fields");
 
             for (int i = 0; i < fields.length(); i++) {
                 JSONObject field = fields.getJSONObject(i);
@@ -593,7 +685,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 }
             }
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Timber.e(e);
         }
 
@@ -616,6 +708,35 @@ public class HivProfileActivity extends CoreHivProfileActivity
             return org.smartregister.chw.core.utils.Utils.isMemberOfReproductiveAge(client, 15, 49);
         }
         return false;
+    }
+
+    @SuppressLint("StringFormatMatches")
+    @Override
+    public void updateLastVisitRow(@Nullable Date lastVisitDate) {
+        Visit lastFollowupVisit = getVisit(org.smartregister.chw.util.Constants.Events.CBHS_FOLLOWUP);
+        if (lastFollowupVisit != null) {
+            TextView tvLastVisitDay = findViewById(R.id.textview_last_vist_day);
+            tvLastVisitDay.setVisibility(View.VISIBLE);
+
+            int numOfDays = Days.daysBetween(
+                    new DateTime(lastFollowupVisit.getDate()).toLocalDate(),
+                    new DateTime().toLocalDate()
+            ).getDays();
+
+            if (numOfDays <= 1) {
+                tvLastVisitDay.setText(getString(R.string.cbhs_visit_less_than_twenty_four));
+            } else {
+                tvLastVisitDay.setText(getString(
+                        R.string.cbhs_last_visit_n_days_ago, numOfDays));
+            }
+
+            findViewById(R.id.rl_last_visit_layout).setVisibility(View.VISIBLE);
+        }
+    }
+
+    public @javax.annotation.Nullable
+    Visit getVisit(String eventType) {
+        return PmtctLibrary.getInstance().visitRepository().getLatestVisit(getHivMemberObject().getBaseEntityId(), eventType);
     }
 
     public interface Flavor {

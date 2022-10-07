@@ -70,6 +70,7 @@ public class ChwClientProcessor extends CoreClientProcessor {
                         ChildAlertService.updateAlerts(baseEntityID);
                     }
                     break;
+                case Constants.Events.CBHS_FOLLOWUP:
                 case Constants.Events.MOTHER_CHAMPION_FOLLOWUP:
                 case Constants.Events.ANC_FIRST_FACILITY_VISIT:
                 case Constants.Events.ANC_RECURRING_FACILITY_VISIT:

@@ -146,6 +146,12 @@ public class ChildProfileActivity extends CoreChildProfileActivity implements On
     }
 
     @Override
+    public void setProfileImage(String baseEntityId) {
+        int defaultImage = org.smartregister.chw.core.R.drawable.rowavatar_child;// gender.equalsIgnoreCase(Gender.MALE.toString()) ? R.drawable.row_boy : R.drawable.row_girl;
+        imageViewProfile.setImageResource(defaultImage);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_malaria_registration:
