@@ -137,7 +137,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
     }
 
     private void evaluateDangerSignsMother() throws Exception {
-
+        dangerSignsEvaluationResults.put(context.getString(R.string.pnc_danger_signs_mother), false);
         HomeVisitActionHelper pncDangerSignsMotherHelper = new HomeVisitActionHelper() {
             private String danger_signs_present_mama;
 
@@ -187,10 +187,10 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                 .withHelper(pncDangerSignsMotherHelper)
                 .build();
         actionList.put(context.getString(R.string.pnc_danger_signs_mother), action);
-        dangerSignsEvaluationResults.put(context.getString(R.string.pnc_danger_signs_mother), false);
     }
 
     private void evaluateDangerSignsBaby(Person baby) throws Exception {
+        dangerSignsEvaluationResults.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), false);
         class PNCDangerSignsBabyHelper extends HomeVisitActionHelper {
             private String danger_signs_present_child;
 
@@ -241,7 +241,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     details = VisitUtils.getVisitGroups(AncLibrary.getInstance().visitDetailsRepository().getVisits(lastVisit.getVisitId()));
                 }
             }
-
             BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()))
                     .withOptional(false)
                     .withDetails(details)
@@ -251,7 +250,6 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
                     .withHelper(new PNCDangerSignsBabyHelper())
                     .build();
             actionList.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), action);
-            dangerSignsEvaluationResults.put(MessageFormat.format(context.getString(R.string.pnc_danger_signs_baby), baby.getFullName()), false);
         }
     }
 
@@ -479,7 +477,7 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
 
             @Override
             public String evaluateSubTitle() {
-                String counsellingStatus = "None".equals(couselling_pnc) || "Hakuna".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.subtask_done);
+                String counsellingStatus = "None".equals(couselling_pnc) || "Hakuna".equals(couselling_pnc) ? context.getString(R.string.subtask_not_done) : context.getString(R.string.pnc_counselling_done);
                 return MessageFormat.format("{0}: {1}", context.getString(R.string.counselling), counsellingStatus);
             }
 

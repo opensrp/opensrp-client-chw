@@ -4,6 +4,7 @@ import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 import static org.smartregister.chw.util.NotificationsUtil.handleNotificationRowClick;
 import static org.smartregister.chw.util.NotificationsUtil.handleReceivedNotifications;
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 import android.app.Activity;
@@ -49,6 +50,7 @@ import org.smartregister.chw.dataloader.AncMemberDataLoader;
 import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.interactor.AncMemberProfileInteractor;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
 import org.smartregister.chw.model.FamilyProfileModel;
 import org.smartregister.chw.model.ReferralTypeModel;
@@ -222,6 +224,12 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
             String gender = Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
             HivstRegisterActivity.startHivstRegistrationActivity(this, baseEntityID, gender);
         }
+        if(itemId == R.id.action_kvp_prep_registration){
+            String gender = getClientGender(baseEntityID);
+            int age = memberObject.getAge();
+            KvpPrEPRegisterActivity.startRegistration(AncMemberProfileActivity.this, baseEntityID, gender, age);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -235,6 +243,9 @@ public class AncMemberProfileActivity extends CoreAncMemberProfileActivity imple
         if(ChwApplication.getApplicationFlavor().hasHIVST()){
             int age = memberObject.getAge();
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityID) && age >= 18);
+        }
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityID));
         }
         UtilsFlv.updateHivMenuItems(baseEntityID, menu);
         if (ChwApplication.getApplicationFlavor().hasMalaria())

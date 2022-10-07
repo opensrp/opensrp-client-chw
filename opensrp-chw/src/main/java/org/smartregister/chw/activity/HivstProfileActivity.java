@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
 import org.smartregister.chw.core.activity.CoreHivstProfileActivity;
 import org.smartregister.chw.core.interactor.CoreHivstProfileInteractor;
@@ -20,6 +22,7 @@ import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.hivst.util.Constants;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.util.HivstUtils;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -30,6 +33,7 @@ import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
+import static org.smartregister.chw.util.Utils.getClientGender;
 import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 
@@ -113,9 +117,24 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(org.smartregister.chw.core.R.id.action_cbhs_registration).setVisible(!HivDao.isRegisteredForHiv(memberObject.getBaseEntityId()));
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(memberObject.getBaseEntityId()));
+        }
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.action_kvp_prep_registration){
+            String gender = getClientGender(memberObject.getBaseEntityId());
+           String dob = memberObject.getAge();
+           int age = Utils.getAgeFromDate(dob);
+            KvpPrEPRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void startReferralForm() {

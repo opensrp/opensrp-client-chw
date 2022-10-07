@@ -35,6 +35,7 @@ import org.smartregister.chw.hiv.dao.HivDao;
 import org.smartregister.chw.hiv.dao.HivIndexDao;
 import org.smartregister.chw.hiv.domain.HivIndexContactObject;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
@@ -137,6 +138,12 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
             if (itemId == R.id.action_issue_hiv_community_followup_referral) {
                 HivRegisterActivity.startHIVFormActivity(this, getHivIndexContactObject().getBaseEntityId(), CoreConstants.JSON_FORM.getHivIndexContactCommunityFollowupReferral(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivIndexContactCommunityFollowupReferral()).toString());
                 return true;
+            }else if(itemId == R.id.action_kvp_prep_registration){
+                String gender = Utils.getClientGender(getHivIndexContactObject().getBaseEntityId());
+                String dob = getHivIndexContactObject().getDob();
+                int age = Utils.getAgeFromDate(dob);
+                KvpPrEPRegisterActivity.startRegistration(HivIndexContactProfileActivity.this, getHivIndexContactObject().getBaseEntityId(), gender, age);
+                return true;
             }
         } catch (JSONException e) {
             Timber.e(e);
@@ -152,6 +159,9 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
             String dob = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivIndexContactObject().getBaseEntityId()) && age >= 18);
+        }
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(getHivIndexContactObject().getBaseEntityId()));
         }
         return true;
     }

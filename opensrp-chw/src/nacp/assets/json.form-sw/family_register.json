@@ -82,7 +82,7 @@
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Please enter the first name"
+          "err": "Tafadhali jaza jina la kwanza la mteja"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
@@ -813,7 +813,7 @@
         },
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Tafadhali chagua jibu sahih"
         }
       },
       {

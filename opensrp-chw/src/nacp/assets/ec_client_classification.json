@@ -665,6 +665,20 @@
             "creates_case": [
               "ec_agyw_register"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "KVP PrEP Registration",
+            "creates_case": [
+              "ec_kvp_prep_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Kvp PrEP Follow-up Visit",
+            "creates_case": [
+              "ec_kvp_prep_followup"
+            ]
           }
         ]
       }

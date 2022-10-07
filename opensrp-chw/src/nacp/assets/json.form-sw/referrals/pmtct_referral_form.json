@@ -97,7 +97,7 @@
             },
             {
               "name": "child_receive_dbs_test",
-              "text": "Mtoto atafanyiwa kipimo cha DBS",
+              "text": "Mtoto afanyiwe kipimo cha DBS",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "child_receive_dbs_test",

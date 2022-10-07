@@ -31,6 +31,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.KvpPrEPRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.KvpPrEPProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.KvpPrEPVisitActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
             android:name=".activity.HivstRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -385,6 +395,7 @@
         <service android:name=".core.service.StockUsageReportService" />
         <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
         <service android:name="org.smartregister.chw.core.sync.intent.SyncClientEventsPerTaskIntentService" />
+        <service android:name=".sync.intent.PncCloseDateIntentService" />
 
         <uses-library
             android:name="org.apache.http.legacy"

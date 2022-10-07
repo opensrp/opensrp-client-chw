@@ -138,6 +138,11 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     @Override
+    public boolean hasKvp() {
+        return true;
+    }
+
+    @Override
     public Map<String, String[]> getFTSSearchMap() {
         Map<String, String[]> map = new HashMap<>();
         map.put(CoreConstants.TABLE_NAME.FAMILY, new String[]{

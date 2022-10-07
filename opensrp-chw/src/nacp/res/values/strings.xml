@@ -36,7 +36,6 @@
     <string name="mother_champion_reports">Mother Champion Reports</string>
 
 
-
     <string name="partner_registration_action_title">Partner Registration</string>
     <string name="new_client">New Client</string>
     <string name="existing_client">Existing Client</string>
@@ -65,6 +64,40 @@
     <string name="referral_problem_optimistic_infections">Optimistic Infections</string>
     <string name="referral_problem_confirmation_self_test">Confirmation Self Test</string>
     <string name="referral_problem_index_contact_testing">Index Contact Testing</string>
+
+    <string name="referral_problem_home_delivery">Home delivery</string>
+    <string name="referral_problem_Vaginal_bleeding">Vaginal bleeding</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge">Discoloured or watery, liquid vaginal discharge with a bad smell</string>
+    <string name="referral_problem_Severe_abdominal_pain">Severe abdominal pain</string>
+    <string name="referral_problem_Severe_anaemia">Severe anaemia</string>
+    <string name="referral_problem_Convulsions">Convulsions</string>
+    <string name="referral_problem_A_severe_headache_dizziness">A severe headache / dizziness</string>
+    <string name="referral_problem_Swelling_of_the_face_and_or_hands">Swelling of the face and/or hands</string>
+    <string name="referral_problem_Shivering_trembling">Shivering/trembling</string>
+    <string name="referral_problem_Nausea">Nausea</string>
+    <string name="referral_problem_Vomiting">Vomiting</string>
+    <string name="referral_problem_Cord_prolapse">Cord prolapse</string>
+    <string name="referral_problem_Perineum_bleeding">Perineum bleeding</string>
+    <string name="referral_problem_Fullness_or_pain_of_the_breasts">Breast engorgement</string>
+    <string name="referral_problem_HIV_care_and_support_services">Breast engorgement</string>
+    <string name="referral_problem_PMTCT_for_mothers">PMTCT for mothers</string>
+    <string name="referral_problem_Fistula">Fistula</string>
+    <string name="referral_problem_Fast_breathing_and_difficulty_with_breathing">Fast breathing and difficulty with breathing</string>
+    <string name="referral_problem_Excessive_crying">Excessive crying</string>
+    <string name="referral_problem_Neck_stiffness">Neck stiffness</string>
+    <string name="referral_problem_Bloating">Bloating</string>
+    <string name="referral_problem_Redness_around_the_umbilical_cord_foul">Redness around the umbilical cord, foul-smelling discharge from the umbilical cord</string>
+    <string name="referral_problem_Bacterial_conjunctivitis">Bacterial conjunctivitis</string>
+    <string name="referral_problem_Pale_or_jaundiced">Pale or jaundiced</string>
+    <string name="referral_problem_Cyanosis_blueness_of_lips">Cyanosis (blueness of lips)</string>
+    <string name="referral_problem_Skin_rash_pustules">Skin rash / pustules</string>
+    <string name="referral_problem_Diarrhea">Diarrhea</string>
+    <string name="referral_problem_Disabilities">Congenital Disabilities</string>
+    <string name="referral_problem_Premature_baby">Premature baby</string>
+    <string name="referral_problem_Failure_to_pass_urine_or_stool">Failure to pass urine or stool within 24 hours after birth</string>
+    <string name="referral_problem_Care_of_HIV_exposed_infant">Care of HIV-exposed infant</string>
+    <string name="referral_problem_Immunisation">Immunisation</string>
+    <string name="referral_problem_other_reasons">Other reasons</string>
 
     <string name="ltfu_clinic_ctc">CTC</string>
     <string name="ltfu_clinic_pwid">PWID</string>
@@ -144,6 +177,12 @@
     <string name="pnc_moderate">Moderate</string>
     <string name="pnc_severe">Severe</string>
 
+    <!---KVP/PrEP Strings -->
+    <string name="kvp_prep_visit_type">Visit Type</string>
+    <string name="kvp_prep_sbcc_services">SBCC Services</string>
+    <string name="kvp_prep_preventive_services">Preventive Services</string>
+    <string name="kvp_prep_structural_services">Structural Services</string>
+    <string name="kvp_prep_referral_services">Referral Services</string>
 
     <string name="mother_champion_visits_history">Visits History</string>
     <string name="view_visits_history">View Visits History</string>
@@ -171,5 +210,68 @@
     <string name="mother_champion_referrals_issued_other_services_chk_nutritional_support">Nutritional Support</string>
     <string name="mother_champion_referrals_issued_other_services_chk_support_groups">Support Groups</string>
     <string name="mother_champion_referrals_issued_other_services_chk_none">None</string>
+
+    <string name="pnc_counselling_done">done</string>
+    <string name="referral_problem_Discoloured_or_watery_liquid_vaginal_discharge_with_a_bad_smell">Discoloured or watery, liquid vaginal discharge with a bad smell</string>
+    <string name="referral_problem_High_blood_pressure">High blood pressure</string>
+    <string name="referral_problem_Redness_around_the_umbilical_cord_foul_smelling_discharge_from_the_umbilical_cord">Redness around the umbilical cord, foul-smelling discharge from the umbilical cord</string>
+    <string name="referral_problem_rape">Rape</string>
+    <string name="referral_problem_physical_abuse">Physical abuse</string>
+    <string name="referral_problem_has_moved_out_from_home">Moved out from home</string>
+    <string name="referral_problem_ulcers_and_scars">Ulcers and scars</string>
+    <string name="referral_problem_is_weak">Is weak</string>
+    <string name="referral_problem_needs_more_services">Needs more services</string>
+    <string name="referral_problem_has_great_level_of_stress_and_fear">Has great level of stress and fear</string>
+    <string name="referral_problem_Fever">Fever</string>
+    <string name="referral_problem_Trembling">Trembling, shivering</string>
+    <string name="referral_problem_Sweating">Sweating</string>
+    <string name="referral_problem_Muscle_pain">Muscle pain</string>
+    <string name="referral_problem_Sweling_of_the_face_and_or_hands">Sweling of the face and/or hands</string>
+    <string name="referral_problem_Difficult_in_breathing_fast_and_laboured_breathing">Difficult in breathing (fast and laboured breathing)</string>
+    <string name="referral_problem_Very_weak">Very weak</string>
+    <string name="referral_problem_Irritable_easily_disturbed">Irritable (easily disturbed)</string>
+    <string name="referral_problem_Unconcious">Unconcious</string>
+    <string name="referral_problem_Unable_to_sit_without_support">Unable to sit without support</string>
+    <string name="referral_problem_Abnormal_bleeding_or_passing_of_urine_with_blood">Abnormal bleeding or passing of urine with blood</string>
+    <string name="referral_problem_Severe_anaemia_pale_palms_and_inner_eyelids">Severe anaemia (pale palms and inner eyelids)</string>
+    <string name="referral_problem_Yellowing_of_the_eyes_jaundice">Yellowing of the eyes (jaundice)</string>
+    <string name="referral_problem_Severe_malnutrition">Severe malnutrition</string>
+    <string name="referral_problem_Unusually_sleepy">Unusually sleepy</string>
+    <string name="referral_problem_Incisional_bleeding">Incisional bleeding</string>
+    <string name="referral_problem_Pus_Discharge_from_incision">Pus/Discharge from incision</string>
+    <string name="referral_problem_Swollen_around_the_incision">Swollen around the incision</string>
+    <string name="referral_problem_Others">Others</string>
+    <string name="referral_problem_lactating_hiv_positive_mother">Lactating HIV positive mother</string>
+    <string name="referral_problem_poor_art_adherence">Poor art adherence</string>
+    <string name="referral_problem_treatment_side_effects">Treatment side effects during pregnancy and after child birth</string>
+    <string name="referral_problem_child_receive_dbs_test">Child to receive DBS test</string>
+    <string name="referral_problem_loss_of_menstrual_period">Loss of Menstrual Period</string>
+    <string name="referral_problem_vomiting">Vomiting</string>
+    <string name="referral_problem_severe_headache">Severe Headache</string>
+    <string name="referral_problem_nausea">Nausea</string>
+    <string name="referral_problem_feeling_lightheaded_or_dizzy">Feeling lightheaded or dizzy</string>
+    <string name="referral_problem_frequent_urination">Frequent urination</string>
+    <string name="referral_problem_painful_breasts">Painful breasts</string>
+    <string name="referral_problem_Other_symptom">Other Symptom</string>
+    <string name="referral_problem_history_of_coughing_for_more_than_two_weeks">History of coughing for more than two weeks (HIV-)</string>
+    <string name="referral_problem_persistent_coughing_hiv_positive">Persistent coughing (HIV+)</string>
+    <string name="referral_problem_night_sweats">Night sweats</string>
+    <string name="referral_problem_No_movement_unusual_movement_for_a_child_in_the_womb">No movement / unusual movement for a child in the womb</string>
+    <string name="referral_problem_Pregnancy_pains_before_9_months">Pregnancy pains before 9 months</string>
+    <string name="referral_problem_Early_age_pregnancy_below_18_years">Early age pregnancy (below 18 years)</string>
+    <string name="referral_problem_Swelling_of_the_face_andor_hands">Swelling of the face and/or hands</string>
+    <string name="referral_problem_Nausea_and_Vomiting">Nausea and vomiting</string>
+    <string name="referral_problem_Water_sack_broke_before_contractions">Water sack broke before contractions</string>
+    <string name="referral_problem_Family_planning_services">Family planning services</string>
+    <string name="referral_problem_Difficultly_breathing">Difficultly breathing</string>
+    <string name="referral_problem_Breast_engorgement">Breast engorgement</string>
+    <string name="referral_problem_Blurred_vision">Blurred vision</string>
+    <string name="referral_referral_Perineum_tear">Perineum tear</string>
+    <string name="referral_problem_threatened_to_be_killed">Threatened to be killed</string>
+    <string name="referral_problem_child_has_a_disability">The child has a disability / has trouble walking</string>
+    <string name="referral_problem_child_does_not_want_to_go_home">The child does not want to go home / go to school</string>
+    <string name="referral_problem_Umbilical_cord_navel_bleeding">Umbilical cord/navel bleeding</string>
+    <string name="referral_problem_Unable_to_breastfeed_or_swallow">Unable to breastfeed or swallow</string>
+    <string name="referral_problem_Umbilical_cord">Umbilical cord/navel bleeding</string>
 
 </resources>

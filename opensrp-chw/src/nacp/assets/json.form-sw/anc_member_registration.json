@@ -136,23 +136,26 @@
       },
       {
         "key": "no_prev_preg",
-        "openmrs_entity_parent": "",
+        "type": "edit_text",
+        "hint": "Idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "no_prev_preg",
-        "type": "edit_text",
-        "edit_type": "number",
-        "hint": "Idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)",
-        "v_required": {
+        "openmrs_entity_parent": "",
+        "v_numeric": {
           "value": "true",
-          "err": "Sawa na au zaidi ya 0"
+          "err": "Tafadhali jaza idadi ya mimba"
         },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Must be a rounded number"
+        "v_max": {
+          "value": "35",
+          "err": "Idadi ya mimba haitakiwi kuzidi 35"
         },
         "v_min": {
-          "value": "0",
-          "err": "Namba lazima iwe sawa au zaidi ya 0"
+          "value": "1",
+          "err": "Idadi ya mimba iwe sawa na au zaidi ya 1"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza idadi ya Mimba"
         }
       },
       {
@@ -172,25 +175,25 @@
       {
         "key": "parity",
         "type": "edit_text",
-        "hint": "Idadi ya mimba zilizofikia wiki 24 au zaidi (Parity)",
+        "hint": "Idadi ya Uzao",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "parity",
         "openmrs_entity_parent": "",
         "v_numeric": {
           "value": "true",
-          "err": "Tafadhali jaza namba halali"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Tafadhali jaza namba halali"
+          "err": "Tafadhali jaza idadi ya uzao"
         },
         "constraints": [
           {
             "type": "numeric",
             "ex": "lessThan(., step1:no_prev_preg)",
-            "err": "Namba lazima iwe chini ya idadi ya mimba (Ikiwa ni pamoja na mimba ya sasa)"
+            "err": "Idadi ya uzao iwe pungufu ya idadi ya mimba"
           }
-        ]
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza idadi ya Uzao"
+        }
       },
       {
         "key": "delivery_method",
@@ -237,7 +240,7 @@
       {
         "key": "prompt_for_delivery_method",
         "type": "toaster_notes",
-        "text":  "Mteja ashauriwe kujifungua Kituo cha Afya kwa sababu ya hatari ya kupasuka kwa mfuko wa uzazi",
+        "text": "Mteja ashauriwe kujifungua Kituo cha Afya kwa sababu ya hatari ya kupasuka kwa mfuko wa uzazi",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",

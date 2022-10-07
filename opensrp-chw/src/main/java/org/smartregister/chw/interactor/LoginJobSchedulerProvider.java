@@ -10,6 +10,7 @@ import org.smartregister.chw.core.job.HomeVisitServiceJob;
 import org.smartregister.chw.core.job.StockUsageReportJob;
 import org.smartregister.chw.core.job.VaccineRecurringServiceJob;
 import org.smartregister.chw.job.BasePncCloseJob;
+import org.smartregister.chw.job.PncCloseDateServiceJob;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.DocumentConfigurationServiceJob;
@@ -55,7 +56,11 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
             StockUsageReportJob.scheduleJob(StockUsageReportJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
-            DocumentConfigurationServiceJob.scheduleJob(DocumentConfigurationServiceJob.TAG,TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+            DocumentConfigurationServiceJob.scheduleJob(DocumentConfigurationServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+
+
+        PncCloseDateServiceJob.scheduleJob(PncCloseDateServiceJob.TAG, TimeUnit.MINUTES.toMinutes(
+                BuildConfig.STOCK_USAGE_REPORT_MINUTES), getFlexValue(BuildConfig.STOCK_USAGE_REPORT_MINUTES));
     }
 
     @Override
@@ -66,6 +71,7 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
         HomeVisitServiceJob.scheduleJobImmediately(HomeVisitServiceJob.TAG);
         BasePncCloseJob.scheduleJobImmediately(BasePncCloseJob.TAG);
         PlanIntentServiceJob.scheduleJobImmediately(PlanIntentServiceJob.TAG);
+        PncCloseDateServiceJob.scheduleJobImmediately(PncCloseDateServiceJob.TAG);
 
         if (ChwApplication.getApplicationFlavor().hasTasks())
             SyncTaskServiceJob.scheduleJobImmediately(SyncTaskServiceJob.TAG);

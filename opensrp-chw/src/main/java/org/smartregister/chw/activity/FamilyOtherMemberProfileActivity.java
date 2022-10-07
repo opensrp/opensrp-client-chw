@@ -1,8 +1,15 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
+import static org.smartregister.chw.util.Utils.getClientGender;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
+
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
 import com.vijay.jsonwizard.utils.FormUtils;
 
@@ -32,12 +39,7 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.ViewPager;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.updateToolbarTitle;
-import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfileActivity {
     private FamilyMemberFloatingMenu familyFloatingMenu;
@@ -78,6 +80,10 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 18);
+        }
+
+        if(ChwApplication.getApplicationFlavor().hasKvp()){
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(true);
         }
 
         if (ChwApplication.getApplicationFlavor().hasAGYW()) {
@@ -290,6 +296,14 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         int age = Utils.getAgeFromDate(dob);
         AgywRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, age);
+    }
+
+    @Override
+    protected void startKvpPrEPRegistration() {
+        String gender = getClientGender(baseEntityId);
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        KvpPrEPRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, gender, age);
     }
 
     /**

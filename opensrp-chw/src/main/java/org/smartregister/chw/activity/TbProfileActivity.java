@@ -275,17 +275,18 @@ public class TbProfileActivity extends CoreTbProfileActivity
     }
 
     protected void startHivRegister() {
-        String formName;
-        if (getTbMemberObject().getGender().equalsIgnoreCase("male")) {
-            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
-        } else {
-            formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
-        }
-        try {
-            HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
+        //TODO: fix on merge
+//        String formName;
+//        if (getTbMemberObject().getGender().equalsIgnoreCase("male")) {
+//            formName = CoreConstants.JSON_FORM.getMaleHivRegistration();
+//        } else {
+//           formName = CoreConstants.JSON_FORM.getFemaleHivRegistration();
+//        }
+//        try {
+//            HivRegisterActivity.startHIVFormActivity(TbProfileActivity.this, getTbMemberObject().getBaseEntityId(), formName, (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, formName).toString());
+//        } catch (JSONException e) {
+//            Timber.e(e);
+//        }
     }
 
     public interface Flavor {

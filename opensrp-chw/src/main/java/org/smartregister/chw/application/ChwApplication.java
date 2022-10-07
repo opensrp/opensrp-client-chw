@@ -35,6 +35,7 @@ import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.HivIndexContactsContactsRegisterActivity;
 import org.smartregister.chw.activity.HivRegisterActivity;
 import org.smartregister.chw.activity.HivstRegisterActivity;
+import org.smartregister.chw.activity.KvpPrEPRegisterActivity;
 import org.smartregister.chw.activity.LTFURegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
@@ -59,6 +60,7 @@ import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.hiv.HivLibrary;
 import org.smartregister.chw.hivst.HivstLibrary;
 import org.smartregister.chw.job.ChwJobCreator;
+import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
 import org.smartregister.chw.pmtct.PmtctLibrary;
@@ -279,6 +281,10 @@ public class ChwApplication extends CoreChwApplication {
             PmtctLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         }
 
+        if(flavor.hasKvp()){
+            KvpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
         HivstLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         if (flavor.hasAGYW()) {
@@ -371,6 +377,7 @@ public class ChwApplication extends CoreChwApplication {
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.HIV_SELF_TESTING_REGISTER_ACTIVITY, HivstRegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.TB_REGISTER_ACTIVITY, TbRegisterActivity.class);
             registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.CDP_REGISTER_ACTIVITY, CdpRegisterActivity.class);
+            registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.KVP_PrEP_REGISTER_ACTIVITY, KvpPrEPRegisterActivity.class);
         }
 
 
@@ -555,6 +562,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasCdp();
 
         boolean hasHIVST();
+
+        boolean hasKvp();
 
         boolean hasAGYW();
 
