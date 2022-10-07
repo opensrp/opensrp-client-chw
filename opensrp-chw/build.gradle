@@ -199,8 +199,8 @@ android {
         nacp {
             dimension = 'baseDimension'
             applicationIdSuffix ".moh"
-            versionCode 8
-            versionName "1.1.0"
+            versionCode 9
+            versionName "1.1.1"
             buildConfigField "String", 'opensrp_url', '"https://ucs.nacp.go.tz/opensrp/"'
 //            buildConfigField "String", 'opensrp_url', '"http://45.79.110.194:8082/opensrp/"'
             buildConfigField "String", 'guidebooks_url', '"https://opensrp.s3.amazonaws.com/media/ba/"'
@@ -213,7 +213,7 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
             buildConfigField "long", "MAPBOX_DOWNLOAD_TILE_LIMIT", "6001"
 
-            buildConfigField "int", "DATABASE_VERSION", '24'
+            buildConfigField "int", "DATABASE_VERSION", '25'
         }
         ba {
             dimension = 'baseDimension'
