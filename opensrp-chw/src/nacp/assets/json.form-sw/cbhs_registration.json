@@ -369,7 +369,7 @@
           "name": "reasons_for_registration_male_under_15",
           "type": "radio_group",
           "properties": {
-            "text": "Reason for registration"
+            "text": "Sababu ya Usajili"
           },
           "meta_data": {
             "openmrs_entity": "concept",
