@@ -88,6 +88,15 @@
               }
             },
             {
+              "name": "client_found_and_has_returned_to_clinic",
+              "text": "Amepatikana na amerudi kliniki kuendelea na huduma",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_found_and_has_returned_to_clinic",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "client_has_moved_to_another_facility",
               "text": "Amehamia kituo kingine bila taarifa",
               "meta_data": {
