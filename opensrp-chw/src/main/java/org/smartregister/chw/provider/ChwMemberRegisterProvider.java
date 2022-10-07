@@ -1,5 +1,7 @@
 package org.smartregister.chw.provider;
 
+import static org.smartregister.chw.core.utils.Utils.getDuration;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -42,8 +44,6 @@ import java.util.Map;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.getDuration;
 
 public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
     private Context context;
@@ -194,7 +194,8 @@ public class ChwMemberRegisterProvider extends FamilyMemberRegisterProvider {
         if (StringUtils.isNotBlank(dod)) {
             registerViewHolder.profile.setImageResource(imageResourceIdentifier);
         } else {
-            imageRenderHelper.refreshProfileImage(commonPersonObject.getCaseId(), registerViewHolder.profile, imageResourceIdentifier);
+//            imageRenderHelper.refreshProfileImage(commonPersonObject.getCaseId(), registerViewHolder.profile, imageResourceIdentifier);
+            registerViewHolder.profile.setImageResource(imageResourceIdentifier);
         }
     }
 

@@ -759,29 +759,29 @@
               }
             },
             {
-              "name": "services_to_prevent_the_spread_of_stds",
+              "name": "prevention_of_the_spread_of_stds_service",
               "text": "Huduma za kuzuia kuenea magonjwa ya ngono katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "services_to_prevent_the_spread_of_stds",
+                "openmrs_entity_id": "prevention_of_the_spread_of_stds_service",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "special_group_services",
+              "name": "for_special_group_services",
               "text": "Huduma kwa makundi maalumu",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "special_group_services",
+                "openmrs_entity_id": "for_special_group_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "services_to_prevent_gender_violence_and_child_abuse",
+              "name": "prevention_of_gender_based_violence_and_child_abuse_services",
               "text": "Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "services_to_prevent_gender_violence_and_child_abuse",
+                "openmrs_entity_id": "prevention_of_gender_based_violence_and_child_abuse_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -813,11 +813,11 @@
               }
             },
             {
-              "name": "self_test_kits_distribution_services",
+              "name": "distribution_of_self_test_kits",
               "text": "Huduma ya ugawaji wa vitendanishi vya JIPIME",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "self_test_kits_distribution_services",
+                "openmrs_entity_id": "distribution_of_self_test_kits",
                 "openmrs_entity_parent": ""
               }
             },

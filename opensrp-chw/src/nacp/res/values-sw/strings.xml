@@ -319,13 +319,13 @@
     <string name="cbhs_arv_services">Huduma za dawa za kupunguza makali ya vvu katika jamii</string>
     <string name="cbhs_hiv_prevention_services_from_mother_to_infant">Huduma za kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto katika jamii</string>
     <string name="cbhs_collaborative_community_services_for_tb_and_hiv">Huduma shirikishi za kifua kikuu na VVU katika jamii</string>
-    <string name="cbhs_services_to_prevent_the_spread_of_stds">Huduma za kuzuia kuenea magonjwa ya ngono katika jamii</string>
-    <string name="cbhs_special_group_services">Huduma kwa makundi maalumu</string>
-    <string name="cbhs_services_to_prevent_gender_violence_and_child_abuse">Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii</string>
+    <string name="cbhs_prevention_of_the_spread_of_stds_service">Huduma za kuzuia kuenea magonjwa ya ngono katika jamii</string>
+    <string name="cbhs_for_special_group_services">Huduma kwa makundi maalumu</string>
+    <string name="cbhs_prevention_of_gender_based_violence_and_child_abuse_services">Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii</string>
     <string name="cbhs_psychological_services">Huduma za kisaikolojia katika jamii</string>
     <string name="cbhs_information_about_fgm">Elimu ya tohara katika jamii</string>
     <string name="cbhs_family_planning_and_condom_distribution_services">Huduma za uzazi wa mpango na usambazaji wa kondomu</string>
-    <string name="cbhs_self_test_kits_distribution_services">Huduma ya ugawaji wa vitendanishi vya JIPIME"</string>
+    <string name="cbhs_distribution_of_self_test_kits">Huduma ya ugawaji wa vitendanishi vya JIPIME"</string>
     <string name="cbhs_other_hiv_services">Huduma nyingine za HUWANYU</string>
 
     <string name="cbhs_hiv_services_provided_other">Other CBHS Services Provided</string>

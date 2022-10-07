@@ -313,13 +313,13 @@
     <string name="cbhs_arv_services">ARV Services</string>
     <string name="cbhs_hiv_prevention_services_from_mother_to_infant">HIV Prevention services from mother to infant</string>
     <string name="cbhs_collaborative_community_services_for_tb_and_hiv">Collaborative community services for TB and HIV</string>
-    <string name="cbhs_services_to_prevent_the_spread_of_stds">Services to prevent the spread of STDs</string>
-    <string name="cbhs_special_group_services">Special group services</string>
-    <string name="cbhs_services_to_prevent_gender_violence_and_child_abuse">Services to prevent gender violence and child abuse</string>
+    <string name="cbhs_prevention_of_the_spread_of_stds_service">Services to prevent the spread of STDs</string>
+    <string name="cbhs_for_special_group_services">Special group services</string>
+    <string name="cbhs_prevention_of_gender_based_violence_and_child_abuse_services">Services to prevent gender violence and child abuse</string>
     <string name="cbhs_psychological_services">Psychological services</string>
     <string name="cbhs_information_about_fgm">Information about Female Genital Mutilation</string>
     <string name="cbhs_family_planning_and_condom_distribution_services">Family planning and condom distribution services</string>
-    <string name="cbhs_self_test_kits_distribution_services">Self test kits distribution services</string>
+    <string name="cbhs_distribution_of_self_test_kits">Self test kits distribution services</string>
     <string name="cbhs_other_hiv_services">Other CBHS services</string>
 
     <string name="cbhs_hiv_services_provided_other">Other CBHS Services Provided</string>
