@@ -334,9 +334,6 @@
             android:parentActivityName=".activity.HivIndexContactsContactsRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
-            android:name=".activity.HivCommunityFollowupDetailsActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
-        <activity
             android:name=".activity.TbCommunityFollowupDetailsActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
@@ -361,6 +358,10 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.MotherChampionMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.CbhsMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
 
         <meta-data

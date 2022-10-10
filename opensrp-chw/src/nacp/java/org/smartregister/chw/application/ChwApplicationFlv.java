@@ -60,7 +60,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
     }
 
     public boolean hasQR() {
-        return true;
+        return false;
     }
 
     @Override

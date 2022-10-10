@@ -150,7 +150,8 @@
           ],
           "dependent_calculations": [
             "hiv_registration_date"
-          ]
+          ],
+          "required_status": "yes:Please specify client's HIV status during registration"
         },
         {
           "name": "ctc_number",
@@ -215,7 +216,8 @@
                 "openmrs_entity_parent": ""
               }
             }
-          ]
+          ],
+          "required_status": "yes:Please specify client's TB status during registration"
         },
         {
           "name": "reasons_for_registration_male_15",

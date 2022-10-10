@@ -118,31 +118,6 @@
     <string name="reason_for_registration_hiv_infected_child">Mtoto aliyezaliwa na mama mwenye VVU</string>
     <string name="reason_for_registration_untested_hiv_infected_child">Mtoto ambaye hajapimwa VVU</string>
     <string name="reason_for_registration_abused_child">Unyanyasaji wa mtoto</string>
-    <!-- Huduma zilizotolewa -->
-    <string name="hiv_services_provided_hiv_counselling_and_testing">Huduma za ushauri nasaha na upimaji katika jamii</string>
-    <string name="hiv_services_provided_arv_services">Huduma za dawa za kupunguza makali ya vvu katika jamii</string>
-    <string name="hiv_services_provided_hiv_prevention_services_from_mother_to_infant">Huduma za kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto katika jamiii</string>
-    <string name="hiv_services_provided_collaborative_community_services_for_tb_and_hiv">Huduma shirikishi za kifua kikuu na VVU katika jamii</string>
-    <string name="hiv_services_provided_services_to_prevent_the_spread_of_stds">Huduma za kuzuia kuenea magonjwa ya ngono katika jamii</string>
-    <string name="hiv_services_provided_special_group_services">Huduma kwa makundi maalumu</string>
-    <string name="hiv_services_provided_services_to_prevent_gender_violence_and_child_abuse">Huduma za kuzuia ukatili wa kijinsia na ukatili dhidi ya watoto katika jamii</string>
-    <string name="hiv_services_provided_psychological_services">Huduma za kisaikolojia katika jamii</string>
-    <string name="hiv_services_provided_information_about_fgm">Elimu ya tohara katika jamii</string>
-    <string name="hiv_services_provided_family_planning_and_condom_distribution_services">Huduma za uzazi wa mpango na usambazaji wa kondomu</string>
-    <string name="hiv_services_provided_self_test_kits_distribution_services">Huduma ya ugawaji wa vitendanishi vya JIPIME</string>
-    <string name="hiv_services_provided_other_hiv_services">Huduma zingine za CBHS</string>
-    <string name="hiv_services_provided_none">Hamna</string>
-    <!-- Dawa zilizotolewa -->
-    <string name="supplies_provided_paracetamol">Paracetamol</string>
-    <string name="supplies_provided_ors">ORS</string>
-    <string name="supplies_provided_none">Hakuna</string>
-    <!-- Vifaa vilivyotolewa -->
-    <string name="supplies_provided_hiv_self_test_kits">Vifaa vya kujipima VVU</string>
-    <string name="supplies_provided_sanitizers">Vitakasa mikono</string>
-    <string name="supplies_provided_face_masks">Barakoa</string>
-    <string name="supplies_provided_condoms">Kondomu</string>
-    <string name="supplies_provided_water_disinfectant">Dawa za kuua vijidudu vya maji</string>
-    <string name="supplies_provided_other_supplies">Vifaa vingine</string>
 
     <string name="height_in_cm">Height: {0} cm</string>
     <string name="fundal_height">Fundal Height: {0} cm</string>
@@ -188,6 +163,9 @@
     <string name="view_visits_history">View Visits History</string>
     <string name="visits_history">Visits History</string>
     <string name="mother_champion_visit">Mother Champion Visits</string>
+    <string name="cbhs_visit_less_than_twenty_four">Last visit was conducted less than 24 hours ago</string>
+    <string name="cbhs_last_visit_n_days_ago">Last visit was  %1$s days ago</string>
+    <string name="cbhs_visit">CBHS Visits</string>
     <string name="mother_champion_visit_title">Mother Champion Visit {0}: {1}</string>
     <string name="mother_champion_type_of_service">Type of Service:</string>
     <string name="mother_champion_linked_to_psychosocial_group">Linked to Psychosocial Group:</string>
@@ -273,5 +251,95 @@
     <string name="referral_problem_Umbilical_cord_navel_bleeding">Umbilical cord/navel bleeding</string>
     <string name="referral_problem_Unable_to_breastfeed_or_swallow">Unable to breastfeed or swallow</string>
     <string name="referral_problem_Umbilical_cord">Umbilical cord/navel bleeding</string>
+
+    <!--    CBHS Visit History String Resources-->
+    <string name="cbhs_registration_or_followup_status">Followup status:</string>
+    <string name="cbhs_new_client">New Client</string>
+    <string name="cbhs_continuing_with_services">Continuing with services</string>
+    <string name="cbhs_deceased">Deceased</string>
+    <string name="cbhs_client_not_found">Client not found</string>
+    <string name="cbhs_client_relocated_to_another_location">Client has relocated to another location</string>
+    <string name="cbhs_client_has_moved">Client has moved</string>
+    <string name="cbhs_client_has_absconded">Client has absconded</string>
+    <string name="cbhs_client_continues_with_clinic_from_elsewhere">Client continues with services coming from elsewhere</string>
+    <string name="cbhs_completed_and_qualified_from_the_services">Client has completed and qualified from the services</string>
+
+    <string name="cbhs_client_tb_status_after_testing">Client\'s TB status after testing</string>
+
+    <string name="cbhs_na">Not Applicable</string>
+    <string name="cbhs_unknown">Unknown</string>
+    <string name="cbhs_positive">Positive</string>
+    <string name="cbhs_negative">Negative</string>
+
+    <string name="cbhs_health_problem">Health Challenges faced by the Client:</string>
+    <string name="cbhs_general_body_malaise">General Body Malaise</string>
+    <string name="cbhs_chest_pain">Chest Pain</string>
+    <string name="cbhs_skin_infection">Skin Infection</string>
+    <string name="cbhs_loss_of_appetite">Loss of Appetite</string>
+    <string name="cbhs_malnutrition">Malnutrition</string>
+    <string name="cbhs_fever">Fever</string>
+    <string name="cbhs_jaundice">Jaundice</string>
+    <string name="cbhs_headache">Headache</string>
+    <string name="cbhs_coughing">Coughing</string>
+    <string name="cbhs_convulsion">Convulsion</string>
+    <string name="cbhs_loss_of_consciousness">Loss of Consciousness</string>
+    <string name="cbhs_drugs_side_effects">Drugs Side Effects</string>
+    <string name="cbhs_other_health_problems">Other Health Challenges</string>
+    <string name="cbhs_none">None</string>
+
+    <string name="cbhs_social_problem">Psychosocial challenges faced by the Client.</string>
+    <string name="cbhs_stigma_and_discriminations">Stigma and Discriminations</string>
+    <string name="cbhs_food_insecurity">Food insecurity</string>
+    <string name="cbhs_lack_disclosure">Lack disclosure</string>
+    <string name="cbhs_transport_issues_for_attending_ctc">Transport issues while attending CTC</string>
+    <string name="cbhs_economic_constraints">Economic constraints</string>
+    <string name="cbhs_gbv_and_vac">GBV and VAC</string>
+    <string name="cbhs_hard_to_reach_areas">Hard to reach areas</string>
+    <string name="cbhs_other_social_problems">Other Social Challenges</string>
+
+    <string name="cbhs_supplies_provided">Supplies/Commodities provided:</string>
+    <string name="cbhs_hiv_self_test_kits">HIV Self Testing Kits</string>
+    <string name="cbhs_sanitizers">Sanitizers</string>
+    <string name="cbhs_face_masks">Face masks</string>
+    <string name="cbhs_condoms">Condoms</string>
+    <string name="cbhs_water_disinfectant">Water disinfectants</string>
+    <string name="cbhs_other_supplies">Other supplies</string>
+
+    <string name="cbhs_medicine_provided">Medicines provided</string>
+    <string name="cbhs_paracetamol">Paracetamol</string>
+    <string name="cbhs_ors">ORS</string>
+    <string name="cbhs_hiv_services_provided">CBHS services provided</string>
+    <string name="cbhs_hiv_counselling_and_testing">HIV Counselling and Testing</string>
+    <string name="cbhs_arv_services">ARV Services</string>
+    <string name="cbhs_hiv_prevention_services_from_mother_to_infant">HIV Prevention services from mother to infant</string>
+    <string name="cbhs_collaborative_community_services_for_tb_and_hiv">Collaborative community services for TB and HIV</string>
+    <string name="cbhs_prevention_of_the_spread_of_stds_service">Services to prevent the spread of STDs</string>
+    <string name="cbhs_for_special_group_services">Special group services</string>
+    <string name="cbhs_prevention_of_gender_based_violence_and_child_abuse_services">Services to prevent gender violence and child abuse</string>
+    <string name="cbhs_psychological_services">Psychological services</string>
+    <string name="cbhs_information_about_fgm">Information about Female Genital Mutilation</string>
+    <string name="cbhs_family_planning_and_condom_distribution_services">Family planning and condom distribution services</string>
+    <string name="cbhs_distribution_of_self_test_kits">Self test kits distribution services</string>
+    <string name="cbhs_other_hiv_services">Other CBHS services</string>
+
+    <string name="cbhs_hiv_services_provided_other">Other CBHS Services Provided</string>
+    <string name="cbhs_referrals_issued_to_other_services">Referrals issued to the Client for other services</string>
+    <string name="cbhs_legal_services">Legal Services</string>
+    <string name="cbhs_support_groups">Psycho Social Support groups</string>
+    <string name="cbhs_ovc_services">OVC services</string>
+    <string name="cbhs_elderly_centers">Elderly Centers</string>
+    <string name="cbhs_other_referrals">Other Referrals</string>
+    <string name="cbhs_male">Male</string>
+    <string name="cbhs_female">Female</string>
+
+
+    <string name="cbhs_referrals_to_other_services_completed">Referrals completed Services</string>
+    <string name="cbhs_state_of_therapy">State of HIV Care and treatment: </string>
+
+    <string name="cbhs_registered_but_not_began_medication">Registered in CTC/PMTCT clinic but hasn\'t begun ARV medication</string>
+    <string name="cbhs_registered_and_uses_medication">Registered in CTC/PMTCT clinic but hasn\'t begun ARV medication</string>
+    <string name="cbhs_not_registered_in_ctc_clinic">Registered in CTC/PMTCT clinic but hasn\'t begun ARV medication</string>
+    <string name="cbhs_registered_in_injection_drugs_users_clinic">Registered in Injection Drugs Users Clinic</string>
+    <string name="cbhs_registered_in_tb_clinic">Registered in TB Clinic</string>
 
 </resources>

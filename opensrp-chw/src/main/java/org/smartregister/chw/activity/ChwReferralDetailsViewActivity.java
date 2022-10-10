@@ -1,5 +1,8 @@
 package org.smartregister.chw.activity;
 
+import static org.hl7.fhir.r4.model.codesystems.VariantState.NEGATIVE;
+import static org.hl7.fhir.r4.model.codesystems.VariantState.POSITIVE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -131,27 +134,32 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
 
             if (checkHasFeedBack(servicesProvided, enrolledToCTC, commentsFromHF)) {
                 feedBackViewGroup.setVisibility(View.VISIBLE);
-                if(servicesProvided!=null){
+                if (servicesProvided != null) {
                     actionTakenGroup.setVisibility(View.VISIBLE);
                     tvActionTaken.setText(getTranslatedHivServicesProvided(servicesProvided));
                 }
-                if(hivStatus!=null){
-                    tvTestResult.setText(hivStatus);
-                }else{
+                if (hivStatus != null) {
+                    if (hivStatus.equalsIgnoreCase(POSITIVE.toString()))
+                        tvTestResult.setText(getResources().getText(R.string.cbhs_positive));
+                    else if (hivStatus.equalsIgnoreCase(NEGATIVE.toString()))
+                        tvTestResult.setText(getResources().getText(R.string.cbhs_negative));
+                    else
+                        tvTestResult.setText(hivStatus);
+                } else {
                     tvTestResult.setVisibility(View.GONE);
                 }
-                if(enrolledToCTC!=null){
+                if (enrolledToCTC != null) {
                     enrolledClinicGroup.setVisibility(View.VISIBLE);
                     tvEnrolledClinic.setText(getTranslatedEnrolment(enrolledToCTC));
-                    if(enrolledToCTC.equalsIgnoreCase("Yes")){
+                    if (enrolledToCTC.equalsIgnoreCase("Yes")) {
                         tvClinicNumber.setText(ctcNumber);
-                    }else{
+                    } else {
                         tvClinicNumber.setText(reasonsForNotEnrolling);
                     }
                 }
-                if(commentsFromHF!=null)
+                if (commentsFromHF != null)
                     commentSection.setVisibility(View.VISIBLE);
-                    tvComments.setText(commentsFromHF);
+                tvComments.setText(commentsFromHF);
             } else {
                 feedBackViewGroup.setVisibility(View.GONE);
             }
@@ -164,19 +172,20 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
     }
 
     private String getTranslatedHivServicesProvided(String serviceProvided) {
-       switch (serviceProvided){
-           case "no_action_taken":
-               return getString(R.string.no_action_taken);
-           case "tested":
-               return getString(R.string.tests_done);
-           case "referred":
-               return getString(R.string.referred);
-           default:
-               return serviceProvided;
-       }
+        switch (serviceProvided) {
+            case "no_action_taken":
+                return getString(R.string.no_action_taken);
+            case "tested":
+                return getString(R.string.tests_done);
+            case "referred":
+                return getString(R.string.referred);
+            default:
+                return serviceProvided;
+        }
     }
-    private String getTranslatedEnrolment (String enrolledToCTC) {
-        switch (enrolledToCTC){
+
+    private String getTranslatedEnrolment(String enrolledToCTC) {
+        switch (enrolledToCTC) {
             case "yes":
                 return getString(R.string.yes);
             case "no":

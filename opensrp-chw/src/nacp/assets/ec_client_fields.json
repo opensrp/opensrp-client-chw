@@ -2787,7 +2787,7 @@
           "column_name": "ctc_number",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "ctc_number"
           }
         },
@@ -2819,7 +2819,7 @@
           "column_name": "cbhs_number",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "cbhs_number"
           }
         },
@@ -2844,7 +2844,7 @@
           "column_name": "client_hiv_status_during_registration",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "client_hiv_status_during_registration"
           }
         },
@@ -2853,7 +2853,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "test_results"
+            "concept": "client_hiv_status_after_testing"
           }
         },
         {
@@ -2981,14 +2981,6 @@
           }
         },
         {
-          "column_name": "client_behaviour_and_environmental_risk",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "client_behaviour_and_environmental_risk"
-          }
-        },
-        {
           "column_name": "supplies_provided",
           "type": "Event",
           "json_mapping": {
@@ -3002,6 +2994,14 @@
           "json_mapping": {
             "field": "obs.formSubmissionField",
             "concept": "supplies_provided_other"
+          }
+        },
+        {
+          "column_name": "medicine_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "medicine_provided"
           }
         },
         {
@@ -3062,11 +3062,19 @@
           }
         },
         {
-          "column_name": "state_of_therapy",
+          "column_name": "state_of_hiv_care_and_treatment",
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "state_of_therapy"
+            "concept": "state_of_hiv_care_and_treatment"
+          }
+        },
+        {
+          "column_name": "state_of_registration_in_tb_and_pwid_clinics",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.formSubmissionField",
+            "concept": "state_of_registration_in_tb_and_pwid_clinics"
           }
         },
         {
@@ -3086,27 +3094,11 @@
           }
         },
         {
-          "column_name": "client_tb_status_during_registration",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "client_tb_status_during_registration"
-          }
-        },
-        {
-          "column_name": "client_hiv_status_during_registration",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.formSubmissionField",
-            "concept": "client_hiv_status_during_registration"
-          }
-        },
-        {
           "column_name": "client_hiv_status_after_testing",
           "type": "Event",
           "json_mapping": {
             "field": "obs.formSubmissionField",
-            "concept": "test_results"
+            "concept": "client_hiv_status_after_testing"
           }
         },
         {

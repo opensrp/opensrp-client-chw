@@ -1,13 +1,16 @@
 package org.smartregister.chw.util;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,20 +19,29 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ClientReferralActivity;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.domain.Client;
+import org.smartregister.domain.db.EventClient;
+import org.smartregister.family.FamilyLibrary;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.growthmonitoring.domain.ZScore;
 import org.smartregister.growthmonitoring.repository.WeightForHeightRepository;
 import org.smartregister.helper.BottomNavigationHelper;
+import org.smartregister.repository.BaseRepository;
+import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Utils extends org.smartregister.chw.core.utils.Utils {
 
@@ -54,7 +66,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
                     Constants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
             referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.hts_referral),
                     CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
-            if(gender.equalsIgnoreCase("Female") && isMemberOfReproductiveAge(client, 10, 49)){
+            if (gender.equalsIgnoreCase("Female") && isMemberOfReproductiveAge(client, 10, 49)) {
                 referralTypeModels.add(new ReferralTypeModel(activity.getString(R.string.pregnancy_confirmation_referral),
                         CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
             }
@@ -130,7 +142,7 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     }
 
 
-    public static  String getClientGender(String baseEntityId){
+    public static String getClientGender(String baseEntityId) {
         CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
 
         final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(baseEntityId);
@@ -140,8 +152,8 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
     }
 
     /*
-    * For CBHS Registration
-    */
+     * For CBHS Registration
+     */
     public static void updateAgeAndGender(JSONArray fields, int age, String gender) throws Exception {
         boolean foundAge = false;
         boolean foundGender = false;
@@ -159,6 +171,84 @@ public class Utils extends org.smartregister.chw.core.utils.Utils {
                 return;
             }
         }
+    }
+
+
+    /**
+     * Removes a user, used for removing clients marked as Deceased
+     *
+     * @param familyID
+     * @param closeFormJsonString
+     * @param providerId
+     * @return
+     * @throws Exception
+     */
+    public static String removeUser(String familyID, JSONObject closeFormJsonString, String providerId) throws Exception {
+        String res = null;
+        Triple<Pair<Date, String>, String, List<Event>> triple = CoreJsonFormUtils.processRemoveMemberEvent(familyID, org.smartregister.family.util.Utils.getAllSharedPreferences(), closeFormJsonString, providerId);
+        if (triple != null && triple.getLeft() != null) {
+            processEvents(triple.getRight());
+
+            if (triple.getLeft().second.equalsIgnoreCase(CoreConstants.EventType.REMOVE_CHILD)) {
+                updateRepo(triple, org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+                updateRepo(triple, CoreConstants.TABLE_NAME.CHILD);
+            } else if (triple.getLeft().second.equalsIgnoreCase(CoreConstants.EventType.REMOVE_FAMILY)) {
+                updateRepo(triple, org.smartregister.family.util.Utils.metadata().familyRegister.tableName);
+            } else {
+                updateRepo(triple, org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+            }
+            res = triple.getLeft().second;
+        }
+
+        long lastSyncTimeStamp = getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        FamilyLibrary.getInstance().getClientProcessorForJava().processClient(FamilyLibrary.getInstance().getEcSyncHelper().getEvents(lastSyncDate, BaseRepository.TYPE_Unprocessed));
+        getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        return res;
+    }
+
+    private static void processEvents(List<Event> events) throws Exception {
+        ECSyncHelper syncHelper = ChwApplication.getInstance().getEcSyncHelper();
+        List<EventClient> clients = new ArrayList<>();
+        for (Event e : events) {
+            JSONObject json = new JSONObject(CoreJsonFormUtils.gson.toJson(e));
+            syncHelper.addEvent(e.getBaseEntityId(), json);
+
+            org.smartregister.domain.Event event = CoreJsonFormUtils.gson.fromJson(json.toString(), org.smartregister.domain.Event.class);
+            clients.add(new EventClient(event, new Client(e.getBaseEntityId())));
+        }
+        FamilyLibrary.getInstance().getClientProcessorForJava().processClient(clients);
+    }
+
+    private static void updateRepo(Triple<Pair<Date, String>, String, List<Event>> triple, String tableName) {
+        AllCommonsRepository commonsRepository = ChwApplication.getInstance().getAllCommonsRepository(tableName);
+
+        Date date_removed = new Date();
+        Date dod = null;
+        if (triple.getLeft() != null && triple.getLeft().first != null) {
+            dod = triple.getLeft().first;
+        }
+
+        if (commonsRepository != null && dod == null) {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DATE_REMOVED, getDBFormatedDate(date_removed));
+            commonsRepository.update(tableName, values, triple.getMiddle());
+            commonsRepository.updateSearch(triple.getMiddle());
+            commonsRepository.close(triple.getMiddle());
+        }
+
+        // enter the date of death
+        if (dod != null && commonsRepository != null) {
+            ContentValues values = new ContentValues();
+            values.put(DBConstants.KEY.DOD, getDBFormatedDate(dod));
+            commonsRepository.update(tableName, values, triple.getMiddle());
+            commonsRepository.updateSearch(triple.getMiddle());
+        }
+
+    }
+
+    private static String getDBFormatedDate(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date);
     }
 
 

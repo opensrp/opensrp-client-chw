@@ -119,6 +119,8 @@ public class Constants extends CoreConstants {
         public static final String ANC_FIRST_FACILITY_VISIT = "ANC First Facility Visit";
         public static final String ANC_RECURRING_FACILITY_VISIT = "ANC Recurring Facility Visit";
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
+        public static final String CBHS_FOLLOWUP = "CBHS Followup";
+        public static final String CBHS_CLOSE_VISITS = "CBHS Close Visits";
     }
 
     public static final class ActionList {
@@ -128,6 +130,7 @@ public class Constants extends CoreConstants {
     public static class TableName {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "ec_mother_champion_followup";
         public static final String SBCC = "ec_sbcc";
+        public static final String CBHS_REGISTER = "ec_cbhs_register";
     }
 
     public static class DBConstants{

@@ -1,5 +1,7 @@
 package org.smartregister.chw.dao;
 
+import static org.smartregister.chw.core.utils.VisitVaccineUtil.getInMemoryAlerts;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -36,8 +38,6 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.VisitVaccineUtil.getInMemoryAlerts;
 
 /**
  * @author rkodev
@@ -230,66 +230,89 @@ public class ReportDao extends AbstractDao {
         return VisitVaccineUtil.getSchedule(vaccineGroups, specialVaccines, category);
     }
 
-    public static List<Map<String, String>> getCHWRegistrationFollowUpClients(Date reportDate)
-    {
-        String sql = "SELECT\n" +
-                "                                                       ecr.cbhs_number as cbhs_number,\n" +
-                "                                                       ecr.reasons_for_registration as registration_reason,\n" +
-                "                                                       ecf.client_hiv_status_during_registration as hiv_status_during_registration,\n" +
-                "                                                       '-' as tb_status_during_registration,\n" +
-                "                                                       ecr.ctc_number as clinic_registration_number,\n" +
-                "                                                       'CTC' as type_of_clinic,\n" +
-                "                                                       (date() - fm.dob) as age,\n" +
-                "                                                       fm.gender,\n" +
-                "                                                       ecf.client_hiv_status_after_testing as status_after_testing,\n" +
-                "                                                       ecf.hiv_services_provided,\n" +
-                "                                                       ecf.supplies_provided,\n" +
-                "                                                       tasks.issued_referrals,\n" +
-                "                                                       tasks.successful_referrals,\n" +
-                "                                                       ecf.state_of_therapy,\n" +
-                "                                                       ecf.registration_or_followup_status\n" +
-                "                                                       FROM ec_cbhs_register ecr\n" +
-                "                                                       INNER JOIN ec_family_member fm on fm.base_entity_id = ecr.base_entity_id\n" +
-                "                                                       INNER JOIN (SELECT entity_id,last_interacted_with,hiv_services_provided,state_of_therapy,registration_or_followup_status,\n" +
-                "                                                       supplies_provided,client_behaviour_and_environmental_risk,client_hiv_status_during_registration,\n" +
-                "                                                       client_tb_status_during_registration,client_hiv_status_after_testing, count(id)\n" +
-                "                                                       as number_of_followups from ec_cbhs_followup group by entity_id)ecf on fm.base_entity_id = ecf.entity_id\n" +
-                "                                                       LEFT JOIN (select for, sum(case when code = 'Referral' and business_status != 'Cancelled' then 1 else 0 end) as 'issued_referrals',\n" +
-                "                                                       sum(case when code = 'Referral' and business_status != 'Cancelled' and business_status = 'Complete' then 1\n" +
-                "                                                       else 0 end) as 'successful_referrals' from Task where focus in ('Suspected HIV', 'HIV Treatment and Care') group by for)tasks on fm.base_entity_id = tasks.for\n" +
-                "                                                       WHERE ctc_number is not NULL and date(substr(strftime('%Y-%m-%d', datetime(ecf.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||\n" +
-                "                                                      substr(strftime('%Y-%m-%d', datetime(ecf.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =\n" +
-                "                                                      date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
-                "                                                      group by fm.base_entity_id\n" +
-                "                                                UNION\n" +
-                "                                                SELECT\n" +
-                "                                                       ecr.cbhs_number as cbhs_number,\n" +
-                "                                                       ecr.reasons_for_registration as registration_reason,\n" +
-                "                                                       '-' as hiv_status_during_registration,\n" +
-                "                                                       ecf.client_tb_status_during_registration as tb_status_during_registration,\n" +
-                "                                                       ecr.tb_number as clinic_registration_number,\n" +
-                "                                                       'TB' as type_of_clinic,\n" +
-                "                                                       (date() - fm.dob) as age,\n" +
-                "                                                       fm.gender,\n" +
-                "                                                       ecf.client_tb_status_after_testing as status_after_testing,\n" +
-                "                                                       ecf.hiv_services_provided,\n" +
-                "                                                       ecf.supplies_provided,\n" +
-                "                                                       tasks.issued_referrals,\n" +
-                "                                                       tasks.successful_referrals,\n" +
-                "                                                       ecf.state_of_therapy,\n" +
-                "                                                       ecf.registration_or_followup_status\n" +
-                "                                                FROM ec_cbhs_register ecr\n" +
-                "                                                       INNER JOIN ec_family_member fm on fm.base_entity_id = ecr.base_entity_id\n" +
-                "                                                       INNER JOIN (SELECT entity_id,last_interacted_with,hiv_services_provided,state_of_therapy,registration_or_followup_status,\n" +
-                "                                                       supplies_provided,client_behaviour_and_environmental_risk,client_hiv_status_during_registration,\n" +
-                "                                                       client_tb_status_during_registration,client_tb_status_after_testing, count(id)\n" +
-                "                                                       as number_of_followups from ec_cbhs_followup group by entity_id)ecf on fm.base_entity_id = ecf.entity_id\n" +
-                "                                                       LEFT JOIN (select for, sum(case when code = 'Referral' and business_status != 'Cancelled' then 1 else 0 end) as 'issued_referrals',\n" +
-                "                                                       sum(case when code = 'Referral' and business_status != 'Cancelled' and business_status = 'Complete' then 1\n" +
-                "                                                       else 0 end) as 'successful_referrals' from Task where focus in ('Suspected TB') group by for)tasks on fm.base_entity_id = tasks.for\n" +
-                "                                                WHERE tb_number is not NULL and date(substr(strftime('%Y-%m-%d', datetime(ecf.last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||\n" +
-                "                                                 substr(strftime('%Y-%m-%d', datetime(ecf.last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =\n" +
-                "                                                  date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))";
+    public static List<Map<String, String>> getCHWRegistrationFollowUpClients(Date reportDate) {
+        String sql = "SELECT ecr.cbhs_number                           as cbhs_number,\n" +
+                "       ecr.reasons_for_registration              as registration_reason,\n" +
+                "       ecr.client_hiv_status_during_registration as hiv_status_during_registration,\n" +
+                "       ecr.client_tb_status_during_registration  as tb_status_during_registration,\n" +
+                "       (date() - fm.dob)                         as age,\n" +
+                "       fm.gender,\n" +
+                "       ecr.client_hiv_status_after_testing       as client_hiv_status_after_testing,\n" +
+                "       ecr.client_tb_status_after_testing        as client_tb_status_after_testing,\n" +
+                "       ecf.hiv_services_provided,\n" +
+                "       fm.base_entity_id,\n" +
+                "       ecr.ctc_number,\n" +
+                "       ecr.tb_number,\n" +
+                "       ecr.rch_number,\n" +
+                "       ecr.mat_number,\n" +
+                "       ecf.supplies_provided,\n" +
+                "       tasks.issued_referrals,\n" +
+                "       tasks.successful_referrals,\n" +
+                "       ecf.state_of_hiv_care_and_treatment,\n" +
+                "       ecf.state_of_registration_in_tb_and_pwid_clinics,\n" +
+                "       ecf.referrals_issued_to_other_services,\n" +
+                "       ecf.referrals_to_other_services_completed,\n" +
+                "       ecf.registration_or_followup_status\n" +
+                "FROM ec_cbhs_register ecr\n" +
+                "         INNER JOIN ec_family_member fm on fm.base_entity_id = ecr.base_entity_id\n" +
+                "         LEFT JOIN (SELECT entity_id,\n" +
+                "                           max(last_interacted_with) as last_interacted_with,\n" +
+                "                           hiv_services_provided,\n" +
+                "                           state_of_hiv_care_and_treatment,\n" +
+                "                           state_of_registration_in_tb_and_pwid_clinics,\n" +
+                "                           registration_or_followup_status,\n" +
+                "                           supplies_provided,\n" +
+                "                           referrals_issued_to_other_services,\n" +
+                "                           referrals_to_other_services_completed\n" +
+                "                    from ec_cbhs_followup\n" +
+                "                    WHERE date(substr(strftime('%Y-%m-%d',\n" +
+                "                                               datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1,\n" +
+                "                                      4) || '-' ||\n" +
+                "                               substr(strftime('%Y-%m-%d',\n" +
+                "                                               datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6,\n" +
+                "                                      2) || '-' || '01')\n" +
+                "                              =\n" +
+                "                          date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
+                "                    GROUP BY entity_id) ecf on fm.base_entity_id = ecf.entity_id\n" +
+                "\n" +
+                "\n" +
+                "       LEFT JOIN (SELECT entity_id,\n" +
+                "                           max(last_interacted_with) as last_interaction, \n" +
+                "                           registration_or_followup_status as last_followup_status\n" +
+                "                    from ec_cbhs_followup\n" +
+                "                    WHERE date(substr(strftime('%Y-%m-%d',\n" +
+                "                                               datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1,\n" +
+                "                                      4) || '-' ||\n" +
+                "                               substr(strftime('%Y-%m-%d',\n" +
+                "                                               datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6,\n" +
+                "                                      2) || '-' || '01')\n" +
+                "                              <\n" +
+                "                          date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
+                "\n" +
+                "                    group by entity_id) lecf on fm.base_entity_id = lecf.entity_id\n" +
+                "\n" +
+                "         LEFT JOIN (select for,\n" +
+                "                           GROUP_CONCAT(case\n" +
+                "                                   when code = 'Referral' and business_status != 'Cancelled' then focus\n" +
+                "                                   else '' end,',') as 'issued_referrals',\n" +
+                "                           GROUP_CONCAT(case\n" +
+                "                                   when code = 'Referral' and business_status != 'Cancelled' and\n" +
+                "                                        business_status = 'Complete' then focus\n" +
+                "                                   else '' end, ',') as 'successful_referrals'\n" +
+                "                    from Task\n" +
+                "                    WHERE date(substr(strftime('%Y-%m-%d',\n" +
+                "                                               datetime(Task.authored_on / 1000, 'unixepoch', 'localtime')), 1,\n" +
+                "                                      4) ||\n" +
+                "                               '-' ||\n" +
+                "                               substr(strftime('%Y-%m-%d',\n" +
+                "                                               datetime(Task.authored_on / 1000, 'unixepoch', 'localtime')), 6,\n" +
+                "                                      2) ||\n" +
+                "                               '-' || '01') =\n" +
+                "                          date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
+                "                    group by for) tasks on fm.base_entity_id = tasks.for\n" +
+                "\n" +
+                "WHERE (last_followup_status <> 'client_relocated_to_another_location' AND  last_followup_status <> 'completed_and_qualified_from_the_services' AND last_followup_status <> 'client_has_absconded' AND last_followup_status <> 'deceased') OR last_followup_status IS NULL\n" +
+                "group by fm.base_entity_id\n";
 
         String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
 
@@ -301,16 +324,25 @@ public class ReportDao extends AbstractDao {
             data.put("registration_reason", cursor.getString(cursor.getColumnIndex("registration_reason")));
             data.put("hiv_status_during_registration", cursor.getString(cursor.getColumnIndex("hiv_status_during_registration")));
             data.put("tb_status_during_registration", cursor.getString(cursor.getColumnIndex("tb_status_during_registration")));
-            data.put("clinic_registration_number", cursor.getString(cursor.getColumnIndex("clinic_registration_number")));
-            data.put("type_of_clinic", cursor.getString(cursor.getColumnIndex("type_of_clinic")));
             data.put("age", cursor.getString(cursor.getColumnIndex("age")));
             data.put("gender", cursor.getString(cursor.getColumnIndex("gender")));
-            data.put("status_after_testing", cursor.getString(cursor.getColumnIndex("status_after_testing")));
+
+            data.put("ctc_number", cursor.getString(cursor.getColumnIndex("ctc_number")));
+            data.put("tb_number", cursor.getString(cursor.getColumnIndex("tb_number")));
+            data.put("rch_number", cursor.getString(cursor.getColumnIndex("rch_number")));
+            data.put("mat_number", cursor.getString(cursor.getColumnIndex("mat_number")));
+
+            data.put("referrals_issued_to_other_services", cursor.getString(cursor.getColumnIndex("referrals_issued_to_other_services")));
+            data.put("referrals_to_other_services_completed", cursor.getString(cursor.getColumnIndex("referrals_to_other_services_completed")));
+
+            data.put("client_hiv_status_after_testing", cursor.getString(cursor.getColumnIndex("client_hiv_status_after_testing")));
+            data.put("client_tb_status_after_testing", cursor.getString(cursor.getColumnIndex("client_tb_status_after_testing")));
             data.put("hiv_services_provided", cursor.getString(cursor.getColumnIndex("hiv_services_provided")));
             data.put("supplies_provided", cursor.getString(cursor.getColumnIndex("supplies_provided")));
             data.put("issued_referrals", cursor.getString(cursor.getColumnIndex("issued_referrals")));
             data.put("successful_referrals", cursor.getString(cursor.getColumnIndex("successful_referrals")));
-            data.put("state_of_therapy", cursor.getString(cursor.getColumnIndex("state_of_therapy")));
+            data.put("state_of_hiv_care_and_treatment", cursor.getString(cursor.getColumnIndex("state_of_hiv_care_and_treatment")));
+            data.put("state_of_registration_in_tb_and_pwid_clinics", cursor.getString(cursor.getColumnIndex("state_of_registration_in_tb_and_pwid_clinics")));
             data.put("registration_or_followup_status", cursor.getString(cursor.getColumnIndex("registration_or_followup_status")));
             return data;
         };

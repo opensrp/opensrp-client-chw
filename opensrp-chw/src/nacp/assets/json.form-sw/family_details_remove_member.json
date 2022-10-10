@@ -109,9 +109,9 @@
           "Other"
         ],
         "openmrs_choice_ids": {
-          "Died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Died": "Died",
+          "Moved away": "Moved away",
+          "Other": "Other"
         }
       },
       {
@@ -158,7 +158,7 @@
         "key": "date_died",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "date_died",
         "openmrs_data_type": "text",
         "type": "date_picker",
         "label": "Date of death",

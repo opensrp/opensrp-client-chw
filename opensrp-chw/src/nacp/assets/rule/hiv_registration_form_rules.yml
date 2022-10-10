@@ -65,7 +65,7 @@ actions:
 name: "reasons_for_registration_female_10_to_14_visibility"
 description: "reasons_for_registration_female_10_to_14 visibility"
 priority: 1
-condition: "gender == 'Female' && (age > 10 && age <= 14)"
+condition: "gender == 'Female' && (age >= 10 && age <= 14)"
 actions:
   - "reasons_for_registration_female_10_to_14_visibility =  true"
 ---
@@ -74,4 +74,7 @@ description: "calculating the reason for registration"
 priority: 1
 condition: "true"
 actions:
-  - "reasons_for_registration_calculation = (gender == 'Male' && age >= 15) ? reasons_for_registration_male_15 : (gender == 'Female' && age >= 15) ? reasons_for_registration_female_15 : (gender == 'Male' && age < 15) ? reasons_for_registration_male_under_15 : (gender == 'Female' && age < 10) ? reasons_for_registration_female_under_10 : (gender == 'Female' && (age > 10 && age <= 14)) ? reasons_for_registration_female_10_to_14 : '' "
+  - "reasons_for_registration_calculation = (gender == 'Male' && age >= 15) ? reasons_for_registration_male_15 :
+  (gender == 'Male' && age < 15) ? reasons_for_registration_male_under_15 :
+  (gender == 'Female' && age >= 15) ? reasons_for_registration_female_15 :
+  (gender == 'Female' && age < 10) ? reasons_for_registration_female_under_10 : reasons_for_registration_female_10_to_14 "

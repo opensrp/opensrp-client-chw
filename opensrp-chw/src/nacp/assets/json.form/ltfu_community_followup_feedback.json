@@ -88,6 +88,15 @@
               }
             },
             {
+              "name": "client_found_and_has_returned_to_clinic",
+              "text": "Client is found and has returned to the clinic to continue with services",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_found_and_has_returned_to_clinic",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
               "name": "client_has_moved_to_another_facility",
               "text": "Client has transferred to another center without notice",
               "meta_data": {
