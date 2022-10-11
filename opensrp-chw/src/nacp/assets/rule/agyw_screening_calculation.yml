@@ -1,0 +1,103 @@
+---
+name: step7_total_score
+description: total_score calculation
+priority: 1
+condition: "true"
+actions:
+  - "def getTotalScore(household_people_for_less_than_18, ever_married, ever_pregnant, currently_pregnant, both_parents_alive,
+                       birth_before_18, formal_education, missed_school, sexual_intercourse, sexual_intercourse_past_6_months, condom_usage,
+                       sex_for_money, sex_after_substance_abuse,  more_than_two_partner, unwillingly_touched, forced_for_sexual_activity,
+                       scared_of_person, sti_investigation, sti_symptoms, sti_treatment, more_than_6_drinks, illicit_drug_usage,
+                       drug_alcohol_problems) {
+            int score = 0;
+            if (household_people_for_less_than_18.contains('led_by_below_eighteen')){
+                score += 1;
+            }
+            if (ever_married.equals('yes')){
+                score += 1;
+            }
+            if (ever_pregnant.equals('yes') || currently_pregnant.equals('yes')){
+                score += 1;
+            }
+            if (both_parents_alive.equals('no')){
+                score += 1;
+            }
+            if (birth_before_18.equals('yes')){
+                score += 1;
+            }
+            if (formal_education.equals('no') || missed_school.equals('yes')){
+                score += 1;
+            }
+            if (sexual_intercourse.equals('yes')){
+                score += 1;
+            }
+            if (sexual_intercourse_past_6_months.equals('yes')){
+                score += 1;
+            }
+            if (condom_usage.equals('no')){
+                score += 1;
+            }
+            if (sex_for_money.equals('yes')){
+                score += 1;
+            }
+            if (sex_after_substance_abuse.equals('yes')){
+                score += 1;
+            }
+            if (more_than_two_partner.equals('yes')){
+                score += 1;
+            }
+            if (unwillingly_touched.equals('yes') || forced_for_sexual_activity.equals('yes') || scared_of_person.equals('yes')){
+                score += 1;
+            }
+            if (sti_investigation.equals('yes') || (!sti_symptoms.contains('none') && !sti_symptoms.isEmpty())){
+                score += 1;
+            }
+            if (sti_treatment.equals('yes')){
+                score += 1;
+            }
+            if (more_than_6_drinks.equals('yes') || illicit_drug_usage.equals('yes')){
+                score += 1;
+            }
+            if (drug_alcohol_problems.equals('yes')){
+                score += 1;
+            }
+            return score;
+        }"
+  - "calculation = getTotalScore(step1_household_people_for_less_than_18, step1_ever_married, step1_ever_pregnant,
+                                 step1_currently_pregnant, step1_both_parents_alive, step1_birth_before_18,
+                                 step2_formal_education, step2_missed_school, step3_sexual_intercourse, step3_sexual_intercourse_past_6_months,
+                                 step3_condom_usage, step3_sex_for_money, step3_sex_after_substance_abuse, step3_more_than_two_partner, step4_unwillingly_touched,
+                                 step4_forced_for_sexual_activity, step4_scared_of_person, step5_sti_investigation, step5_sti_symptoms,
+                                 step5_sti_treatment, step6_more_than_6_drinks, step6_illicit_drug_usage, step6_drug_alcohol_problems)"
+---
+name: step7_percentage_score
+description: percentage_score calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = global_age < 18 ? (step7_total_score*100)/15 : (step7_total_score*100)/14"
+---
+name: step7_total_score_prompt
+description: total_score_prompt calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['total_agyw_score':step7_total_score]"
+---
+name: step7_percentage_score_prompt
+description: percentage_score_prompt calculation
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['total_percentage_score':step7_percentage_score]"
+---
+name: step7_should_enroll
+description: should enroll value based of given criteria
+condition: "true"
+actions:
+  - "calculation =
+                    (global_age < 18 && (step7_total_score > 7 || step1_household_people_for_less_than_18.contains('led_by_below_eighteen') || step3_sex_for_money.equals('yes') || step3_more_than_two_partner.equals('yes') )) ?
+                          'yes' :
+                    (global_age > 17 && (step7_total_score > 6 || step1_birth_before_18.equals('yes') || step3_sex_for_money.equals('yes') || step3_more_than_two_partner.equals('yes') )) ?
+                          'yes'
+                    : 'no' "

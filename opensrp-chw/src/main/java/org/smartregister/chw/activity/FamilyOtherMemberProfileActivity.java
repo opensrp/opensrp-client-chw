@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -75,7 +76,7 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
 
-        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 15);
@@ -85,6 +86,13 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(true);
         }
 
+        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            if (gender.equalsIgnoreCase("Female") && age >= 10 && age <= 24 && !AGYWDao.isRegisteredForAgyw(baseEntityId)) {
+                menu.findItem(R.id.action_agyw_screening).setVisible(true);
+            }
+        }
         flavor.updateMalariaMenuItems(baseEntityId, menu);
 
         if (gender.equalsIgnoreCase("Male") && flavor.isOfReproductiveAge(commonPersonObject, "Male")) {
@@ -276,10 +284,18 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     protected void startLDRegistration() {
         //do nothing - implementation in hf
     }
+
     @Override
-    protected void startHivstRegistration(){
+    protected void startHivstRegistration() {
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
         HivstRegisterActivity.startHivstRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, gender);
+    }
+
+    @Override
+    protected void startAgywScreening() {
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AgywRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, age);
     }
 
     @Override

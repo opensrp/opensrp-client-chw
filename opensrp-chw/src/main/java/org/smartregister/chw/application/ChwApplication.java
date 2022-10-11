@@ -1,7 +1,5 @@
 package org.smartregister.chw.application;
 
-import static org.koin.core.context.GlobalContext.getOrNull;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,6 +24,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.P2POptions;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.activity.AgywRegisterActivity;
 import org.smartregister.chw.activity.AllClientsRegisterActivity;
 import org.smartregister.chw.activity.AncRegisterActivity;
 import org.smartregister.chw.activity.CdpRegisterActivity;
@@ -45,6 +44,7 @@ import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
 import org.smartregister.chw.activity.TbRegisterActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
+import org.smartregister.chw.agyw.AGYWLibrary;
 import org.smartregister.chw.anc.AncLibrary;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.cdp.CdpLibrary;
@@ -105,6 +105,8 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import io.ona.kujaku.KujakuLibrary;
 import timber.log.Timber;
+
+import static org.koin.core.context.GlobalContext.getOrNull;
 
 public class ChwApplication extends CoreChwApplication {
 
@@ -285,6 +287,11 @@ public class ChwApplication extends CoreChwApplication {
 
         HivstLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
+        if (flavor.hasAGYW()) {
+            //setup agyw lib
+            AGYWLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        }
+
         OpdLibrary.init(context, getRepository(),
                 new OpdConfiguration.Builder(ChwAllClientsRegisterQueryProvider.class)
                         .setBottomNavigationEnabled(true)
@@ -293,7 +300,7 @@ public class ChwApplication extends CoreChwApplication {
                 BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION
         );
 
-        CdpLibrary.init(context,getRepository(),BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        CdpLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         SyncStatusBroadcastReceiver.init(this);
 
@@ -379,6 +386,7 @@ public class ChwApplication extends CoreChwApplication {
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.MOTHER_CHAMPION_ACTIVITY, MotherChampionRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.AGYW_REGISTER_ACTIVITY, AgywRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -556,6 +564,8 @@ public class ChwApplication extends CoreChwApplication {
         boolean hasHIVST();
 
         boolean hasKvp();
+
+        boolean hasAGYW();
 
         String[] getFTSTables();
 

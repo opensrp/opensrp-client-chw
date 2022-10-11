@@ -1,0 +1,1439 @@
+{
+  "count": "8",
+  "skip_blank_steps": true,
+  "encounter_type": "AGYW Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Family/Social Structures",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "household_people_for_less_than_18",
+        "type": "check_box",
+        "label": "Do you live with any of the following in your household?",
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "household_people_for_less_than_18",
+        "openmrs_entity_parent": "",
+        "exclusive": [
+          "led_by_below_eighteen"
+        ],
+        "options": [
+          {
+            "key": "father",
+            "text": "Father",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "father"
+          },
+          {
+            "key": "mother",
+            "text": "Mother",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother"
+          },
+          {
+            "key": "guardian",
+            "text": "Guardian",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "guardian"
+          },
+          {
+            "key": "led_by_below_eighteen",
+            "text": "Household led by an individual below 18 years",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "led_by_below_eighteen"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_agyw_enrollment_less_than_18",
+        "type": "toaster_notes",
+        "text": "Enroll to AGYW services regardless of the score",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:household_people_for_less_than_18": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "led_by_below_eighteen"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "household_people_for_18_and_above",
+        "type": "check_box",
+        "label": "Do you live with any of the following in your household?",
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "household_people",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "father",
+            "text": "Father",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "father"
+          },
+          {
+            "key": "mother",
+            "text": "Mother",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mother"
+          },
+          {
+            "key": "guardian",
+            "text": "Guardian",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "guardian"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "both_parents_alive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "both_parents_alive",
+        "label": "Are both your parents alive?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "birth_before_18",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_before_18",
+        "label": "Have you ever given birth before your 18th birthday?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_agyw_enrollment_birth_before_18",
+        "type": "toaster_notes",
+        "text": "Enroll to AGYW services regardless of the score",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:birth_before_18": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "ever_married",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ever_married",
+        "label": "Have you ever been married or currently married?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ever_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "ever_pregnant",
+        "label": "Have you ever been pregnant or given birth?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "currently_pregnant",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "currently_pregnant",
+        "label": "Are you currently pregnant?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Schooling/Education",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "formal_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "formal_education",
+        "label": "Do you have or are you attending a formal education?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "missed_school",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "missed_school",
+        "label": "Have you ever been absent or missed school for 5 days or more in the last 1 month due to psychosocial-economic issues (not including illnesses or school closure)?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Sexual Behavior/Activity",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "sexual_intercourse",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_intercourse",
+        "label": "Have you ever had sex?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "sexual_intercourse_past_6_months",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sexual_intercourse_past_6_months",
+        "label": "Have you ever had sex in the past six (6) months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step3:sexual_intercourse": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "condom_usage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_usage",
+        "label": "Did you use condoms consistently with the latest partner?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step3:sexual_intercourse": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "sex_for_money",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_for_money",
+        "label": "Have you ever engaged in the last 12 months into a sexual relationship with a man to obtain money, goods, or both?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step3:sexual_intercourse": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "prompt_for_agyw_enrollment_sex_for_money",
+        "type": "toaster_notes",
+        "text": "Enroll to AGYW services regardless of the score",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:sex_for_money": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "sex_after_substance_abuse",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sex_after_substance_abuse",
+        "label": "Have you ever had sex after using alcohol or substance abuse in the past 6 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step3:sexual_intercourse": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "more_than_two_partner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "more_than_two_partner",
+        "label": "Have you ever had sex with more than two sexual partners in the past 3 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step3:sexual_intercourse": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "prompt_for_agyw_enrollment_more_than_two_partner",
+        "type": "toaster_notes",
+        "text": "Enroll to AGYW services regardless of the score",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step3:more_than_two_partner": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  },
+  "step4": {
+    "title": "Sexual/Gender Based Violence",
+    "next": "step5",
+    "fields": [
+      {
+        "key": "unwillingly_touched",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "unwillingly_touched",
+        "label": "Have you ever been touched sexually unwillingly (i.e. grabbing, pinching, fondling, or touching) on or around sexual body parts?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "forced_for_sexual_activity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "forced_for_sexual_activity",
+        "label": "Have you ever been forced or made to have sex through threats, harassment, tricks, or intoxication with alcohol or drugs?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "scared_of_person",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "scared_of_person",
+        "label": "Are you scared of any one from your family member, partner, or husband?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "STI",
+    "next": "step6",
+    "fields": [
+      {
+        "key": "sti_investigation",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sti_investigation",
+        "label": "Have you ever been investigated and diagnosed with STI by a clinician in the last 3 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "sti_symptoms",
+        "type": "check_box",
+        "label": "Do you currently have symptoms and signs suggestive of STI, which include any of the following?",
+        "combine_checkbox_option_values": "true",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sti_symptoms",
+        "openmrs_entity_parent": "",
+        "options": [
+          {
+            "key": "genital_ulcers",
+            "text": "Genital ulcers",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "genital_ulcers"
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "Abnormal vaginal discharge (Including anal discharge if practicing receptive anal sex)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "abnormal_vaginal_discharge"
+          },
+          {
+            "key": "pain_during_sex",
+            "text": "Pain during the sexual act",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pain_during_sex"
+          },
+          {
+            "key": "low_abdominal_pain",
+            "text": "Low abdominal pain",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "low_abdominal_pain"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select at least one"
+        },
+        "exclusive": [
+          "none"
+        ],
+        "relevance": {
+          "step5:sti_investigation": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "sti_treatment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sti_treatment",
+        "label": "Have you ever been treated for STI in the past 12 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step5:sti_investigation": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "Alcohol/Drugs",
+    "next": "step7",
+    "fields": [
+      {
+        "key": "more_than_6_drinks",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "more_than_6_drinks",
+        "label": "Have you ever drunk more than 6 drinks on one occasion/sitting in the last 1 month?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "illicit_drug_usage",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "illicit_drug_usage",
+        "label": "Have you ever used illicit drugs in the past 3 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "drug_alcohol_problems",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "drug_alcohol_problems",
+        "label": "Have you ever been into drugs and/or alcohol-related family, social, health, or financial problems in the past 12 months?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      }
+    ]
+  },
+  "step7": {
+    "title": "Analysis",
+    "next": "step8",
+    "fields": [
+      {
+        "key": "total_score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "total_score",
+        "type": "hidden",
+        "hint": "Total score for the AGYW beneficiary",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "total_score_prompt",
+        "type": "toaster_notes",
+        "text": "Total score for the AGYW beneficiary: {total_agyw_score}",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "percentage_score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "percentage_score",
+        "type": "hidden",
+        "hint": "Percentage (%) score for the assessed AGYW beneficiary",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "percentage_score_prompt",
+        "type": "toaster_notes",
+        "text": "Percentage score for the assessed AGYW beneficiary: {total_percentage_score}%",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "info",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "tell_or_ask",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "tell_or_ask",
+        "label": "Is there anything else you would like to tell or ask me?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "specify_tell_or_ask",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "specify_tell_or_ask",
+        "type": "edit_text",
+        "hint": "Specify",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify"
+        },
+        "relevance": {
+          "step7:tell_or_ask": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "should_enroll",
+        "type": "hidden",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "should_enroll",
+        "openmrs_entity_parent": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step8": {
+    "title": "AGYW Enrollment",
+    "fields": [
+      {
+        "key": "enroll_to_agyw_services",
+        "type": "toaster_notes",
+        "text": "The client does not qualify to be enrolled to AGYW Services",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "consent_to_be_enrolled",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "consent_to_be_enrolled",
+        "label": "Has the client accepted to be enrolled",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step7:should_enroll": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "birth_region",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_region",
+        "type": "edit_text",
+        "hint": "Fill in the client's region of birth",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please answer this question"
+        },
+        "relevance": {
+          "step8:consent_to_be_enrolled": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "schooling_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "schooling_status",
+        "label": "Schooling status",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "in_school",
+            "text": "In-school",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "in_school"
+          },
+          {
+            "key": "out_of_school",
+            "text": "Out of school",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "out_of_school"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:consent_to_be_enrolled": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "parity_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "parity_status",
+        "label": "Parity status",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "pregnant",
+            "text": "Pregnant",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pregnant"
+          },
+          {
+            "key": "gave_birth",
+            "text": "Gave birth",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gave_birth"
+          },
+          {
+            "key": "not_applicable",
+            "text": "Not applicable",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_applicable"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:consent_to_be_enrolled": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "intervention_screening",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "intervention_screening",
+        "label": "Client screened for prevention intervention",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:consent_to_be_enrolled": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "intervention_eligibility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "intervention_eligibility",
+        "label": "Client eligible for prevention intervention",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:intervention_screening": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "enrollment_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "enrollment_date",
+        "type": "date_picker",
+        "hint": "Enrollment date",
+        "expanded": false,
+        "min_date": "today-1m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please answer this question"
+        },
+        "relevance": {
+          "step8:intervention_eligibility": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "beneficiary_of_a_program",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "beneficiary_of_a_program",
+        "label": "Is the client a beneficiary of any program?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          },
+          {
+            "key": "not_applicable",
+            "text": "Not applicable",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_applicable"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:consent_to_be_enrolled": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "program_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "program_name",
+        "label": "Program name",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "dreams",
+            "text": "DREAMS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "dreams"
+          },
+          {
+            "key": "timiza_malengo",
+            "text": "Timiza Malengo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "timiza_malengo"
+          },
+          {
+            "key": "priority_population",
+            "text": "Priority Population (PP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "priority_population"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:beneficiary_of_a_program": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}

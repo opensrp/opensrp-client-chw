@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.AboveFiveChildProfileActivity;
+import org.smartregister.chw.activity.AgywProfileActivity;
 import org.smartregister.chw.activity.AllClientsMemberProfileActivity;
 import org.smartregister.chw.activity.AncMemberProfileActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -84,6 +85,9 @@ public class AllClientsUtils {
     }
     public static void goToTbProfile(Activity activity, CommonPersonObjectClient patient) {
         TbProfileActivity.startTbProfileActivity(activity, TbDao.getMember(patient.getCaseId()));
+    }
+    public static void  goToAgywProfile(Activity activity, CommonPersonObjectClient client){
+        AgywProfileActivity.startProfile(activity, client.getCaseId());
     }
 
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {

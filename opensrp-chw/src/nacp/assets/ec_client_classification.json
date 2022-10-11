@@ -653,6 +653,27 @@
           },
           {
             "field": "eventType",
+            "field_value": "AGYW Registration",
+            "creates_case": [
+              "ec_agyw_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW GRADUATE SERVICES",
+            "closes_case": [
+              "ec_agyw_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW Behavioral Services",
+            "creates_case": [
+              "ec_agyw_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "KVP PrEP Registration",
             "creates_case": [
               "ec_kvp_prep_register"

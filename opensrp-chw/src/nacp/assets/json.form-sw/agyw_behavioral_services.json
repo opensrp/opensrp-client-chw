@@ -1,0 +1,193 @@
+{
+  "count": "1",
+  "encounter_type": "AGYW Behavioral Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Behavioral Services",
+    "fields": [
+      {
+        "key": "sbcc_intervention_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sbcc_intervention_provided",
+        "type": "check_box",
+        "label": "SBCC intervention provided to the client",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "risk_behaviors",
+            "text": "Tabia hatarishi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "risk_behaviors"
+          },
+          {
+            "key": "gender_and_sex_education",
+            "text": "Elimu ya jinsi na jinsia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_and_sex_education"
+          },
+          {
+            "key": "reproductive_health",
+            "text": "Mifumo ya Afya ya Uzazi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reproductive_health"
+          },
+          {
+            "key": "effective_communication",
+            "text": "Mawasiliano athirifu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effective_communication"
+          },
+          {
+            "key": "sti_hiv_aids",
+            "text": "Magonjwa ya ngono na VVU/UKIMWI",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sti_hiv_aids"
+          },
+          {
+            "key": "family_planning",
+            "text": "Uzazi wa mpango",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "good_relationships",
+            "text": "Mahusiano mazuri",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "good_relationships"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Ukatili wa kijinsia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "sustainable_usage_condoms",
+            "text": "Matumizi sahihi na endelevu ya kondomu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sustainable_usage_condoms"
+          },
+          {
+            "key": "ctc_services",
+            "text": "Huduma za tiba na matunzo ya waishio na VVU",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_services"
+          },
+          {
+            "key": "care_and_upbringing",
+            "text": "Malezi na Makuzi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "care_and_upbringing"
+          },
+          {
+            "key": "prep_education",
+            "text": "Elimu ya dawa kinga (PrEP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prep_education"
+          },
+          {
+            "key": "pep_education",
+            "text": "Elimu ya dawa kinga (PEP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pep_education"
+          },
+          {
+            "key": "tb_education",
+            "text": "Elimu kuhusu kifua kikuu (TB)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_education"
+          },
+          {
+            "key": "education_hiv_testing",
+            "text": "Elimu ya upimaji wa VVU",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_hiv_testing"
+          },
+          {
+            "key": "provision_iec",
+            "text": "Ugawaji wa vipeperushi vya elimu ya afya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "provision_iec"
+          },
+          {
+            "key": "puberty_education_menstrual_hygiene",
+            "text": "Elimu ya balehe na usafi wa hedhi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puberty_education_menstrual_hygiene"
+          },
+          {
+            "key": "life_skills",
+            "text": "Elimu ya stadi za maisha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      }
+    ]
+  }
+}
