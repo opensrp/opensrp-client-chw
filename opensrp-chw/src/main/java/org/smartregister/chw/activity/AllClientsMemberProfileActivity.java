@@ -191,6 +191,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
+    protected void startKvpRegistration() {
+        //do nothing
+    }
+
+    @Override
+    protected void startPrEPRegistration() {
+        //do nothing
+    }
+
+    @Override
     protected void removeIndividualProfile() {
         IndividualProfileRemoveActivity.startIndividualProfileActivity(AllClientsMemberProfileActivity.this,
                 commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, AllClientsRegisterActivity.class.getCanonicalName());

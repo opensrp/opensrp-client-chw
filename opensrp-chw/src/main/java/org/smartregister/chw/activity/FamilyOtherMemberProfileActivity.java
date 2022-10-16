@@ -306,6 +306,16 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         KvpPrEPRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, gender, age);
     }
 
+    @Override
+    protected void startKvpRegistration() {
+        //do nothing
+    }
+
+    @Override
+    protected void startPrEPRegistration() {
+        //do nothing
+    }
+
     /**
      * build implementation differences file
      */
