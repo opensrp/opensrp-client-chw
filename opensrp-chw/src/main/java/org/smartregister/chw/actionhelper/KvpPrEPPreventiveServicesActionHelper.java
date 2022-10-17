@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction.KvpVisitActionHelper {
 
-    private String condom_type;
+    private String condoms_given;
     private String jsonPayload;
     @Override
     public void onJsonFormLoaded(String jsonPayload, Context context, Map<String, List<VisitDetail>> map) {
@@ -37,7 +37,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            condom_type = CoreJsonFormUtils.getValue(jsonObject, "condom_type");
+            condoms_given = CoreJsonFormUtils.getValue(jsonObject, "condoms_given");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class KvpPrEPPreventiveServicesActionHelper implements BaseKvpVisitAction
 
     @Override
     public BaseKvpVisitAction.Status evaluateStatusOnPayload() {
-        if (StringUtils.isBlank(condom_type))
+        if (StringUtils.isBlank(condoms_given))
             return BaseKvpVisitAction.Status.PENDING;
         else {
             return BaseKvpVisitAction.Status.COMPLETED;

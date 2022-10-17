@@ -46,49 +46,131 @@
     "title": "Protective Service",
     "fields": [
       {
-        "key": "condom_type",
+        "key": "condoms_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "condom_type",
-        "label": "Select the type of condom distributed",
+        "openmrs_entity_id": "condoms_given",
+        "label": "Was the client given condoms?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
-            "key": "male",
-            "text": "Male",
+            "key": "yes",
+            "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "male"
+            "openmrs_entity_id": "yes"
           },
           {
-            "key": "female",
-            "text": "Female",
+            "key": "no",
+            "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "female"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please select one"
+          "err": "Please select an answer"
         }
       },
       {
-        "key": "number_of_condoms_distributed",
+        "key": "type_of_issued_condoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_condoms_distributed",
-        "hint": "Number of Condoms Distributed",
-        "type": "edit_text",
-        "edit_type": "number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Must be a number"
-        },
+        "openmrs_entity_id": "type_of_issued_condoms",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select the type of condoms issued",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "male_condoms",
+            "text": "Male Condoms",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms"
+          },
+          {
+            "key": "female_condoms",
+            "text": "Female Condoms",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms"
+          }
+        ],
         "v_required": {
           "value": "true",
-          "err": "Please provide number distributed"
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step1:condoms_given": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_male_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condoms_issued",
+        "type": "edit_text",
+        "hint": "Number of Male condoms issued (Pieces)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "The number must be equal or greater than 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condoms_issued",
+        "type": "edit_text",
+        "hint": "Number of Female condoms issued (Pieces)",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid number"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "The number must be equal or greater than 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female_condoms"
+                ]
+              }
+            ]
+          }
         }
       },
       {
