@@ -4968,6 +4968,22 @@
           }
         },
         {
+          "column_name": "beneficiary_of_a_program",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "beneficiary_of_a_program"
+          }
+        },
+        {
+          "column_name": "program_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "program_name"
+          }
+        },
+        {
           "column_name": "sbcc_intervention_provided",
           "type": "Event",
           "json_mapping": {
