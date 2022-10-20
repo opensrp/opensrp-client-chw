@@ -101,3 +101,9 @@ actions:
                     (global_age > 17 && (step7_total_score > 6 || step1_birth_before_18.equals('yes') || step3_sex_for_money.equals('yes') || step3_more_than_two_partner.equals('yes') )) ?
                           'yes'
                     : 'no' "
+---
+name: step8_program_name
+description: program_name
+condition: "step8_beneficiary_of_a_program.equals('yes')"
+actions:
+  - "calculation =  ((global_age < 15 && step8_schooling_status.equals('in_school')) ||(global_age >= 15 && step8_schooling_status.equals('out_of_school'))) ? step8_program_name_with_dreams : step8_program_name_without_dreams"
