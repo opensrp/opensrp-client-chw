@@ -532,7 +532,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sex_for_money",
-        "label": "Have you ever engaged in the last 12 months into a sexual relationship with a man to obtain money, goods, or both?",
+        "label": "Have you ever engaged into a sexual relationship with a man to obtain money, goods or both in the past 12 month",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
