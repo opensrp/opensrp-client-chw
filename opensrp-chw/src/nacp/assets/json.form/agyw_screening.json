@@ -124,6 +124,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "household_people",
         "openmrs_entity_parent": "",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "father",
@@ -142,6 +145,12 @@
             "text": "Guardian",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "guardian"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {

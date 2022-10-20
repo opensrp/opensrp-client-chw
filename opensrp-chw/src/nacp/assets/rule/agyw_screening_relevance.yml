@@ -16,7 +16,7 @@ actions:
 name: step1_both_parents_alive
 description: both_parents_alive relevance
 priority: 1
-condition: "!step1_household_people_for_18_and_above.isEmpty() && (!step1_household_people_for_18_and_above.contains('father') || !step1_household_people_for_18_and_above.contains('mother'))"
+condition: "!step1_household_people_for_18_and_above.isEmpty() && (!(step1_household_people_for_18_and_above.contains('father') && step1_household_people_for_18_and_above.contains('mother')) || step1_household_people_for_18_and_above.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
