@@ -153,6 +153,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_edu_and_investments"
+          },
+          {
+            "key": "financial_edu_basics",
+            "text": "Elimu na misingi ya fedha",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_edu_basics"
           }
         ],
         "v_required": {
@@ -354,7 +361,7 @@
         "options": [
           {
             "key": "services_to_young_women",
-            "text": "Huduma zinzotolewa kwa wanawake vijana",
+            "text": "Huduma zilizotolewa kwa wanawake vijana",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "services_to_young_women"

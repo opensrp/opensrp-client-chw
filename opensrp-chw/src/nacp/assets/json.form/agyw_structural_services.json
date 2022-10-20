@@ -153,6 +153,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_edu_and_investments"
+          },
+          {
+            "key": "financial_edu_basics",
+            "text": "Financial Education and Basics",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_edu_basics"
           }
         ],
         "v_required": {
