@@ -153,6 +153,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "financial_edu_and_investments"
+          },
+          {
+            "key": "financial_edu_basics",
+            "text": "Financial Education and Basics",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_edu_basics"
           }
         ],
         "v_required": {
@@ -224,6 +231,35 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "given_capital",
         "label": "Was the client given capital money?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "empower_girls",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "empower_girls",
+        "label": "Empowering a girl to protect herself and be safe?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [

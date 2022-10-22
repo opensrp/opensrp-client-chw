@@ -124,6 +124,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "household_people",
         "openmrs_entity_parent": "",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "key": "father",
@@ -142,6 +145,12 @@
             "text": "Guardian",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "guardian"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
           }
         ],
         "v_required": {
@@ -532,7 +541,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sex_for_money",
-        "label": "Have you ever engaged in the last 12 months into a sexual relationship with a man to obtain money, goods, or both?",
+        "label": "Have you ever engaged into a sexual relationship with a man to obtain money, goods or both in the past 12 month",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -1323,6 +1332,41 @@
         }
       },
       {
+        "key": "intervention_enrolled",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "intervention_enrolled",
+        "label": "Has the client been enrolled for prevention intervention?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "step8:intervention_eligibility": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
         "key": "enrollment_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -1337,7 +1381,7 @@
           "err": "Please answer this question"
         },
         "relevance": {
-          "step8:intervention_eligibility": {
+          "step8:intervention_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1386,10 +1430,10 @@
         }
       },
       {
-        "key": "program_name",
+        "key": "program_name_with_dreams",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "program_name",
+        "openmrs_entity_id": "program_name_with_dreams",
         "label": "Program name",
         "text_color": "#000000",
         "type": "native_radio",
@@ -1428,9 +1472,67 @@
           "err": "Please select an answer"
         },
         "relevance": {
-          "step8:beneficiary_of_a_program": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "program_name_without_dreams",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "program_name_without_dreams",
+        "label": "Program name",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "timiza_malengo",
+            "text": "Timiza Malengo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "timiza_malengo"
+          },
+          {
+            "key": "priority_population",
+            "text": "Priority Population (PP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "priority_population"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "program_name",
+        "type": "hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "program_name",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_calculation.yml"
+            }
           }
         }
       }

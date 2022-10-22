@@ -78,6 +78,13 @@
             "openmrs_entity_id": "reproductive_health"
           },
           {
+            "key": "reproductive_health_education",
+            "text": "Elimu ya Afya ya Uzazi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reproductive_health_education"
+          },
+          {
             "key": "effective_communication",
             "text": "Mawasiliano athirifu",
             "openmrs_entity_parent": "",
@@ -90,6 +97,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "sti_hiv_aids"
+          },
+          {
+            "key": "sti_hiv_aids_education",
+            "text": "Elimu ya kujikinga na maambukizi ya UKWIMWI",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sti_hiv_aids_education"
           },
           {
             "key": "family_planning",
