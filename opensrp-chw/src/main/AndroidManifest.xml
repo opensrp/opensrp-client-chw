@@ -18,8 +18,7 @@
             android:roundIcon="@drawable/ic_launcher_round"
             android:screenOrientation="portrait"
             android:theme="@style/ChwTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
         <activity
             android:name=".activity.RequestPhoneNumberCollectionPermission"
             android:icon="@drawable/ic_launcher"
@@ -49,14 +48,18 @@
         <activity
             android:name=".activity.HivstResultViewActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
-        <activity android:name=".activity.AgywRegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.AgywProfileActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.AGYWServicesActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.AgywServicesFormActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AgywRegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AgywProfileActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AGYWServicesActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AgywServicesFormActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.CBHSReportsViewActivity"
             android:exported="false"
@@ -69,16 +72,21 @@
             android:name=".activity.CdpProfileActivity"
             android:exported="false"
             android:theme="@style/ChwTheme.NoActionBar" />
-        <activity android:name=".activity.RestockingVisitHistoryActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.OrderDetailsActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.LTFURegisterActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.LTFUReferralsDetailsViewActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
-        <activity android:name=".activity.LTFURecordFeedbackActivity"
-            android:theme="@style/ChwTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.RestockingVisitHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OrderDetailsActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.LTFURegisterActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.LTFUReferralsDetailsViewActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.LTFURecordFeedbackActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.CBHSReportsActivity"
             android:exported="false"
@@ -359,6 +367,12 @@
         <activity
             android:name=".activity.MotherChampionMedicalHistoryActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AgywMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
+        <activity
+            android:name=".activity.KvpPrEPMedicalHistoryActivity"
+            android:theme="@style/ChwTheme.NoActionBar" />
 
         <activity
             android:name=".activity.CbhsMedicalHistoryActivity"
@@ -402,6 +416,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -412,6 +427,7 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

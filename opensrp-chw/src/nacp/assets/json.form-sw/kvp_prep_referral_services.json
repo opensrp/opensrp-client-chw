@@ -43,7 +43,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Referral Services",
+    "title": "Huduma za rufaa na uunganishwaji",
     "fields": [
       {
         "key": "referral_to_structural_services",
@@ -52,7 +52,7 @@
         "openmrs_entity_id": "referral_to_structural_services",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Select structural referrals provided to the client",
+        "label": "Chagua huduma za rufaa za kimuundo alizopatiwa mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -61,68 +61,68 @@
         "options": [
           {
             "key": "entrepreneurship_and_business",
-            "text": "Entrepreneurship And Business",
+            "text": "Ujasiriamali na biashara ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship_and_business"
           },
           {
             "key": "income_generation_activities",
-            "text": "Income Generation Activities (IGA)",
+            "text": "Shughuli za uzalishaji kipato ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "income_generation_activities"
           },
           {
             "key": "addressing_stigma_and_discrimination",
-            "text": "Addressing Stigma and Discrimination",
+            "text": "Unyanyapaa na kutengwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_stigma_and_discrimination"
           },
           {
             "key": "child_protection",
-            "text": "Child Protection",
+            "text": "Huduma na ulinzi kwa mtoto ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "child_protection"
           },
           {
             "key": "addressing_gbv",
-            "text": "Addressing GBV against KVPs",
+            "text": "Ukatili wa kijinsia dhidi ya makundi maalum ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_gbv"
           },
           {
             "key": "startup_kits",
-            "text": "Startup Kits",
+            "text": "Utoaji wa mitaji na nyenzo za kazi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "startup_kits"
           },
           {
             "key": "legal_support",
-            "text": "Legal Aid Support",
+            "text": "Msaada wa kisheria",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "legal_support"
           },
           {
             "key": "social_support",
-            "text": "Social Support For KVPs",
+            "text": "Msaada wa kijamii kwa makundi maalum",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "social_support"
           },
           {
             "key": "chk_others",
-            "text": "Other",
+            "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_others"
           },
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Hakuna",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Tafadhali chagua moja au zaidi"
         }
       },
       {
@@ -130,22 +130,24 @@
         "openmrs_entity_parent": "referral_to_structural_services",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_referral_to_structural_services",
-        "hint": "Other(specify)",
+        "hint": "Nyinginezo(Taja)",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "relevance": {
           "step1:referral_to_structural_services": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }
-          }
-        },
+        }
+      },
       {
         "key": "referrals_completed_to_structural_services",
         "openmrs_entity_parent": "",
@@ -153,7 +155,7 @@
         "openmrs_entity_id": "referrals_completed_to_structural_services",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Select structural referrals completed by the client",
+        "label": "Chagua rufaa za huduma za kimuundo alizomaliza mteja",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -162,68 +164,68 @@
         "options": [
           {
             "key": "entrepreneurship_and_business",
-            "text": "Entrepreneurship And Business",
+            "text": "Ujasiriamali na biashara ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship_and_business"
           },
           {
             "key": "income_generation_activities",
-            "text": "Income Generation Activities (IGA)",
+            "text": "Shughuli za uzalishaji kipato",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "income_generation_activities"
           },
           {
             "key": "addressing_stigma_and_discrimination",
-            "text": "Addressing Stigma and Discrimination",
+            "text": "Unyanyapaa na kutengwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_stigma_and_discrimination"
           },
           {
             "key": "child_protection",
-            "text": "Child Protection",
+            "text": "Huduma na ulinzi kwa mtoto ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "child_protection"
           },
           {
             "key": "addressing_gbv",
-            "text": "Addressing GBV against KVPs",
+            "text": "Ukatili wa kijinsia dhidi ya makundi maalum ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_gbv"
           },
           {
             "key": "startup_kits",
-            "text": "Startup Kits",
+            "text": "Utoaji wa mitaji na nyenzo za kazi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "startup_kits"
           },
           {
             "key": "legal_support",
-            "text": "Legal Aid Support",
+            "text": "Msaada wa kisheria",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "legal_support"
           },
           {
             "key": "social_support",
-            "text": "Social Support For KVPs",
+            "text": "Msaada wa kijamii kwa makundi maalum",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "social_support"
           },
           {
             "key": "chk_others",
-            "text": "Other",
+            "text": "Nyinginezo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_others"
           },
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Hakuna",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Tafadhali chagua moja au zaidi"
         }
       },
       {
@@ -231,17 +233,19 @@
         "openmrs_entity_parent": "referrals_completed_to_structural_services",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_referrals_completed_to_structural_services",
-        "hint": "Other(specify)",
+        "hint": "Nyinginezo(Taja)",
         "edit_type": "number",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "relevance": {
           "step1:referrals_completed_to_structural_services": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }

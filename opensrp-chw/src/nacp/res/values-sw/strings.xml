@@ -166,7 +166,7 @@
     <string name="pnc_moderate">Wastani</string>
     <string name="pnc_severe">Mbaya</string>
 
-    <string name="mother_champion_visits_history">Historia ya Matembeleo</string>
+    <string name="visits_history_profile_title">Historia ya Matembeleo</string>
     <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
     <string name="visits_history">Historia ya Matembeleo</string>
     <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
@@ -347,4 +347,6 @@
     <string name="cbhs_registered_in_tb_clinic">Amesajiliwa kwenye Kliniki ya Kifua Kikuu</string>
     <string name="cbhs_male">Me</string>
     <string name="cbhs_female">Ke</string>
+
+    <string name="agyw_visit">Matembeleo ya Msichana Rika Balehe na Mwanamke Kijana</string>
 </resources>

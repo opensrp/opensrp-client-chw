@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
@@ -10,6 +12,8 @@ import org.smartregister.chw.agyw.activity.BaseAGYWProfileActivity;
 import org.smartregister.chw.agyw.util.Constants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.chw.pmtct.PmtctLibrary;
+import org.smartregister.chw.pmtct.domain.Visit;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.common.Gender;
 
@@ -37,7 +41,7 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
 
     @Override
     public void startReferralForm() {
-        if(BuildConfig.USE_UNIFIED_REFERRAL_APPROACH){
+        if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.sti_referral),
                     org.smartregister.chw.util.Constants.JSON_FORM.getSTIServicesReferralForm(), CoreConstants.TASKS_FOCUS.STI_REFERRAL));
@@ -50,5 +54,29 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
                     CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
             Utils.launchClientReferralActivity(this, referralTypeModels, memberObject.getBaseEntityId());
         }
+    }
+
+    @Override
+    public void refreshMedicalHistory(boolean hasHistory) {
+        Visit lastAgywStructuralServices = getVisit(org.smartregister.chw.util.Constants.Events.AGYW_STRUCTURAL_SERVICES);
+        Visit lastAgywBehavioralServices = getVisit(org.smartregister.chw.util.Constants.Events.AGYW_BEHAVIORAL_SERVICES);
+        Visit lastAgywBioMedicalServices = getVisit(org.smartregister.chw.util.Constants.Events.AGYW_BIO_MEDICAL_SERVICES);
+        if (lastAgywStructuralServices != null || lastAgywBehavioralServices != null || lastAgywBioMedicalServices != null) {
+            rlLastVisit.setVisibility(View.VISIBLE);
+            findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.visits_history_profile_title);
+            ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
+        } else {
+            rlLastVisit.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void openMedicalHistory() {
+        AgywMedicalHistoryActivity.startMe(this, memberObject);
+    }
+
+    private Visit getVisit(String eventType) {
+        return PmtctLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
 }

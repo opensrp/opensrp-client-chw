@@ -43,7 +43,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Structural Services",
+    "title": "Huduma za Kimuundo",
     "fields": [
       {
         "key": "structural_services_provided",
@@ -52,7 +52,7 @@
         "openmrs_entity_id": "structural_services_provided",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Select structural services provided to the client",
+        "label": "Chagua aina za huduma za kimuundo zilizotolewa kwa mteja.",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
         "exclusive": [
@@ -61,68 +61,68 @@
         "options": [
           {
             "key": "education_on_income_generation_activities",
-            "text": "Education on Income Generation Activities (IGA)",
+            "text": "Shughuli za uzalishaji kipato",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_income_generation_activities"
           },
           {
             "key": "flyers_on_income_generation_activities",
-            "text": "Provided Flyers on Income Generation Activities (IGA)",
+            "text": "Ugawaji wa vipeperushi kwaajili ya shughuli za uzalishaji kipato",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "flyers_on_income_generation_activities"
           },
           {
             "key": "addressing_stigma_and_discrimination",
-            "text": "Addressing Stigma and Discrimination",
+            "text": "Unyanyapaa na kutengwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "addressing_stigma_and_discrimination"
           },
           {
             "key": "community_empowerment",
-            "text": "Community Empowerment",
+            "text": "Uwezeshaji jamii lengwa",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "community_empowerment"
           },
           {
             "key": "education_on_addressing_gbv",
-            "text": "Education Addressing GBV against KVPs",
+            "text": "Elimu ya ukatili wa kijinsia dhidi ya makundi maalum",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "education_on_addressing_gbv"
           },
           {
             "key": "provision_of_business_skills",
-            "text": "Provision of Entrepreneurship and Business skills",
+            "text": "Ujasiriamali na biashara",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "provision_of_business_skills"
           },
           {
             "key": "startup_kits",
-            "text": "Provision of Startup Kits",
+            "text": "Utoaji wa mitaji na nyenzo za kazi",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "startup_kits"
           },
           {
             "key": "legal_support",
-            "text": "Legal Aid Support",
+            "text": "Msaada wa kisheria ",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "legal_support"
           },
           {
             "key": "chk_others",
-            "text": "Other",
+            "text": "Nyingine",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_others"
           },
           {
             "key": "chk_none",
-            "text": "None",
+            "text": "Hakuna",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "chk_none"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please pick at least one"
+          "err": "Tafadhali chagua moja au zaidi"
         }
       },
       {
@@ -130,22 +130,24 @@
         "openmrs_entity_parent": "structural_services_provided",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_structural_services_provided",
-        "hint": "Other(specify)",
+        "hint": "Nyingine (taja)",
         "type": "edit_text",
         "v_required": {
           "value": "true",
-          "err": "Please specify"
+          "err": "Tafadhali taja"
         },
         "relevance": {
           "step1:structural_services_provided": {
             "ex-checkbox": [
               {
-                "or": ["chk_others"]
+                "or": [
+                  "chk_others"
+                ]
               }
             ]
           }
-          }
         }
+      }
     ]
   }
 }

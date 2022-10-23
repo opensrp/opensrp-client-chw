@@ -121,6 +121,10 @@ public class Constants extends CoreConstants {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
         public static final String CBHS_FOLLOWUP = "CBHS Followup";
         public static final String CBHS_CLOSE_VISITS = "CBHS Close Visits";
+        public static final String AGYW_STRUCTURAL_SERVICES = "AGYW Structural Services";
+        public static final String AGYW_BEHAVIORAL_SERVICES = "AGYW Behavioral Services";
+        public static final String AGYW_BIO_MEDICAL_SERVICES = "AGYW Bio Medical Services";
+        public static final String KVP_PREP_FOLLOWUP_VISIT = "Kvp PrEP Follow-up Visit";
     }
 
     public static final class ActionList {

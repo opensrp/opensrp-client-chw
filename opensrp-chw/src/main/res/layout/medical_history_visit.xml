@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/title"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/mother_champion_visit_title"
+        android:textColor="@color/medical_text_inner"
+        android:textSize="16sp" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/type_of_service"
+        style="@style/CustomFontTextViewStyle.ClientList.ThreeLines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="10"
+        android:paddingLeft="20dp"
+        android:text="@string/mother_champion_type_of_service"
+        android:textColor="@color/medical_sub_text_inner"
+        android:textSize="18sp" />
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:id="@+id/visit_details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_baseline_results_row"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/dark_grey"
+        android:visibility="visible" />
+
+</LinearLayout>

@@ -43,7 +43,7 @@
   },
   "global": {},
   "step1": {
-    "title": "Behavioral Services",
+    "title": "Afua za afya na mabadiliko ya tabia",
     "fields": [
       {
         "key": "sbcc_intervention_provided",
@@ -51,7 +51,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "sbcc_intervention_provided",
         "type": "check_box",
-        "label": "SBCC intervention provided to the client",
+        "label": "Afua za afya na mabadiliko ya tabia zilizotolewa kwa mteja",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",
