@@ -179,6 +179,20 @@
             }
           }
         }
+      },
+      {
+        "key": "request_reference",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "request_reference",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_receive_condom_calculation.yml"
+            }
+          }
+        }
       }
     ]
   }

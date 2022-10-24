@@ -63,9 +63,10 @@ public class ChwRepository extends CoreChwRepository {
             if (!indicatorDataInitialised || isUpdated) {
 
                 String indicatorsConfigFile = "config/indicator-definitions.yml";
+                String agywindicatorConfigFile = "config/agyw-monthly-report.yml";
 
                 for (String configFile : Collections.unmodifiableList(
-                        Arrays.asList(indicatorsConfigFile))) {
+                        Arrays.asList(indicatorsConfigFile,agywindicatorConfigFile))) {
                     reportingLibraryInstance.readConfigFile(configFile, db);
                 }
 

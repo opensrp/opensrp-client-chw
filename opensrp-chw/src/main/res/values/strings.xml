@@ -435,7 +435,14 @@
     <string name="callPhoneRequestTitle">Allow Phone Number Collection</string>
     <string name="callPhoneRequestMessage">Community Healthcare Worker collect user phone numbers to be used for monitoring, evaluation and analysis of visits conducted at the community.</string>
     <string name="kvp_friendly_services">KVP Friendly Services</string>
+    <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
+    <string name="condom_distribution_reports">Condom Distribution Reports</string>
+    <string name="cdp_reports">CDP REPORTS</string>
+    <string name="cdp_issuing_report">CDP Issuing Report</string>
+    <string name="cdp_receiving_report">CDP Receiving Report</string>
     <string name="sti_referral">STI Services</string>
+    <string name="agyw_reports">AGYW Reports</string>
+    <string name="agyw_reports_subtitle">View AGYW Report</string>
 
 
 </resources>

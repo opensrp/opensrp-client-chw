@@ -272,6 +272,11 @@
     <string name="referral_problem_Umbilical_cord_navel_bleeding">Umbilical cord/navel bleeding</string>
     <string name="referral_problem_Unable_to_breastfeed_or_swallow">Unable to breastfeed or swallow</string>
     <string name="referral_problem_Umbilical_cord">Umbilical cord/navel bleeding</string>
+    <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
+    <string name="condom_distribution_reports">Condom Distribution Reports</string>
+    <string name="cdp_reports">CDP REPORTS</string>
+    <string name="cdp_issuing_report">CDP Issuing Report</string>
+    <string name="cdp_receiving_report">CDP Receiving Report</string>
 
     <!--    CBHS Visit History String Resources-->
     <string name="cbhs_registration_or_followup_status">Followup status:</string>

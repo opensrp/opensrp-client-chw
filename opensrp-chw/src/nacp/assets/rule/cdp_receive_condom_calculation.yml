@@ -40,3 +40,10 @@ priority: 1
 condition: "true"
 actions:
   - "calculation = global_condom_type == 'female_condom' ? global_condom_quantity : 0"
+---
+name: step1_request_reference
+description: request_reference
+priority: 1
+condition: "global_request_reference != ''"
+actions:
+  - "calculation = global_request_reference"

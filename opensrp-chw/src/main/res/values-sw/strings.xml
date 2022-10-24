@@ -441,6 +441,14 @@
     <string name="callPhoneRequestTitle">Ruhusu Ukusanyaji wa Nambari ya Simu</string>
     <string name="callPhoneRequestMessage">Mtoa Huduma wa Afya ngazi ya Jamii hukusanya nambari za simu za wateja zitakazotumika kwa ufuatiliaji, tathmini na uchambuzi wa ziara zinazofanywa katika jamii.</string>
 
+    <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
+    <string name="condom_distribution_reports">Condom Distribution Reports</string>
+    <string name="cdp_reports">CDP REPORTS</string>
+    <string name="cdp_issuing_report">CDP Issuing Report</string>
+    <string name="cdp_receiving_report">CDP Receiving Report</string>
+    <string name="agyw_reports">AGYW Reports</string>
+    <string name="agyw_reports_subtitle">View AGYW Report</string>
+
     <string name="agyw_services">Rekodi Huduma za Msichana Rika Balehe na Mwanamke Kijana</string>
 
     <!--    AGYW Visit History-->
