@@ -52,8 +52,13 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     public void startReferralForm() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             List<ReferralTypeModel> referralTypeModels = new ArrayList<>();
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.kvp_friendly_services),
-                    CoreConstants.JSON_FORM.getKvpFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.KVP_FRIENDLY_SERVICES));
+            if (memberObject.getGender().equalsIgnoreCase("male")) {
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.kvp_friendly_services),
+                        CoreConstants.JSON_FORM.getMaleKvpFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.KVP_FRIENDLY_SERVICES));
+            } else {
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.kvp_friendly_services),
+                        CoreConstants.JSON_FORM.getFemaleKvpFriendlyServicesReferralForm(), CoreConstants.TASKS_FOCUS.KVP_FRIENDLY_SERVICES));
+            }
             referralTypeModels.addAll(getCommonReferralTypes(this, memberObject.getBaseEntityId()));
 
             launchClientReferralActivity(this, referralTypeModels, memberObject.getBaseEntityId());

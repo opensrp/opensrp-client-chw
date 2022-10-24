@@ -1,0 +1,192 @@
+{
+  "form": "KVP Services Referral",
+  "encounter_type": "KVP Services Referral",
+  "entity_id": "",
+  "relational_id": "",
+  "rules_file": "rule/kvp_referral_form_rules.yml",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "steps": [
+    {
+      "title": "KVP Services Referral",
+      "fields": [
+        {
+          "name": "problem",
+          "type": "multi_choice_checkbox",
+          "properties": {
+            "text": "Reasons for Referral"
+          },
+          "meta_data": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem"
+          },
+          "options": [
+            {
+              "name": "prep_and_pep",
+              "text": "Dawa kinga PrEP and PEP",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "prep_and_pep",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "harm_reduction",
+              "text": "Kupunguza madhara yatokanayo na utumiaji wa dawa za kulevya",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "harm_reduction",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "hepatitis_b_and_c",
+              "text": "Uchunguzi/upimaji na chanjo ya homa ya ini B na C",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "hepatitis_b_and_c",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "sti_screening_and_management",
+              "text": "Uchunguzi, upimaji na tiba ya magonjwa ya ngono na via vya uzazi",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "sti_screening_and_management",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "vmmc",
+              "text": "TOHARA kwa wanaume",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "vmmc",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "mental_psychosocial_support",
+              "text": "Afya ya akili na msaada wa kisaikolojia",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "rch",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Nyinginezo (Taja)",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please specify reason for KVP services referral",
+          "dependent_calculations": [
+            "referral_date",
+            "referral_time",
+            "referral_type",
+            "referral_status"
+          ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "problem_other",
+            "openmrs_entity_parent": "problem"
+          },
+          "properties": {
+            "hint": "Sababu nyinginezo",
+            "type": "name"
+          },
+          "required_status": "true:Please specify other reasons",
+          "subjects": "problem:map"
+        },
+        {
+          "name": "chw_referral_hf",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chw_referral_hf",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Chagua kituo cha rufaa",
+            "searchable": "Chagua kituo cha rufaa"
+          },
+          "options": [],
+          "required_status": "yes:Tafadhali chagua kituo cha rufaa"
+        },
+        {
+          "name": "referral_appointment_date",
+          "type": "datetime_picker",
+          "properties": {
+            "hint": "Chagua tarehe ya miadi",
+            "type": "date_picker",
+            "display_format": "dd/MM/yyyy",
+            "min_date": "today"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "referral_appointment_date",
+            "openmrs_entity_parent": ""
+          },
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
+        }
+      ]
+    }
+  ]
+}

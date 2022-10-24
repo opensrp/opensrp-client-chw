@@ -98,6 +98,14 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Care of HIV-exposed infant</string>
     <string name="referral_problem_Immunisation">Immunisation</string>
     <string name="referral_problem_other_reasons">Other reasons</string>
+    <string name="referral_problem_prep_and_pep">PrEP and PEP</string>
+    <string name="referral_problem_harm_reduction">Harm reduction among PWID and non-injecting drug users</string>
+    <string name="referral_problem_hepatitis_b_and_c">Hepatitis B &amp; C</string>
+    <string name="referral_problem_sti_screening_and_management">STI screening and management</string>
+    <string name="referral_problem_cervical_cancer">Cervical Cancer screening and treatment</string>
+    <string name="referral_problem_reproductive_health_services">Reproductive health services</string>
+    <string name="referral_problem_vmmc">VMMC</string>
+    <string name="referral_problem_mental_psychosocial_support">Mental Health and Psycho-social support</string>
 
     <string name="ltfu_clinic_ctc">CTC</string>
     <string name="ltfu_clinic_pwid">PWID</string>

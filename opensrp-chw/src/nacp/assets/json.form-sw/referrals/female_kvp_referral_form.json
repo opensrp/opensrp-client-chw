@@ -69,24 +69,6 @@
           },
           "options": [
             {
-              "name": "ctc",
-              "text": "Tiba na matunzo (CTC)",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "ctc",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "hiv_testing",
-              "text": "Upimaji wa VVU",
-              "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "hiv_testing",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "prep_and_pep",
               "text": "Dawa kinga PrEP and PEP",
               "meta_data": {
@@ -114,24 +96,6 @@
               }
             },
             {
-              "name": "tb_screening_and_treatment",
-              "text": "Uchunguzi upimaji na tiba ya kifua kikuu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "tb_screening_and_treatment",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "gbv",
-              "text": "Ukatili wa Kinjinsia (GBV)",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "gbv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "sti_screening_and_management",
               "text": "Uchunguzi, upimaji na tiba ya magonjwa ya ngono na via vya uzazi",
               "meta_data": {
@@ -150,24 +114,6 @@
               }
             },
             {
-              "name": "sti_screening_and_management",
-              "text": "Afya ya uzazi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sti_screening_and_management",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "vmmc",
-              "text": "TOHARA kinga kwa wanaume ",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "vmmc",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "mental_psychosocial_support",
               "text": "Afya ya akili na msaada wa kisaikolojia",
               "meta_data": {
@@ -177,11 +123,11 @@
               }
             },
             {
-              "name": "rch",
+              "name": "reproductive_health_services",
               "text": "Huduma za mama na mtoto",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "rch",
+                "openmrs_entity_id": "reproductive_health_services",
                 "openmrs_entity_parent": ""
               }
             },
@@ -212,7 +158,7 @@
             "openmrs_entity_parent": "problem"
           },
           "properties": {
-            "hint": "Other reasons",
+            "hint": "Sababu nyinginezo",
             "type": "name"
           },
           "required_status": "true:Please specify other reasons",
@@ -227,17 +173,17 @@
             "openmrs_entity_parent": ""
           },
           "properties": {
-            "text": "Choose referral facility",
-            "searchable": "Choose referral facility"
+            "text": "Chagua kituo cha rufaa",
+            "searchable": "Chagua kituo cha rufaa"
           },
           "options": [],
-          "required_status": "yes:Please specify referral facility"
+          "required_status": "yes:Tafadhali chagua kituo cha rufaa"
         },
         {
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Please select the appointment date",
+            "hint": "Chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -247,7 +193,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Please specify the appointment date"
+          "required_status": "true:Tafadhali chagua tarehe ya miadi"
         }
       ]
     }

@@ -417,7 +417,7 @@
     <string name="anc_nutrition_status_normal">Kawaida/Kijani</string>
     <string name="anc_nutrition_status_moderate">Wastani/Njano</string>
     <string name="anc_nutrition_status_severe">Mbaya/Nyekundu</string>
-    <string name="pregnancy_confirmation_referral">Rufaa Kwa Ajili ya Kuhakiki Mimba</string>
+    <string name="pregnancy_confirmation_referral">Kuhakiki Mimba</string>
     <string name="anc_malaria_field_yes">Ndio</string>
     <string name="anc_malaria_field_no">Hapana</string>
     <string name="anc_malaria_net_condition_good">Nzuri</string>
@@ -581,5 +581,7 @@
     <string name="community_empowerment">Uwezeshaji jamii lengwa</string>
     <string name="education_on_addressing_gbv">Elimu ya ukatili wa kijinsia dhidi ya makundi maalum</string>
     <string name="provision_of_business_skills">Ujasiriamali na biashara</string>
+    <string name="kvp_friendly_services">Huduma rafiki kwa makundi maalum</string>
+    <string name="sti_referral">STI Services</string>
 
 </resources>
