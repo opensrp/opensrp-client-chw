@@ -106,6 +106,18 @@
     <string name="referral_problem_reproductive_health_services">Reproductive health services</string>
     <string name="referral_problem_vmmc">VMMC</string>
     <string name="referral_problem_mental_psychosocial_support">Mental Health and Psycho-social support</string>
+    <string name="referral_problem_male_condom">Male condom</string>
+    <string name="referral_problem_female_condom">Female condom</string>
+    <string name="referral_problem_coc">COC</string>
+    <string name="referral_problem_pop">POP</string>
+    <string name="referral_problem_standard_day_method">Standard day method</string>
+    <string name="referral_problem_emergency_contraceptive">Emergency contraceptive</string>
+    <string name="referral_problem_injectable">Injectable</string>
+    <string name="referral_problem_iucd">IUCD</string>
+    <string name="referral_problem_implanon_nxt">Implanon - NXT</string>
+    <string name="referral_problem_jadelle">Jadelle</string>
+    <string name="referral_problem_female_sterilization">Female sterilization</string>
+    <string name="referral_problem_male_sterilization_fp">Male sterilization</string>
 
     <string name="ltfu_clinic_ctc">CTC</string>
     <string name="ltfu_clinic_pwid">PWID</string>

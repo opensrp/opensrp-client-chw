@@ -69,129 +69,129 @@
           },
           "options": [
             {
-              "name": "Male_condom",
+              "name": "male_condom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "male_condom",
                 "openmrs_entity_parent": ""
               },
               "text": "Male condom"
             },
             {
-              "name": "Female_condom",
+              "name": "female_condom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "female_condom",
                 "openmrs_entity_parent": ""
               },
               "text": "Female condom"
             },
             {
-              "name": "COC",
+              "name": "coc",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "159783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "coc",
                 "openmrs_entity_parent": ""
               },
               "text": "COC"
             },
             {
-              "name": "POP",
+              "name": "pop",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "159784AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "pop",
                 "openmrs_entity_parent": ""
               },
               "text": "POP"
             },
             {
-              "name": "Standard_day_method",
+              "name": "standard_day_method",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "standard_day_method",
                 "openmrs_entity_parent": ""
               },
               "text": "Standard day method"
             },
             {
-              "name": "Emergency_contraceptive",
+              "name": "emergency_contraceptive",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "160570AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "emergency_contraceptive",
                 "openmrs_entity_parent": ""
               },
               "text": "Emergency contraceptive"
             },
             {
-              "name": "Injectable",
+              "name": "injectable",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5279AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "injectable",
                 "openmrs_entity_parent": ""
               },
               "text": "Injectable"
             },
             {
-              "name": "IUCD",
+              "name": "iucd",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5275AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "iucd",
                 "openmrs_entity_parent": ""
               },
               "text": "IUCD"
             },
             {
-              "name": "Implanon_NXT",
+              "name": "implanon_nxt",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "76022AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "implanon_nxt",
                 "openmrs_entity_parent": ""
               },
               "text": "Implanon - NXT"
             },
             {
-              "name": "Jadelle",
+              "name": "jadelle",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "1873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "jadelle",
                 "openmrs_entity_parent": ""
               },
               "text": "Jadelle"
             },
             {
-              "name": "Female_sterilization",
+              "name": "female_sterilization",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "5276AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "female_sterilization",
                 "openmrs_entity_parent": ""
               },
               "text": "Female sterilization"
             },
             {
-              "name": "Male_sterilization_fp",
+              "name": "male_sterilization_fp",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "male_sterilization_fp",
                 "openmrs_entity_parent": ""
               },
               "text": "Male sterilization"
             },
             {
-              "name": "None",
+              "name": "none",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               },
               "text": "None"
             },
             {
-              "name": "Not_applicable",
+              "name": "not_applicable",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "not_applicable",
                 "openmrs_entity_parent": ""
               },
               "text": "Not applicable"

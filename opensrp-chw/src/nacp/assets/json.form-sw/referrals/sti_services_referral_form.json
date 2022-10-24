@@ -1,9 +1,9 @@
 {
-  "form": "KVP Services Referral",
-  "encounter_type": "KVP Services Referral",
+  "form": "STI Services Referral",
+  "encounter_type": "STI Services Referral",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/kvp_referral_form_rules.yml",
+  "rules_file": "rule/sti_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "Huduma rafiki kwa makundi maalum",
+      "title": "Rufaa za magonjwa ya ngono",
       "fields": [
         {
           "name": "problem",
@@ -69,79 +69,52 @@
           },
           "options": [
             {
-              "name": "prep_and_pep",
-              "text": "Dawa kinga PrEP and PEP",
+              "name": "genital_ulcers",
+              "text": "Michubuko/vidonda sehemu za siri",
               "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "prep_and_pep",
+                "openmrs_entity": "",
+                "openmrs_entity_id": "genital_ulcers",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "harm_reduction",
-              "text": "Kupunguza madhara yatokanayo na utumiaji wa dawa za kulevya",
+              "name": "abnormal_vag_discharge",
+              "text": "Kutokwa na maji maji yasiokuwa ya kawaida ukeni au kwenye njia ya haja kubwa",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "harm_reduction",
+                "openmrs_entity_id": "abnormal_vag_discharge",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "hepatitis_b_and_c",
-              "text": "Uchunguzi/upimaji na chanjo ya homa ya ini B na C",
+              "name": "pain_during_sexual_act",
+              "text": "Kupata maumivu wakati wa kufanya ngono",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "hepatitis_b_and_c",
+                "openmrs_entity_id": "pain_during_sexual_act",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "sti_screening_and_management",
-              "text": "Uchunguzi, upimaji na tiba ya magonjwa ya ngono na via vya uzazi",
+              "name": "low_abdominal_pain",
+              "text": "Maumivu ya tumbo chini ya kitovu",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "sti_screening_and_management",
+                "openmrs_entity_id": "low_abdominal_pain",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "cervical_cancer",
-              "text": "Uchunguzi na upimaji wa kansa ya shingo ya kizazi",
+              "name": "other",
+              "text": "Nyinginezo",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "cervical_cancer",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "mental_psychosocial_support",
-              "text": "Afya ya akili na msaada wa kisaikolojia",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "mental_psychosocial_support",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "reproductive_health_services",
-              "text": "Huduma za mama na mtoto",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "reproductive_health_services",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other_reasons",
-              "text": "Nyinginezo (Taja)",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_id": "other",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify reason for KVP services referral",
+          "required_status": "yes:Tafadhali chagua sababu za rufaa",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -152,16 +125,16 @@
         {
           "name": "problem_other",
           "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Sababu nyinginezo",
+            "type": "name"
+          },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
           },
-          "properties": {
-            "hint": "Sababu nyinginezo",
-            "type": "name"
-          },
-          "required_status": "true:Please specify other reasons",
+          "required_status": "true:Tafadhali jaza sababu nyinginezo",
           "subjects": "problem:map"
         },
         {
@@ -183,7 +156,7 @@
           "name": "referral_appointment_date",
           "type": "datetime_picker",
           "properties": {
-            "hint": "Chagua tarehe ya miadi",
+            "hint": "Tafadhali chagua tarehe ya miadi",
             "type": "date_picker",
             "display_format": "dd/MM/yyyy",
             "min_date": "today"
@@ -193,7 +166,7 @@
             "openmrs_entity_id": "referral_appointment_date",
             "openmrs_entity_parent": ""
           },
-          "required_status": "true:Tafadhali chagua tarehe ya miadi"
+          "required_status": "true:PTafadhali chagua tarehe ya miadi"
         }
       ]
     }
