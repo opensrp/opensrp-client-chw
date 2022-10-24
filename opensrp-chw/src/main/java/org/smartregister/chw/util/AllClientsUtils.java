@@ -15,6 +15,7 @@ import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.FamilyOtherMemberProfileActivity;
 import org.smartregister.chw.activity.FamilyPlanningMemberProfileActivity;
 import org.smartregister.chw.activity.HivProfileActivity;
+import org.smartregister.chw.activity.KvpPrEPProfileActivity;
 import org.smartregister.chw.activity.MalariaProfileActivity;
 import org.smartregister.chw.activity.PncMemberProfileActivity;
 import org.smartregister.chw.activity.TbProfileActivity;
@@ -88,6 +89,9 @@ public class AllClientsUtils {
     }
     public static void  goToAgywProfile(Activity activity, CommonPersonObjectClient client){
         AgywProfileActivity.startProfile(activity, client.getCaseId());
+    }
+    public static void  goToKvpPrepProfile(Activity activity, CommonPersonObjectClient client){
+        KvpPrEPProfileActivity.startProfileActivity(activity, client.getCaseId());
     }
 
     private static Intent initProfileActivityIntent(Activity activity, CommonPersonObjectClient patient, Bundle bundle, Class clazz) {
