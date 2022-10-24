@@ -1005,7 +1005,7 @@
       {
         "key": "total_score_prompt",
         "type": "toaster_notes",
-        "text": "Jumla ya alama alizopata baada ya kumtathimini ",
+        "text": "Jumla ya alama alizopata baada ya kumtathimini: {total_agyw_score} ",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",
@@ -1036,7 +1036,7 @@
       {
         "key": "percentage_score_prompt",
         "type": "toaster_notes",
-        "text": "Jumla ya asilimia alizopata ",
+        "text": "Jumla ya asilimia alizopata: {total_percentage_score}% ",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",
