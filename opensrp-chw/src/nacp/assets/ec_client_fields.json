@@ -4992,6 +4992,14 @@
           }
         },
         {
+          "column_name": "economic_empowerment_education",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "economic_empowerment_education"
+          }
+        },
+        {
           "column_name": "birth_before_18",
           "type": "Event",
           "json_mapping": {
