@@ -1430,7 +1430,7 @@
         }
       },
       {
-        "key": "program_name",
+        "key": "program_name_with_dreams",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "program_name_with_dreams",
