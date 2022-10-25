@@ -1381,7 +1381,7 @@
           "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
-          "step8:intervention_eligibility": {
+          "step8:intervention_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
