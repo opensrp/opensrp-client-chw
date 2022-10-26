@@ -1005,7 +1005,7 @@
       {
         "key": "total_score_prompt",
         "type": "toaster_notes",
-        "text": "Jumla ya alama alizopata baada ya kumtathimini ",
+        "text": "Jumla ya alama alizopata baada ya kumtathimini: {total_agyw_score} ",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",
@@ -1036,7 +1036,7 @@
       {
         "key": "percentage_score_prompt",
         "type": "toaster_notes",
-        "text": "Jumla ya asilimia alizopata ",
+        "text": "Jumla ya asilimia alizopata: {total_percentage_score}% ",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",
@@ -1381,7 +1381,7 @@
           "err": "Tafadhali jibu swali hili"
         },
         "relevance": {
-          "step8:intervention_eligibility": {
+          "step8:intervention_enrolled": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1430,7 +1430,7 @@
         }
       },
       {
-        "key": "program_name",
+        "key": "program_name_with_dreams",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "program_name_with_dreams",

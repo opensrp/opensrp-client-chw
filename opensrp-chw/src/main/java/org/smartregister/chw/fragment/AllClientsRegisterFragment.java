@@ -3,8 +3,6 @@ package org.smartregister.chw.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.fragment.CoreAllClientsRegisterFragment;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -16,6 +14,8 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.family.util.Constants;
 import org.smartregister.opd.utils.OpdDbConstants;
+
+import androidx.annotation.NonNull;
 
 public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
     public static final String REGISTER_TYPE = "register_type";
@@ -69,6 +69,9 @@ public class AllClientsRegisterFragment extends CoreAllClientsRegisterFragment {
                     break;
                 case CoreConstants.REGISTER_TYPE.AGYW:
                     AllClientsUtils.goToAgywProfile(this.getActivity(), commonPersonObjectClient);
+                    break;
+                case CoreConstants.REGISTER_TYPE.KVP_PrEP:
+                    AllClientsUtils.goToKvpPrepProfile(this.getActivity(), commonPersonObjectClient);
                     break;
                 default:
                     AllClientsUtils.goToOtherMemberProfile(this.getActivity(), commonPersonObjectClient, bundle,

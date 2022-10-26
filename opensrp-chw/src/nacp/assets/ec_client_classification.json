@@ -685,7 +685,8 @@
             "field": "eventType",
             "field_value": "AGYW Structural Services",
             "creates_case": [
-              "ec_agyw_structural_services"
+              "ec_agyw_structural_services",
+              "ec_agyw_register"
             ]
           },
           {
