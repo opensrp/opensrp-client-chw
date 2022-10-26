@@ -277,6 +277,10 @@
     <string name="cdp_reports">CDP REPORTS</string>
     <string name="cdp_issuing_report">CDP Issuing Report</string>
     <string name="cdp_receiving_report">CDP Receiving Report</string>
+    <string name="referral_problem_genital_ulcers">Genital ulcers</string>
+    <string name="referral_problem_abnormal_vag_discharge">Abnormal vaginal discharge(including anal discharge if practicing receptive anal sex)</string>
+    <string name="referral_problem_pain_during_sexual_act">Pain during the sexual act</string>
+    <string name="referral_problem_low_abdominal_pain">Low abdominal pain</string>
 
     <!--    CBHS Visit History String Resources-->
     <string name="cbhs_registration_or_followup_status">Followup status:</string>

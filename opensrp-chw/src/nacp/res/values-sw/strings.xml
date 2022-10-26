@@ -119,6 +119,10 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU</string>
     <string name="referral_problem_Immunisation">Huduma za chanjo</string>
     <string name="referral_problem_other_reasons">Sababu nyingine</string>
+    <string name="referral_problem_genital_ulcers">Michubuko/vidonda sehemu za siri</string>
+    <string name="referral_problem_abnormal_vag_discharge">Kutokwa na maji maji yasiokuwa ya kawaida ukeni au kwenye njia ya haja kubwa</string>
+    <string name="referral_problem_pain_during_sexual_act">Kupata maumivu wakati wa kufanya ngono</string>
+    <string name="referral_problem_low_abdominal_pain">Maumivu ya tumbo chini ya kitovu</string>
 
 
     <string name="ltfu_clinic_ctc">CTC</string>
