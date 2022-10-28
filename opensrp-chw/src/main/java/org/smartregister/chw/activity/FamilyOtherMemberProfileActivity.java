@@ -29,6 +29,7 @@ import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -83,7 +84,9 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         }
 
         if(ChwApplication.getApplicationFlavor().hasKvp()){
-            menu.findItem(R.id.action_kvp_prep_registration).setVisible(true);
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
         }
 
         if (ChwApplication.getApplicationFlavor().hasAGYW()) {

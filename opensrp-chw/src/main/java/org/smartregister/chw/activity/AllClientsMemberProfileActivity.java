@@ -90,7 +90,9 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         }
 
         if(ChwApplication.getApplicationFlavor().hasKvp()){
-            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId));
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
         }
         return true;
     }
