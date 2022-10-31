@@ -1,5 +1,9 @@
 package org.smartregister.chw.interactor;
 
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.contract.LoginJobScheduler;
@@ -11,6 +15,7 @@ import org.smartregister.chw.job.BasePncCloseJob;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.DocumentConfigurationServiceJob;
+import org.smartregister.job.DuplicateCleanerWorker;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PlanIntentServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
@@ -53,6 +58,10 @@ public class LoginJobSchedulerProvider implements LoginJobScheduler {
 
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH)
             DocumentConfigurationServiceJob.scheduleJob(DocumentConfigurationServiceJob.TAG,TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+
+//        WorkRequest cleanZeirIdsWorkRequest = new PeriodicWorkRequest.Builder(DuplicateCleanerWorker.class, 15, TimeUnit.MINUTES)
+//                .build();
+//        WorkManager.getInstance(this.getApplicationContext()).enqueue(cleanZeirIdsWorkRequest);
     }
 
     @Override
