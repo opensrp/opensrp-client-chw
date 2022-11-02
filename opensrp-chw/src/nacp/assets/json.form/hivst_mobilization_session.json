@@ -183,7 +183,13 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "kit_code",
         "type": "edit_text",
-        "hint": "Kit code"
+        "hint": "Kit code",
+        "relevance": {
+          "step1:kit_used_in_demonstration": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       }
     ]
   }

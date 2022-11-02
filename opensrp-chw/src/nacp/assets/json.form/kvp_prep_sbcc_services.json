@@ -58,7 +58,7 @@
         "options": [
           {
             "key": "proper_use_of_male_condom",
-            "text": "Proper use of Male Condom",
+            "text": "Education on correct and consistence use of male condom",
             "openmrs_entity_id": "proper_use_of_male_condom",
             "openmrs_entity": "concept",
             "property": {
@@ -68,7 +68,7 @@
           },
           {
             "key": "proper_use_of_female_condom",
-            "text": "Proper use of Female Condom",
+            "text": "Education on correct and consistence use of female condom",
             "openmrs_entity_id": "proper_use_of_female_condom",
             "openmrs_entity": "concept",
             "property": {
@@ -77,18 +77,18 @@
             }
           },
           {
-            "key": "influence_on_condom_usage",
-            "text": "Influence on Condom Usage",
-            "openmrs_entity_id": "influence_on_condom_usage",
+            "key": "demand_creation_on_condom_use",
+            "text": "Demand creation on condom use",
+            "openmrs_entity_id": "demand_creation_on_condom_use",
             "openmrs_entity": "concept",
             "property": {
-              "presumed-id": "influence_on_condom_usage",
-              "confirmed-id": "influence_on_condom_usage"
+              "presumed-id": "demand_creation_on_condom_use",
+              "confirmed-id": "demand_creation_on_condom_use"
             }
           },
           {
             "key": "preventive_methods_against_std",
-            "text": "Preventive methods against STD",
+            "text": "STI prevention education",
             "openmrs_entity_id": "preventive_methods_against_std",
             "openmrs_entity": "concept",
             "property": {
@@ -98,7 +98,7 @@
           },
           {
             "key": "excessive_alcohol_usage",
-            "text": "Excessive Alcohol Usage",
+            "text": "Excessive alcohol use",
             "openmrs_entity_id": "excessive_alcohol_usage",
             "openmrs_entity": "concept",
             "property": {
@@ -107,13 +107,13 @@
             }
           },
           {
-            "key": "education_on_hiv_aids_protection",
-            "text": "Education on HIV & AIDS Protection",
-            "openmrs_entity_id": "education_on_hiv_aids_protection",
+            "key": "education_on_hiv_prevention",
+            "text": "Education on HIV Prevention",
+            "openmrs_entity_id": "education_on_hiv_prevention",
             "openmrs_entity": "concept",
             "property": {
-              "presumed-id": "education_on_hiv_aids_protection",
-              "confirmed-id": "education_on_hiv_aids_protection"
+              "presumed-id": "education_on_hiv_prevention",
+              "confirmed-id": "education_on_hiv_prevention"
             }
           },
           {
@@ -127,23 +127,23 @@
             }
           },
           {
-            "key": "education_on_hiv_aids_self_test",
-            "text": "Education on HIV & AIDS Self Test",
-            "openmrs_entity_id": "education_on_hiv_aids_self_test",
+            "key": "demand_creation_for_hiv_self_testing",
+            "text": "Demand creation for HIV Self-testing",
+            "openmrs_entity_id": "demand_creation_for_hiv_self_testing",
             "openmrs_entity": "concept",
             "property": {
-              "presumed-id": "education_on_hiv_aids_self_test",
-              "confirmed-id": "education_on_hiv_aids_self_test"
+              "presumed-id": "demand_creation_for_hiv_self_testing",
+              "confirmed-id": "demand_creation_for_hiv_self_testing"
             }
           },
           {
-            "key": "education_on_the_use_of_prep",
-            "text": "Education on the use of PrEP",
-            "openmrs_entity_id": "education_on_the_use_of_prep",
+            "key": "demand_creation_for_prep",
+            "text": "Demand creation for PrEP",
+            "openmrs_entity_id": "demand_creation_for_prep",
             "openmrs_entity": "concept",
             "property": {
-              "presumed-id": "education_on_the_use_of_prep",
-              "confirmed-id": "education_on_the_use_of_prep"
+              "presumed-id": "demand_creation_for_prep",
+              "confirmed-id": "demand_creation_for_prep"
             }
           },
           {
@@ -157,13 +157,13 @@
             }
           },
           {
-            "key": "reduction_of_effects_of_the_use_of_mat",
-            "text": "Reduction of effects of the use of drug MAT",
-            "openmrs_entity_id": "reduction_of_effects_of_the_use_of_mat",
+            "key": "harm_reduction_for_pwud_pwid",
+            "text": "Harm reduction for PWUD/PWID",
+            "openmrs_entity_id": "harm_reduction_for_pwud_pwid",
             "openmrs_entity": "concept",
             "property": {
-              "presumed-id": "reduction_of_effects_of_the_use_of_mat",
-              "confirmed-id": "reduction_of_effects_of_the_use_of_mat"
+              "presumed-id": "harm_reduction_for_pwud_pwid",
+              "confirmed-id": "harm_reduction_for_pwud_pwid"
             }
           },
           {

@@ -58,7 +58,7 @@
         "options": [
           {
             "key": "group_entrepreneurial_skills",
-            "text": "Ujuzi wa ujasiliamali katika kikundi",
+            "text": "Ujuzi wa ujasiriamali katika kikundi",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "group_entrepreneurial_skills"
@@ -72,7 +72,7 @@
           },
           {
             "key": "entrepreneurship_tools",
-            "text": "Vifaa vya ujasiliamali",
+            "text": "Vifaa vya ujasiriamali",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "entrepreneurship_tools"
@@ -354,7 +354,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "nurturing_and_upb_edu_given",
         "type": "check_box",
-        "label": "Chagua elimu ya maleza na makuzi iliyotolewa.",
+        "label": "Chagua elimu ya malezi na makuzi iliyotolewa.",
         "combine_checkbox_option_values": "true",
         "label_text_style": "normal",
         "text_color": "#C0C0C0",

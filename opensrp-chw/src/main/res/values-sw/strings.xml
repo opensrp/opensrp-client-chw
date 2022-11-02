@@ -516,7 +516,7 @@
     <string name="culture_media">Utamaduni na vyombo vya habari</string>
     <string name="pill">Vidonge</string>
     <string name="implanon">Vipandikizi</string>
-    <string name="jadelle">kijiti cha miaka Milano</string>
+    <string name="jadelle">kijiti cha miaka Mitano</string>
     <string name="iucd">Kitanzi</string>
     <string name="traditional">Njia za asili</string>
 
@@ -535,13 +535,13 @@
     <string name="kvp_number_of_male_condoms_issued">Idadi ya kondomu za kiume zilizotolewa:</string>
     <string name="kvp_number_of_female_condoms_issued">Idadi ya kondomu za kike zilitolewa:</string>
     <string name="kvp_number_of_iec_distributed">Idadi ya vipeperushi vilivyotolewa:</string>
-    <string name="kvp_number_of_tubes_needles_distributed">Idadi ya vichupa na sindano zilizotolewa:</string>
-    <string name="kvp_number_of_water_distributed">Idadi ya maji yaliotolewa:</string>
+    <string name="kvp_number_of_needles_and_syringes_distributed">Idadi ya sindano na bomba zilizotolewa:</string>
+    <string name="kvp_number_of_sterile_water_for_injection_distributed">Idadi ya maji ya sindano yaliotolewa:</string>
     <string name="kvp_number_of_alcohol_swabs_distributed">Idadi ya pamba zilizotolewa(Alcohol swab):</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Idadi ya mabox yakutupia vitu vyenye ncha kali yaliotolewa:</string>
     <string name="kvp_number_of_plasters_distributed">Idadi ya plasta iliyotolewa:</string>
     <string name="kvp_number_of_hivst_kits_distributed">Idadi ya vitepe vya JIPIME vilivyotolewa:</string>
-    <string name="kvp_number_of_index_coupons_distributed">Idadi ya Kuponi za huduma za mnyororo na mtandao:</string>
+    <string name="kvp_number_of_coupons_distributed_for_social_network">Idadi ya Kuponi za huduma ya mtandao zilizotolewa:</string>
     <string name="male_condoms">Kondomu ya kiume</string>
     <string name="female_condoms">Kondomu ya Kike</string>
     <string name="kvp_referral_to_structural_services">Rufaa kwenda Huduma za kimuundo zilizotolewa kwa mteja:</string>
@@ -564,12 +564,12 @@
     <string name="influence_on_condom_usage">Ushawishi wa matumizi ya kondomu</string>
     <string name="preventive_methods_against_std">Njia za kujikinga na magonjwa ya ngono</string>
     <string name="excessive_alcohol_usage">Matumizi ya pombe kupita kiwango</string>
-    <string name="education_on_hiv_aids_protection">Elimu ya VVU na Ukimwi</string>
+    <string name="education_on_hiv_prevention">Elimu juu ya kuzuia maambukizi ya VVU</string>
     <string name="education_on_hiv_aids_art_usage">Elimu ya matumizi ya dawa za ART</string>
-    <string name="education_on_hiv_aids_self_test">Elimu ya huduma za JIPIME</string>
-    <string name="education_on_the_use_of_prep">Elimu ya matumizi ya dawa kinga</string>
+    <string name="demand_creation_for_hiv_self_testing">Kutengeneza uhitaji wa huduma ya JIPIME</string>
+    <string name="demand_creation_for_prep">Kutengeneza uhitaji wa huduma ya dawa kinga</string>
     <string name="education_on_the_use_of_pep">Elimu ya matumizi ya dawa za PEP</string>
-    <string name="reduction_of_effects_of_the_use_of_mat">Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya</string>
+    <string name="harm_reduction_for_pwud_pwid">Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya</string>
     <string name="education_on_paraphenalia_for_PWID">Elimu juu ya vifaa vya wajidunga</string>
     <string name="education_on_overdose_management">Elimu ya Overdose management </string>
     <string name="education_on_hepatitis_b">Elimu ya Homa ya Ini B</string>

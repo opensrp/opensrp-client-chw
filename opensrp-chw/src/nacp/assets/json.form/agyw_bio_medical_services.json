@@ -168,7 +168,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "family_planning_service",
         "type": "native_radio",
-        "label": "Family planning service provided",
+        "label": "Family planning method currently used by the client",
         "exclusive": [
           "none"
         ],

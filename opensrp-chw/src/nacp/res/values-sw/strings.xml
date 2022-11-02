@@ -261,8 +261,9 @@
     <string name="referral_problem_Breast_engorgement">Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha</string>
     <string name="referral_problem_Blurred_vision">Kuona kwa shida</string>
     <string name="referral_referral_Perineum_tear">Kuchanika msamba</string>
-    <string name="referral_problem_prep_and_pep">Dawa kinga PrEP and PEP</string>
-    <string name="referral_problem_harm_reduction">Kupunguza madhara yatokanayo na utumiaji wa dawa za kulevya</string>
+    <string name="referral_problem_prep">Dawa kinga PrEP</string>
+    <string name="referral_problem_pep">Dawa kinga PEP</string>
+    <string name="referral_problem_pwid_and_pwud">Anatumia ya dawa za kulevya au mjidunga</string>
     <string name="referral_problem_hepatitis_b_and_c">Uchunguzi/upimaji na chanjo ya homa ya ini B na C</string>
     <string name="referral_problem_sti_screening_and_management">Uchunguzi, upimaji na tiba ya magonjwa ya ngono na via vya uzazi</string>
     <string name="referral_problem_cervical_cancer">Uchunguzi na upimaji wa kansa ya shingo ya kizazi</string>

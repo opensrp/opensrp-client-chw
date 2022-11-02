@@ -168,7 +168,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "family_planning_service",
         "type": "native_radio",
-        "label": "Chagua huduma ya uzazi wa mpango iliyotolewa kwa mteja",
+        "label": "Chagua huduma ya uzazi wa mpango anayoitumia mteja kwa sasa",
         "exclusive": [
           "none"
         ],
@@ -193,7 +193,7 @@
           },
           {
             "key": "jadelle",
-            "text": "kijiti cha miaka Milano",
+            "text": "kijiti cha miaka Mitano",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "jadelle"
           },
@@ -217,7 +217,7 @@
           },
           {
             "key": "none",
-            "text": "Hakuna",
+            "text": "Hatumii",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "none"
           }

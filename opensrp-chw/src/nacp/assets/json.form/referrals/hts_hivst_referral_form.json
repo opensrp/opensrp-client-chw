@@ -75,6 +75,9 @@
                 "openmrs_entity": "",
                 "openmrs_entity_id": "confirmation_self_test",
                 "openmrs_entity_parent": ""
+              },
+              "properties": {
+                "checked": true
               }
             }
           ],

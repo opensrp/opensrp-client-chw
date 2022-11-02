@@ -467,11 +467,11 @@
         }
       },
       {
-        "key": "sexual_intercourse_past_6_months",
+        "key": "sexual_intercourse_past_12_months",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sexual_intercourse_past_6_months",
-        "label": "Have you ever had sex in the past six (6) months?",
+        "openmrs_entity_id": "sexual_intercourse_past_12_months",
+        "label": "Have you ever had sex in the past six (12) months?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -506,7 +506,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "condom_usage",
-        "label": "Did you use condoms consistently with the latest partner?",
+        "label": "Did you use condoms consistently with your partner in the last 12 months?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -530,9 +530,10 @@
           "err": "Please select an answer"
         },
         "relevance": {
-          "step3:sexual_intercourse": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
           }
         }
       },

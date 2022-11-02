@@ -116,7 +116,7 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
                     String[] structuralServicesParams = {"structural_services_provided", "other_structural_services_provided"};
                     extractVisitDetails(visits, structuralServicesParams, visitDetails, x, context);
 
-                    String[] protectiveServicesParams = {"condoms_given", "type_of_issued_condoms", "number_of_male_condoms_issued", "number_of_female_condoms_issued", "number_of_iec_distributed", "number_of_tubes_needles_distributed", "number_of_water_distributed", "number_of_alcohol_swabs_distributed", "number_of_disposable_safety_boxes_distributed", "number_of_plasters_distributed", "number_of_hivst_kits_distributed", "number_of_index_coupons_distributed"};
+                    String[] protectiveServicesParams = {"condoms_given", "type_of_issued_condoms", "number_of_male_condoms_issued", "number_of_female_condoms_issued", "number_of_iec_distributed", "number_of_needles_and_syringes_distributed", "number_of_sterile_water_for_injection_distributed", "number_of_alcohol_swabs_distributed", "number_of_disposable_safety_boxes_distributed", "number_of_plasters_distributed", "number_of_hivst_kits_distributed", "number_of_coupons_distributed_for_social_network"};
                     extractVisitDetails(visits, protectiveServicesParams, visitDetails, x, context);
 
                     String[] referralServicesParams = {"referral_to_structural_services", "other_referral_to_structural_services", "referrals_completed_to_structural_services", "other_referrals_completed_to_structural_services"};

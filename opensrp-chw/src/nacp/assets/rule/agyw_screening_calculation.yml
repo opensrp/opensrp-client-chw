@@ -5,7 +5,7 @@ priority: 1
 condition: "true"
 actions:
   - "def getTotalScore(household_people_for_less_than_18, ever_married, ever_pregnant, currently_pregnant, both_parents_alive,
-                       birth_before_18, formal_education, missed_school, sexual_intercourse, sexual_intercourse_past_6_months, condom_usage,
+                       birth_before_18, formal_education, missed_school, sexual_intercourse, sexual_intercourse_past_12_months, condom_usage,
                        sex_for_money, sex_after_substance_abuse,  more_than_two_partner, unwillingly_touched, forced_for_sexual_activity,
                        scared_of_person, sti_investigation, sti_symptoms, sti_treatment, more_than_6_drinks, illicit_drug_usage,
                        drug_alcohol_problems) {
@@ -31,7 +31,7 @@ actions:
             if (sexual_intercourse.equals('yes')){
                 score += 1;
             }
-            if (sexual_intercourse_past_6_months.equals('yes')){
+            if (sexual_intercourse_past_12_months.equals('yes')){
                 score += 1;
             }
             if (condom_usage.equals('no')){
@@ -65,7 +65,7 @@ actions:
         }"
   - "calculation = getTotalScore(step1_household_people_for_less_than_18, step1_ever_married, step1_ever_pregnant,
                                  step1_currently_pregnant, step1_both_parents_alive, step1_birth_before_18,
-                                 step2_formal_education, step2_missed_school, step3_sexual_intercourse, step3_sexual_intercourse_past_6_months,
+                                 step2_formal_education, step2_missed_school, step3_sexual_intercourse, step3_sexual_intercourse_past_12_months,
                                  step3_condom_usage, step3_sex_for_money, step3_sex_after_substance_abuse, step3_more_than_two_partner, step4_unwillingly_touched,
                                  step4_forced_for_sexual_activity, step4_scared_of_person, step5_sti_investigation, step5_sti_symptoms,
                                  step5_sti_treatment, step6_more_than_6_drinks, step6_illicit_drug_usage, step6_drug_alcohol_problems)"

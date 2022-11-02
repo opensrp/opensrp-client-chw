@@ -55,6 +55,13 @@ condition: "step2_formal_education.equals('yes')"
 actions:
   - "isRelevant = true"
 ---
+name: step3_condom_usage
+description: condom_usage relevance
+priority: 1
+condition: "step3_sexual_intercourse.equals('yes')"
+actions:
+  - "isRelevant = true"
+---
 name: step8_program_name_with_dreams
 description: show if (age is 10-14 and in school or age 15-24 out of school) and beneficiary_of_a_program is yes
 priority: 1

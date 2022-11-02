@@ -202,11 +202,11 @@
         "openmrs_entity_id": ""
       },
       {
-        "key": "number_of_tubes_needles_distributed",
+        "key": "number_of_needles_and_syringes_distributed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_tubes_needles_distributed",
-        "hint": "Number of tubes & needles distributed",
+        "openmrs_entity_id": "number_of_needles_and_syringes_distributed",
+        "hint": "Number of needles & syringe distributed",
         "type": "edit_text",
         "edit_type": "number",
         "v_numeric": {
@@ -219,11 +219,11 @@
         }
       },
       {
-        "key": "number_of_water_distributed",
+        "key": "number_of_sterile_water_for_injection_distributed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_water_distributed",
-        "hint": "Number of Water Distributed",
+        "openmrs_entity_id": "number_of_sterile_water_for_injection_distributed",
+        "hint": "Number of Sterile Water for injection Distributed",
         "type": "edit_text",
         "edit_type": "number",
         "v_numeric": {
@@ -304,11 +304,11 @@
         }
       },
       {
-        "key": "number_of_index_coupons_distributed",
+        "key": "number_of_coupons_distributed_for_social_network",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_index_coupons_distributed",
-        "hint": "Number of Index Coupons Distributed",
+        "openmrs_entity_id": "number_of_coupons_distributed_for_social_network",
+        "hint": "Number of Coupons Distributed for social network",
         "type": "edit_text",
         "edit_type": "number",
         "v_numeric": {

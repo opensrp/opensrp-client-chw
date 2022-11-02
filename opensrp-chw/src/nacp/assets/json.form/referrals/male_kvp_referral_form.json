@@ -69,20 +69,29 @@
           },
           "options": [
             {
-              "name": "prep_and_pep",
-              "text": "PrEP and PEP",
+              "name": "prep",
+              "text": "PrEP",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "prep_and_pep",
+                "openmrs_entity_id": "prep",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "harm_reduction",
-              "text": "Harm reduction among PWID and non-injecting drug users",
+              "name": "pep",
+              "text": "PEP",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "harm_reduction",
+                "openmrs_entity_id": "pep",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "pwid_and_pwud",
+              "text": "PWID & PWUD",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "pwid_and_pwud",
                 "openmrs_entity_parent": ""
               }
             },

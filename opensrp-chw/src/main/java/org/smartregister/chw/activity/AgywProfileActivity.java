@@ -79,4 +79,11 @@ public class AgywProfileActivity extends BaseAGYWProfileActivity {
     private Visit getVisit(String eventType) {
         return PmtctLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshMedicalHistory(true);
+    }
 }

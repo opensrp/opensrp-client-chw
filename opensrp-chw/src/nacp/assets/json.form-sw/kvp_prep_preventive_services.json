@@ -202,11 +202,11 @@
         "openmrs_entity_id": ""
       },
       {
-        "key": "number_of_tubes_needles_distributed",
+        "key": "number_of_needles_and_syringes_distributed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_tubes_needles_distributed",
-        "hint": "Idadi ya vichupa na sindano zilizotolewa",
+        "openmrs_entity_id": "number_of_needles_and_syringes_distributed",
+        "hint": "Idadi ya sindano na bomba zilizotolewa",
         "type": "edit_text",
         "edit_type": "number",
         "v_numeric": {
@@ -219,11 +219,11 @@
         }
       },
       {
-        "key": "number_of_water_distributed",
+        "key": "number_of_sterile_water_for_injection_distributed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_water_distributed",
-        "hint": "Idadi ya maji yaliotolewa",
+        "openmrs_entity_id": "number_of_sterile_water_for_injection_distributed",
+        "hint": "Idadi ya maji ya sindano yaliotolewa",
         "type": "edit_text",
         "edit_type": "number",
         "v_numeric": {
@@ -304,11 +304,11 @@
         }
       },
       {
-        "key": "number_of_index_coupons_distributed",
+        "key": "number_of_coupons_distributed_for_social_network",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_index_coupons_distributed",
-        "hint": "Idadi ya Kuponi za huduma za mnyororo na mtandao",
+        "openmrs_entity_id": "number_of_coupons_distributed_for_social_network",
+        "hint": "Idadi ya Kuponi za huduma ya mtandao zilizotolewa",
         "type": "edit_text",
         "edit_type": "number",
         "v_numeric": {

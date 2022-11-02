@@ -467,11 +467,11 @@
         }
       },
       {
-        "key": "sexual_intercourse_past_6_months",
+        "key": "sexual_intercourse_past_12_months",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sexual_intercourse_past_6_months",
-        "label": "Je umefanya ngono ndani ya miezi 6 iliyopita?  ",
+        "openmrs_entity_id": "sexual_intercourse_past_12_months",
+        "label": "Je umefanya ngono ndani ya miezi 12 iliyopita?  ",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -506,7 +506,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "condom_usage",
-        "label": "Je ulitumia kondomu mara zote na mwenza/ mpenzi wako ndani ya miezi 6 ?",
+        "label": "Je ulitumia kondomu mara zote na mwenza/mpenzi wako ndani ya miezi 12 ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -530,9 +530,10 @@
           "err": "Tafadhali chagua jibu"
         },
         "relevance": {
-          "step3:sexual_intercourse": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "agyw_screening_relevance.yml"
+            }
           }
         }
       },
@@ -682,7 +683,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "unwillingly_touched",
-        "label": "Je kuna mtu yoyote aliwahi kukushika sehemu zako za siri, kukushika matiti au kukubusu kwa nguvu bila ridhaa yako ? ",
+        "label": "Je kuna mtu yoyote aliwahi kukushika sehemu zako za siri, kukushika matiti au kukubusu kwa nguvu bila ridhaa yako ?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
@@ -711,7 +712,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "forced_for_sexual_activity",
-        "label": "Je kuna mtu yeyote amewahi kukulazimisha kufanya ngono kwa kukutisha, udanganyifu   au kushiriki kwenye vitendo vyovyote vya kingono kwa kukulewesha pombe au dawa za kulevya?  ",
+        "label": "Je kuna mtu yeyote amewahi kukulazimisha kufanya ngono kwa kukutisha, udanganyifu au kushiriki kwenye vitendo vyovyote vya kingono kwa kukulewesha pombe au dawa za kulevya?",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
