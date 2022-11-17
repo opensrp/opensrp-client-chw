@@ -71,8 +71,8 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
         displayLoadingState(true);
         flavor.processViewData(visits, this);
         displayLoadingState(false);
-        TextView agywVisitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
-        agywVisitTitle.setText(R.string.agyw_visit);
+        TextView kvpVisitTitle = view.findViewById(org.smartregister.chw.core.R.id.customFontTextViewHealthFacilityVisitTitle);
+        kvpVisitTitle.setText(R.string.kvp_visit);
         return view;
     }
 
@@ -168,6 +168,7 @@ public class KvpPrEPMedicalHistoryActivity extends CoreAncMedicalHistoryActivity
                 int x = 0;
                 for (LinkedHashMap<String, String> vals : community_visits) {
                     View view = inflater.inflate(R.layout.medical_history_visit, null);
+                    view.findViewById(R.id.title).setVisibility(View.GONE);
                     TextView tvTypeOfService = view.findViewById(R.id.type_of_service);
                     LinearLayout visitDetailsLayout = view.findViewById(R.id.visit_details_layout);
 

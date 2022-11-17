@@ -78,11 +78,11 @@
               }
             },
             {
-              "name": "optimistic_infections",
+              "name": "opportunistic_infections",
               "text": "Magonjwa nyemelezi (Optimistic infections)",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "optimistic_infections",
+                "openmrs_entity_id": "opportunistic_infections",
                 "openmrs_entity_parent": ""
               }
             },

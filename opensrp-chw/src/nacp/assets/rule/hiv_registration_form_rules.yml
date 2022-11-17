@@ -2,14 +2,14 @@
 name: "ctc_number_visibility"
 description: "ctc_number visibility"
 priority: 1
-condition: "client_hiv_status_during_registration.value == 'Positive' || client_hiv_status_during_registration.value == 'Ana maambukizi'"
+condition: "client_hiv_status_during_registration.value == 'Positive' || client_hiv_status_during_registration.value == 'Ana Maambukizi (+)'"
 actions:
   - "ctc_number_visibility =  true"
 ---
 name: "tb_number_visibility"
 description: "tb_number visibility"
 priority: 1
-condition: "client_tb_status_during_registration.value == 'Positive' || client_tb_status_during_registration.value == 'Ana maambukizi'"
+condition: "client_tb_status_during_registration.value == 'Positive' || client_tb_status_during_registration.value == 'Ana Maambukizi (+)'"
 actions:
   - "tb_number_visibility =  true"
 ---

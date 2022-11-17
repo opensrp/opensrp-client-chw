@@ -450,6 +450,7 @@
 
 
     <!--    KVP Community-->
+    <string name="kvp_visit">KVP Visits</string>
     <string name="kvp_visit_type">Visit Type:</string>
     <string name="kvp_prep_followup_visit">Kvp PrEP Follow-up Visit</string>
     <string name="kvp_client_hiv_status">Client\'s HIV status:</string>

@@ -1,12 +1,13 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+
 import android.app.Activity;
 import android.content.Intent;
 
+import org.smartregister.chw.cdp.dao.CdpDao;
 import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.chw.core.activity.CoreCdpProfileActivity;
-
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
 public class CdpProfileActivity extends CoreCdpProfileActivity {
 
@@ -21,5 +22,14 @@ public class CdpProfileActivity extends CoreCdpProfileActivity {
     @Override
     protected void startRestockingHistory() {
         RestockingVisitHistoryActivity.startMe(this, outletObject);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        outletObject = CdpDao.getOutlet(outletObject.getBaseEntityId());
+        initializePresenter();
+        updateFollowupButton();
     }
 }

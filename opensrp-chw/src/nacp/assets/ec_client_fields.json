@@ -4434,6 +4434,13 @@
           }
         },
         {
+          "column_name": "other_outlet_type",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.other_outlet_type"
+          }
+        },
+        {
           "column_name": "entity_type",
           "type": "Event",
           "json_mapping": {

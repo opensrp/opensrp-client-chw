@@ -128,6 +128,13 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 if (registrationOrFollowupStatus != null) {
                     removeField(registrationOrFollowupStatus.getJSONArray("options"), "new_client");
                 }
+            } else { //Removing options for completed referrals to other services completed for first visit
+                for (int i = fields.length() - 1; i >= 0; i--) {
+                    JSONObject jsonObject = fields.getJSONObject(i);
+                    if (jsonObject != null && jsonObject.has("name") && jsonObject.getString("name").equalsIgnoreCase("referrals_to_other_services_completed")) {
+                        fields.remove(i);
+                    }
+                }
             }
 
 
@@ -164,6 +171,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
 
             if (ChwCBHSDao.tbStatusAfterTestingDone(baseEntityID)) {
+                removeField(fields, "was_the_client_tested_for_tb");
                 removeField(fields, "client_tb_status_after_testing");
             }
         }
@@ -336,6 +344,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
         //Refreshing the hiv Member object with new data just in-case it was updated in the background
         setHivMemberObject(HivDao.getMember(getHivMemberObject().getBaseEntityId()));
         onMemberDetailsReloaded(getHivMemberObject());
+        setProfileViewDetails(HivDao.getMember(getHivMemberObject().getBaseEntityId()));
 
         try {
             CbhsUtils.removeDeceasedClients(getHivMemberObject(), getContext());

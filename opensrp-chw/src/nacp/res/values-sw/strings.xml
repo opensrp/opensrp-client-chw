@@ -300,8 +300,8 @@
 
     <string name="cbhs_na">Haitambuliki</string>
     <string name="cbhs_unknown">Haijulikani</string>
-    <string name="cbhs_positive">Ana Maambukizi</string>
-    <string name="cbhs_negative">Hana Maambukizi</string>
+    <string name="cbhs_positive">Ana Maambukizi (+)</string>
+    <string name="cbhs_negative">Hana Maambukizi (-)</string>
 
     <string name="cbhs_health_problem">Matatizo ya kitabibu ya Mteja:</string>
     <string name="cbhs_general_body_malaise">Uchovu wa mwili usio wa kawaida</string>

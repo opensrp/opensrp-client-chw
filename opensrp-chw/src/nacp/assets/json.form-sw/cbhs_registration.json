@@ -131,7 +131,7 @@
             },
             {
               "name": "positive",
-              "text": "Ana maambukizi",
+              "text": "Ana Maambukizi (+)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -140,7 +140,7 @@
             },
             {
               "name": "negative",
-              "text": "Hana maambukizi",
+              "text": "Hana Maambukizi (-)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -200,7 +200,7 @@
             },
             {
               "name": "positive",
-              "text": "Ana maambukizi",
+              "text": "Ana Maambukizi (+)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -209,7 +209,7 @@
             },
             {
               "name": "negative",
-              "text": "Hana maambukizi",
+              "text": "Hana Maambukizi (-)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
