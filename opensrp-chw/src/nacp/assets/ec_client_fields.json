@@ -4734,6 +4734,13 @@
           }
         },
         {
+          "column_name": "receiving_order_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "receiving_order_facility"
+          }
+        },
+        {
           "column_name": "form_submission_id",
           "type": "Event",
           "json_mapping": {
