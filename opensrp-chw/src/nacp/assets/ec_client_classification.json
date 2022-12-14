@@ -653,6 +653,44 @@
           },
           {
             "field": "eventType",
+            "field_value": "AGYW Registration",
+            "creates_case": [
+              "ec_agyw_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW GRADUATE SERVICES",
+            "closes_case": [
+              "ec_agyw_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW Behavioral Services",
+            "creates_case": [
+              "ec_agyw_register",
+              "ec_agyw_behavioral_services"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW Bio Medical Services",
+            "creates_case": [
+              "ec_agyw_register",
+              "ec_agyw_bio_medical_services"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AGYW Structural Services",
+            "creates_case": [
+              "ec_agyw_structural_services",
+              "ec_agyw_register"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "KVP PrEP Registration",
             "creates_case": [
               "ec_kvp_prep_register"

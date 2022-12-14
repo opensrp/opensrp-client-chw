@@ -154,6 +154,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 default:
                     return details;
             }
+
         }
         return "-";
     }
@@ -183,6 +184,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
 
             return stringValues;
         }
+
         int humanReadableValueId = context.getResources().getIdentifier(resourceKey + receivedVal.trim().toLowerCase(), "string", context.getPackageName());
         if (humanReadableValueId != 0) {
             return context.getString(humanReadableValueId);

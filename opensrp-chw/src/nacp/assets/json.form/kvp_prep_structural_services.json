@@ -132,7 +132,6 @@
         "openmrs_entity_id": "other_structural_services_provided",
         "hint": "Other(specify)",
         "type": "edit_text",
-        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Please specify"

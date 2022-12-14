@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.smartregister.chw.activity.OrderDetailsActivity;
 import org.smartregister.chw.cdp.util.Constants;
 import org.smartregister.chw.core.fragment.CoreOrdersRegisterFragment;
+import org.smartregister.chw.presenter.OrdersRegisterFragmentPresenter;
 import org.smartregister.chw.util.JsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 
@@ -28,4 +29,11 @@ public class OrdersRegisterFragment extends CoreOrdersRegisterFragment {
     public void showDetails(CommonPersonObjectClient cp) {
         OrderDetailsActivity.startMe(requireActivity(), cp);
     }
+
+    @Override
+    protected void initializePresenter() {
+       presenter = new OrdersRegisterFragmentPresenter(this, model());
+    }
+
+
 }

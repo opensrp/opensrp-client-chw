@@ -1,0 +1,467 @@
+{
+  "count": "1",
+  "encounter_type": "AGYW Structural Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Structural Services",
+    "fields": [
+      {
+        "key": "economic_empowerment_education",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "economic_empowerment_education",
+        "type": "check_box",
+        "label": "Economic empowerment education",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "group_entrepreneurial_skills",
+            "text": "Group entrepreneurial skills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "group_entrepreneurial_skills"
+          },
+          {
+            "key": "practical_skills",
+            "text": "Practical skills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "practical_skills"
+          },
+          {
+            "key": "entrepreneurship_tools",
+            "text": "Entrepreneurship tools",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "entrepreneurship_tools"
+          },
+          {
+            "key": "self_emp_and_emp",
+            "text": "Preparation of self employment and employment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "self_emp_and_emp"
+          },
+          {
+            "key": "saccos_vicoba",
+            "text": "SACCOS/VICOBA services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "saccos_vicoba"
+          },
+          {
+            "key": "savings_mgmt",
+            "text": "Savings management",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "savings_mgmt"
+          },
+          {
+            "key": "credit_mgmt",
+            "text": "Credit management",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "credit_mgmt"
+          },
+          {
+            "key": "planning_a_budget",
+            "text": "Planning a budget",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "planning_a_budget"
+          },
+          {
+            "key": "starting_a_business",
+            "text": "Starting a business",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "starting_a_business"
+          },
+          {
+            "key": "prepare_business_plan",
+            "text": "Prepare a business plan",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prepare_business_plan"
+          },
+          {
+            "key": "business_mgmt",
+            "text": "Business management",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "business_mgmt"
+          },
+          {
+            "key": "commercial_banking_service",
+            "text": "Commercial banking services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "commercial_banking_service"
+          },
+          {
+            "key": "marketing_research",
+            "text": "Marketing research",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "marketing_research"
+          },
+          {
+            "key": "financial_edu_and_investments",
+            "text": "Financial education and investments",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_edu_and_investments"
+          },
+          {
+            "key": "financial_edu_basics",
+            "text": "Financial Education and Basics",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "financial_edu_basics"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      },
+      {
+        "key": "education_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "education_materials",
+        "label": "Educational materials",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "entrepreneurial_tools",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "entrepreneurial_tools",
+        "label": "Entrepreneurial tools?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "given_capital",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "given_capital",
+        "label": "Was the client given capital money?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "empower_girls",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "empower_girls",
+        "label": "Empowering a girl to protect herself and be safe?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "distribute_sanitary_pads",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "distribute_sanitary_pads",
+        "label": "Distribution of sanitary pads?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "nurturing_and_upb_edu",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nurturing_and_upb_edu",
+        "label": "Was education of Nurturing and Upbringing provided to the client?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          },
+          {
+            "key": "not_applicable",
+            "text": "Not applicable",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "not_applicable"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "nurturing_and_upb_edu_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "nurturing_and_upb_edu_given",
+        "type": "check_box",
+        "label": "Nurturing and Upbringing education",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "services_to_young_women",
+            "text": "Services provided to young women",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "services_to_young_women"
+          },
+          {
+            "key": "imp_edu_in_fam_comm",
+            "text": "The importance of nurturing education in the family/community",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "imp_edu_in_fam_comm"
+          },
+          {
+            "key": "violence_against_children",
+            "text": "The meaning of violence against children and forms of cruelty",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children"
+          },
+          {
+            "key": "risk_fac_leading_to_violence_against_children",
+            "text": "Causes and risk factors contributing to violence against children",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "risk_fac_leading_to_violence_against_children"
+          },
+          {
+            "key": "violence_against_children_effects",
+            "text": "Effects of violence against children in our families/communities",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "violence_against_children_effects"
+          },
+          {
+            "key": "childcare_on_protection_security",
+            "text": "Childcare that focuses on protection and security",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "childcare_on_protection_security"
+          },
+          {
+            "key": "safe_env_for_children",
+            "text": "Building and maintaining a safe environment for children at home and in the community",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "safe_env_for_children"
+          },
+          {
+            "key": "skills_against_violence",
+            "text": "Key skills they teach children to protect themselves from violence",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "skills_against_violence"
+          },
+          {
+            "key": "communication_for_children",
+            "text": "Appropriate communication for children of different ages",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "communication_for_children"
+          },
+          {
+            "key": "empowering_children",
+            "text": "Empowering children to speak to the order of appeal in society",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "empowering_children"
+          },
+          {
+            "key": "nurturing_of_disabled_children",
+            "text": "Nurturing of children with disabilities",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nurturing_of_disabled_children"
+          },
+          {
+            "key": "household_econ_strengthening",
+            "text": "Strengthening the household economy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "household_econ_strengthening"
+          },
+          {
+            "key": "culture_media",
+            "text": "Culture and the media",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "culture_media"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        },
+        "relevance": {
+          "step1:nurturing_and_upb_edu": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}

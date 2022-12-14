@@ -10,7 +10,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.smartregister.chw.domain.agyw_reports.AGYWReportObject;
 import org.smartregister.chw.domain.cbhs_reports.CbhsMonthlyReportObject;
+import org.smartregister.chw.domain.cdp_reports.CdpIssuingReportObject;
+import org.smartregister.chw.domain.cdp_reports.CdpReceivingReportObject;
 import org.smartregister.chw.domain.mother_champion_report.MotherChampionReportObject;
 
 import java.text.ParseException;
@@ -105,7 +109,13 @@ public class ReportUtils {
                 .build();
         mWebView.setWebViewClient(new LocalContentWebViewClient(assetLoader));
         mWebView.addJavascriptInterface(new ChwWebAppInterface(context, reportType), "Android");
-        mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/" + reportPath + ".html");
+
+        if (reportType.equals(Constants.ReportConstants.ReportTypes.CONDOM_DISTRIBUTION_REPORT)){
+            mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/cdp_reports/" + reportPath + ".html");
+        }else {
+            mWebView.loadUrl("https://appassets.androidplatform.net/assets/reports/" + reportPath + ".html");
+        }
+
     }
 
 
@@ -135,5 +145,39 @@ public class ReportUtils {
         }
     }
 
+    public static class CDPReports {
+        public static String computeIssuingReports(Date startDate) {
+            CdpIssuingReportObject cdpIssuingReportObject = new CdpIssuingReportObject(startDate);
+            try {
+                return cdpIssuingReportObject.getIndicatorDataAsGson(cdpIssuingReportObject.getIndicatorData());
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+            return "";
+        }
 
+        public static String computeReceivingReports(Date now) {
+            String report = "";
+            CdpReceivingReportObject cdpReceivingReportObject = new CdpReceivingReportObject(now);
+            try {
+                report = cdpReceivingReportObject.getIndicatorDataAsGson(cdpReceivingReportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+            return report;
+        }
+    }
+
+    public static class AGYWReport {
+        public static String computeReport(Date now) {
+            String report = "";
+            AGYWReportObject agywReportObject = new AGYWReportObject(now);
+            try {
+                report = agywReportObject.getIndicatorDataAsGson(agywReportObject.getIndicatorData());
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+            return report;
+        }
+    }
 }

@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreFamilyOtherMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -28,6 +29,7 @@ import org.smartregister.chw.dataloader.FamilyMemberDataLoader;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
 import org.smartregister.chw.fragment.FamilyOtherMemberProfileFragment;
 import org.smartregister.chw.hivst.dao.HivstDao;
+import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
@@ -75,16 +77,25 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
 
-        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 15);
         }
 
         if(ChwApplication.getApplicationFlavor().hasKvp()){
-            menu.findItem(R.id.action_kvp_prep_registration).setVisible(true);
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
         }
 
+        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            if (gender.equalsIgnoreCase("Female") && age >= 10 && age <= 24 && !AGYWDao.isRegisteredForAgyw(baseEntityId)) {
+                menu.findItem(R.id.action_agyw_screening).setVisible(true);
+            }
+        }
         flavor.updateMalariaMenuItems(baseEntityId, menu);
 
         if (gender.equalsIgnoreCase("Male") && flavor.isOfReproductiveAge(commonPersonObject, "Male")) {
@@ -276,10 +287,18 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
     protected void startLDRegistration() {
         //do nothing - implementation in hf
     }
+
     @Override
-    protected void startHivstRegistration(){
+    protected void startHivstRegistration() {
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
         HivstRegisterActivity.startHivstRegistrationActivity(FamilyOtherMemberProfileActivity.this, baseEntityId, gender);
+    }
+
+    @Override
+    protected void startAgywScreening() {
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AgywRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, age);
     }
 
     @Override
@@ -288,6 +307,16 @@ public class FamilyOtherMemberProfileActivity extends CoreFamilyOtherMemberProfi
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         int age = Utils.getAgeFromDate(dob);
         KvpPrEPRegisterActivity.startRegistration(FamilyOtherMemberProfileActivity.this, baseEntityId, gender, age);
+    }
+
+    @Override
+    protected void startKvpRegistration() {
+        //do nothing
+    }
+
+    @Override
+    protected void startPrEPRegistration() {
+        //do nothing
     }
 
     /**

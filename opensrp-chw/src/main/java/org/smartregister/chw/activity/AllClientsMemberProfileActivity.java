@@ -6,14 +6,13 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 import android.content.Context;
 import android.view.Menu;
 
-import androidx.viewpager.widget.ViewPager;
-
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
+import org.smartregister.chw.agyw.dao.AGYWDao;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreAllClientsMemberProfileActivity;
 import org.smartregister.chw.core.activity.CoreFamilyProfileActivity;
@@ -38,7 +37,10 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
+import androidx.viewpager.widget.ViewPager;
 import timber.log.Timber;
+
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfileActivity {
 
@@ -73,14 +75,24 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         if (ChwApplication.getApplicationFlavor().hasMalaria())
             flavor.updateMalariaMenuItems(baseEntityId, menu);
 
-        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(baseEntityId) && age >= 15);
         }
 
+        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            if (gender.equalsIgnoreCase("Female") && age >= 10 && age <= 24 && !AGYWDao.isRegisteredForAgyw(baseEntityId)) {
+                menu.findItem(R.id.action_agyw_screening).setVisible(true);
+            }
+        }
+
         if(ChwApplication.getApplicationFlavor().hasKvp()){
-            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId));
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
         }
         return true;
     }
@@ -160,9 +172,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
-    protected void startHivstRegistration(){
+    protected void startHivstRegistration() {
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
         HivstRegisterActivity.startHivstRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, gender);
+    }
+
+    @Override
+    protected void startAgywScreening() {
+        String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+        int age = Utils.getAgeFromDate(dob);
+        AgywRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, age);
     }
 
     @Override
@@ -171,6 +190,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         int age = Utils.getAgeFromDate(dob);
         KvpPrEPRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, gender, age);
+    }
+
+    @Override
+    protected void startKvpRegistration() {
+        //do nothing
+    }
+
+    @Override
+    protected void startPrEPRegistration() {
+        //do nothing
     }
 
     @Override

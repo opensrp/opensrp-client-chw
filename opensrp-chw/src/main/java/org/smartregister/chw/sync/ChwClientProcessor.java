@@ -74,6 +74,10 @@ public class ChwClientProcessor extends CoreClientProcessor {
                 case Constants.Events.MOTHER_CHAMPION_FOLLOWUP:
                 case Constants.Events.ANC_FIRST_FACILITY_VISIT:
                 case Constants.Events.ANC_RECURRING_FACILITY_VISIT:
+                case Constants.Events.AGYW_STRUCTURAL_SERVICES:
+                case Constants.Events.AGYW_BEHAVIORAL_SERVICES:
+                case Constants.Events.AGYW_BIO_MEDICAL_SERVICES:
+                case Constants.Events.KVP_PREP_FOLLOWUP_VISIT:
                     if (eventClient.getEvent() == null) {
                         return;
                     }

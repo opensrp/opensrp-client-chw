@@ -1,0 +1,372 @@
+{
+  "count": "1",
+  "encounter_type": "KVP PrEP Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Uunganishwaji kwenye huduma za KVP/PrEP",
+    "fields": [
+      {
+        "key": "hotspot_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hotspot_name",
+        "type": "edit_text",
+        "hint": "Jina la kijiwe",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la kijiwe"
+        }
+      },
+      {
+        "key": "facility_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "facility_name",
+        "type": "multi_select_list",
+        "buttonText": "Jina la Kituo cha Afya",
+        "sort": true,
+        "maxSelectable": 1,
+        "dialogTitle": "Select Facility",
+        "searchHint": "Andika Jina la Kituo cha Afya",
+        "options": [],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza jina la kituo"
+        }
+      },
+      {
+        "key": "birth_region",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "birth_region",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "label_info_title": "Mkoa aliozaliwa mteja",
+        "label_info_text": "",
+        "hint": "Chagua mkoa aliozaliwa mteja",
+        "values": [
+          "Arusha",
+          "Geita",
+          "Simiyu",
+          "Mtwara",
+          "Njombe",
+          "Singida",
+          "Pwani",
+          "Dodoma",
+          "Manyara",
+          "Mara",
+          "Shinyanga",
+          "Tabora",
+          "Mwanza",
+          "Songwe",
+          "Rukwa",
+          "Mbeya",
+          "Kagera",
+          "Dar es Salaam",
+          "Lindi",
+          "Katavi"
+        ],
+        "keys": [
+          "Arusha",
+          "Geita",
+          "Simiyu",
+          "Mtwara",
+          "Njombe",
+          "Singida",
+          "Pwani",
+          "Dodoma",
+          "Manyara",
+          "Mara",
+          "Shinyanga",
+          "Tabora",
+          "Mwanza",
+          "Songwe",
+          "Rukwa",
+          "Mbeya",
+          "Kagera",
+          "Dar es Salaam",
+          "Lindi",
+          "Katavi"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua mkoa"
+        }
+      },
+      {
+        "key": "client_group",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_group",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_registration_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_group_female_10_24",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_group_female_10_24",
+        "label": "Chagua aina ya kundi maalumu",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "fsw",
+            "text": "Mwanamke anayefanya biashara ya ngono",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsw"
+          },
+          {
+            "key": "pwid",
+            "text": "Mjidunda dawa za kulevya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pwid"
+          },
+          {
+            "key": "prisoners",
+            "text": "Mfungwa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prisoners"
+          },
+          {
+            "key": "inmate",
+            "text": "Mahabusu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inmate"
+          },
+          {
+            "key": "agyw",
+            "text": "balehe na mwanamke kijanaMsichana rika",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "agyw"
+          },
+          {
+            "key": "discordant_couples",
+            "text": "Mwenza mwenye majibu kinzani",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "discordant_couples"
+          },
+          {
+            "key": "normadic",
+            "text": "Makundi ya watu wanaohamahama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "normadic"
+          },
+          {
+            "key": "other",
+            "text": "Makundi Mengine hatarishi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_group_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_group_female",
+        "label": "Chagua aina ya kundi maalumu",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "fsw",
+            "text": "Mwanamke anayefanya biashara ya ngono",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fsw"
+          },
+          {
+            "key": "pwid",
+            "text": "Mjidunda dawa za kulevya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pwid"
+          },
+          {
+            "key": "prisoners",
+            "text": "Mfungwa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prisoners"
+          },
+          {
+            "key": "inmate",
+            "text": "Mahabusu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inmate"
+          },
+          {
+            "key": "discordant_couples",
+            "text": "Mwenza mwenye majibu kinzani",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "discordant_couples"
+          },
+          {
+            "key": "normadic",
+            "text": "Makundi ya watu wanaohamahama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "normadic"
+          },
+          {
+            "key": "other",
+            "text": "Makundi Mengine hatarishi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_registration_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "client_group_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_group_male",
+        "label": "Chagua aina ya kundi maalumu",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "msm",
+            "text": "Mwanaume anayefanya ngono na mwanaume mwenzie",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "msm"
+          },
+          {
+            "key": "pwid",
+            "text": "Mjidunda dawa za kulevya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pwid"
+          },
+          {
+            "key": "prisoners",
+            "text": "Mfungwa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prisoners"
+          },
+          {
+            "key": "inmate",
+            "text": "Mahabusu",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "inmate"
+          },
+          {
+            "key": "discordant_couples",
+            "text": "Mwenza mwenye majibu kinzani",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "discordant_couples"
+          },
+          {
+            "key": "normadic",
+            "text": "Makundi ya watu wanaohamahama",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "normadic"
+          },
+          {
+            "key": "other",
+            "text": "Makundi Mengine hatarishi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "kvp_prep_registration_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

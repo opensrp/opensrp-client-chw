@@ -2,9 +2,27 @@
 name: "ctc_number_visibility"
 description: "ctc_number visibility"
 priority: 1
-condition: "client_hiv_status_during_registration.value == 'Positive' || client_hiv_status_during_registration.value == 'Ana maambukizi'"
+condition: "client_hiv_status_during_registration.value == 'Positive' || client_hiv_status_during_registration.value == 'Ana Maambukizi (+)'"
 actions:
   - "ctc_number_visibility =  true"
+---
+name: "tb_number_visibility"
+description: "tb_number visibility"
+priority: 1
+condition: "client_tb_status_during_registration.value == 'Positive' || client_tb_status_during_registration.value == 'Ana Maambukizi (+)'"
+actions:
+  - "tb_number_visibility =  true"
+---
+name: "mat_number_visibility"
+description: "mat_number visibility"
+priority: 1
+condition: "reasons_for_registration_male_15.containsKey('drug_abuse') ||
+            reasons_for_registration_female_15.containsKey('drug_abuse') ||
+            reasons_for_registration_male_under_15.containsKey('drug_abuse') ||
+            reasons_for_registration_female_under_10.containsKey('drug_abuse') ||
+            reasons_for_registration_female_10_to_14.containsKey('drug_abuse')"
+actions:
+  - "mat_number_visibility =  true"
 ---
 name: "hiv_registration_date_calculation"
 description: "calculating the hiv registration date"

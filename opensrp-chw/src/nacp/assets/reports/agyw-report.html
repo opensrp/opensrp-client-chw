@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="./cdp-report-script.js"></script>
+    <style>
+    *{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px;
+    margin-right: 10px;
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: normal;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    padding: 5px;
+}
+
+
+ul {
+    width: 100%;
+}
+ul li {
+    width: 49%;
+    display: inline-block;
+}
+
+ul li > * {
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.no-data {
+  background: #ccc;
+}
+
+.bg-black {
+  background: #000;
+}
+    </style>
+</head>
+
+<body onload="loadData('monthly', 'anc')">
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th colspan="16">
+                <div style="line-height: 0.001;">
+                    <h5>FOMU YA RIPOTI YA VIJANANA RIKA YA BALEHE </h5>
+                    <h5>TAARIFA YA [MWEZI/MWAKA]: <span id="report_period"></span></h5>
+                    <h5>KITUONI: Kitungwa </h5>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <thead>
+        <tr class="bg-black">
+            <th></th>
+            <th rowspan="2"></th>
+            <th></th>
+            <th colspan="13"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>SN</th>
+            <th>VIASHIRIA</th>
+            <th>10-14</th>
+            <th>15-19</th>
+            <th>20-24</th>
+            <th>JUMLA</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <td>Idadi ya wasichana balehe na wanawake vijana waliotathminiwa kwenye afua za kuzuia maambukizi.
+            </td>
+            <td align="center" id="agyw-1-10-14"></td>
+            <td align="center" id="agyw-1-15-19"></td>
+            <td align="center" id="agyw-1-20-24"></td>
+            <td align="center" id="agyw-1-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td>Idadi ya wasichana balehe na wanawake vijana waliokidhi vigezo kupata afua za kuzuia maambukizi.</td>
+            <td align="center" id="agyw-2-10-14"></td>
+            <td align="center" id="agyw-2-15-19"></td>
+            <td align="center" id="agyw-2-20-24"></td>
+            <td align="center" id="agyw-2-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td>Idadi ya wasichana balehe na wanawake vijana waliosajiliwa kupata afua za kuzuia maambukizi.</td>
+            <td align="center" id="agyw-3-10-14"></td>
+            <td align="center" id="agyw-3-15-19"></td>
+            <td align="center" id="agyw-3-20-24"></td>
+            <td align="center" id="agyw-3-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>4</th>
+            <td>Idadi ya wasichana balehe wajawazito au waliowahi/kuwa na mtoto</td>
+            <td align="center" id="agyw-4-10-14"></td>
+            <td align="center" id="agyw-4-15-19"></td>
+            <td align="center" id="agyw-4-20-24"></td>
+            <td align="center" id="agyw-4-JUMLA"></td>
+        </tr>
+
+        <tr>
+            <th>5</th>
+            <td>Idadi ya wasichana balehe waliolewa au wanaishi na mwanaume kama mke na mume</td>
+            <td align="center" id="agyw-5-10-14"></td>
+            <td align="center" id="agyw-5-15-19"></td>
+            <td align="center" id="agyw-5-20-24"></td>
+            <td align="center" id="agyw-5-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>6</th>
+            <td>Idadi ya wasichana balehe na wanawake vijana wanaotumia njia za uzazi wa mpango</td>
+            <td align="center" id="agyw-6-10-14"></td>
+            <td align="center" id="agyw-6-15-19"></td>
+            <td align="center" id="agyw-6-20-24"></td>
+            <td align="center" id="agyw-6-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>7</th>
+            <td>Idadi ya wasichana balehe na wanawake vijana waliomaliza afua za msingi za kuzuia maambukizi ya VVU na huduma kuhusu ukatili wa kingono</td>
+            <td align="center" id="agyw-7-10-14"></td>
+            <td align="center" id="agyw-7-15-19"></td>
+            <td align="center" id="agyw-7-20-24"></td>
+            <td align="center" id="agyw-7-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>8</th>
+            <td>Idadi ya wanufaika hai waliopata kitita cha huduma za msingi za maambukizi ya VVU</td>
+            <td align="center" id="agyw-8-10-14"></td>
+            <td align="center" id="agyw-8-15-19"></td>
+            <td align="center" id="agyw-8-20-24"></td>
+            <td align="center" id="agyw-8-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>9</th>
+            <td>Idadi ya wanufaika hai waliokamilisha huduma zote za msingi na angalau moja ya ziada </td>
+            <td align="center" id="agyw-9-10-14"></td>
+            <td align="center" id="agyw-9-15-19"></td>
+            <td align="center" id="agyw-9-20-24"></td>
+            <td align="center" id="agyw-9-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>10</th>
+            <td>Idadi ya wanufaika hai waliokamilisha angalau huduma moja ya msingi </td>
+            <td align="center" id="agyw-10-10-14"></td>
+            <td align="center" id="agyw-10-15-19"></td>
+            <td align="center" id="agyw-10-20-24"></td>
+            <td align="center" id="agyw-10-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>11</th>
+            <td>Idadi ya wanufaika hai walioanza kupata huduma lakini hawajamaliza hata kipengele kimojawapo  </td>
+            <td align="center" id="agyw-11-10-14"></td>
+            <td align="center" id="agyw-11-15-19"></td>
+            <td align="center" id="agyw-11-20-24"></td>
+            <td align="center" id="agyw-11-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>12</th>
+            <td>Idadi ya vijana rika balehe waliofikiwa huduma jumuishi za kuzuia maambukizi ya VVU katika kipindi cha ripoti  </td>
+            <td align="center" id="agyw-12-10-14"></td>
+            <td align="center" id="agyw-12-15-19"></td>
+            <td align="center" id="agyw-12-20-24"></td>
+            <td align="center" id="agyw-12-JUMLA"></td>
+        </tr>
+        <tr>
+            <th>13</th>
+            <td>Idadi ya wasichana balehe na wanawake vijana waliopewa rufaa kwa huduma zinginezo</td>
+            <td align="center" id="agyw-13-10-14"></td>
+            <td align="center" id="agyw-13-15-19"></td>
+            <td align="center" id="agyw-13-20-24"></td>
+            <td align="center" id="agyw-13-JUMLA"></td>
+        </tr>
+        <tbody>
+    </table>
+</div>
+</body>
+</html>

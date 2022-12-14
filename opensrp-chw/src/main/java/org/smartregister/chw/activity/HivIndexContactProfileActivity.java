@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_MEMBER_OBJECT;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -53,8 +55,6 @@ import java.util.List;
 import java.util.Objects;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.hiv.util.Constants.ActivityPayload.HIV_MEMBER_OBJECT;
 
 public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileActivity implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
@@ -138,7 +138,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
             if (itemId == R.id.action_issue_hiv_community_followup_referral) {
                 HivRegisterActivity.startHIVFormActivity(this, getHivIndexContactObject().getBaseEntityId(), CoreConstants.JSON_FORM.getHivIndexContactCommunityFollowupReferral(), (new FormUtils()).getFormJsonFromRepositoryOrAssets(this, CoreConstants.JSON_FORM.getHivIndexContactCommunityFollowupReferral()).toString());
                 return true;
-            }else if(itemId == R.id.action_kvp_prep_registration){
+            } else if (itemId == R.id.action_kvp_prep_registration) {
                 String gender = Utils.getClientGender(getHivIndexContactObject().getBaseEntityId());
                 String dob = getHivIndexContactObject().getDob();
                 int age = Utils.getAgeFromDate(dob);
@@ -155,12 +155,12 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(org.smartregister.chw.core.R.menu.hiv_profile_menu, menu);
         menu.findItem(R.id.action_location_info).setVisible(UpdateDetailsUtil.isIndependentClient(getHivIndexContactObject().getBaseEntityId()));
-        if(ChwApplication.getApplicationFlavor().hasHIVST()){
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
             String dob = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(getHivIndexContactObject().getBaseEntityId()) && age >= 15);
         }
-        if(ChwApplication.getApplicationFlavor().hasKvp()){
+        if (ChwApplication.getApplicationFlavor().hasKvp()) {
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(getHivIndexContactObject().getBaseEntityId()));
         }
         return true;

@@ -145,7 +145,6 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         super.onCreateOptionsMenu(menu);
         menu.findItem(R.id.action_remove_member).setVisible(false);
         menu.findItem(R.id.action_issue_pmtct_followup_referral).setVisible(false);
-        menu.findItem(R.id.action_mark_as_deceased).setVisible(false);
         return true;
     }
 
@@ -287,7 +286,7 @@ public class MotherChampionProfileActivity extends CorePmtctProfileActivity {
         if (lastFollowupVisit != null) {
             rlLastVisit.setVisibility(View.VISIBLE);
             findViewById(R.id.view_notification_and_referral_row).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.mother_champion_visits_history);
+            ((TextView) findViewById(R.id.vViewHistory)).setText(R.string.visits_history_profile_title);
             ((TextView) findViewById(R.id.ivViewHistoryArrow)).setText(getString(R.string.view_visits_history));
         } else {
             rlLastVisit.setVisibility(View.GONE);

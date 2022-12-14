@@ -1,0 +1,325 @@
+{
+  "count": "1",
+  "encounter_type": "KVP PrEP Preventive Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Huduma Kinga",
+    "fields": [
+      {
+        "key": "condoms_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condoms_given",
+        "label": "Je, Mteja amepatiwa kondomu?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu"
+        }
+      },
+      {
+        "key": "type_of_issued_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_issued_condoms",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua aina za kondomu zilizotolewa",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "male_condoms",
+            "text": "Kondomu ya kiume",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "male_condoms"
+          },
+          {
+            "key": "female_condoms",
+            "text": "Kondomu ya Kike",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "female_condoms"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua jibu "
+        },
+        "relevance": {
+          "step1:condoms_given": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_male_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condoms_issued",
+        "type": "edit_text",
+        "hint": "Idadi ya kondomu za kiume zilizotolewa",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Idadi inatakiwa kuwa sawa au zaidi ya 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza namba "
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "male_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condoms_issued",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condoms_issued",
+        "type": "edit_text",
+        "hint": "Idadi ya kondomu za kike zilitolewa",
+        "v_numeric": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba sahihi"
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Idadi inatakiwa kuwa sawa na au zaidi ya 0"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali ingiza namba"
+        },
+        "relevance": {
+          "step1:type_of_issued_condoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "female_condoms"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_of_iec_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_iec_distributed",
+        "hint": "Idadi ya vipeperushi vilivyotolewa",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi ya vipeperushi vilivyotolewa"
+        }
+      },
+      {
+        "key": "protective_items_for_PWID_label",
+        "type": "label",
+        "text": "Protective Items for PWID",
+        "text_size": "6sp",
+        "has_bg": true,
+        "text_color": "#000000",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": ""
+      },
+      {
+        "key": "number_of_needles_and_syringes_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_needles_and_syringes_distributed",
+        "hint": "Idadi ya sindano na bomba zilizotolewa",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      },
+      {
+        "key": "number_of_sterile_water_for_injection_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_sterile_water_for_injection_distributed",
+        "hint": "Idadi ya maji ya sindano yaliotolewa",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      },
+      {
+        "key": "number_of_alcohol_swabs_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_alcohol_swabs_distributed",
+        "hint": "idadi ya pamba zilizotolewa(Alcohol swab)",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      },
+      {
+        "key": "number_of_disposable_safety_boxes_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_disposable_safety_boxes_distributed",
+        "hint": "Idadi ya mabox yakutupia vitu vyenye ncha kali yaliotolewa.",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      },
+      {
+        "key": "number_of_plasters_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_plasters_distributed",
+        "hint": "Idadi ya plasta iliyotolewa",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      },
+      {
+        "key": "number_of_hivst_kits_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_hivst_kits_distributed",
+        "hint": "Idadi ya vitepe vya JIPIME vilivyotolewa",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      },
+      {
+        "key": "number_of_coupons_distributed_for_social_network",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_coupons_distributed_for_social_network",
+        "hint": "Idadi ya Kuponi za huduma ya mtandao zilizotolewa",
+        "type": "edit_text",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Idadi inatakiwa iwe namba"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza idadi iliyotolewa"
+        }
+      }
+    ]
+  }
+}

@@ -69,44 +69,35 @@
           },
           "options": [
             {
-              "name": "ctc",
-              "text": "Tiba na matunzo (CTC)",
+              "name": "prep",
+              "text": "PrEP",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "ctc",
+                "openmrs_entity_id": "prep",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "hiv_testing",
-              "text": "Upimaji wa VVU",
+              "name": "pep",
+              "text": "PEP",
               "meta_data": {
-                "openmrs_entity": "",
-                "openmrs_entity_id": "hiv_testing",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "pep",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "prep_and_pep",
-              "text": "Dawa kinga PrEP and PEP",
+              "name": "pwid_and_pwud",
+              "text": "PWID & PWUD",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "prep_and_pep",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "harm_reduction",
-              "text": "Kupunguza madhara yatokanayo na utumiaji wa dawa za kulevya",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "harm_reduction",
+                "openmrs_entity_id": "pwid_and_pwud",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "hepatitis_b_and_c",
-              "text": "Uchunguzi/upimaji na chanjo ya homa ya ini B na C",
+              "text": "Hepatitis B & C",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "hepatitis_b_and_c",
@@ -114,26 +105,8 @@
               }
             },
             {
-              "name": "tb_screening_and_treatment",
-              "text": "Uchunguzi upimaji na tiba ya kifua kikuu",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "tb_screening_and_treatment",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "gbv",
-              "text": "Ukatili wa Kinjinsia (GBV)",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "gbv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "sti_screening_and_management",
-              "text": "Uchunguzi, upimaji na tiba ya magonjwa ya ngono na via vya uzazi",
+              "text": "STI screening and management",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "sti_screening_and_management",
@@ -142,7 +115,7 @@
             },
             {
               "name": "cervical_cancer",
-              "text": "Uchunguzi na upimaji wa kansa ya shingo ya kizazi",
+              "text": "Cervical Cancer screening and treatment",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "cervical_cancer",
@@ -150,35 +123,17 @@
               }
             },
             {
-              "name": "sti_screening_and_management",
-              "text": "Afya ya uzazi",
+              "name": "reproductive_health_services",
+              "text": "Reproductive health services",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "sti_screening_and_management",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "vmmc",
-              "text": "TOHARA kinga kwa wanaume ",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "vmmc",
+                "openmrs_entity_id": "reproductive_health_services",
                 "openmrs_entity_parent": ""
               }
             },
             {
               "name": "mental_psychosocial_support",
-              "text": "Afya ya akili na msaada wa kisaikolojia",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "rch",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "rch",
-              "text": "Huduma za mama na mtoto",
+              "text": "Mental Health and Psycho-social support",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "rch",
@@ -187,7 +142,7 @@
             },
             {
               "name": "other_reasons",
-              "text": "Nyinginezo (Taja)",
+              "text": "Other reasons (Specify)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "other_reasons",

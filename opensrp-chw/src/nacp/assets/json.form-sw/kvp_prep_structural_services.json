@@ -1,0 +1,153 @@
+{
+  "count": "1",
+  "encounter_type": "KVP PrEP Structural Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Huduma za Kimuundo",
+    "fields": [
+      {
+        "key": "structural_services_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "structural_services_provided",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Chagua aina za huduma za kimuundo zilizotolewa kwa mteja.",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "exclusive": [
+          "chk_none"
+        ],
+        "options": [
+          {
+            "key": "education_on_income_generation_activities",
+            "text": "Shughuli za uzalishaji kipato",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_income_generation_activities"
+          },
+          {
+            "key": "flyers_on_income_generation_activities",
+            "text": "Ugawaji wa vipeperushi kwaajili ya shughuli za uzalishaji kipato",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "flyers_on_income_generation_activities"
+          },
+          {
+            "key": "addressing_stigma_and_discrimination",
+            "text": "Unyanyapaa na kutengwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "addressing_stigma_and_discrimination"
+          },
+          {
+            "key": "community_empowerment",
+            "text": "Uwezeshaji jamii lengwa",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "community_empowerment"
+          },
+          {
+            "key": "education_on_addressing_gbv",
+            "text": "Elimu ya ukatili wa kijinsia dhidi ya makundi maalum",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_on_addressing_gbv"
+          },
+          {
+            "key": "provision_of_business_skills",
+            "text": "Ujasiriamali na biashara",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "provision_of_business_skills"
+          },
+          {
+            "key": "startup_kits",
+            "text": "Utoaji wa mitaji na nyenzo za kazi",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "startup_kits"
+          },
+          {
+            "key": "legal_support",
+            "text": "Msaada wa kisheria ",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "legal_support"
+          },
+          {
+            "key": "chk_others",
+            "text": "Nyingine",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_others"
+          },
+          {
+            "key": "chk_none",
+            "text": "Hakuna",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "chk_none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja au zaidi"
+        }
+      },
+      {
+        "key": "other_structural_services_provided",
+        "openmrs_entity_parent": "structural_services_provided",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_structural_services_provided",
+        "hint": "Nyingine (taja)",
+        "type": "edit_text",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali taja"
+        },
+        "relevance": {
+          "step1:structural_services_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_others"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

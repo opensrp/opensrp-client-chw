@@ -121,6 +121,10 @@ public class Constants extends CoreConstants {
         public static final String MOTHER_CHAMPION_FOLLOWUP = "Mother Champion Followup";
         public static final String CBHS_FOLLOWUP = "CBHS Followup";
         public static final String CBHS_CLOSE_VISITS = "CBHS Close Visits";
+        public static final String AGYW_STRUCTURAL_SERVICES = "AGYW Structural Services";
+        public static final String AGYW_BEHAVIORAL_SERVICES = "AGYW Behavioral Services";
+        public static final String AGYW_BIO_MEDICAL_SERVICES = "AGYW Bio Medical Services";
+        public static final String KVP_PREP_FOLLOWUP_VISIT = "Kvp PrEP Follow-up Visit";
     }
 
     public static final class ActionList {
@@ -145,6 +149,20 @@ public class Constants extends CoreConstants {
         public interface ReportTypes {
            String CBHS_REPORT = "cbhs_report";
            String MOTHER_CHAMPION_REPORT = "mother_champion_report";
+           String CONDOM_DISTRIBUTION_REPORT = "condom_distribution_report";
+           String AGYW_REPORT = "agyw_report";
+        }
+
+        public interface CDPReportKeys {
+            String ISSUING_REPORTS = "issuing_reports";
+            String RECEIVING_REPORTS = "receiving_reports";
+        }
+
+        public interface ReportPaths {
+            String CBHS_REPORT_PATH = "cbhs-taarifa-ya-mwezi";
+            String MOTHER_CHAMPION_REPORT_PATH = "mother-champion-report";
+            String CONDOM_DISTRIBUTION_ISSUING_REPORT_PATH = "condom-distribution-issuing-report";
+            String CONDOM_DISTRIBUTION_RECEIVING_REPORT_PATH = "condom-distribution-receiving-report";
         }
     }
 }

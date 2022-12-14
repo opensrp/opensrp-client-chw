@@ -132,7 +132,6 @@
         "openmrs_entity_id": "other_referral_to_structural_services",
         "hint": "Other(specify)",
         "type": "edit_text",
-        "edit_type": "number",
         "v_required": {
           "value": "true",
           "err": "Please specify"
@@ -233,7 +232,6 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_referrals_completed_to_structural_services",
         "hint": "Other(specify)",
-        "type": "edit_text",
         "edit_type": "number",
         "v_required": {
           "value": "true",

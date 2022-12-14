@@ -119,6 +119,10 @@
     <string name="referral_problem_Care_of_HIV_exposed_infant">Huduma za kumsaidia mtoto aliyezaliwa na mama mwenye VVU</string>
     <string name="referral_problem_Immunisation">Huduma za chanjo</string>
     <string name="referral_problem_other_reasons">Sababu nyingine</string>
+    <string name="referral_problem_genital_ulcers">Michubuko/vidonda sehemu za siri</string>
+    <string name="referral_problem_abnormal_vag_discharge">Kutokwa na maji maji yasiokuwa ya kawaida ukeni au kwenye njia ya haja kubwa</string>
+    <string name="referral_problem_pain_during_sexual_act">Kupata maumivu wakati wa kufanya ngono</string>
+    <string name="referral_problem_low_abdominal_pain">Maumivu ya tumbo chini ya kitovu</string>
 
 
     <string name="ltfu_clinic_ctc">CTC</string>
@@ -166,7 +170,7 @@
     <string name="pnc_moderate">Wastani</string>
     <string name="pnc_severe">Mbaya</string>
 
-    <string name="mother_champion_visits_history">Historia ya Matembeleo</string>
+    <string name="visits_history_profile_title">Historia ya Matembeleo</string>
     <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
     <string name="visits_history">Historia ya Matembeleo</string>
     <string name="mother_champion_visit">Matembeleo ya Mama Kinara</string>
@@ -257,6 +261,28 @@
     <string name="referral_problem_Breast_engorgement">Kujaa au maumivu ya matiti, chuchu na kushindwa kunyonyesha</string>
     <string name="referral_problem_Blurred_vision">Kuona kwa shida</string>
     <string name="referral_referral_Perineum_tear">Kuchanika msamba</string>
+    <string name="referral_problem_prep">Dawa kinga PrEP</string>
+    <string name="referral_problem_pep">Dawa kinga PEP</string>
+    <string name="referral_problem_pwid_and_pwud">Anatumia ya dawa za kulevya au mjidunga</string>
+    <string name="referral_problem_hepatitis_b_and_c">Uchunguzi/upimaji na chanjo ya homa ya ini B na C</string>
+    <string name="referral_problem_sti_screening_and_management">Uchunguzi, upimaji na tiba ya magonjwa ya ngono na via vya uzazi</string>
+    <string name="referral_problem_cervical_cancer">Uchunguzi na upimaji wa kansa ya shingo ya kizazi</string>
+    <string name="referral_problem_reproductive_health_services">Huduma za mama na mtoto</string>
+    <string name="referral_problem_vmmc">TOHARA kwa wanaume</string>
+    <string name="referral_problem_mental_psychosocial_support">Afya ya akili na msaada wa kisaikolojia</string>
+
+    <string name="referral_problem_male_condom">Kondomu ya kiume</string>
+    <string name="referral_problem_female_condom">Kondomu ya kike</string>
+    <string name="referral_problem_coc">Vidonge vya COC</string>
+    <string name="referral_problem_pop">Vidonge vya POP</string>
+    <string name="referral_problem_standard_day_method">Shanga</string>
+    <string name="referral_problem_emergency_contraceptive">Vidonge vya dharura vya uzazi wa mpango</string>
+    <string name="referral_problem_injectable">Sindano</string>
+    <string name="referral_problem_iucd">Kitanzi</string>
+    <string name="referral_problem_implanon_nxt">Kipandikizi cha miaka 3</string>
+    <string name="referral_problem_jadelle">Kipandikizi cha miaka 5</string>
+    <string name="referral_problem_female_sterilization">Kufunga kizazi mwanamke</string>
+    <string name="referral_problem_male_sterilization_fp">Kufunga kizazi mwanaume</string>
 
     <!--    CBHS Visit History String Resources-->
     <string name="cbhs_registration_or_followup_status">Hali ya ufuatiliaji:</string>
@@ -274,8 +300,8 @@
 
     <string name="cbhs_na">Haitambuliki</string>
     <string name="cbhs_unknown">Haijulikani</string>
-    <string name="cbhs_positive">Ana Maambukizi</string>
-    <string name="cbhs_negative">Hana Maambukizi</string>
+    <string name="cbhs_positive">Ana Maambukizi (+)</string>
+    <string name="cbhs_negative">Hana Maambukizi (-)</string>
 
     <string name="cbhs_health_problem">Matatizo ya kitabibu ya Mteja:</string>
     <string name="cbhs_general_body_malaise">Uchovu wa mwili usio wa kawaida</string>
@@ -347,4 +373,10 @@
     <string name="cbhs_registered_in_tb_clinic">Amesajiliwa kwenye Kliniki ya Kifua Kikuu</string>
     <string name="cbhs_male">Me</string>
     <string name="cbhs_female">Ke</string>
+    <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
+    <string name="condom_distribution_reports">Condom Distribution Reports</string>
+    <string name="cdp_reports">CDP REPORTS</string>
+    <string name="cdp_issuing_report">CDP Issuing Report</string>
+    <string name="cdp_receiving_report">CDP Receiving Report</string>
+    <string name="agyw_visit">Matembeleo ya Msichana Rika Balehe na Mwanamke Kijana</string>
 </resources>

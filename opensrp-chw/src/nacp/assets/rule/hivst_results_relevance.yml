@@ -33,3 +33,17 @@ priority: 1
 condition: "step1_client_test_result == 'reactive' || step1_client_test_result == 'non_reactive'"
 actions:
   - "isRelevant = true"
+---
+name: step1_prompt_for_referral_for_non_reactive
+description: prompt_for_referral_for_non_reactive relevance
+priority: 1
+condition: "step1_client_test_result == 'non_reactive'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_referral_for_reactive
+description: prompt_for_referral_for_reactive relevance
+priority: 1
+condition: "step1_client_test_result == 'reactive'"
+actions:
+  - "isRelevant = true"

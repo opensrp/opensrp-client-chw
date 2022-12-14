@@ -1,0 +1,115 @@
+{
+  "count": "1",
+  "encounter_type": "KVP PrEP Visit Type",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Aina ya Hudhurio",
+    "fields": [
+      {
+        "key": "visit_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_type",
+        "label": "Aina ya hudhurio la mteja.",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "new_visit",
+            "text": "Mteja Mpya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "new_visit"
+          },
+          {
+            "key": "followup",
+            "text": "Anaendelea na Huduma",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "followup"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja"
+        }
+      },
+      {
+        "key": "client_hiv_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_hiv_status",
+        "label": "Hali ya mteja ya maambukizi ya VVU",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Chanya",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "positive"
+          },
+          {
+            "key": "negative",
+            "text": "Hasi",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "negative"
+          },
+          {
+            "key": "unknown",
+            "text": "Haijulikani",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unknown"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua moja"
+        }
+      }
+    ]
+  }
+}

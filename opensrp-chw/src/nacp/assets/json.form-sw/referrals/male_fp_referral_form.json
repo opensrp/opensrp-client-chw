@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "Family Planning Referral",
+      "title": "Rufaa ya uzazi wa mpango",
       "fields": [
         {
           "name": "fp_method_accepted_referral",
@@ -69,51 +69,51 @@
           },
           "options": [
             {
-              "name": "Male_condom",
+              "name": "male_condom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164813AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "male_condom",
                 "openmrs_entity_parent": ""
               },
               "text": "Kondomu ya kiume"
             },
             {
-              "name": "Female_condom",
+              "name": "female_condom",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "female_condom",
                 "openmrs_entity_parent": ""
               },
               "text": "Kondomu ya kike"
             },
             {
-              "name": "Male_sterilization",
+              "name": "male_sterilization",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "1489AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "male_sterilization",
                 "openmrs_entity_parent": ""
               },
               "text": "Kufunga kizazi mwanaume"
             },
             {
-              "name": "None",
+              "name": "none",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "164369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "none",
                 "openmrs_entity_parent": ""
               },
               "text": "Hakuna"
             },
             {
-              "name": "Not_applicable",
+              "name": "not_applicable",
               "is_exclusive": true,
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "1175AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "openmrs_entity_id": "not_applicable",
                 "openmrs_entity_parent": ""
               },
-              "text": "Si husika"
+              "text": "Haihusiki"
             }
           ],
           "required_status": "yes:Tafadhali chagua njia ya uzazi wa mpango",

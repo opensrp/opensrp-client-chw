@@ -1,0 +1,232 @@
+{
+  "count": "1",
+  "encounter_type": "AGYW Bio Medical Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Bio-Medical Services",
+    "fields": [
+      {
+        "key": "condom_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_provided",
+        "label": "Was the client provided with condoms?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "provided_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_male_condoms",
+        "type": "edit_text",
+        "hint": "Number of male condoms (Pieces)",
+        "v_numeric": {
+          "value": "true",
+          "err":"Please enter the number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "step1:condom_provided": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "provided_female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "provided_female_condoms",
+        "type": "edit_text",
+        "hint": "Number of female condoms (Pieces)",
+        "v_numeric": {
+          "value": "true",
+          "err":"Please enter the number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the number"
+        },
+        "relevance": {
+          "step1:condom_provided": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "hivst_kit_needed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "hivst_kit_needed",
+        "label": "Does the client need HIVST kits?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      },
+      {
+        "key": "prompt_for_enrollment_to_hivst",
+        "type": "toaster_notes",
+        "text": "Enroll the client to HIVST Services",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "problem",
+        "relevance": {
+          "step1:hivst_kit_needed": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "family_planning_service",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "family_planning_service",
+        "type": "native_radio",
+        "label": "Family planning method currently used by the client",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "pill",
+            "text": "Pill",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pill"
+          },
+          {
+            "key": "injectable",
+            "text": "Injectables",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "injectable"
+          },
+          {
+            "key": "implanon",
+            "text": "Implanon",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "implanon"
+          },
+          {
+            "key": "jadelle",
+            "text": "Jadelle",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "jadelle"
+          },
+          {
+            "key": "iucd",
+            "text": "IUCD",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "iucd"
+          },
+          {
+            "key": "condom",
+            "text": "Condom",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "condom"
+          },
+          {
+            "key": "traditional",
+            "text": "Traditional",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "traditional"
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "none"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        }
+      }
+    ]
+  }
+}

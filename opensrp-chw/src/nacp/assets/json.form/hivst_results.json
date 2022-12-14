@@ -132,11 +132,29 @@
         }
       },
       {
-        "key": "prompt_for_referral",
+        "key": "prompt_for_referral_for_non_reactive",
         "type": "toaster_notes",
-        "text": "The client should be referred to a Hospital",
-        "toaster_info_text": "The client should be referred to the Hospital for HIV testing. Give the client a referral",
-        "toaster_info_title": "The client should be referred to a Hospital",
+        "text": "The client should be referred to the health facility for confirmation of self test results",
+        "toaster_info_text": "The client should be referred to the health facility for confirmation of self test results",
+        "toaster_info_title": "The client should be referred to the health facility for confirmation of self test results",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "prompt_for_referral_for_reactive",
+        "type": "toaster_notes",
+        "text": "The client should be referred to the health facility for confirmation of self test results",
+        "toaster_info_text": "The client should be referred to the health facility for confirmation of self test results",
+        "toaster_info_title": "The client should be referred to the health facility for confirmation of self test results",
         "openmrs_entity_id": "",
         "openmrs_entity": "",
         "openmrs_entity_parent": "",

@@ -1,0 +1,207 @@
+{
+  "count": "1",
+  "encounter_type": "AGYW Behavioral Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Behavioral Services",
+    "fields": [
+      {
+        "key": "sbcc_intervention_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sbcc_intervention_provided",
+        "type": "check_box",
+        "label": "SBCC intervention provided to the client",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "normal",
+        "text_color": "#C0C0C0",
+        "options": [
+          {
+            "key": "risk_behaviors",
+            "text": "Risk behaviors",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "risk_behaviors"
+          },
+          {
+            "key": "gender_and_sex_education",
+            "text": "Gender and sex education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_and_sex_education"
+          },
+          {
+            "key": "reproductive_health",
+            "text": "Reproductive health",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reproductive_health"
+          },
+          {
+            "key": "reproductive_health_education",
+            "text": "Reproductive health Education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "reproductive_health_education"
+          },
+          {
+            "key": "effective_communication",
+            "text": "Effective communication",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "effective_communication"
+          },
+          {
+            "key": "sti_hiv_aids",
+            "text": "STI and HIV/AIDS",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sti_hiv_aids"
+          },
+          {
+            "key": "sti_hiv_aids_education",
+            "text": "STI and HIV/AIDS Prevention Education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sti_hiv_aids_education"
+          },
+          {
+            "key": "family_planning",
+            "text": "Family planning",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "family_planning"
+          },
+          {
+            "key": "good_relationships",
+            "text": "Good relationships",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "good_relationships"
+          },
+          {
+            "key": "gender_based_violence",
+            "text": "Gender Based Violence",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "gender_based_violence"
+          },
+          {
+            "key": "sustainable_usage_condoms",
+            "text": "Correct and sustainable use of condoms",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "sustainable_usage_condoms"
+          },
+          {
+            "key": "ctc_services",
+            "text": "CTC services",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_services"
+          },
+          {
+            "key": "care_and_upbringing",
+            "text": "Care and Upbringing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "care_and_upbringing"
+          },
+          {
+            "key": "prep_education",
+            "text": "PrEP education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "prep_education"
+          },
+          {
+            "key": "pep_education",
+            "text": "PEP education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "pep_education"
+          },
+          {
+            "key": "tb_education",
+            "text": "TB education",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_education"
+          },
+          {
+            "key": "education_hiv_testing",
+            "text": "Education of HIV testing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "education_hiv_testing"
+          },
+          {
+            "key": "provision_iec",
+            "text": "Provision of IEC",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "provision_iec"
+          },
+          {
+            "key": "puberty_education_menstrual_hygiene",
+            "text": "Puberty education and menstrual hygiene",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "puberty_education_menstrual_hygiene"
+          },
+          {
+            "key": "life_skills",
+            "text": "Life skills",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "life_skills"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please pick at least one"
+        }
+      }
+    ]
+  }
+}

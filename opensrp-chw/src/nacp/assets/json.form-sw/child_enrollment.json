@@ -145,12 +145,12 @@
         "openmrs_entity_id": "first_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Jina la kwanza",
+        "hint": "Jina la Kwanza",
         "expanded": false,
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza jina la kwanza"
+          "err": "Tafadhali ingiza Jina la Kwanza"
         },
         "v_regex": {
           "value": "[A-Za-z\\s\\-\\']*",
@@ -164,12 +164,12 @@
         "openmrs_entity_id": "middle_name",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Jina la kati",
+        "hint": "Jina la Kati",
         "expanded": false,
         "edit_type": "name",
         "v_required": {
           "value": "true",
-          "err": "Tafadhali ingiza jina la kati"
+          "err": "Tafadhali ingiza Jina la Kati"
         },
         "v_regex": {
           "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",

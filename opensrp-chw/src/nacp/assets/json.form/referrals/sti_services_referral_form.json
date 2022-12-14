@@ -1,9 +1,9 @@
 {
-  "form": "KVP Services Referral",
-  "encounter_type": "KVP Services Referral",
+  "form": "STI Services Referral",
+  "encounter_type": "STI Services Referral",
   "entity_id": "",
   "relational_id": "",
-  "rules_file": "rule/kvp_referral_form_rules.yml",
+  "rules_file": "rule/sti_referral_form_rules.yml",
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -54,7 +54,7 @@
   },
   "steps": [
     {
-      "title": "KVP Services Referral",
+      "title": "STI Services Referral",
       "fields": [
         {
           "name": "problem",
@@ -69,133 +69,52 @@
           },
           "options": [
             {
-              "name": "ctc",
-              "text": "CTC",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "ctc",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "hiv_testing",
-              "text": "HIV Testing",
+              "name": "genital_ulcers",
+              "text": "Genital ulcers",
               "meta_data": {
                 "openmrs_entity": "",
-                "openmrs_entity_id": "hiv_testing",
+                "openmrs_entity_id": "genital_ulcers",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "prep_and_pep",
-              "text": "PrEP and PEP",
+              "name": "abnormal_vag_discharge",
+              "text": "Abnormal vaginal discharge(including anal discharge if practicing receptive anal sex)",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "prep_and_pep",
+                "openmrs_entity_id": "abnormal_vag_discharge",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "harm_reduction",
-              "text": "Harm reduction among PWID and non-injecting drug users",
+              "name": "pain_during_sexual_act",
+              "text": "Pain during the sexual act",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "harm_reduction",
+                "openmrs_entity_id": "pain_during_sexual_act",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "hepatitis_b_and_c",
-              "text": "Hepatitis B & C",
+              "name": "low_abdominal_pain",
+              "text": "Low abdominal pain",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "hepatitis_b_and_c",
+                "openmrs_entity_id": "low_abdominal_pain",
                 "openmrs_entity_parent": ""
               }
             },
             {
-              "name": "tb_screening_and_treatment",
-              "text": "TB screening and treatment",
+              "name": "other",
+              "text": "Others (Specify)",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "tb_screening_and_treatment",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "gbv",
-              "text": "GBV",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "gbv",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "sti_screening_and_management",
-              "text": "STI screening and management",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sti_screening_and_management",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "cervical_cancer",
-              "text": "Cervical Cancer screening and treatment",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "cervical_cancer",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "sti_screening_and_management",
-              "text": "Reproductive health services",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "sti_screening_and_management",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "vmmc",
-              "text": "VMMC",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "vmmc",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "mental_psychosocial_support",
-              "text": "Mental Health and Psycho-social support",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "rch",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "rch",
-              "text": "RCH",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "rch",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
-              "name": "other_reasons",
-              "text": "Other reasons (Specify)",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_id": "other",
                 "openmrs_entity_parent": ""
               }
             }
           ],
-          "required_status": "yes:Please specify reason for KVP services referral",
+          "required_status": "yes:Please specify reason for STI services referral",
           "dependent_calculations": [
             "referral_date",
             "referral_time",
@@ -206,14 +125,14 @@
         {
           "name": "problem_other",
           "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other reasons",
+            "type": "name"
+          },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "problem_other",
             "openmrs_entity_parent": "problem"
-          },
-          "properties": {
-            "hint": "Other reasons",
-            "type": "name"
           },
           "required_status": "true:Please specify other reasons",
           "subjects": "problem:map"

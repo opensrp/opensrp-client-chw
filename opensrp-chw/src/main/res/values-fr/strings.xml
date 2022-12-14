@@ -333,6 +333,8 @@
 
     <string name="cancel_download_confirmation">Vous êtes sûr de vouloir annuler ce téléchargement ?</string>
     <string name="cancel_download">Annuler le téléchargement</string>
+    <string name="agyw_reports">AGYW Reports</string>
+    <string name="agyw_reports_subtitle">View AGYW Report</string>
 
 
 </resources>

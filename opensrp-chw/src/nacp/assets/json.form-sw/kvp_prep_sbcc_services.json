@@ -1,0 +1,298 @@
+{
+  "count": "1",
+  "encounter_type": "KVP/PrEP SBCC Services",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Elimu ya mabadiliko ya tabia ya kiafya",
+    "fields": [
+      {
+        "key": "sbcc_services_offered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "sbcc_services_offered",
+        "buttonText": "Ongeza mada zilizotolewa",
+        "sort": false,
+        "maxSelectable": 5,
+        "dialogTitle": "Chagua elimu ya mabadiliko ya tabia ya kiafya zilizotolewa",
+        "searchHint": "Andika jina la elimu",
+        "options": [
+          {
+            "key": "proper_use_of_male_condom",
+            "text": "Matumizi sahihi ya Kondomu za kiume",
+            "openmrs_entity_id": "proper_use_of_male_condom",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "proper_use_of_male_condom",
+              "confirmed-id": "proper_use_of_male_condom"
+            }
+          },
+          {
+            "key": "proper_use_of_female_condom",
+            "text": "Matumizi sahihi ya Kondomu za kike",
+            "openmrs_entity_id": "proper_use_of_female_condom",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "proper_use_of_female_condom",
+              "confirmed-id": "proper_use_of_female_condom"
+            }
+          },
+          {
+            "key": "demand_creation_on_condom_use",
+            "text": "Ushawishi wa matumizi ya kondomu",
+            "openmrs_entity_id": "demand_creation_on_condom_use",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "demand_creation_on_condom_use",
+              "confirmed-id": "demand_creation_on_condom_use"
+            }
+          },
+          {
+            "key": "preventive_methods_against_std",
+            "text": "Njia za kujikinga na magonjwa ya ngono",
+            "openmrs_entity_id": "preventive_methods_against_std",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "preventive_methods_against_std",
+              "confirmed-id": "preventive_methods_against_std"
+            }
+          },
+          {
+            "key": "excessive_alcohol_usage",
+            "text": "Matumizi ya pombe kupita kiwango",
+            "openmrs_entity_id": "excessive_alcohol_usage",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "excessive_alcohol_usage",
+              "confirmed-id": "excessive_alcohol_usage"
+            }
+          },
+          {
+            "key": "education_on_hiv_prevention",
+            "text": "Elimu juu ya kuzuia maambukizi ya VVU",
+            "openmrs_entity_id": "education_on_hiv_prevention",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_hiv_prevention",
+              "confirmed-id": "education_on_hiv_prevention"
+            }
+          },
+          {
+            "key": "education_on_hiv_aids_art_usage",
+            "text": "Elimu ya matumizi ya dawa za ART",
+            "openmrs_entity_id": "education_on_hiv_aids_art_usage",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_hiv_aids_art_usage",
+              "confirmed-id": "education_on_hiv_aids_art_usage"
+            }
+          },
+          {
+            "key": "demand_creation_for_hiv_self_testing",
+            "text": "Kutengeneza uhitaji wa huduma ya JIPIME",
+            "openmrs_entity_id": "demand_creation_for_hiv_self_testing",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "demand_creation_for_hiv_self_testing",
+              "confirmed-id": "demand_creation_for_hiv_self_testing"
+            }
+          },
+          {
+            "key": "demand_creation_for_prep",
+            "text": "Kutengeneza uhitaji wa huduma ya dawa kinga",
+            "openmrs_entity_id": "demand_creation_for_prep",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "demand_creation_for_prep",
+              "confirmed-id": "demand_creation_for_prep"
+            }
+          },
+          {
+            "key": "education_on_the_use_of_pep",
+            "text": "Elimu ya matumizi ya dawa za PEP",
+            "openmrs_entity_id": "education_on_the_use_of_pep",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_the_use_of_pep",
+              "confirmed-id": "education_on_the_use_of_pep"
+            }
+          },
+          {
+            "key": "harm_reduction_for_pwud_pwid",
+            "text": "Upunguzaji wa madhara yatokanayo na utumiaji wa dawa za kulevya",
+            "openmrs_entity_id": "harm_reduction_for_pwud_pwid",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "harm_reduction_for_pwud_pwid",
+              "confirmed-id": "harm_reduction_for_pwud_pwid"
+            }
+          },
+          {
+            "key": "education_on_paraphenalia_for_PWID",
+            "text": "Elimu juu ya vifaa vya wajidunga",
+            "openmrs_entity_id": "education_on_paraphenalia_for_PWID",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_paraphenalia_for_PWID",
+              "confirmed-id": "education_on_paraphenalia_for_PWID"
+            }
+          },
+          {
+            "key": "education_on_overdose_management",
+            "text": "Education on Overdose Management",
+            "openmrs_entity_id": "education_on_overdose_management",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_overdose_management",
+              "confirmed-id": "education_on_overdose_management"
+            }
+          },
+          {
+            "key": "education_on_hepatitis_b",
+            "text": "Elimu ya Homa ya Ini B",
+            "openmrs_entity_id": "education_on_hepatitis_b",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_hepatitis_b",
+              "confirmed-id": "education_on_hepatitis_b"
+            }
+          },
+          {
+            "key": "education_on_hepatitis_c",
+            "text": "Elimu ya Homa ya Ini C",
+            "openmrs_entity_id": "education_on_hepatitis_c",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "education_on_hepatitis_c",
+              "confirmed-id": "education_on_hepatitis_c"
+            }
+          },
+          {
+            "key": "counselling_on_tb",
+            "text": "Ushauri wa Kifua kikuu",
+            "openmrs_entity_id": "counselling_on_tb",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "counselling_on_tb",
+              "confirmed-id": "counselling_on_tb"
+            }
+          },
+          {
+            "key": "counselling_on_gbv",
+            "text": "Ushauri wa Ukatili wa kijinsia",
+            "openmrs_entity_id": "counselling_on_gbv",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "counselling_on_gbv",
+              "confirmed-id": "counselling_on_gbv"
+            }
+          },
+          {
+            "key": "stigma_and_discrimination",
+            "text": "Unyanyapaa na kutengwa",
+            "openmrs_entity_id": "stigma_and_discrimination",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "stigma_and_discrimination",
+              "confirmed-id": "stigma_and_discrimination"
+            }
+          },
+          {
+            "key": "effect_of_multiple_sexual_partners",
+            "text": "Mahusiano ya wapenzi wengi na athari zake",
+            "openmrs_entity_id": "effect_of_multiple_sexual_partners",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "effect_of_multiple_sexual_partners",
+              "confirmed-id": "effect_of_multiple_sexual_partners"
+            }
+          },
+          {
+            "key": "counselling_on_hiv_testing",
+            "text": "Mahusiano ya wapenzi wengi na athari zake",
+            "openmrs_entity_id": "counselling_on_hiv_testing",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "counselling_on_hiv_testing",
+              "confirmed-id": "counselling_on_hiv_testing"
+            }
+          },
+          {
+            "key": "counselling_on_need_of_health_services",
+            "text": "Ushari wa upimaji wa VVU",
+            "openmrs_entity_id": "counselling_on_need_of_health_servicers",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "counselling_on_need_of_health_servicers",
+              "confirmed-id": "counselling_on_need_of_health_servicers"
+            }
+          },
+          {
+            "key": "male_circumcision",
+            "text": "TOHARA kinga kwa wanaume",
+            "openmrs_entity_id": "male_circumcision",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "male_circumcision",
+              "confirmed-id": "male_circumcision"
+            }
+          },
+          {
+            "key": "rch_services",
+            "text": "Huduma za mama na mtoto",
+            "openmrs_entity_id": "rch_services",
+            "openmrs_entity": "concept",
+            "property": {
+              "presumed-id": "rch_services",
+              "confirmed-id": "rch_services"
+            }
+          }
+        ],
+        "type": "multi_select_list",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali chagua"
+        }
+      }
+    ]
+  }
+}

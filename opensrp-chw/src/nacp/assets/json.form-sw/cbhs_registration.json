@@ -131,7 +131,7 @@
             },
             {
               "name": "positive",
-              "text": "Ana maambukizi",
+              "text": "Ana Maambukizi (+)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -140,7 +140,7 @@
             },
             {
               "name": "negative",
-              "text": "Hana maambukizi",
+              "text": "Hana Maambukizi (-)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -200,7 +200,7 @@
             },
             {
               "name": "positive",
-              "text": "Ana maambukizi",
+              "text": "Ana Maambukizi (+)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "positive",
@@ -209,7 +209,7 @@
             },
             {
               "name": "negative",
-              "text": "Hana maambukizi",
+              "text": "Hana Maambukizi (-)",
               "meta_data": {
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "negative",
@@ -640,7 +640,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "tb_number",
             "openmrs_entity_parent": ""
-          }
+          },
+          "subjects": "client_tb_status_during_registration:text"
         },
         {
           "name": "rch_number",
@@ -667,7 +668,8 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "mat_number",
             "openmrs_entity_parent": ""
-          }
+          },
+          "subjects": "reasons_for_registration_male_15:map, reasons_for_registration_female_15:map, reasons_for_registration_male_under_15:map, reasons_for_registration_female_under_10:map, reasons_for_registration_female_10_to_14:map"
         }
       ]
     }
