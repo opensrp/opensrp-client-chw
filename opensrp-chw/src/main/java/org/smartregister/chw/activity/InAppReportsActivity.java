@@ -6,16 +6,17 @@ import android.os.Build;
 import android.view.Menu;
 import android.view.View;
 
-import com.google.android.material.appbar.AppBarLayout;
-
-import org.smartregister.chw.R;
-import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
-import org.smartregister.view.activity.SecuredActivity;
-import org.smartregister.view.customcontrols.CustomFontTextView;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
+
+import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
+import org.smartregister.chw.core.job.ChwIndicatorGeneratingJob;
+import org.smartregister.view.activity.SecuredActivity;
+import org.smartregister.view.customcontrols.CustomFontTextView;
 
 public class InAppReportsActivity extends SecuredActivity implements View.OnClickListener {
 
@@ -46,6 +47,14 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
         motherChampionReportsLayout = findViewById(R.id.mother_champion_reports);
         condomDistributionReports = findViewById(R.id.cdp_reports);
         agyweports = findViewById(R.id.agyw_reports);
+
+        if (ChwApplication.getApplicationFlavor().hasAGYW()) {
+            agyweports.setVisibility(View.VISIBLE);
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasCdp()) {
+            condomDistributionReports.setVisibility(View.VISIBLE);
+        }
         motherChampionReportsLayout.setOnClickListener(this);
         condomDistributionReports.setOnClickListener(this);
         cbhsReportsLayout.setOnClickListener(this);
@@ -86,15 +95,15 @@ public class InAppReportsActivity extends SecuredActivity implements View.OnClic
             Intent intent = new Intent(this, CBHSReportsActivity.class);
             startActivity(intent);
         }
-        if(id == R.id.mother_champion_reports){
+        if (id == R.id.mother_champion_reports) {
             Intent intent = new Intent(this, MotherChampionReportsActivity.class);
             startActivity(intent);
         }
-        if (id==R.id.cdp_reports){
+        if (id == R.id.cdp_reports) {
             Intent intent = new Intent(this, CdpReportsActivity.class);
             startActivity(intent);
         }
-        if (id==R.id.agyw_reports){
+        if (id == R.id.agyw_reports) {
             Intent intent = new Intent(this, AGYWReportsActivity.class);
             startActivity(intent);
         }

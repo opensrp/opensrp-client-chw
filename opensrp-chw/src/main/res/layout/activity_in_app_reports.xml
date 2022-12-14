@@ -190,6 +190,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:minHeight="150dp"
+                android:visibility="gone"
                 android:paddingVertical="30dp">
 
                 <ImageView
@@ -244,6 +245,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:minHeight="150dp"
+                android:visibility="gone"
                 android:paddingVertical="30dp">
 
                 <ImageView
