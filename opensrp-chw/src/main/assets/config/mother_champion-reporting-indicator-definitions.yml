@@ -40,3 +40,14 @@ indicators:
                       from ec_sbcc es
                       WHERE date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
                             date(substr(es.sbcc_date, 7, 4) || '-' || substr(es.sbcc_date, 4, 2) || '-' || '01')"
+  - key: "b-7"
+    description: "Idadi ya wenza waliofuatiliwa/kuletwa kituoni kupima"
+    indicatorQuery: " SELECT COUNT(DISTINCT eapcf.entity_id) as count
+                     from ec_anc_partner_community_feedback eapcf
+                     WHERE
+                       partner_agree_attending_hf = 'yes'
+                       AND date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) =
+                           date(substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 1, 4) ||
+                                '-' ||
+                                substr(strftime('%Y-%m-%d', datetime(last_interacted_with / 1000, 'unixepoch', 'localtime')), 6, 2) ||
+                                '-' || '01')"

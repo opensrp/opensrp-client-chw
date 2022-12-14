@@ -8,7 +8,7 @@ import org.smartregister.chw.domain.ReportObject;
 import java.util.Date;
 
 public class MotherChampionReportObject extends ReportObject {
-    private final String[] indicatorCodes = new String[]{"b-1", "b-2", "b-3", "b-4", "b-5"};
+    private final String[] indicatorCodes = new String[]{"b-1", "b-2", "b-3", "b-4", "b-5", "b-7"};
     private final Date reportDate;
 
     public MotherChampionReportObject(Date reportDate) {

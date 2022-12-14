@@ -90,7 +90,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
                 JSONObject formJson = (new FormUtils()).getFormJsonFromRepositoryOrAssets(getView().getContext(), Constants.JSON_FORM.getChildUnifiedReferralForm());
                 formJson.put(Constants.REFERRAL_TASK_FOCUS, referralTypeModels.get(0).getReferralType());
                 ReferralRegistrationActivity.startGeneralReferralFormActivityForResults((Activity) getView().getContext(),
-                        getChildBaseEntityId(), formJson, true);
+                        getChildBaseEntityId(), formJson, false);
             } catch (Exception e) {
                 Timber.e(e);
             }

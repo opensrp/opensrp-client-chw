@@ -32,6 +32,38 @@
           }
         },
         {
+          "column_name": "chairperson_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chairperson_name"
+          }
+        },
+        {
+          "column_name": "chairperson_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "chairperson_phone"
+          }
+        },
+        {
+          "column_name": "ten_house_cell_leader_name",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ten_house_cell_leader_name"
+          }
+        },
+        {
+          "column_name": "ten_house_cell_leader_phone",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ten_house_cell_leader_phone"
+          }
+        },
+        {
           "column_name": "village_town",
           "type": "Client",
           "json_mapping": {
@@ -4699,6 +4731,13 @@
           "type": "Event",
           "json_mapping": {
             "field": "locationId"
+          }
+        },
+        {
+          "column_name": "receiving_order_facility",
+          "type": "Event",
+          "json_mapping": {
+            "field": "receiving_order_facility"
           }
         },
         {
