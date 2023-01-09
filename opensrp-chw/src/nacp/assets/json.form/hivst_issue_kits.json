@@ -75,56 +75,6 @@
         }
       },
       {
-        "key": "client_testing_approach",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "client_testing_approach",
-        "label": "Client's testing approach",
-        "text_color": "#000000",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "assisted_testing_on_site",
-            "text": "Assisted testing on site",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "assisted_testing_on_site"
-          },
-          {
-            "key": "assisted_testing_off_site",
-            "text": "Assisted testing off site",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "assisted_testing_off_site"
-          },
-          {
-            "key": "unassisted_testing_on_site",
-            "text": "Unassisted testing on site",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "unassisted_testing_on_site"
-          },
-          {
-            "key": "unassisted_testing_off_site",
-            "text": "Unassisted testing off site",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "unassisted_testing_off_site"
-          }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please select an answer"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "hivst_issue_kits_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "self_test_kit_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -176,11 +126,61 @@
         }
       },
       {
+        "key": "client_testing_approach",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "client_testing_approach",
+        "label": "Client's testing approach",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "assisted_testing_on_site",
+            "text": "Assisted testing on site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "assisted_testing_on_site"
+          },
+          {
+            "key": "assisted_testing_off_site",
+            "text": "Assisted testing off site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "assisted_testing_off_site"
+          },
+          {
+            "key": "unassisted_testing_on_site",
+            "text": "Unassisted testing on site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unassisted_testing_on_site"
+          },
+          {
+            "key": "unassisted_testing_off_site",
+            "text": "Unassisted testing off site",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "unassisted_testing_off_site"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "extra_kits_required",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "extra_kits_required",
-        "label": "Does the client require extra kits?",
+        "label": "Does the client require kits for peer or sexual partner?'",
         "text_color": "#000000",
         "type": "native_radio",
         "options": [
