@@ -4673,6 +4673,18 @@
       ]
     },
     {
+      "name": "ec_cdp_restock",
+      "columns": [
+        {
+          "column_name": "baseEntityId",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        }
+      ]
+    },
+    {
       "name": "ec_cdp_outlet_visit",
       "columns": [
         {
