@@ -132,4 +132,9 @@ public interface RepositoryUtils {
         return eventId;
     }
 
+    static void updateClientValidateStatus (SQLiteDatabase db)
+    {
+        db.execSQL("UPDATE client Set validationStatus = 'Invalid'");
+    }
+
 }
