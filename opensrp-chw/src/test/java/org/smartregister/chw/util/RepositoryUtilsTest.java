@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
@@ -53,7 +56,7 @@ public class RepositoryUtilsTest {
                 ArgumentMatchers.any(String[].class), ArgumentMatchers.eq("eventId IS NULL AND validationStatus = ?"),
                 ArgumentMatchers.any(String[].class), ArgumentMatchers.isNull(), ArgumentMatchers.isNull(), ArgumentMatchers.isNull());
         RepositoryUtils.updateNullEventIds(database);
-        Mockito.verify(database).execSQL("UPDATE event SET eventId = '3b598b80-13ee-4a9a-8cd1-8e66fa76bbe9', " +
+        verify(database).execSQL("UPDATE event SET eventId = '3b598b80-13ee-4a9a-8cd1-8e66fa76bbe9', " +
                 "syncStatus = 'Synced' WHERE formSubmissionId = '45a294f5-ec2f-4233-847a-6f7910a6e63f';");
     }
 
@@ -165,6 +168,18 @@ public class RepositoryUtilsTest {
         List<Event> actualEvents = RepositoryUtils.readEvents(cursor);
 
         assertEquals(expectedEvents.get(0).getBaseEntityId(), actualEvents.get(0).getBaseEntityId());
+    }
+
+
+    @Test
+    public void addDetailsColumnToFamilySearchTable_ShouldAddColumnsSuccessfully() {
+        // When
+        RepositoryUtils.addDetailsColumnToFamilySearchTable(database);
+
+        // Then
+        verify(database, times(1)).execSQL("ALTER TABLE ec_family ADD COLUMN entity_type VARCHAR; " +
+                "UPDATE ec_family SET entity_type = 'ec_family' WHERE id is not null;");
+        verify(database, times(5)).execSQL(anyString());
     }
 
 }
