@@ -182,4 +182,11 @@ public class RepositoryUtilsTest {
         verify(database, times(5)).execSQL(anyString());
     }
 
+    @Test
+    public void updateClientValidationStatusTest()
+    {
+        RepositoryUtils.updateClientValidateStatus(database);
+        verify(database, times(1)).execSQL(anyString());
+    }
+
 }
