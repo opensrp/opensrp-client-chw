@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.smartregister.immunization.repository.VaccineRepository;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 

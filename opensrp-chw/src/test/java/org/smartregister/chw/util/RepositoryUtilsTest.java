@@ -172,7 +172,7 @@ public class RepositoryUtilsTest {
 
 
     @Test
-    public void addDetailsColumnToFamilySearchTable_ShouldAddColumnsSuccessfully() {
+    public void addDetailsColumnToFamilySearchTableShouldAddColumnsSuccessfully() {
         // When
         RepositoryUtils.addDetailsColumnToFamilySearchTable(database);
 
