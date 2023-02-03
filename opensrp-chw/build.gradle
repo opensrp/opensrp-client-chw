@@ -230,8 +230,8 @@ android {
         ba {
             dimension = 'baseDimension'
             applicationIdSuffix ".ba"
-            versionCode 8
-            versionName "1.0.8"
+            versionCode 9
+            versionName "1.0.9"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -244,13 +244,13 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Ward", "MOH Jhpiego Facility Name", "Health Facility", "Village", "Village Sublocations"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village Sublocations"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '23'
+            buildConfigField "int", "DATABASE_VERSION", '24'
         }
         chad {
             dimension = 'baseDimension'
             applicationIdSuffix ".chad"
-            versionCode 3
-            versionName "1.0.3"
+            versionCode 4
+            versionName "1.0.4"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -262,7 +262,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Clinic" , "CHSS" , "CHA"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
-            buildConfigField "int", "DATABASE_VERSION", '15'
+            buildConfigField "int", "DATABASE_VERSION", '16'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
         }
@@ -270,8 +270,8 @@ android {
             resConfigs "en", "fr"
             dimension = 'baseDimension'
             applicationIdSuffix ".drc"
-            versionCode 11
-            versionName "1.0.16"
+            versionCode 12
+            versionName "1.0.17"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -291,8 +291,8 @@ android {
         guinea {
             dimension = 'baseDimension'
             applicationIdSuffix ".guinea"
-            versionCode 4
-            versionName "1.0.3"
+            versionCode 5
+            versionName "1.0.4"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
@@ -307,13 +307,13 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_PREVIEW', '"Village"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHW"'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
-            buildConfigField "int", "DATABASE_VERSION", '8'
+            buildConfigField "int", "DATABASE_VERSION", '9'
         }
         togo {
             dimension = 'baseDimension'
             applicationIdSuffix ".togo"
-            versionCode 26
-            versionName "1.2.7"
+            versionCode 27
+            versionName "1.2.8"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '1000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '500'
@@ -327,12 +327,12 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION', '"Village"'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '10'
             buildConfigField "int", "MAX_READ_TIMEOUT", '10'
-            buildConfigField "int", "DATABASE_VERSION", '21'
+            buildConfigField "int", "DATABASE_VERSION", '22'
         }
         liberia {
             dimension = 'baseDimension'
-            versionCode 8
-            versionName "1.0.1"
+            versionCode 9
+            versionName "1.0.2"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -346,13 +346,13 @@ android {
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"CHA"'
             buildConfigField "int", "MAX_CONNECTION_TIMEOUT", '5'
             buildConfigField "int", "MAX_READ_TIMEOUT", '5'
-            buildConfigField "int", "DATABASE_VERSION", '8'
+            buildConfigField "int", "DATABASE_VERSION", '9'
         }
         lmh {
             dimension = 'baseDimension'
             applicationIdSuffix ".lmh"
-            versionCode 7
-            versionName "2.0.3"
+            versionCode 8
+            versionName "2.0.4"
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10000'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
@@ -364,7 +364,7 @@ android {
             buildConfigField "String[]", "ALLOWED_LOCATION_LEVELS_DEBUG", '{"Country" , "County" , "District", "Clinics", "CHSS", "Village","Commune"}'
             buildConfigField "String", 'DEFAULT_LOCATION', '"Commune"'
             buildConfigField "String", 'DEFAULT_LOCATION_DEBUG', '"Commune"'
-            buildConfigField "int", "DATABASE_VERSION", '7'
+            buildConfigField "int", "DATABASE_VERSION", '8'
         }
     }
 
