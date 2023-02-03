@@ -48,14 +48,12 @@ public class ChwRepositoryFlv {
                 case 12:
                     upgradeToVersion12(db);
                     break;
-                case 13:
-                    upgradeToVersion13(db);
-                    break;
                 default:
                     break;
             }
             upgradeTo++;
         }
+        RepositoryUtils.updateClientValidateStatus(db);
     }
 
     private static void upgradeToVersion2(Context context, SQLiteDatabase db) {
@@ -167,9 +165,5 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion12(SQLiteDatabase db) {
         RepositoryUtils.updateNullEventIds(db);
-    }
-    private static void upgradeToVersion13 (SQLiteDatabase db)
-    {
-        RepositoryUtils.updateClientValidateStatus(db);
     }
 }
