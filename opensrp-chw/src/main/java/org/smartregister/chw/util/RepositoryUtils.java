@@ -26,6 +26,8 @@ public interface RepositoryUtils {
 
     String EVENT_ID = "id";
     String _ID = "_id";
+    String VALIDATION_STATUS = "validationStatus";
+    String STATUS_INVALID = "Invalid";
 
     String ADD_MISSING_REPORTING_COLUMN = "ALTER TABLE 'indicator_queries' ADD COLUMN expected_indicators TEXT NULL;";
     String FAMILY_MEMBER_ADD_REASON_FOR_REGISTRATION = "ALTER TABLE 'ec_family_member' ADD COLUMN reasons_for_registration TEXT NULL;";
@@ -130,6 +132,11 @@ public interface RepositoryUtils {
             }
         }
         return eventId;
+    }
+
+    static void updateClientValidateStatus (SQLiteDatabase db)
+    {
+        db.execSQL(String.format("UPDATE client Set %s = '%s'",VALIDATION_STATUS,STATUS_INVALID));
     }
 
 }
