@@ -77,6 +77,10 @@ public class DefaultChildHomeVisitInteractorFlvTest extends BaseHomeVisitInterac
     @Test
     public void testCalculateActionsPopulatesServicesForChild() throws BaseAncHomeVisitAction.ValidationException {
 
+        Mockito.doReturn(new SimpleDateFormat("yyyy-mm-dd").format(new Date()))
+                .when(memberObject)
+                .getDob();
+
         Mockito.doReturn(context).when(view).getContext();
         Mockito.doReturn(false).when(view).getEditMode();
 

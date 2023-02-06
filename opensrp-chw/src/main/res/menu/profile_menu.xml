@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_family_details"
+        android:enabled="true"
+        android:title="@string/family_details"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_remove_member"
+        android:enabled="true"
+        android:title="@string/remove_existing_family_member"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_change_head"
+        android:enabled="true"
+        android:title="@string/change_family_head"
+        app:showAsAction="never"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/action_change_care_giver"
+        android:enabled="true"
+        android:title="@string/change_primary_caregiver"
+        app:showAsAction="never"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/action_not_able_to_change_caregiver"
+        android:enabled="true"
+        android:title="@string/not_able_to_change_caregiver"
+        app:showAsAction="never"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/action_not_able_to_change_head"
+        android:enabled="true"
+        android:title="@string/not_able_to_change_family_head"
+        app:showAsAction="never"
+        android:visible="false"
+        />
+
+</menu>
+
+

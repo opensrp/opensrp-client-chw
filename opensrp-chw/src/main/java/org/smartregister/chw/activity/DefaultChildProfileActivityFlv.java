@@ -102,4 +102,10 @@ public abstract class DefaultChildProfileActivityFlv implements ChildProfileActi
     public String getToolbarTitleName(MemberObject memberObject) {
         return memberObject.getFamilyName();
     }
+
+    @Override
+    public boolean usesEligibleChildText(){
+        return false;
+    }
+
 }

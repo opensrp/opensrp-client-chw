@@ -1,0 +1,215 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.smartregister.chw.anc.fragment.BaseAncHomeVisitFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/opensrp_primary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="@dimen/tool_bar_image"
+                android:layout_height="@dimen/tool_bar_image"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dialog_toolbar_close_margin"
+                android:layout_marginEnd="@dimen/dialog_toolbar_close_margin"
+                android:layout_marginRight="@dimen/dialog_toolbar_close_margin"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_action_close" />
+
+            <org.smartregister.view.customcontrols.CustomFontTextView
+                android:id="@+id/customFontTextViewTitle"
+                style="@style/CustomFontTextViewStyle.ClientList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/close"
+                android:layout_toRightOf="@+id/close"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/activity_title_size"
+                tools:text="Child vaccine card received" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0px"
+                    android:layout_height="1px"
+                    android:background="@color/light_grey"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/btn_margin_right"
+                    android:text="@string/save"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/activity_title_size" />
+
+                <Button
+                    android:id="@+id/buttonCancel"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/btn_margin_right"
+                    android:text="@string/dose_not_given"
+                    android:textAllCaps="false"
+                    android:textColor="@color/client_list_grey"
+                    android:textSize="@dimen/activity_title_size"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/detail_toolbar"
+        android:layout_margin="0dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageViewMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="220dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="10dp" />
+
+                <ImageView
+                    android:id="@+id/info_icon"
+                    android:layout_width="@dimen/default_info_icon_size"
+                    android:layout_height="@dimen/default_info_icon_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="@string/the_extra_info_icon"
+                    android:src="@drawable/ic_icon_info_filled"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageViewMain"
+                    android:orientation="vertical">
+
+                    <org.smartregister.view.customcontrols.CustomFontTextView
+                        android:id="@+id/customFontTextViewQuestion"
+                        style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/text_black"
+                        android:textSize="18dp" />
+
+                    <DatePicker
+                        android:id="@+id/datePicker"
+                        style="@android:style/Widget.DatePicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/btn_padding_top"
+                        android:calendarViewShown="false"
+                        android:descendantFocusability="blocksDescendants"
+                        android:visibility="gone" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupChoices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp">
+
+                        <RadioButton
+                            android:id="@+id/radioButtonYes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/yes"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/register_list_desc_size" />
+
+                        <RadioButton
+                            android:id="@+id/radioButtonNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/no"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/register_list_desc_size" />
+                    </RadioGroup>
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupDynamic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="20dp">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="@string/yes"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/register_list_desc_size" />
+
+                    </RadioGroup>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

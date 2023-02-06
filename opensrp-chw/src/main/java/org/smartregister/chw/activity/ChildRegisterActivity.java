@@ -2,8 +2,11 @@ package org.smartregister.chw.activity;
 
 import android.content.Intent;
 
+import com.vijay.jsonwizard.domain.Form;
+
 import org.json.JSONObject;
 import org.smartregister.chw.anc.util.Constants;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreChildRegisterActivity;
 import org.smartregister.chw.core.contract.CoreChildRegisterContract;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -24,6 +27,11 @@ public class ChildRegisterActivity extends CoreChildRegisterActivity implements 
         bottomNavigationHelper = new BottomNavigationHelper();
         bottomNavigationView = findViewById(org.smartregister.R.id.bottom_navigation);
         FamilyRegisterActivity.registerBottomNavigation(bottomNavigationHelper, bottomNavigationView, this);
+    }
+
+    @Override
+    protected void onResumption() {
+        super.onResumption();
     }
 
     @Override
@@ -48,5 +56,16 @@ public class ChildRegisterActivity extends CoreChildRegisterActivity implements 
                 Timber.e(e);
             }
         }
+    }
+
+    @Override
+    public Form getFormConfig() {
+        Form currentConfig = super.getFormConfig();
+        if (ChwApplication.getApplicationFlavor().hideChildRegisterPreviousNextIcons()){
+            currentConfig.setHideNextIcon(true);
+            currentConfig.setHidePreviousIcon(true);
+        }
+        currentConfig.setGreyOutSaveWhenFormInvalid(ChwApplication.getApplicationFlavor().greyOutFormActionsIfInvalid());
+        return currentConfig;
     }
 }

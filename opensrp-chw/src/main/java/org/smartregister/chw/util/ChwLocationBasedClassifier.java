@@ -3,6 +3,7 @@ package org.smartregister.chw.util;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
@@ -62,7 +63,8 @@ public class ChwLocationBasedClassifier implements P2PClassifier<JSONObject> {
     private boolean isChildLocation(String locationID) {
         if (locationId == null) {
             AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
-            locationId = allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM());
+            locationId = allSharedPreferences.fetchDefaultLocalityId(allSharedPreferences.fetchRegisteredANM());
+            if(StringUtils.isBlank(locationId)) locationId = allSharedPreferences.fetchUserLocalityId(allSharedPreferences.fetchRegisteredANM());
         }
         return isLocationEncompassing(locationId, locationID);
     }

@@ -3,11 +3,15 @@ package org.smartregister.chw.provider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+
 import org.jeasy.rules.api.Rules;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.model.ChildVisit;
 import org.smartregister.chw.core.provider.CoreRegisterProvider;
@@ -16,15 +20,20 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.FamilyDao;
 import org.smartregister.chw.fp.dao.FpDao;
 import org.smartregister.chw.malaria.dao.MalariaDao;
+import org.smartregister.chw.util.UpcomingServicesUtil;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
+
+import timber.log.Timber;
 
 public class FamilyRegisterProvider extends CoreRegisterProvider {
     protected final Context context;
@@ -123,6 +132,8 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
                 setTasksDoneStatus(context, viewHolder.dueButton);
             } else if (visits_not_done != null && visits_not_done > 0) {
                 setTaskNotDone(context, viewHolder.dueButton);
+            }else if (due == 0 && over_due == 0){
+                viewHolder.dueButton.setVisibility(View.GONE);
             }
 
         } else {
@@ -141,6 +152,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
         private int malariaCount;
         private int fpCount;
         private Map<String, Integer> services;
+        private List<MemberObject> memberObjects = new ArrayList<>();
 
         private UpdateAsyncTask(Context context, RegisterViewHolder viewHolder, String familyBaseEntityId) {
             this.context = context;
@@ -165,6 +177,7 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
                 fpCount = FpDao.getFpWomenCount(familyBaseEntityId) != null ? FpDao.getFpWomenCount(familyBaseEntityId) : 0;
 
             services = getFamilyDueState(familyBaseEntityId);
+            memberObjects = getFamilyMemberObjects(familyBaseEntityId);
             return null;
         }
 
@@ -176,12 +189,39 @@ public class FamilyRegisterProvider extends CoreRegisterProvider {
             }
         }
 
+        private List<MemberObject> getFamilyMemberObjects(@NonNull final String familyBaseEntity){
+            List<Pair<String, String>> memberBirthDates = ChwApplication.getApplicationFlavor().showFamilyServicesScheduleWithChildrenAboveTwo()
+                    ? FamilyDao.getFamilyMemberBirthDates(familyBaseEntity) : FamilyDao.getFamilyMemberBirthDatesWithChildrenUnderTwo(familyBaseEntity);
+            List<MemberObject> members = new ArrayList<>(memberBirthDates.size());
+            for (int i = 0; i < memberBirthDates.size(); i++) {
+                MemberObject memberObject = new MemberObject();
+                memberObject.setBaseEntityId(memberBirthDates.get(i).second);
+                memberObject.setDob(memberBirthDates.get(i).first);
+                members.add(memberObject);
+            }
+            return members;
+        }
+
         @Override
         protected void onPostExecute(Void param) {
             // Update child Icon
             updateChildIcons(viewHolder, list, ancWomanCount, pncWomanCount);
             updateMalariaIcons(viewHolder, malariaCount);
-            updateButtonState(context, viewHolder, services);
+            if (ChwApplication.getApplicationFlavor().checkDueStatusFromUpcomingServices()){
+                UpcomingServicesUtil.fetchFamilyUpcomingDueServicesState(memberObjects, context, new Consumer<Map<String, Integer>>() {
+                    @Override
+                    public void accept(Map<String, Integer> stringIntegerMap) {
+                        // for due stats, use upcoming services calculation over db 'schedule_service'
+                        Timber.d(stringIntegerMap.toString());
+                        services.put(CoreConstants.VisitType.DUE.name(), stringIntegerMap.getOrDefault(CoreConstants.VISIT_STATE.DUE, 0));
+                        services.put(CoreConstants.VisitType.OVERDUE.name(), stringIntegerMap.getOrDefault(CoreConstants.VISIT_STATE.OVERDUE, 0));
+
+                        updateButtonState(context, viewHolder, services);
+                    }
+                });
+            }else {
+                updateButtonState(context, viewHolder, services);
+            }
             updateFpIcons(viewHolder, fpCount);
         }
     }

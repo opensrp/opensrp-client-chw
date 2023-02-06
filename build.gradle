@@ -53,8 +53,14 @@ allprojects {
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
-        maven { url 'https://nexus.pentaho.org/content/groups/omni/' }
-        maven { url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases' }
+       // maven { url 'https://nexus.pentaho.org/content/groups/omni/' }
+        maven {
+            url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases'
+            content {
+                // Does only include this group
+                includeGroup "com.ibm.fhir"
+            }
+        }
     }
 }
 
@@ -68,7 +74,7 @@ subprojects {
     ext.androidBuildToolsVersion = '29.0.3'
     ext.androidMinSdkVersion = 19
     ext.androidCompileSdkVersion = 30
-    ext.androidTargetSdkVersion = 30
+    ext.androidTargetSdkVersion = 31
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'

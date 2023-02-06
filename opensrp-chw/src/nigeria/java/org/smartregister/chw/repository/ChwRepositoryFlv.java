@@ -50,7 +50,7 @@ public class ChwRepositoryFlv {
                     upgradeToVersion10(db, oldVersion);
                     break;
                 case 11:
-                    upgradeToVersion11(context,db);
+                    upgradeToVersion11(context, db);
                     break;
                 case 12:
                     upgradeToVersion12(db);
@@ -67,6 +67,8 @@ public class ChwRepositoryFlv {
                 case 16:
                     upgradeToVersion16(db);
                     break;
+                case 17:
+                    upgradeToVersion17(db);
                 default:
                     break;
             }
@@ -222,6 +224,10 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "Error upgrading to Version16");
         }
+    }
+
+    private static void upgradeToVersion17(SQLiteDatabase db) {
+        RepositoryUtils.updateClientValidateStatus(db);
     }
 
     private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {

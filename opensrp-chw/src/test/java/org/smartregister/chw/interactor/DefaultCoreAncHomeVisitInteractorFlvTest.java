@@ -27,7 +27,8 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import java.util.LinkedHashMap;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = TestChwApplication.class, sdk = 22, shadows = {JsonFormUtilsShadow.class, ImmunizationLibraryShadow.class})
+@Config(application = TestChwApplication.class,
+        shadows = {JsonFormUtilsShadow.class, ImmunizationLibraryShadow.class})
 public class DefaultCoreAncHomeVisitInteractorFlvTest {
 
     @Mock

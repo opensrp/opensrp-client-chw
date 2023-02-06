@@ -109,6 +109,9 @@ public class ChwRepositoryFlv {
                 case 21:
                     upgradeToVersion21(db);
                     break;
+                case 22:
+                    upgradeToVersion22(db);
+                    break;
                 default:
                     break;
             }
@@ -423,5 +426,9 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion21(SQLiteDatabase db) {
         RepositoryUtils.updateNullEventIds(db);
+    }
+
+    private static void upgradeToVersion22(SQLiteDatabase db) {
+        RepositoryUtils.updateClientValidateStatus(db);
     }
 }

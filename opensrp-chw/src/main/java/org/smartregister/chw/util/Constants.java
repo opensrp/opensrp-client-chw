@@ -57,4 +57,8 @@ public class Constants extends CoreConstants {
         }
 
     }
+
+    public static class LoginUtil {
+        public static final String ADMIN_LOGIN = "false";
+    }
 }

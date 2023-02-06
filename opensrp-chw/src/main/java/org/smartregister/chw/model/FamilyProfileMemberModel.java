@@ -20,7 +20,9 @@ public class FamilyProfileMemberModel extends CoreFamilyProfileMemberModel {
     @Override
     public String mainSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName));
+        String slectQuery = queryBuilder.selectInitiateMainTable(tableName, mainColumns(tableName));
+        String coalesceDodQuery = slectQuery.replace(tableName + ".dod", String.format("coalesce(%s.dod, %s.dod) as dod", CoreConstants.TABLE_NAME.CHILD, tableName));
+        queryBuilder.setSelectquery(coalesceDodQuery);
         queryBuilder.customJoin("LEFT JOIN " + CoreConstants.TABLE_NAME.CHILD + " ON  " + tableName + "." + DBConstants.KEY.BASE_ENTITY_ID + " = " + CoreConstants.TABLE_NAME.CHILD + "." + DBConstants.KEY.BASE_ENTITY_ID + " COLLATE NOCASE ");
         return queryBuilder.mainCondition(mainCondition);
     }

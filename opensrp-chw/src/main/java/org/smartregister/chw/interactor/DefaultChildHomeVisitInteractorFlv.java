@@ -12,7 +12,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Months;
 import org.joda.time.format.DateTimeFormat;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -39,7 +38,6 @@ import org.smartregister.chw.anc.util.JsonFormUtils;
 import org.smartregister.chw.anc.util.VisitUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
-import org.smartregister.chw.core.dao.ChildDao;
 import org.smartregister.chw.core.dao.VisitDao;
 import org.smartregister.chw.core.interactor.CoreChildHomeVisitInteractor;
 import org.smartregister.chw.core.utils.CoreConstants;
@@ -61,6 +59,7 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.util.FormUtils;
 
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -70,8 +69,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.JsonFormUtils.getBirthCertificateRegex;
 
 public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHomeVisitInteractor.Flavor {
     protected LinkedHashMap<String, BaseAncHomeVisitAction> actionList;
@@ -83,7 +80,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
     protected Boolean vaccineCardReceived = false;
     protected Boolean hasBirthCert = false;
     protected Boolean editMode = false;
-    protected Boolean vaccinesDefaultChecked = true;
+    protected Boolean vaccinesDefaultChecked = ChwApplication.getApplicationFlavor().vaccinesDefaultChecked();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
     private static final int FIVE_YEARS = 5;
 
@@ -94,8 +91,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         this.memberObject = memberObject;
         editMode = view.getEditMode();
         try {
-            this.dob = ChildDao.getChild(memberObject.getBaseEntityId()).getDateOfBirth();
-        } catch (Exception e) {
+            this.dob = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(memberObject.getDob());
+        } catch (ParseException e) {
             Timber.e(e);
         }
         this.view = view;
@@ -207,14 +204,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         return 24;
     }
 
-    protected void evaluateChildVaccineCard() throws Exception {
-        // expires after 24 months. verify that vaccine card is not received
-
-        LocalDate endDate = new LocalDate(dob).plusMonths(24);
-        LocalDate today = new LocalDate();
-        if ((endDate.isBefore(today) || endDate.isEqual(today)) || vaccineCardReceived)
-            return;
-
+    protected void addChildVaccineCardCardAction() throws BaseAncHomeVisitAction.ValidationException {
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.CHILD_VACCINE_CARD_RECEIVED);
 
         BaseAncHomeVisitAction vaccine_card = getBuilder(context.getString(R.string.vaccine_card_title))
@@ -227,6 +217,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 .build();
 
         actionList.put(context.getString(R.string.vaccine_card_title), vaccine_card);
+    }
+
+    protected void evaluateChildVaccineCard() throws Exception {
+        // expires after 24 months. verify that vaccine card is not received
+        if (!new LocalDate().isAfter(new LocalDate(dob).plusMonths(24)) && !vaccineCardReceived) {
+            addChildVaccineCardCardAction();
+        }
     }
 
     protected void evaluateImmunization() throws Exception {
@@ -257,8 +254,8 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
         ImmunizationValidator validator = new ImmunizationValidator(childVaccineGroups, specialVaccines, CoreConstants.SERVICE_GROUPS.CHILD, vaccines);
 
-        Map<String, BaseAncHomeVisitAction> actions = new HashMap<>();
-        Map<String, Integer> vaccineOrder = new HashMap<>();
+        Map<String,BaseAncHomeVisitAction> actions = new HashMap<>();
+        Map<String,Integer> vaccineOrder = new HashMap<>();
 
         int position = 0;
         for (Map.Entry<VaccineGroup, List<Pair<VaccineRepo.Vaccine, Alert>>> entry : pendingVaccines.entrySet()) {
@@ -274,6 +271,7 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                 fragment.setRelaxedDates(ChwApplication.getApplicationFlavor().relaxVisitDateRestrictions());
                 fragment.setMinimumDate(dob);
             }
+            fragment.setVaccineWrappers(wrappers);
 
             validator.addFragment(title, fragment, entry.getKey(), new DateTime(dob));
 
@@ -281,13 +279,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
                     .withOptional(false)
                     .withDetails(details)
                     .withDestinationFragment(fragment)
-                    .withHelper(new ImmunizationActionHelper(context, wrappers))
+                    .withHelper(new ImmunizationActionHelper(context, fragment::getVaccineWrappers))
                     .withDisabledMessage(context.getString(R.string.fill_earler_immunization))
                     .withValidator(validator)
                     .build();
 
-            actions.put(title, action);
-            vaccineOrder.put(title, position);
+            actions.put(title,action);
+            vaccineOrder.put(title,position);
             actionList.put(title, action);
             position++;
         }
@@ -573,20 +571,13 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
 
     protected void evaluateObsAndIllness() throws Exception {
         Map<String, List<VisitDetail>> details = getDetails(Constants.EventType.OBS_ILLNESS);
-        String parsedDate = "";
-        try {
-            Date minDate = dateFormat.parse(memberObject.getDob());
-            parsedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(minDate);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
 
         BaseAncHomeVisitAction observation = getBuilder(context.getString(R.string.anc_home_visit_observations_n_illnes))
                 .withOptional(true)
                 .withDetails(details)
                 .withBaseEntityID(memberObject.getBaseEntityId())
                 .withProcessingMode(BaseAncHomeVisitAction.ProcessingMode.SEPARATE)
-                .withHelper(new ObservationAction(parsedDate))
+                .withHelper(new ObservationAction())
                 .withFormName(Constants.JSON_FORM.ANC_HOME_VISIT.getObservationAndIllness())
                 .build();
 
@@ -802,37 +793,9 @@ public abstract class DefaultChildHomeVisitInteractorFlv implements CoreChildHom
         private String birth_cert_issue_date;
         private String birth_cert_num;
         private LocalDate birthDate;
-        private JSONObject jsonObject;
 
         public BirthCertHelper(Date birthDate) {
             this.birthDate = new LocalDate(birthDate);
-        }
-
-        @Override
-        public void onJsonFormLoaded(String jsonString, Context context, Map<String, List<VisitDetail>> details) {
-            super.onJsonFormLoaded(jsonString, context, details);
-            try {
-                this.jsonObject = new JSONObject(jsonString);
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-        }
-
-        @Override
-        public String getPreProcessed() {
-            JSONArray fields = JsonFormUtils.fields(jsonObject);
-            JSONObject birth_cert_num = org.smartregister.util.JsonFormUtils.getFieldJSONObject(fields, "birth_cert_num");
-            JSONObject vRegex = new JSONObject();
-            try {
-                vRegex.put(JsonFormConstants.VALUE, getBirthCertificateRegex());
-                vRegex.put(JsonFormConstants.ERR, context.getResources().getString(R.string.birth_certificate_num_error_msg));
-                if (birth_cert_num != null) {
-                    birth_cert_num.put(JsonFormConstants.V_REGEX, vRegex);
-                }
-            } catch (JSONException e) {
-                Timber.e(e);
-            }
-            return jsonObject.toString();
         }
 
         @Override

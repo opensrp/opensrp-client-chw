@@ -127,7 +127,8 @@
             android:name=".activity.ChildProfileActivity"
             android:launchMode="singleTop"
             android:label="@string/child_details"
-            android:theme="@style/ChwTheme.NoActionBar">
+            android:theme="@style/ChwTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="org.smartregister.action.THINKMD_ASSESSMENT" />
 
@@ -170,6 +171,7 @@
             android:roundIcon="@drawable/ic_launcher"
             android:screenOrientation="portrait"
             android:theme="@style/ChwTheme.Login"
+            android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -230,7 +232,7 @@
             android:theme="@style/ChwTheme.NoActionBar" />
         <activity
             android:name=".activity.PinLoginActivity"
-            android:theme="@style/ChwTheme.NoActionBar" />
+            android:theme="@style/ChwTheme.Login" />
         <activity
             android:name=".activity.AllClientsRegisterActivity"
             android:theme="@style/ChwTheme.NoActionBar" />
@@ -301,6 +303,15 @@
         <service android:name=".sync.ChwSyncIntentService" />
         <service android:name=".core.service.StockUsageReportService" />
         <service android:name="org.smartregister.growthmonitoring.service.intent.WeightForHeightIntentService" />
+
+
+        <receiver android:name="io.ona.kujaku.receivers.KujakuNetworkChangeReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
 
         <uses-library
             android:name="org.apache.http.legacy"

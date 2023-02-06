@@ -6,7 +6,6 @@ import android.content.Intent;
 import org.apache.commons.lang3.tuple.Pair;
 import org.smartregister.chw.core.activity.CoreStockInventoryReportActivity;
 import org.smartregister.chw.core.activity.HIA2ReportsActivity;
-import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.referral.util.Constants;
 
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class NavigationMenuFlv implements NavigationMenu.Flavour {
+public class NavigationMenuFlv extends DefaultNavigationMenuFlv {
 
     @Override
     public List<Pair<String, Locale>> getSupportedLanguages() {

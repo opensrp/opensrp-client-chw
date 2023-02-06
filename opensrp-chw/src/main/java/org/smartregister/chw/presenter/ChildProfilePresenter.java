@@ -14,6 +14,7 @@ import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildProfileActivity;
 import org.smartregister.chw.activity.ReferralRegistrationActivity;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.contract.CoreChildProfileContract;
 import org.smartregister.chw.core.model.ChildVisit;
@@ -28,6 +29,7 @@ import org.smartregister.chw.model.ChildRegisterModel;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.JsonFormUtils;
+import org.smartregister.chw.util.UpcomingServicesUtil;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
@@ -52,6 +54,7 @@ import static org.smartregister.util.Utils.getValue;
 public class ChildProfilePresenter extends CoreChildProfilePresenter {
 
     private List<ReferralTypeModel> referralTypeModels;
+    private MemberObject childMemberObject = null;
 
     public ChildProfilePresenter(CoreChildProfileContract.View childView, CoreChildProfileContract.Flavor flavor, CoreChildProfileContract.Model model, String childBaseEntityId) {
         super(childView, model, childBaseEntityId);
@@ -134,6 +137,7 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     @Override
     public void refreshProfileTopSection(CommonPersonObjectClient client, CommonPersonObject familyPersonObject) {
         super.refreshProfileTopSection(client, familyPersonObject);
+        childMemberObject = new MemberObject(client);
 
         if (ChwApplication.getApplicationFlavor().showLastNameOnChildProfile()) {
             String relationalId = getValue(client.getColumnmaps(), ChildDBConstants.KEY.RELATIONAL_ID, true).toLowerCase();
@@ -189,7 +193,12 @@ public class ChildProfilePresenter extends CoreChildProfilePresenter {
     }
 
     private void setDueView() {
-        if (ChwChildDao.hasDueTodayVaccines(childBaseEntityId) || ChwChildDao.hasDueAlerts(childBaseEntityId)) {
+//        boolean vaccineCardReceived = VisitDao.memberHasVaccineCard(childBaseEntityId);
+
+        if ((childMemberObject != null && getView() != null
+                && UpcomingServicesUtil.hasUpcomingDueServices(childMemberObject, getView().getContext()))
+                || ChwChildDao.hasDueTodayVaccines(childBaseEntityId)
+                || ChwChildDao.hasDueAlerts(childBaseEntityId)) {
             getView().setVisitButtonDueStatus();
         } else {
             getView().setNoButtonView();

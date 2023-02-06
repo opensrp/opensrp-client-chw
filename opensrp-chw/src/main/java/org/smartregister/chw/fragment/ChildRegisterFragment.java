@@ -1,5 +1,7 @@
 package org.smartregister.chw.fragment;
 
+import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
+
 import org.smartregister.chw.R;
 import org.smartregister.chw.activity.ChildHomeVisitActivity;
 import org.smartregister.chw.activity.ChildProfileActivity;
@@ -18,8 +20,6 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.ChildDBConstants.KEY.FAMILY_LAST_NAME;
 
 public class ChildRegisterFragment extends CoreChildRegisterFragment {
 
@@ -63,7 +63,6 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
     @Override
     public void setupViews(android.view.View view) {
         super.setupViews(view);
-
         if (ChwApplication.getApplicationFlavor().hasDefaultDueFilterForChildClient()) {
             android.view.View dueOnlyLayout = view.findViewById(org.smartregister.chw.core.R.id.due_only_layout);
             dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
@@ -71,6 +70,26 @@ public class ChildRegisterFragment extends CoreChildRegisterFragment {
             dueOnlyLayout.setTag(null);
             toggleFilterSelection(dueOnlyLayout);
         }
+        if (ChwApplication.getApplicationFlavor().showDueFilterToggle()) {
+            dueOnlyLayout.setVisibility(android.view.View.VISIBLE);
+        }
+        else {
+            dueOnlyLayout.setVisibility(android.view.View.GONE);
+        }
+        if (ChwApplication.getApplicationFlavor().disableTitleClickGoBack()) {
+            view.findViewById(R.id.title_layout)
+                    .setOnClickListener(null);
+        }
     }
+
+    @Override
+    protected int getToolBarTitle() {
+        if (!ChwApplication.getApplicationFlavor().useAllChildrenTitle()) {
+            return org.smartregister.chw.core.R.string.child_register_title;
+        } else {
+            return R.string.all_children_title;
+        }
+    }
+
 
 }
