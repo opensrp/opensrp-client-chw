@@ -1,6 +1,7 @@
 package org.smartregister.chw.interactor;
 
 
+import org.joda.time.LocalDate;
 import org.smartregister.chw.anc.model.BaseAncHomeVisitAction;
 import org.smartregister.chw.dao.ChwChildDao;
 import org.smartregister.immunization.domain.ServiceWrapper;
@@ -15,11 +16,10 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
     protected int immunizationCeiling() {
         String gender = ChwChildDao.getChildGender(memberObject.getBaseEntityId());
 
-        if(gender != null && gender.equalsIgnoreCase("Female")){
-            if(memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
+        if (gender != null && gender.equalsIgnoreCase("Female")) {
+            if (memberObject.getAge() >= 9 && memberObject.getAge() <= 11) {
                 return 132;
-            }
-            else {
+            } else {
                 return 60;
             }
         }
@@ -39,4 +39,15 @@ public class ChildHomeVisitInteractorFlv extends DefaultChildHomeVisitInteractor
         }
     }
 
+    protected int vaccineCardCeiling() {
+        return 60;
+    }
+
+    @Override
+    protected void evaluateChildVaccineCard() throws Exception {
+        // expires on 5 years. verify that vaccine card is not received
+        if (new LocalDate().isBefore(new LocalDate(dob).plusYears(5)) && !vaccineCardReceived) {
+            addChildVaccineCardCardAction();
+        }
+    }
 }

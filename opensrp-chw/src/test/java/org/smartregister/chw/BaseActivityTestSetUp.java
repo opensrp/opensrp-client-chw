@@ -10,6 +10,10 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
+
+import java.util.ArrayList;
 
 /**
  * @param <T>
@@ -26,6 +30,16 @@ public abstract class BaseActivityTestSetUp<T extends Activity> extends BaseUnit
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        Context context = Context.getInstance();
+        Context.bindtypes = new ArrayList<>();
+        CoreLibrary.init(context);
+
+        //Auto login by default
+        String password = "pwd";
+        context.session().start(context.session().lengthInMilliseconds());
+        context.configuration().getDrishtiApplication().setPassword(password.getBytes());
+        context.session().setPassword(password.getBytes());
+
         if (getControllerIntent() == null) {
             controller = Robolectric.buildActivity(getActivityClass()).create().start();
         } else {

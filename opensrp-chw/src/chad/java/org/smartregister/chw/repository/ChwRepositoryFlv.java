@@ -70,6 +70,9 @@ public class ChwRepositoryFlv {
                 case 15:
                     upgradeToVersion15(db);
                     break;
+                case 16:
+                    upgradeToVersion16(db);
+                    break;
                 default:
                     break;
             }
@@ -222,5 +225,9 @@ public class ChwRepositoryFlv {
                 Arrays.asList(childIndicatorsConfigFile, ancIndicatorConfigFile, pncIndicatorConfigFile))) {
             reportingLibrary.readConfigFile(configFile, sqLiteDatabase);
         }
+    }
+
+    private static void upgradeToVersion16(SQLiteDatabase db) {
+        RepositoryUtils.updateClientValidateStatus(db);
     }
 }

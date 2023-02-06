@@ -1,5 +1,7 @@
 package org.smartregister.chw.adapter;
 
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -59,7 +61,7 @@ public class NavigationAdapterTest {
 
         Map<String, Class> registeredActivities = new HashMap<>();
         registeredActivities.put(Constants.REGISTERED_ACTIVITIES.FAMILY_REGISTER_ACTIVITY, FamilyRegisterActivity.class);
-        NavigationAdapter adapter = new NavigationAdapter(Arrays.asList(model1, model2), activity, registeredActivities, Mockito.mock(NavigationAdapterHost.class));
+        NavigationAdapter adapter = new NavigationAdapter(Arrays.asList(model1, model2), activity, registeredActivities, Mockito.mock(NavigationAdapterHost.class), Mockito.mock(DrawerLayout.class));
 
         Assert.assertEquals(adapter.getItemCount(), 2);
     }

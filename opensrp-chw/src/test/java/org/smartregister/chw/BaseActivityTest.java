@@ -56,7 +56,8 @@ public abstract class BaseActivityTest<T extends Activity> extends BaseActivityT
             getActivityController().pause();
             getActivityController().resume();
         } catch (Exception e) {
-            com.ibm.icu.impl.Assert.fail("Should not have thrown any exception");
+            throw e;
+//            com.ibm.icu.impl.Assert.fail("Should not have thrown any exception");
         }
     }
 

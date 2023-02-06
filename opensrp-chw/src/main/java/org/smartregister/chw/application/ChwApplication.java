@@ -1,25 +1,28 @@
 package org.smartregister.chw.application;
 
 import static org.koin.core.context.GlobalContext.getOrNull;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.evernote.android.job.JobManager;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.vijay.jsonwizard.NativeFormLibrary;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.koin.core.context.GlobalContextKt;
 import org.smartregister.AllConstants;
@@ -35,10 +38,13 @@ import org.smartregister.chw.activity.FamilyRegisterActivity;
 import org.smartregister.chw.activity.FpRegisterActivity;
 import org.smartregister.chw.activity.LoginActivity;
 import org.smartregister.chw.activity.MalariaRegisterActivity;
+import org.smartregister.chw.activity.PinLoginActivity;
 import org.smartregister.chw.activity.PncRegisterActivity;
 import org.smartregister.chw.activity.ReferralRegisterActivity;
+import org.smartregister.chw.activity.ReportsActivity;
 import org.smartregister.chw.activity.UpdatesRegisterActivity;
 import org.smartregister.chw.anc.AncLibrary;
+import org.smartregister.chw.anc.domain.MemberObject;
 import org.smartregister.chw.anc.domain.Visit;
 import org.smartregister.chw.configs.AllClientsRegisterRowOptions;
 import org.smartregister.chw.core.application.CoreChwApplication;
@@ -46,6 +52,7 @@ import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.core.provider.CoreAllClientsRegisterQueryProvider;
 import org.smartregister.chw.core.service.CoreAuthorizationService;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.core.utils.FormUtils;
 import org.smartregister.chw.custom_view.NavigationMenuFlv;
 import org.smartregister.chw.fp.FpLibrary;
 import org.smartregister.chw.fp.util.FamilyPlanningConstants;
@@ -54,6 +61,7 @@ import org.smartregister.chw.job.ChwJobCreator;
 import org.smartregister.chw.job.ScheduleJob;
 import org.smartregister.chw.malaria.MalariaLibrary;
 import org.smartregister.chw.model.NavigationModelFlv;
+import org.smartregister.chw.pinlogin.PinLoginUtil;
 import org.smartregister.chw.pnc.PncLibrary;
 import org.smartregister.chw.referral.ReferralLibrary;
 import org.smartregister.chw.repository.ChwRepository;
@@ -231,7 +239,7 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
     protected void initializeMapBox() {
         // Init Kujaku
-        Mapbox.getInstance(getApplicationContext(), BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
+       Mapbox.getInstance(getApplicationContext(), BuildConfig.MAPBOX_SDK_ACCESS_TOKEN);
         KujakuLibrary.init(getApplicationContext());
     }
 
@@ -304,6 +312,10 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         thinkMDConfig.setThinkmdEndPoint(BuildConfig.THINKMD_BASE_URL);
         thinkMDConfig.setThinkmdBaseUrl(BuildConfig.THINKMD_END_POINT);
         ThinkMDLibrary.init(getApplicationContext(), thinkMDConfig);
+
+        if (StringUtils.isNotBlank(getUsername())){
+            FirebaseCrashlytics.getInstance().setUserId(getUsername());
+        }
     }
 
     @Override
@@ -320,7 +332,14 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
-        context.userService().logoutSession();
+        if (PinLoginUtil.getPinLogger().enabledPin()
+                && !context.allSharedPreferences().fetchForceRemoteLogin(getUsername())) {
+            Intent intent1 = new Intent(ChwApplication.this, PinLoginActivity.class);
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            getApplicationContext().startActivity(intent1);
+        } else {
+            context.userService().logoutSession();
+        }
     }
 
     @Override
@@ -364,6 +383,8 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         }
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.FP_REGISTER_ACTIVITY, FpRegisterActivity.class);
         registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.UPDATES_REGISTER_ACTIVITY, UpdatesRegisterActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.REPORTS_ACTIVITY, ReportsActivity.class);
+        registeredActivities.put(CoreConstants.REGISTERED_ACTIVITIES.ADD_NEW_FAMILY, FamilyRegisterActivity.class);
         return registeredActivities;
     }
 
@@ -438,6 +459,34 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
     @Override
     public boolean allowLazyProcessing() {
         return true;
+    }
+
+    @Override
+    public void initializeCrashLyticsTree() {
+//        super.initializeCrashLyticsTree();
+        if (BuildConfig.LOG_CRASHLYTICS){
+            Timber.plant(new Timber.Tree(){
+                @Override
+                protected void log(int priority, @Nullable String tag, @NotNull String message, @Nullable Throwable t) {
+                    if (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO) {
+                        return;
+                    }
+
+                    FirebaseCrashlytics crashlytics = FirebaseCrashlytics.getInstance();
+                    if (StringUtils.isNotBlank(getUsername())){
+                        crashlytics.setUserId(getUsername());
+                    }
+
+                    if (t == null) {
+                        crashlytics.recordException(new Exception(message));
+                    } else {
+                        crashlytics.recordException(t);
+                    }
+                }
+            });
+        }else {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     @Override
@@ -602,6 +651,36 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
 
         boolean showIconsForChildrenUnderTwoAndGirlsAgeNineToEleven();
 
+        boolean useAllChildrenTitle();
+
+        boolean showDueFilterToggle();
+
+        boolean showBottomNavigation();
+
+        boolean disableTitleClickGoBack();
+
+        boolean showReportsDescription();
+
+        boolean showReportsDivider();
+
+        boolean hideChildRegisterPreviousNextIcons();
+
+        boolean hideFamilyRegisterPreviousNextIcons();
+
+        boolean showFamilyRegisterNextInToolbar();
+
+        boolean onFamilySaveGoToProfile();
+
+        boolean onChildProfileHomeGoToChildRegister();
+
+        boolean greyOutFormActionsIfInvalid();
+
+        boolean checkExtraForDueInFamily();
+
+        boolean hideCaregiverAndFamilyHeadWhenOnlyOneAdult();
+
+        int immunizationCeilingMonths(MemberObject memberObject);
+
         boolean hasMap();
 
         boolean showsPhysicallyDisabledView();
@@ -615,6 +694,10 @@ public class ChwApplication extends CoreChwApplication implements SyncStatusBroa
         Map<String, String[]> getFTSSortMap();
 
         boolean launchWashCheckOnNativeForm();
+
+         boolean vaccinesDefaultChecked();
+
+         boolean checkDueStatusFromUpcomingServices();
     }
 
 }

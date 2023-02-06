@@ -1,5 +1,7 @@
 package org.smartregister.chw.presenter;
 
+import android.content.Context;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +30,8 @@ public class FamilyProfileDuePresenterTest {
     @Before
     public void setUp() {
         String viewConfigurationIdentifier = "viewConfigurationIdentifier";
-        presenter = new FamilyProfileDuePresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId, "childBaseEntityId");
+        presenter = new FamilyProfileDuePresenter(view, model, viewConfigurationIdentifier, familyBaseEntityId, "childBaseEntityId",
+                () -> Mockito.mock(Context.class));
     }
 
     @Test

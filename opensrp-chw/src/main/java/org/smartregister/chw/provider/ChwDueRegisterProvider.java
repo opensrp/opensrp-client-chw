@@ -5,10 +5,16 @@ import android.database.Cursor;
 import android.util.TypedValue;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.R;
+import org.smartregister.chw.anc.domain.MemberObject;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.util.UpcomingServicesUtil;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.commonregistry.CommonRepository;
@@ -22,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import timber.log.Timber;
 
@@ -45,7 +52,8 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         populatePatientColumn(pc, client, viewHolder);
     }
 
-    private void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final RegisterViewHolder viewHolder) {
+    @VisibleForTesting
+    void populatePatientColumn(CommonPersonObjectClient pc, SmartRegisterClient client, final RegisterViewHolder viewHolder) {
 
         String firstName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.FIRST_NAME, true);
         String middleName = Utils.getValue(pc.getColumnmaps(), DBConstants.KEY.MIDDLE_NAME, true);
@@ -91,7 +99,18 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         attachPatientOnclickListener(viewHolder.patientColumn, client);
 
         attachNextArrowOnclickListener(viewHolder.nextArrow, client);
-        updateDueColumn(viewHolder, dueDate, overDueDate);
+
+        if (ChwApplication.getApplicationFlavor().checkDueStatusFromUpcomingServices()) {
+            MemberObject memberObject = new MemberObject(pc);
+            UpcomingServicesUtil.fetchUpcomingDueServicesState(memberObject, context, new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    updateDueColumn(viewHolder, s);
+                }
+            });
+        } else {
+            updateDueColumn(viewHolder, dueDate, overDueDate);
+        }
     }
 
     private String getVisitType(String scheduleName) {
@@ -143,4 +162,19 @@ public class ChwDueRegisterProvider extends FamilyDueRegisterProvider {
         }
     }
 
+    private void updateDueColumn(RegisterViewHolder viewHolder, @NonNull String dueState) {
+        viewHolder.status.setVisibility(View.VISIBLE);
+
+        try {
+            if (dueState != null && dueState.equalsIgnoreCase(CoreConstants.VISIT_STATE.OVERDUE)) {
+                viewHolder.status.setImageResource(Utils.getOverDueProfileImageResourceIDentifier());
+            } else if (dueState != null && dueState.equalsIgnoreCase(CoreConstants.VISIT_STATE.DUE)) {
+                viewHolder.status.setImageResource(Utils.getDueProfileImageResourceIDentifier());
+            } else {
+                viewHolder.status.setVisibility(View.INVISIBLE);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 }

@@ -2,6 +2,8 @@ package org.smartregister.chw.dao;
 
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
+
 import org.smartregister.chw.core.dao.AlertDao;
 import org.smartregister.chw.model.FamilyDetailsModel;
 import org.smartregister.dao.AbstractDao;
@@ -43,6 +45,25 @@ public class FamilyDao extends AbstractDao {
         }
 
         return visits;
+    }
+
+    public static List<Pair<String, String>> getFamilyMemberBirthDates(@NonNull final String familyBaseEntityID){
+        String sql = "SELECT m.dob, m.base_entity_id FROM ec_family_member m where m.relational_id = '" + familyBaseEntityID + "' COLLATE NOCASE or m.base_entity_id = '" + familyBaseEntityID + "' COLLATE NOCASE";
+        DataMap<Pair<String, String>> dataMap = c -> Pair.create(getCursorValue(c, "dob"), getCursorValue(c, "base_entity_id"));
+
+        return AbstractDao.readData(sql, dataMap);
+    }
+
+    public static List<Pair<String, String>> getFamilyMemberBirthDatesWithChildrenUnderTwo(@NonNull final String familyBaseEntityID){
+        String sql = ("SELECT m.dob, m.base_entity_id " +
+                "FROM ec_family_member m " +
+                "INNER JOIN ec_child c on c.base_entity_id = m.base_entity_id " +
+                "where (m.relational_id = '" + familyBaseEntityID + "' COLLATE NOCASE " +
+                "or m.base_entity_id = '" + familyBaseEntityID + "' COLLATE NOCASE)" +
+                "AND (((julianday('now') - julianday(c.dob))/365.25 < 2 or (c.gender = 'Female' and ((julianday('now') - julianday(c.dob))/365.25 BETWEEN 9 AND 11))))");
+        DataMap<Pair<String, String>> dataMap = c -> Pair.create(getCursorValue(c, "dob"), getCursorValue(c, "base_entity_id"));
+
+        return AbstractDao.readData(sql, dataMap);
     }
 
     public static Map<String, Integer> getFamilyServiceScheduleWithChildrenOnlyUnderTwo(String familyBaseEntityID) {
@@ -165,6 +186,19 @@ public class FamilyDao extends AbstractDao {
             return false;
 
         return res.get(0) > 0;
+    }
+
+    public static Integer countAdultsFamilyMembers(String baseEntityID) {
+        String sql = "SELECT count(base_entity_id) count from ec_family_member \n" +
+                "where relational_id = '" + baseEntityID + "' and base_entity_id not in (select base_entity_id FROM ec_child)";
+
+        DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
+
+        List<Integer> res = readData(sql, dataMap);
+        if (res == null || res.get(0) == 0)
+            return 0;
+
+        return res.get(0);
     }
 
     public static AlertStatus getFamilyAlertStatus(String baseEntityID) {

@@ -24,4 +24,25 @@
     <string name="rota">Rota</string>
 
     <string name="remove_family_count">%s adults and %s U11 children</string>
+    <string name="any_changes_you_make">Are you sure you want to go back? All data you have entered in this form will be cleared.</string>
+    <string name="syncing_records">Syncing records…</string>
+    <string name="all_children_title">All Children</string>
+
+    <string name="device_to_device">Transfer Data</string>
+    <string name="menu_child_clients">All Children</string>
+    <string name="menu_add_new_family">Add New Family</string>
+
+    <string name="peer_to_peer_activity_title">Transfer Data</string>
+    <string name="tap_to_receive_data">Tap to start receiving data from nearby device</string>
+    <string name="tap_to_send_data">Tap to start sending data to nearby device</string>
+    <string name="eligible_children_description">List of children who can take the vaccines at a date in the future</string>
+    <string name="doses_needed_description">Number of vaccine doses needed for children who can take the vaccine at a date in the future</string>
+    <string name="community_activity_description">Number on vaccines provided and child deaths in my area</string>
+
+    <string name="submit">SAVE</string>
+    <string name="cancel">CANCEL</string>
+
+    <string name="add_child_under_11">Add child under 11 years</string>
+    <string name="reports_dashboard">Dashboard</string>
+    <item name="reports_title" type="string">@string/reports_dashboard</item>
 </resources>
