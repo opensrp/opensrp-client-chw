@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@mipmap/ic_home"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_order_receive"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_north_east_24"
+        android:title="@string/order_receive"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_receive_from_msd"
+        android:enabled="true"
+        android:icon="@drawable/ic_order"
+        android:title="@string/receive_condoms"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_add_outlet"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="@string/add_outlet"
+        app:showAsAction="ifRoom"/>
+
+</menu>

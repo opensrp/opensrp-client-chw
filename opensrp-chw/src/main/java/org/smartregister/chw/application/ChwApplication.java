@@ -311,7 +311,7 @@ public class ChwApplication extends CoreChwApplication {
 
         // Set display date format for date pickers in native forms
         Form form = new Form();
-        form.setDatePickerDisplayFormat("dd MMM yyyy");
+        form.setDatePickerDisplayFormat("dd-MM-yyyy");
 
         NativeFormLibrary.getInstance().setClientFormDao(CoreLibrary.getInstance().context().getClientFormRepository());
     }

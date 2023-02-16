@@ -4306,18 +4306,18 @@
         },
         {
           "column_name": "entity_id",
-            "type": "Event",
-            "json_mapping": {
-              "field": "baseEntityId"
-            }
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
         },
         {
-          "column_name":  "kit_for",
+          "column_name": "kit_for",
           "type": "Event",
-            "json_mapping": {
-                "field": "obs.fieldCode",
-                "concept": "kit_for"
-            }
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "kit_for"
+          }
         },
         {
           "column_name": "kit_code",
@@ -4364,7 +4364,7 @@
           }
         },
         {
-          "column_name":  "mobilization_date",
+          "column_name": "mobilization_date",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -4372,7 +4372,7 @@
           }
         },
         {
-          "column_name":  "female_clients_reached",
+          "column_name": "female_clients_reached",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -4380,7 +4380,7 @@
           }
         },
         {
-          "column_name":  "male_clients_reached",
+          "column_name": "male_clients_reached",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -4388,7 +4388,7 @@
           }
         },
         {
-          "column_name":  "male_condoms_issued",
+          "column_name": "male_condoms_issued",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -4396,7 +4396,7 @@
           }
         },
         {
-          "column_name":  "female_condoms_issued",
+          "column_name": "female_condoms_issued",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -4404,7 +4404,6 @@
           }
         }
       ]
-
     },
     {
       "name": "ec_cdp_outlet",
@@ -4496,13 +4495,20 @@
       ]
     },
     {
-      "name": "ec_cdp_register",
+      "name": "ec_cdp_outlet_stock_count",
       "columns": [
         {
           "column_name": "base_entity_id",
           "type": "Event",
           "json_mapping": {
             "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "form_submission_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "formSubmissionId"
           }
         },
         {
@@ -4514,11 +4520,11 @@
           }
         },
         {
-          "column_name": "outlet_visit_date",
+          "column_name": "female_condoms_count",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "outlet_visit_date"
+            "concept": "number_of_female_condoms"
           }
         },
         {
@@ -4530,11 +4536,10 @@
           }
         },
         {
-          "column_name": "female_condoms_count",
+          "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "number_of_female_condoms"
+            "field": "version"
           }
         },
         {
@@ -4546,11 +4551,7 @@
           }
         },
         {
-          "column_name": "last_interacted_with",
-          "type": "Event",
-          "json_mapping": {
-            "field": "version"
-          }
+          "column_name": "processed_form_submission_ids"
         }
       ]
     },
@@ -4664,22 +4665,41 @@
           }
         },
         {
+          "column_name": "issuing_organization",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "issuing_organization"
+          }
+        },
+        {
+          "column_name": "other_issuing_organization",
+          "type": "Event",
+          "json_mapping": {
+            "field": "other_issuing_organization"
+          }
+        },
+        {
+          "column_name": "male_condom_brand",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "male_condom_brand"
+          }
+        },
+        {
+          "column_name": "female_condom_brand",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "female_condom_brand"
+          }
+        },
+        {
           "column_name": "date_updated",
           "type": "Event",
           "json_mapping": {
             "field": "condom_restock_date"
-          }
-        }
-      ]
-    },
-    {
-      "name": "ec_cdp_restock",
-      "columns": [
-        {
-          "column_name": "baseEntityId",
-          "type": "Event",
-          "json_mapping": {
-            "field": "baseEntityId"
           }
         }
       ]
@@ -5201,7 +5221,8 @@
             "field": "obs.fieldCode",
             "concept": "sbcc_intervention_provided"
           }
-        },  {
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {
@@ -5274,7 +5295,8 @@
             "field": "obs.fieldCode",
             "concept": "family_planning_service"
           }
-        },  {
+        },
+        {
           "column_name": "last_interacted_with",
           "type": "Event",
           "json_mapping": {

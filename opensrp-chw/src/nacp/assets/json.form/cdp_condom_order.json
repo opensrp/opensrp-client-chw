@@ -105,6 +105,13 @@
         }
       },
       {
+        "key": "requester",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "requester",
+        "type": "hidden"
+      },
+      {
         "key": "condom_order_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

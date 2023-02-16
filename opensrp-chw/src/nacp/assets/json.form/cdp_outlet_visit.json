@@ -90,10 +90,10 @@
         }
       },
       {
-        "key": "number_of_male_condoms",
+        "key": "counted_number_of_male_condoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_male_condoms",
+        "openmrs_entity_id": "counted_number_of_male_condoms",
         "type": "edit_text",
         "hint": "Number of Male condoms (Pieces)",
         "edit_type": "number",
@@ -113,10 +113,10 @@
         }
       },
       {
-        "key": "number_of_female_condoms",
+        "key": "counted_number_of_female_condoms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_female_condoms",
+        "openmrs_entity_id": "counted_number_of_female_condoms",
         "type": "edit_text",
         "hint": "Number of Female condoms (Pieces)",
         "edit_type": "number",
@@ -132,6 +132,34 @@
           "step1:condom_dispenser": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condoms",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_outlet_visit_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condoms",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "cdp_outlet_visit_calculation.yml"
+            }
           }
         }
       },

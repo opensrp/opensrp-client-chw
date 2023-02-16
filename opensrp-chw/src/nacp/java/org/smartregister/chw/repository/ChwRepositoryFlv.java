@@ -106,6 +106,9 @@ public class ChwRepositoryFlv {
                 case 24:
                     upgradeToVersion24(db);
                     break;
+                case 25:
+                    upgradeToVersion25(db);
+                    break;
                 default:
                     break;
             }
@@ -391,6 +394,18 @@ public class ChwRepositoryFlv {
                     ChwApplication.createCommonFtsObject());
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion24");
+        }
+    }
+
+    private static void upgradeToVersion25(SQLiteDatabase db) {
+        try {
+            // add missing columns
+            db.execSQL("ALTER TABLE ec_cdp_orders ADD COLUMN receiving_order_facility TEXT NULL;");
+            db.execSQL("ALTER TABLE ec_cdp_stock_log ADD COLUMN other_issuing_organization TEXT NULL;");
+            db.execSQL("ALTER TABLE ec_cdp_stock_log ADD COLUMN condom_brand TEXT NULL;");
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion15");
         }
     }
 }

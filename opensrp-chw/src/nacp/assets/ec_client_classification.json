@@ -617,7 +617,21 @@
             "field_value": "CDP Outlet Registration",
             "creates_case": [
               "ec_cdp_outlet",
-              "ec_cdp_register"
+              "ec_cdp_outlet_stock_count"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Disable CDP Outlet",
+            "closes_case": [
+              "ec_cdp_outlet"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Enable CDP Outlet",
+            "creates_case": [
+              "ec_cdp_outlet"
             ]
           },
           {
@@ -626,13 +640,6 @@
             "creates_case": [
               "ec_cdp_stock_count",
               "ec_cdp_stock_log"
-            ]
-          },
-          {
-            "field": "eventType",
-            "field_value": "CDP Restock",
-            "creates_case": [
-              "ec_cdp_restock"
             ]
           },
           {
@@ -647,7 +654,7 @@
             "field": "eventType",
             "field_value": "CDP Outlet Visit",
             "creates_case": [
-              "ec_cdp_register",
+              "ec_cdp_outlet_stock_count",
               "ec_cdp_outlet_visit"
             ]
           },
