@@ -53,7 +53,7 @@ allprojects {
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
-        maven { url 'https://nexus.pentaho.org/content/groups/omni/' }
+        //maven { url 'https://nexus.pentaho.org/content/groups/omni/' }
         maven {
             url 'https://dl.bintray.com/ibm-watson-health/ibm-fhir-server-releases'
             content {
