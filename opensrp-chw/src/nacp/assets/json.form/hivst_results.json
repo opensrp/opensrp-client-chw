@@ -282,6 +282,24 @@
         }
       },
       {
+        "key": "prompt_for_referral_for_peer_or_sexual_partner",
+        "type": "toaster_notes",
+        "text": "Counsel the client to advise their Sexual Partner/Peer Friend to visit health facility for Confirmatory tests",
+        "toaster_info_text": "Counsel the client to advise their Sexual Partner/Peer Friend to visit health facility for Confirmatory tests",
+        "toaster_info_title": "Counsel the client",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_results_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "hivst_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
