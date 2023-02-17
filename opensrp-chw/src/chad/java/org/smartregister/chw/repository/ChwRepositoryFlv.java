@@ -70,6 +70,9 @@ public class ChwRepositoryFlv {
                 case 15:
                     upgradeToVersion15(db);
                     break;
+                case 16:
+                    upgradeToVersion16(db);
+                    break;
                 default:
                     break;
             }
@@ -212,6 +215,10 @@ public class ChwRepositoryFlv {
 
     private static void upgradeToVersion15(SQLiteDatabase db) {
         RepositoryUtils.updateNullEventIds(db);
+    }
+
+    private static void upgradeToVersion16(SQLiteDatabase db) {
+        RepositoryUtils.reprocessWashCheckVisits(db);
     }
 
     private static void initializeIndicatorDefinitions(ReportingLibrary reportingLibrary, SQLiteDatabase sqLiteDatabase) {

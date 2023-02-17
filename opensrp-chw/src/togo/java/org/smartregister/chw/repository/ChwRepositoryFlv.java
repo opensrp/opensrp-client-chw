@@ -18,7 +18,6 @@ import org.smartregister.chw.core.rule.PNCHealthFacilityVisitRule;
 import org.smartregister.chw.core.utils.ChildDBConstants;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.dao.ChwPNCDao;
-import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.chw.domain.PNCHealthFacilityVisitSummary;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.PNCVisitUtil;
@@ -28,7 +27,6 @@ import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.Column;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.family.util.DBConstants;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -232,36 +230,7 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion11(SQLiteDatabase db) {
-        try {
-            // add all the wash check tasks to the visit table // will assist the event
-            List<String> wash_visits = WashCheckDao.getAllWashCheckVisits(db);
-            for (String visit_id : wash_visits) {
-                db.execSQL("delete from visits where visit_id = '" + visit_id + "'");
-                db.execSQL("delete from visit_details where visit_id = '" + visit_id + "'");
-            }
-
-            // reprocess all wash check events
-            List<EventClient> eventClients = WashCheckDao.getWashCheckEvents(db);
-            for (EventClient eventClient : eventClients) {
-                if (eventClient == null) continue;
-
-                NCUtils.processHomeVisit(eventClient); // save locally
-            }
-
-            // add missing columns to the DB
-            List<String> columns = new ArrayList<>();
-            columns.add(ChildDBConstants.KEY.RELATIONAL_ID);
-            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
-
-            // add missing columns
-            List<String> child_columns = new ArrayList<>();
-            child_columns.add(DBConstants.KEY.DOB);
-            child_columns.add(DBConstants.KEY.DATE_REMOVED);
-            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, child_columns);
-
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+        RepositoryUtils.reprocessWashCheckVisits(db);
     }
 
     private static void upgradeToVersion12(SQLiteDatabase db, int oldDbVersion) {

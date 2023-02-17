@@ -49,6 +49,8 @@ public class ChwRepositoryFlv {
                 case 8:
                     upgradeToVersion8(db);
                     break;
+                case 9:
+                    upgradeToVersion9(db);
                 default:
                     break;
             }
@@ -152,6 +154,10 @@ public class ChwRepositoryFlv {
     }
 
     private static void upgradeToVersion8(SQLiteDatabase db) {
-       RepositoryUtils.updateNullEventIds(db);
+        RepositoryUtils.updateNullEventIds(db);
+    }
+
+    private static void upgradeToVersion9(SQLiteDatabase db) {
+        RepositoryUtils.reprocessWashCheckVisits(db);
     }
 }

@@ -102,6 +102,9 @@ public class ChwRepositoryFlv {
                 case 23:
                     upgradeToVersion23(context, db);
                     break;
+                case 24:
+                    upgradeToVersion24(db);
+
                 default:
                     break;
             }
@@ -369,6 +372,10 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    private static void upgradeToVersion24(SQLiteDatabase db) {
+        RepositoryUtils.reprocessWashCheckVisits(db);
     }
 
 }
