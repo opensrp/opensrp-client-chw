@@ -2,29 +2,50 @@ package org.smartregister.chw.util;
 
 import android.app.Activity;
 import android.os.Environment;
+import android.view.Menu;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.chw.BaseUnitTest;
 import org.smartregister.chw.BuildConfig;
+import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.utils.Utils;
 import org.smartregister.chw.model.ReferralTypeModel;
+import org.smartregister.helper.BottomNavigationHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.smartregister.chw.util.Utils.addHyphenBetweenNumbers;
 import static org.smartregister.chw.util.Utils.formatDateForVisual;
 import static org.smartregister.chw.util.Utils.getClientName;
 import static org.smartregister.chw.util.Utils.getFormattedDateFromTimeStamp;
 
 public class UtilsTest extends BaseUnitTest {
+
+    @Mock
+    BottomNavigationHelper mockBottomNavigationHelper;
+
+    @Mock
+    BottomNavigationView mockBottomNavigationView;
+
+    @Mock
+    BottomNavigationView.OnNavigationItemSelectedListener mockListener;
+
+    @Mock
+    Menu menu;
 
     @Before
     public void setUp() {
@@ -123,4 +144,22 @@ public class UtilsTest extends BaseUnitTest {
         Assert.assertEquals("Ali is around 2-3 years old", addHyphenBetweenNumbers("Ali is around 2 3 years old"));
         Assert.assertEquals("Ali is around 2 years old", addHyphenBetweenNumbers("Ali is around 2 years old"));
     }
+
+    @Test
+    public void testSetupBottomNavigation() {
+
+        when(mockBottomNavigationView.getMenu()).thenReturn(menu);
+
+        org.smartregister.chw.util.Utils.setupBottomNavigation(mockBottomNavigationHelper, mockBottomNavigationView, mockListener);
+        verify(mockBottomNavigationView).setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+        verify(mockBottomNavigationView).inflateMenu(R.menu.bottom_nav_menu);
+        verify(mockBottomNavigationHelper).disableShiftMode(mockBottomNavigationView);
+        verify(mockBottomNavigationView).setOnNavigationItemSelectedListener(mockListener);
+
+
+    }
+
+
 }
+
+
