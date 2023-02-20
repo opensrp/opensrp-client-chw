@@ -50,6 +50,8 @@ public class ChwRepositoryFlv {
                 case 8:
                     upgradeToVersion8(db);
                     break;
+                case 9:
+                    upgradeToVersion9(db);
                 default:
                     break;
             }
@@ -156,6 +158,10 @@ public class ChwRepositoryFlv {
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion7");
         }
+    }
+
+    private static void upgradeToVersion9(SQLiteDatabase db) {
+        RepositoryUtils.reprocessWashCheckVisits(db);
     }
 
 

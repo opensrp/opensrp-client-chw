@@ -1,17 +1,18 @@
 package org.smartregister.chw.util;
 
-import static org.smartregister.repository.BaseRepository.TYPE_Synced;
-import static org.smartregister.repository.BaseRepository.TYPE_Valid;
-
 import android.database.Cursor;
+
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.application.CoreChwApplication;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.WashCheckDao;
 import org.smartregister.domain.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
@@ -21,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
+
+import static org.smartregister.repository.BaseRepository.TYPE_Synced;
+import static org.smartregister.repository.BaseRepository.TYPE_Valid;
 
 public interface RepositoryUtils {
 
@@ -114,7 +118,7 @@ public interface RepositoryUtils {
         return events;
     }
 
-     static String getEventId(String jsonString) {
+    static String getEventId(String jsonString) {
         JSONObject jsonObject;
         String eventId = null;
         if (StringUtils.isNotEmpty(jsonString)) {
@@ -130,6 +134,40 @@ public interface RepositoryUtils {
             }
         }
         return eventId;
+    }
+
+
+    static void reprocessWashCheckVisits(SQLiteDatabase db) {
+        try {
+            // add all the wash check tasks to the visit table // will assist the event
+            List<String> wash_visits = WashCheckDao.getAllWashCheckVisits(db);
+            for (String visit_id : wash_visits) {
+                db.execSQL("delete from visits where visit_id = '" + visit_id + "'");
+                db.execSQL("delete from visit_details where visit_id = '" + visit_id + "'");
+            }
+
+            // reprocess all wash check events
+            List<EventClient> eventClients = WashCheckDao.getWashCheckEvents(db);
+            for (EventClient eventClient : eventClients) {
+                if (eventClient == null) continue;
+
+                NCUtils.processHomeVisit(eventClient); // save locally
+            }
+
+            // add missing columns to the DB
+            List<String> columns = new ArrayList<>();
+            columns.add(ChildDBConstants.KEY.RELATIONAL_ID);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.FAMILY_MEMBER, columns);
+
+            // add missing columns
+            List<String> child_columns = new ArrayList<>();
+            child_columns.add(DBConstants.KEY.DOB);
+            child_columns.add(DBConstants.KEY.DATE_REMOVED);
+            DatabaseMigrationUtils.addFieldsToFTSTable(db, CoreChwApplication.createCommonFtsObject(), CoreConstants.TABLE_NAME.CHILD, child_columns);
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 
 }
