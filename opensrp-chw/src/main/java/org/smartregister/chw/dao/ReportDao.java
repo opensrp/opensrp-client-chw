@@ -394,23 +394,31 @@ public class ReportDao extends AbstractDao {
 
     public static List<Map<String, String>> getHfCdpStockLog(Date reportDate)
     {
-        String sql = "SELECT location.name,ec_cdp_order_feedback.condom_brand,ec_cdp_order_feedback.quantity_response as number_male_condom, '-' as number_female_condom  FROM ec_cdp_order_feedback\n" +
-                "                INNER JOIN task ON ec_cdp_order_feedback.request_reference = task.reason_reference\n" +
-                "                INNER JOIN location ON task.group_id = location.uuid\n" +
-                "                WHERE ec_cdp_order_feedback.condom_type='male_condom' AND\n" +
-                "\t\t\t    task.status='COMPLETED' AND\n" +
-                "                date(substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||\n" +
-                "                substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =\n" +
-                "                date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))\n" +
-                "                UNION ALL\n" +
-                "                SELECT location.name,ec_cdp_order_feedback.condom_brand, '-' as number_male_condom,ec_cdp_order_feedback.quantity_response as number_female_condom  FROM ec_cdp_order_feedback\n" +
-                "                INNER JOIN task ON ec_cdp_order_feedback.request_reference = task.reason_reference\n" +
-                "                INNER JOIN location ON task.group_id = location.uuid\n" +
-                "                WHERE ec_cdp_order_feedback.condom_type='female_condom' AND\n" +
-                "\t\t\t\ttask.status='COMPLETED' AND\n" +
-                "                date(substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||\n" +
-                "                substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =\n" +
-                "                date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))";
+        String sql = "  SELECT female_condoms_offset,male_condoms_offset,issuing_organization,female_condom_brand,male_condom_brand  \n" +
+                "       FROM ec_cdp_stock_log  \n" +
+                "       WHERE (issuing_organization='MSD' OR issuing_organization='PSI' OR issuing_organization='T-MARC' OR  issuing_organization='other')  \n" +
+                "       AND (stock_event_type ='increment' )  \n" +
+                "        AND date(substr(strftime('%Y-%m-%d', datetime(date_updated / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||  \n" +
+                "        substr(strftime('%Y-%m-%d', datetime(date_updated / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =  \n" +
+                "       date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))   \n" +
+                "      UNION ALL  \n" +
+                "      SELECT ec_cdp_order_feedback.quantity_response,'0' as  male_condoms_offset,location.name,ec_cdp_order_feedback.condom_brand,'-' as male_condom_brand  \n" +
+                "       FROM task  \n" +
+                "       INNER JOIN location ON location.uuid = task.group_id  \n" +
+                "       INNER JOIN ec_cdp_order_feedback ON  ec_cdp_order_feedback.request_reference = task.reason_reference  \n" +
+                "       WHERE (ec_cdp_order_feedback.condom_type = 'female_condom'  AND task.status = 'COMPLETED')  \n" +
+                "        AND date(substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||  \n" +
+                "        substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =  \n" +
+                "       date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01'))   \n" +
+                "      UNION ALL  \n" +
+                "       SELECT '0' as  female_condoms_offset,quantity_response,location.name,'-' as female_condom_brand,ec_cdp_order_feedback.condom_brand  \n" +
+                "       FROM task  \n" +
+                "       INNER JOIN location ON location.uuid = task.group_id  \n" +
+                "       INNER JOIN ec_cdp_order_feedback ON  ec_cdp_order_feedback.request_reference = task.reason_reference  \n" +
+                "       WHERE (ec_cdp_order_feedback.condom_type = 'male_condom'  AND task.status = 'COMPLETED')  \n" +
+                "        AND date(substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 1, 4) || '-' ||  \n" +
+                "        substr(strftime('%Y-%m-%d', datetime(response_at / 1000, 'unixepoch', 'localtime')), 6, 2) || '-' || '01') =  \n" +
+                "       date((substr('%s', 1, 4) || '-' || substr('%s', 6, 2) || '-' || '01')) ";
 
         String queryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(reportDate);
 
@@ -418,10 +426,11 @@ public class ReportDao extends AbstractDao {
 
         DataMap<Map<String, String>> map = cursor -> {
             Map<String, String> data = new HashMap<>();
-            data.put("number_female_condom", cursor.getString(cursor.getColumnIndex("number_female_condom")));
-            data.put("number_male_condom", cursor.getString(cursor.getColumnIndex("number_male_condom")));
-            data.put("name", cursor.getString(cursor.getColumnIndex("name")));
-            data.put("condom_brand", cursor.getString(cursor.getColumnIndex("condom_brand")));
+            data.put("female_condoms_offset", cursor.getString(cursor.getColumnIndex("female_condoms_offset")));
+            data.put("male_condoms_offset", cursor.getString(cursor.getColumnIndex("male_condoms_offset")));
+            data.put("issuing_organization", cursor.getString(cursor.getColumnIndex("issuing_organization")));
+            data.put("male_condom_brand", cursor.getString(cursor.getColumnIndex("male_condom_brand")));
+            data.put("female_condom_brand", cursor.getString(cursor.getColumnIndex("female_condom_brand")));
 
             return data;
         };
