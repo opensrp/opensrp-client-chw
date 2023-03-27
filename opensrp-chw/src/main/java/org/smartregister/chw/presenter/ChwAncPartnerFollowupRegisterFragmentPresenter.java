@@ -21,6 +21,7 @@ public class ChwAncPartnerFollowupRegisterFragmentPresenter extends AncRegisterF
     public String getMainCondition() {
         return " " + CoreConstants.TABLE_NAME.FAMILY_MEMBER + "." + DBConstants.KEY.DATE_REMOVED + " is null " +
                 "AND " + CoreConstants.TABLE_NAME.ANC_MEMBER + "." + DBConstants.KEY.IS_CLOSED + " is 0 " +
+                "AND last_menstrual_period <> '0' " +
                 "AND " + CoreConstants.TABLE_NAME.ANC_PARTNER_FOLLOWUP + "." + org.smartregister.chw.hiv.util.DBConstants.Key.BASE_ENTITY_ID + " NOT IN " +
                 "(SELECT referral_form_id" +
                 "   FROM ec_anc_partner_community_feedback" +
