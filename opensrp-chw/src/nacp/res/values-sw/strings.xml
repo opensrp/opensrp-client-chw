@@ -64,6 +64,7 @@
     <string name="select_reporting_month">Chagua Mwezi wa Kuripoti</string>
     <string name="monthly_report">Repoti Ya Mwezi</string>
     <string name="print_report">Chapa</string>
+    <string name="reports">Ripoti</string>
 
     <string name="mother_champion_reports_subtitle">Tazama ripoti ya mama kinara</string>
     <string name="mother_champion_reports">Ripoti ya mama kinara</string>
@@ -373,11 +374,11 @@
     <string name="cbhs_registered_in_tb_clinic">Amesajiliwa kwenye Kliniki ya Kifua Kikuu</string>
     <string name="cbhs_male">Me</string>
     <string name="cbhs_female">Ke</string>
-    <string name="condom_distribution_reports_subtitle">View Condom Distribution Report</string>
-    <string name="condom_distribution_reports">Condom Distribution Reports</string>
-    <string name="cdp_reports">CDP REPORTS</string>
-    <string name="cdp_issuing_report">CDP Issuing Report</string>
-    <string name="cdp_receiving_report">CDP Receiving Report</string>
+    <string name="condom_distribution_reports_subtitle">Tazama ripoti za usambazaji kondomu</string>
+    <string name="condom_distribution_reports">Ripoti za usambazaji kondomu</string>
+    <string name="cdp_reports">Ripoti za Kondomu</string>
+    <string name="cdp_issuing_report">Ripoti za kutoa kondomu</string>
+    <string name="cdp_receiving_report">Ripoti za kupokea kondomu</string>
     <string name="agyw_visit">Matembeleo ya Msichana Rika Balehe na Mwanamke Kijana</string>
 
 
@@ -390,5 +391,86 @@
     <string name="kvp_prep_preventive_services">Huduma Kinga</string>
     <string name="kvp_prep_structural_services">Huduma za Kimuundo</string>
     <string name="kvp_prep_referral_services">Huduma za Rufaa</string>
+
+    <!--    CDP-->
+    <string name="add_outlet">Ongeza kituo</string>
+    <string name="all_outlets">Vituo vyote</string>
+    <string name="all_received_orders">Maombi yote yaliyopokelewa</string>
+    <string name="all_sent_orders">Maombi yote yaliyotumwa</string>
+    <string name="back_to_outlet">Rudi kwenye kituo</string>
+    <string name="brand_label">Chapa:</string>
+    <string name="brand_label_text">Chapa</string>
+    <string name="call">Piga</string>
+    <string name="call_focal_person">Msimamizi</string>
+    <string name="cdp">CDP</string>
+    <string name="date_label">Tarehe:</string>
+    <string name="disable_outlet">Funga kituo</string>
+    <string name="dume">Dume</string>
+    <string name="edit">Hakiki</string>
+    <string name="edit_outlet">Hakiki taarifa za kituo</string>
+    <string name="enable_outlet">Fungua kituo</string>
+    <string name="familia">Familia</string>
+    <string name="female">Kike</string>
+    <string name="female_condom">Kondomu za kike</string>
+    <string name="female_condoms_stock_on_hand">Kondomu za kike: %d</string>
+    <string name="health_facility">Kituo cha afya:</string>
+    <string name="health_facility_name_label">Jina la kituo cha afya</string>
+    <string name="home">Nyumbani</string>
+    <string name="issuing_organization_label">Shirika linalotoa:</string>
+    <string name="last_recorded_stock">Idadi ya mwisho kurekodiwa: %d</string>
+    <string name="last_visit_40_days_ago">Hudhurio la mwisho %1$s ago</string>
+    <string name="male">Kiume</string>
+    <string name="male_condom">Kondomu za kiume</string>
+    <string name="male_condoms_stock_on_hand">Kondomu za kiume: %d</string>
+    <string name="mark_as_received">Kupokea Kondomu</string>
+    <string name="menu_cdp">Programu ya Kondomu</string>
+    <string name="menu_issue_condoms">Maombi yanayoingia</string>
+    <string name="menu_order_condoms">Maombi yanayotoka</string>
+    <string name="menu_receive_cdp_from_organizations">Kupokea kondomu kutoka kwenye mashirika</string>
+    <string name="order_receive">Maombi yanayotoka</string>
+    <string name="order_request_details">Taarifa za maombi</string>
+    <string name="order_send">Maombi yanayoingia</string>
+    <string name="order_status_complete">Imefanikiwa</string>
+    <string name="order_status_failed">Hakuna Kondomu</string>
+    <string name="order_status_in_transit">Ipo Njiani</string>
+    <string name="order_status_pending">Inasubiri</string>
+    <string name="out_of_stock_label">Hakuna Kondomu</string>
+    <string name="out_of_stock_message">Ukikubali, kuta funga maombi na kuyafanya yameshindikana</string>
+    <string name="outlet_registration">Usajili wa kituo</string>
+    <string name="outlets_count">Vituo: %d</string>
+    <string name="public_sc">Zana</string>
+    <string name="receive_condoms">Kupokea kondomu kutoka kwenye mashirika</string>
+    <string name="received_from_history">Historia ya kupokea</string>
+    <string name="record_outlet_visit">Rekodi tembeleo la kituo</string>
+    <string name="request_date_label">Tarehe ya maombi:</string>
+    <string name="request_date_label_text">Tarehe ya maombi</string>
+    <string name="requester_name_label">Jina la mwombaji</string>
+    <string name="requests">Inasubiri/Ipo Njiani</string>
+    <string name="response_date_label_text">Tarehe ya mrejesho</string>
+    <string name="response_status_label">Hali ya mrejesho</string>
+    <string name="restock_button_label">Kuongeza</string>
+    <string name="restocking_date_label">Tarehe ya kuongeza:</string>
+    <string name="restocking_date_label_text">Tarehe ya kuongeza</string>
+    <string name="restocking_visit_history_label">Historia ya tembeleo la kuongeza</string>
+    <string name="return_to_all_outlets">Rudi kwenye vituo vyote</string>
+    <string name="return_to_orders">Rudi kwenye maombi yote</string>
+    <string name="rs_out_of_stock">Out of Stock</string>
+    <string name="rs_restocked">Zimeongezwa</string>
+    <string name="salama">Salama</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="sent_pending_orders">Inasubiri/Ipo Njiani</string>
+    <string name="stock_button_label">Kuweka</string>
+    <string name="stock_distribution_label">Ugawaji wa kondomu</string>
+    <string name="stock_on_hand">Kondomu zilizopo: %d</string>
+    <string name="successful">Imefanikiwa</string>
+    <string name="type_label">Aina:</string>
+    <string name="type_label_text">Aina</string>
+    <string name="view_cdp_test_result">View cdp test results</string>
+    <string name="quantity_label">Idadi (Vipande):</string>
+    <string name="quantity_label_text">Idadi (Vipande)</string>
+    <string name="requester_name">Mwombaji:</string>
+    <string name="view_visit_history">Angalia Tembeleo Lililopita</string>
+    <string name="facility_response_label">Majibu Kutoka Kituoni</string>
+
 
 </resources>

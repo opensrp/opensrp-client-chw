@@ -1,0 +1,213 @@
+{
+  "count": "1",
+  "encounter_type": "CDP Outlet Registration",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "global": {},
+  "step1": {
+    "title": "Usajili wa kituo",
+    "fields": [
+      {
+        "key": "unique_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_identifier",
+        "openmrs_entity_id": "opensrp_id",
+        "type": "edit_text",
+        "read_only": "true",
+        "hint": "Kitambulisho"
+      },
+      {
+        "key": "outlet_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "outlet_name",
+        "type": "edit_text",
+        "hint": "Jina la kituo",
+        "edit_type": "name",
+        "v_required": { "value": "true", "err": "Tafadhali weka jina la kituo" }
+      },
+      {
+        "key": "outlet_ward_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "outlet_ward_name",
+        "type": "edit_text",
+        "hint": "Jina la kata ya kituo",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali weka jina la kata ya kituo"
+        }
+      },
+      {
+        "key": "outlet_village_street_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "outlet_village_street_name",
+        "type": "edit_text",
+        "hint": "Jina la kijiji/mtaa wa kituo",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali weka jina la kijiji/mtaa wa kituo"
+        }
+      },
+      {
+        "key": "focal_person_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "focal_person_name",
+        "type": "edit_text",
+        "hint": "Jina la msimamizi",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "[A-Za-z\\u00C0-\\u017F\\s\\u00C0-\\u017F\\.\\-\\']*",
+          "err": "Tafadhali weka jina sahihi"
+        },
+        "v_required": { "value": "true", "err": "Tafadhali weka jina" }
+      },
+      {
+        "key": "focal_person_phone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "focal_person_phone",
+        "type": "edit_text",
+        "hint": "Namba ya simu ya msimamizi",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": "Namba lazima iwe na tarakimu 10"
+        },
+        "v_regex": {
+          "value": "(0[6-7][1-9][0-9][0-9]{6})|\\s*",
+          "err": "Namba lazima iwe na tarakimu 10 na lazima ianze na 06 au 07."
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali ingiza namba ya simu"
+        }
+      },
+      {
+        "key": "gps",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "gps",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "outlet_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "outlet_type",
+        "label": "Chagua aina ya kituo",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "hotel",
+            "text": "Hoteli",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hotel"
+          },
+          {
+            "key": "bar",
+            "text": "Baa",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "bar"
+          },
+          {
+            "key": "lodge",
+            "text": "Nyumba ya kulala wageni (Lodge)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "lodge"
+          },
+          {
+            "key": "guest_house",
+            "text": "Nyumba ya wageni (Guest house)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "guest_house"
+          },
+          {
+            "key": "brothels",
+            "text": "Danguro",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "brothels"
+          },
+          {
+            "key": "other",
+            "text": "Nyingine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua aina ya kituo"
+        }
+      },
+      {
+        "key": "other_outlet_type",
+        "openmrs_entity_parent": "outlet_type",
+        "openmrs_entity": "outlet_attribute",
+        "openmrs_entity_id": "other_outlet_type",
+        "type": "edit_text",
+        "hint": "Nyingine",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali weka aina nyingine ya kituo"
+        },
+        "relevance": {
+          "step1:outlet_type": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      }
+    ]
+  }
+}
