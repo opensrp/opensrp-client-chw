@@ -443,6 +443,7 @@
     <string name="sti_referral">STI Services</string>
     <string name="agyw_reports">AGYW Reports</string>
     <string name="agyw_reports_subtitle">View AGYW Report</string>
+    <string name="view_visit_history">View visit history</string>
 
 
 </resources>

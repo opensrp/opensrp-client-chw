@@ -1,0 +1,159 @@
+{
+  "count": "1",
+  "encounter_type": "CDP Outlet Visit",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Rekodi Tembeleo la kituo",
+    "fields": [
+      {
+        "key": "outlet_visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "outlet_visit_date",
+        "type": "date_picker",
+        "label": "Outlet visit date",
+        "hint": "Tarehe ya tembeleo la kituo",
+        "expanded": false,
+        "min_date": "today-6m",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali weka tarehe ya tembeleo"
+        }
+      },
+      {
+        "key": "condom_dispenser",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "condom_dispenser",
+        "label": "Je kasha la kondomu lina kondomu?",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndio",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali changua aina ya kituo"
+        }
+      },
+      {
+        "key": "counted_number_of_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counted_number_of_male_condoms",
+        "type": "edit_text",
+        "hint": "Idadi ya kondomu za kiume (vipande)",
+        "edit_type": "number",
+        "v_required": { "value": "true", "err": "Tafadhali weka namba" },
+        "v_numeric": { "value": "true", "err": "Tafadhali weka namba" },
+        "relevance": {
+          "step1:condom_dispenser": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "counted_number_of_female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "counted_number_of_female_condoms",
+        "type": "edit_text",
+        "hint": "Idadi ya kondomu za kike (vipande)",
+        "edit_type": "number",
+        "v_required": { "value": "true", "err": "Tafadhali weka namba" },
+        "v_numeric": { "value": "true", "err": "Tafadhali weka namba" },
+        "relevance": {
+          "step1:condom_dispenser": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "number_of_male_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_male_condoms",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": { "rules-file": "cdp_outlet_visit_calculation.yml" }
+          }
+        }
+      },
+      {
+        "key": "number_of_female_condoms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_of_female_condoms",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": { "rules-file": "cdp_outlet_visit_calculation.yml" }
+          }
+        }
+      },
+      {
+        "key": "visit_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "visit_number",
+        "type": "hidden"
+      }
+    ]
+  }
+}
