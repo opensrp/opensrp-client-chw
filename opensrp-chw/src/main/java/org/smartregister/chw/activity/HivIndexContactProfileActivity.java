@@ -42,7 +42,9 @@ import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.presenter.HivIndexContactProfilePresenter;
 import org.smartregister.chw.tb.util.Constants;
 import org.smartregister.chw.util.Utils;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.family.contract.FamilyProfileContract;
 import org.smartregister.family.domain.FamilyEventClient;
 import org.smartregister.family.interactor.FamilyProfileInteractor;
@@ -144,6 +146,9 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
                 int age = Utils.getAgeFromDate(dob);
                 KvpPrEPRegisterActivity.startRegistration(HivIndexContactProfileActivity.this, getHivIndexContactObject().getBaseEntityId(), gender, age);
                 return true;
+            } else if (itemId == R.id.action_hivst_registration) {
+                startHivstRegistration();
+                return true;
             }
         } catch (JSONException e) {
             Timber.e(e);
@@ -194,7 +199,7 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     private void addHivReferralTypes() {
         if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH) {
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral),
-                    CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+                    CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
                     CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
@@ -295,6 +300,17 @@ public class HivIndexContactProfileActivity extends CoreHivIndexContactProfileAc
     @Override
     public void onReceivedNotifications(List<Pair<String, String>> list) {
 
+    }
+
+    private void startHivstRegistration() {
+        CommonRepository commonRepository = org.smartregister.family.util.Utils.context().commonrepository(org.smartregister.family.util.Utils.metadata().familyMemberRegister.tableName);
+
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(getHivIndexContactObject().getBaseEntityId());
+        final CommonPersonObjectClient client = new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+
+        HivstRegisterActivity.startHivstRegistrationActivity(this, getHivIndexContactObject().getBaseEntityId(), gender);
     }
 }
 

@@ -8,6 +8,7 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/ChwTheme"
+        android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
             android:name=".activity.LoginActivity"
@@ -17,7 +18,7 @@
             android:roundIcon="@drawable/ic_launcher_round"
             android:screenOrientation="portrait"
             android:theme="@style/ChwTheme.Login"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
             android:name=".activity.RequestPhoneNumberCollectionPermission"
             android:icon="@drawable/ic_launcher"

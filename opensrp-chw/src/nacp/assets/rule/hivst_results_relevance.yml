@@ -1,8 +1,15 @@
 ---
+name: step1_has_the_client_been_found
+description: relevant if the client has been found
+priority: 1
+condition: "global_kit_for == 'client' && (global_client_testing_approach == 'assisted_testing_off_site' || global_client_testing_approach == 'unassisted_testing_off_site')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_disclose_result
 description: relevant if global kit for is client
 priority: 1
-condition: "global_kit_for == 'client'"
+condition: "global_kit_for == 'client'  && ((global_client_testing_approach == 'assisted_testing_on_site' || global_client_testing_approach == 'unassisted_testing_on_site') || step1_has_the_client_been_found == 'yes')"
 actions:
   - "isRelevant = true"
 ---
@@ -34,10 +41,10 @@ condition: "step1_client_test_result == 'reactive' || step1_client_test_result =
 actions:
   - "isRelevant = true"
 ---
-name: step1_prompt_for_referral_for_non_reactive
-description: prompt_for_referral_for_non_reactive relevance
+name: step1_prompt_for_invalid_or_wastage_for_client
+description: prompt_for_invalid_or_wastage_for_client relevance
 priority: 1
-condition: "step1_client_test_result == 'non_reactive'"
+condition: "step1_client_test_result == 'invalid' || step1_client_test_result == 'wastage'"
 actions:
   - "isRelevant = true"
 ---
@@ -52,5 +59,12 @@ name: step1_prompt_for_referral_for_peer_or_sexual_partner
 description: prompt_for_referral_for_peer_or_sexual_partner relevance
 priority: 1
 condition: "step1_peer_test_result == 'reactive' || step1_peer_test_result == 'non_reactive' || step1_sexual_partner_test_result == 'reactive' || step1_sexual_partner_test_result == 'non_reactive' "
+actions:
+  - "isRelevant = true"
+---
+name: step1_prompt_for_invalid_or_wastage_for_peer_or_sexual_partner
+description: prompt_for_invalid_or_wastage_for_peer_or_sexual_partner relevance
+priority: 1
+condition: "step1_peer_test_result == 'invalid' || step1_peer_test_result == 'wastage' || step1_sexual_partner_test_result == 'invalid' || step1_sexual_partner_test_result == 'wastage' "
 actions:
   - "isRelevant = true"

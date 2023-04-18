@@ -72,6 +72,13 @@
         "v_required": {
           "value": "true",
           "err": "Please select an answer"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
         }
       },
       {
@@ -287,6 +294,46 @@
         }
       },
       {
+        "key": "kits_batch_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kit_batch_number",
+        "type": "edit_text",
+        "hint": "HIVST Kits Batch Number",
+        "v_required": {
+          "value": true,
+          "err": "Please fill the batch number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "kits_expiry_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kits_expiry_date",
+        "type": "date_picker",
+        "hint": "HIVST Kits Expiry Date",
+        "expanded": false,
+        "min_date": "today",
+        "v_required": {
+          "value": true,
+          "err": "Please select the Expiry date"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "hivst_issue_kits_relevance.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "condoms_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -364,7 +411,7 @@
           "err": "Please enter a valid number"
         },
         "v_min": {
-          "value": "0",
+          "value": "1",
           "err": "The number must be equal or greater than 0"
         },
         "v_required": {
@@ -395,7 +442,7 @@
           "err": "Please enter a valid number"
         },
         "v_min": {
-          "value": "0",
+          "value": "1",
           "err": "The number must be equal or greater than 0"
         },
         "v_required": {

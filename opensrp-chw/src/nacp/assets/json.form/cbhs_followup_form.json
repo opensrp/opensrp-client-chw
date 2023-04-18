@@ -157,6 +157,40 @@
           ]
         },
         {
+          "name": "was_the_client_tested_for_hiv",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "was_the_client_tested_for_tb",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Was the client tested for HIV?"
+          },
+          "options": [
+            {
+              "name": "yes",
+              "text": "Yes",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "no",
+              "text": "No",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Please select an answer",
+          "subjects": "registration_or_followup_status:text"
+        },
+        {
           "name": "client_hiv_status_after_testing",
           "type": "spinner",
           "meta_data": {
@@ -168,15 +202,6 @@
             "text": "Client's HIV status after testing"
           },
           "options": [
-            {
-              "name": "unknown",
-              "text": "Unknown",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "unknown",
-                "openmrs_entity_parent": ""
-              }
-            },
             {
               "name": "positive",
               "text": "Positive",
@@ -197,7 +222,32 @@
             }
           ],
           "required_status": "yes:Please specify client's hiv status",
-          "subjects": "registration_or_followup_status:text"
+          "subjects": "registration_or_followup_status:text, was_the_client_tested_for_hiv:text"
+        },
+        {
+          "name": "ctc_number",
+          "type": "masked_edit_text",
+          "properties": {
+            "hint": "CTC Number",
+            "type": "Care and Treatment Clinic registration number (CTC Number)",
+            "mask": "##-##-####-######",
+            "mask_hint": "12345678912345",
+            "input_type": "number",
+            "allowed_chars": "0123456789"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "Not a valid CTC Number."
+            }
+          ],
+          "required_status": "yes:Please specify client's CTC Number",
+          "subjects": "client_hiv_status_after_testing:text, registration_or_followup_status:map"
         },
         {
           "name": "was_the_client_tested_for_tb",
@@ -246,15 +296,6 @@
           },
           "options": [
             {
-              "name": "unknown",
-              "text": "Unknown",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "unknown",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "positive",
               "text": "Positive",
               "meta_data": {
@@ -275,31 +316,6 @@
           ],
           "required_status": "yes:Please specify client's TB status",
           "subjects": "registration_or_followup_status:text, was_the_client_tested_for_tb:text"
-        },
-        {
-          "name": "ctc_number",
-          "type": "masked_edit_text",
-          "properties": {
-            "hint": "CTC Number",
-            "type": "Clinic of Treatment and Care registration number (CTC Number)",
-            "mask": "##-##-####-######",
-            "mask_hint": "12345678912345",
-            "input_type": "number",
-            "allowed_chars": "0123456789"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "ctc_number",
-            "openmrs_entity_parent": ""
-          },
-          "validation": [
-            {
-              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "Not a valid CTC Number."
-            }
-          ],
-          "required_status": "yes:Please specify client's CTC Number",
-          "subjects": "client_hiv_status_after_testing:text, registration_or_followup_status:map"
         },
         {
           "name": "health_problem",
@@ -608,15 +624,6 @@
             "openmrs_entity_parent": ""
           },
           "options": [
-            {
-              "name": "hiv_self_test_kits",
-              "text": "HIV Self Testing Kits",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "hiv_self_test_kits",
-                "openmrs_entity_parent": ""
-              }
-            },
             {
               "name": "sanitizers",
               "text": "Sanitizers",
@@ -1068,15 +1075,6 @@
             "openmrs_entity_id": "state_of_hiv_care_and_treatment"
           },
           "options": [
-            {
-              "name": "na",
-              "text": "Not Applicable",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "na",
-                "openmrs_entity_parent": ""
-              }
-            },
             {
               "name": "registered_but_not_began_medication",
               "text": "Registered in CTC/PMTCT clinic but hasn't begun ARV medication",

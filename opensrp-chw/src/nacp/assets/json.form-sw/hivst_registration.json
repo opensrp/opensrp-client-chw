@@ -1,0 +1,221 @@
+{
+    "count": "1",
+    "encounter_type": "Self Testing Registration",
+    "entity_id": "",
+    "metadata": {
+        "start": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_data_type": "start",
+            "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "end": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_data_type": "end",
+            "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "deviceid": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_data_type": "deviceid",
+            "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "subscriberid": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_data_type": "subscriberid",
+            "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "simserial": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_data_type": "simserial",
+            "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "phonenumber": {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_data_type": "phonenumber",
+            "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "encounter_location": ""
+    },
+    "global": {},
+    "step1": {
+        "title": "HIVST Enrollment",
+        "fields": [
+            {
+                "key": "client_testing_history",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_testing_history",
+                "label": "Historia ya Upimaji wa mteja",
+                "text_color": "#000000",
+                "type": "native_radio",
+                "options": [
+                    {
+                        "key": "new_client",
+                        "text": "Mteja mpya",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "new_client"
+                    },
+                    {
+                        "key": "returning_client",
+                        "text": "Mteja wa marudio",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "returning_client"
+                    },
+                    {
+                        "key": "known_positive",
+                        "text": "Tayari ana maabukizi ya VVU",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "known_positive"
+                    }
+                ],
+                "v_required": {
+                    "value": "true",
+                    "err": "Chaguwa jibu"
+                }
+            },
+            {
+                "key": "client_group",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_group",
+                "type": "hidden",
+                "calculation": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "hivst_registration_calculation.yml"
+                        }
+                    }
+                }
+            },
+            {
+                "key": "client_group_female",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_group_female",
+                "label": "Chagua Kundi la Mteja       ",
+                "text_color": "#000000",
+                "type": "native_radio",
+                "options": [
+                    {
+                        "key": "fsw",
+                        "text": "Mwanamke anayefanya biashara ya ngono",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "fsw"
+                    },
+                    {
+                        "key": "pwid",
+                        "text": "Wakujidunga",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "pwid"
+                    },
+                    {
+                        "key": "prisoners",
+                        "text": "Mfungwa",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "prisoners"
+                    },
+                    {
+                        "key": "agyw",
+                        "text": "Kijana rika balehe ",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "agyw"
+                    },
+                    {
+                        "key": "others",
+                        "text": "Mengineo",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "others"
+                    }
+                ],
+                "v_required": {
+                    "value": "true",
+                    "err": "Tafadhali chagua jibu"
+                },
+                "relevance": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "hivst_registration_relevance.yml"
+                        }
+                    }
+                }
+            },
+            {
+                "key": "client_group_male",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "client_group_male",
+                "label": "chagua Kundi la Mteja       ",
+                "text_color": "#000000",
+                "type": "native_radio",
+                "options": [
+                    {
+                        "key": "msm",
+                        "text": "Mwanaume anayefanya ngono na mwanaume",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "msm"
+                    },
+                    {
+                        "key": "pwid",
+                        "text": "Wajidunga dawa za kulevya",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "pwid"
+                    },
+                    {
+                        "key": "prisoners",
+                        "text": "Mfungwa/Mahabusu",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "prisoners"
+                    },
+                    {
+                        "key": "others",
+                        "text": "Makundi mengine",
+                        "openmrs_entity_parent": "",
+                        "openmrs_entity": "concept",
+                        "openmrs_entity_id": "others"
+                    }
+                ],
+                "v_required": {
+                    "value": "true",
+                    "err": "Chaguwa jibu sahihi"
+                },
+                "relevance": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "hivst_registration_relevance.yml"
+                        }
+                    }
+                }
+            },
+            {
+                "key": "known_positive_during_reg",
+                "type": "hidden",
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "known_positive_during_reg",
+                "openmrs_entity_parent": "",
+                "calculation": {
+                    "rules-engine": {
+                        "ex-rules": {
+                            "rules-file": "hivst_registration_calculation.yml"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

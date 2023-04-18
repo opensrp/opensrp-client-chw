@@ -4,7 +4,9 @@ import android.content.Context;
 
 import org.smartregister.chw.anc.model.BaseUpcomingService;
 import org.smartregister.chw.core.interactor.CoreHivProfileInteractor;
+import org.smartregister.chw.hiv.contract.BaseHivProfileContract;
 import org.smartregister.chw.hiv.dao.HivDao;
+import org.smartregister.chw.hiv.domain.HivMemberObject;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
@@ -41,5 +43,10 @@ public class CbhsProfileInteractor extends CoreHivProfileInteractor {
             Timber.e(e);
         }
         return null;
+    }
+
+    @Override
+    public void updateProfileHivStatusInfo(HivMemberObject memberObject, BaseHivProfileContract.InteractorCallback callback) {
+        super.updateProfileHivStatusInfo(memberObject, callback);
     }
 }

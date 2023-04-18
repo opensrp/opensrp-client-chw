@@ -287,23 +287,6 @@
         }
       },
       {
-        "key": "number_of_hivst_kits_distributed",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_of_hivst_kits_distributed",
-        "hint": "Number of HIVST Kits Distributed",
-        "type": "edit_text",
-        "edit_type": "number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Must be a number"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please provide number distributed"
-        }
-      },
-      {
         "key": "number_of_coupons_distributed_for_social_network",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -318,6 +301,50 @@
         "v_required": {
           "value": "true",
           "err": "Please provide number distributed"
+        }
+      },
+      {
+        "key": "kits_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "kits_distributed",
+        "label": "HIVST kits distributed",
+        "text_color": "#000000",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one"
+        }
+      },
+      {
+        "key": "prompt_for_hivst",
+        "type": "toaster_notes",
+        "text": "Please use HIVST Module to record the Information",
+        "openmrs_entity_id": "prompt_for_hivst",
+        "openmrs_entity": "concept",
+        "openmrs_entity_parent": "",
+        "toaster_type": "warning",
+        "relevance": {
+          "step1:kits_distributed": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       }
     ]

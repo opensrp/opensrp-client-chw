@@ -6,10 +6,17 @@ condition: "registration_or_followup_status.value == 'New Client' || registratio
 actions:
   - "client_condition_visibility =  true"
 ---
+name: "was_the_client_tested_for_hiv_visibility"
+description: "was_the_client_tested_for_hiv visibility"
+priority: 1
+condition: "registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Anaendelea na Huduma.' || registration_or_followup_status.value == 'Client continues with services coming from elsewhere' || registration_or_followup_status.value == 'Anaendelea na huduma akitokea mahali pengine'"
+actions:
+  - "was_the_client_tested_for_hiv_visibility =  true"
+---
 name: "client_hiv_status_after_testing_visibility"
 description: "client_hiv_status_after_testing visibility"
 priority: 1
-condition: "registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.' || registration_or_followup_status.value == 'Client continues with services coming from elsewhere' || registration_or_followup_status.value == 'Anaendelea na huduma akitokea mahali pengine'"
+condition: "(was_the_client_tested_for_hiv.value == 'Yes' || was_the_client_tested_for_hiv.value == 'Ndio') && (registration_or_followup_status.value == 'New Client' || registration_or_followup_status.value == 'Continuing with services' || registration_or_followup_status.value == 'Mpya' || registration_or_followup_status.value == 'Anaendelea na Huduma.' || registration_or_followup_status.value == 'Client continues with services coming from elsewhere' || registration_or_followup_status.value == 'Anaendelea na huduma akitokea mahali pengine')"
 actions:
   - "client_hiv_status_after_testing_visibility =  true"
 ---

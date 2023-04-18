@@ -167,8 +167,8 @@
           "properties": {
             "notification_type": "info",
             "dismissible": "no",
-            "title": "Client should be referred to Hospital",
-            "text": "The client should be referred to the Hospital for HIV testing.\nGive the client a referral",
+            "title": "Client should be referred to Health Facility",
+            "text": "The client should be referred to the Health Facility for HIV testing.\nGive the client a referral",
             "background_color": "#f50424",
             "text_color": "#FFFFFF"
           },

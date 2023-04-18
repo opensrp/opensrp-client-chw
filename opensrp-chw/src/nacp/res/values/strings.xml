@@ -5,7 +5,7 @@
     <string name="menu_anc">ANC</string>
     <string name="menu_pnc">PNC</string>
     <string name="sick_child_title">SICK CHILD FORM</string>
-    <string name="hiv_referral">Clinic of Treatment and Care</string>
+    <string name="hiv_referral">Care and Treatment Clinic</string>
     <string name="hts_referral">HIV Testing Services</string>
     <string name="tb_referral">TB Clinic</string>
     <string name="pmtct_referral">PMTCT Clinic</string>
@@ -130,7 +130,7 @@
     <!-- Sababu za usajili -->
     <string name="reason_for_registration_hiv_aids">Maambukizi ya VVU</string>
     <string name="reason_for_registration_tuberculosis">Kifua Kikuu</string>
-    <string name="reason_for_registration_homosexual">Wanaume wanaofanya mapenzi na wanaume</string>
+    <string name="reason_for_registration_msm">Wanaume wanaofanya mapenzi na wanaume</string>
     <string name="reason_for_registration_gender_violence">Unyanyasaji wa Kijinsia</string>
     <string name="reason_for_registration_drug_abuse">Matumizi mabaya ya dawa za kulevya</string>
     <string name="reason_for_registration_sex_worker_woman">Mfanyabiashara ya ngono</string>
@@ -469,7 +469,7 @@
     <string name="kvp_number_of_alcohol_swabs_distributed">Number of Sterile Water for injection Distributed:</string>
     <string name="kvp_number_of_disposable_safety_boxes_distributed">Number of Disposable Safety Boxes Distributed:</string>
     <string name="kvp_number_of_plasters_distributed">Number of Plasters Distributed:</string>
-    <string name="kvp_number_of_hivst_kits_distributed">Number of HIVST Kits Distributed:</string>
+    <string name="kvp_kits_distributed">Number of HIVST Kits Distributed:</string>
     <string name="kvp_number_of_coupons_distributed_for_social_network">Number of Coupons Distributed for social network:</string>
     <string name="male_condoms">Male Condoms</string>
     <string name="female_condoms">Female Condoms</string>
@@ -518,5 +518,7 @@
     <string name="community_empowerment">Community Empowerment</string>
     <string name="education_on_addressing_gbv">Education Addressing GBV against KVPs</string>
     <string name="provision_of_business_skills">Provision of Entrepreneurship and Business skills</string>
+    <string name="last_restock_date">Last restock date on: %s</string>
+    <string name="restock_history">Restock History</string>
 
 </resources>

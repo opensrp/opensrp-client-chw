@@ -5,21 +5,31 @@ import static org.smartregister.chw.util.Utils.launchClientReferralActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
+import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.activity.CoreKvpProfileActivity;
 import org.smartregister.chw.core.utils.CoreConstants;
+import org.smartregister.chw.dao.ChwKvpDao;
+import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.kvp.KvpLibrary;
 import org.smartregister.chw.kvp.domain.Visit;
 import org.smartregister.chw.kvp.util.Constants;
 import org.smartregister.chw.model.ReferralTypeModel;
 import org.smartregister.chw.util.KvpVisitUtils;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.family.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import timber.log.Timber;
@@ -75,6 +85,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
             Timber.e(e);
         }
         super.setupViews();
+        textViewId.setVisibility(View.GONE);
     }
 
 
@@ -98,5 +109,48 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
 
     private Visit getVisit(String eventType) {
         return KvpLibrary.getInstance().visitRepository().getLatestVisit(memberObject.getBaseEntityId(), eventType);
+    }
+
+    @Override
+    protected void showKvpGroups(String baseEntityId) {
+        if (!profileType.equalsIgnoreCase(Constants.PROFILE_TYPES.PrEP_PROFILE)) {
+            String dominantKVPGroup = ChwKvpDao.getDominantKVPGroup(baseEntityId);
+            if (StringUtils.isNotBlank(dominantKVPGroup)) {
+                textViewDominantKvpGroup.setVisibility(View.VISIBLE);
+                List<String> dominantKvpGroup = new ArrayList<>(Arrays.asList(dominantKVPGroup));
+                textViewDominantKvpGroup.setText(getString(org.smartregister.kvp.R.string.dominant_kvp_group, readStringResourcesWithPrefix(dominantKvpGroup, "kvp_")));
+            } else {
+                textViewDominantKvpGroup.setVisibility(View.GONE);
+            }
+            textViewOtherKvpGroups.setVisibility(View.GONE);
+        } else {
+            textViewDominantKvpGroup.setVisibility(View.GONE);
+            textViewOtherKvpGroups.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        if (ChwApplication.getApplicationFlavor().hasHIVST()) {
+            int age = memberObject.getAge();
+            menu.findItem(R.id.action_hivst_registration).setVisible(!HivstDao.isRegisteredForHivst(memberObject.getBaseEntityId()) && age >= 15);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void startHivstRegistration() {
+        CommonRepository commonRepository = Utils.context().commonrepository(Utils.metadata().familyMemberRegister.tableName);
+
+        final CommonPersonObject commonPersonObject = commonRepository.findByBaseEntityId(memberObject.getBaseEntityId());
+        final CommonPersonObjectClient client =
+                new CommonPersonObjectClient(commonPersonObject.getCaseId(), commonPersonObject.getDetails(), "");
+        client.setColumnmaps(commonPersonObject.getColumnmaps());
+        String gender = Utils.getValue(commonPersonObject.getColumnmaps(), org.smartregister.family.util.DBConstants.KEY.GENDER, false);
+        HivstRegisterActivity.startHivstRegistrationActivity(this, memberObject.getBaseEntityId(), gender);
     }
 }

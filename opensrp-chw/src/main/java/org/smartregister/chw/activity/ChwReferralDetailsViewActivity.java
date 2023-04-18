@@ -124,7 +124,7 @@ public class ChwReferralDetailsViewActivity extends ReferralDetailsViewActivity 
     private void showFeedBackView(Task task) {
 
 
-        if (getMemberObject().getChwReferralService().equals(CoreConstants.TASKS_FOCUS.SUSPECTED_HIV)) {
+        if (getMemberObject().getChwReferralService().equals(CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST)) {
             String servicesProvided = ChwHivOutcomeDao.servicesProvided(task.getForEntity(), task.getLastModified().getMillis());
             String hivStatus = ChwHivOutcomeDao.hivStatus(task.getForEntity(), task.getLastModified().getMillis());
             String enrolledToCTC = ChwHivOutcomeDao.hivEnrolledToCTC(task.getForEntity(), task.getLastModified().getMillis());

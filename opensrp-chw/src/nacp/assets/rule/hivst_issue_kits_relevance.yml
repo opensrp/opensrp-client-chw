@@ -26,3 +26,24 @@ priority: 1
 condition: "!global_known_positive"
 actions:
   - "isRelevant = true"
+---
+name: step1_pre_test_counselling_and_instructions
+description: pre_test_counselling_and_instructions is not relevant if client is known positive
+priority: 1
+condition: "!global_known_positive"
+actions:
+  - "isRelevant = true"
+---
+name: step1_kits_batch_number
+description: kits_batch_number relevance
+priority: 1
+condition: "step1_self_test_kit_given.contains('yes') || step1_extra_kits_required.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_kits_expiry_date
+description: kits_expiry_date relevance
+priority: 1
+condition: "step1_self_test_kit_given.contains('yes') || step1_extra_kits_required.contains('yes')"
+actions:
+  - "isRelevant = true"

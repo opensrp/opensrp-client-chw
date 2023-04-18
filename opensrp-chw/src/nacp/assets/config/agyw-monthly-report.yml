@@ -226,7 +226,7 @@ indicators:
 					  --primary packages
 
 					  -- BIO MEdical  contains
-					  chw_referral_service='Suspected HIV'
+					  chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -283,7 +283,7 @@ indicators:
 					  --primary packages
 
 					  -- BIO MEdical  contains
-					  chw_referral_service='Suspected HIV'
+					  chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -341,7 +341,7 @@ indicators:
 					  --primary packages
 
 					  -- BIO MEdical  contains
-					  chw_referral_service='Suspected HIV'
+					  chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -402,7 +402,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -464,7 +464,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -526,7 +526,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -589,7 +589,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -651,7 +651,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -713,7 +713,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -776,7 +776,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -838,7 +838,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -900,7 +900,7 @@ indicators:
 					  program_name='dreams'
 
 					  -- BIO MEdical  contains
-					  AND chw_referral_service='Suspected HIV'
+					  AND chw_referral_service='Conventional HIV Test'
 
 					  -- SBCC Behavioral contains
 					  AND instr(eabs1.sbcc_intervention_provided,'gender_based_violence')>0
@@ -1003,7 +1003,7 @@ indicators:
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
 					  INNER JOIN ec_agyw_behavioral_services eabs1 ON eabs1.entity_id = ear.base_entity_id
-					  WHERE chw_referral_service='Suspected HIV'
+					  WHERE chw_referral_service='Conventional HIV Test'
 					  AND (SELECT count( eabs2.base_entity_id) FROM ec_agyw_behavioral_services eabs2
 					  INNER JOIN ec_agyw_register ear2 ON ear2.base_entity_id = eabs2.entity_id)>=4
 					  AND 10<=(date('Now')-date(efm.dob))  AND (date('Now')-date(efm.dob))<=14
@@ -1020,7 +1020,7 @@ indicators:
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
 					  INNER JOIN ec_agyw_behavioral_services eabs1 ON eabs1.entity_id = ear.base_entity_id
-					  WHERE chw_referral_service='Suspected HIV'
+					  WHERE chw_referral_service='Conventional HIV Test'
 					  AND (SELECT count( eabs2.base_entity_id) FROM ec_agyw_behavioral_services eabs2
 					  INNER JOIN ec_agyw_register ear2 ON ear2.base_entity_id = eabs2.entity_id)>=4
 					  AND 15<=(date('Now')-date(efm.dob))  AND (date('Now')-date(efm.dob))<=19
@@ -1037,7 +1037,7 @@ indicators:
 					  INNER JOIN ec_family_member efm ON efm.base_entity_id = ear.base_entity_id
 					  INNER JOIN ec_referral er ON er.entity_id = ear.base_entity_id
 					  INNER JOIN ec_agyw_behavioral_services eabs1 ON eabs1.entity_id = ear.base_entity_id
-					  WHERE chw_referral_service='Suspected HIV'
+					  WHERE chw_referral_service='Conventional HIV Test'
 					  AND (SELECT count( eabs2.base_entity_id) FROM ec_agyw_behavioral_services eabs2
 					  INNER JOIN ec_agyw_register ear2 ON ear2.base_entity_id = eabs2.entity_id)>=4
 					  AND 20<=(date('Now')-date(efm.dob))  AND (date('Now')-date(efm.dob))<=24

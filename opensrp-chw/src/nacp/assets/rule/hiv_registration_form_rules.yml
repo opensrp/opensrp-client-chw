@@ -34,7 +34,11 @@ actions:
 name: "rch_number_visibility"
 description: "rch_number visibility"
 priority: 1
-condition: "gender == 'Female'"
+condition: "(gender == 'Female') &&
+            (
+              reasons_for_registration_female_15.containsKey('pregnant_mother') ||
+              reasons_for_registration_female_10_to_14.containsKey('pregnant_mother')
+            )"
 actions:
   - "rch_number_visibility =  true"
 ---
