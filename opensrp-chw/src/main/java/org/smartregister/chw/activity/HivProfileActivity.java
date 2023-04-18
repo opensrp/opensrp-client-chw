@@ -79,8 +79,7 @@ import java.util.Objects;
 
 import timber.log.Timber;
 
-public class HivProfileActivity extends CoreHivProfileActivity
-        implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
+public class HivProfileActivity extends CoreHivProfileActivity implements FamilyProfileExtendedContract.PresenterCallBack, OnRetrieveNotifications {
 
     public static final String UPDATE_HIV_REGISTRATION = "Update CBHS Registration";
     public static final String ENCOUNTER_TYPE = "encounter_type";
@@ -140,7 +139,22 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
             if (StringUtils.isNotBlank(hivMemberObject.getCtcNumber())) {
                 removeField(fields, "client_hiv_status_after_testing");
+                removeField(fields, "was_the_client_tested_for_hiv");
+                JSONObject stateOfHivCareAndTreatment = getJsonObject(fields, "state_of_hiv_care_and_treatment");
+                removeField(stateOfHivCareAndTreatment.getJSONArray("options"), "na");
+                removeField(stateOfHivCareAndTreatment.getJSONArray("options"), "not_registered_in_ctc_clinic");
             }
+
+            String clientHivStatus;
+            if (StringUtils.isNotBlank(hivMemberObject.getClientHivStatusAfterTesting())) {
+                clientHivStatus = hivMemberObject.getClientHivStatusAfterTesting();
+            } else {
+                clientHivStatus = hivMemberObject.getClientHivStatusDuringRegistration();
+            }
+            if (clientHivStatus != null && (clientHivStatus.equalsIgnoreCase("negative") || clientHivStatus.equalsIgnoreCase("unknown"))) {
+                removeField(fields, "state_of_hiv_care_and_treatment");
+            }
+
             int age = org.smartregister.chw.util.Utils.getAgeFromDate(hivMemberObject.getAge());
 
             JSONObject referralsIssuedToOtherServices = getJsonObject(fields, "referrals_issued_to_other_services");
@@ -174,6 +188,18 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 removeField(fields, "was_the_client_tested_for_tb");
                 removeField(fields, "client_tb_status_after_testing");
             }
+
+            if (StringUtils.isNotBlank(hivMemberObject.getTbNumber())) {
+                JSONObject stateOfRegistrationInTbAndPwidClinics = getJsonObject(fields, "state_of_registration_in_tb_and_pwid_clinics");
+                removeField(stateOfRegistrationInTbAndPwidClinics.getJSONArray("options"), "na");
+
+                //Setting Registered in TB Clinic to Checked by default
+                JSONObject registeredInTbClinic = getJsonObject(stateOfRegistrationInTbAndPwidClinics.getJSONArray("options"), "registered_in_tb_clinic");
+                JSONObject properties = new JSONObject();
+                properties.put("checked", true);
+                registeredInTbClinic.put("properties", properties);
+            }
+
         }
 
         intent.putExtra(org.smartregister.chw.hiv.util.Constants.ActivityPayload.JSON_FORM, initializeHealthFacilitiesList(formJsonObject).toString());
@@ -222,14 +248,10 @@ public class HivProfileActivity extends CoreHivProfileActivity
         List<Location> locations = locationRepository.getAllLocations();
         if (locations != null && form != null) {
             try {
-                JSONArray fields = form.getJSONArray(JsonFormConstants.STEPS)
-                        .getJSONObject(0)
-                        .getJSONArray(JsonFormConstants.FIELDS);
+                JSONArray fields = form.getJSONArray(JsonFormConstants.STEPS).getJSONObject(0).getJSONArray(JsonFormConstants.FIELDS);
                 JSONObject referralHealthFacilities = null;
                 for (int i = 0; i < fields.length(); i++) {
-                    if (fields.getJSONObject(i)
-                            .getString(JsonFormConstants.NAME).equals(org.smartregister.chw.util.Constants.JsonFormConstants.CLIENT_MOVED_LOCATION)
-                    ) {
+                    if (fields.getJSONObject(i).getString(JsonFormConstants.NAME).equals(org.smartregister.chw.util.Constants.JsonFormConstants.CLIENT_MOVED_LOCATION)) {
                         referralHealthFacilities = fields.getJSONObject(i);
                         break;
                     }
@@ -267,13 +289,10 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
                 if (referralHealthFacilities != null) {
                     JSONArray optionsArray = new JSONArray();
-                    for (int i = 0; i < referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS)
-                            .length(); i++) {
+                    for (int i = 0; i < referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS).length(); i++) {
                         optionsArray.put(referralHealthFacilities.getJSONArray(JsonFormConstants.OPTIONS).get(i));
                     }
-                    referralHealthFacilities.put(
-                            JsonFormConstants.OPTIONS, (new JSONArray((new Gson()).toJson(healthFacilitiesOptions)))
-                    );
+                    referralHealthFacilities.put(JsonFormConstants.OPTIONS, (new JSONArray((new Gson()).toJson(healthFacilitiesOptions))));
                 }
             } catch (JSONException e) {
                 Timber.e(e);
@@ -338,8 +357,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     protected void onResume() {
         super.onResume();
         notificationListAdapter.canOpen = true;
-        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(),
-                getHivMemberObject().getBaseEntityId(), this);
+        ChwNotificationUtil.retrieveNotifications(ChwApplication.getApplicationFlavor().hasReferrals(), getHivMemberObject().getBaseEntityId(), this);
 
         //Refreshing the hiv Member object with new data just in-case it was updated in the background
         setHivMemberObject(HivDao.getMember(getHivMemberObject().getBaseEntityId()));
@@ -365,10 +383,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
     @Override
     protected void removeMember() {
-        IndividualProfileRemoveActivity.startIndividualProfileActivity((Activity) getContext(),
-                getClientDetailsByBaseEntityID(getHivMemberObject().getBaseEntityId()),
-                getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyHead(),
-                getHivMemberObject().getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
+        IndividualProfileRemoveActivity.startIndividualProfileActivity((Activity) getContext(), getClientDetailsByBaseEntityID(getHivMemberObject().getBaseEntityId()), getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyHead(), getHivMemberObject().getPrimaryCareGiver(), FpRegisterActivity.class.getCanonicalName());
     }
 
     @Override
@@ -379,8 +394,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     private void checkPhoneNumberProvided() {
-        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getHivMemberObject().getPhoneNumber())
-                || StringUtils.isNotBlank(getHivMemberObject().getPrimaryCareGiverPhoneNumber()));
+        boolean phoneNumberAvailable = (StringUtils.isNotBlank(getHivMemberObject().getPhoneNumber()) || StringUtils.isNotBlank(getHivMemberObject().getPrimaryCareGiverPhoneNumber()));
 
         ((HivFloatingMenu) getHivFloatingMenu()).redraw(phoneNumberAvailable);
     }
@@ -476,6 +490,8 @@ public class HivProfileActivity extends CoreHivProfileActivity
         if (getHivMemberObject().getFamilyMemberEntityType().equals(Constants.FamilyMemberEntityType.EC_INDEPENDENT_CLIENT)) {
             findViewById(R.id.rlFamilyServicesDue).setVisibility(View.GONE);
         }
+        //TODO fix editing of CBHS registration then remove the line below
+        findViewById(R.id.rlHivRegistrationDate).setVisibility(View.GONE);
     }
 
     @Override
@@ -507,27 +523,21 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
             //HIV Testing referrals will only be issued to non positive clients
             if (getHivMemberObject().getCtcNumber().isEmpty()) {
-                referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral),
-                        CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.hts_referral), CoreConstants.JSON_FORM.getHtsReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
             } else { //HIV Treatment and care referrals will be issued to HIV Positive clients
-                referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                        CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SICK_HIV));
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral), CoreConstants.JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SICK_HIV));
             }
 
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
-                    CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral), CoreConstants.JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));
 
             if (isClientEligibleForAnc(getHivMemberObject())) {
-                referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs),
-                        org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
+                referralTypeModels.add(new ReferralTypeModel(getString(R.string.anc_danger_signs), org.smartregister.chw.util.Constants.JSON_FORM.getAncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.ANC_DANGER_SIGNS));
                 referralTypeModels.add(new ReferralTypeModel(getString(R.string.pnc_referral), CoreConstants.JSON_FORM.getPncUnifiedReferralForm(), CoreConstants.TASKS_FOCUS.PNC_DANGER_SIGNS));
                 if (!AncDao.isANCMember(getHivMemberObject().getBaseEntityId())) {
-                    referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation),
-                            CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
+                    referralTypeModels.add(new ReferralTypeModel(getString(R.string.pregnancy_confirmation), CoreConstants.JSON_FORM.getPregnancyConfirmationReferralForm(), CoreConstants.TASKS_FOCUS.PREGNANCY_CONFIRMATION));
                 }
             }
-            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral),
-                    CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
+            referralTypeModels.add(new ReferralTypeModel(getString(R.string.gbv_referral), CoreConstants.JSON_FORM.getGbvReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_GBV));
         }
 
     }
@@ -562,8 +572,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
 
         ((HivFloatingMenu) getHivFloatingMenu()).setFloatMenuClickListener(onClickFloatingMenu);
         getHivFloatingMenu().setGravity(Gravity.BOTTOM | Gravity.END);
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         addContentView(getHivFloatingMenu(), linearLayoutParams);
     }
 
@@ -643,8 +652,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
     }
 
     protected void startAncRegister() {
-        AncRegisterActivity.startAncRegistrationActivity((Activity) getContext(), Objects.requireNonNull(getHivMemberObject()).getBaseEntityId(), getHivMemberObject().getPhoneNumber(),
-                org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName());
+        AncRegisterActivity.startAncRegistrationActivity((Activity) getContext(), Objects.requireNonNull(getHivMemberObject()).getBaseEntityId(), getHivMemberObject().getPhoneNumber(), org.smartregister.chw.util.Constants.JSON_FORM.getAncRegistration(), null, getHivMemberObject().getFamilyBaseEntityId(), getHivMemberObject().getFamilyName());
     }
 
     /**
@@ -681,8 +689,7 @@ public class HivProfileActivity extends CoreHivProfileActivity
                 } else if (field.getString(NAME).equals(DBConstants.Key.CLIENT_HIV_STATUS_DURING_REGISTRATION)) {
                     if (!getHivMemberObject().getCtcNumber().isEmpty())
                         field.getJSONObject(PROPERTIES).put(SELECTION, "1");
-                    else
-                        field.getJSONObject(PROPERTIES).put(SELECTION, "0");
+                    else field.getJSONObject(PROPERTIES).put(SELECTION, "0");
                 } else if (field.getString(NAME).equals(DBConstants.Key.CTC_NUMBER) && !getHivMemberObject().getCtcNumber().isEmpty()) {
                     field.getJSONObject(PROPERTIES).put(TEXT, getHivMemberObject().getCtcNumber());
                 } else if (field.getString(NAME).equals(DBConstants.Key.TB_NUMBER) && !getHivMemberObject().getTbNumber().isEmpty()) {
@@ -727,29 +734,34 @@ public class HivProfileActivity extends CoreHivProfileActivity
             TextView tvLastVisitDay = findViewById(R.id.textview_last_vist_day);
             tvLastVisitDay.setVisibility(View.VISIBLE);
 
-            int numOfDays = Days.daysBetween(
-                    new DateTime(lastFollowupVisit.getDate()).toLocalDate(),
-                    new DateTime().toLocalDate()
-            ).getDays();
+            int numOfDays = Days.daysBetween(new DateTime(lastFollowupVisit.getDate()).toLocalDate(), new DateTime().toLocalDate()).getDays();
 
             if (numOfDays <= 1) {
                 tvLastVisitDay.setText(getString(R.string.cbhs_visit_less_than_twenty_four));
             } else {
-                tvLastVisitDay.setText(getString(
-                        R.string.cbhs_last_visit_n_days_ago, numOfDays));
+                tvLastVisitDay.setText(getString(R.string.cbhs_last_visit_n_days_ago, numOfDays));
             }
 
             findViewById(R.id.rl_last_visit_layout).setVisibility(View.VISIBLE);
         }
     }
 
-    public @javax.annotation.Nullable
-    Visit getVisit(String eventType) {
+    public @javax.annotation.Nullable Visit getVisit(String eventType) {
         return PmtctLibrary.getInstance().visitRepository().getLatestVisit(getHivMemberObject().getBaseEntityId(), eventType);
     }
 
     public interface Flavor {
         // void updateTbMenuItems(@Nullable String baseEntityId, @Nullable Menu menu);
+    }
+
+    @Override
+    public void setUpComingServicesStatus(@Nullable String service, @Nullable AlertStatus status, @Nullable Date date) {
+        Date nextAppointmentDate = ChwCBHSDao.getNextVisitDate(getHivMemberObject().getBaseEntityId());
+        if (nextAppointmentDate == null) {
+            getRlUpcomingServices().setVisibility(View.GONE);
+        } else {
+            super.setUpComingServicesStatus(service, status, nextAppointmentDate);
+        }
     }
 }
 

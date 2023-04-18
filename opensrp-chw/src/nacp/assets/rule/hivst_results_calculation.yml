@@ -4,10 +4,11 @@ description: hivst_result calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = (step1_disclose_result != '' && step1_disclose_result == 'no') ?
-                    'client_did_not_disclose' : step1_client_test_result != '' ? step1_client_test_result
-                     : step1_peer_test_result != '' ? step1_peer_test_result : step1_sexual_partner_test_result != '' ?
-                        step1_sexual_partner_test_result : '' "
+  - "calculation =  (step1_has_the_client_been_found != '' && step1_has_the_client_been_found == 'no') ? 'client_not_found' :
+                    (step1_disclose_result != '' && step1_disclose_result == 'no') ? 'client_did_not_disclose' :
+                    step1_client_test_result != '' ? step1_client_test_result :
+                    step1_peer_test_result != '' ? step1_peer_test_result :
+                    step1_sexual_partner_test_result != '' ? step1_sexual_partner_test_result : '' "
 ---
 name: step1_result_date
 description: result_date calculation

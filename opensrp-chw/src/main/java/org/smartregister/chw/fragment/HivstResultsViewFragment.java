@@ -29,10 +29,12 @@ public class HivstResultsViewFragment extends BaseHivstResultViewFragment {
         String baseEntityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.BASE_ENTITY_ID, false);
         String entityId = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.ENTITY_ID, false);
         String kitFor = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.KIT_FOR, false);
+        String clientTestingApproach = Utils.getValue(client.getColumnmaps(), DBConstants.KEY.CLIENT_TESTING_APPROACH, false);
         try {
             JSONObject jsonObject = (new FormUtils()).getFormJsonFromRepositoryOrAssets(requireContext(), Constants.FORMS.HIVST_RECORD_RESULTS);
             JSONObject global = jsonObject.getJSONObject("global");
             global.putOpt("kit_for", kitFor);
+            global.putOpt("client_testing_approach", clientTestingApproach);
             HivstResultViewActivity.startResultsForm(getContext(), jsonObject.toString(), baseEntityId, entityId);
         } catch (JSONException e) {
             e.printStackTrace();

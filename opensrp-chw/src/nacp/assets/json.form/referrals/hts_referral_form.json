@@ -88,7 +88,7 @@
             },
             {
               "name": "confirmation_self_test",
-              "text": "Confirmation for self test",
+              "text": "HIV Conventional Test",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "confirmation_self_test",
@@ -103,6 +103,15 @@
                 "openmrs_entity_id": "index_contact_testing",
                 "openmrs_entity_parent": ""
               }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Other Reasons",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
+                "openmrs_entity_parent": ""
+              }
             }
           ],
           "required_status": "yes:Please specify reasons for referral",
@@ -112,6 +121,21 @@
             "referral_type",
             "referral_status"
           ]
+        },
+        {
+          "name": "problem_other",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "Other Reasons",
+            "type": "name"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "163182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          "required_status": "true:Please specify other symptoms",
+          "subjects": "problem:map"
         },
         {
           "name": "chw_referral_hf",

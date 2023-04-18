@@ -220,7 +220,7 @@ public class CbhsMonthlyReportObject extends ReportObject {
                 case CoreConstants.TASKS_FOCUS.SUSPECTED_TB:
                     translatedFocus.append(context.getString(R.string.tb_referral)).append(",");
                     break;
-                case CoreConstants.TASKS_FOCUS.SUSPECTED_HIV:
+                case CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST:
                     translatedFocus.append(context.getString(R.string.hts_referral)).append(",");
                     break;
                 case CoreConstants.TASKS_FOCUS.SICK_HIV:

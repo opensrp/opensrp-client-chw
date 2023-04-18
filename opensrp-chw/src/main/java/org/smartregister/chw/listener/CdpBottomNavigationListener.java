@@ -31,6 +31,7 @@ public class CdpBottomNavigationListener extends BaseCdpBottomNavigationListener
             baseRegisterActivity.switchToFragment(2);
         } else if (itemId == R.id.action_add_outlet) {
             baseRegisterActivity.startOutletForm();
+            baseRegisterActivity.switchToBaseFragment();
         }
 
         return true;

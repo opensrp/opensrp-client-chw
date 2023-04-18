@@ -3,6 +3,8 @@ package org.smartregister.chw.activity;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.FIELDS;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.STEP1;
 import static com.vijay.jsonwizard.constants.JsonFormConstants.VALUE;
+import static com.vijay.jsonwizard.utils.FormUtils.fields;
+import static com.vijay.jsonwizard.utils.FormUtils.getFieldJSONObject;
 import static org.smartregister.chw.cdp.util.Constants.FORMS.EDIT_CDP_OUTLET;
 import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
 
@@ -10,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,16 +21,21 @@ import org.smartregister.chw.R;
 import org.smartregister.chw.anc.util.NCUtils;
 import org.smartregister.chw.cdp.CdpLibrary;
 import org.smartregister.chw.cdp.dao.CdpDao;
+import org.smartregister.chw.cdp.domain.Visit;
 import org.smartregister.chw.cdp.pojo.RegisterParams;
 import org.smartregister.chw.cdp.util.CdpJsonFormUtils;
 import org.smartregister.chw.cdp.util.Constants;
+import org.smartregister.chw.cdp.util.VisitUtils;
 import org.smartregister.chw.core.activity.CoreCdpProfileActivity;
 import org.smartregister.chw.core.utils.CoreJsonFormUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.family.util.JsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import timber.log.Timber;
@@ -56,12 +64,33 @@ public class CdpProfileActivity extends CoreCdpProfileActivity {
     }
 
     @Override
+    protected void setupViews() {
+        super.setupViews();
+        tvLastVisitTitle.setText(R.string.restock_history);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         setupViews();
         outletObject = CdpDao.getOutlet(outletObject.getBaseEntityId());
         initializePresenter();
         updateFollowupButton();
+
+        try {
+            List<Visit> restockVisits = VisitUtils.getVisits(outletObject.getBaseEntityId());
+            if (restockVisits.size() > 0) {
+                Date lastRestockDate = restockVisits.get(restockVisits.size() - 1).getDate();
+                tvLastVisitSub.setText(String.format(this.getString(R.string.last_restock_date), new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(lastRestockDate)));
+            } else {
+                tvLastVisitSub.setVisibility(View.GONE);
+            }
+
+        } catch (Exception e) {
+            Timber.e(e);
+            tvLastVisitSub.setVisibility(View.GONE);
+        }
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,13 +191,17 @@ public class CdpProfileActivity extends CoreCdpProfileActivity {
                     registerParam.setFormTag(CdpJsonFormUtils.formTag(CdpLibrary.getInstance().context().allSharedPreferences()));
                     showProgressDialog(org.smartregister.cdp.R.string.saving_dialog_title);
                     profilePresenter.saveForm(jsonString, registerParam);
+                    finish();
+                } else if (encounter_type.equalsIgnoreCase(Constants.EVENT_TYPE.CDP_OUTLET_VISIT)) {
+                    JSONObject restockTheOutlet = getFieldJSONObject(fields(jsonObject, org.smartregister.util.JsonFormUtils.STEP1), "restock_the_outlet");
+                    if (restockTheOutlet != null && restockTheOutlet.has(VALUE) && restockTheOutlet.getString(VALUE).equalsIgnoreCase("yes")) {
+                        startRestockingHistory();
+                    }
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-            finish();
         }
     }
 

@@ -392,6 +392,9 @@
     <string name="kvp_prep_structural_services">Huduma za Kimuundo</string>
     <string name="kvp_prep_referral_services">Huduma za Rufaa</string>
 
+    <string name="last_restock_date">Last restock date on: %s</string>
+    <string name="restock_history">Restock History</string>
+
     <!--    CDP-->
     <string name="add_outlet">Ongeza kituo</string>
     <string name="all_outlets">Vituo vyote</string>

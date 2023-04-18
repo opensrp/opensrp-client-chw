@@ -175,7 +175,8 @@
               "message": "CTC Number should be of format (XX-XX-XXXX-XXXXXX)."
             }
           ],
-          "subjects": "client_hiv_status_during_registration:text"
+          "subjects": "client_hiv_status_during_registration:text",
+          "required_status": "yes:Please specify client's CTC Number"
         },
         {
           "name": "client_tb_status_during_registration",
@@ -220,6 +221,20 @@
           "required_status": "yes:Please specify client's TB status during registration"
         },
         {
+          "name": "tb_number",
+          "type": "text_input_edit_text",
+          "properties": {
+            "hint": "TB ID",
+            "type": "TB Clinic ID"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tb_number",
+            "openmrs_entity_parent": ""
+          },
+          "subjects": "client_tb_status_during_registration:text"
+        },
+        {
           "name": "reasons_for_registration_male_15",
           "type": "radio_group",
           "properties": {
@@ -250,11 +265,11 @@
               }
             },
             {
-              "name": "homosexual",
-              "text": "Men who have sex with men",
+              "name": "msm",
+              "text": "High Risk Men",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "homosexual",
+                "openmrs_entity_id": "msm",
                 "openmrs_entity_parent": ""
               }
             },
@@ -630,32 +645,22 @@
           ]
         },
         {
-          "name": "tb_number",
-          "type": "text_input_edit_text",
-          "properties": {
-            "hint": "TB ID",
-            "type": "TB Clinic ID"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "tb_number",
-            "openmrs_entity_parent": ""
-          },
-          "subjects": "client_tb_status_during_registration:text"
-        },
-        {
           "name": "rch_number",
-          "type": "text_input_edit_text",
+          "type": "masked_edit_text",
           "properties": {
-            "hint": "RCH ID",
-            "type": "RCH Clinic ID"
+            "hint": "RCH ID e.g 2023/0001",
+            "type": "RCH Clinic ID e.g 2023/0001",
+            "mask": "202#/####",
+            "mask_hint": "345678",
+            "input_type": "number",
+            "allowed_chars": "0123456789"
           },
           "meta_data": {
             "openmrs_entity": "concept",
             "openmrs_entity_id": "rch_number",
             "openmrs_entity_parent": ""
           },
-          "subjects": "gender:text"
+          "subjects": "gender:text, reasons_for_registration_female_15:map, reasons_for_registration_female_10_to_14:map"
         },
         {
           "name": "mat_number",

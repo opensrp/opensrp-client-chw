@@ -247,7 +247,7 @@ public class FamilyPlanningMemberProfileActivity extends CoreFamilyPlanningMembe
                     JSON_FORM.getMalariaReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_MALARIA));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.hiv_referral),
-                    JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_HIV));
+                    JSON_FORM.getHivReferralForm(), CoreConstants.TASKS_FOCUS.CONVENTIONAL_HIV_TEST));
 
             referralTypeModels.add(new ReferralTypeModel(getString(R.string.tb_referral),
                     JSON_FORM.getTbReferralForm(), CoreConstants.TASKS_FOCUS.SUSPECTED_TB));

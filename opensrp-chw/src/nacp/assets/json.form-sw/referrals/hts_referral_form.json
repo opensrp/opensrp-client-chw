@@ -88,7 +88,7 @@
             },
             {
               "name": "confirmation_self_test",
-              "text": "Uthibitisho Kipimo binfasi (Confirmation for self test)",
+              "text": "Uthibitisho Kipimo binfasi (HIV Conventional Test)",
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "confirmation_self_test",
@@ -101,6 +101,15 @@
               "meta_data": {
                 "openmrs_entity": "",
                 "openmrs_entity_id": "index_contact_testing",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "other_reasons",
+              "text": "Sababu Nyingine",
+              "meta_data": {
+                "openmrs_entity": "",
+                "openmrs_entity_id": "other_reasons",
                 "openmrs_entity_parent": ""
               }
             }

@@ -4,4 +4,4 @@ description: collection_date calculation
 priority: 1
 condition: "true"
 actions:
-  - "calculation = helper.getDateToday()"
+  - "calculation = helper.getDateTimeToday()"

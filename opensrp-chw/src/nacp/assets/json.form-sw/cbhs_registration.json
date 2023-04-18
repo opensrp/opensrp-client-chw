@@ -175,6 +175,7 @@
               "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX-XX-XX-XXX)."
             }
           ],
+          "required_status": "yes:Tafadhali jaza namba ya CTC",
           "subjects": "client_hiv_status_during_registration:text"
         },
         {
@@ -250,11 +251,11 @@
               }
             },
             {
-              "name": "homosexual",
+              "name": "msm",
               "text": "Wanaume wanaofanya mapenzi na wanaume",
               "meta_data": {
                 "openmrs_entity": "concept",
-                "openmrs_entity_id": "homosexual",
+                "openmrs_entity_id": "msm",
                 "openmrs_entity_parent": ""
               }
             },
@@ -655,7 +656,7 @@
             "openmrs_entity_id": "rch_number",
             "openmrs_entity_parent": ""
           },
-          "subjects": "gender:text"
+          "subjects": "gender:text, reasons_for_registration_female_15:map, reasons_for_registration_female_10_to_14:map"
         },
         {
           "name": "mat_number",

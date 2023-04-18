@@ -157,6 +157,40 @@
           ]
         },
         {
+          "name": "was_the_client_tested_for_hiv",
+          "type": "spinner",
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "was_the_client_tested_for_tb",
+            "openmrs_entity_parent": ""
+          },
+          "properties": {
+            "text": "Je Mteja amepimwa VVU?"
+          },
+          "options": [
+            {
+              "name": "yes",
+              "text": "Ndio",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "yes",
+                "openmrs_entity_parent": ""
+              }
+            },
+            {
+              "name": "no",
+              "text": "Hapana",
+              "meta_data": {
+                "openmrs_entity": "concept",
+                "openmrs_entity_id": "no",
+                "openmrs_entity_parent": ""
+              }
+            }
+          ],
+          "required_status": "yes:Tafadhali jaza jibu sahihi",
+          "subjects": "registration_or_followup_status:text, was_the_client_tested_for_hiv:text"
+        },
+        {
           "name": "client_hiv_status_after_testing",
           "type": "spinner",
           "meta_data": {
@@ -168,15 +202,6 @@
             "text": "Hali ya maambukizi ya VVU baada ya kipimo"
           },
           "options": [
-            {
-              "name": "unknown",
-              "text": "Haijulikani",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "unknown",
-                "openmrs_entity_parent": ""
-              }
-            },
             {
               "name": "positive",
               "text": "Ana Maambukizi (+)",
@@ -197,7 +222,32 @@
             }
           ],
           "required_status": "yes:Tafadhali jaza hali ya maambukizi ya VVU baada ya kipimo",
-          "subjects": "registration_or_followup_status:text"
+          "subjects": "registration_or_followup_status:text, was_the_client_tested_for_hiv:text"
+        },
+        {
+          "name": "ctc_number",
+          "type": "masked_edit_text",
+          "properties": {
+            "hint": "Namba ya CTC mfano: 12-34-5678-912345",
+            "type": "Namba ya CTC mfano: 12-34-5678-912345",
+            "mask": "##-##-####-######",
+            "mask_hint": "12345678912345",
+            "input_type": "number",
+            "allowed_chars": "0123456789"
+          },
+          "meta_data": {
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "ctc_number",
+            "openmrs_entity_parent": ""
+          },
+          "validation": [
+            {
+              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
+              "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX-XX-XX-XXX)."
+            }
+          ],
+          "required_status": "yes:Tafadhali jaza namba ya CTC",
+          "subjects": "client_hiv_status_after_testing:text"
         },
         {
           "name": "was_the_client_tested_for_tb",
@@ -246,15 +296,6 @@
           },
           "options": [
             {
-              "name": "unknown",
-              "text": "Haijulikani",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "unknown",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "positive",
               "text": "Ana Maambukizi (+)",
               "meta_data": {
@@ -275,31 +316,6 @@
           ],
           "required_status": "yes:Tafadhali chagua moja",
           "subjects": "registration_or_followup_status:text, was_the_client_tested_for_tb:text"
-        },
-        {
-          "name": "ctc_number",
-          "type": "masked_edit_text",
-          "properties": {
-            "hint": "Namba ya CTC mfano: 12-34-5678-912345",
-            "type": "Namba ya CTC mfano: 12-34-5678-912345",
-            "mask": "##-##-####-######",
-            "mask_hint": "12345678912345",
-            "input_type": "number",
-            "allowed_chars": "0123456789"
-          },
-          "meta_data": {
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "ctc_number",
-            "openmrs_entity_parent": ""
-          },
-          "validation": [
-            {
-              "condition": "value.matches(\"(\\\\d{2}-\\\\d{2}-\\\\d{4}-\\\\d{6})?\")",
-              "message": "Namba ya CTC iwe kwenye mfumo wa (XXXX-XX-XX-XXX)."
-            }
-          ],
-          "required_status": "yes:Tafadhali jaza namba ya CTC",
-          "subjects": "client_hiv_status_after_testing:text"
         },
         {
           "name": "health_problem",
@@ -608,15 +624,6 @@
             "openmrs_entity_parent": ""
           },
           "options": [
-            {
-              "name": "hiv_self_test_kits",
-              "text": "Vifaa vya kujipima VVU",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "hiv_self_test_kits",
-                "openmrs_entity_parent": ""
-              }
-            },
             {
               "name": "sanitizers",
               "text": "Vitakasa mikono",
@@ -1069,15 +1076,6 @@
           },
           "options": [
             {
-              "name": "na",
-              "text": "Haihusiki",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "na",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "registered_but_not_began_medication",
               "text": "Ameandikishwa CTC/PMTCT lakini hajaanza ARV",
               "meta_data": {
@@ -1106,7 +1104,7 @@
             }
           ],
           "required_status": "yes:Tafadhali jaza hali ya tiba na matunzo (CTC)",
-          "subjects": "registration_or_followup_status:text"
+          "subjects": "registration_or_followup_status:text, client_hiv_status_after_testing:text"
         },
         {
           "name": "state_of_registration_in_tb_and_pwid_clinics",
