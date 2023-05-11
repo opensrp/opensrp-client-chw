@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +53,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.referrals_tasks_view_layout);
+        ((TextView)findViewById(R.id.last_visit_date_label)).setText(R.string.last_appointment_date);
         if (getIntent().getExtras() != null) {
             extraClientTask();
             extraDetails();

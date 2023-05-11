@@ -106,15 +106,6 @@
               }
             },
             {
-              "name": "client_has_relocated",
-              "text": "Client has emigrated",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_has_relocated",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "client_does_not_want_to_return",
               "text": "Client is found but is not ready to return to clinic",
               "meta_data": {
@@ -321,7 +312,8 @@
           "properties": {
             "hint": "Please select the date client died",
             "type": "date_picker",
-            "display_format": "dd/MM/yyyy"
+            "display_format": "dd/MM/yyyy",
+            "max_date": "today"
           },
           "meta_data": {
             "openmrs_entity": "concept",

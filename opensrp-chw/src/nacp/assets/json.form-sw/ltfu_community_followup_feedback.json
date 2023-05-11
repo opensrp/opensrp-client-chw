@@ -106,15 +106,6 @@
               }
             },
             {
-              "name": "client_has_relocated",
-              "text": "Amehama makazi",
-              "meta_data": {
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "client_has_relocated",
-                "openmrs_entity_parent": ""
-              }
-            },
-            {
               "name": "client_does_not_want_to_return",
               "text": "Amepatikana lakini hayuko tayari kurudi kliniki",
               "meta_data": {
@@ -321,7 +312,8 @@
           "properties": {
             "hint": "Tarehe ya kifo",
             "type": "date_picker",
-            "display_format": "dd/MM/yyyy"
+            "display_format": "dd/MM/yyyy",
+            "max_date": "today"
           },
           "meta_data": {
             "openmrs_entity": "concept",
