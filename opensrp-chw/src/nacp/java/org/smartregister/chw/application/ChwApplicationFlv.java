@@ -139,7 +139,7 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasKvp() {
-        return false;
+        return true;
     }
 
     @Override

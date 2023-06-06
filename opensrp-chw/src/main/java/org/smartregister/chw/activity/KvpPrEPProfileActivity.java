@@ -51,6 +51,7 @@ public class KvpPrEPProfileActivity extends CoreKvpProfileActivity {
     protected void onResumption() {
         super.onResumption();
         setupViews();
+        refreshMedicalHistory(true);
     }
 
     @Override
