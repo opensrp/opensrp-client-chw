@@ -17,4 +17,16 @@ public class ChwKvpDao extends KvpDao {
         }
         return "";
     }
+
+    public static boolean hasFollowupVisits(String baseEntityId) {
+        String sql = "SELECT visit_type FROM ec_kvp_prep_followup p " +
+                " WHERE p.entity_id = '" + baseEntityId + "'";
+        DataMap<String> dataMap = cursor -> getCursorValue(cursor, "visit_type");
+
+        List<String> res = readData(sql, dataMap);
+        if (res != null) {
+            return res.size() > 0;
+        }
+        return false;
+    }
 }

@@ -124,12 +124,12 @@ public class ChwApplicationFlv extends DefaultChwApplicationFlv {
 
     @Override
     public boolean hasCdp() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean hasHIVST() {
-        return false;
+        return true;
     }
 
     @Override
