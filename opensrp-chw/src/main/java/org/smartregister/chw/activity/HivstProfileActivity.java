@@ -1,11 +1,17 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
+import static org.smartregister.chw.util.Utils.getClientGender;
+import static org.smartregister.chw.util.Utils.updateAgeAndGender;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -29,19 +35,15 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.family.util.DBConstants;
 
-import androidx.annotation.NonNull;
 import timber.log.Timber;
-
-import static org.smartregister.chw.core.utils.Utils.getCommonPersonObjectClient;
-import static org.smartregister.chw.util.Utils.getClientGender;
-import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 
 public class HivstProfileActivity extends CoreHivstProfileActivity {
 
-    public static void startProfile(Activity activity, String baseEntityId) {
+    public static void startProfile(Activity activity, String baseEntityId, boolean openIssueSelfTestingKitsForm) {
         Intent intent = new Intent(activity, HivstProfileActivity.class);
         intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityId);
+        intent.putExtra(OPEN_ISSUE_SELF_TESTING_KITS_FORM, openIssueSelfTestingKitsForm);
         activity.startActivity(intent);
     }
 
@@ -117,7 +119,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.findItem(org.smartregister.chw.core.R.id.action_cbhs_registration).setVisible(!HivDao.isRegisteredForHiv(memberObject.getBaseEntityId()));
-        if(ChwApplication.getApplicationFlavor().hasKvp()){
+        if (ChwApplication.getApplicationFlavor().hasKvp()) {
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(memberObject.getBaseEntityId()));
         }
         return true;
@@ -126,10 +128,10 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == R.id.action_kvp_prep_registration){
+        if (itemId == R.id.action_kvp_prep_registration) {
             String gender = getClientGender(memberObject.getBaseEntityId());
-           String dob = memberObject.getAge();
-           int age = Utils.getAgeFromDate(dob);
+            String dob = memberObject.getAge();
+            int age = Utils.getAgeFromDate(dob);
             KvpPrEPRegisterActivity.startRegistration(HivstProfileActivity.this, memberObject.getBaseEntityId(), gender, age);
             return true;
         }
@@ -146,7 +148,7 @@ public class HivstProfileActivity extends CoreHivstProfileActivity {
         boolean knownPositiveFromHIV = HivDao.isRegisteredForHiv(memberObject.getBaseEntityId()) && StringUtils.isNotBlank(HivDao.getMember(memberObject.getBaseEntityId()).getCtcNumber());
         if (knownPositiveFromHIV || HivstDao.isTheClientKnownPositiveAtReg(memberObject.getBaseEntityId())) {
             baseHivstFloatingMenu.findViewById(R.id.refer_to_facility_layout).setVisibility(View.GONE);
-        }else {
+        } else {
             baseHivstFloatingMenu.findViewById(R.id.refer_to_facility_layout).setVisibility(View.VISIBLE);
         }
     }
