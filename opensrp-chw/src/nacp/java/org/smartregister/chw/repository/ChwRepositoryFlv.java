@@ -109,6 +109,9 @@ public class ChwRepositoryFlv {
                 case 25:
                     upgradeToVersion25(db);
                     break;
+                case 26:
+                    upgradeToVersion26(db);
+                    break;
                 default:
                     break;
             }
@@ -405,7 +408,17 @@ public class ChwRepositoryFlv {
             db.execSQL("ALTER TABLE ec_cdp_stock_log ADD COLUMN condom_brand TEXT NULL;");
 
         } catch (Exception e) {
-            Timber.e(e, "upgradeToVersion15");
+            Timber.e(e, "upgradeToVersion25");
+        }
+    }
+
+    private static void upgradeToVersion26(SQLiteDatabase db) {
+        try {
+            // add missing columns
+            db.execSQL("ALTER TABLE ec_kvp_prep_followup ADD COLUMN kits_distributed TEXT NULL;");
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion26");
         }
     }
 }

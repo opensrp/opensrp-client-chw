@@ -1,5 +1,7 @@
 package org.smartregister.chw.activity;
 
+import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.chw.R;
@@ -26,7 +29,7 @@ import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.sql.Date;
 
-import static org.smartregister.chw.core.utils.Utils.passToolbarTitle;
+import timber.log.Timber;
 
 public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivity implements View.OnClickListener {
 
@@ -53,7 +56,7 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.referrals_tasks_view_layout);
-        ((TextView)findViewById(R.id.last_visit_date_label)).setText(R.string.last_appointment_date);
+        ((TextView) findViewById(R.id.last_visit_date_label)).setText(R.string.last_appointment_date);
         if (getIntent().getExtras() != null) {
             extraClientTask();
             extraDetails();
@@ -106,9 +109,9 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
         LocationRepository locationRepository = new LocationRepository();
         String reasonReference = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "reason_reference", false);
         Location location = locationRepository.getLocationById(locationId);
-        if(location!= null){
-        chwDetailsNames.setText(location.getProperties().getName());
-        }else{
+        if (location != null) {
+            chwDetailsNames.setText(location.getProperties().getName());
+        } else {
             chwDetailsNames.setText(locationId);
         }
         Date lastAppointmentDate = ReferralDao.getLastAppointmentDate(reasonReference);
@@ -124,11 +127,11 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
 
     @Override
     protected void updateProblemDisplay() {
-        clientReferralProblem.setText(getReferralClinic(Utils.getValue(commonPersonObjectClient.getColumnmaps(), "REFERRAL_CLINIC", false),this));
+        clientReferralProblem.setText(getReferralClinic(Utils.getValue(commonPersonObjectClient.getColumnmaps(), "REFERRAL_CLINIC", false), this));
     }
 
-    private String getReferralClinic(String key, Context context){
-        switch (key.toLowerCase()){
+    private String getReferralClinic(String key, Context context) {
+        switch (key.toLowerCase()) {
             case "ctc":
                 return context.getString(R.string.ltfu_clinic_ctc);
             case "pwid":
@@ -157,6 +160,31 @@ public class LTFUReferralsDetailsViewActivity extends BaseReferralTaskViewActivi
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+
+            String referralType = Utils.getValue(commonPersonObjectClient.getColumnmaps(), "REFERRAL_CLINIC", false);
+
+            if (!referralType.equalsIgnoreCase("ctc") && !referralType.equalsIgnoreCase("pmtct")) {
+                try {
+                    JSONArray fields = ((JSONObject) formJSONObject.getJSONArray("steps").get(0)).getJSONArray("fields");
+
+                    for (int i = fields.length() - 1; i >= 0; i--) {
+                        JSONObject field = fields.getJSONObject(i);
+                        if (field.getString("name").equals("reasons_why_the_client_is_not_ready_to_return_to_clinic")) {
+                            fields.remove(i);
+                        }
+
+                        if (field.getString("name").equals("other_reason_for_not_being_ready_to_return_to_clinic")) {
+                            fields.remove(i);
+                        }
+                    }
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+
+            }
+
+
             LTFURecordFeedbackActivity.startFeedbackFormActivityForResults(this, baseEntityId, formJSONObject, false, locationId, taskId);
         }
 
