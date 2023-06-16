@@ -335,6 +335,12 @@
             "openmrs_entity_id": "chk_drivers_license"
           },
           {
+            "key": "chk_passport_number",
+            "text": "Passort",
+            "openmrs_entity": "person_attribute",
+            "openmrs_entity_id": "chk_passport_number"
+          },
+          {
             "key": "chk_none",
             "text": "None",
             "openmrs_entity": "person_attribute",
@@ -451,6 +457,42 @@
               {
                 "or": [
                   "chk_drivers_license"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "passport_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Passport",
+        "type": "mask_edit_text",
+        "mask": "TAE-###-###",
+        "mask_hint": "12345678912",
+        "allowed_chars": "0123456789",
+        "hint": "Passport number e.g TAE-123-456",
+        "edit_type": "number",
+        "v_max_length": {
+          "value": "11",
+          "is_fixed_size": "true",
+          "err": "Please enter a valid passport number"
+        },
+        "v_regex": {
+          "value": "^TAE-\\d{3}-\\d{3}$",
+          "err": "Passport number should be of the format (TAE-XXX-XXX)"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a valid passport number"
+        },
+        "relevance": {
+          "step1:id_avail": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "chk_passport_number"
                 ]
               }
             ]
