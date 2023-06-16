@@ -530,7 +530,7 @@
           },
           {
             "key": "chk_passport_number",
-            "text": "Passort",
+            "text": "Passport",
             "openmrs_entity": "person_attribute",
             "openmrs_entity_id": "chk_passport_number"
           },
