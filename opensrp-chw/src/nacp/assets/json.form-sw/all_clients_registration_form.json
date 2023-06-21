@@ -664,7 +664,7 @@
         "openmrs_entity_id": "Passport",
         "type": "mask_edit_text",
         "mask": "TAE-###-###",
-        "mask_hint": "12345678912",
+        "mask_hint": "123456",
         "allowed_chars": "0123456789",
         "hint": "Passport namba e.g TAE-123-456",
         "edit_type": "number",
