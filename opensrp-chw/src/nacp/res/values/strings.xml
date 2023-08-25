@@ -172,6 +172,7 @@
     <string name="pnc_normal">Normal</string>
     <string name="pnc_moderate">Moderate</string>
     <string name="pnc_severe">Severe</string>
+    <string name="pnc_hygiene_safety_counselling_title">Environmental Hygiene</string>
 
     <!---KVP/PrEP Strings -->
     <string name="kvp_prep_visit_type">Visit Type</string>

@@ -47,6 +47,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -98,6 +99,9 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
         evaluateFamilyPlanning();
         evaluateCounselling();
         evaluateMalariaPrevention();
+        evaluateEnvironmentalHygiene();
+
+
 //            evaluateNutritionStatusMother();
         evaluateObsIllnessMother();
 
@@ -108,6 +112,41 @@ public class PncHomeVisitInteractorFlv extends DefaultPncHomeVisitInteractorFlv 
             evaluateNutritionStatusBaby(baby);
             evaluateObsIllnessBaby(baby);
         }
+    }
+
+    private void evaluateEnvironmentalHygiene() throws BaseAncHomeVisitAction.ValidationException {
+        String title="Environment Hygiene/Safety";
+        title=context.getString(R.string.pnc_hygiene_safety_counselling_title);
+        HomeVisitActionHelper helper=new HomeVisitActionHelper() {
+            private String payload="";
+            @Override
+            public void onPayloadReceived(String s) {payload=s;}
+
+            @Override
+            public String evaluateSubTitle() { return null; }
+
+            @Override
+            public BaseAncHomeVisitAction.Status evaluateStatusOnPayload() {
+                try {
+                    String isLatrinePresent=org.smartregister.chw.util.JsonFormUtils.getFieldValue(payload,"is_latrine_present");
+                    String latrineTypes= org.smartregister.chw.util.JsonFormUtils.getFieldValue(payload, "latrine_type");
+                    int countLatrineTypes= latrineTypes!=null?new JSONArray(latrineTypes).length():0;
+
+                    return ("yes".equalsIgnoreCase(isLatrinePresent)&&countLatrineTypes>0)||"no".equals(isLatrinePresent)
+                            ?BaseAncHomeVisitAction.Status.COMPLETED
+                            :BaseAncHomeVisitAction.Status.PENDING;
+                } catch (JSONException e) { Timber.e(e);return BaseAncHomeVisitAction.Status.PENDING; }
+           }
+        };
+
+        BaseAncHomeVisitAction action = new BaseAncHomeVisitAction.Builder(context, title)
+            .withOptional(false)
+            .withDetails(details)
+            .withFormName(Utils.getLocalForm("pnc_hygiene_observation"))//"pnc_hygiene_observation")
+            .withHelper(helper)
+            .build();
+        actionList.put(title, action);
+        otherActionTitles.add(title);
     }
 
     private boolean evaluateIfAllDangerSignsActionsAreFilled() {

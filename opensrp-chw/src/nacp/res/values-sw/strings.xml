@@ -170,6 +170,7 @@
     <string name="pnc_normal">Kawaida</string>
     <string name="pnc_moderate">Wastani</string>
     <string name="pnc_severe">Mbaya</string>
+    <string name="pnc_hygiene_safety_counselling_title">Usafi wa mazingira</string>
 
     <string name="visits_history_profile_title">Historia ya Matembeleo</string>
     <string name="view_visits_history">Angalia Historia ya Matembeleo</string>
