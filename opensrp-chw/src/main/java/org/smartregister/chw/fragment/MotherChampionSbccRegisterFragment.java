@@ -16,10 +16,10 @@ import org.smartregister.chw.adapter.SbccRegisterAdapter;
 import org.smartregister.chw.application.ChwApplication;
 import org.smartregister.chw.core.custom_views.NavigationMenu;
 import org.smartregister.chw.dao.ChwSbccDao;
-import org.smartregister.chw.model.SbccRegisterFragmentModel;
+import org.smartregister.chw.model.MotherChampionSbccRegisterFragmentModel;
 import org.smartregister.chw.model.SbccSessionModel;
 import org.smartregister.chw.pmtct.fragment.BasePmtctRegisterFragment;
-import org.smartregister.chw.presenter.SbccRegisterFragmentPresenter;
+import org.smartregister.chw.presenter.MotherChampionSbccRegisterFragmentPresenter;
 import org.smartregister.chw.provider.SbccRegisterProvider;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
@@ -117,7 +117,7 @@ public class MotherChampionSbccRegisterFragment extends BasePmtctRegisterFragmen
         } catch (NullPointerException e) {
             Timber.e(e);
         }
-        presenter = new SbccRegisterFragmentPresenter(this, new SbccRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new MotherChampionSbccRegisterFragmentPresenter(this, new MotherChampionSbccRegisterFragmentModel(), viewConfigurationIdentifier);
     }
 
     @Override
