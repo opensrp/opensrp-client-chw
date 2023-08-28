@@ -41,7 +41,7 @@ import static org.smartregister.util.JsonFormUtils.STEP1;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 import static org.smartregister.util.JsonFormUtils.generateRandomUUIDString;
 
-public class SbccRegisterFragment extends BasePmtctRegisterFragment {
+public class MotherChampionSbccRegisterFragment extends BasePmtctRegisterFragment {
 
     private android.view.View view;
 

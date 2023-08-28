@@ -14,7 +14,7 @@ import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.fragment.AncPartnerFollowupRegisterFragment;
 import org.smartregister.chw.fragment.MotherChampionRegisterFragment;
 import org.smartregister.chw.fragment.PmtctFollowupRegisterFragment;
-import org.smartregister.chw.fragment.SbccRegisterFragment;
+import org.smartregister.chw.fragment.MotherChampionSbccRegisterFragment;
 import org.smartregister.chw.listener.ChwMotherChampionBottomNavigationListener;
 import org.smartregister.helper.BottomNavigationHelper;
 import org.smartregister.listener.BottomNavigationListener;
@@ -65,7 +65,7 @@ public class MotherChampionRegisterActivity extends CorePmtctRegisterActivity {
         return new Fragment[]{
                 new AncPartnerFollowupRegisterFragment(),
                 new PmtctFollowupRegisterFragment(),
-                new SbccRegisterFragment()
+                new MotherChampionSbccRegisterFragment()
         };
     }
 
