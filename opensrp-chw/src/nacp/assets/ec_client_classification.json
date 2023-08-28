@@ -716,6 +716,20 @@
             "creates_case": [
               "ec_kvp_prep_followup"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "SBC Enrollment",
+            "creates_case": [
+              "ec_sbc_register"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "SBC Follow-up Visit",
+            "creates_case": [
+              "ec_sbc_visit"
+            ]
           }
         ]
       }

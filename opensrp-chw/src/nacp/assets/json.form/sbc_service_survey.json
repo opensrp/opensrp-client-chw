@@ -1,0 +1,379 @@
+{
+  "count": "1",
+  "encounter_type": "Services Survey",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Services Survey",
+    "fields": [
+      {
+        "key": "received_any_hiv_sms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "received_any_hiv_sms",
+        "type": "native_radio",
+        "label": "Have you received any SMS about HIV and AIDS within this month?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "received_message",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "received_message",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Message content received",
+        "hint": "Message content received",
+        "options": [
+          {
+            "key": "htc",
+            "text": "HTS",
+            "value": false,
+            "openmrs_choice_id": "htc"
+          },
+          {
+            "key": "vmmc",
+            "text": "VMMC",
+            "value": false,
+            "openmrs_choice_id": "vmmc"
+          },
+          {
+            "key": "pmtct",
+            "text": "PMTCT",
+            "value": false,
+            "openmrs_choice_id": "pmtct"
+          },
+          {
+            "key": "treatment",
+            "text": "Care and Treatment",
+            "value": false,
+            "openmrs_choice_id": "treatment"
+          },
+          {
+            "key": "cervical",
+            "text": "Cervical Cancer Screening",
+            "value": false,
+            "openmrs_choice_id": "cervical"
+          },
+          {
+            "key": "stigma",
+            "text": "Stigma",
+            "value": false,
+            "openmrs_choice_id": "stigma"
+          },
+          {
+            "key": "prep",
+            "text": "PrEP",
+            "value": false,
+            "openmrs_choice_id": "prep"
+          },
+          {
+            "key": "gbv",
+            "text": "GBV",
+            "value": false,
+            "openmrs_choice_id": "gbv"
+          },
+          {
+            "key": "agyw",
+            "text": "AGYW",
+            "value": false,
+            "openmrs_choice_id": "agyw"
+          },
+          {
+            "key": "abym",
+            "text": "ABYM",
+            "value": false,
+            "openmrs_choice_id": "abym"
+          },
+          {
+            "key": "tb",
+            "text": "TB/HIV",
+            "value": false,
+            "openmrs_choice_id": "tb"
+          },
+          {
+            "key": "hepatitis",
+            "text": "Hepatitis",
+            "value": false,
+            "openmrs_choice_id": "hepatitis"
+          },
+          {
+            "key": "sti",
+            "text": "STI/RTI",
+            "value": false,
+            "openmrs_choice_id": "sti"
+          },
+          {
+            "key": "injection",
+            "text": "Injection safety",
+            "value": false,
+            "openmrs_choice_id": "injection"
+          },
+          {
+            "key": "mat",
+            "text": "MAT",
+            "value": false,
+            "openmrs_choice_id": "mat"
+          },
+          {
+            "key": "overdose",
+            "text": "Overdose Prevention and Management Education",
+            "value": false,
+            "openmrs_choice_id": "overdose"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:received_any_hiv_sms": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_received_message",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_received_message",
+        "type": "edit_text",
+        "hint": "Other (Specify)",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:received_message": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "reason_not_receiving_hiv_sms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reason_not_receiving_hiv_sms",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Reason for not receiving HIV and AIDS SMS",
+        "hint": "Reason for not receiving HIV and AIDS SMS",
+        "options": [
+          {
+            "key": "not_subscribed",
+            "text": "Not Subscribed",
+            "value": false,
+            "openmrs_choice_id": "not_subscribed"
+          },
+          {
+            "key": "lost_phone",
+            "text": "Lost Phone",
+            "value": false,
+            "openmrs_choice_id": "lost_phone"
+          },
+          {
+            "key": "changed_phone_number",
+            "text": "Changed Phone Number",
+            "value": false,
+            "openmrs_choice_id": "changed_phone_number"
+          },
+          {
+            "key": "no_phone",
+            "text": "Do not have a phone.",
+            "value": false,
+            "openmrs_choice_id": "no_phone"
+          },
+          {
+            "key": "network_access",
+            "text": "Network access",
+            "value": false,
+            "openmrs_choice_id": "network_access"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:received_any_hiv_sms": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
+        }
+      },
+      {
+        "key": "other_reason_not_receiving_hiv_sms",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_reason_not_receiving_hiv_sms",
+        "type": "edit_text",
+        "hint": "Other (Specify)",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:reason_not_receiving_hiv_sms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "used_toll_free",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "used_toll_free",
+        "type": "native_radio",
+        "label": "Have you used Toll-Free service?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "toll_free_service_accessed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "toll_free_service_accessed",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Which Toll-free service have you accessed?",
+        "hint": "Which Toll-free service have you accessed?",
+        "options": [
+          {
+            "key": "toll_free_ivr",
+            "text": "Interactive Voice Response (IVR)",
+            "value": false,
+            "openmrs_choice_id": "sbc_toll_free_ivr"
+          },
+          {
+            "key": "toll_free_provider",
+            "text": "Communication with a service provider",
+            "value": false,
+            "openmrs_choice_id": "sbc_toll_free_provider"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:used_toll_free": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      }
+    ]
+  }
+}

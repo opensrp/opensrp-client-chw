@@ -14,8 +14,4 @@ public class SbccRegisterFragmentPresenter extends BasePmtctRegisterFragmentPres
         return Constants.TableName.SBCC;
     }
 
-    @Override
-    public String getMainCondition() {
-        return Constants.TableName.SBCC + "." + "is_closed is 0";
-    }
 }

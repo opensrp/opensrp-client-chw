@@ -1,5 +1,7 @@
 package org.smartregister.chw.model;
 
+import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
+
 import org.smartregister.chw.BuildConfig;
 import org.smartregister.chw.R;
 import org.smartregister.chw.application.ChwApplication;
@@ -8,16 +10,15 @@ import org.smartregister.chw.core.model.NavigationOption;
 import org.smartregister.chw.core.utils.CoreConstants;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.smartregister.AllConstants.TEAM_ROLE_IDENTIFIER;
-
 public class NavigationModelFlv implements NavigationModel.Flavor {
 
-    private static List<NavigationOption> navigationOptions = new ArrayList<>();
+    private static final List<NavigationOption> navigationOptions = new ArrayList<>();
 
     @Override
     public List<NavigationOption> getNavigationItems() {
@@ -41,16 +42,20 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
             NavigationOption op17 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_cdp, CoreConstants.DrawerMenu.CDP, 0);
             NavigationOption op18 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_kvp, CoreConstants.DrawerMenu.KVP_PrEP, 0);
             NavigationOption op19 = new NavigationOption(R.mipmap.sidemenu_hiv, R.mipmap.sidemenu_hiv_active, R.string.menu_AGYW, CoreConstants.DrawerMenu.AGYW, 0);
+            NavigationOption op20 = new NavigationOption(R.mipmap.sidemenu_updates, R.mipmap.sidemenu_updates_active, R.string.sbc, CoreConstants.DrawerMenu.SBC, 0);
 
             if (BuildConfig.USE_UNIFIED_REFERRAL_APPROACH && BuildConfig.BUILD_FOR_BORESHA_AFYA_SOUTH) {
-                AllSharedPreferences allSharedPreferences = org.smartregister.util.Utils.getAllSharedPreferences();
+                AllSharedPreferences allSharedPreferences = Utils.getAllSharedPreferences();
                 String teamRoleIdentifier = allSharedPreferences.getPreferences().getString(TEAM_ROLE_IDENTIFIER, "");
-                if (teamRoleIdentifier.equals("mother_champion")) {
+                if (teamRoleIdentifier != null && teamRoleIdentifier.equals("mother_champion")) {
                     navigationOptions.addAll(Arrays.asList(op10, op13, op8));
-                } else if (teamRoleIdentifier.equals("cbhs_provider")) {
+                } else if (teamRoleIdentifier != null && teamRoleIdentifier.equals("cbhs_provider")) {
                     navigationOptions.addAll(Arrays.asList(op10, op11, op12, op8, op15));
                 } else {
                     navigationOptions.addAll(Arrays.asList(op10, op1, op11, op12, op3, op5, op2, op13, op8, op15));
+                }
+                if (ChwApplication.getApplicationFlavor().hasSbc()) {
+                    navigationOptions.add(2, op20);
                 }
                 if (ChwApplication.getApplicationFlavor().hasHIVST()) {
                     navigationOptions.add(3, op16);
@@ -58,10 +63,7 @@ public class NavigationModelFlv implements NavigationModel.Flavor {
                 if (ChwApplication.getApplicationFlavor().hasCdp()) {
                     navigationOptions.add(4, op17);
                 }
-                if (ChwApplication.getApplicationFlavor().hasAGYW()) {
-                    navigationOptions.add(5, op19);
-                }
-                if(ChwApplication.getApplicationFlavor().hasKvp()){
+                if (ChwApplication.getApplicationFlavor().hasKvp()) {
                     navigationOptions.add(5, op18);
                 }
             } else {

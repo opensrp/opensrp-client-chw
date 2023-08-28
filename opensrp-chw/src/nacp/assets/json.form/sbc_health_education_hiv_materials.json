@@ -1,0 +1,235 @@
+{
+  "count": "1",
+  "encounter_type": "HIV/AIDS Health Education SBC Materials",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "HIV/AIDS Health Education SBC Materials",
+    "fields": [
+      {
+        "key": "distributed_any_hiv_materials",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "distributed_any_hiv_materials",
+        "type": "native_radio",
+        "label": "Have you distributed any HIV and AIDS Health Education SBC Materials to the Beneficiary?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "type_of_materials_content_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "type_of_materials_content_distributed",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Type of material contents distributed",
+        "hint": "Type of material contents distributed",
+        "options": [
+          {
+            "key": "htc",
+            "text": "HTS",
+            "value": false,
+            "openmrs_choice_id": "htc"
+          },
+          {
+            "key": "vmmc",
+            "text": "VMMC",
+            "value": false,
+            "openmrs_choice_id": "vmmc"
+          },
+          {
+            "key": "pmtct",
+            "text": "PMTCT",
+            "value": false,
+            "openmrs_choice_id": "pmtct"
+          },
+          {
+            "key": "treatment",
+            "text": "Care and Treatment",
+            "value": false,
+            "openmrs_choice_id": "treatment"
+          },
+          {
+            "key": "cervical",
+            "text": "Cervical Cancer Screening",
+            "value": false,
+            "openmrs_choice_id": "cervical"
+          },
+          {
+            "key": "stigma",
+            "text": "Stigma",
+            "value": false,
+            "openmrs_choice_id": "stigma"
+          },
+          {
+            "key": "prep",
+            "text": "PrEP",
+            "value": false,
+            "openmrs_choice_id": "prep"
+          },
+          {
+            "key": "gbv",
+            "text": "GBV",
+            "value": false,
+            "openmrs_choice_id": "gbv"
+          },
+          {
+            "key": "agyw",
+            "text": "AGYW",
+            "value": false,
+            "openmrs_choice_id": "agyw"
+          },
+          {
+            "key": "abym",
+            "text": "ABYM",
+            "value": false,
+            "openmrs_choice_id": "abym"
+          },
+          {
+            "key": "tb",
+            "text": "TB/HIV",
+            "value": false,
+            "openmrs_choice_id": "tb"
+          },
+          {
+            "key": "hepatitis",
+            "text": "Hepatitis",
+            "value": false,
+            "openmrs_choice_id": "hepatitis"
+          },
+          {
+            "key": "sti",
+            "text": "STI/RTI",
+            "value": false,
+            "openmrs_choice_id": "sti"
+          },
+          {
+            "key": "injection",
+            "text": "Injection safety",
+            "value": false,
+            "openmrs_choice_id": "injection"
+          },
+          {
+            "key": "mat",
+            "text": "MAT",
+            "value": false,
+            "openmrs_choice_id": "mat"
+          },
+          {
+            "key": "overdose",
+            "text": "Overdose Prevention and Management Education",
+            "value": false,
+            "openmrs_choice_id": "overdose"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:distributed_any_hiv_materials": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "other_type_of_materials_content_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_type_of_materials_content_distributed",
+        "type": "edit_text",
+        "hint": "Other (Specify)",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:health_education_hiv_intervention": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

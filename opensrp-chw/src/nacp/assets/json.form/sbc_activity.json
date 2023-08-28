@@ -1,0 +1,166 @@
+{
+  "count": "1",
+  "encounter_type": "SBC Activity",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "SBC Activity",
+    "fields": [
+      {
+        "key": "activity_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "activity_type",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Type of Community SBC activity provided",
+        "hint": "Type of Community SBC activity provided",
+        "options": [
+          {
+            "key": "campaign",
+            "text": "Campaign",
+            "value": false,
+            "openmrs_choice_id": "campaign"
+          },
+          {
+            "key": "religious",
+            "text": "Religious events ",
+            "value": false,
+            "openmrs_choice_id": "religious"
+          },
+          {
+            "key": "meetings",
+            "text": "Community meetings",
+            "value": false,
+            "openmrs_choice_id": "meetings"
+          },
+          {
+            "key": "theater",
+            "text": "Community theater",
+            "value": false,
+            "openmrs_choice_id": "theater"
+          },
+          {
+            "key": "tales",
+            "text": "Tales and discussions",
+            "value": false,
+            "openmrs_choice_id": "tales"
+          },
+          {
+            "key": "drama",
+            "text": "Drama",
+            "value": false,
+            "openmrs_choice_id": "drama"
+          },
+          {
+            "key": "institution",
+            "text": "Learning institution events",
+            "value": false,
+            "openmrs_choice_id": "institution"
+          },
+          {
+            "key": "advocacy",
+            "text": "Advocacy meetings",
+            "value": false,
+            "openmrs_choice_id": "advocacy"
+          },
+          {
+            "key": "workplace",
+            "text": "Workplace Health Education",
+            "value": false,
+            "openmrs_choice_id": "workplace"
+          },
+          {
+            "key": "edutainment",
+            "text": "Health edutainment",
+            "value": false,
+            "openmrs_choice_id": "edutainment"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please choose SBC activity"
+        }
+      },
+      {
+        "key": "other_activity_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_activity_type",
+        "type": "edit_text",
+        "hint": "Other (Specify)",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:activity_type": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

@@ -6,6 +6,8 @@ import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 import android.content.Context;
 import android.view.Menu;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.json.JSONArray;
@@ -28,6 +30,7 @@ import org.smartregister.chw.hivst.dao.HivstDao;
 import org.smartregister.chw.kvp.dao.KvpDao;
 import org.smartregister.chw.presenter.AllClientsMemberPresenter;
 import org.smartregister.chw.presenter.FamilyOtherMemberActivityPresenter;
+import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.util.Constants;
 import org.smartregister.chw.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -37,10 +40,7 @@ import org.smartregister.family.model.BaseFamilyOtherMemberProfileActivityModel;
 import org.smartregister.family.util.DBConstants;
 import org.smartregister.view.contract.BaseProfileContract;
 
-import androidx.viewpager.widget.ViewPager;
 import timber.log.Timber;
-
-import static org.smartregister.chw.util.Utils.updateAgeAndGender;
 
 public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfileActivity {
 
@@ -89,10 +89,16 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
             }
         }
 
-        if(ChwApplication.getApplicationFlavor().hasKvp()){
+        if (ChwApplication.getApplicationFlavor().hasKvp()) {
             String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
             int age = Utils.getAgeFromDate(dob);
             menu.findItem(R.id.action_kvp_prep_registration).setVisible(!KvpDao.isRegisteredForKvpPrEP(baseEntityId) && age >= 15);
+        }
+
+        if (ChwApplication.getApplicationFlavor().hasSbc()) {
+            String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
+            int age = Utils.getAgeFromDate(dob);
+            menu.findItem(R.id.action_sbc_registration).setVisible(!SbcDao.isRegisteredForSbc(baseEntityId) && age >= 15);
         }
         return true;
     }
@@ -105,14 +111,12 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     @Override
     protected void startAncRegister() {
-        AncRegisterActivity.startAncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
+        AncRegisterActivity.startAncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber, Constants.JSON_FORM.getAncRegistration(), null, familyBaseEntityId, familyName);
     }
 
     @Override
     protected void startPncRegister() {
-        PncRegisterActivity.startPncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber,
-                CoreConstants.JSON_FORM.getPregnancyOutcome(), null, familyBaseEntityId, familyName, null);
+        PncRegisterActivity.startPncRegistrationActivity(AllClientsMemberProfileActivity.this, baseEntityId, PhoneNumber, CoreConstants.JSON_FORM.getPregnancyOutcome(), null, familyBaseEntityId, familyName, null);
     }
 
     @Override
@@ -157,8 +161,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
-        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender),
-                FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpRegistrationForm(gender), FamilyPlanningConstants.ActivityPayload.REGISTRATION_PAYLOAD_TYPE);
     }
 
 
@@ -167,8 +170,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         String dob = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         String gender = org.smartregister.family.util.Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.GENDER, false);
 
-        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender),
-                FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
+        FpRegisterActivity.startFpRegistrationActivity(this, baseEntityId, dob, CoreConstants.JSON_FORM.getFpChangeMethodForm(gender), FamilyPlanningConstants.ActivityPayload.CHANGE_METHOD_PAYLOAD_TYPE);
     }
 
     @Override
@@ -182,6 +184,11 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         String dob = Utils.getValue(commonPersonObject.getColumnmaps(), DBConstants.KEY.DOB, false);
         int age = Utils.getAgeFromDate(dob);
         AgywRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId, age);
+    }
+
+    @Override
+    protected void startSbcRegistration() {
+        SbcRegisterActivity.startRegistration(AllClientsMemberProfileActivity.this, baseEntityId);
     }
 
     @Override
@@ -204,8 +211,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
 
     @Override
     protected void removeIndividualProfile() {
-        IndividualProfileRemoveActivity.startIndividualProfileActivity(AllClientsMemberProfileActivity.this,
-                commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, AllClientsRegisterActivity.class.getCanonicalName());
+        IndividualProfileRemoveActivity.startIndividualProfileActivity(AllClientsMemberProfileActivity.this, commonPersonObject, familyBaseEntityId, familyHead, primaryCaregiver, AllClientsRegisterActivity.class.getCanonicalName());
     }
 
     @Override
@@ -216,8 +222,7 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
         boolean isPrimaryCareGiver = commonPersonObject.getCaseId().equalsIgnoreCase(primaryCaregiver);
 
         NativeFormsDataBinder binder = new NativeFormsDataBinder(getContext(), commonPersonObject.getCaseId());
-        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString,
-                Utils.metadata().familyMemberRegister.updateEventType, uniqueID));
+        binder.setDataLoader(new FamilyMemberDataLoader(familyName, isPrimaryCareGiver, titleString, Utils.metadata().familyMemberRegister.updateEventType, uniqueID));
         JSONObject jsonObject = binder.getPrePopulatedForm(CoreConstants.JSON_FORM.getAllClientUpdateRegistrationInfoForm());
 
         try {
@@ -228,10 +233,8 @@ public class AllClientsMemberProfileActivity extends CoreAllClientsMemberProfile
     }
 
     @Override
-    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(
-            String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
-        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(),
-                null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
+    protected BaseProfileContract.Presenter getFamilyOtherMemberActivityPresenter(String familyBaseEntityId, String baseEntityId, String familyHead, String primaryCaregiver, String villageTown, String familyName) {
+        return new FamilyOtherMemberActivityPresenter(this, new BaseFamilyOtherMemberProfileActivityModel(), null, familyBaseEntityId, baseEntityId, familyHead, primaryCaregiver, villageTown, familyName);
     }
 
     @Override

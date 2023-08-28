@@ -524,4 +524,27 @@
 
     <string name="last_appointment_date">Last Appointment date</string>
 
+    <!--    SBC -->
+    <string name="sbc_visit">SBC Visits</string>
+    <string name="sbc_followup_visit">SBC Follow-up Visit</string>
+    <string name="sbc_activity_type">Type of Community SBC activity provided:</string>
+    <string name="sbc_other_activity_type">Other Type of Community SBC activity provided:</string>
+    <string name="sbc_received_any_hiv_sms">Has the client received any SMS about HIV and AIDS within this month:</string>
+    <string name="sbc_received_message">Message content received:</string>
+    <string name="sbc_other_received_message">Other Message content received:</string>
+    <string name="sbc_reason_not_receiving_hiv_sms">Reason for not receiving HIV and AIDS SMS:</string>
+    <string name="sbc_other_reason_not_receiving_hiv_sms">Other Reason for not receiving HIV and AIDS SMS:</string>
+    <string name="sbc_used_toll_free">Has the client used Toll-Free service:</string>
+    <string name="sbc_toll_free_service_accessed">Which Toll-free service the client accessed:</string>
+    <string name="sbc_health_education_received">SBC Health Education Session(s) received:</string>
+    <string name="sbc_other_health_education_received">Other SBC Health Education Session(s) received:</string>
+    <string name="sbc_health_education_hiv_intervention">Health Education on HIV Intervention:</string>
+    <string name="sbc_other_health_education_hiv_intervention">Other Health Education on HIV Intervention:</string>
+    <string name="sbc_distributed_any_hiv_materials">Have you distributed any HIV and AIDS Health Education SBC Materials to the Beneficiary:</string>
+    <string name="sbc_type_of_materials_content_distributed">Type of material contents distributed:</string>
+    <string name="sbc_other_type_of_materials_content_distributed">Other type of material contents distributed:</string>
+    <string name="sbc_received_art_counseling">Did the client receive ART adherence counseling:</string>
+    <string name="sbc_received_condom_education">Did the client received education on comprehensive condom use:</string>
+    <string name="sbc_sbc_comments">Comments:</string>
+
 </resources>
