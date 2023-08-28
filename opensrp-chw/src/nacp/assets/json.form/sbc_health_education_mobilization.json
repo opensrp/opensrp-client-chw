@@ -1,0 +1,495 @@
+{
+  "count": "1",
+  "encounter_type": "SBC Health Education Mobilization",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Health Education Mobilization",
+    "fields": [
+      {
+        "key": "mobilization_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mobilization_date",
+        "type": "date_picker",
+        "hint": "Mobilization Date",
+        "expanded": false,
+        "default": "12-12-2023",
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the mobilization date"
+        }
+      },
+      {
+        "key": "heath_education_mobility_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "heath_education_mobility_location",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "community_sbc_activity_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_sbc_activity_provided",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Type of Community SBC activity provided",
+        "hint": "Type of Community SBC activity provided",
+        "options": [
+          {
+            "key": "campaign",
+            "text": "Campaign",
+            "value": false,
+            "openmrs_choice_id": "campaign"
+          },
+          {
+            "key": "religious_events",
+            "text": "Religious events",
+            "value": false,
+            "openmrs_choice_id": "religious_events"
+          },
+          {
+            "key": "community_meetings",
+            "text": "Community meetings",
+            "value": false,
+            "openmrs_choice_id": "community_meetings"
+          },
+          {
+            "key": "community_theater",
+            "text": "Community theater",
+            "value": false,
+            "openmrs_choice_id": "community_theater"
+          },
+          {
+            "key": "community_drama",
+            "text": "Community drama",
+            "value": false,
+            "openmrs_choice_id": "community_drama"
+          },
+          {
+            "key": "tales_discussions",
+            "text": "Tales and discussions",
+            "value": false,
+            "openmrs_choice_id": "tales_discussions"
+          },
+          {
+            "key": "learning_events",
+            "text": "Learning institution events",
+            "value": false,
+            "openmrs_choice_id": "learning_events"
+          },
+          {
+            "key": "advocacy_meetings",
+            "text": "Advocacy meetings",
+            "value": false,
+            "openmrs_choice_id": "advocacy_meetings"
+          },
+          {
+            "key": "workplace_education",
+            "text": "Workplace HIV & AIDs Education",
+            "value": false,
+            "openmrs_choice_id": "workplace_education"
+          },
+          {
+            "key": "income_activities",
+            "text": "Income Generation Activities",
+            "value": false,
+            "openmrs_choice_id": "income_activities"
+          },
+          {
+            "key": "health_edutainment",
+            "text": "Health edutainment",
+            "value": false,
+            "openmrs_choice_id": "health_edutainment"
+          },
+          {
+            "key": "outreach",
+            "text": "Outreach",
+            "value": false,
+            "openmrs_choice_id": "outreach"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "other_community_sbc_activity_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_community_sbc_activity_provided",
+        "type": "edit_text",
+        "hint": "Other (Specify)",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:community_sbc_activity_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "iec_materials_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iec_materials_distributed",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select IEC materials distributed",
+        "hint": "Select IEC materials distributed",
+        "options": [
+          {
+            "key": "audio_visual",
+            "text": "Audio visual",
+            "value": false,
+            "openmrs_choice_id": "audio_visual"
+          },
+          {
+            "key": "audio",
+            "text": "Audio",
+            "value": false,
+            "openmrs_choice_id": "audio"
+          },
+          {
+            "key": "print_materials",
+            "text": "Print Materials",
+            "value": false,
+            "openmrs_choice_id": "print_materials"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "number_audio_visuals_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_audio_visuals_distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of Audio visual distributed",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio_visual"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_audio_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_audio_distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of Audio distributed",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_print_materials_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_print_materials_distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of print materials distributed",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "print_materials"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "pmtct_iec_materials_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pmtct_iec_materials_distributed",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Select PMTCT IEC materials distributed",
+        "hint": "Select PMTCT IEC materials distributed",
+        "options": [
+          {
+            "key": "audio_visual",
+            "text": "Audio visual",
+            "value": false,
+            "openmrs_choice_id": "audio_visual"
+          },
+          {
+            "key": "audio",
+            "text": "Audio",
+            "value": false,
+            "openmrs_choice_id": "audio"
+          },
+          {
+            "key": "print_materials",
+            "text": "Print Materials",
+            "value": false,
+            "openmrs_choice_id": "print_materials"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "number_pmtct_audio_visuals_distributed_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_visuals_distributed_male",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of PMTCT Audio visual distributed for Male Clients",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio_visual"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_audio_visuals_distributed_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_visuals_distributed_female",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of PMTCT Audio visual distributed for Female Clients",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio_visual"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_audio_distributed_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_distributed_male",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of PMTCT Audio  distributed for Male Clients ",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_audio_distributed_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_distributed_female",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of PMTCT Audio  distributed for Female Clients",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_print_materials_distributed_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_print_materials_distributed_male",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of PMTCT Print Materials  distributed for Male Clients",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "print_materials"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_print_materials_distributed_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_print_materials_distributed_female",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of PMTCT Print Materials  distributed for Female Clients",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "print_materials"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
+      }
+    ]
+  }
+}

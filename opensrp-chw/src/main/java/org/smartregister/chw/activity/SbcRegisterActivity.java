@@ -3,10 +3,13 @@ package org.smartregister.chw.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import androidx.fragment.app.Fragment;
+
 import com.vijay.jsonwizard.domain.Form;
 
 import org.smartregister.chw.R;
 import org.smartregister.chw.core.activity.CoreSbcRegisterActivity;
+import org.smartregister.chw.fragment.SbcMobilizationRegisterFragment;
 import org.smartregister.chw.fragment.SbcRegisterFragment;
 import org.smartregister.chw.sbc.util.Constants;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -38,5 +41,10 @@ public class SbcRegisterActivity extends CoreSbcRegisterActivity {
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new SbcRegisterFragment();
+    }
+
+    @Override
+    protected Fragment[] getOtherFragments() {
+        return new Fragment[]{new SbcMobilizationRegisterFragment()};
     }
 }

@@ -730,6 +730,13 @@
             "creates_case": [
               "ec_sbc_visit"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "SBC Health Education Mobilization",
+            "creates_case": [
+              "ec_sbc_mobilization_session"
+            ]
           }
         ]
       }

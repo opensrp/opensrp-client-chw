@@ -5591,6 +5591,137 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_sbc_mobilization_session",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "relational_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "relational_id"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        },
+        {
+          "column_name": "mobilization_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mobilization_date"
+          }
+        },
+        {
+          "column_name": "community_sbc_activity_provided",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "community_sbc_activity_provided"
+          }
+        },
+        {
+          "column_name": "iec_materials_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "iec_materials_distributed"
+          }
+        },
+        {
+          "column_name": "number_audio_visuals_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_audio_visuals_distributed"
+          }
+        },
+        {
+          "column_name": "number_audio_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_audio_distributed"
+          }
+        },
+        {
+          "column_name": "number_print_materials_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_print_materials_distributed"
+          }
+        },
+        {
+          "column_name": "pmtct_iec_materials_distributed",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "pmtct_iec_materials_distributed"
+          }
+        },
+        {
+          "column_name": "number_pmtct_audio_visuals_distributed_male",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_pmtct_audio_visuals_distributed_male"
+          }
+        },
+        {
+          "column_name": "number_pmtct_audio_visuals_distributed_female",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_pmtct_audio_visuals_distributed_female"
+          }
+        },
+        {
+          "column_name": "number_pmtct_audio_distributed_male",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_pmtct_audio_distributed_male"
+          }
+        },
+        {
+          "column_name": "number_pmtct_audio_distributed_female",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_pmtct_audio_distributed_female"
+          }
+        },
+        {
+          "column_name": "number_pmtct_print_materials_distributed_male",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_pmtct_print_materials_distributed_male"
+          }
+        },
+        {
+          "column_name": "number_pmtct_print_materials_distributed_female",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "number_pmtct_print_materials_distributed_female"
+          }
+        }
+      ]
     }
   ]
 }

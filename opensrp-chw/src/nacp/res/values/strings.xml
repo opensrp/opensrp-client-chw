@@ -546,5 +546,6 @@
     <string name="sbc_received_art_counseling">Did the client receive ART adherence counseling:</string>
     <string name="sbc_received_condom_education">Did the client received education on comprehensive condom use:</string>
     <string name="sbc_sbc_comments">Comments:</string>
+    <string name="sbc_mobilization_sessions_title">SBC Mobilizations</string>
 
 </resources>
