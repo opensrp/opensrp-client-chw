@@ -1,0 +1,489 @@
+{
+  "count": "1",
+  "encounter_type": "Uhamasishaji elimu ya afya (SBC)",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Uhamasishaji elimu ya afya (SBC)",
+    "fields": [
+      {
+        "key": "mobilization_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "mobilization_date",
+        "type": "date_picker",
+        "hint": "Tarehe ya Uhamasishaji",
+        "expanded": false,
+        "default": "12-12-2023",
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua tarehe ya uhamasishaji"
+        }
+      },
+      {
+        "key": "heath_education_mobility_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "heath_education_mobility_location",
+        "openmrs_data_type": "text",
+        "type": "gps"
+      },
+      {
+        "key": "community_sbc_activity_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "community_sbc_activity_provided",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Aina ya uelimishaji ngazi ya jamii (SBC)",
+        "hint": "Aina ya uelimishaji ngazi ya jamii (SBC)",
+        "options": [
+          {
+            "key": "campaign",
+            "text": "Kampeni",
+            "value": false,
+            "openmrs_choice_id": "campaign"
+          },
+          {
+            "key": "religious",
+            "text": "Uelimishaji katika nyumba za ibada ",
+            "value": false,
+            "openmrs_choice_id": "religious"
+          },
+          {
+            "key": "meetings",
+            "text": "Mikutano ya kijamii",
+            "value": false,
+            "openmrs_choice_id": "meetings"
+          },
+          {
+            "key": "theater",
+            "text": "Kuonesha filamu",
+            "value": false,
+            "openmrs_choice_id": "theater"
+          },
+          {
+            "key": "drama",
+            "text": "Uelimishaji kwa njia ya sanaa",
+            "value": false,
+            "openmrs_choice_id": "drama"
+          },
+          {
+            "key": "tales",
+            "text": "Hadithi na majadiliano",
+            "value": false,
+            "openmrs_choice_id": "tales"
+          },
+          {
+            "key": "institution",
+            "text": "Uelimishaji katika taasisi za elimu",
+            "value": false,
+            "openmrs_choice_id": "institution"
+          },
+          {
+            "key": "advocacy",
+            "text": "Mikutano ya uraghibishi",
+            "value": false,
+            "openmrs_choice_id": "advocacy"
+          },
+          {
+            "key": "workplace",
+            "text": "Uelimishaji mahala pa kazi",
+            "value": false,
+            "openmrs_choice_id": "workplace"
+          },
+          {
+            "key": "income_generating_activity",
+            "text": "Elimu ya uwezeshaji kiuchumi",
+            "value": false,
+            "openmrs_choice_id": "income_generating_activity"
+          },
+          {
+            "key": "edutainment",
+            "text": "Uelimishaji maeneo ya burudani",
+            "value": false,
+            "openmrs_choice_id": "edutainment"
+          },
+          {
+            "key": "other",
+            "text": "Nyinginezo (Taja)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "other_community_sbc_activity_provided",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_community_sbc_activity_provided",
+        "type": "edit_text",
+        "hint": "Nyinginezo (Taja)",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:community_sbc_activity_provided": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "iec_materials_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "iec_materials_distributed",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Idadi ya nyenzo za uelimishaji na uhamasishaji zilizosambazwa",
+        "hint": "Idadi ya nyenzo za uelimishaji na uhamasishaji zilizosambazwa",
+        "options": [
+          {
+            "key": "audio_visual",
+            "text": "Video",
+            "value": false,
+            "openmrs_choice_id": "audio_visual"
+          },
+          {
+            "key": "audio",
+            "text": "Sauti",
+            "value": false,
+            "openmrs_choice_id": "audio"
+          },
+          {
+            "key": "print_materials",
+            "text": "Machapisho",
+            "value": false,
+            "openmrs_choice_id": "print_materials"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "number_audio_visuals_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_audio_visuals_distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya video zilizosambazwa",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio_visual"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_audio_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_audio_distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya Sauti zilizosambazwa",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_print_materials_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_print_materials_distributed",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya Machapisho zilizosambazwa",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "print_materials"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "pmtct_iec_materials_distributed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "pmtct_iec_materials_distributed",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "combine_checkbox_option_values": "true",
+        "label": "Idadi ya nyenzo za uelimishaji na uhamasishaji wa PMTCT zilizosambazwa",
+        "hint": "Idadi ya nyenzo za uelimishaji na uhamasishaji wa PMTCT zilizosambazwa",
+        "options": [
+          {
+            "key": "audio_visual",
+            "text": "Nyenzo za kusikia na kuona",
+            "value": false,
+            "openmrs_choice_id": "audio_visual"
+          },
+          {
+            "key": "audio",
+            "text": "Nyenzo za kusikia ",
+            "value": false,
+            "openmrs_choice_id": "audio"
+          },
+          {
+            "key": "print_materials",
+            "text": "Machapisho",
+            "value": false,
+            "openmrs_choice_id": "print_materials"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "number_pmtct_audio_visuals_distributed_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_visuals_distributed_male",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya nyenzo za kusikia na kuona za PMTCT zilizosambazwa kwa wateja wa kiume",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio_visual"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_audio_visuals_distributed_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_visuals_distributed_female",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya nyenzo za kusikia na kuona za PMTCT zilizosambazwa kwa wateja wa kike",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio_visual"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_audio_distributed_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_distributed_male",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya nyenzo za kusikia za PMTCT zilizosambazwa kwa wateja wa kiume ",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_audio_distributed_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_audio_distributed_female",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya nyenzo za kusikia za PMTCT zilizosambazwa kwa wateja wa kike",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "audio"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_print_materials_distributed_male",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_print_materials_distributed_male",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya Machapisho ya PMTCT zilizosambazwa kwa wateja wa kiume",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "print_materials"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_pmtct_print_materials_distributed_female",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_pmtct_print_materials_distributed_female",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya Machapisho ya PMTCT zilizosambazwa kwa wateja wa kike",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:pmtct_iec_materials_distributed": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "print_materials"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
+      }
+    ]
+  }
+}

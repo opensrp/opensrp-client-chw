@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Services Survey",
+  "encounter_type": "Uchunguzi wa Huduma",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -53,7 +53,7 @@
     }
   },
   "step1": {
-    "title": "Services Survey",
+    "title": "Uchunguzi wa Huduma",
     "fields": [
       {
         "key": "received_any_hiv_sms",
@@ -61,25 +61,25 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "received_any_hiv_sms",
         "type": "native_radio",
-        "label": "Have you received any SMS about HIV and AIDS?",
+        "label": "Je, umepokea ujumbe mfupi wa simu kuhusu VVU na UKIMWI?",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         }
       },
       {
@@ -90,115 +90,115 @@
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Message content received",
-        "hint": "Message content received",
+        "label": "Aina ya ujumbe uliopokelewa",
+        "hint": "Aina ya ujumbe uliopokelewa",
         "options": [
           {
             "key": "htc",
-            "text": "HTS",
+            "text": "Upimaji wa VVU",
             "value": false,
             "openmrs_choice_id": "htc"
           },
           {
             "key": "vmmc",
-            "text": "VMMC",
+            "text": "Tohara ya kitabibu",
             "value": false,
             "openmrs_choice_id": "vmmc"
           },
           {
             "key": "pmtct",
-            "text": "PMTCT",
+            "text": "Kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto",
             "value": false,
             "openmrs_choice_id": "pmtct"
           },
           {
             "key": "treatment",
-            "text": "Care and Treatment",
+            "text": "Huduma za tiba na matunzo",
             "value": false,
             "openmrs_choice_id": "treatment"
           },
           {
             "key": "cervical",
-            "text": "Cervical Cancer Screening",
+            "text": "Uchunguzi wa saratani ya shingo ya kizazi ",
             "value": false,
             "openmrs_choice_id": "cervical"
           },
           {
             "key": "stigma",
-            "text": "Stigma",
+            "text": "Unyanyapaa",
             "value": false,
             "openmrs_choice_id": "stigma"
           },
           {
             "key": "prep",
-            "text": "PrEP",
+            "text": "Dawa kinga (PrEP)",
             "value": false,
             "openmrs_choice_id": "prep"
           },
           {
             "key": "gbv",
-            "text": "GBV",
+            "text": "Ukatili wa kijinsia",
             "value": false,
             "openmrs_choice_id": "gbv"
           },
           {
             "key": "agyw",
-            "text": "AGYW",
+            "text": "Wasichana rika balehe na wanawake vijana (AGYW)",
             "value": false,
             "openmrs_choice_id": "agyw"
           },
           {
             "key": "abym",
-            "text": "ABYM",
+            "text": "Wavulana rika balehe na wanaume vijana (ABYM)",
             "value": false,
             "openmrs_choice_id": "abym"
           },
           {
             "key": "tb",
-            "text": "TB/HIV",
+            "text": "Kifua kikuu na VVU",
             "value": false,
             "openmrs_choice_id": "tb"
           },
           {
             "key": "hepatitis",
-            "text": "Hepatitis",
+            "text": "Homa ya ini",
             "value": false,
             "openmrs_choice_id": "hepatitis"
           },
           {
             "key": "sti",
-            "text": "STI/RTI",
+            "text": "Magonjwa ya ngono",
             "value": false,
             "openmrs_choice_id": "sti"
           },
           {
             "key": "injection",
-            "text": "Injection safety",
+            "text": "Vifaa kinga vya kujidunga",
             "value": false,
             "openmrs_choice_id": "injection"
           },
           {
             "key": "mat",
-            "text": "MAT",
+            "text": "Huduma ya kliniki za methadoni",
             "value": false,
             "openmrs_choice_id": "mat"
           },
           {
             "key": "overdose",
-            "text": "Overdose Prevention and Management Education",
+            "text": "Elimu ya kudhibiti matumizi ya dawa za kulevya kwa waraibu",
             "value": false,
             "openmrs_choice_id": "overdose"
           },
           {
             "key": "other",
-            "text": "Other (Specify)",
+            "text": "Nyinginezo (taja)",
             "value": false,
             "openmrs_choice_id": "other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         },
         "relevance": {
           "step1:received_any_hiv_sms": {
@@ -213,10 +213,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_received_message",
         "type": "edit_text",
-        "hint": "Other (Specify)",
+        "hint": "Nyinginezo (taja)",
         "v_required": {
           "value": true,
-          "err": "Required"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:received_message": {
@@ -238,49 +238,49 @@
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Reason for not receiving HIV and AIDS SMS",
-        "hint": "Reason for not receiving HIV and AIDS SMS",
+        "label": "Sababu ya kutokupata ujumbe mfupi wa simu kuhusu VVU na UKIMWI",
+        "hint": "Sababu ya kutokupata ujumbe mfupi wa simu kuhusu VVU na UKIMWI",
         "options": [
           {
             "key": "not_subscribed",
-            "text": "Not Subscribed",
+            "text": "Haja sabskraibu",
             "value": false,
             "openmrs_choice_id": "not_subscribed"
           },
           {
             "key": "lost_phone",
-            "text": "Lost Phone",
+            "text": "Amepoteza simu",
             "value": false,
             "openmrs_choice_id": "lost_phone"
           },
           {
             "key": "changed_phone_number",
-            "text": "Changed Phone Number",
+            "text": "Amebadili namba ya simu",
             "value": false,
             "openmrs_choice_id": "changed_phone_number"
           },
           {
             "key": "no_phone",
-            "text": "Do not have a phone.",
+            "text": "Hana simu",
             "value": false,
             "openmrs_choice_id": "no_phone"
           },
           {
             "key": "network_access",
-            "text": "Network access",
+            "text": "Mtandao",
             "value": false,
             "openmrs_choice_id": "network_access"
           },
           {
             "key": "other",
-            "text": "Other (Specify)",
+            "text": "Nyinginezo (taja)",
             "value": false,
             "openmrs_choice_id": "other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         },
         "relevance": {
           "step1:received_any_hiv_sms": {
@@ -295,10 +295,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_reason_not_receiving_hiv_sms",
         "type": "edit_text",
-        "hint": "Other (Specify)",
+        "hint": "Nyinginezo (taja)",
         "v_required": {
           "value": true,
-          "err": "Required"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:reason_not_receiving_hiv_sms": {
@@ -318,25 +318,25 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "used_toll_free",
         "type": "native_radio",
-        "label": "Have you used Toll-Free service?",
+        "label": "Je umetumia huduma ya Toll free?",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         }
       },
       {
@@ -347,25 +347,25 @@
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Which Toll-free service have you accessed?",
-        "hint": "Which Toll-free service have you accessed?",
+        "label": "Je ni huduma ipi ya Toll free ulitumia?",
+        "hint": "Je ni huduma ipi ya Toll free ulitumia?",
         "options": [
           {
             "key": "toll_free_ivr",
-            "text": "Interactive Voice Response (IVR)",
+            "text": "Mawasiliano kwa sauti iliyonakiliwa (IVR)",
             "value": false,
             "openmrs_choice_id": "sbc_toll_free_ivr"
           },
           {
             "key": "toll_free_provider",
-            "text": "Communication with a service provider",
+            "text": "Kuongea na mshauri",
             "value": false,
             "openmrs_choice_id": "sbc_toll_free_provider"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         },
         "relevance": {
           "step1:used_toll_free": {

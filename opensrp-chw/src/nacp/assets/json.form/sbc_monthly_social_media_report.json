@@ -1,0 +1,313 @@
+{
+  "count": "1",
+  "encounter_type": "Monthly Social Media Report ",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Monthly Social Media Report",
+    "fields": [
+      {
+        "key": "reporting_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reporting_month",
+        "type": "date_picker",
+        "hint": "Reporting Month",
+        "expanded": false,
+        "default": "12-12-2023",
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the reporting month"
+        }
+      },
+      {
+        "key": "organization_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "organization_name",
+        "type": "native_radio",
+        "label": "Select Name of your Organization",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "deloitte",
+            "text": "Deloitte",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deloitte"
+          },
+          {
+            "key": "fhi",
+            "text": "fhi360",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fhi"
+          },
+          {
+            "key": "amref",
+            "text": "Amref",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "amref"
+          },
+          {
+            "key": "egpaf",
+            "text": "Egpaf",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "egpaf"
+          },
+          {
+            "key": "tayoa",
+            "text": "TAYOA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tayoa"
+          },
+          {
+            "key": "mdh",
+            "text": "MDH",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mdh"
+          },
+          {
+            "key": "hjfmri",
+            "text": "HJFMRI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hjfmri"
+          },
+          {
+            "key": "thps",
+            "text": "THPS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "thps"
+          },
+          {
+            "key": "jhpiego",
+            "text": "Jhpiego",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "jhpiego"
+          },
+          {
+            "key": "tcdc",
+            "text": "TCDC",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tcdc"
+          },
+          {
+            "key": "icap",
+            "text": "ICAP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "icap"
+          },
+          {
+            "key": "path",
+            "text": "PATH",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "path"
+          },
+          {
+            "key": "afya_plus",
+            "text": "Afya Plus",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "afya_plus"
+          },
+          {
+            "key": "mukikute",
+            "text": "MUKIKUTE",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mukikute"
+          },
+          {
+            "key": "nacp_moh",
+            "text": "NACP - MOH",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nacp_moh"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "other_organization_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_organization_name",
+        "type": "edit_text",
+        "hint": "Other (Specify)",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:organization_name": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
+        "key": "social_media_hiv_msg_distribution",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_media_hiv_msg_distribution",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Select social media used for HIV & AIDS message distribution ",
+        "hint": "Select social media used for HIV & AIDS message distribution ",
+        "options": [
+          {
+            "key": "facebook",
+            "text": "Facebook",
+            "value": false,
+            "openmrs_choice_id": "facebook"
+          },
+          {
+            "key": "twitter",
+            "text": "X(Twitter)",
+            "value": false,
+            "openmrs_choice_id": "twitter"
+          },
+          {
+            "key": "whatsapp",
+            "text": "Whatsapp",
+            "value": false,
+            "openmrs_choice_id": "community_meetings"
+          },
+          {
+            "key": "instagram",
+            "text": "Instagram",
+            "value": false,
+            "openmrs_choice_id": "instagram"
+          },
+          {
+            "key": "telegram",
+            "text": "Telegram",
+            "value": false,
+            "openmrs_choice_id": "telegram"
+          },
+          {
+            "key": "youtube",
+            "text": "Youtube",
+            "value": false,
+            "openmrs_choice_id": "youtube"
+          },
+          {
+            "key": "other",
+            "text": "Other (Specify)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Required"
+        }
+      },
+      {
+        "key": "number_beneficiaries_reached_facebook",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_beneficiaries_reached_facebook",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of beneficiaries reached  through Facebook",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        },
+        "relevance": {
+          "step1:social_media_hiv_msg_distribution": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "facebook"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_messages_publications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_messages_publications",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of messages publications published through mass media ",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        }
+      },
+      {
+        "key": "number_aired_messages_broadcasted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_aired_messages_broadcasted",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Number of aired messages broadcasted through mass media",
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        }
+      }
+    ]
+  }
+}

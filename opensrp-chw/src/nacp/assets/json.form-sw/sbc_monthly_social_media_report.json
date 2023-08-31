@@ -1,0 +1,313 @@
+{
+  "count": "1",
+  "encounter_type": "Ripoti ya mitandao ya kijamii ya mwezi ",
+  "validate_on_submit": true,
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "165000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "165001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "165003AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "165004AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "165005AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "165006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Ripoti ya mitandao ya kijamii ya mwezi ",
+    "fields": [
+      {
+        "key": "reporting_month",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "reporting_month",
+        "type": "date_picker",
+        "hint": "Mwezi wa Ripoti",
+        "expanded": false,
+        "default": "12-12-2023",
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali jaza mwezi wa Ripoti"
+        }
+      },
+      {
+        "key": "organization_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "organization_name",
+        "type": "native_radio",
+        "label": "Chagua Jina la Taasisi Yako",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "deloitte",
+            "text": "Deloitte",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "deloitte"
+          },
+          {
+            "key": "fhi",
+            "text": "fhi360",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "fhi"
+          },
+          {
+            "key": "amref",
+            "text": "Amref",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "amref"
+          },
+          {
+            "key": "egpaf",
+            "text": "Egpaf",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "egpaf"
+          },
+          {
+            "key": "tayoa",
+            "text": "TAYOA",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tayoa"
+          },
+          {
+            "key": "mdh",
+            "text": "MDH",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mdh"
+          },
+          {
+            "key": "hjfmri",
+            "text": "HJFMRI",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "hjfmri"
+          },
+          {
+            "key": "thps",
+            "text": "THPS",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "thps"
+          },
+          {
+            "key": "jhpiego",
+            "text": "Jhpiego",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "jhpiego"
+          },
+          {
+            "key": "tcdc",
+            "text": "TCDC",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "tcdc"
+          },
+          {
+            "key": "icap",
+            "text": "ICAP",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "icap"
+          },
+          {
+            "key": "path",
+            "text": "PATH",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "path"
+          },
+          {
+            "key": "afya_plus",
+            "text": "Afya Plus",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "afya_plus"
+          },
+          {
+            "key": "mukikute",
+            "text": "MUKIKUTE",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "mukikute"
+          },
+          {
+            "key": "nacp_moh",
+            "text": "NACP - MOH",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "nacp_moh"
+          },
+          {
+            "key": "other",
+            "text": "Nyinginezo (Taja)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "other_organization_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "other_organization_name",
+        "type": "edit_text",
+        "hint": "Nyinginezo (Taja)",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:organization_name": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
+        "key": "social_media_hiv_msg_distribution",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "social_media_hiv_msg_distribution",
+        "openmrs_data_type": "select one",
+        "type": "check_box",
+        "label": "Chagua mitandao ya kijamii inayotumika kusambaza ujumbe wa VVU na UKIMWI ",
+        "hint": "Chagua mitandao ya kijamii inayotumika kusambaza ujumbe wa VVU na UKIMW",
+        "options": [
+          {
+            "key": "facebook",
+            "text": "Facebook",
+            "value": false,
+            "openmrs_choice_id": "facebook"
+          },
+          {
+            "key": "twitter",
+            "text": "X(Twitter)",
+            "value": false,
+            "openmrs_choice_id": "twitter"
+          },
+          {
+            "key": "whatsapp",
+            "text": "Whatsapp",
+            "value": false,
+            "openmrs_choice_id": "community_meetings"
+          },
+          {
+            "key": "instagram",
+            "text": "Instagram",
+            "value": false,
+            "openmrs_choice_id": "instagram"
+          },
+          {
+            "key": "telegram",
+            "text": "Telegram",
+            "value": false,
+            "openmrs_choice_id": "telegram"
+          },
+          {
+            "key": "youtube",
+            "text": "Youtube",
+            "value": false,
+            "openmrs_choice_id": "youtube"
+          },
+          {
+            "key": "other",
+            "text": "Nyinginezo (Taja)",
+            "value": false,
+            "openmrs_choice_id": "other"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
+        }
+      },
+      {
+        "key": "number_beneficiaries_reached_facebook",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_beneficiaries_reached_facebook",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya watu waliofikiwa na ujumbe kupitia Facebook",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        },
+        "relevance": {
+          "step1:social_media_hiv_msg_distribution": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "facebook"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "number_messages_publications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_messages_publications",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya jumbe zilizochapishwa katika vyombo vya habari",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        }
+      },
+      {
+        "key": "number_aired_messages_broadcasted",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "number_aired_messages_broadcasted",
+        "type": "edit_text",
+        "edit_type": "number",
+        "hint": "Idadi ya jumbe zilizorushwa kupitia vyombo vya habari",
+        "v_required": {
+          "value": true,
+          "err": "Tafadhali jaza"
+        }
+      }
+    ]
+  }
+}

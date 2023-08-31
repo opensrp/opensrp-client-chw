@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Usajili SBC",
+  "encounter_type": "Elimu ya ARV na Kondomu",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -53,70 +53,60 @@
     }
   },
   "step1": {
-    "title": "Usajili SBC",
+    "title": "Elimu ya ARV na Kondomu",
     "fields": [
       {
-        "key": "hiv_status",
+        "key": "received_art_counseling",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "hiv_status",
+        "openmrs_entity_id": "received_art_counseling",
         "type": "native_radio",
-        "label": "Client HIV Status",
+        "label": "Je, umepata elimu ya ufuasi mzuri wa ARV?",
         "text_color": "#000000",
         "options": [
           {
-            "key": "known_positive",
-            "text": "Known Positive",
+            "key": "yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "known_positive"
+            "openmrs_entity_id": "yes"
           },
           {
-            "key": "negative",
-            "text": "Negative",
+            "key": "no",
+            "text": "Hapana",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "negative"
-          },
-          {
-            "key": "unknown",
-            "text": "Unknown",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "unknown"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         }
       },
       {
-        "key": "ctc_number",
+        "key": "received_condom_education",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "ctc_number",
-        "type": "mask_edit_text",
-        "mask": "##-##-####-######",
-        "mask_hint": "12345678912345",
-        "allowed_chars": "0123456789",
-        "hint": "CTC Number",
-        "edit_type": "number",
-        "v_regex": {
-          "value": "(\\d{2}-\\d{2}-\\d{4}-\\d{6})?",
-          "err": "CTC number should be of the format (XX-XX-XXXX-XXXXXX)"
-        },
-        "v_max_length": {
-          "value": "17",
-          "is_fixed_size": "true",
-          "err": "Please enter a valid CTC Number"
-        },
-        "v_required": {
-          "value": true,
-          "err": "Please enter a valid CTC Number"
-        },
-        "relevance": {
-          "step1:hiv_status": {
-            "type": "string",
-            "ex": "equalTo(., \"known_positive\")"
+        "openmrs_entity_id": "received_condom_education",
+        "type": "native_radio",
+        "label": "Je, umepata elimu sahihi na endelevu ya matumizi sahihi ya kondomu?",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Ndiyo",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "yes"
+          },
+          {
+            "key": "no",
+            "text": "Hapana",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "no"
           }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Tafadhali chagua angalau moja"
         }
       }
     ]

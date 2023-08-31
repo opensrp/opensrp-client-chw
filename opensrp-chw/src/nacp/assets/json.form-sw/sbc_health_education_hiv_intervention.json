@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "SBC Health Education",
+  "encounter_type": "Elimu ya afya katika afua za VVU na UKIMWI?",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -53,98 +53,140 @@
     }
   },
   "step1": {
-    "title": "SBC Health Education",
+    "title": "Elimu ya afya katika afua za VVU na UKIMWI?",
     "fields": [
       {
-        "key": "health_education_received",
+        "key": "health_education_hiv_intervention",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "health_education_received",
+        "openmrs_entity_id": "health_education_hiv_intervention",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "SBC Health Education Session(s) received",
-        "hint": "SBC Health Education Session(s) received",
+        "label": "Elimu ya afya katika afua za VVU na UKIMWI?",
+        "hint": "Elimu ya afya katika afua za VVU na UKIMWI?",
         "options": [
           {
-            "key": "condom_use",
-            "text": "Condom use",
+            "key": "htc",
+            "text": "Upimaji wa VVU",
             "value": false,
-            "openmrs_choice_id": "condom_use"
+            "openmrs_choice_id": "htc"
           },
           {
-            "key": "risk_behavior",
-            "text": "Risk behavior and transmission",
+            "key": "vmmc",
+            "text": "Tohara ya kitabibu",
             "value": false,
-            "openmrs_choice_id": "risk_behavior"
+            "openmrs_choice_id": "vmmc"
           },
           {
-            "key": "art_adherence",
-            "text": "ART Adherence",
+            "key": "pmtct",
+            "text": "Kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto",
             "value": false,
-            "openmrs_choice_id": "art_adherence"
+            "openmrs_choice_id": "pmtct"
           },
           {
-            "key": "family_planning",
-            "text": "Family Planning",
+            "key": "treatment",
+            "text": "Huduma za tiba na matunzo",
             "value": false,
-            "openmrs_choice_id": "family_planning"
+            "openmrs_choice_id": "treatment"
           },
           {
-            "key": "sti",
-            "text": "STI/RTI",
+            "key": "cervical",
+            "text": "Uchunguzi wa saratani ya shingo ya kizazi",
             "value": false,
-            "openmrs_choice_id": "sti"
+            "openmrs_choice_id": "cervical"
+          },
+          {
+            "key": "stigma",
+            "text": "Unyanyapaa",
+            "value": false,
+            "openmrs_choice_id": "stigma"
+          },
+          {
+            "key": "prep",
+            "text": "Dawa kinga (PrEP)",
+            "value": false,
+            "openmrs_choice_id": "prep"
+          },
+          {
+            "key": "gbv",
+            "text": "Ukatili wa kijinsia",
+            "value": false,
+            "openmrs_choice_id": "gbv"
+          },
+          {
+            "key": "agyw",
+            "text": "Wasichana rika balehe na wanawake vijana (AGYW)",
+            "value": false,
+            "openmrs_choice_id": "agyw"
+          },
+          {
+            "key": "abym",
+            "text": "Wavulana rika balehe na wanaume vijana (ABYM)",
+            "value": false,
+            "openmrs_choice_id": "abym"
           },
           {
             "key": "tb",
-            "text": "TB",
+            "text": "Kifua kikuu na VVU",
             "value": false,
             "openmrs_choice_id": "tb"
           },
           {
             "key": "hepatitis",
-            "text": "Hepatitis",
+            "text": "Homa ya ini",
             "value": false,
             "openmrs_choice_id": "hepatitis"
           },
           {
-            "key": "gbv",
-            "text": "GBV",
+            "key": "sti",
+            "text": "Magonjwa ya ngono",
             "value": false,
-            "openmrs_choice_id": "gbv"
+            "openmrs_choice_id": "sti"
           },
           {
-            "key": "cervical_cancer",
-            "text": "Cervical Cancer",
+            "key": "injection",
+            "text": "Vifaa kinga vya kujidunga",
             "value": false,
-            "openmrs_choice_id": "cervical_cancer"
+            "openmrs_choice_id": "injection"
+          },
+          {
+            "key": "mat",
+            "text": "Huduma ya kliniki za methadoni",
+            "value": false,
+            "openmrs_choice_id": "mat"
+          },
+          {
+            "key": "overdose",
+            "text": "Elimu ya kudhibiti matumizi ya dawa za kulevya kwa waraibu",
+            "value": false,
+            "openmrs_choice_id": "overdose"
           },
           {
             "key": "other",
-            "text": "Other (Specify)",
+            "text": "Nyinginezo (taja)",
             "value": false,
-            "openmrs_choice_id": "activity_other"
+            "openmrs_choice_id": "other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please choose atleast one"
+          "err": "Tafadhali chagua angalau moja"
         }
       },
       {
-        "key": "other_health_education_received",
+        "key": "other_health_education_hiv_intervention",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_health_education_received",
+        "openmrs_entity_id": "other_health_education_hiv_intervention",
         "type": "edit_text",
-        "hint": "Other (Specify)",
+        "hint": "Nyinginezo (taja)",
         "v_required": {
           "value": true,
-          "err": "Required"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
-          "step1:health_education_received": {
+          "step1:health_education_hiv_intervention": {
             "ex-checkbox": [
               {
                 "or": [

@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "HIV/AIDS Health Education SBC Materials",
+  "encounter_type": "Vifaa vya Elimu ya Afya ya VVU/UKIMWI",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -53,7 +53,7 @@
     }
   },
   "step1": {
-    "title": "HIV/AIDS Health Education SBC Materials",
+    "title": "Vifaa vya Elimu ya Afya ya VVU/UKIMWI",
     "fields": [
       {
         "key": "distributed_any_hiv_materials",
@@ -61,25 +61,25 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "distributed_any_hiv_materials",
         "type": "native_radio",
-        "label": "Have you received HIV and AIDS Health Education SBC Materials?",
+        "label": "Je, umepata nyenzo za elimu  (IEC)?",
         "text_color": "#000000",
         "options": [
           {
             "key": "yes",
-            "text": "Yes",
+            "text": "Ndiyo",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "yes"
           },
           {
             "key": "no",
-            "text": "No",
+            "text": "Hapana",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         }
       },
       {
@@ -90,115 +90,115 @@
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "Type of material contents distributed",
-        "hint": "Type of material contents distributed",
+        "label": "Ni nyenzo zipi za elimu alizopatiwa?",
+        "hint": "ni nyenzo zipi za elimu alizopatiwa?",
         "options": [
           {
             "key": "htc",
-            "text": "HTS",
+            "text": "Upimaji wa VVU",
             "value": false,
             "openmrs_choice_id": "htc"
           },
           {
             "key": "vmmc",
-            "text": "VMMC",
+            "text": "Tohara ya kitabibu",
             "value": false,
             "openmrs_choice_id": "vmmc"
           },
           {
             "key": "pmtct",
-            "text": "PMTCT",
+            "text": "Kuzuia maambukizi kutoka kwa mama kwenda kwa mtoto",
             "value": false,
             "openmrs_choice_id": "pmtct"
           },
           {
             "key": "treatment",
-            "text": "Care and Treatment",
+            "text": "Huduma za tiba na matunzo",
             "value": false,
             "openmrs_choice_id": "treatment"
           },
           {
             "key": "cervical",
-            "text": "Cervical Cancer Screening",
+            "text": "Uchunguzi wa saratani ya shingo ya kizazi",
             "value": false,
             "openmrs_choice_id": "cervical"
           },
           {
             "key": "stigma",
-            "text": "Stigma",
+            "text": "Unyanyapaa",
             "value": false,
             "openmrs_choice_id": "stigma"
           },
           {
             "key": "prep",
-            "text": "PrEP",
+            "text": "Dawa kinga (PrEP)",
             "value": false,
             "openmrs_choice_id": "prep"
           },
           {
             "key": "gbv",
-            "text": "GBV",
+            "text": "Ukatili wa kijinsia",
             "value": false,
             "openmrs_choice_id": "gbv"
           },
           {
             "key": "agyw",
-            "text": "AGYW",
+            "text": "Wasichana rika balehe na wanawake vijana (AGYW)",
             "value": false,
             "openmrs_choice_id": "agyw"
           },
           {
             "key": "abym",
-            "text": "ABYM",
+            "text": "Wavulana rika balehe na wanaume vijana (ABYM)",
             "value": false,
             "openmrs_choice_id": "abym"
           },
           {
             "key": "tb",
-            "text": "TB/HIV",
+            "text": "Kifua kikuu na VVU",
             "value": false,
             "openmrs_choice_id": "tb"
           },
           {
             "key": "hepatitis",
-            "text": "Hepatitis",
+            "text": "Homa ya ini",
             "value": false,
             "openmrs_choice_id": "hepatitis"
           },
           {
             "key": "sti",
-            "text": "STI/RTI",
+            "text": "Magonjwa ya ngono",
             "value": false,
             "openmrs_choice_id": "sti"
           },
           {
             "key": "injection",
-            "text": "Injection safety",
+            "text": "Vifaa kinga vya kujidunga",
             "value": false,
             "openmrs_choice_id": "injection"
           },
           {
             "key": "mat",
-            "text": "MAT",
+            "text": "Huduma ya kliniki za methadoni",
             "value": false,
             "openmrs_choice_id": "mat"
           },
           {
             "key": "overdose",
-            "text": "Overdose Prevention and Management Education",
+            "text": "Elimu ya kudhibiti matumizi ya dawa za kulevya kwa waraibu",
             "value": false,
             "openmrs_choice_id": "overdose"
           },
           {
             "key": "other",
-            "text": "Other (Specify)",
+            "text": "Nyinginezo (taja)",
             "value": false,
             "openmrs_choice_id": "other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Required"
+          "err": "Tafadhali chagua angalau moja"
         },
         "relevance": {
           "step1:distributed_any_hiv_materials": {
@@ -213,10 +213,10 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "other_type_of_materials_content_distributed",
         "type": "edit_text",
-        "hint": "Other (Specify)",
+        "hint": "Nyinginezo (taja)",
         "v_required": {
           "value": true,
-          "err": "Required"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
           "step1:type_of_materials_content_distributed": {

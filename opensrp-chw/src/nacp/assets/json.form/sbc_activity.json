@@ -91,16 +91,16 @@
             "openmrs_choice_id": "theater"
           },
           {
+            "key": "drama",
+            "text": "Community drama",
+            "value": false,
+            "openmrs_choice_id": "drama"
+          },
+          {
             "key": "tales",
             "text": "Tales and discussions",
             "value": false,
             "openmrs_choice_id": "tales"
-          },
-          {
-            "key": "drama",
-            "text": "Drama",
-            "value": false,
-            "openmrs_choice_id": "drama"
           },
           {
             "key": "institution",
@@ -116,15 +116,27 @@
           },
           {
             "key": "workplace",
-            "text": "Workplace Health Education",
+            "text": "Workplace HIV and AIDS Education",
             "value": false,
             "openmrs_choice_id": "workplace"
+          },
+          {
+            "key": "income_generating_activity",
+            "text": "Income Generating Activity (IGA)",
+            "value": false,
+            "openmrs_choice_id": "income_generating_activity"
           },
           {
             "key": "edutainment",
             "text": "Health edutainment",
             "value": false,
             "openmrs_choice_id": "edutainment"
+          },
+          {
+            "key": "outreach",
+            "text": "Outreach",
+            "value": false,
+            "openmrs_choice_id": "outreach"
           },
           {
             "key": "other",

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///Users/macbookpro/Desktop/report.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <style>
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.show-on-print {
+  display: none;
+}
+body{
+    font-family: Helvetica;
+    -webkit-font-smoothing: antialiased;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+/* Table Styles */
+
+.table-wrapper{
+    margin: 10px;
+    margin-right: 10px;
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: normal;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+}
+
+.fl-table td, .fl-table th {
+    padding: 5px;
+}
+
+.table-th-color {
+    background-color: #55efc4;
+}
+
+.table-total-color {
+    background-color: #74b9ff;
+}
+
+
+ul {
+    width: 100%;
+}
+ul li {
+    width: 49%;
+    display: inline-block;
+}
+
+ul li > * {
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.no-data {
+  background: #ccc;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+#reporting_facility {
+  font-weight: 700;
+}
+#report_period {
+  font-weight: 700;
+}
+
+@media print {
+  .show-on-print {
+    display: block;
+  }
+
+  .child-table {
+    width: 50%;
+  }
+}
+</style>
+</head>
+
+<body onload="loadData(&#39;monthly&#39;, &#39;anc&#39;)">
+<div class="show-on-print" style="font-size:12px;">
+    <h1> COMMUNITY HIV&AIDS SOCIAL BEHAVIOUR CHANGE  MONTHYL REPORT FORM</h1>
+    <h2>REPORT OF [MONTH/YEAR]: <span id="report_period"></span></h2>
+    <h2>CENTER: <span id="reporting_facility"></span></h2>
+</div>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th>SN</th>
+            <th rowspan="1" colspan="3">INDICATOR</th> 
+            <td colspan="10" align="center" class="table-th-color bold-text">Males</td>
+            <td colspan="10" align="center" class="table-th-color bold-text">Females</td> 
+            <th rowspan="1" colspan="2">GRAND TOTAL</th> 
+            </tr>
+        </thead>
+        <tbody> 
+            <tr>
+            <tr>
+                <th rowspan="2"></th>
+                <th rowspan="2" colspan="3"></th> 
+            </tr> 
+            <th>10-14 Years</th>
+                <th>15-19 Years</th>
+                <th>20-24 Years</th>
+                <th>25-25 Years</th>
+                <th>30-34 Years</th>
+                <th>35-39 Years</th>
+                <th>40-44 Years</th>
+                <th>45-49 Years</th>
+                <th>50+ Years</th> 
+                <th class="table-total-color">TOTAL Males</th>
+                <th>10-14 Years</th>
+                <th>15-19 Years</th>
+                <th>20-24 Years</th>
+                <th>25-25 Years</th>
+                <th>30-34 Years</th>
+                <th>35-39 Years</th>
+                <th>40-44 Years</th>
+                <th>45-49 Years</th>
+                <th>50+ Years</th> 
+                <th class="table-total-color">TOTAL Females</th>
+            </tr> 
+            <tr>
+                <th>1</th>
+                <td colspan="3">Number of individuals reached by specific SBC HIV community activity</td>   
+                <td align="center" id="sbc-1-10-14-m"></td>
+                <td align="center" id="sbc-1-15-19-m"></td>
+                <td align="center" id="sbc-1-20-24-m"></td>
+                <td align="center" id="sbc-1-25-29-m"></td>
+                <td align="center" id="sbc-1-30-34-m"></td>
+                <td align="center" id="sbc-1-35-39-m"></td>
+                <td align="center" id="sbc-1-40-44-m"></td>
+                <td align="center" id="sbc-1-45-49-m"></td>
+                <td align="center" id="sbc-1-50-m"></td> 
+                <td align="center" class="table-total-color" id="sbc-1-total-m"></td>
+                <td align="center" id="sbc-1-10-14-f"></td>
+                <td align="center" id="sbc-1-15-19-f"></td>
+                <td align="center" id="sbc-1-20-24-f"></td>
+                <td align="center" id="sbc-1-25-29-f"></td>
+                <td align="center" id="sbc-1-30-34-f"></td>
+                <td align="center" id="sbc-1-35-39-f"></td>
+                <td align="center" id="sbc-1-40-44-f"></td>
+                <td align="center" id="sbc-1-45-49-f"></td>
+                <td align="center" id="sbc-1-50-f"></td> 
+                <td align="center" class="table-total-color" id="sbc-1-total-f"></td>
+                <td align="center" id="sbc-1-grand-total"></td>
+        </tr>
+        <tr>
+                <th>2</th>
+                <td colspan="3">Number of individuals received HIV health eduaction </td>   
+                <td align="center" id="sbc-2-10-14-m"></td>
+                <td align="center" id="sbc-2-15-19-m"></td>
+                <td align="center" id="sbc-2-20-24-m"></td>
+                <td align="center" id="sbc-2-25-29-m"></td>
+                <td align="center" id="sbc-2-30-34-m"></td>
+                <td align="center" id="sbc-2-35-39-m"></td>
+                <td align="center" id="sbc-2-40-44-m"></td>
+                <td align="center" id="sbc-2-45-49-m"></td>
+                <td align="center" id="sbc-2-50-m"></td> 
+                <td align="center" class="table-total-color" id="sbc-2-total-m"></td>
+                <td align="center" id="sbc-2-10-14-f"></td>
+                <td align="center" id="sbc-2-15-19-f"></td>
+                <td align="center" id="sbc-2-20-24-f"></td>
+                <td align="center" id="sbc-2-25-29-f"></td>
+                <td align="center" id="sbc-2-30-34-f"></td>
+                <td align="center" id="sbc-2-35-39-f"></td>
+                <td align="center" id="sbc-2-40-44-f"></td>
+                <td align="center" id="sbc-2-45-49-f"></td>
+                <td align="center" id="sbc-2-50-f"></td> 
+                <td align="center" class="table-total-color" id="sbc-2-total-f"></td> 
+                <td align="center" id="sbc-2-grand-total"></td>
+        </tr>
+        <tr>
+                <th>3</th>
+                <td colspan="3">Number of clients who  received ART adherence counselling </td>   
+                <td align="center" id="sbc-3-10-14-m"></td>
+                <td align="center" id="sbc-3-15-19-m"></td>
+                <td align="center" id="sbc-3-20-24-m"></td>
+                <td align="center" id="sbc-3-25-29-m"></td>
+                <td align="center" id="sbc-3-30-34-m"></td>
+                <td align="center" id="sbc-3-35-39-m"></td>
+                <td align="center" id="sbc-3-40-44-m"></td>
+                <td align="center" id="sbc-3-45-49-m"></td>
+                <td align="center" id="sbc-3-50-m"></td> 
+                <td align="center" class="table-total-color" id="sbc-3-total-m"></td>
+                <td align="center" id="sbc-3-10-14-f"></td>
+                <td align="center" id="sbc-3-15-19-f"></td>
+                <td align="center" id="sbc-3-20-24-f"></td>
+                <td align="center" id="sbc-3-25-29-f"></td>
+                <td align="center" id="sbc-3-30-34-f"></td>
+                <td align="center" id="sbc-3-35-39-f"></td>
+                <td align="center" id="sbc-3-40-44-f"></td>
+                <td align="center" id="sbc-3-45-49-f"></td>
+                <td align="center" id="sbc-3-50-f"></td> 
+                <td align="center" class="table-total-color" id="sbc-3-total-f"></td> 
+                <td align="center" id="sbc-3-grand-total"></td>
+        </tr>
+        <tr>
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td>  
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+
+        </tr>
+        <tr>
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="bold-text">MALE</td> 
+                <td align="center" class="bold-text">FEMALE</td> 
+                <td align="center" class="bold-text">GROUND TOTAL</td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td>  
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+
+        </tr>
+        <tr>
+                <th>4</th>
+                <td colspan="3">Number of HIV and AIDS IEC materials distributed </td>
+                <td align="center" id="sbc-4-total-m"></td>
+                <td align="center" id="sbc-4-total-f"></td> 
+                <td align="center" id="sbc-4-grand-total"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td>  
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+                <td align="center" class="no-data"></td> 
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function loadData(reportKey, reportType) {
+  const data = JSON.parse(Android.getData(reportKey));
+  const keys = Object.keys(data.nameValuePairs);
+  const reportPeriod = document.getElementById("report_period");
+  const reportingFacility = document.getElementById("reporting_facility");
+  keys.forEach((key) => {
+    let element;
+    if(reportType!== null && reportType === "sbc"){
+      element = document.getElementById(key.replace("sbc-",""));
+    }else{
+      element = document.getElementById(key);
+    }
+    if (element !== null && typeof element !== "undefined") {
+      element.innerHTML = data.nameValuePairs[key];
+    }
+  });
+  reportPeriod.innerHTML = Android.getDataPeriod();
+  reportingFacility.innerHTML = Android.getReportingFacility();
+}
+</script>
+</body></html>

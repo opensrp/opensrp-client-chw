@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "SBC Health Education",
+  "encounter_type": "(SBC) Uliyoshiriki",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -53,98 +53,110 @@
     }
   },
   "step1": {
-    "title": "SBC Health Education",
+    "title": "(SBC) Uliyoshiriki",
     "fields": [
       {
-        "key": "health_education_received",
+        "key": "activity_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "health_education_received",
+        "openmrs_entity_id": "activity_type",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "combine_checkbox_option_values": "true",
-        "label": "SBC Health Education Session(s) received",
-        "hint": "SBC Health Education Session(s) received",
+        "label": "Aina ya uelimishaji ngazi ya jamii kuhusu mabadiliko ya tabia (SBC) uliyoshiriki",
+        "hint": "Aina ya uelimishaji ngazi ya jamii kuhusu mabadiliko ya tabia (SBC) uliyoshiriki",
         "options": [
           {
-            "key": "condom_use",
-            "text": "Condom use",
+            "key": "campaign",
+            "text": "Kampeni",
             "value": false,
-            "openmrs_choice_id": "condom_use"
+            "openmrs_choice_id": "campaign"
           },
           {
-            "key": "risk_behavior",
-            "text": "Risk behavior and transmission",
+            "key": "religious",
+            "text": "Uelimishaji katika nyumba za ibada ",
             "value": false,
-            "openmrs_choice_id": "risk_behavior"
+            "openmrs_choice_id": "religious"
           },
           {
-            "key": "art_adherence",
-            "text": "ART Adherence",
+            "key": "meetings",
+            "text": "Mikutano ya kijamii",
             "value": false,
-            "openmrs_choice_id": "art_adherence"
+            "openmrs_choice_id": "meetings"
           },
           {
-            "key": "family_planning",
-            "text": "Family Planning",
+            "key": "theater",
+            "text": "Kuonesha filamu",
             "value": false,
-            "openmrs_choice_id": "family_planning"
+            "openmrs_choice_id": "theater"
           },
           {
-            "key": "sti",
-            "text": "STI/RTI",
+            "key": "drama",
+            "text": "Uelimishaji kwa njia ya sanaa",
             "value": false,
-            "openmrs_choice_id": "sti"
+            "openmrs_choice_id": "drama"
           },
           {
-            "key": "tb",
-            "text": "TB",
+            "key": "tales",
+            "text": "Hadithi na majadiliano",
             "value": false,
-            "openmrs_choice_id": "tb"
+            "openmrs_choice_id": "tales"
           },
           {
-            "key": "hepatitis",
-            "text": "Hepatitis",
+            "key": "institution",
+            "text": "Uelimishaji katika taasisi za elimu",
             "value": false,
-            "openmrs_choice_id": "hepatitis"
+            "openmrs_choice_id": "institution"
           },
           {
-            "key": "gbv",
-            "text": "GBV",
+            "key": "advocacy",
+            "text": "Mikutano ya uraghibishi",
             "value": false,
-            "openmrs_choice_id": "gbv"
+            "openmrs_choice_id": "advocacy"
           },
           {
-            "key": "cervical_cancer",
-            "text": "Cervical Cancer",
+            "key": "workplace",
+            "text": "Uelimishaji mahala pa kazi",
             "value": false,
-            "openmrs_choice_id": "cervical_cancer"
+            "openmrs_choice_id": "workplace"
+          },
+          {
+            "key": "income_generating_activity",
+            "text": "Elimu ya uwezeshaji kiuchumi",
+            "value": false,
+            "openmrs_choice_id": "income_generating_activity"
+          },
+          {
+            "key": "edutainment",
+            "text": "Uelimishaji maeneo ya burudani",
+            "value": false,
+            "openmrs_choice_id": "edutainment"
           },
           {
             "key": "other",
-            "text": "Other (Specify)",
+            "text": "Nyinginezo (Taja)",
             "value": false,
-            "openmrs_choice_id": "activity_other"
+            "openmrs_choice_id": "other"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please choose atleast one"
+          "err": "Tafadhali chagua angalau moja"
         }
       },
       {
-        "key": "other_health_education_received",
+        "key": "other_activity_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_health_education_received",
+        "openmrs_entity_id": "other_activity_type",
         "type": "edit_text",
-        "hint": "Other (Specify)",
+        "hint": "Nyinginezo (Taja)",
         "v_required": {
           "value": true,
-          "err": "Required"
+          "err": "Tafadhali jaza"
         },
         "relevance": {
-          "step1:health_education_received": {
+          "step1:activity_type": {
             "ex-checkbox": [
               {
                 "or": [
