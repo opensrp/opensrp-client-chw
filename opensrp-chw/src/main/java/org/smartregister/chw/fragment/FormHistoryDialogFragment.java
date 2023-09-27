@@ -149,7 +149,7 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
         String type = field.getString(JsonFormConstants.TYPE);
 
         Question question = new Question();
-        question.setName(hint);
+        question.setName(key);
         question.setType(type);
 
         if (JsonFormConstants.NATIVE_RADIO_BUTTON.equalsIgnoreCase(type)) {
@@ -210,9 +210,9 @@ public class FormHistoryDialogFragment extends DialogFragment implements View.On
             String optionText = option.getString(JsonFormConstants.TEXT);
 
             Choice choice = new Choice();
-            choice.setName(optionText);
+            choice.setName(optionKey);
             if (selectMultiple) {
-                choice.setSelected(visitOptions.contains(optionText));
+                choice.setSelected(visitOptions.contains(optionKey));
             } else {
                 choice.setSelected(visitOptions.contains(optionKey));
             }

@@ -489,7 +489,7 @@ public abstract class DefaultPncHomeVisitInteractorFlv implements PncHomeVisitIn
 
         @Override
         public String evaluateSubTitle() {
-            return vaccine_card.equalsIgnoreCase("Yes") ? context.getString(R.string.yes) : context.getString(R.string.no);
+            return "Yes".equalsIgnoreCase(vaccine_card) ? context.getString(R.string.yes) : context.getString(R.string.no);
         }
 
         @Override

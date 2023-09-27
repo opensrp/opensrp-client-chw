@@ -50,7 +50,7 @@ public class ImmunizationActionHelper implements BaseAncHomeVisitAction.AncHomeV
     public ImmunizationActionHelper(Context context, Supplier<List<VaccineWrapper>> vaccineSupplier) {
         this.context = context;
         this.vaccineSupplier = vaccineSupplier;
-        List<String> serviceGroups = Arrays.asList(CoreConstants.SERVICE_GROUPS.CHILD, org.smartregister.chw.util.Constants.CHILD_OVER_5);
+        List<String> serviceGroups = Arrays.asList(CoreConstants.SERVICE_GROUPS.CHILD);
         List<VaccineRepo.Vaccine> repo = new ArrayList<>();
         for (String serviceGroup : serviceGroups) {
             List<VaccineRepo.Vaccine> childrenRepo = VaccineRepo.getVaccines(serviceGroup);
